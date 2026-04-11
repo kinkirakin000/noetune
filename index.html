@@ -1,200 +1,289 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="theme-color" content="#FAFAF7" />
-  <title>Noetune｜最小版</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html,body{height:100%;overflow:hidden}
-    body{font-family:-apple-system,'Helvetica Neue','Hiragino Kaku Gothic ProN',sans-serif;background:#FAFAF7;color:#1A1A1A}
-    .progress-bar{position:fixed;top:0;left:0;height:2px;background:#6B9080;transition:width .45s ease;z-index:100}
-    .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.8rem 1.4rem 2rem;opacity:0;transform:translateY(18px);transition:opacity .35s ease,transform .35s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
-    .screen.active{opacity:1;transform:translateY(0);pointer-events:all}
-    .label{font-size:.72rem;letter-spacing:.18em;color:#A0A09A;margin-bottom:1rem}
-    .title{font-family:'Noto Serif JP',serif;font-size:1.45rem;font-weight:300;text-align:center;line-height:1.9;max-width:320px;margin-bottom:1.8rem}
-    .score-num{font-family:'Noto Serif JP',serif;font-size:3rem;font-weight:700;line-height:1;margin-bottom:1.5rem;color:#1A1A1A}
-    .slider-wrap{width:100%;max-width:290px}
-    input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:#D4DDD8;border-radius:2px;outline:none}
-    input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(107,144,128,.3)}
-    input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;border:none}
-    .slider-labels{display:flex;justify-content:space-between;margin-top:.6rem;font-size:.7rem;color:#BBB}
-    .btn{margin-top:1.8rem;padding:14px 52px;background:#6B9080;color:#fff;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;transition:opacity .2s,transform .15s;font-family:'Noto Serif JP',serif;letter-spacing:.08em}
-    .btn:active{transform:scale(.97)}
-    .hint{font-size:.74rem;color:#B5B5AE;letter-spacing:.08em;margin-top:.9rem;text-align:center;line-height:1.8}
-    .breath-focus{font-family:'Noto Serif JP',serif;font-size:1.12rem;font-weight:300;color:#1A1A1A;text-align:center;line-height:2;max-width:290px;margin-bottom:1.8rem}
-    .breath-note{font-size:.74rem;color:#B5B5AE;letter-spacing:.08em;margin-bottom:1.3rem}
-    .breath-circle{width:132px;height:132px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.95);font-family:'Noto Serif JP',serif;font-size:1.45rem;font-weight:300;transition:transform 3s cubic-bezier(.4,0,.2,1),box-shadow 3s ease;box-shadow:0 4px 30px rgba(107,144,128,.16);cursor:pointer;user-select:none}
-    .breath-circle.inhale{transform:scale(1.45);box-shadow:0 8px 50px rgba(107,144,128,.26)}
-    .breath-circle.exhale{transform:scale(1)}
-    .pulse{animation:pulse 2s infinite}
-    @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
-    .result-value{font-family:'Noto Serif JP',serif;font-size:3.1rem;font-weight:700;line-height:1;color:#1A1A1A;margin-bottom:1rem}
-    .result-row{display:flex;align-items:center;justify-content:center;gap:.6rem;margin-bottom:1.2rem}
-    .result-before{font-family:'Noto Serif JP',serif;font-size:1.4rem;opacity:.38}
-    .result-arrow{font-size:1rem;color:#C8C8C2}
-    .result-after{font-family:'Noto Serif JP',serif;font-size:2.4rem;font-weight:700}
-    .result-diff{font-size:.82rem;color:#6B9080;letter-spacing:.08em;margin-bottom:1.8rem}
-    .btn-ghost{margin-top:.8rem;padding:11px 34px;background:transparent;color:#6B9080;border:1.5px solid #6B9080;border-radius:30px;font-size:.82rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em}
-    .intro-title{font-family:'Noto Serif JP',serif;font-size:2.5rem;font-weight:700;letter-spacing:.12em;margin-bottom:.6rem}
-    .intro-sub{font-size:.72rem;color:#AAA;letter-spacing:.22em;margin-bottom:2.4rem}
-    @media(max-height:640px){.title{font-size:1.25rem}.breath-circle{width:112px;height:112px}.screen{padding:2.1rem 1.2rem 1.4rem}}
-  </style>
-</head>
-<body>
-  <div class="progress-bar" id="progress"></div>
+import { useState, useEffect, useRef } from "react";
 
-  <div class="screen active" id="s-intro">
-    <div class="intro-title">Noetune</div>
-    <div class="intro-sub">— 最小版 —</div>
-    <button class="btn" onclick="go('s-score-1')">始める</button>
-  </div>
+const BREATHING_DURATION = 6000;
 
-  <div class="screen" id="s-score-1">
-    <div class="label">STEP 1 / 5</div>
-    <div class="title">今、考えすぎですか？<br>その度合いは？（0〜100）</div>
-    <div class="score-num" id="score1-num">0</div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="0" id="score1" oninput="score1Num.textContent=this.value">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
+const BreathingCircle = ({ phase, isActive, onComplete, topic }) => {
+  const [scale, setScale] = useState(1);
+  const [timer, setTimer] = useState(0);
+  const intervalRef = useRef(null);
+  const startRef = useRef(null);
+
+  useEffect(() => {
+    if (!isActive) {
+      setScale(1);
+      setTimer(0);
+      return;
+    }
+
+    startRef.current = Date.now();
+
+    intervalRef.current = setInterval(() => {
+      const elapsed = Date.now() - startRef.current;
+      const progress = Math.min(elapsed / BREATHING_DURATION, 1);
+
+      if (progress < 0.5) {
+        setScale(1 + progress * 1.2);
+        setTimer(Math.ceil(3 - progress * 6));
+      } else {
+        setScale(1.6 - (progress - 0.5) * 1.2);
+        setTimer(Math.ceil(3 - (progress - 0.5) * 6));
+      }
+
+      if (progress >= 1) {
+        clearInterval(intervalRef.current);
+        setScale(1);
+        setTimer(0);
+        onComplete?.();
+      }
+    }, 50);
+
+    return () => clearInterval(intervalRef.current);
+  }, [isActive, onComplete]);
+
+  const phaseLabels = {
+    focus: `Feel the state of ${topic?.en.toLowerCase()}`,
+    contrast: "Feel everything else",
+    whole: "Feel all that is",
+  };
+
+  return (
+    <div style={{ textAlign: "center", padding: "2rem 0" }}>
+      <p style={{ fontSize: "1.2rem", color: "#4a4238", marginBottom: "1.5rem" }}>
+        {phaseLabels[phase]}
+      </p>
+
+      <div
+        style={{
+          width: 140,
+          height: 140,
+          margin: "0 auto",
+          borderRadius: "50%",
+          border: "1px solid #d6cfc3",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          transform: `scale(${scale})`,
+          transition: "transform 0.1s",
+        }}
+      >
+        {isActive && timer > 0 && (
+          <span style={{ fontSize: "2rem" }}>{timer}</span>
+        )}
+      </div>
+
+      {isActive && (
+        <p style={{ marginTop: "1rem", fontSize: "0.8rem", color: "#8a7e6b" }}>
+          {scale > 1.3 ? "Inhale" : "Exhale"}
+        </p>
+      )}
     </div>
-    <button class="btn" onclick="saveFirstScore()">次へ</button>
-  </div>
+  );
+};
 
-  <div class="screen" id="s-breath-1">
-    <div class="label">STEP 2 / 5</div>
-    <div class="breath-focus">「考えすぎ」の自分を感じる</div>
-    <div class="breath-note">考えないでください</div>
-    <div class="breath-circle pulse" id="circle1" onclick="startBreath(1)">触れる</div>
-    <div class="hint">深呼吸1回（3秒吸う・3秒吐く）</div>
-  </div>
+const NumberInput = ({ label, value, onChange }) => (
+  <div style={{ padding: "1.5rem" }}>
+    <p style={{ marginBottom: "1rem" }}>{label}</p>
 
-  <div class="screen" id="s-breath-2">
-    <div class="label">STEP 3 / 5</div>
-    <div class="breath-focus">その感覚以外の<br>すべてを感じる</div>
-    <div class="breath-note">考えないでください</div>
-    <div class="breath-circle pulse" id="circle2" onclick="startBreath(2)">触れる</div>
-    <div class="hint">深呼吸1回（3秒吸う・3秒吐く）</div>
-  </div>
+    <input
+      type="range"
+      min="0"
+      max="100"
+      value={value ?? 50}
+      onChange={(e) => onChange(parseInt(e.target.value))}
+      style={{ width: "100%" }}
+    />
 
-  <div class="screen" id="s-breath-3">
-    <div class="label">STEP 4 / 5</div>
-    <div class="breath-focus">あらゆるすべてを感じる</div>
-    <div class="breath-note">考えないでください</div>
-    <div class="breath-circle pulse" id="circle3" onclick="startBreath(3)">触れる</div>
-    <div class="hint">深呼吸1回（3秒吸う・3秒吐く）</div>
+    <p style={{ fontSize: "2rem", textAlign: "right" }}>
+      {value ?? "—"}
+    </p>
   </div>
+);
 
-  <div class="screen" id="s-score-2">
-    <div class="label">STEP 5 / 5</div>
-    <div class="title">今、考えすぎですか？<br>その度合いは？（0〜100）</div>
-    <div class="score-num" id="score2-num">0</div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="0" id="score2" oninput="score2Num.textContent=this.value">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
+const ResultComparison = ({ before, after, label }) => {
+  if (before == null || after == null) return null;
+
+  const diff = before - after;
+  const color = diff > 0 ? "#4F8A5B" : "#C0604D";
+
+  return (
+    <div style={{
+      padding: "1rem",
+      background: "#fff",
+      borderRadius: 12,
+      marginBottom: "1rem"
+    }}>
+      <div style={{ fontSize: "0.7rem", color: "#999" }}>{label}</div>
+
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ fontSize: "2rem" }}>
+          <span style={{ opacity: 0.4 }}>{before}</span>
+          {" → "}
+          <strong>{after}</strong>
+        </div>
+
+        <div style={{ color, fontWeight: "bold" }}>
+          {diff > 0 ? "↓" : "↑"} {Math.abs(diff)}
+        </div>
+      </div>
     </div>
-    <button class="btn" onclick="showResult()">結果を見る</button>
-  </div>
+  );
+};
 
-  <div class="screen" id="s-result">
-    <div class="label">完了</div>
-    <div class="title" style="margin-bottom:1rem">今の「考えすぎ」</div>
-    <div class="result-row">
-      <div class="result-before" id="result-before">0</div>
-      <div class="result-arrow">→</div>
-      <div class="result-after" id="result-after">0</div>
+const TOPICS = [
+  { en: "Overthinking" },
+  { en: "Anxiety" },
+];
+
+export default function App() {
+  const [screen, setScreen] = useState("landing");
+  const [topic, setTopic] = useState(TOPICS[0]);
+  const [step, setStep] = useState(0);
+  const [scores, setScores] = useState({});
+  const [breathing, setBreathing] = useState(false);
+
+  const updateScore = (key, val) =>
+    setScores((prev) => ({ ...prev, [key]: val }));
+
+  const steps = [
+    () => (
+      <NumberInput
+        label={`Future (${topic.en})`}
+        value={scores.beforeFuture}
+        onChange={(v) => updateScore("beforeFuture", v)}
+      />
+    ),
+
+    () => (
+      <NumberInput
+        label={`Past (${topic.en})`}
+        value={scores.beforePast}
+        onChange={(v) => updateScore("beforePast", v)}
+      />
+    ),
+
+    () => (
+      <BreathingCircle
+        phase="focus"
+        topic={topic}
+        isActive={breathing}
+        onComplete={() => {
+          setBreathing(false);
+          setStep(3);
+        }}
+      />
+    ),
+
+    () => (
+      <BreathingCircle
+        phase="contrast"
+        topic={topic}
+        isActive={breathing}
+        onComplete={() => {
+          setBreathing(false);
+          setStep(4);
+        }}
+      />
+    ),
+
+    () => (
+      <BreathingCircle
+        phase="whole"
+        topic={topic}
+        isActive={breathing}
+        onComplete={() => {
+          setBreathing(false);
+          setStep(5);
+        }}
+      />
+    ),
+
+    () => (
+      <NumberInput
+        label="Future (after)"
+        value={scores.afterFuture}
+        onChange={(v) => updateScore("afterFuture", v)}
+      />
+    ),
+
+    () => (
+      <NumberInput
+        label="Past (after)"
+        value={scores.afterPast}
+        onChange={(v) => updateScore("afterPast", v)}
+      />
+    ),
+
+    () => (
+      <div style={{ padding: "1.5rem" }}>
+        <h2 style={{ textAlign: "center" }}>You shifted</h2>
+
+        <ResultComparison
+          before={scores.beforeFuture}
+          after={scores.afterFuture}
+          label="Future"
+        />
+
+        <ResultComparison
+          before={scores.beforePast}
+          after={scores.afterPast}
+          label="Past"
+        />
+
+        <button
+          style={{
+            width: "100%",
+            padding: "1rem",
+            marginTop: "1rem",
+            background: "#3F372E",
+            color: "#fff",
+            border: "none",
+            borderRadius: 8,
+          }}
+        >
+          Finish the release →
+        </button>
+      </div>
+    ),
+  ];
+
+  if (screen === "landing") {
+    return (
+      <div style={{ padding: "2rem", textAlign: "center" }}>
+        <h1>Noetune</h1>
+
+        {TOPICS.map((t) => (
+          <button
+            key={t.en}
+            onClick={() => {
+              setTopic(t);
+              setScreen("flow");
+            }}
+          >
+            {t.en}
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      {steps[step]()}
+
+      {step < steps.length - 1 && (
+        <button
+          onClick={() => {
+            if (step >= 2 && step <= 4) {
+              setBreathing(true);
+            } else {
+              setStep(step + 1);
+            }
+          }}
+          style={{ width: "100%", padding: "1rem" }}
+        >
+          Continue
+        </button>
+      )}
     </div>
-    <div class="result-diff" id="result-diff">0 変化</div>
-    <button class="btn" onclick="restart()">もう一度</button>
-  </div>
-
-  <script>
-    const screens = ['s-intro','s-score-1','s-breath-1','s-breath-2','s-breath-3','s-score-2','s-result'];
-    const progressMap = {
-      's-intro': 0,
-      's-score-1': 20,
-      's-breath-1': 40,
-      's-breath-2': 60,
-      's-breath-3': 80,
-      's-score-2': 100,
-      's-result': 100
-    };
-
-    let firstScore = 0;
-    let breathing = false;
-
-    const progress = document.getElementById('progress');
-    const score1Num = document.getElementById('score1-num');
-    const score2Num = document.getElementById('score2-num');
-
-    function go(id){
-      screens.forEach(s => document.getElementById(s).classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      progress.style.width = (progressMap[id] || 0) + '%';
-    }
-
-    function saveFirstScore(){
-      firstScore = parseInt(document.getElementById('score1').value, 10);
-      go('s-breath-1');
-    }
-
-    function startBreath(step){
-      if (breathing) return;
-      breathing = true;
-      const circle = document.getElementById('circle' + step);
-      circle.classList.remove('pulse');
-      circle.textContent = '吸う';
-      circle.classList.add('inhale');
-
-      setTimeout(() => {
-        circle.textContent = '吐く';
-        circle.classList.remove('inhale');
-        circle.classList.add('exhale');
-      }, 3000);
-
-      setTimeout(() => {
-        circle.classList.remove('exhale');
-        circle.textContent = '完了';
-        breathing = false;
-        if (step === 1) go('s-breath-2');
-        if (step === 2) go('s-breath-3');
-        if (step === 3) go('s-score-2');
-      }, 6000);
-    }
-
-    function showResult(){
-      const secondScore = parseInt(document.getElementById('score2').value, 10);
-      document.getElementById('result-before').textContent = firstScore;
-      document.getElementById('result-after').textContent = secondScore;
-      const diff = secondScore - firstScore;
-      let text = '';
-      if (diff < 0) text = Math.abs(diff) + ' 低下';
-      else if (diff > 0) text = diff + ' 上昇';
-      else text = '変化なし';
-      document.getElementById('result-diff').textContent = text;
-      go('s-result');
-    }
-
-    function restart(){
-      document.getElementById('score1').value = 0;
-      document.getElementById('score2').value = 0;
-      score1Num.textContent = '0';
-      score2Num.textContent = '0';
-      ['circle1','circle2','circle3'].forEach(id => {
-        const c = document.getElementById(id);
-        c.textContent = '触れる';
-        c.classList.remove('inhale','exhale');
-        c.classList.add('pulse');
-      });
-      firstScore = 0;
-      breathing = false;
-      go('s-score-1');
-    }
-  </script>
-</body>
-</html>
+  );
+}
