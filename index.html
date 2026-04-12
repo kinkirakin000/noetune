@@ -1270,6 +1270,19 @@ function newTopicFromStorage() {
   hist = [];
 }
 
+function returnToIntro() {
+  clearState();
+  D.themeComplete = false;
+  TOPIC = 'Overthinking';
+  applyTopic(TOPIC);
+  // Re-select Overthinking in intro theme list
+  document.querySelectorAll('#s-intro .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  var ft = document.querySelector('#s-intro .theme-btn');
+  if (ft) ft.classList.add('selected');
+  hist = []; breathing = false; bc = 0;
+  go('s-intro');
+}
+
 
 // ══════════════════════════════════════════════
 // ── PWA / ADD TO HOME SCREEN ──
@@ -1347,7 +1360,7 @@ promoteTextShare();
   <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
   <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
   <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
-  <button class="btn-ghost" onclick="startFree()" style="margin-top:.6rem">Return to start</button>
+  <button class="btn-ghost" onclick="returnToIntro()" style="margin-top:.6rem">Return to start</button>
 </div>
 
 
