@@ -297,6 +297,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <a id="share-x-free" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
     <button onclick="copyResult('free')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-free">Copy text</button>
   </div>
+  <div id="share-msg-free" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
   <button class="btn" onclick="showPaywall()" style="background:#6B9080;margin-top:.8rem">Go deeper →</button>
 </div>
 
@@ -481,6 +482,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
     <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
   </div>
+  <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
   <button class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
   <button class="btn-skip" onclick="startFree()">New topic</button>
   <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
@@ -996,17 +998,22 @@ async function renderShareCard(type) {
 async function shareImage(type) {
   var dataURL = await renderShareCard(type);
   if (!dataURL) { alert('Could not generate image.'); return; }
-  if (navigator.share && navigator.canShare) {
+  if (navigator.share) {
     try {
       var res = await fetch(dataURL);
       var blob = await res.blob();
       var file = new File([blob], 'noetune-result.png', { type: 'image/png' });
-      if (navigator.canShare({ files: [file] })) {
+      var canFile = navigator.canShare && navigator.canShare({ files: [file] });
+      if (canFile) {
         await navigator.share({ files: [file], title: 'Noetune' });
         return;
       }
-    } catch(e) {}
+    } catch(e) {
+      if (e && e.name === 'AbortError') return; // user cancelled — do nothing
+    }
   }
+  // File sharing not supported — save and inform
+  showShareMsg(type, 'Image sharing is not available on this browser. Saving instead.');
   triggerDownload(dataURL, 'noetune-result.png');
 }
 
@@ -1024,6 +1031,23 @@ function triggerDownload(dataURL, filename) {
   document.body.appendChild(a);
   a.click();
   setTimeout(function(){ document.body.removeChild(a); }, 200);
+}
+
+function showShareMsg(type, msg) {
+  var el = document.getElementById('share-msg-' + type);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._fadeTimer);
+  el._fadeTimer = setTimeout(function() { el.style.opacity = '0'; }, 3800);
+}
+
+function promoteTextShare() {
+  if (!isIOS()) return;
+  document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el) {
+    el.style.background = 'rgba(107,144,128,.08)';
+    el.style.fontWeight = '500';
+  });
 }
 
 // ── Q1 Final input wiring ──
@@ -1280,6 +1304,7 @@ function triggerPWAInstall() {
 
 updateProgress();
 checkOnStartup();
+promoteTextShare();
 </script>
 
 <!-- ====== PAID: Final Confirmation Q1 ====== -->
