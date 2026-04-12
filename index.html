@@ -382,7 +382,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== PAID: Breath 2-1 — tension with Q1 answer ====== -->
 <div class="screen" id="s-p-b21">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/5</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/4</div>
   <div class="breath-focus">Feel the tension that arises against:<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
@@ -392,7 +392,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== PAID: Breath 2-2 — everything else ====== -->
 <div class="screen" id="s-p-b22">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/5</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/4</div>
   <div class="breath-focus">Feel everything —<br>except the tension that arises against:<br><br><em id="q1-display-b22" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
@@ -400,23 +400,23 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   </div>
 </div>
 
-<!-- ====== PAID: Breath 2-3 — all that is ====== -->
+<!-- ====== PAID: Breath 2-3 — feel Q1 answer state ====== -->
 <div class="screen" id="s-p-b23">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/5</div>
-  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/4</div>
+  <div class="breath-focus">Feel the state of<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
     <div id="hint-pb23" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
   </div>
 </div>
 
-<!-- ====== PAID: Breath 3-1 — feel Q1 answer state ====== -->
-<div class="screen" id="s-p-b31">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/5</div>
-  <div class="breath-focus">Feel the state of<br><em id="q1-display-b31" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
+<!-- ====== PAID: Breath 2-4 — feel everything as it is ====== -->
+<div class="screen" id="s-p-b24">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/4</div>
+  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br>While feeling all of it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-pb31" onclick="startBreath('pb31')"></div>
-    <div id="hint-pb31" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+    <div class="breath-circle pulse" id="circle-pb24" onclick="startBreath('pb24')"></div>
+    <div id="hint-pb24" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
   </div>
 </div>
 
@@ -531,7 +531,7 @@ const SCREEN_ORDER = [
   's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
   's-paywall',
   's-p-theme','s-p-yn','s-p-q1','s-p-q1f','s-p-q1p',
-  's-p-b21','s-p-b22','s-p-b23','s-p-b31','s-p-b32',
+  's-p-b21','s-p-b22','s-p-b23','s-p-b24',
   's-p-q1af','s-p-q1ap','s-p-yn2','s-p-result',
   's-p-q1-final','s-p-complete'
 ];
@@ -730,7 +730,7 @@ function onQ1() {
   D.q1 = v;
   D.q1NothingComesUp = false; // real answer: reset nothing flag
   const qd = '"' + v + '"';
-  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b31','q1-display-af','q1-display-ap'].forEach(id => {
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = qd;
   });
@@ -829,13 +829,13 @@ function bCycle(t, c) {
   c.textContent = 'In'; c.className = 'breath-circle inhale';
   setTimeout(() => {
     c.textContent = 'Out'; c.className = 'breath-circle exhale';
-    setTimeout(() => { bc++; bCycle(t, c); }, 3000);
-  }, 3000);
+    setTimeout(() => { bc++; bCycle(t, c); }, 2000);
+  }, 2000);
 }
 
 const BREATH_NEXT = {
   'fb1': 's-f-b2', 'fb2': 's-f-b3', 'fb3': 's-f-af',
-  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b31', 'pb31': 's-p-b32', 'pb32': 's-p-q1af'
+  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b24', 'pb24': 's-p-q1af'
 };
 
 function afterBreath(t) {
@@ -1134,7 +1134,7 @@ function onQ1Final() {
   D.q1 = v;
   D.q1NothingComesUp = false; // real answer came up — reset
   const qd = '"' + v + '"';
-  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b31','q1-display-af','q1-display-ap'].forEach(function(id) {
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(function(id) {
     const el = document.getElementById(id);
     if (el) el.textContent = qd;
   });
