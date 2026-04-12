@@ -1012,9 +1012,12 @@ async function shareImage(type) {
       if (e && e.name === 'AbortError') return; // user cancelled — do nothing
     }
   }
-  // File sharing not supported — save and inform
-  showShareMsg(type, 'Image sharing is not available on this browser. Saving instead.');
-  triggerDownload(dataURL, 'noetune-result.png');
+  // File sharing not supported
+  if (isMobile()) {
+    showSharePreview(dataURL); // overlay: long-press to save, avoids download dialog
+  } else {
+    triggerDownload(dataURL, 'noetune-result.png');
+  }
 }
 
 async function saveImage(type) {
@@ -1048,6 +1051,25 @@ function promoteTextShare() {
     el.style.background = 'rgba(107,144,128,.08)';
     el.style.fontWeight = '500';
   });
+}
+
+function isMobile() {
+  return /iphone|ipad|ipod|android/i.test(navigator.userAgent);
+}
+
+function showSharePreview(dataURL) {
+  var img     = document.getElementById('share-preview-img');
+  var overlay = document.getElementById('share-preview-overlay');
+  if (!img || !overlay) { triggerDownload(dataURL, 'noetune-result.png'); return; }
+  img.src = dataURL;
+  overlay.style.display = 'flex';
+}
+
+function closeSharePreview() {
+  var overlay = document.getElementById('share-preview-overlay');
+  if (overlay) overlay.style.display = 'none';
+  var img = document.getElementById('share-preview-img');
+  if (img) img.src = '';
 }
 
 // ── Q1 Final input wiring ──
@@ -1328,6 +1350,13 @@ promoteTextShare();
   <button class="btn-ghost" onclick="startFree()" style="margin-top:.6rem">Return to start</button>
 </div>
 
+
+<!-- ── Share image preview overlay (mobile fallback) ── -->
+<div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
+  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
+  <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;-webkit-tap-highlight-color:transparent">Close</button>
+</div>
 
 <!-- ── Hidden share card ── -->
 <div id="share-card">
