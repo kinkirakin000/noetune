@@ -125,9 +125,13 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 }
 #share-card .sc-up-arrow{display:inline-flex;align-items:center;margin-left:14px}
 #share-card .sc-up-arrow svg{display:block;overflow:visible}
+#share-card .sc-tagline{
+  font-size:26px;color:#B8B8B0;letter-spacing:.08em;
+  margin-top:60px;font-weight:300;font-family:-apple-system,sans-serif;
+}
 #share-card .sc-footer{
-  font-size:24px;color:#C0C0B8;letter-spacing:.1em;
-  margin-top:80px;font-weight:300;font-family:-apple-system,sans-serif;
+  font-size:22px;color:#C8C8C0;letter-spacing:.1em;
+  margin-top:16px;font-weight:300;font-family:-apple-system,sans-serif;
 }
 #share-card .sc-inf svg{
   width:80px;height:40px;
@@ -158,7 +162,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div style="height:16px"></div>
   <div class="intro-sub">— Self-Healing Flow —</div>
   <div style="height:28px"></div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#444;letter-spacing:.15em">Release it in 2 minutes</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#444;letter-spacing:.12em">Shift your state — and see it change in numbers</div>
   <div style="height:36px"></div>
   <!-- Theme selector -->
   <div style="width:100%;max-width:280px;margin-bottom:1.2rem">
@@ -184,6 +188,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
       </button>
     </div>
   </div>
+  <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.14em;font-family:'Noto Serif JP',serif;margin-bottom:1.1rem">Measure · Breathe · See the shift</div>
   <button class="btn-start" onclick="startFree()">Start Free Session</button>
   <div style="height:8px"></div>
   <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.08em">No account needed</div>
@@ -196,7 +201,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== FREE: Before — Future ====== -->
 <div class="screen" id="s-f-bf">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BEFORE</div>
-  <div class="title">What proportion of your future self is taken up by <em id="topic-display-1">"Overthinking"</em>?</div>
+  <div class="title">How much of your future feels occupied by <em id="topic-display-1">"Overthinking"</em>?</div>
   <div class="score-num" id="num-fbf" style="color:#C47A5A;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-fbf" oninput="revealNum('num-fbf',this.value)">
@@ -209,7 +214,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== FREE: Before — Past ====== -->
 <div class="screen" id="s-f-bp">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BEFORE</div>
-  <div class="title">What proportion of your past self has been taken up by <em id="topic-display-2">"Overthinking"</em>?</div>
+  <div class="title">How much of your past feels occupied by <em id="topic-display-2">"Overthinking"</em>?</div>
   <div class="score-num" id="num-fbp" style="color:#C47A5A;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-fbp" oninput="revealNum('num-fbp',this.value)">
@@ -252,7 +257,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== FREE: After — Future ====== -->
 <div class="screen" id="s-f-af">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> AFTER</div>
-  <div class="title">Now — what proportion of your future self is taken up by <em id="topic-display-3">"Overthinking"</em>?</div>
+  <div class="title">Now — how much of your future feels occupied by <em id="topic-display-3">"Overthinking"</em>?</div>
   <div class="score-num" id="num-faf" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-faf" oninput="revealNum('num-faf',this.value)">
@@ -265,7 +270,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== FREE: After — Past ====== -->
 <div class="screen" id="s-f-ap">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> AFTER</div>
-  <div class="title">Now — what proportion of your past self has been taken up by <em id="topic-display-4">"Overthinking"</em>?</div>
+  <div class="title">Now — how much of your past feels occupied by <em id="topic-display-4">"Overthinking"</em>?</div>
   <div class="score-num" id="num-fap" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-fap" oninput="revealNum('num-fap',this.value)">
@@ -278,11 +283,12 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== FREE: Result ====== -->
 <div class="screen" id="s-f-result">
   <div class="label">FREE SESSION COMPLETE</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:300;color:#444;margin-bottom:1.6rem;letter-spacing:.08em">Your shift</div>
+  <div id="free-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.4rem;letter-spacing:.04em"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
   <div id="free-result-rows"></div>
   <div style="height:1.5rem"></div>
   <div style="font-size:.82rem;color:#888;line-height:1.8;text-align:center;max-width:280px;margin-bottom:1rem">
-    This was the surface layer.<br>The deeper release dissolves the pattern at its root.
+    This was just the surface.<br>The pattern is still underneath.
   </div>
   <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A">Share as Image</button>
   <button class="btn-ghost" onclick="saveImage('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
@@ -291,23 +297,24 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <a id="share-x-free" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
     <button onclick="copyResult('free')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-free">Copy text</button>
   </div>
+  <div id="share-msg-free" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
   <button class="btn" onclick="showPaywall()" style="background:#6B9080;margin-top:.8rem">Go deeper →</button>
 </div>
 
 <!-- ====== PAYWALL ====== -->
 <div class="screen" id="s-paywall">
   <div class="paywall-box">
-    <div class="pw-title">The Full Release</div>
-    <div class="pw-desc">Dissolve the pattern at its root. Discover what life looks like free of this — and feel that reality in your body.</div>
+    <div class="pw-title">Go deeper.</div>
+    <div class="pw-desc">This was just the surface.<br>The root is still there.</div>
     <div style="text-align:left;padding:0 .5rem">
-      <div class="pw-feature">Discover your free-of-pattern state</div>
-      <div class="pw-feature">A question that flips your pattern</div>
+      <div class="pw-feature">Go beyond the surface shift</div>
+      <div class="pw-feature">See what you are like without this pattern</div>
       <div class="pw-feature">5-breath deep release sequence</div>
-      <div class="pw-feature">Full before/after tracking</div>
+      <div class="pw-feature">Let the pattern dissolve at its root</div>
       <div class="pw-feature">Unlimited topics</div>
     </div>
-    <button class="pw-price-btn" onclick="unlockPaid()">Unlock — $9.99/month</button>
-    <div class="pw-annual">or $79.99/year (save 33%) · Cancel anytime</div>
+    <button class="pw-price-btn" onclick="unlockPaid()">Go deeper →</button>
+    <div class="pw-annual">$9.99/month · or $79.99/year (save 33%) · Cancel anytime</div>
   </div>
   <button class="btn-skip" onclick="go('s-intro')" style="margin-top:1.2rem">Return to start</button>
 </div>
@@ -332,9 +339,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CHECK-IN</div>
   <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
   <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN('yes')">Yes</button>
-    <button class="yn-btn" onclick="onYN('no')">No</button>
-    <button class="yn-btn" onclick="onYN('meaningless')" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+    <button class="yn-btn" onclick="onYN('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
   </div>
 </div>
 
@@ -375,7 +382,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== PAID: Breath 2-1 — tension with Q1 answer ====== -->
 <div class="screen" id="s-p-b21">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/5</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/4</div>
   <div class="breath-focus">Feel the tension that arises against:<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
@@ -385,7 +392,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== PAID: Breath 2-2 — everything else ====== -->
 <div class="screen" id="s-p-b22">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/5</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/4</div>
   <div class="breath-focus">Feel everything —<br>except the tension that arises against:<br><br><em id="q1-display-b22" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
@@ -393,23 +400,23 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   </div>
 </div>
 
-<!-- ====== PAID: Breath 2-3 — all that is ====== -->
+<!-- ====== PAID: Breath 2-3 — feel Q1 answer state ====== -->
 <div class="screen" id="s-p-b23">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/5</div>
-  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/4</div>
+  <div class="breath-focus">Feel the state of<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
     <div id="hint-pb23" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
   </div>
 </div>
 
-<!-- ====== PAID: Breath 3-1 — feel Q1 answer state ====== -->
-<div class="screen" id="s-p-b31">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/5</div>
-  <div class="breath-focus">Feel the state of<br><em id="q1-display-b31" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
+<!-- ====== PAID: Breath 2-4 — feel everything as it is ====== -->
+<div class="screen" id="s-p-b24">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/4</div>
+  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br>While feeling all of it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-pb31" onclick="startBreath('pb31')"></div>
-    <div id="hint-pb31" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+    <div class="breath-circle pulse" id="circle-pb24" onclick="startBreath('pb24')"></div>
+    <div id="hint-pb24" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
   </div>
 </div>
 
@@ -454,9 +461,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK</div>
   <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
   <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN2('yes')">Yes</button>
-    <button class="yn-btn" onclick="onYN2('no')">No</button>
-    <button class="yn-btn" onclick="onYN2('meaningless')" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+    <button class="yn-btn" onclick="onYN2('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
   </div>
 </div>
 
@@ -475,6 +482,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
     <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
   </div>
+  <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
   <button class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
   <button class="btn-skip" onclick="startFree()">New topic</button>
   <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
@@ -523,7 +531,7 @@ const SCREEN_ORDER = [
   's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
   's-paywall',
   's-p-theme','s-p-yn','s-p-q1','s-p-q1f','s-p-q1p',
-  's-p-b21','s-p-b22','s-p-b23','s-p-b31','s-p-b32',
+  's-p-b21','s-p-b22','s-p-b23','s-p-b24',
   's-p-q1af','s-p-q1ap','s-p-yn2','s-p-result',
   's-p-q1-final','s-p-complete'
 ];
@@ -613,6 +621,12 @@ function showFreeResult() {
   rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + TOPIC.toUpperCase() + ' RATE</div>';
   rows.innerHTML += makeResultRow('Future', D.freeBF, D.freeAF, 'topic');
   rows.innerHTML += makeResultRow('Past', D.freeBP, D.freeAP, 'topic');
+  var hl = document.getElementById('free-result-headline');
+  if (hl) {
+    var beyondA = (D.freeAF === 'N/A' || D.freeAF === null);
+    var dropped = !beyondA && typeof D.freeBF === 'number' && typeof D.freeAF === 'number' && D.freeBF > D.freeAF;
+    hl.textContent = beyondA ? "It's gone." : dropped ? (TOPIC + " dropped.") : "Your state shifted.";
+  }
   fwd('s-f-result');
 }
 
@@ -678,10 +692,10 @@ function showPaywall() { fwd('s-paywall'); }
 // ── PAID FLOW ──
 // Paid topic Before/After removed — only Q1 (positive) is tracked
 
-function onYN(val) {
+function onYN(val, btn) {
   D.yn1 = val;
   document.querySelectorAll('#s-p-yn .yn-btn').forEach(b => b.classList.remove('selected'));
-  event.target.classList.add('selected');
+  if (btn) btn.classList.add('selected');
   if (val === 'meaningless') {
     D.ynMeaningless = true;
     // Check if both graduation conditions are met
@@ -716,7 +730,7 @@ function onQ1() {
   D.q1 = v;
   D.q1NothingComesUp = false; // real answer: reset nothing flag
   const qd = '"' + v + '"';
-  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b31','q1-display-af','q1-display-ap'].forEach(id => {
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.textContent = qd;
   });
@@ -734,10 +748,10 @@ function onPQ1AFSkip() { D.q1AF = 'N/A'; fwd('s-p-q1ap'); }
 function onPQ1AP() { D.q1AP = +document.getElementById('sl-pq1ap').value; fwd('s-p-yn2'); }
 function onPQ1APSkip() { D.q1AP = 'N/A'; fwd('s-p-yn2'); }
 
-function onYN2(val) {
+function onYN2(val, btn) {
   D.yn2 = val;
   document.querySelectorAll('#s-p-yn2 .yn-btn').forEach(b => b.classList.remove('selected'));
-  event.target.classList.add('selected');
+  if (btn) btn.classList.add('selected');
   if (val === 'meaningless') {
     D.ynMeaningless = true;
     if (D.q1NothingComesUp) {
@@ -762,12 +776,13 @@ function showPaidResult() {
   // Dynamic headline based on yn2
   var headline = document.getElementById('paid-result-headline');
   if (headline) {
-    if (D.yn2 === 'meaningless') {
-      headline.textContent = 'Something shifted.';
-    } else if (D.yn2 === 'no') {
-      headline.textContent = 'Something shifted.';
-    } else {
+    if (D.yn2 === 'yes') {
       headline.textContent = 'Still present.';
+    } else if (D.yn2 === 'meaningless') {
+      headline.textContent = 'Something dissolved.';
+    } else {
+      var expanded = typeof D.q1BF === 'number' && typeof D.q1AF === 'number' && D.q1AF > D.q1BF;
+      headline.textContent = expanded ? 'State expanded.' : 'Your state shifted.';
     }
   }
   const rows = document.getElementById('paid-result-rows');
@@ -814,13 +829,13 @@ function bCycle(t, c) {
   c.textContent = 'In'; c.className = 'breath-circle inhale';
   setTimeout(() => {
     c.textContent = 'Out'; c.className = 'breath-circle exhale';
-    setTimeout(() => { bc++; bCycle(t, c); }, 3000);
-  }, 3000);
+    setTimeout(() => { bc++; bCycle(t, c); }, 2000);
+  }, 2000);
 }
 
 const BREATH_NEXT = {
   'fb1': 's-f-b2', 'fb2': 's-f-b3', 'fb3': 's-f-af',
-  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b31', 'pb31': 's-p-b32', 'pb32': 's-p-q1af'
+  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b24', 'pb24': 's-p-q1af'
 };
 
 function afterBreath(t) {
@@ -889,7 +904,17 @@ function buildShareCard(type) {
   } else {
     allBeyond = (D.freeAF === null || D.freeAF === 'N/A') && (D.freeAP === null || D.freeAP === 'N/A');
   }
-  document.getElementById('sc-headline').textContent = allBeyond ? "It's gone." : "Something shifted.";
+  var scHeadline;
+  if (allBeyond) {
+    scHeadline = "It's gone.";
+  } else if (type === 'free') {
+    var fd = (typeof D.freeBF === 'number' && typeof D.freeAF === 'number') ? (D.freeBF - D.freeAF) : 0;
+    scHeadline = fd > 0 ? (TOPIC + " dropped.") : "Your state shifted.";
+  } else {
+    var pd = (typeof D.q1BF === 'number' && typeof D.q1AF === 'number') ? (D.q1AF - D.q1BF) : 0;
+    scHeadline = pd > 0 ? "State expanded." : "Your state shifted.";
+  }
+  document.getElementById('sc-headline').textContent = scHeadline;
 
   // Build rows
   var rows;
@@ -973,18 +998,26 @@ async function renderShareCard(type) {
 async function shareImage(type) {
   var dataURL = await renderShareCard(type);
   if (!dataURL) { alert('Could not generate image.'); return; }
-  if (navigator.share && navigator.canShare) {
+  if (navigator.share) {
     try {
       var res = await fetch(dataURL);
       var blob = await res.blob();
       var file = new File([blob], 'noetune-result.png', { type: 'image/png' });
-      if (navigator.canShare({ files: [file] })) {
+      var canFile = navigator.canShare && navigator.canShare({ files: [file] });
+      if (canFile) {
         await navigator.share({ files: [file], title: 'Noetune' });
         return;
       }
-    } catch(e) {}
+    } catch(e) {
+      if (e && e.name === 'AbortError') return; // user cancelled — do nothing
+    }
   }
-  triggerDownload(dataURL, 'noetune-result.png');
+  // File sharing not supported
+  if (isMobile()) {
+    showSharePreview(dataURL); // overlay: long-press to save, avoids download dialog
+  } else {
+    triggerDownload(dataURL, 'noetune-result.png');
+  }
 }
 
 async function saveImage(type) {
@@ -1001,6 +1034,42 @@ function triggerDownload(dataURL, filename) {
   document.body.appendChild(a);
   a.click();
   setTimeout(function(){ document.body.removeChild(a); }, 200);
+}
+
+function showShareMsg(type, msg) {
+  var el = document.getElementById('share-msg-' + type);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._fadeTimer);
+  el._fadeTimer = setTimeout(function() { el.style.opacity = '0'; }, 3800);
+}
+
+function promoteTextShare() {
+  if (!isIOS()) return;
+  document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el) {
+    el.style.background = 'rgba(107,144,128,.08)';
+    el.style.fontWeight = '500';
+  });
+}
+
+function isMobile() {
+  return /iphone|ipad|ipod|android/i.test(navigator.userAgent);
+}
+
+function showSharePreview(dataURL) {
+  var img     = document.getElementById('share-preview-img');
+  var overlay = document.getElementById('share-preview-overlay');
+  if (!img || !overlay) { triggerDownload(dataURL, 'noetune-result.png'); return; }
+  img.src = dataURL;
+  overlay.style.display = 'flex';
+}
+
+function closeSharePreview() {
+  var overlay = document.getElementById('share-preview-overlay');
+  if (overlay) overlay.style.display = 'none';
+  var img = document.getElementById('share-preview-img');
+  if (img) img.src = '';
 }
 
 // ── Q1 Final input wiring ──
@@ -1065,7 +1134,7 @@ function onQ1Final() {
   D.q1 = v;
   D.q1NothingComesUp = false; // real answer came up — reset
   const qd = '"' + v + '"';
-  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b31','q1-display-af','q1-display-ap'].forEach(function(id) {
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(function(id) {
     const el = document.getElementById(id);
     if (el) el.textContent = qd;
   });
@@ -1201,6 +1270,19 @@ function newTopicFromStorage() {
   hist = [];
 }
 
+function returnToIntro() {
+  clearState();
+  D.themeComplete = false;
+  TOPIC = 'Overthinking';
+  applyTopic(TOPIC);
+  // Re-select Overthinking in intro theme list
+  document.querySelectorAll('#s-intro .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  var ft = document.querySelector('#s-intro .theme-btn');
+  if (ft) ft.classList.add('selected');
+  hist = []; breathing = false; bc = 0;
+  go('s-intro');
+}
+
 
 // ══════════════════════════════════════════════
 // ── PWA / ADD TO HOME SCREEN ──
@@ -1257,6 +1339,7 @@ function triggerPWAInstall() {
 
 updateProgress();
 checkOnStartup();
+promoteTextShare();
 </script>
 
 <!-- ====== PAID: Final Confirmation Q1 ====== -->
@@ -1277,9 +1360,16 @@ checkOnStartup();
   <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
   <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
   <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
-  <button class="btn-ghost" onclick="startFree()" style="margin-top:.6rem">Return to start</button>
+  <button class="btn-ghost" onclick="returnToIntro()" style="margin-top:.6rem">Return to start</button>
 </div>
 
+
+<!-- ── Share image preview overlay (mobile fallback) ── -->
+<div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
+  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
+  <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;-webkit-tap-highlight-color:transparent">Close</button>
+</div>
 
 <!-- ── Hidden share card ── -->
 <div id="share-card">
@@ -1287,6 +1377,7 @@ checkOnStartup();
   <div class="sc-headline" id="sc-headline">Something shifted.</div>
   <div class="sc-topic" id="sc-topic"></div>
   <div id="sc-rows"></div>
+  <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
   <div class="sc-footer">noetune.app</div>
 </div>
 
