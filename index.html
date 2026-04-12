@@ -1,289 +1,1294 @@
-import { useState, useEffect, useRef } from "react";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAFAF7">
+<title>Noetune — Self-Healing Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#FAFAF7;color:#1A1A1A}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:#6B9080;transition:width .6s cubic-bezier(.4,0,.2,1);z-index:100}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem 2rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen.active{opacity:1;transform:translateY(0);pointer-events:all}
+.screen.exit{opacity:0;transform:translateY(-12px)}
+.label{font-size:.72rem;letter-spacing:.18em;color:#A0A09A;margin-bottom:1.2rem;text-align:center}
+.title{font-family:'Noto Serif JP',serif;font-size:1.25rem;font-weight:300;text-align:center;line-height:1.9;margin-bottom:2rem;max-width:320px}
+.score-num{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;line-height:1;margin-bottom:1.8rem}
+.slider-wrap{width:100%;max-width:280px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:#D4DDD8;border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(107,144,128,.3)}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;border:none}
+.slider-labels{display:flex;justify-content:space-between;margin-top:.6rem;font-size:.7rem;color:#BBB}
+.text-input{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;text-align:center;border:none;border-bottom:1.5px solid #D4DDD8;background:transparent;padding:.6rem 1rem;width:92%;max-width:300px;outline:none;color:#1A1A1A;transition:border-color .3s}
+.text-input:focus{border-bottom-color:#6B9080}
+.text-input::placeholder{color:#CCC;font-weight:300}
+.btn{margin-top:2rem;padding:14px 52px;background:#6B9080;color:#fff;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;transition:opacity .3s,transform .15s;font-family:'Noto Serif JP',serif;letter-spacing:.08em}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn-ghost{margin-top:1rem;padding:11px 36px;background:transparent;color:#6B9080;border:1.5px solid #6B9080;border-radius:30px;font-size:.85rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .25s}
+.btn-ghost:active{background:#6B9080;color:#fff}
+.btn-start{padding:16px 64px;background:#1A1A1A;color:#FAFAF7;border:none;border-radius:30px;font-size:1rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.2em;transition:opacity .3s}
+.btn-start:active{opacity:.7}
+.btn-skip{background:none;border:none;font-family:'Noto Serif JP',serif;font-size:.75rem;color:#C0C0B8;letter-spacing:.1em;cursor:pointer;margin-top:.8rem;padding:.3rem .8rem}
+.breath-focus{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#888;text-align:center;line-height:1.9;margin-bottom:1.8rem;max-width:280px}
+.breath-focus em{color:#1A1A1A;font-style:normal;font-weight:500}
+.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:300;transition:transform 4s cubic-bezier(.4,0,.2,1),box-shadow 4s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);cursor:pointer}
+.breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
+.breath-circle.exhale{transform:scale(1)}
+.intro-title{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;letter-spacing:.15em;color:#1A1A1A;margin-bottom:.3rem}
+.intro-sub{font-size:.78rem;color:#AAA;letter-spacing:.15em;margin-bottom:.4rem;font-family:'Noto Serif JP',serif}
+.btn-back{position:fixed;top:1rem;left:1rem;width:36px;height:36px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
+.btn-back.visible{opacity:1;pointer-events:all}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.pulse{animation:pulse 2s infinite}
+.r-row{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-bottom:1.8rem}
+.r-label{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:500;letter-spacing:.05em;min-width:2.6rem;text-align:right}
+.r-arrow{display:flex;align-items:center;flex-shrink:0}
+.r-nums{display:flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:2.2rem;font-weight:700}
+.infinity{font-size:3.4rem;line-height:1;display:inline-flex;align-items:center;font-weight:800;color:#1A1A1A;letter-spacing:-.02em;transition:opacity .2s ease}
 
-const BREATHING_DURATION = 6000;
 
-const BreathingCircle = ({ phase, isActive, onComplete, topic }) => {
-  const [scale, setScale] = useState(1);
-  const [timer, setTimer] = useState(0);
-  const intervalRef = useRef(null);
-  const startRef = useRef(null);
+.r-sep-beyond{font-size:1.4rem;color:#C0A84A;margin:0 .3rem;opacity:.8}
+.r-before{font-size:1.4rem;color:#B3B3AD;font-weight:300}
+.r-sep{font-size:1.1rem;color:#C8C8C4;margin:0 .3rem;font-weight:300;font-family:sans-serif}
+.r-after{}
+.yes-no-wrap{display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;margin-bottom:1.2rem}
+.yn-btn{padding:1rem 1.2rem;border-radius:16px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.95rem;color:#1A1A1A;transition:all .25s;letter-spacing:.06em}
+.yn-btn:active{transform:scale(.97)}
+.yn-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080}
+.theme-btn{width:100%;padding:.7rem 1rem;border-radius:12px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.88rem;color:#555;transition:all .22s;letter-spacing:.05em}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080;font-weight:500}
+.theme-btn.locked{color:#C0C0B8;border-color:#EAEAE6;background:#FAFAF7;cursor:pointer}
+.theme-btn.locked:active{transform:scale(.97)}
+.lock-icon{font-size:.8rem;margin-left:.3rem;opacity:.7}
+.paywall-box{background:#fff;border:1.5px solid #E4E4DE;border-radius:20px;padding:2rem 1.5rem;max-width:320px;width:100%;text-align:center}
+.paywall-box .pw-title{font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:500;margin-bottom:.8rem;letter-spacing:.08em}
+.paywall-box .pw-desc{font-size:.82rem;color:#888;line-height:1.8;margin-bottom:1.6rem}
+.paywall-box .pw-feature{display:flex;align-items:center;gap:.5rem;padding:.35rem 0;font-size:.82rem;color:#555;text-align:left}
+.paywall-box .pw-feature::before{content:'◇';color:#6B9080;font-size:.8rem}
+.pw-price-btn{width:100%;padding:14px;background:#1A1A1A;color:#FAFAF7;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.1em;margin-top:1.6rem}
+.pw-price-btn:active{opacity:.7}
+.pw-annual{font-size:.7rem;color:#B0B0A8;margin-top:.6rem;letter-spacing:.05em}
+@media(max-height:640px){.title{font-size:1.1rem;margin-bottom:1.5rem}.score-num{font-size:2.2rem}.breath-circle{width:110px;height:110px}.screen{padding:2rem 1.2rem 1.5rem}}
 
-  useEffect(() => {
-    if (!isActive) {
-      setScale(1);
-      setTimer(0);
-      return;
-    }
+/* ── Share card (hidden, rendered to image) ── */
+#share-card{
+  position:fixed;top:-9999px;left:-9999px;
+  width:1080px;height:1080px;
+  background:#FAFAF7;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:120px 100px;
+  font-family:'Noto Serif JP',Georgia,serif;
+  box-sizing:border-box;
+  z-index:-1;
+}
+#share-card .sc-label{
+  font-size:22px;letter-spacing:.22em;color:#B0B0A8;
+  margin-bottom:48px;font-family:-apple-system,sans-serif;
+  font-weight:300;
+}
+#share-card .sc-headline{
+  font-size:72px;font-weight:700;color:#1A1A1A;
+  margin-bottom:56px;letter-spacing:.02em;
+}
+#share-card .sc-topic{
+  font-size:28px;color:#B0B0A8;letter-spacing:.14em;
+  margin-bottom:64px;font-weight:300;
+}
+#share-card .sc-row{
+  display:flex;align-items:center;
+  gap:20px;margin-bottom:44px;width:100%;
+  justify-content:center;
+  overflow:visible;
+}
+#share-card .sc-row-label{
+  font-size:38px;color:#8F8F89;font-weight:400;
+  min-width:110px;text-align:right;
+}
+#share-card .sc-before{
+  font-size:48px;color:#B3B3AD;font-weight:300;
+}
+#share-card .sc-arrow{
+  font-size:32px;color:#CCC;font-weight:300;
+  margin:0 4px;
+}
+#share-card .sc-after{
+  font-size:72px;font-weight:700;color:#1A1A1A;line-height:1;
+}
+#share-card .sc-up-arrow{display:inline-flex;align-items:center;margin-left:14px}
+#share-card .sc-up-arrow svg{display:block;overflow:visible}
+#share-card .sc-footer{
+  font-size:24px;color:#C0C0B8;letter-spacing:.1em;
+  margin-top:80px;font-weight:300;font-family:-apple-system,sans-serif;
+}
+#share-card .sc-inf svg{
+  width:80px;height:40px;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
 
-    startRef.current = Date.now();
+<button class="btn-back" id="btn-back" onclick="goBack()">
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<div class="progress-bar" id="progress"></div>
 
-    intervalRef.current = setInterval(() => {
-      const elapsed = Date.now() - startRef.current;
-      const progress = Math.min(elapsed / BREATHING_DURATION, 1);
+<!-- ====== CONTINUE: In-progress screen ====== -->
+<div class="screen" id="s-continue">
+  <div class="label" style="margin-bottom:2rem">STILL IN PROGRESS</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">You are still working on:</div>
+  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"Overthinking"</div>
+  <button class="btn-start" onclick="continueFromStorage()">Continue</button>
+  <div style="height:14px"></div>
+  <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">Start new topic</button>
+</div>
 
-      if (progress < 0.5) {
-        setScale(1 + progress * 1.2);
-        setTimer(Math.ceil(3 - progress * 6));
-      } else {
-        setScale(1.6 - (progress - 0.5) * 1.2);
-        setTimer(Math.ceil(3 - (progress - 0.5) * 6));
-      }
-
-      if (progress >= 1) {
-        clearInterval(intervalRef.current);
-        setScale(1);
-        setTimer(0);
-        onComplete?.();
-      }
-    }, 50);
-
-    return () => clearInterval(intervalRef.current);
-  }, [isActive, onComplete]);
-
-  const phaseLabels = {
-    focus: `Feel the state of ${topic?.en.toLowerCase()}`,
-    contrast: "Feel everything else",
-    whole: "Feel all that is",
-  };
-
-  return (
-    <div style={{ textAlign: "center", padding: "2rem 0" }}>
-      <p style={{ fontSize: "1.2rem", color: "#4a4238", marginBottom: "1.5rem" }}>
-        {phaseLabels[phase]}
-      </p>
-
-      <div
-        style={{
-          width: 140,
-          height: 140,
-          margin: "0 auto",
-          borderRadius: "50%",
-          border: "1px solid #d6cfc3",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          transform: `scale(${scale})`,
-          transition: "transform 0.1s",
-        }}
-      >
-        {isActive && timer > 0 && (
-          <span style={{ fontSize: "2rem" }}>{timer}</span>
-        )}
-      </div>
-
-      {isActive && (
-        <p style={{ marginTop: "1rem", fontSize: "0.8rem", color: "#8a7e6b" }}>
-          {scale > 1.3 ? "Inhale" : "Exhale"}
-        </p>
-      )}
+<!-- ====== INTRO ====== -->
+<div class="screen active" id="s-intro">
+  <div class="intro-title">Noetune</div>
+  <div style="height:16px"></div>
+  <div class="intro-sub">— Self-Healing Flow —</div>
+  <div style="height:28px"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#444;letter-spacing:.15em">Release it in 2 minutes</div>
+  <div style="height:36px"></div>
+  <!-- Theme selector -->
+  <div style="width:100%;max-width:280px;margin-bottom:1.2rem">
+    <div style="font-size:.66rem;letter-spacing:.16em;color:#B0B0A8;margin-bottom:.7rem;text-align:center;font-family:'Noto Serif JP',serif">CHOOSE THEME</div>
+    <div id="theme-list" style="display:flex;flex-direction:column;gap:8px">
+      <button class="theme-btn selected" onclick="selectTheme(this,'Overthinking')" style="line-height:1.5">
+        Overthinking<br><span style="font-size:.6rem;color:#6B9080;letter-spacing:.1em;font-weight:400">Free preview</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Anxiety')">
+        Anxiety <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Resistance')">
+        Resistance <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Self-doubt')">
+        Self-doubt <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Emotional reaction')">
+        Emotional reaction <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Urge')">
+        Urge <span class="lock-icon">🔒</span>
+      </button>
     </div>
-  );
-};
-
-const NumberInput = ({ label, value, onChange }) => (
-  <div style={{ padding: "1.5rem" }}>
-    <p style={{ marginBottom: "1rem" }}>{label}</p>
-
-    <input
-      type="range"
-      min="0"
-      max="100"
-      value={value ?? 50}
-      onChange={(e) => onChange(parseInt(e.target.value))}
-      style={{ width: "100%" }}
-    />
-
-    <p style={{ fontSize: "2rem", textAlign: "right" }}>
-      {value ?? "—"}
-    </p>
   </div>
-);
+  <button class="btn-start" onclick="startFree()">Start Free Session</button>
+  <div style="height:8px"></div>
+  <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.08em">No account needed</div>
+  <div style="height:18px"></div>
+  <button class="btn-ghost" onclick="goToPaidDirect()">Continue Full Session →</button>
+  <div style="height:6px"></div>
+  <div style="font-size:.64rem;color:#C8C8C0;letter-spacing:.06em;font-family:'Noto Serif JP',serif" style="font-style:italic">(Member only)</div>
+</div>
 
-const ResultComparison = ({ before, after, label }) => {
-  if (before == null || after == null) return null;
+<!-- ====== FREE: Before — Future ====== -->
+<div class="screen" id="s-f-bf">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">What proportion of your future self is taken up by <em id="topic-display-1">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-fbf" style="color:#C47A5A;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-fbf" oninput="revealNum('num-fbf',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeBF()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeBFSkip()">Beyond measure</button>
+</div>
 
-  const diff = before - after;
-  const color = diff > 0 ? "#4F8A5B" : "#C0604D";
+<!-- ====== FREE: Before — Past ====== -->
+<div class="screen" id="s-f-bp">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">What proportion of your past self has been taken up by <em id="topic-display-2">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-fbp" style="color:#C47A5A;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-fbp" oninput="revealNum('num-fbp',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeBP()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeBPSkip()">Beyond measure</button>
+</div>
 
-  return (
-    <div style={{
-      padding: "1rem",
-      background: "#fff",
-      borderRadius: 12,
-      marginBottom: "1rem"
-    }}>
-      <div style={{ fontSize: "0.7rem", color: "#999" }}>{label}</div>
+<!-- ====== FREE: Breath 1 — Focus ====== -->
+<div class="screen" id="s-f-b1">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
+  <div class="breath-focus">Feel the feeling of overthinking —<br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-fb1" onclick="startBreath('fb1')"></div>
+    <div id="hint-fb1" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
 
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <div style={{ fontSize: "2rem" }}>
-          <span style={{ opacity: 0.4 }}>{before}</span>
-          {" → "}
-          <strong>{after}</strong>
-        </div>
+<!-- ====== FREE: Breath 2 — Contrast ====== -->
+<div class="screen" id="s-f-b2">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
+  <div class="breath-focus">Feel everything —<br>except the feeling of overthinking.<br>While feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-fb2" onclick="startBreath('fb2')"></div>
+    <div id="hint-fb2" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
 
-        <div style={{ color, fontWeight: "bold" }}>
-          {diff > 0 ? "↓" : "↑"} {Math.abs(diff)}
-        </div>
-      </div>
+<!-- ====== FREE: Breath 3 — Whole ====== -->
+<div class="screen" id="s-f-b3">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
+  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-fb3" onclick="startBreath('fb3')"></div>
+    <div id="hint-fb3" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
+
+<!-- ====== FREE: After — Future ====== -->
+<div class="screen" id="s-f-af">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — what proportion of your future self is taken up by <em id="topic-display-3">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-faf" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-faf" oninput="revealNum('num-faf',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeAF()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeAFSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== FREE: After — Past ====== -->
+<div class="screen" id="s-f-ap">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — what proportion of your past self has been taken up by <em id="topic-display-4">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-fap" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-fap" oninput="revealNum('num-fap',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeAP()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeAPSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== FREE: Result ====== -->
+<div class="screen" id="s-f-result">
+  <div class="label">FREE SESSION COMPLETE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:300;color:#444;margin-bottom:1.6rem;letter-spacing:.08em">Your shift</div>
+  <div id="free-result-rows"></div>
+  <div style="height:1.5rem"></div>
+  <div style="font-size:.82rem;color:#888;line-height:1.8;text-align:center;max-width:280px;margin-bottom:1rem">
+    This was the surface layer.<br>The deeper release dissolves the pattern at its root.
+  </div>
+  <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A">Share as Image</button>
+  <button class="btn-ghost" onclick="saveImage('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
+  <button class="btn-ghost" onclick="shareResultText('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
+  <div id="share-fallback-free" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
+    <a id="share-x-free" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
+    <button onclick="copyResult('free')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-free">Copy text</button>
+  </div>
+  <button class="btn" onclick="showPaywall()" style="background:#6B9080;margin-top:.8rem">Go deeper →</button>
+</div>
+
+<!-- ====== PAYWALL ====== -->
+<div class="screen" id="s-paywall">
+  <div class="paywall-box">
+    <div class="pw-title">The Full Release</div>
+    <div class="pw-desc">Dissolve the pattern at its root. Discover what life looks like free of this — and feel that reality in your body.</div>
+    <div style="text-align:left;padding:0 .5rem">
+      <div class="pw-feature">Discover your free-of-pattern state</div>
+      <div class="pw-feature">A question that flips your pattern</div>
+      <div class="pw-feature">5-breath deep release sequence</div>
+      <div class="pw-feature">Full before/after tracking</div>
+      <div class="pw-feature">Unlimited topics</div>
     </div>
-  );
+    <button class="pw-price-btn" onclick="unlockPaid()">Unlock — $9.99/month</button>
+    <div class="pw-annual">or $79.99/year (save 33%) · Cancel anytime</div>
+  </div>
+  <button class="btn-skip" onclick="go('s-intro')" style="margin-top:1.2rem">Return to start</button>
+</div>
+
+<!-- ====== PAID: Theme selector ====== -->
+<div class="screen" id="s-p-theme">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
+  <div class="title" style="margin-bottom:1.4rem">Choose your theme</div>
+  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
+    <button class="theme-btn selected" id="pt-overthinking" onclick="selectPaidTheme(this,'Overthinking')">Overthinking</button>
+    <button class="theme-btn" id="pt-anxiety" onclick="selectPaidTheme(this,'Anxiety')">Anxiety</button>
+    <button class="theme-btn" id="pt-resistance" onclick="selectPaidTheme(this,'Resistance')">Resistance</button>
+    <button class="theme-btn" id="pt-selfdoubt" onclick="selectPaidTheme(this,'Self-doubt')">Self-doubt</button>
+    <button class="theme-btn" id="pt-emotional" onclick="selectPaidTheme(this,'Emotional reaction')">Emotional reaction</button>
+    <button class="theme-btn" id="pt-urge" onclick="selectPaidTheme(this,'Urge')">Urge</button>
+  </div>
+  <button class="btn" onclick="fwd('s-p-yn')">Continue</button>
+</div>
+
+<!-- ====== PAID: Yes/No question ====== -->
+<div class="screen" id="s-p-yn">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CHECK-IN</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN('yes')">Yes</button>
+    <button class="yn-btn" onclick="onYN('no')">No</button>
+    <button class="yn-btn" onclick="onYN('meaningless')" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+  </div>
+</div>
+
+<!-- ====== PAID: Q1 — reversal question ====== -->
+<div class="screen" id="s-p-q1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
+  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
+  <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
+  <button class="btn-skip" onclick="onQ1Nothing()" style="margin-top:.6rem;color:#B8B8B0;font-size:.78rem">Nothing comes up</button>
+</div>
+
+<!-- ====== PAID: Q1 answer — Future ====== -->
+<div class="screen" id="s-p-q1f">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">What proportion of your future self is taken up by <em id="q1-display-f">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1f" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1f" oninput="revealNum('num-pq1f',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1F()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1FSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: Q1 answer — Past ====== -->
+<div class="screen" id="s-p-q1p">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">What proportion of your past self has been taken up by <em id="q1-display-p">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1p" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1p" oninput="revealNum('num-pq1p',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1P()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1PSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: Breath 2-1 — tension with Q1 answer ====== -->
+<div class="screen" id="s-p-b21">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/5</div>
+  <div class="breath-focus">Feel the tension that arises against:<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
+    <div id="hint-pb21" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-2 — everything else ====== -->
+<div class="screen" id="s-p-b22">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/5</div>
+  <div class="breath-focus">Feel everything —<br>except the tension that arises against:<br><br><em id="q1-display-b22" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
+    <div id="hint-pb22" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-3 — all that is ====== -->
+<div class="screen" id="s-p-b23">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/5</div>
+  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
+    <div id="hint-pb23" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 3-1 — feel Q1 answer state ====== -->
+<div class="screen" id="s-p-b31">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/5</div>
+  <div class="breath-focus">Feel the state of<br><em id="q1-display-b31" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb31" onclick="startBreath('pb31')"></div>
+    <div id="hint-pb31" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 3-2 — all that is ====== -->
+<div class="screen" id="s-p-b32">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 5/5</div>
+  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb32" onclick="startBreath('pb32')"></div>
+    <div id="hint-pb32" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap</div>
+  </div>
+</div>
+
+<!-- ====== PAID: After — Q1 answer Future ====== -->
+<div class="screen" id="s-p-q1af">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — what proportion of your future self is taken up by <em id="q1-display-af">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1af" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1af" oninput="revealNum('num-pq1af',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1AF()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1AFSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: After — Q1 answer Past ====== -->
+<div class="screen" id="s-p-q1ap">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — what proportion of your past self has been taken up by <em id="q1-display-ap">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1ap" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1ap" oninput="revealNum('num-pq1ap',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1AP()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1APSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: Final Yes/No ====== -->
+<div class="screen" id="s-p-yn2">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN2('yes')">Yes</button>
+    <button class="yn-btn" onclick="onYN2('no')">No</button>
+    <button class="yn-btn" onclick="onYN2('meaningless')" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+  </div>
+</div>
+
+<!-- ====== PAID: Full Result ====== -->
+<div class="screen" id="s-p-result">
+  <div class="label">FULL SESSION COMPLETE</div>
+  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em">Something shifted.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
+  <div id="paid-result-rows"></div>
+  <div style="height:1.2rem"></div>
+  <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#1A1A1A">Share as Image</button>
+  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
+  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
+  <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
+    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
+    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
+  </div>
+  <button class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
+  <button class="btn-skip" onclick="startFree()">New topic</button>
+  <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
+    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
+    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
+    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif">Tap <span style="font-size:.8rem">⬆️</span> then "Add to Home Screen"</div>
+  </div>
+</div>
+
+<script>
+let TOPIC = 'Overthinking';
+let cur = 's-intro', hist = [];
+let breathing = false, bc = 0;
+
+const D = {
+  freeBF: null, freeBP: null, freeAF: null, freeAP: null,
+  paidBF: null, paidBP: null, paidAF: null, paidAP: null,
+  q1: '', q1BF: null, q1BP: null, q1AF: null, q1AP: null,
+  yn1: '', yn2: '', themeComplete: false, pendingTheme: null,
+  q1NothingComesUp: false, ynMeaningless: false
 };
 
-const TOPICS = [
-  { en: "Overthinking" },
-  { en: "Anxiety" },
+function go(id) {
+  const c = document.getElementById(cur), n = document.getElementById(id);
+  if (!c || !n) return;
+  c.classList.remove('active'); c.classList.add('exit');
+  setTimeout(() => c.classList.remove('exit'), 500);
+  setTimeout(() => { n.classList.add('active'); cur = id; updateBack(); updateProgress(); }, 120);
+}
+function fwd(id) { hist.push(cur); go(id); }
+function goBack() {
+  const p = hist.pop();
+  if (!p || p === 's-intro') { go('s-intro'); hist = []; return; }
+  breathing = false; bc = 0;
+  go(p);
+}
+function goToScreen(id) { fwd(id); }
+
+function updateBack() {
+  document.getElementById('btn-back').classList.toggle('visible',
+    cur !== 's-intro' && !cur.includes('result') && cur !== 's-paywall');
+}
+
+const SCREEN_ORDER = [
+  's-continue', 's-intro',
+  's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
+  's-paywall',
+  's-p-theme','s-p-yn','s-p-q1','s-p-q1f','s-p-q1p',
+  's-p-b21','s-p-b22','s-p-b23','s-p-b31','s-p-b32',
+  's-p-q1af','s-p-q1ap','s-p-yn2','s-p-result',
+  's-p-q1-final','s-p-complete'
 ];
+function updateProgress() {
+  const i = SCREEN_ORDER.indexOf(cur);
+  const pct = i < 0 ? 0 : (i / (SCREEN_ORDER.length - 1)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+}
 
-export default function App() {
-  const [screen, setScreen] = useState("landing");
-  const [topic, setTopic] = useState(TOPICS[0]);
-  const [step, setStep] = useState(0);
-  const [scores, setScores] = useState({});
-  const [breathing, setBreathing] = useState(false);
+// ── Theme selector ──
+function showThemeLock(theme) {
+  // Remember which theme the user wanted, then show paywall
+  D.pendingTheme = theme;
+  fwd('s-paywall');
+}
 
-  const updateScore = (key, val) =>
-    setScores((prev) => ({ ...prev, [key]: val }));
+function selectPaidTheme(btn, theme) {
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  TOPIC = theme;
+  // Update all topic display elements
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+  // Only update IDs that actually exist in DOM
+  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '"' + theme + '"';
+  });
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+}
 
-  const steps = [
-    () => (
-      <NumberInput
-        label={`Future (${topic.en})`}
-        value={scores.beforeFuture}
-        onChange={(v) => updateScore("beforeFuture", v)}
-      />
-    ),
+function selectTheme(btn, theme) {
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  TOPIC = theme;
+  // Update all topic display elements
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '"' + theme + '"';
+  });
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+}
 
-    () => (
-      <NumberInput
-        label={`Past (${topic.en})`}
-        value={scores.beforePast}
-        onChange={(v) => updateScore("beforePast", v)}
-      />
-    ),
+// ── Slider reveal ──
+function revealNum(id, val) {
+  const el = document.getElementById(id);
+  el.style.visibility = 'visible';
+  el.textContent = val;
+}
 
-    () => (
-      <BreathingCircle
-        phase="focus"
-        topic={topic}
-        isActive={breathing}
-        onComplete={() => {
-          setBreathing(false);
-          setStep(3);
-        }}
-      />
-    ),
+function hideNums(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.visibility = 'hidden'; el.textContent = '—'; }
+  });
+}
 
-    () => (
-      <BreathingCircle
-        phase="contrast"
-        topic={topic}
-        isActive={breathing}
-        onComplete={() => {
-          setBreathing(false);
-          setStep(4);
-        }}
-      />
-    ),
+function resetSliders(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = 50;
+  });
+}
 
-    () => (
-      <BreathingCircle
-        phase="whole"
-        topic={topic}
-        isActive={breathing}
-        onComplete={() => {
-          setBreathing(false);
-          setStep(5);
-        }}
-      />
-    ),
+function startFree() {
+  clearState();
+  Object.keys(D).forEach(k => { if (typeof D[k] === 'number' || D[k] === null) D[k] = null; else D[k] = ''; });
+  hist = []; breathing = false; bc = 0;
+  resetSliders('sl-fbf','sl-fbp','sl-faf','sl-fap');
+  hideNums('num-fbf','num-fbp','num-faf','num-fap');
+  fwd('s-f-bf');
+}
 
-    () => (
-      <NumberInput
-        label="Future (after)"
-        value={scores.afterFuture}
-        onChange={(v) => updateScore("afterFuture", v)}
-      />
-    ),
+// ── FREE FLOW ──
+function onFreeBF() { D.freeBF = +document.getElementById('sl-fbf').value; fwd('s-f-bp'); }
+function onFreeBFSkip() { D.freeBF = 'N/A'; fwd('s-f-bp'); }
+function onFreeBP() { D.freeBP = +document.getElementById('sl-fbp').value; fwd('s-f-b1'); }
+function onFreeBPSkip() { D.freeBP = 'N/A'; fwd('s-f-b1'); }
+function onFreeAF() { D.freeAF = +document.getElementById('sl-faf').value; fwd('s-f-ap'); }
+function onFreeAFSkip() { D.freeAF = 'N/A'; fwd('s-f-ap'); }
+function onFreeAP() { D.freeAP = +document.getElementById('sl-fap').value; showFreeResult(); }
+function onFreeAPSkip() { D.freeAP = 'N/A'; showFreeResult(); }
 
-    () => (
-      <NumberInput
-        label="Past (after)"
-        value={scores.afterPast}
-        onChange={(v) => updateScore("afterPast", v)}
-      />
-    ),
+function showFreeResult() {
+  const rows = document.getElementById('free-result-rows');
+  rows.innerHTML = '';
+  rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + TOPIC.toUpperCase() + ' RATE</div>';
+  rows.innerHTML += makeResultRow('Future', D.freeBF, D.freeAF, 'topic');
+  rows.innerHTML += makeResultRow('Past', D.freeBP, D.freeAP, 'topic');
+  fwd('s-f-result');
+}
 
-    () => (
-      <div style={{ padding: "1.5rem" }}>
-        <h2 style={{ textAlign: "center" }}>You shifted</h2>
+function makeResultRow(label, before, after, rowType) {
+  const isBeyondB = (before === 'N/A' || before === null);
+  const isBeyondA = (after  === 'N/A' || after  === null);
 
-        <ResultComparison
-          before={scores.beforeFuture}
-          after={scores.afterFuture}
-          label="Future"
-        />
+  // SVG infinity
+  const INF = '<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span>';
 
-        <ResultComparison
-          before={scores.beforePast}
-          after={scores.afterPast}
-          label="Past"
-        />
-
-        <button
-          style={{
-            width: "100%",
-            padding: "1rem",
-            marginTop: "1rem",
-            background: "#3F372E",
-            color: "#fff",
-            border: "none",
-            borderRadius: 8,
-          }}
-        >
-          Finish the release →
-        </button>
-      </div>
-    ),
-  ];
-
-  if (screen === "landing") {
-    return (
-      <div style={{ padding: "2rem", textAlign: "center" }}>
-        <h1>Noetune</h1>
-
-        {TOPICS.map((t) => (
-          <button
-            key={t.en}
-            onClick={() => {
-              setTopic(t);
-              setScreen("flow");
-            }}
-          >
-            {t.en}
-          </button>
-        ))}
-      </div>
-    );
+  // Arrow SVG (unified grey)
+  const ARROW_COLOR = '#A8A8A2';
+  let dirArrow = '';
+  if (!isBeyondA && !isBeyondB && typeof before === 'number' && typeof after === 'number') {
+    const d = before - after;
+    // For topic: decrease=up(good), For q1: increase=up(good)
+    // Direction only — no color meaning, all grey
+    const isUp = (rowType === 'topic') ? d > 0 : d < 0;
+    const isDown = (rowType === 'topic') ? d < 0 : d > 0;
+    if (isUp || isDown) {
+      dirArrow = arrowSVG(isUp ? 'up' : 'down', ARROW_COLOR);
+    }
   }
 
-  return (
-    <div>
-      {steps[step]()}
+  // Beyond row: "10 → ∞"
+  if (isBeyondA) {
+    const bPart = isBeyondB
+      ? INF
+      : '<span class="r-before">' + before + '</span>';
+    return '<div class="r-row">' +
+      '<span class="r-label" style="color:#8F8F89">' + label + '</span>' +
+      '<span class="r-arrow"></span>' +
+      '<span class="r-nums">' + bPart +
+      '<span class="r-sep">→</span>' +
+      INF +
+      '</span></div>';
+  }
 
-      {step < steps.length - 1 && (
-        <button
-          onClick={() => {
-            if (step >= 2 && step <= 4) {
-              setBreathing(true);
-            } else {
-              setStep(step + 1);
-            }
-          }}
-          style={{ width: "100%", padding: "1rem" }}
-        >
-          Continue
-        </button>
-      )}
-    </div>
-  );
+  // Normal row: "26 → 90 ↑"
+  const afterStr = isBeyondB ? '' : String(after);
+  return '<div class="r-row">' +
+    '<span class="r-label" style="color:#8F8F89">' + label + '</span>' +
+    '<span class="r-arrow"></span>' +
+    '<span class="r-nums">' +
+    '<span class="r-before">' + (isBeyondB ? '<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d=\"M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25\" stroke=\"#1A1A1A\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></svg></span>' : before) + '</span>' +
+    '<span class="r-sep">→</span>' +
+    '<span class="r-after" style="color:#1A1A1A">' + afterStr + '</span>' +
+    (dirArrow ? '<span style="display:inline-flex;align-items:center;flex-shrink:0">' + dirArrow + '</span>' : '') +
+    '</span></div>';
 }
+
+function arrowSVG(dir, color) {
+  const p = dir === 'up'
+    ? 'M16 3L31 20H22V39H10V20H1Z'
+    : 'M16 39L31 22H22V3H10V22H1Z';
+  return '<svg width="20" height="26" viewBox="0 0 32 42" style="display:block;flex-shrink:0"><path d="'+p+'" fill="'+color+'"/></svg>';
+}
+
+// ── PAYWALL ──
+function showPaywall() { fwd('s-paywall'); }
+
+
+// ── PAID FLOW ──
+// Paid topic Before/After removed — only Q1 (positive) is tracked
+
+function onYN(val) {
+  D.yn1 = val;
+  document.querySelectorAll('#s-p-yn .yn-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+  if (val === 'meaningless') {
+    D.ynMeaningless = true;
+    // Check if both graduation conditions are met
+    if (D.q1NothingComesUp) {
+      // Both conditions met → complete
+      setTimeout(() => {
+        D.themeComplete = true;
+        saveState();
+        clearState();
+        fwd('s-p-complete');
+      }, 400);
+      return;
+    }
+    // Only meaningless so far → go to Q1 to check
+    setTimeout(() => fwd('s-p-q1'), 400);
+  } else {
+    D.ynMeaningless = false;
+    setTimeout(() => fwd('s-p-q1'), 400);
+  }
+}
+
+function onQ1Nothing() {
+  D.q1NothingComesUp = true;
+  // Go back to YN to confirm meaninglessness
+  hist.push(cur);
+  go('s-p-yn');
+}
+
+function onQ1() {
+  const v = document.getElementById('input-q1').value.trim();
+  if (!v) return;
+  D.q1 = v;
+  D.q1NothingComesUp = false; // real answer: reset nothing flag
+  const qd = '"' + v + '"';
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b31','q1-display-af','q1-display-ap'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = qd;
+  });
+  fwd('s-p-q1f');
+}
+
+function onPQ1F() { D.q1BF = +document.getElementById('sl-pq1f').value; fwd('s-p-q1p'); }
+function onPQ1FSkip() { D.q1BF = 'N/A'; fwd('s-p-q1p'); }
+function onPQ1P() { D.q1BP = +document.getElementById('sl-pq1p').value; fwd('s-p-b21'); }
+function onPQ1PSkip() { D.q1BP = 'N/A'; fwd('s-p-b21'); }
+
+// Paid topic After removed
+function onPQ1AF() { D.q1AF = +document.getElementById('sl-pq1af').value; fwd('s-p-q1ap'); }
+function onPQ1AFSkip() { D.q1AF = 'N/A'; fwd('s-p-q1ap'); }
+function onPQ1AP() { D.q1AP = +document.getElementById('sl-pq1ap').value; fwd('s-p-yn2'); }
+function onPQ1APSkip() { D.q1AP = 'N/A'; fwd('s-p-yn2'); }
+
+function onYN2(val) {
+  D.yn2 = val;
+  document.querySelectorAll('#s-p-yn2 .yn-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+  if (val === 'meaningless') {
+    D.ynMeaningless = true;
+    if (D.q1NothingComesUp) {
+      // Both conditions met → complete (skip q1-final)
+      setTimeout(() => {
+        D.themeComplete = true;
+        saveState();
+        clearState();
+        fwd('s-p-complete');
+      }, 400);
+      return;
+    }
+    // Go to final Q1 check
+    setTimeout(() => fwd('s-p-q1-final'), 400);
+  } else {
+    D.ynMeaningless = false;
+    setTimeout(() => showPaidResult(), 400);
+  }
+}
+
+function showPaidResult() {
+  // Dynamic headline based on yn2
+  var headline = document.getElementById('paid-result-headline');
+  if (headline) {
+    if (D.yn2 === 'meaningless') {
+      headline.textContent = 'Something shifted.';
+    } else if (D.yn2 === 'no') {
+      headline.textContent = 'Something shifted.';
+    } else {
+      headline.textContent = 'Still present.';
+    }
+  }
+  const rows = document.getElementById('paid-result-rows');
+  rows.innerHTML = '';
+  if (D.q1) {
+    rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + D.q1.toUpperCase() + ' RATE</div>';
+    rows.innerHTML += makeResultRow('Future', D.q1BF, D.q1AF, 'q1');
+    rows.innerHTML += makeResultRow('Past', D.q1BP, D.q1AP, 'q1');
+  }
+  const ynLabel = D.yn2 === 'yes' ? 'Still present' : D.yn2 === 'no' ? 'Released' : 'Beyond meaning';
+  const ynCol = D.yn2 === 'no' ? '#6B9080' : D.yn2 === 'meaningless' ? '#6B9080' : '#C47A5A';
+  document.getElementById('paid-yn-result').innerHTML =
+    '<span style="color:'+ynCol+'">● </span>' + TOPIC + ': ' + ynLabel;
+  saveState();
+  fwd('s-p-result');
+  setTimeout(showAddToHome, 600);
+}
+
+// ── BREATHING ──
+function resetCircle(t) {
+  const c = document.getElementById('circle-' + t);
+  c.className = 'breath-circle pulse'; c.textContent = '';
+  const h = document.getElementById('hint-' + t);
+  if (h) h.style.display = 'block';
+}
+
+function startBreath(t) {
+  if (breathing) return;
+  breathing = true;
+  const h = document.getElementById('hint-' + t);
+  if (h) h.style.display = 'none';
+  const c = document.getElementById('circle-' + t);
+  c.classList.remove('pulse');
+  bc = 0;
+  bCycle(t, c);
+}
+
+function bCycle(t, c) {
+  if (bc >= 1) {
+    c.textContent = '✓'; c.className = 'breath-circle';
+    setTimeout(() => afterBreath(t), 800);
+    return;
+  }
+  c.textContent = 'In'; c.className = 'breath-circle inhale';
+  setTimeout(() => {
+    c.textContent = 'Out'; c.className = 'breath-circle exhale';
+    setTimeout(() => { bc++; bCycle(t, c); }, 3000);
+  }, 3000);
+}
+
+const BREATH_NEXT = {
+  'fb1': 's-f-b2', 'fb2': 's-f-b3', 'fb3': 's-f-af',
+  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b31', 'pb31': 's-p-b32', 'pb32': 's-p-q1af'
+};
+
+function afterBreath(t) {
+  breathing = false; bc = 0;
+  const next = BREATH_NEXT[t];
+  if (next) {
+    fwd(next);
+    // Reset ALL breath circles on the next screen after transition
+    setTimeout(function() {
+      document.querySelectorAll('.breath-circle').forEach(function(c) {
+        if (c.textContent === '✓' || c.textContent === 'In' || c.textContent === 'Out') {
+          c.textContent = '';
+          c.className = 'breath-circle pulse';
+        }
+      });
+      document.querySelectorAll('[id^="hint-"]').forEach(function(h) {
+        h.style.display = 'block';
+      });
+    }, 150);
+  }
+}
+
+// ── Q1 input wiring ──
+const inp1 = document.getElementById('input-q1');
+const btn1 = document.getElementById('btn-q1');
+inp1.addEventListener('input', function() {
+  const ok = inp1.value.trim().length > 0;
+  btn1.disabled = !ok;
+  btn1.style.opacity = ok ? '1' : '.45';
+  btn1.style.cursor = ok ? 'pointer' : 'default';
+});
+inp1.addEventListener('keydown', e => {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+// Global Enter prevention
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+
+// ── PAID DIRECT ──
+function goToPaidDirect() {
+  // Reset paid sliders/data but keep topic
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  hist = []; breathing = false; bc = 0;
+  fwd('s-p-theme');
+}
+
+// ── CANVAS IMAGE CARD ──
+// ── SHARE CARD BUILDER ──
+function buildShareCard(type) {
+  var topic = (type === 'free') ? TOPIC : (D.q1 || TOPIC);
+  document.getElementById('sc-topic').textContent = topic.toUpperCase() + ' RATE';
+
+  // Headline
+  var allBeyond = false;
+  if (type === 'paid') {
+    allBeyond = (D.q1AF === null || D.q1AF === 'N/A') && (D.q1AP === null || D.q1AP === 'N/A');
+  } else {
+    allBeyond = (D.freeAF === null || D.freeAF === 'N/A') && (D.freeAP === null || D.freeAP === 'N/A');
+  }
+  document.getElementById('sc-headline').textContent = allBeyond ? "It's gone." : "Something shifted.";
+
+  // Build rows
+  var rows;
+  if (type === 'free') {
+    rows = [
+      { label: 'Future', before: D.freeBF, after: D.freeAF, rtype: 'topic' },
+      { label: 'Past',   before: D.freeBP, after: D.freeAP, rtype: 'topic' },
+    ];
+  } else {
+    rows = [
+      { label: 'Future', before: D.q1BF, after: D.q1AF, rtype: 'q1' },
+      { label: 'Past',   before: D.q1BP, after: D.q1AP, rtype: 'q1' },
+    ];
+  }
+
+  var INF_SVG = '<span class="sc-inf"><svg viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg></span>';
+  var UP_ARR  = '<svg width="34" height="42" viewBox="0 0 32 42"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
+  var DN_ARR  = '<svg width="34" height="42" viewBox="0 0 32 42"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
+
+  var html = '';
+  rows.forEach(function(row) {
+    var isBeyondA = (row.after === null || row.after === 'N/A');
+    var isBeyondB = (row.before === null || row.before === 'N/A');
+    var bStr = isBeyondB ? '' : String(row.before);
+    var aStr = isBeyondA ? '' : String(row.after);
+    var col = '#1A1A1A';
+    var dirArrow = '';
+    if (!isBeyondA && !isBeyondB) {
+      var d = Number(row.before) - Number(row.after);
+      var UP_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
+      var DN_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
+      if (row.rtype === 'topic') {
+        if (d > 0) dirArrow = DN_G;
+        else if (d < 0) dirArrow = UP_G;
+      } else {
+        if (d < 0) dirArrow = UP_G;
+        else if (d > 0) dirArrow = DN_G;
+      }
+    }
+        var afterHtml = isBeyondA
+      ? INF_SVG
+      : '<span class="sc-after" style="color:#1A1A1A">' + aStr + '</span>';
+    var beforeHtml = isBeyondB ? INF_SVG : '<span class="sc-before">' + bStr + '</span>';
+    html += '<div class="sc-row">' +
+      '<span class="sc-row-label">' + row.label + '</span>' +
+      beforeHtml +
+      '<span class="sc-arrow">\u2192</span>' +
+      afterHtml +
+      (dirArrow ? '<span class="sc-up-arrow">' + dirArrow + '</span>' : '') +
+      '</div>';
+  });
+  document.getElementById('sc-rows').innerHTML = html;
+}
+
+async function renderShareCard(type) {
+  buildShareCard(type);
+  var card = document.getElementById('share-card');
+  // Temporarily make visible for rendering
+  card.style.top = '-9999px';
+  card.style.left = '-9999px';
+  card.style.zIndex = '9999';
+  await new Promise(function(r){ setTimeout(r, 80); }); // let fonts load
+  try {
+    var canvas = await html2canvas(card, {
+      scale: 1,
+      useCORS: true,
+      backgroundColor: '#FAFAF7',
+      width: 1080,
+      height: 1080,
+      logging: false,
+    });
+    card.style.zIndex = '-1';
+    return canvas.toDataURL('image/png');
+  } catch(e) {
+    card.style.zIndex = '-1';
+    console.error('html2canvas error:', e);
+    return null;
+  }
+}
+
+async function shareImage(type) {
+  var dataURL = await renderShareCard(type);
+  if (!dataURL) { alert('Could not generate image.'); return; }
+  if (navigator.share && navigator.canShare) {
+    try {
+      var res = await fetch(dataURL);
+      var blob = await res.blob();
+      var file = new File([blob], 'noetune-result.png', { type: 'image/png' });
+      if (navigator.canShare({ files: [file] })) {
+        await navigator.share({ files: [file], title: 'Noetune' });
+        return;
+      }
+    } catch(e) {}
+  }
+  triggerDownload(dataURL, 'noetune-result.png');
+}
+
+async function saveImage(type) {
+  var dataURL = await renderShareCard(type);
+  if (!dataURL) { alert('Could not generate image.'); return; }
+  triggerDownload(dataURL, 'noetune-result.png');
+}
+
+function triggerDownload(dataURL, filename) {
+  var a = document.createElement('a');
+  a.href = dataURL;
+  a.download = filename;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); }, 200);
+}
+
+// ── Q1 Final input wiring ──
+const inp2 = document.getElementById('input-q1-final');
+const btn2 = document.getElementById('btn-q1-final');
+if (inp2 && btn2) {
+  inp2.addEventListener('input', function() {
+    const ok = inp2.value.trim().length > 0;
+    btn2.disabled = !ok;
+    btn2.style.opacity = ok ? '1' : '.45';
+  });
+  inp2.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+}
+
+
+// ── UNLOCK PAID ──
+function unlockPaid() {
+  // Apply pending theme if user clicked a locked theme from intro
+  if (D.pendingTheme) {
+    TOPIC = D.pendingTheme;
+    D.pendingTheme = null;
+    ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = '"' + TOPIC + '"';
+    });
+    document.querySelectorAll('.topic-d').forEach(function(el) {
+      el.textContent = '"' + TOPIC + '"';
+    });
+  }
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,
+    q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  hist = []; breathing = false; bc = 0;
+  fwd('s-p-theme');
+}
+
+// ── CONTINUE SESSION (same theme, skip theme selector, go to Q1) ──
+function continueSession() {
+  D.q1 = ''; D.q1BF = null; D.q1BP = null; D.q1AF = null; D.q1AP = null;
+  D.yn1 = ''; D.yn2 = '';
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  breathing = false; bc = 0;
+  hist.push(cur);
+  saveState();
+  go('s-p-q1');
+}
+
+// ── FINAL CONFIRMATION Q1 ──
+function onQ1Final() {
+  const v = document.getElementById('input-q1-final').value.trim();
+  if (!v) return;
+  D.q1 = v;
+  D.q1NothingComesUp = false; // real answer came up — reset
+  const qd = '"' + v + '"';
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b31','q1-display-af','q1-display-ap'].forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = qd;
+  });
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  document.getElementById('input-q1-final').value = '';
+  D.yn2 = '';
+  fwd('s-p-q1f');
+}
+
+function onQ1FinalEmpty() {
+  D.q1NothingComesUp = true;
+  if (D.ynMeaningless) {
+    // Both conditions met → complete
+    D.themeComplete = true;
+    saveState();
+    clearState();
+    fwd('s-p-complete');
+  } else {
+    // Nothing came up but YN not meaningless yet — back to YN2
+    fwd('s-p-yn2');
+  }
+}
+
+function goToNewTheme() {
+  clearState();
+  D.themeComplete = false;
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,
+    q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const inp2 = document.getElementById('input-q1-final');
+  if (inp2) inp2.value = '';
+  hist = []; breathing = false; bc = 0;
+  fwd('s-p-theme');
+}
+
+
+// ══════════════════════════════════════════════
+// ── CONTINUITY SYSTEM (localStorage) ──
+// ══════════════════════════════════════════════
+
+const STORAGE_KEY = 'noetune_state';
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      activeTheme: TOPIC,
+      status: D.themeComplete ? 'completed' : 'in-progress',
+      lastSessionDate: new Date().toISOString().slice(0, 10),
+      ynMeaningless: D.ynMeaningless,
+      q1NothingComesUp: D.q1NothingComesUp
+    }));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+}
+
+function checkOnStartup() {
+  var state = loadState();
+  if (state && state.status === 'in-progress' && state.activeTheme) {
+    // Show continue screen
+    TOPIC = state.activeTheme;
+    var el = document.getElementById('continue-topic-name');
+    if (el) el.textContent = '"' + TOPIC + '"';
+    // Update all topic displays
+    applyTopic(TOPIC);
+    // Switch to continue screen
+    var intro = document.getElementById('s-intro');
+    var cont  = document.getElementById('s-continue');
+    if (intro && cont) {
+      intro.classList.remove('active');
+      cont.classList.add('active');
+      cur = 's-continue';
+    }
+  }
+}
+
+function applyTopic(theme) {
+  TOPIC = theme;
+  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = '"' + theme + '"';
+  });
+  document.querySelectorAll('.topic-d').forEach(function(el) {
+    el.textContent = '"' + theme + '"';
+  });
+}
+
+function continueFromStorage() {
+  // Restore flags from storage if available
+  var state = loadState();
+  if (state) {
+    D.ynMeaningless    = !!state.ynMeaningless;
+    D.q1NothingComesUp = !!state.q1NothingComesUp;
+  }
+  // Reset session data, keep TOPIC
+  D.q1 = ''; D.q1BF = null; D.q1BP = null; D.q1AF = null; D.q1AP = null;
+  D.yn1 = ''; D.yn2 = ''; D.themeComplete = false;
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  var inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  var btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  breathing = false; bc = 0; hist = [];
+  // Pre-select the theme in paid theme screen
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  fwd('s-p-q1');
+}
+
+function newTopicFromStorage() {
+  clearState();
+  D.themeComplete = false;
+  TOPIC = 'Overthinking';
+  applyTopic(TOPIC);
+  // Reset theme buttons
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  var first = document.querySelector('#s-p-theme .theme-btn');
+  if (first) first.classList.add('selected');
+  go('s-intro');
+  hist = [];
+}
+
+
+// ══════════════════════════════════════════════
+// ── PWA / ADD TO HOME SCREEN ──
+// ══════════════════════════════════════════════
+
+var _pwaPrompt = null;
+var _pwaShown  = false;
+
+// Capture Android install prompt
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  _pwaPrompt = e;
+});
+
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+}
+
+function isInStandaloneMode() {
+  return ('standalone' in window.navigator && window.navigator.standalone) ||
+         window.matchMedia('(display-mode: standalone)').matches;
+}
+
+function showAddToHome() {
+  if (_pwaShown) return;
+  if (isInStandaloneMode()) return; // Already installed
+  var el = document.getElementById('add-to-home');
+  if (!el) return;
+  if (isIOS()) {
+    el.style.display = 'block';
+    var hint = document.getElementById('pwa-ios-hint');
+    var btn  = document.getElementById('pwa-install-btn');
+    if (hint) hint.style.display = 'block';
+    if (btn)  btn.style.display  = 'none';
+  } else if (_pwaPrompt) {
+    el.style.display = 'block';
+  }
+  // else: unsupported (desktop non-PWA) — don't show
+  _pwaShown = true;
+}
+
+function triggerPWAInstall() {
+  if (_pwaPrompt) {
+    _pwaPrompt.prompt();
+    _pwaPrompt.userChoice.then(function(result) {
+      _pwaPrompt = null;
+      if (result.outcome === 'accepted') {
+        var el = document.getElementById('add-to-home');
+        if (el) el.style.display = 'none';
+      }
+    });
+  }
+}
+
+updateProgress();
+checkOnStartup();
+</script>
+
+<!-- ====== PAID: Final Confirmation Q1 ====== -->
+<div class="screen" id="s-p-q1-final">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CONFIRMATION</div>
+  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
+  <div style="font-size:.75rem;color:#B8B8B0;line-height:1.7;text-align:center;max-width:260px;margin-bottom:1.4rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em">If no answer comes naturally,<br>this theme may be complete.</div>
+  <input class="text-input" id="input-q1-final" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-q1-final" onclick="onQ1Final()" style="margin-top:1.8rem">Confirm</button>
+  <button class="btn-skip" onclick="onQ1FinalEmpty()">No answer comes</button>
+</div>
+
+<!-- ====== PAID: Theme Complete ====== -->
+<div class="screen" id="s-p-complete">
+  <div class="label">THEME COMPLETE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:.4rem;letter-spacing:.1em">✓</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:300;color:#AAA;letter-spacing:.12em;margin-bottom:.5rem">No longer present.</div>
+  <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
+  <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
+  <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
+  <button class="btn-ghost" onclick="startFree()" style="margin-top:.6rem">Return to start</button>
+</div>
+
+
+<!-- ── Hidden share card ── -->
+<div id="share-card">
+  <div class="sc-label" id="sc-label">FULL SESSION COMPLETE</div>
+  <div class="sc-headline" id="sc-headline">Something shifted.</div>
+  <div class="sc-topic" id="sc-topic"></div>
+  <div id="sc-rows"></div>
+  <div class="sc-footer">noetune.app</div>
+</div>
+
+</body>
+</html>
