@@ -420,7 +420,7 @@ function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementByI
 
 // ── localStorage ──
 var STORAGE_KEY='noetune_state';
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalStatePast==='meaningless'||D.finalStateFuture==='meaningless'}));}catch(e){}}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless'}));}catch(e){}}
 function loadState(){try{var raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):null;}catch(e){return null;}}
 function clearState(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
 
