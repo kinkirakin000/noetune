@@ -283,6 +283,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="yes-no-wrap">
     <button class="yn-btn" onclick="onYN2('yes',this)">Yes</button>
     <button class="yn-btn" onclick="onYN2('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2('not_sure',this)">Not sure</button>
     <button class="yn-btn" onclick="onYN2('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
   </div>
 </div>
@@ -463,14 +464,16 @@ function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value
 function onMeasure2Skip(){D.stateAfter='N/A';fwd('s-p-yn2');}
 
 function onYN2(val,btn){
-  D.yn2=val;
+  D.finalState=val;
   document.querySelectorAll('#s-p-yn2 .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
-  if(val==='meaningless'){
-    D.ynMeaningless=true;
-    if(D.q1NothingComesUp){setTimeout(function(){D.themeComplete=true;saveState();clearState();fwd('s-p-complete');},400);return;}
-    setTimeout(function(){fwd('s-p-q1-final');},400);
-  }else{D.ynMeaningless=false;setTimeout(function(){showPaidResult();},400);}
+  if(val==='yes'||val==='not_sure'){
+    setTimeout(function(){continueSession();},400);
+  }else if(val==='no'){
+    setTimeout(function(){showPaidResult();},400);
+  }else{
+    setTimeout(function(){D.themeComplete=true;saveState();clearState();fwd('s-p-complete');},400);
+  }
 }
 
 function showPaidResult(){
