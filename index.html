@@ -290,7 +290,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div style="font-size:.82rem;color:#888;line-height:1.8;text-align:center;max-width:280px;margin-bottom:1rem">
     This was just the surface.<br>The pattern is still underneath.
   </div>
-  <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A">Share as Image</button>
+  <button class="btn" onclick="showPaywall()" style="background:#6B9080">Go deeper →</button>
+  <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A;margin-top:.8rem">Share as Image</button>
   <button class="btn-ghost" onclick="saveImage('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
   <button class="btn-ghost" onclick="shareResultText('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
   <div id="share-fallback-free" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
@@ -298,7 +299,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <button onclick="copyResult('free')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-free">Copy text</button>
   </div>
   <div id="share-msg-free" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
-  <button class="btn" onclick="showPaywall()" style="background:#6B9080;margin-top:.8rem">Go deeper →</button>
 </div>
 
 <!-- ====== PAYWALL ====== -->
