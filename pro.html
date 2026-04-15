@@ -495,10 +495,10 @@ function onYN2Future(val,btn){
   document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
   var hasMeaningless=val==='meaningless'||D.finalStatePast==='meaningless';
-  var hasContinue=val==='yes'||val==='not_sure'||D.finalStatePast==='yes'||D.finalStatePast==='not_sure';
+  var hasYes=val==='yes'||D.finalStatePast==='yes';
   if(hasMeaningless){
     setTimeout(function(){D.themeComplete=true;saveState();clearState();fwd('s-p-complete');},400);
-  }else if(hasContinue){
+  }else if(hasYes){
     setTimeout(function(){continueSession();},400);
   }else{
     setTimeout(function(){showPaidResult();},400);
