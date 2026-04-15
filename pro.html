@@ -363,7 +363,7 @@ let cur = 's-p-theme', hist = [];
 let breathing = false, bc = 0;
 
 const D = {
-  q1:'', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false
+  q1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false
 };
 
 
@@ -442,7 +442,7 @@ function checkOnStartup(){
 }
 
 function continueFromStorage(){
-  D.q1='';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';D.themeComplete=false;
+  D.q1='';D.questionFrame='person';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';D.themeComplete=false;
   resetSliders('sl-measure1','sl-measure2');
   hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
@@ -469,6 +469,7 @@ function selectPaidTheme(btn,theme){
 function selectFrame(btn){
   document.querySelectorAll('#s-p-q1 .yn-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
+  D.questionFrame=btn.id==='q-frame-a'?'person':'self';
 }
 
 function onQ1(){
@@ -494,7 +495,7 @@ function onYN2Future(val,btn){
   D.finalStateFuture=val;
   document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
-  var hasMeaningless=val==='meaningless'||D.finalStatePast==='meaningless';
+  var hasMeaningless=val==='meaningless'&&D.finalStatePast==='meaningless';
   var hasYes=val==='yes'||D.finalStatePast==='yes';
   if(hasMeaningless){
     setTimeout(function(){D.themeComplete=true;saveState();clearState();fwd('s-p-complete');},400);
@@ -543,7 +544,7 @@ inp1.addEventListener('input',function(){var ok=inp1.value.trim().length>0;btn1.
 
 // ── Session controls ──
 function continueSession(){
-  D.q1='';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';
+  D.q1='';D.questionFrame='person';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
@@ -552,7 +553,7 @@ function continueSession(){
 function goToNewTheme(){
   clearState();D.themeComplete=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
-  Object.assign(D,{q1:'',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:''});
+  Object.assign(D,{q1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:''});
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
