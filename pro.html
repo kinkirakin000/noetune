@@ -204,7 +204,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== PAID: Q1 — reversal question ====== -->
 <div class="screen" id="s-p-q1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
-  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
+  <div class="yes-no-wrap" style="margin-bottom:1.4rem">
+    <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</button>
+    <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What kind of state am I in when I have nothing to do with <em class="topic-d">"Overthinking"</em>?</button>
+  </div>
   <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
   <button class="btn-skip" onclick="onQ1Nothing()" style="margin-top:.6rem;color:#B8B8B0;font-size:.78rem">Nothing comes up</button>
@@ -450,6 +453,11 @@ function selectPaidTheme(btn,theme){
   applyTopic(theme);
 }
 
+
+function selectFrame(btn){
+  document.querySelectorAll('#s-p-q1 .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+}
 
 function onQ1(){
   var v=document.getElementById('input-q1').value.trim();if(!v)return;
