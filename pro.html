@@ -279,15 +279,27 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="btn-skip" onclick="onMeasure2Skip()">Beyond measure</button>
 </div>
 
-<!-- ====== PAID: Final Yes/No ====== -->
-<div class="screen" id="s-p-yn2">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK</div>
-  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
+<!-- ====== PAID: Final Check — Past ====== -->
+<div class="screen" id="s-p-yn2-past">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 1/2</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere in your past?</div>
   <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN2('yes',this)">Yes</button>
-    <button class="yn-btn" onclick="onYN2('no',this)">No</button>
-    <button class="yn-btn" onclick="onYN2('not_sure',this)">Not sure</button>
-    <button class="yn-btn" onclick="onYN2('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+    <button class="yn-btn" onclick="onYN2Past('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2Past('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Past('not_sure',this)">Not sure</button>
+    <button class="yn-btn" onclick="onYN2Past('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+  </div>
+</div>
+
+<!-- ====== PAID: Final Check — Future ====== -->
+<div class="screen" id="s-p-yn2-future">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 2/2</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere in your future?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN2Future('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2Future('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Future('not_sure',this)">Not sure</button>
+    <button class="yn-btn" onclick="onYN2Future('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
   </div>
 </div>
 
@@ -351,7 +363,7 @@ let cur = 's-p-theme', hist = [];
 let breathing = false, bc = 0;
 
 const D = {
-  q1:'', stateBefore:null, stateAfter:null, finalState:'', themeComplete:false
+  q1:'', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false
 };
 
 
@@ -403,12 +415,12 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefa
 
 
 function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete');}
-var SCREEN_ORDER=['s-continue','s-p-theme','s-p-cal1','s-p-cal2','s-p-cal3','s-p-q1','s-p-measure1','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2','s-p-result','s-p-complete'];
+var SCREEN_ORDER=['s-continue','s-p-theme','s-p-cal1','s-p-cal2','s-p-cal3','s-p-q1','s-p-measure1','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-result','s-p-complete'];
 function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
 
 // ── localStorage ──
 var STORAGE_KEY='noetune_state';
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalState==='meaningless'}));}catch(e){}}
+function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalStatePast==='meaningless'||D.finalStateFuture==='meaningless'}));}catch(e){}}
 function loadState(){try{var raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):null;}catch(e){return null;}}
 function clearState(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
 
@@ -430,7 +442,7 @@ function checkOnStartup(){
 }
 
 function continueFromStorage(){
-  D.q1='';D.stateBefore=null;D.stateAfter=null;D.finalState='';D.themeComplete=false;
+  D.q1='';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';D.themeComplete=false;
   resetSliders('sl-measure1','sl-measure2');
   hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
@@ -469,19 +481,27 @@ function onQ1(){
 function onQ1Nothing(){fwd('s-p-measure1');}
 function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b21');}
 function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b21');}
-function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;fwd('s-p-yn2');}
-function onMeasure2Skip(){D.stateAfter='N/A';fwd('s-p-yn2');}
+function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;fwd('s-p-yn2-past');}
+function onMeasure2Skip(){D.stateAfter='N/A';fwd('s-p-yn2-past');}
 
-function onYN2(val,btn){
-  D.finalState=val;
-  document.querySelectorAll('#s-p-yn2 .yn-btn').forEach(function(b){b.classList.remove('selected');});
+function onYN2Past(val,btn){
+  D.finalStatePast=val;
+  document.querySelectorAll('#s-p-yn2-past .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
-  if(val==='yes'||val==='not_sure'){
-    setTimeout(function(){continueSession();},400);
-  }else if(val==='no'){
-    setTimeout(function(){showPaidResult();},400);
-  }else{
+  setTimeout(function(){fwd('s-p-yn2-future');},400);
+}
+function onYN2Future(val,btn){
+  D.finalStateFuture=val;
+  document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  var hasMeaningless=val==='meaningless'||D.finalStatePast==='meaningless';
+  var hasContinue=val==='yes'||val==='not_sure'||D.finalStatePast==='yes'||D.finalStatePast==='not_sure';
+  if(hasMeaningless){
     setTimeout(function(){D.themeComplete=true;saveState();clearState();fwd('s-p-complete');},400);
+  }else if(hasContinue){
+    setTimeout(function(){continueSession();},400);
+  }else{
+    setTimeout(function(){showPaidResult();},400);
   }
 }
 
@@ -496,9 +516,13 @@ function showPaidResult(){
   var label=D.q1||TOPIC;
   rows.innerHTML+=makeResultRow(label,D.stateBefore,D.stateAfter,'q1');
   var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
-  var ynLabel=finalLabels[D.finalState]||'Shifted';
-  var ynCol=D.finalState==='no'||D.finalState==='meaningless'?'#6B9080':'#C47A5A';
-  document.getElementById('paid-yn-result').innerHTML='<span style="color:'+ynCol+'">● </span>'+TOPIC+': '+ynLabel;
+  var pastLabel=finalLabels[D.finalStatePast]||'Shifted';
+  var futureLabel=finalLabels[D.finalStateFuture]||'Shifted';
+  var pastCol=D.finalStatePast==='no'||D.finalStatePast==='meaningless'?'#6B9080':'#C47A5A';
+  var futureCol=D.finalStateFuture==='no'||D.finalStateFuture==='meaningless'?'#6B9080':'#C47A5A';
+  document.getElementById('paid-yn-result').innerHTML=
+    '<span style="color:'+pastCol+'">● </span>Past: '+pastLabel+'<br>'+
+    '<span style="color:'+futureCol+'">● </span>Future: '+futureLabel;
   saveState();fwd('s-p-result');
   setTimeout(showAddToHome,600);
 }
@@ -516,7 +540,7 @@ inp1.addEventListener('input',function(){var ok=inp1.value.trim().length>0;btn1.
 
 // ── Session controls ──
 function continueSession(){
-  D.q1='';D.stateBefore=null;D.stateAfter=null;D.finalState='';
+  D.q1='';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
@@ -525,7 +549,7 @@ function continueSession(){
 function goToNewTheme(){
   clearState();D.themeComplete=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
-  Object.assign(D,{q1:'',stateBefore:null,stateAfter:null,finalState:''});
+  Object.assign(D,{q1:'',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:''});
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
@@ -555,7 +579,9 @@ function resultToText_paid(){
   var lines=['Noetune — Full Session','',label.toUpperCase()+' RATE'];
   lines.push('State: '+(D.stateBefore==='N/A'||D.stateBefore===null?'∞':D.stateBefore)+' → '+(D.stateAfter==='N/A'||D.stateAfter===null?'∞':D.stateAfter));
   var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
-  lines.push(TOPIC+': '+(finalLabels[D.finalState]||'Shifted'),'','noetune.app');
+  lines.push('Past: '+(finalLabels[D.finalStatePast]||'Shifted'));
+  lines.push('Future: '+(finalLabels[D.finalStateFuture]||'Shifted'));
+  lines.push('','noetune.app');
   return lines.join('\n');
 }
 async function shareResultText(type){var t=resultToText_paid();if(navigator.share){try{await navigator.share({text:t,title:'Noetune'});return;}catch(e){if(e&&e.name==='AbortError')return;}}var fb=document.getElementById('share-fallback-paid');if(fb)fb.style.display='flex';var xa=document.getElementById('share-x-paid');if(xa)xa.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(t);}
