@@ -458,6 +458,7 @@ function onQ1(){
   ['q1-display-b21','q1-display-b22','q1-display-b23'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
   fwd('s-p-measure1');
 }
+function onQ1Nothing(){fwd('s-p-measure1');}
 function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b21');}
 function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b21');}
 function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;fwd('s-p-yn2');}
