@@ -516,13 +516,16 @@ function showPaidResult(){
   var label=D.q1||TOPIC;
   rows.innerHTML+=makeResultRow(label,D.stateBefore,D.stateAfter,'q1');
   var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
-  var pastLabel=finalLabels[D.finalStatePast]||'Shifted';
-  var futureLabel=finalLabels[D.finalStateFuture]||'Shifted';
+  var pastLabel=finalLabels[D.finalStatePast]||'—';
+  var futureLabel=finalLabels[D.finalStateFuture]||'—';
   var pastCol=D.finalStatePast==='no'||D.finalStatePast==='meaningless'?'#6B9080':'#C47A5A';
   var futureCol=D.finalStateFuture==='no'||D.finalStateFuture==='meaningless'?'#6B9080':'#C47A5A';
   document.getElementById('paid-yn-result').innerHTML=
-    '<span style="color:'+pastCol+'">● </span>Past: '+pastLabel+'<br>'+
-    '<span style="color:'+futureCol+'">● </span>Future: '+futureLabel;
+    '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+TOPIC.toUpperCase()+'</div>'+
+    '<div style="display:flex;justify-content:center;gap:2rem">'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Past<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Future<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
+    '</div>';
   saveState();fwd('s-p-result');
   setTimeout(showAddToHome,600);
 }
