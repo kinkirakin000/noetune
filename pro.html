@@ -547,7 +547,7 @@ function continueSession(){
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
-  breathing=false;bc=0;hist.push(cur);saveState();go('s-p-cal1');
+  breathing=false;bc=0;hist=[];saveState();go('s-p-cal1');
 }
 function goToNewTheme(){
   clearState();D.themeComplete=false;
