@@ -168,7 +168,37 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <button class="theme-btn" id="pt-emotional" onclick="selectPaidTheme(this,'Emotional reaction')">Emotional reaction</button>
     <button class="theme-btn" id="pt-urge" onclick="selectPaidTheme(this,'Urge')">Urge</button>
   </div>
-  <button class="btn" onclick="fwd('s-p-yn')">Continue</button>
+  <button class="btn" onclick="fwd('s-p-cal1')">Continue</button>
+</div>
+
+<!-- ====== PAID: Calibration 1/3 ====== -->
+<div class="screen" id="s-p-cal1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 1/3</div>
+  <div class="breath-focus">Feel the feeling of <em class="topic-d">"Overthinking"</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pcal1" onclick="startBreath('pcal1')"></div>
+    <div id="hint-pcal1" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Calibration 2/3 ====== -->
+<div class="screen" id="s-p-cal2">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 2/3</div>
+  <div class="breath-focus">Feel everything —<br>except the feeling of <em class="topic-d">"Overthinking"</em>.<br>While feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pcal2" onclick="startBreath('pcal2')"></div>
+    <div id="hint-pcal2" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Calibration 3/3 ====== -->
+<div class="screen" id="s-p-cal3">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 3/3</div>
+  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pcal3" onclick="startBreath('pcal3')"></div>
+    <div id="hint-pcal3" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
 </div>
 
 <!-- ====== PAID: Q1 — reversal question ====== -->
@@ -345,7 +375,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefa
 
 
 function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete');}
-var SCREEN_ORDER=['s-continue','s-p-theme','s-p-yn','s-p-q1','s-p-q1f','s-p-q1p','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-q1af','s-p-q1ap','s-p-yn2','s-p-result','s-p-q1-final','s-p-complete'];
+var SCREEN_ORDER=['s-continue','s-p-theme','s-p-cal1','s-p-cal2','s-p-cal3','s-p-q1','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-yn2','s-p-result','s-p-complete'];
 function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
 
 // ── localStorage ──
@@ -453,7 +483,7 @@ function showPaidResult(){
 // ── Breathing ──
 function startBreath(t){if(breathing)return;breathing=true;var h=document.getElementById('hint-'+t);if(h)h.style.display='none';var c=document.getElementById('circle-'+t);c.classList.remove('pulse');bc=0;setTimeout(function(){bCycle(t,c);},600);}
 function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2000);},2000);}
-var BREATH_NEXT={'pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-q1af','pb32':'s-p-q1af'};
+var BREATH_NEXT={'pcal1':'s-p-cal2','pcal2':'s-p-cal3','pcal3':'s-p-q1','pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24'};
 function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}} );document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
 
 // ── Q1 input wiring ──
