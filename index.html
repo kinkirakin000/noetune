@@ -480,6 +480,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 </div>
 
 <script>
+function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
+
 let TOPIC = 'Overthinking';
 let cur = 's-intro', hist = [];
 let breathing = false, bc = 0;
@@ -584,6 +586,7 @@ function resetSliders(...ids) {
 }
 
 function startFree() {
+  track('session_start_free',{topic:TOPIC});
   clearState();
   Object.keys(D).forEach(k => { if (typeof D[k] === 'number' || D[k] === null) D[k] = null; else D[k] = ''; });
   hist = []; breathing = false; bc = 0;
@@ -603,6 +606,7 @@ function onFreeAP() { D.freeAP = +document.getElementById('sl-fap').value; showF
 function onFreeAPSkip() { D.freeAP = 'N/A'; showFreeResult(); }
 
 function showFreeResult() {
+  track('session_complete_free',{topic:TOPIC});
   const rows = document.getElementById('free-result-rows');
   rows.innerHTML = '';
   rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + TOPIC.toUpperCase() + ' RATE</div>';
@@ -673,7 +677,7 @@ function arrowSVG(dir, color) {
 }
 
 // ── PAYWALL ──
-function showPaywall() { fwd('s-paywall'); }
+function showPaywall() { track('paywall_view',{topic:TOPIC});fwd('s-paywall'); }
 
 
 // ── PAID FLOW ──
@@ -1074,6 +1078,7 @@ if (inp2 && btn2) {
 
 // ── UNLOCK PAID ──
 function unlockPaid() {
+  track('checkout_start',{topic:TOPIC});
   // Apply pending theme if user clicked a locked theme from intro
   if (D.pendingTheme) {
     TOPIC = D.pendingTheme;

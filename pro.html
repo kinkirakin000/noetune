@@ -358,6 +358,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 
 <script>
+function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
+
 let TOPIC = 'Overthinking';
 let cur = 's-p-theme', hist = [];
 let breathing = false, bc = 0;
@@ -507,6 +509,7 @@ function onYN2Future(val,btn){
 }
 
 function showPaidResult(){
+  track('session_complete_paid',{topic:TOPIC});
   var headline=document.getElementById('paid-result-headline');
   if(headline){
     if(D.stateAfter==='N/A'||D.stateAfter===null){headline.textContent='Beyond measure.';}
