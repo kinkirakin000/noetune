@@ -273,14 +273,14 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== FREE: Result ====== -->
 <div class="screen" id="s-f-result">
-  <div class="label">FREE SESSION COMPLETE</div>
+  <div class="label">FREE PREVIEW</div>
   <div id="free-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.4rem;letter-spacing:.04em"></div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#999;margin-bottom:1rem;letter-spacing:.06em;text-align:center">What you feel now is just the surface layer.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
   <div id="free-result-rows"></div>
   <div style="height:1.5rem"></div>
-  <button class="btn" onclick="showPaywall()" style="background:#6B9080">Continue this shift →</button>
-  <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A;margin-top:.8rem">Share as Image</button>
+  <button class="btn" onclick="showPaywall()" style="background:#1A1A1A">Go one layer deeper →</button>
+  <button class="btn-ghost" onclick="shareImage('free')" style="margin-top:.8rem">Share as Image</button>
   <div id="share-msg-free" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
   <div id="email-capture" style="display:none;margin-top:1.6rem;width:100%;max-width:280px;flex-direction:column;align-items:center;gap:.4rem">
     <div style="font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;color:#C0C0B8;letter-spacing:.1em;text-align:center;margin-bottom:.3rem">Get notified when new themes are added</div>
@@ -298,7 +298,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="paywall-box">
     <div class="pw-title">You touched the surface.</div>
     <div class="pw-desc">The surface moved.<br>The root is still active.</div>
-    <button class="pw-price-btn" onclick="unlockPaid()">Finish this shift →</button>
+    <button class="pw-price-btn" onclick="unlockPaid()">Unlock Full Session →</button>
     <div class="pw-annual">$9.99/month · Cancel anytime</div>
   </div>
   <button class="btn-skip" onclick="goBack()" style="margin-top:1.2rem">← Back</button>
