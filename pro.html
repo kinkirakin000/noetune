@@ -136,8 +136,15 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #share-card .sc-inf svg{
   width:80px;height:40px;
 }
+#share-card .sc-qr{
+  margin-top:28px;
+}
+#share-card .sc-qr canvas,#share-card .sc-qr img{
+  width:72px;height:72px;border-radius:4px;opacity:.45;display:block;
+}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -355,6 +362,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div id="sc-rows"></div>
   <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
   <div class="sc-footer">noetune.app</div>
+  <div class="sc-qr" id="sc-qr"></div>
 </div>
 
 
@@ -599,6 +607,8 @@ function buildShareCard_paid(){
   else{hl='Your state shifted.';}
   document.getElementById('sc-headline').textContent=hl;
   buildShareCardRows([{label:D.q1||TOPIC,before:D.stateBefore,after:D.stateAfter,rtype:'q1'}]);
+  var qrEl=document.getElementById('sc-qr');
+  if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.app',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
 }
 async function shareImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}if(navigator.share){try{var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Noetune'});return;}}catch(e){if(e&&e.name==='AbortError')return;}}if(isMobile()){showSharePreview(d);}else{triggerDownload(d,'noetune-result.png');}}
 async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
