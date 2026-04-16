@@ -146,15 +146,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 </button>
 <div class="progress-bar" id="progress"></div>
 
-<!-- ====== CONTINUE: In-progress screen ====== -->
-<div class="screen" id="s-continue">
-  <div class="label" style="margin-bottom:2rem">STILL IN PROGRESS</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">You are still working on:</div>
-  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"Can't stop thinking"</div>
-  <button class="btn-start" onclick="continueFromStorage()">Continue</button>
-  <div style="height:14px"></div>
-  <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">Start new topic</button>
-</div>
 
 <!-- ====== INTRO ====== -->
 <div class="screen active" id="s-intro">
@@ -377,7 +368,7 @@ function updateBack() {
 }
 
 const SCREEN_ORDER = [
-  's-continue', 's-intro',
+  's-intro',
   's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
   's-paywall'
 ];
@@ -431,7 +422,6 @@ function resetSliders(...ids) {
 
 function startFree() {
   track('session_start_free',{topic:TOPIC});
-  clearState();
   Object.keys(D).forEach(k => { if (typeof D[k] === 'number' || D[k] === null) D[k] = null; else D[k] = ''; });
   hist = []; breathing = false; bc = 0;
   resetSliders('sl-fbf','sl-fbp','sl-faf','sl-fap');
@@ -799,55 +789,6 @@ function unlockPaid() {
 
 
 
-// ══════════════════════════════════════════════
-// ── CONTINUITY SYSTEM (localStorage) ──
-// ══════════════════════════════════════════════
-
-const STORAGE_KEY = 'noetune_state';
-
-function saveState() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      activeTheme: TOPIC,
-      status: D.themeComplete ? 'completed' : 'in-progress',
-      lastSessionDate: new Date().toISOString().slice(0, 10),
-      ynMeaningless: D.ynMeaningless,
-      q1NothingComesUp: D.q1NothingComesUp
-    }));
-  } catch(e) {}
-}
-
-function loadState() {
-  try {
-    var raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : null;
-  } catch(e) { return null; }
-}
-
-function clearState() {
-  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
-}
-
-function checkOnStartup() {
-  var state = loadState();
-  if (state && state.status === 'in-progress' && state.activeTheme) {
-    // Show continue screen
-    TOPIC = state.activeTheme;
-    var el = document.getElementById('continue-topic-name');
-    if (el) el.textContent = '"' + topicLabel(TOPIC) + '"';
-    // Update all topic displays
-    applyTopic(TOPIC);
-    // Switch to continue screen
-    var intro = document.getElementById('s-intro');
-    var cont  = document.getElementById('s-continue');
-    if (intro && cont) {
-      intro.classList.remove('active');
-      cont.classList.add('active');
-      cur = 's-continue';
-    }
-  }
-}
-
 function applyTopic(theme) {
   TOPIC = theme;
   ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
@@ -858,31 +799,6 @@ function applyTopic(theme) {
     el.textContent = '"' + topicLabel(theme) + '"';
   });
 }
-
-function continueFromStorage() {
-  if (hasPaidAccess()) {
-    window.location.href = 'pro.html';
-  } else if (STRIPE_URL) {
-    window.location.href = STRIPE_URL;
-  } else {
-    go('s-intro');
-  }
-}
-
-function newTopicFromStorage() {
-  clearState();
-  D.themeComplete = false;
-  TOPIC = 'Overthinking';
-  applyTopic(TOPIC);
-  // Reset theme buttons
-  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
-  var first = document.querySelector('#s-p-theme .theme-btn');
-  if (first) first.classList.add('selected');
-  go('s-intro');
-  hist = [];
-}
-
-
 
 
 // ── Visit tracking ──
@@ -896,7 +812,6 @@ function newTopicFromStorage() {
 })();
 
 updateProgress();
-checkOnStartup();
 </script>
 
 </body>
