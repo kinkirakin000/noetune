@@ -1329,6 +1329,16 @@ function triggerPWAInstall() {
   }
 }
 
+// ── Visit tracking ──
+(function(){
+  var today=new Date().toISOString().slice(0,10);
+  try{
+    var n=parseInt(localStorage.getItem('noetune_visit_count')||'0',10);
+    localStorage.setItem('noetune_visit_count',String(n+1));
+    localStorage.setItem('noetune_last_visit',today);
+  }catch(e){}
+})();
+
 updateProgress();
 checkOnStartup();
 promoteTextShare();
