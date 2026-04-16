@@ -146,6 +146,16 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 </button>
 <div class="progress-bar" id="progress"></div>
 
+<!-- ====== CONTINUE: In-progress screen ====== -->
+<div class="screen" id="s-continue">
+  <div class="label" style="margin-bottom:2rem">STILL IN PROGRESS</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">You are still working on:</div>
+  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"Can't stop thinking"</div>
+  <button class="btn-start" onclick="continueFromStorage()">Continue</button>
+  <div style="height:14px"></div>
+  <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">Start new topic</button>
+</div>
+
 <!-- ====== INTRO ====== -->
 <div class="screen active" id="s-intro">
   <div class="intro-title">Noetune</div>
@@ -154,17 +164,28 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div style="height:28px"></div>
   <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#444;letter-spacing:.12em">Shift your state — and see it change in numbers</div>
   <div style="height:36px"></div>
+  <!-- Theme selector -->
   <div style="width:100%;max-width:280px;margin-bottom:1.2rem">
     <div style="font-size:.66rem;letter-spacing:.16em;color:#B0B0A8;margin-bottom:.7rem;text-align:center;font-family:'Noto Serif JP',serif">CHOOSE THEME</div>
     <div id="theme-list" style="display:flex;flex-direction:column;gap:8px">
       <button class="theme-btn selected" onclick="selectTheme(this,'Overthinking')" style="line-height:1.5">
-        Overthinking<br><span style="font-size:.6rem;color:#6B9080;letter-spacing:.1em;font-weight:400">Free preview</span>
+        Can't stop thinking<br><span style="font-size:.6rem;color:#6B9080;letter-spacing:.1em;font-weight:400">Free preview</span>
       </button>
-      <button class="theme-btn locked" onclick="showThemeLock('Anxiety')">Anxiety <span class="lock-icon">🔒</span></button>
-      <button class="theme-btn locked" onclick="showThemeLock('Resistance')">Resistance <span class="lock-icon">🔒</span></button>
-      <button class="theme-btn locked" onclick="showThemeLock('Self-doubt')">Self-doubt <span class="lock-icon">🔒</span></button>
-      <button class="theme-btn locked" onclick="showThemeLock('Emotional reaction')">Emotional reaction <span class="lock-icon">🔒</span></button>
-      <button class="theme-btn locked" onclick="showThemeLock('Urge')">Urge <span class="lock-icon">🔒</span></button>
+      <button class="theme-btn locked" onclick="showThemeLock('Anxiety')">
+        Something might go wrong <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Resistance')">
+        I don't want to face this <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Self-doubt')">
+        I'm not sure about myself <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Emotional reaction')">
+        I get triggered easily <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Urge')">
+        I have to do it now <span class="lock-icon">🔒</span>
+      </button>
     </div>
   </div>
   <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.14em;font-family:'Noto Serif JP',serif;margin-bottom:1.1rem">Measure · Breathe · See the shift</div>
@@ -172,9 +193,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div style="height:8px"></div>
   <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.08em">No account needed</div>
   <div style="height:18px"></div>
-  <button class="btn-ghost" onclick="showPaywall()">Continue Full Session →</button>
+  <button class="btn-ghost" onclick="goToPaidDirect()">Continue Full Session →</button>
   <div style="height:6px"></div>
-  <div style="font-size:.64rem;color:#C8C8C0;letter-spacing:.06em;font-family:'Noto Serif JP',serif">(Member only)</div>
+  <div style="font-size:.64rem;color:#C8C8C0;letter-spacing:.06em;font-family:'Noto Serif JP',serif" style="font-style:italic">(Member only)</div>
 </div>
 
 <!-- ====== FREE: Before — Future ====== -->
@@ -203,7 +224,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="btn-skip" onclick="onFreeBPSkip()">Beyond measure</button>
 </div>
 
-<!-- ====== FREE: Breath 1 ====== -->
+<!-- ====== FREE: Breath 1 — Focus ====== -->
 <div class="screen" id="s-f-b1">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
   <div class="breath-focus">Feel the feeling of overthinking —<br>while feeling it,<br>take one deep breath.</div>
@@ -213,7 +234,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   </div>
 </div>
 
-<!-- ====== FREE: Breath 2 ====== -->
+<!-- ====== FREE: Breath 2 — Contrast ====== -->
 <div class="screen" id="s-f-b2">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
   <div class="breath-focus">Feel everything —<br>except the feeling of overthinking.<br>While feeling it,<br>take one deep breath.</div>
@@ -223,7 +244,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   </div>
 </div>
 
-<!-- ====== FREE: Breath 3 ====== -->
+<!-- ====== FREE: Breath 3 — Whole ====== -->
 <div class="screen" id="s-f-b3">
   <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
   <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
@@ -263,166 +284,1204 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-f-result">
   <div class="label">FREE SESSION COMPLETE</div>
   <div id="free-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.4rem;letter-spacing:.04em"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#999;margin-bottom:1rem;letter-spacing:.06em;text-align:center">What you feel now is just the surface layer.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
   <div id="free-result-rows"></div>
   <div style="height:1.5rem"></div>
-  <div style="font-size:.82rem;color:#888;line-height:1.8;text-align:center;max-width:280px;margin-bottom:1rem">
-    This was just the surface.<br>The pattern is still underneath.
-  </div>
-  <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A">Share as Image</button>
-  <button class="btn-ghost" onclick="saveImage('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
-  <button class="btn-ghost" onclick="shareResultText('free')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
-  <div id="share-fallback-free" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
-    <a id="share-x-free" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
-    <button onclick="copyResult('free')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-free">Copy text</button>
-  </div>
+  <button class="btn" onclick="showPaywall()" style="background:#6B9080">Continue this shift →</button>
+  <button class="btn" onclick="shareImage('free')" style="background:#1A1A1A;margin-top:.8rem">Share as Image</button>
   <div id="share-msg-free" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
-  <button class="btn" onclick="showPaywall()" style="background:#6B9080;margin-top:.8rem">Go deeper →</button>
+  <div id="email-capture" style="display:none;margin-top:1.6rem;width:100%;max-width:280px;flex-direction:column;align-items:center;gap:.4rem">
+    <div style="font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;color:#C0C0B8;letter-spacing:.1em;text-align:center;margin-bottom:.3rem">Get notified when new themes are added</div>
+    <div style="display:flex;width:100%;gap:.5rem;align-items:flex-end">
+      <input id="email-input" type="email" placeholder="your@email.com" autocomplete="email" onkeydown="if(event.key==='Enter'){event.preventDefault();submitEmail();}" style="flex:1;background:transparent;border:none;border-bottom:1.5px solid #D4DDD8;padding:.5rem .2rem;font-size:.82rem;font-family:'Noto Serif JP',serif;color:#1A1A1A;outline:none;-webkit-appearance:none;transition:border-color .3s" onfocus="this.style.borderBottomColor='#6B9080'" onblur="this.style.borderBottomColor='#D4DDD8'">
+      <button onclick="submitEmail()" style="background:none;border:none;font-size:1rem;color:#8A8A82;cursor:pointer;padding:.3rem .4rem;line-height:1">→</button>
+    </div>
+    <button onclick="dismissEmail()" style="background:none;border:none;font-family:'Noto Serif JP',serif;font-size:.68rem;color:#CACAC2;cursor:pointer;letter-spacing:.08em;margin-top:.2rem;padding:.2rem .6rem">skip</button>
+  </div>
+  <div id="email-thanks" style="display:none;margin-top:1.6rem;font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:#B8B8B0;letter-spacing:.1em;text-align:center">Noted.</div>
 </div>
 
 <!-- ====== PAYWALL ====== -->
 <div class="screen" id="s-paywall">
   <div class="paywall-box">
-    <div class="pw-title">Go deeper.</div>
-    <div class="pw-desc">This was just the surface.<br>The root is still there.</div>
-    <div style="text-align:left;padding:0 .5rem">
-      <div class="pw-feature">Go beyond the surface shift</div>
-      <div class="pw-feature">See what you are like without this pattern</div>
-      <div class="pw-feature">5-breath deep release sequence</div>
-      <div class="pw-feature">Let the pattern dissolve at its root</div>
-      <div class="pw-feature">Unlimited topics</div>
-    </div>
-    <!-- TODO: Replace STRIPE_PAYMENT_LINK with your actual Stripe payment URL -->
-    <a href="STRIPE_PAYMENT_LINK" target="_blank" style="text-decoration:none;display:block">
-      <button class="pw-price-btn">Go deeper →</button>
-    </a>
-    <div class="pw-annual">$9.99/month · or $79.99/year (save 33%) · Cancel anytime</div>
+    <div class="pw-title">You touched the surface.</div>
+    <div class="pw-desc">The surface moved.<br>The root is still active.</div>
+    <button class="pw-price-btn" onclick="unlockPaid()">Finish this shift →</button>
+    <div class="pw-annual">$9.99/month · Cancel anytime</div>
   </div>
-  <button class="btn-skip" onclick="go('s-intro')" style="margin-top:1.2rem">Return to start</button>
+  <button class="btn-skip" onclick="goBack()" style="margin-top:1.2rem">← Back</button>
 </div>
 
+<!-- ====== PAID: Theme selector ====== -->
+<div class="screen" id="s-p-theme">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
+  <div class="title" style="margin-bottom:1.4rem">Choose your theme</div>
+  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
+    <button class="theme-btn selected" id="pt-overthinking" onclick="selectPaidTheme(this,'Overthinking')">Can't stop thinking</button>
+    <button class="theme-btn" id="pt-anxiety" onclick="selectPaidTheme(this,'Anxiety')">Something might go wrong</button>
+    <button class="theme-btn" id="pt-resistance" onclick="selectPaidTheme(this,'Resistance')">I don't want to face this</button>
+    <button class="theme-btn" id="pt-selfdoubt" onclick="selectPaidTheme(this,'Self-doubt')">I'm not sure about myself</button>
+    <button class="theme-btn" id="pt-emotional" onclick="selectPaidTheme(this,'Emotional reaction')">I get triggered easily</button>
+    <button class="theme-btn" id="pt-urge" onclick="selectPaidTheme(this,'Urge')">I have to do it now</button>
+  </div>
+  <button class="btn" onclick="fwd('s-p-yn')">Continue</button>
+</div>
 
-<!-- ── Share preview overlay ── -->
+<!-- ====== PAID: Yes/No question ====== -->
+<div class="screen" id="s-p-yn">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CHECK-IN</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+  </div>
+</div>
+
+<!-- ====== PAID: Q1 — reversal question ====== -->
+<div class="screen" id="s-p-q1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
+  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
+  <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
+  <button class="btn-skip" onclick="onQ1Nothing()" style="margin-top:.6rem;color:#B8B8B0;font-size:.78rem">Nothing comes up</button>
+</div>
+
+<!-- ====== PAID: Q1 answer — Future ====== -->
+<div class="screen" id="s-p-q1f">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">What proportion of your future self is taken up by <em id="q1-display-f">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1f" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1f" oninput="revealNum('num-pq1f',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1F()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1FSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: Q1 answer — Past ====== -->
+<div class="screen" id="s-p-q1p">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">What proportion of your past self has been taken up by <em id="q1-display-p">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1p" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1p" oninput="revealNum('num-pq1p',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1P()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1PSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: Breath 2-1 — tension with Q1 answer ====== -->
+<div class="screen" id="s-p-b21">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/4</div>
+  <div class="breath-focus">Feel the tension that arises against:<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
+    <div id="hint-pb21" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-2 — everything else ====== -->
+<div class="screen" id="s-p-b22">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/4</div>
+  <div class="breath-focus">Feel everything —<br>except the tension that arises against:<br><br><em id="q1-display-b22" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
+    <div id="hint-pb22" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-3 — feel Q1 answer state ====== -->
+<div class="screen" id="s-p-b23">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/4</div>
+  <div class="breath-focus">Feel the state of<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
+    <div id="hint-pb23" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-4 — feel everything as it is ====== -->
+<div class="screen" id="s-p-b24">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/4</div>
+  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br>While feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb24" onclick="startBreath('pb24')"></div>
+    <div id="hint-pb24" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: After — Q1 answer Future ====== -->
+<div class="screen" id="s-p-q1af">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — what proportion of your future self is taken up by <em id="q1-display-af">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1af" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1af" oninput="revealNum('num-pq1af',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1AF()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1AFSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: After — Q1 answer Past ====== -->
+<div class="screen" id="s-p-q1ap">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — what proportion of your past self has been taken up by <em id="q1-display-ap">"your answer"</em>?</div>
+  <div class="score-num" id="num-pq1ap" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-pq1ap" oninput="revealNum('num-pq1ap',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onPQ1AP()">Confirm</button>
+  <button class="btn-skip" onclick="onPQ1APSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== PAID: Final Yes/No ====== -->
+<div class="screen" id="s-p-yn2">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN2('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
+  </div>
+</div>
+
+<!-- ====== PAID: Full Result ====== -->
+<div class="screen" id="s-p-result">
+  <div class="label">FULL SESSION COMPLETE</div>
+  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em">Something shifted.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
+  <div id="paid-result-rows"></div>
+  <div style="height:1.2rem"></div>
+  <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#1A1A1A">Share as Image</button>
+  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
+  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
+  <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
+    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
+    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
+  </div>
+  <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
+  <button class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
+  <button class="btn-skip" onclick="startFree()">New topic</button>
+  <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
+    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
+    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
+    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif">Tap <span style="font-size:.8rem">⬆️</span> then "Add to Home Screen"</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Final Confirmation Q1 ====== -->
+<div class="screen" id="s-p-q1-final">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CONFIRMATION</div>
+  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
+  <div style="font-size:.75rem;color:#B8B8B0;line-height:1.7;text-align:center;max-width:260px;margin-bottom:1.4rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em">If no answer comes naturally,<br>this theme may be complete.</div>
+  <input class="text-input" id="input-q1-final" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-q1-final" onclick="onQ1Final()" style="margin-top:1.8rem">Confirm</button>
+  <button class="btn-skip" onclick="onQ1FinalEmpty()">No answer comes</button>
+</div>
+
+<!-- ====== PAID: Theme Complete ====== -->
+<div class="screen" id="s-p-complete">
+  <div class="label">THEME COMPLETE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:.4rem;letter-spacing:.1em">✓</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:300;color:#AAA;letter-spacing:.12em;margin-bottom:.5rem">No longer present.</div>
+  <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
+  <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
+  <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
+  <button class="btn-ghost" onclick="returnToIntro()" style="margin-top:.6rem">Return to start</button>
+</div>
+
+<!-- ── Share image preview overlay (mobile fallback) ── -->
 <div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
   <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
   <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
-  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer">Close</button>
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;-webkit-tap-highlight-color:transparent">Close</button>
 </div>
+
 <!-- ── Hidden share card ── -->
 <div id="share-card">
-  <div class="sc-label" id="sc-label">SESSION COMPLETE</div>
+  <div class="sc-label" id="sc-label">FULL SESSION COMPLETE</div>
   <div class="sc-headline" id="sc-headline">Something shifted.</div>
   <div class="sc-topic" id="sc-topic"></div>
   <div id="sc-rows"></div>
   <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
-  <div class="sc-footer">noetune.app</div>
+  <div class="sc-footer">noetune.com</div>
 </div>
 
-
 <script>
+function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
+
 let TOPIC = 'Overthinking';
+const TOPIC_LABELS = {'Overthinking':"Can't stop thinking",'Anxiety':"Something might go wrong",'Resistance':"I don't want to face this",'Self-doubt':"I'm not sure about myself",'Emotional reaction':"I get triggered easily",'Urge':"I have to do it now"};
+function topicLabel(t){return TOPIC_LABELS[t]||t;}
 let cur = 's-intro', hist = [];
 let breathing = false, bc = 0;
-const D = { freeBF:null, freeBP:null, freeAF:null, freeAP:null, pendingTheme:null };
 
+const D = {
+  freeBF: null, freeBP: null, freeAF: null, freeAP: null,
+  paidBF: null, paidBP: null, paidAF: null, paidAP: null,
+  q1: '', q1BF: null, q1BP: null, q1AF: null, q1AP: null,
+  yn1: '', yn2: '', themeComplete: false, pendingTheme: null,
+  q1NothingComesUp: false, ynMeaningless: false
+};
 
-function go(id){var c=document.getElementById(cur),n=document.getElementById(id);if(!c||!n)return;c.classList.remove('active');c.classList.add('exit');setTimeout(function(){c.classList.remove('exit');},500);setTimeout(function(){n.classList.add('active');cur=id;updateBack();updateProgress();},120);}
-function fwd(id){hist.push(cur);go(id);}
-function goBack(){var p=hist.pop();if(!p||p==='s-intro'){go('s-intro');hist=[];return;}breathing=false;bc=0;go(p);}
-function revealNum(id,val){var el=document.getElementById(id);el.style.visibility='visible';el.textContent=val;}
-function hideNums(){Array.prototype.slice.call(arguments).forEach(function(id){var el=document.getElementById(id);if(el){el.style.visibility='hidden';el.textContent='—';}});}
-function resetSliders(){Array.prototype.slice.call(arguments).forEach(function(id){var el=document.getElementById(id);if(el)el.value=50;});}
-function isMobile(){return /iphone|ipad|ipod|android/i.test(navigator.userAgent);}
-function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;}
-function triggerDownload(dataURL,filename){var a=document.createElement('a');a.href=dataURL;a.download=filename;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);},200);}
-function showShareMsg(type,msg){var el=document.getElementById('share-msg-'+type);if(!el)return;el.textContent=msg;el.style.opacity='1';clearTimeout(el._fadeTimer);el._fadeTimer=setTimeout(function(){el.style.opacity='0';},3800);}
-function showSharePreview(dataURL){var img=document.getElementById('share-preview-img'),ov=document.getElementById('share-preview-overlay');if(!img||!ov){triggerDownload(dataURL,'noetune-result.png');return;}img.src=dataURL;ov.style.display='flex';}
-function closeSharePreview(){var ov=document.getElementById('share-preview-overlay');if(ov)ov.style.display='none';var img=document.getElementById('share-preview-img');if(img)img.src='';}
-function arrowSVG(dir,color){var p=dir==='up'?'M16 3L31 20H22V39H10V20H1Z':'M16 39L31 22H22V3H10V22H1Z';return '<svg width="20" height="26" viewBox="0 0 32 42" style="display:block;flex-shrink:0"><path d="'+p+'" fill="'+color+'"/></svg>';}
-function makeResultRow(label,before,after,rowType){
-  var isBB=(before==='N/A'||before===null),isBA=(after==='N/A'||after===null);
-  var INF='<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span>';
-  var dirArrow='';
-  if(!isBA&&!isBB&&typeof before==='number'&&typeof after==='number'){var d=before-after;var isUp=(rowType==='topic')?d>0:d<0;var isDn=(rowType==='topic')?d<0:d>0;if(isUp)dirArrow=arrowSVG('up','#A8A8A2');else if(isDn)dirArrow=arrowSVG('down','#A8A8A2');}
-  if(isBA){var bP=isBB?INF:'<span class="r-before">'+before+'</span>';return'<div class="r-row"><span class="r-label" style="color:#8F8F89">'+label+'</span><span class="r-arrow"></span><span class="r-nums">'+bP+'<span class="r-sep">→</span>'+INF+'</span></div>';}
-  var aStr=String(after);return'<div class="r-row"><span class="r-label" style="color:#8F8F89">'+label+'</span><span class="r-arrow"></span><span class="r-nums"><span class="r-before">'+(isBB?INF:before)+'</span><span class="r-sep">→</span><span class="r-after" style="color:#1A1A1A">'+aStr+'</span>'+(dirArrow?'<span style="display:inline-flex;align-items:center;flex-shrink:0">'+dirArrow+'</span>':'')+'</span></div>';
+function go(id) {
+  const c = document.getElementById(cur), n = document.getElementById(id);
+  if (!c || !n) return;
+  c.classList.remove('active'); c.classList.add('exit');
+  setTimeout(() => c.classList.remove('exit'), 500);
+  setTimeout(() => { n.classList.add('active'); cur = id; updateBack(); updateProgress(); }, 120);
 }
-function buildShareCardRows(rows){
-  var INF='<span class="sc-inf"><svg viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg></span>';
-  var html='';
-  rows.forEach(function(row){
-    var isA=(row.after===null||row.after==='N/A'),isB=(row.before===null||row.before==='N/A');
-    var d=(!isA&&!isB)?Number(row.before)-Number(row.after):0;
-    var UP='<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
-    var DN='<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
-    var arr='';
-    if(!isA&&!isB){if(row.rtype==='topic'){arr=d>0?DN:d<0?UP:'';}else{arr=d<0?UP:d>0?DN:'';}}
-    var aHtml=isA?INF:'<span class="sc-after" style="color:#1A1A1A">'+row.after+'</span>';
-    var bHtml=isB?INF:'<span class="sc-before">'+row.before+'</span>';
-    html+='<div class="sc-row"><span class="sc-row-label">'+row.label+'</span>'+bHtml+'<span class="sc-arrow">→</span>'+aHtml+(arr?'<span class="sc-up-arrow">'+arr+'</span>':'')+'</div>';
+function fwd(id) { hist.push(cur); go(id); }
+function goBack() {
+  const p = hist.pop();
+  if (!p || p === 's-intro') { go('s-intro'); hist = []; return; }
+  breathing = false; bc = 0;
+  go(p);
+}
+function goToScreen(id) { fwd(id); }
+
+function updateBack() {
+  document.getElementById('btn-back').classList.toggle('visible',
+    cur !== 's-intro' && !cur.includes('result') && cur !== 's-paywall');
+}
+
+const SCREEN_ORDER = [
+  's-continue', 's-intro',
+  's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
+  's-paywall',
+  's-p-theme','s-p-yn','s-p-q1','s-p-q1f','s-p-q1p',
+  's-p-b21','s-p-b22','s-p-b23','s-p-b24',
+  's-p-q1af','s-p-q1ap','s-p-yn2','s-p-result',
+  's-p-q1-final','s-p-complete'
+];
+function updateProgress() {
+  const i = SCREEN_ORDER.indexOf(cur);
+  const pct = i < 0 ? 0 : (i / (SCREEN_ORDER.length - 1)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+}
+
+// ── Theme selector ──
+function showThemeLock(theme) {
+  // Remember which theme the user wanted, then show paywall
+  D.pendingTheme = theme;
+  fwd('s-paywall');
+}
+
+function selectPaidTheme(btn, theme) {
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  TOPIC = theme;
+  // Update all topic display elements
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
+  // Only update IDs that actually exist in DOM
+  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '"' + topicLabel(theme) + '"';
   });
-  document.getElementById('sc-rows').innerHTML=html;
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
 }
-async function renderShareCard(){
-  var card=document.getElementById('share-card');
-  card.style.top='-9999px';card.style.left='-9999px';card.style.zIndex='9999';
-  await new Promise(function(r){setTimeout(r,80);});
-  try{var canvas=await html2canvas(card,{scale:1,useCORS:true,backgroundColor:'#FAFAF7',width:1080,height:1080,logging:false});card.style.zIndex='-1';return canvas.toDataURL('image/png');}
-  catch(e){card.style.zIndex='-1';console.error(e);return null;}
+
+function selectTheme(btn, theme) {
+  document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  TOPIC = theme;
+  // Update all topic display elements
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
+  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = '"' + topicLabel(theme) + '"';
+  });
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
 }
-document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault();});
 
+// ── Slider reveal ──
+function revealNum(id, val) {
+  const el = document.getElementById(id);
+  el.style.visibility = 'visible';
+  el.textContent = val;
+}
 
-function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-intro'&&!cur.includes('result')&&cur!=='s-paywall');}
-var SCREEN_ORDER=['s-intro','s-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result','s-paywall'];
-function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
+function hideNums(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.visibility = 'hidden'; el.textContent = '—'; }
+  });
+}
 
-function showThemeLock(theme){D.pendingTheme=theme;fwd('s-paywall');}
-function selectTheme(btn,theme){document.querySelectorAll('.theme-btn').forEach(function(b){b.classList.remove('selected');});btn.classList.add('selected');TOPIC=theme;['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='"'+theme+'"';});}
-function showPaywall(){fwd('s-paywall');}
+function resetSliders(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = 50;
+  });
+}
 
-function startFree(){D.freeBF=null;D.freeBP=null;D.freeAF=null;D.freeAP=null;hist=[];breathing=false;bc=0;resetSliders('sl-fbf','sl-fbp','sl-faf','sl-fap');hideNums('num-fbf','num-fbp','num-faf','num-fap');fwd('s-f-bf');}
-function onFreeBF(){D.freeBF=+document.getElementById('sl-fbf').value;fwd('s-f-bp');}
-function onFreeBFSkip(){D.freeBF='N/A';fwd('s-f-bp');}
-function onFreeBP(){D.freeBP=+document.getElementById('sl-fbp').value;fwd('s-f-b1');}
-function onFreeBPSkip(){D.freeBP='N/A';fwd('s-f-b1');}
-function onFreeAF(){D.freeAF=+document.getElementById('sl-faf').value;fwd('s-f-ap');}
-function onFreeAFSkip(){D.freeAF='N/A';fwd('s-f-ap');}
-function onFreeAP(){D.freeAP=+document.getElementById('sl-fap').value;showFreeResult();}
-function onFreeAPSkip(){D.freeAP='N/A';showFreeResult();}
+function startFree() {
+  track('session_start_free',{topic:TOPIC});
+  clearState();
+  Object.keys(D).forEach(k => { if (typeof D[k] === 'number' || D[k] === null) D[k] = null; else D[k] = ''; });
+  hist = []; breathing = false; bc = 0;
+  resetSliders('sl-fbf','sl-fbp','sl-faf','sl-fap');
+  hideNums('num-fbf','num-fbp','num-faf','num-fap');
+  fwd('s-f-bf');
+}
 
-function showFreeResult(){
-  var rows=document.getElementById('free-result-rows');rows.innerHTML='';
-  rows.innerHTML+='<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">'+TOPIC.toUpperCase()+' RATE</div>';
-  rows.innerHTML+=makeResultRow('Future',D.freeBF,D.freeAF,'topic');
-  rows.innerHTML+=makeResultRow('Past',D.freeBP,D.freeAP,'topic');
-  var hl=document.getElementById('free-result-headline');
-  if(hl){var bA=(D.freeAF==='N/A'||D.freeAF===null);var dr=!bA&&typeof D.freeBF==='number'&&typeof D.freeAF==='number'&&D.freeBF>D.freeAF;hl.textContent=bA?"It's gone.":dr?(TOPIC+" dropped."):"Your state shifted.";}
+// ── FREE FLOW ──
+function onFreeBF() { D.freeBF = +document.getElementById('sl-fbf').value; fwd('s-f-bp'); }
+function onFreeBFSkip() { D.freeBF = 'N/A'; fwd('s-f-bp'); }
+function onFreeBP() { D.freeBP = +document.getElementById('sl-fbp').value; fwd('s-f-b1'); }
+function onFreeBPSkip() { D.freeBP = 'N/A'; fwd('s-f-b1'); }
+function onFreeAF() { D.freeAF = +document.getElementById('sl-faf').value; fwd('s-f-ap'); }
+function onFreeAFSkip() { D.freeAF = 'N/A'; fwd('s-f-ap'); }
+function onFreeAP() { D.freeAP = +document.getElementById('sl-fap').value; showFreeResult(); }
+function onFreeAPSkip() { D.freeAP = 'N/A'; showFreeResult(); }
+
+function showFreeResult() {
+  track('session_complete_free',{topic:TOPIC});
+  const rows = document.getElementById('free-result-rows');
+  rows.innerHTML = '';
+  rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + TOPIC.toUpperCase() + ' RATE</div>';
+  rows.innerHTML += makeResultRow('Future', D.freeBF, D.freeAF, 'topic');
+  rows.innerHTML += makeResultRow('Past', D.freeBP, D.freeAP, 'topic');
+  var hl = document.getElementById('free-result-headline');
+  if (hl) {
+    var beyondA = (D.freeAF === 'N/A' || D.freeAF === null);
+    var dropped = !beyondA && typeof D.freeBF === 'number' && typeof D.freeAF === 'number' && D.freeBF > D.freeAF;
+    hl.textContent = beyondA ? "It's gone." : dropped ? (TOPIC + " dropped.") : "Surface shifted.";
+  }
+  var ec=document.getElementById('email-capture'),et=document.getElementById('email-thanks');
+  var hadEmail=false;try{hadEmail=!!localStorage.getItem('noetune_email');}catch(e){}
+  if(ec)ec.style.display=hadEmail?'none':'flex';
+  if(et)et.style.display='none';
+  if(!hadEmail){var ei=document.getElementById('email-input');if(ei)ei.value='';}
   fwd('s-f-result');
 }
 
-function startBreath(t){if(breathing)return;breathing=true;var h=document.getElementById('hint-'+t);if(h)h.style.display='none';var c=document.getElementById('circle-'+t);c.classList.remove('pulse');bc=0;setTimeout(function(){bCycle(t,c);},600);}
-function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2000);},2000);}
-var BREATH_NEXT={'fb1':'s-f-b2','fb2':'s-f-b3','fb3':'s-f-af'};
-function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}} );document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
-
-function buildShareCard_free(){
-  document.getElementById('sc-label').textContent='FREE SESSION COMPLETE';
-  document.getElementById('sc-topic').textContent=TOPIC.toUpperCase()+' RATE';
-  var allB=(D.freeAF===null||D.freeAF==='N/A')&&(D.freeAP===null||D.freeAP==='N/A');
-  var hl;if(allB){hl="It's gone.";}else{var fd=(typeof D.freeBF==='number'&&typeof D.freeAF==='number')?(D.freeBF-D.freeAF):0;hl=fd>0?(TOPIC+' dropped.'):'Your state shifted.';}
-  document.getElementById('sc-headline').textContent=hl;
-  buildShareCardRows([{label:'Future',before:D.freeBF,after:D.freeAF,rtype:'topic'},{label:'Past',before:D.freeBP,after:D.freeAP,rtype:'topic'}]);
+function submitEmail(){
+  var val=document.getElementById('email-input').value.trim();
+  if(!val||!val.includes('@'))return;
+  try{localStorage.setItem('noetune_email',val);}catch(e){}
+  track('email_capture',{topic:TOPIC,email:val});
+  var ec=document.getElementById('email-capture'),et=document.getElementById('email-thanks');
+  if(ec)ec.style.display='none';
+  if(et)et.style.display='block';
 }
-async function shareImage(type){buildShareCard_free();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}if(navigator.share){try{var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Noetune'});return;}}catch(e){if(e&&e.name==='AbortError')return;}}if(isMobile()){showSharePreview(d);}else{triggerDownload(d,'noetune-result.png');}}
-async function saveImage(type){buildShareCard_free();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
-function resultToText(){var lines=['Noetune — Free Session','',TOPIC.toUpperCase()+' RATE'];[{l:'Future',b:D.freeBF,a:D.freeAF},{l:'Past',b:D.freeBP,a:D.freeAP}].forEach(function(r){lines.push(r.l+': '+(r.b==='N/A'||r.b===null?'∞':r.b)+' → '+(r.a==='N/A'||r.a===null?'∞':r.a));});lines.push('','noetune.app');return lines.join('\n');}
-async function shareResultText(type){var t=resultToText();if(navigator.share){try{await navigator.share({text:t,title:'Noetune'});return;}catch(e){if(e&&e.name==='AbortError')return;}}var fb=document.getElementById('share-fallback-free');if(fb)fb.style.display='flex';var xa=document.getElementById('share-x-free');if(xa)xa.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(t);}
-function copyResult(type){var t=resultToText();if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){showShareMsg('free','Copied!');});}else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showShareMsg('free','Copied!');}}
-function promoteTextShare(){if(!isIOS())return;document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el){el.style.background='rgba(107,144,128,.08)';el.style.fontWeight='500';});}
+function dismissEmail(){
+  var ec=document.getElementById('email-capture');
+  if(ec)ec.style.display='none';
+}
+
+function makeResultRow(label, before, after, rowType) {
+  const isBeyondB = (before === 'N/A' || before === null);
+  const isBeyondA = (after  === 'N/A' || after  === null);
+
+  // SVG infinity
+  const INF = '<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span>';
+
+  // Arrow SVG (unified grey)
+  const ARROW_COLOR = '#A8A8A2';
+  let dirArrow = '';
+  if (!isBeyondA && !isBeyondB && typeof before === 'number' && typeof after === 'number') {
+    const d = before - after;
+    // For topic: decrease=up(good), For q1: increase=up(good)
+    // Direction only — no color meaning, all grey
+    const isUp = (rowType === 'topic') ? d > 0 : d < 0;
+    const isDown = (rowType === 'topic') ? d < 0 : d > 0;
+    if (isUp || isDown) {
+      dirArrow = arrowSVG(isUp ? 'up' : 'down', ARROW_COLOR);
+    }
+  }
+
+  // Beyond row: "10 → ∞"
+  if (isBeyondA) {
+    const bPart = isBeyondB
+      ? INF
+      : '<span class="r-before">' + before + '</span>';
+    return '<div class="r-row">' +
+      '<span class="r-label" style="color:#8F8F89">' + label + '</span>' +
+      '<span class="r-arrow"></span>' +
+      '<span class="r-nums">' + bPart +
+      '<span class="r-sep">→</span>' +
+      INF +
+      '</span></div>';
+  }
+
+  // Normal row: "26 → 90 ↑"
+  const afterStr = isBeyondB ? '' : String(after);
+  return '<div class="r-row">' +
+    '<span class="r-label" style="color:#8F8F89">' + label + '</span>' +
+    '<span class="r-arrow"></span>' +
+    '<span class="r-nums">' +
+    '<span class="r-before">' + (isBeyondB ? '<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d=\"M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25\" stroke=\"#1A1A1A\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></svg></span>' : before) + '</span>' +
+    '<span class="r-sep">→</span>' +
+    '<span class="r-after" style="color:#1A1A1A">' + afterStr + '</span>' +
+    (dirArrow ? '<span style="display:inline-flex;align-items:center;flex-shrink:0">' + dirArrow + '</span>' : '') +
+    '</span></div>';
+}
+
+function arrowSVG(dir, color) {
+  const p = dir === 'up'
+    ? 'M16 3L31 20H22V39H10V20H1Z'
+    : 'M16 39L31 22H22V3H10V22H1Z';
+  return '<svg width="20" height="26" viewBox="0 0 32 42" style="display:block;flex-shrink:0"><path d="'+p+'" fill="'+color+'"/></svg>';
+}
+
+// ── PAYWALL ──
+function showPaywall() { track('paywall_view',{topic:TOPIC});fwd('s-paywall'); }
+
+
+// ── PAID FLOW ──
+// Paid topic Before/After removed — only Q1 (positive) is tracked
+
+function onYN(val, btn) {
+  D.yn1 = val;
+  document.querySelectorAll('#s-p-yn .yn-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  if (val === 'meaningless') {
+    D.ynMeaningless = true;
+    // Check if both graduation conditions are met
+    if (D.q1NothingComesUp) {
+      // Both conditions met → complete
+      setTimeout(() => {
+        D.themeComplete = true;
+        saveState();
+        clearState();
+        fwd('s-p-complete');
+      }, 400);
+      return;
+    }
+    // Only meaningless so far → go to Q1 to check
+    setTimeout(() => fwd('s-p-q1'), 400);
+  } else {
+    D.ynMeaningless = false;
+    setTimeout(() => fwd('s-p-q1'), 400);
+  }
+}
+
+function onQ1Nothing() {
+  D.q1NothingComesUp = true;
+  // Go back to YN to confirm meaninglessness
+  hist.push(cur);
+  go('s-p-yn');
+}
+
+function onQ1() {
+  const v = document.getElementById('input-q1').value.trim();
+  if (!v) return;
+  D.q1 = v;
+  D.q1NothingComesUp = false; // real answer: reset nothing flag
+  const qd = '"' + v + '"';
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = qd;
+  });
+  fwd('s-p-q1f');
+}
+
+function onPQ1F() { D.q1BF = +document.getElementById('sl-pq1f').value; fwd('s-p-q1p'); }
+function onPQ1FSkip() { D.q1BF = 'N/A'; fwd('s-p-q1p'); }
+function onPQ1P() { D.q1BP = +document.getElementById('sl-pq1p').value; fwd('s-p-b21'); }
+function onPQ1PSkip() { D.q1BP = 'N/A'; fwd('s-p-b21'); }
+
+// Paid topic After removed
+function onPQ1AF() { D.q1AF = +document.getElementById('sl-pq1af').value; fwd('s-p-q1ap'); }
+function onPQ1AFSkip() { D.q1AF = 'N/A'; fwd('s-p-q1ap'); }
+function onPQ1AP() { D.q1AP = +document.getElementById('sl-pq1ap').value; fwd('s-p-yn2'); }
+function onPQ1APSkip() { D.q1AP = 'N/A'; fwd('s-p-yn2'); }
+
+function onYN2(val, btn) {
+  D.yn2 = val;
+  document.querySelectorAll('#s-p-yn2 .yn-btn').forEach(b => b.classList.remove('selected'));
+  if (btn) btn.classList.add('selected');
+  if (val === 'meaningless') {
+    D.ynMeaningless = true;
+    if (D.q1NothingComesUp) {
+      // Both conditions met → complete (skip q1-final)
+      setTimeout(() => {
+        D.themeComplete = true;
+        saveState();
+        clearState();
+        fwd('s-p-complete');
+      }, 400);
+      return;
+    }
+    // Go to final Q1 check
+    setTimeout(() => fwd('s-p-q1-final'), 400);
+  } else {
+    D.ynMeaningless = false;
+    setTimeout(() => showPaidResult(), 400);
+  }
+}
+
+function showPaidResult() {
+  // Dynamic headline based on yn2
+  var headline = document.getElementById('paid-result-headline');
+  if (headline) {
+    if (D.yn2 === 'yes') {
+      headline.textContent = 'Still present.';
+    } else if (D.yn2 === 'meaningless') {
+      headline.textContent = 'Something dissolved.';
+    } else {
+      var expanded = typeof D.q1BF === 'number' && typeof D.q1AF === 'number' && D.q1AF > D.q1BF;
+      headline.textContent = expanded ? 'State expanded.' : 'Your state shifted.';
+    }
+  }
+  const rows = document.getElementById('paid-result-rows');
+  rows.innerHTML = '';
+  if (D.q1) {
+    rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + D.q1.toUpperCase() + ' RATE</div>';
+    rows.innerHTML += makeResultRow('Future', D.q1BF, D.q1AF, 'q1');
+    rows.innerHTML += makeResultRow('Past', D.q1BP, D.q1AP, 'q1');
+  }
+  const ynLabel = D.yn2 === 'yes' ? 'Still present' : D.yn2 === 'no' ? 'Released' : 'Beyond meaning';
+  const ynCol = D.yn2 === 'no' ? '#6B9080' : D.yn2 === 'meaningless' ? '#6B9080' : '#C47A5A';
+  document.getElementById('paid-yn-result').innerHTML =
+    '<span style="color:'+ynCol+'">● </span>' + TOPIC + ': ' + ynLabel;
+  saveState();
+  fwd('s-p-result');
+  setTimeout(showAddToHome, 600);
+}
+
+// ── BREATHING ──
+function resetCircle(t) {
+  const c = document.getElementById('circle-' + t);
+  c.className = 'breath-circle pulse'; c.textContent = '';
+  const h = document.getElementById('hint-' + t);
+  if (h) h.style.display = 'block';
+}
+
+function startBreath(t) {
+  if (breathing) return;
+  breathing = true;
+  const h = document.getElementById('hint-' + t);
+  if (h) h.style.display = 'none';
+  const c = document.getElementById('circle-' + t);
+  c.classList.remove('pulse');
+  bc = 0;
+  setTimeout(() => bCycle(t, c), 600);
+}
+
+function bCycle(t, c) {
+  if (bc >= 1) {
+    c.textContent = '✓'; c.className = 'breath-circle';
+    setTimeout(() => afterBreath(t), 800);
+    return;
+  }
+  c.textContent = 'In'; c.className = 'breath-circle inhale';
+  setTimeout(() => {
+    c.textContent = 'Out'; c.className = 'breath-circle exhale';
+    setTimeout(() => { bc++; bCycle(t, c); }, 1500);
+  }, 1500);
+}
+
+const BREATH_NEXT = {
+  'fb1': 's-f-b2', 'fb2': 's-f-b3', 'fb3': 's-f-af',
+  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b24', 'pb24': 's-p-q1af'
+};
+
+function afterBreath(t) {
+  breathing = false; bc = 0;
+  const next = BREATH_NEXT[t];
+  if (next) {
+    fwd(next);
+    // Reset ALL breath circles on the next screen after transition
+    setTimeout(function() {
+      document.querySelectorAll('.breath-circle').forEach(function(c) {
+        if (c.textContent === '✓' || c.textContent === 'In' || c.textContent === 'Out') {
+          c.textContent = '';
+          c.className = 'breath-circle pulse';
+        }
+      });
+      document.querySelectorAll('[id^="hint-"]').forEach(function(h) {
+        h.style.display = 'block';
+      });
+    }, 150);
+  }
+}
+
+// ── Q1 input wiring ──
+const inp1 = document.getElementById('input-q1');
+const btn1 = document.getElementById('btn-q1');
+inp1.addEventListener('input', function() {
+  const ok = inp1.value.trim().length > 0;
+  btn1.disabled = !ok;
+  btn1.style.opacity = ok ? '1' : '.45';
+  btn1.style.cursor = ok ? 'pointer' : 'default';
+});
+inp1.addEventListener('keydown', e => {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+// Global Enter prevention
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+
+// ── PAID DIRECT ──
+function goToPaidDirect() {
+  // Reset paid sliders/data but keep topic
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  hist = []; breathing = false; bc = 0;
+  fwd('s-p-theme');
+}
+
+// ── CANVAS IMAGE CARD ──
+// ── SHARE CARD BUILDER ──
+function buildShareCard(type) {
+  var topic = (type === 'free') ? TOPIC : (D.q1 || TOPIC);
+  document.getElementById('sc-topic').textContent = topic.toUpperCase() + ' RATE';
+
+  // Headline
+  var allBeyond = false;
+  if (type === 'paid') {
+    allBeyond = (D.q1AF === null || D.q1AF === 'N/A') && (D.q1AP === null || D.q1AP === 'N/A');
+  } else {
+    allBeyond = (D.freeAF === null || D.freeAF === 'N/A') && (D.freeAP === null || D.freeAP === 'N/A');
+  }
+  var scHeadline;
+  if (allBeyond) {
+    scHeadline = "It's gone.";
+  } else if (type === 'free') {
+    var fd = (typeof D.freeBF === 'number' && typeof D.freeAF === 'number') ? (D.freeBF - D.freeAF) : 0;
+    scHeadline = fd > 0 ? (TOPIC + " dropped.") : "Your state shifted.";
+  } else {
+    var pd = (typeof D.q1BF === 'number' && typeof D.q1AF === 'number') ? (D.q1AF - D.q1BF) : 0;
+    scHeadline = pd > 0 ? "State expanded." : "Your state shifted.";
+  }
+  document.getElementById('sc-headline').textContent = scHeadline;
+
+  // Build rows
+  var rows;
+  if (type === 'free') {
+    rows = [
+      { label: 'Future', before: D.freeBF, after: D.freeAF, rtype: 'topic' },
+      { label: 'Past',   before: D.freeBP, after: D.freeAP, rtype: 'topic' },
+    ];
+  } else {
+    rows = [
+      { label: 'Future', before: D.q1BF, after: D.q1AF, rtype: 'q1' },
+      { label: 'Past',   before: D.q1BP, after: D.q1AP, rtype: 'q1' },
+    ];
+  }
+
+  var INF_SVG = '<span class="sc-inf"><svg viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg></span>';
+  var UP_ARR  = '<svg width="34" height="42" viewBox="0 0 32 42"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
+  var DN_ARR  = '<svg width="34" height="42" viewBox="0 0 32 42"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
+
+  var html = '';
+  rows.forEach(function(row) {
+    var isBeyondA = (row.after === null || row.after === 'N/A');
+    var isBeyondB = (row.before === null || row.before === 'N/A');
+    var bStr = isBeyondB ? '' : String(row.before);
+    var aStr = isBeyondA ? '' : String(row.after);
+    var col = '#1A1A1A';
+    var dirArrow = '';
+    if (!isBeyondA && !isBeyondB) {
+      var d = Number(row.before) - Number(row.after);
+      var UP_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
+      var DN_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
+      if (row.rtype === 'topic') {
+        if (d > 0) dirArrow = DN_G;
+        else if (d < 0) dirArrow = UP_G;
+      } else {
+        if (d < 0) dirArrow = UP_G;
+        else if (d > 0) dirArrow = DN_G;
+      }
+    }
+        var afterHtml = isBeyondA
+      ? INF_SVG
+      : '<span class="sc-after" style="color:#1A1A1A">' + aStr + '</span>';
+    var beforeHtml = isBeyondB ? INF_SVG : '<span class="sc-before">' + bStr + '</span>';
+    html += '<div class="sc-row">' +
+      '<span class="sc-row-label">' + row.label + '</span>' +
+      beforeHtml +
+      '<span class="sc-arrow">\u2192</span>' +
+      afterHtml +
+      (dirArrow ? '<span class="sc-up-arrow">' + dirArrow + '</span>' : '') +
+      '</div>';
+  });
+  document.getElementById('sc-rows').innerHTML = html;
+}
+
+async function renderShareCard(type) {
+  buildShareCard(type);
+  var card = document.getElementById('share-card');
+  // Temporarily make visible for rendering
+  card.style.top = '-9999px';
+  card.style.left = '-9999px';
+  card.style.zIndex = '9999';
+  await new Promise(function(r){ setTimeout(r, 80); }); // let fonts load
+  try {
+    var canvas = await html2canvas(card, {
+      scale: 1,
+      useCORS: true,
+      backgroundColor: '#FAFAF7',
+      width: 1080,
+      height: 1080,
+      logging: false,
+    });
+    card.style.zIndex = '-1';
+    return canvas.toDataURL('image/png');
+  } catch(e) {
+    card.style.zIndex = '-1';
+    console.error('html2canvas error:', e);
+    return null;
+  }
+}
+
+async function shareImage(type) {
+  var dataURL = await renderShareCard(type);
+  if (!dataURL) { alert('Could not generate image.'); return; }
+  if (navigator.share) {
+    try {
+      var res = await fetch(dataURL);
+      var blob = await res.blob();
+      var file = new File([blob], 'noetune-result.png', { type: 'image/png' });
+      var canFile = navigator.canShare && navigator.canShare({ files: [file] });
+      if (canFile) {
+        await navigator.share({ files: [file], title: 'Noetune' });
+        return;
+      }
+    } catch(e) {
+      if (e && e.name === 'AbortError') return; // user cancelled — do nothing
+    }
+  }
+  // File sharing not supported
+  if (isMobile()) {
+    showSharePreview(dataURL); // overlay: long-press to save, avoids download dialog
+  } else {
+    triggerDownload(dataURL, 'noetune-result.png');
+  }
+}
+
+async function saveImage(type) {
+  var dataURL = await renderShareCard(type);
+  if (!dataURL) { alert('Could not generate image.'); return; }
+  triggerDownload(dataURL, 'noetune-result.png');
+}
+
+function triggerDownload(dataURL, filename) {
+  var a = document.createElement('a');
+  a.href = dataURL;
+  a.download = filename;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); }, 200);
+}
+
+function showShareMsg(type, msg) {
+  var el = document.getElementById('share-msg-' + type);
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._fadeTimer);
+  el._fadeTimer = setTimeout(function() { el.style.opacity = '0'; }, 3800);
+}
+
+async function shareResultText(type) {
+  const text = buildShareText(type);
+
+  if (navigator.share) {
+    try {
+      await navigator.share({ text });
+      return;
+    } catch (e) { if (e && e.name === 'AbortError') return; }
+  }
+
+  const box = document.getElementById('share-fallback-' + type);
+  if (box) box.style.display = 'flex';
+
+  const xLink = document.getElementById('share-x-' + type);
+  if (xLink) {
+    xLink.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+  }
+}
+
+function copyResult(type) {
+  const text = buildShareText(type);
+
+  function showCopied() {
+    const btn = document.getElementById('copy-btn-' + type);
+    if (btn) {
+      const original = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 2000);
+    }
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(showCopied);
+    return;
+  }
+
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+
+  try {
+    document.execCommand('copy');
+    showCopied();
+  } catch (e) {}
+
+  document.body.removeChild(ta);
+}
+
+function promoteTextShare() {
+  if (!isIOS()) return;
+  document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el) {
+    el.style.background = 'rgba(107,144,128,.08)';
+    el.style.fontWeight = '500';
+  });
+}
+
+function isMobile() {
+  return /iphone|ipad|ipod|android/i.test(navigator.userAgent);
+}
+
+function showSharePreview(dataURL) {
+  var img     = document.getElementById('share-preview-img');
+  var overlay = document.getElementById('share-preview-overlay');
+  if (!img || !overlay) { triggerDownload(dataURL, 'noetune-result.png'); return; }
+  img.src = dataURL;
+  overlay.style.display = 'flex';
+}
+
+function closeSharePreview() {
+  var overlay = document.getElementById('share-preview-overlay');
+  if (overlay) overlay.style.display = 'none';
+  var img = document.getElementById('share-preview-img');
+  if (img) img.src = '';
+}
+
+// ── Q1 Final input wiring ──
+const inp2 = document.getElementById('input-q1-final');
+const btn2 = document.getElementById('btn-q1-final');
+if (inp2 && btn2) {
+  inp2.addEventListener('input', function() {
+    const ok = inp2.value.trim().length > 0;
+    btn2.disabled = !ok;
+    btn2.style.opacity = ok ? '1' : '.45';
+  });
+  inp2.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
+}
+
+
+// ── UNLOCK PAID ──
+function unlockPaid() {
+  track('checkout_start',{topic:TOPIC});
+  // Apply pending theme if user clicked a locked theme from intro
+  if (D.pendingTheme) {
+    TOPIC = D.pendingTheme;
+    D.pendingTheme = null;
+    ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = '"' + topicLabel(TOPIC) + '"';
+    });
+    document.querySelectorAll('.topic-d').forEach(function(el) {
+      el.textContent = '"' + topicLabel(TOPIC) + '"';
+    });
+  }
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,
+    q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  breathing = false; bc = 0;
+  fwd('s-p-theme');
+}
+
+// ── CONTINUE SESSION (same theme, skip theme selector, go to Q1) ──
+function continueSession() {
+  D.q1 = ''; D.q1BF = null; D.q1BP = null; D.q1AF = null; D.q1AP = null;
+  D.yn1 = ''; D.yn2 = '';
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  breathing = false; bc = 0;
+  hist.push(cur);
+  saveState();
+  go('s-p-q1');
+}
+
+// ── FINAL CONFIRMATION Q1 ──
+function onQ1Final() {
+  const v = document.getElementById('input-q1-final').value.trim();
+  if (!v) return;
+  D.q1 = v;
+  D.q1NothingComesUp = false; // real answer came up — reset
+  const qd = '"' + v + '"';
+  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(function(id) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = qd;
+  });
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  document.getElementById('input-q1-final').value = '';
+  D.yn2 = '';
+  fwd('s-p-q1f');
+}
+
+function onQ1FinalEmpty() {
+  D.q1NothingComesUp = true;
+  if (D.ynMeaningless) {
+    // Both conditions met → complete
+    D.themeComplete = true;
+    saveState();
+    clearState();
+    fwd('s-p-complete');
+  } else {
+    // Nothing came up but YN not meaningless yet — back to YN2
+    fwd('s-p-yn2');
+  }
+}
+
+function goToNewTheme() {
+  clearState();
+  D.themeComplete = false;
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,
+    q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
+  const inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  const inp2 = document.getElementById('input-q1-final');
+  if (inp2) inp2.value = '';
+  hist = []; breathing = false; bc = 0;
+  fwd('s-p-theme');
+}
+
+
+// ══════════════════════════════════════════════
+// ── CONTINUITY SYSTEM (localStorage) ──
+// ══════════════════════════════════════════════
+
+const STORAGE_KEY = 'noetune_state';
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      activeTheme: TOPIC,
+      status: D.themeComplete ? 'completed' : 'in-progress',
+      lastSessionDate: new Date().toISOString().slice(0, 10),
+      ynMeaningless: D.ynMeaningless,
+      q1NothingComesUp: D.q1NothingComesUp
+    }));
+  } catch(e) {}
+}
+
+function loadState() {
+  try {
+    var raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function clearState() {
+  try { localStorage.removeItem(STORAGE_KEY); } catch(e) {}
+}
+
+function checkOnStartup() {
+  var state = loadState();
+  if (state && state.status === 'in-progress' && state.activeTheme) {
+    // Show continue screen
+    TOPIC = state.activeTheme;
+    var el = document.getElementById('continue-topic-name');
+    if (el) el.textContent = '"' + topicLabel(TOPIC) + '"';
+    // Update all topic displays
+    applyTopic(TOPIC);
+    // Switch to continue screen
+    var intro = document.getElementById('s-intro');
+    var cont  = document.getElementById('s-continue');
+    if (intro && cont) {
+      intro.classList.remove('active');
+      cont.classList.add('active');
+      cur = 's-continue';
+    }
+  }
+}
+
+function applyTopic(theme) {
+  TOPIC = theme;
+  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = '"' + topicLabel(theme) + '"';
+  });
+  document.querySelectorAll('.topic-d').forEach(function(el) {
+    el.textContent = '"' + topicLabel(theme) + '"';
+  });
+}
+
+function continueFromStorage() {
+  // Restore flags from storage if available
+  var state = loadState();
+  if (state) {
+    D.ynMeaningless    = !!state.ynMeaningless;
+    D.q1NothingComesUp = !!state.q1NothingComesUp;
+  }
+  // Reset session data, keep TOPIC
+  D.q1 = ''; D.q1BF = null; D.q1BP = null; D.q1AF = null; D.q1AP = null;
+  D.yn1 = ''; D.yn2 = ''; D.themeComplete = false;
+  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
+  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
+  var inp = document.getElementById('input-q1');
+  if (inp) inp.value = '';
+  var btn = document.getElementById('btn-q1');
+  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
+  breathing = false; bc = 0; hist = [];
+  // Pre-select the theme in paid theme screen
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  fwd('s-p-q1');
+}
+
+function newTopicFromStorage() {
+  clearState();
+  D.themeComplete = false;
+  TOPIC = 'Overthinking';
+  applyTopic(TOPIC);
+  // Reset theme buttons
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  var first = document.querySelector('#s-p-theme .theme-btn');
+  if (first) first.classList.add('selected');
+  go('s-intro');
+  hist = [];
+}
+
+function returnToIntro() {
+  clearState();
+  D.themeComplete = false;
+  TOPIC = 'Overthinking';
+  applyTopic(TOPIC);
+  // Re-select Overthinking in intro theme list
+  document.querySelectorAll('#s-intro .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
+  var ft = document.querySelector('#s-intro .theme-btn');
+  if (ft) ft.classList.add('selected');
+  hist = []; breathing = false; bc = 0;
+  go('s-intro');
+}
+
+
+// ══════════════════════════════════════════════
+// ── PWA / ADD TO HOME SCREEN ──
+// ══════════════════════════════════════════════
+
+var _pwaPrompt = null;
+var _pwaShown  = false;
+
+// Capture Android install prompt
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  _pwaPrompt = e;
+});
+
+function isIOS() {
+  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+}
+
+function isInStandaloneMode() {
+  return ('standalone' in window.navigator && window.navigator.standalone) ||
+         window.matchMedia('(display-mode: standalone)').matches;
+}
+
+function showAddToHome() {
+  if (_pwaShown) return;
+  if (isInStandaloneMode()) return; // Already installed
+  var el = document.getElementById('add-to-home');
+  if (!el) return;
+  if (isIOS()) {
+    el.style.display = 'block';
+    var hint = document.getElementById('pwa-ios-hint');
+    var btn  = document.getElementById('pwa-install-btn');
+    if (hint) hint.style.display = 'block';
+    if (btn)  btn.style.display  = 'none';
+  } else if (_pwaPrompt) {
+    el.style.display = 'block';
+  }
+  // else: unsupported (desktop non-PWA) — don't show
+  _pwaShown = true;
+}
+
+function triggerPWAInstall() {
+  if (_pwaPrompt) {
+    _pwaPrompt.prompt();
+    _pwaPrompt.userChoice.then(function(result) {
+      _pwaPrompt = null;
+      if (result.outcome === 'accepted') {
+        var el = document.getElementById('add-to-home');
+        if (el) el.style.display = 'none';
+      }
+    });
+  }
+}
+
+// ── Visit tracking ──
+(function(){
+  var today=new Date().toISOString().slice(0,10);
+  try{
+    var n=parseInt(localStorage.getItem('noetune_visit_count')||'0',10);
+    localStorage.setItem('noetune_visit_count',String(n+1));
+    localStorage.setItem('noetune_last_visit',today);
+  }catch(e){}
+})();
 
 updateProgress();
+checkOnStartup();
 promoteTextShare();
+
+function formatVal(v) {
+  return (v === 'N/A' || v === null) ? '∞' : v;
+}
+
+function buildShareText(type) {
+  const lines = [];
+  const topic = (type === 'free')
+    ? topicLabel(TOPIC)
+    : (D.q1 || topicLabel(TOPIC));
+
+  lines.push('Noetune — Self-Healing Flow');
+  lines.push('');
+
+  if (type === 'free') {
+    lines.push(topic + ' shift:');
+    lines.push('Future: ' + formatVal(D.freeBF) + ' → ' + formatVal(D.freeAF));
+    lines.push('Past:   ' + formatVal(D.freeBP) + ' → ' + formatVal(D.freeAP));
+  } else {
+    lines.push(topic + ' shift:');
+    lines.push('Future: ' + formatVal(D.q1BF) + ' → ' + formatVal(D.q1AF));
+    lines.push('Past:   ' + formatVal(D.q1BP) + ' → ' + formatVal(D.q1AP));
+  }
+
+  lines.push('');
+  lines.push('noetune.com');
+
+  return lines.join('\n');
+}
 </script>
+
 </body>
 </html>
