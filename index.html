@@ -629,58 +629,6 @@ function onPQ1AFSkip() { D.q1AF = 'N/A'; fwd('s-p-q1ap'); }
 function onPQ1AP() { D.q1AP = +document.getElementById('sl-pq1ap').value; fwd('s-p-yn2'); }
 function onPQ1APSkip() { D.q1AP = 'N/A'; fwd('s-p-yn2'); }
 
-function onYN2(val, btn) {
-  D.yn2 = val;
-  document.querySelectorAll('#s-p-yn2 .yn-btn').forEach(b => b.classList.remove('selected'));
-  if (btn) btn.classList.add('selected');
-  if (val === 'meaningless') {
-    D.ynMeaningless = true;
-    if (D.q1NothingComesUp) {
-      // Both conditions met → complete (skip q1-final)
-      setTimeout(() => {
-        D.themeComplete = true;
-        saveState();
-        clearState();
-        fwd('s-p-complete');
-      }, 400);
-      return;
-    }
-    // Go to final Q1 check
-    setTimeout(() => fwd('s-p-q1-final'), 400);
-  } else {
-    D.ynMeaningless = false;
-    setTimeout(() => showPaidResult(), 400);
-  }
-}
-
-function showPaidResult() {
-  // Dynamic headline based on yn2
-  var headline = document.getElementById('paid-result-headline');
-  if (headline) {
-    if (D.yn2 === 'yes') {
-      headline.textContent = 'Still present.';
-    } else if (D.yn2 === 'meaningless') {
-      headline.textContent = 'Something dissolved.';
-    } else {
-      var expanded = typeof D.q1BF === 'number' && typeof D.q1AF === 'number' && D.q1AF > D.q1BF;
-      headline.textContent = expanded ? 'State expanded.' : 'Your state shifted.';
-    }
-  }
-  const rows = document.getElementById('paid-result-rows');
-  rows.innerHTML = '';
-  if (D.q1) {
-    rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + D.q1.toUpperCase() + ' RATE</div>';
-    rows.innerHTML += makeResultRow('Future', D.q1BF, D.q1AF, 'q1');
-    rows.innerHTML += makeResultRow('Past', D.q1BP, D.q1AP, 'q1');
-  }
-  const ynLabel = D.yn2 === 'yes' ? 'Still present' : D.yn2 === 'no' ? 'Released' : 'Beyond meaning';
-  const ynCol = D.yn2 === 'no' ? '#6B9080' : D.yn2 === 'meaningless' ? '#6B9080' : '#C47A5A';
-  document.getElementById('paid-yn-result').innerHTML =
-    '<span style="color:'+ynCol+'">● </span>' + TOPIC + ': ' + ynLabel;
-  saveState();
-  fwd('s-p-result');
-  setTimeout(showAddToHome, 600);
-}
 
 // ── BREATHING ──
 function resetCircle(t) {
@@ -896,11 +844,6 @@ async function shareImage(type) {
   }
 }
 
-async function saveImage(type) {
-  var dataURL = await renderShareCard(type);
-  if (!dataURL) { alert('Could not generate image.'); return; }
-  triggerDownload(dataURL, 'noetune-result.png');
-}
 
 function triggerDownload(dataURL, filename) {
   var a = document.createElement('a');
@@ -921,67 +864,6 @@ function showShareMsg(type, msg) {
   el._fadeTimer = setTimeout(function() { el.style.opacity = '0'; }, 3800);
 }
 
-async function shareResultText(type) {
-  const text = buildShareText(type);
-
-  if (navigator.share) {
-    try {
-      await navigator.share({ text });
-      return;
-    } catch (e) { if (e && e.name === 'AbortError') return; }
-  }
-
-  const box = document.getElementById('share-fallback-' + type);
-  if (box) box.style.display = 'flex';
-
-  const xLink = document.getElementById('share-x-' + type);
-  if (xLink) {
-    xLink.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
-  }
-}
-
-function copyResult(type) {
-  const text = buildShareText(type);
-
-  function showCopied() {
-    const btn = document.getElementById('copy-btn-' + type);
-    if (btn) {
-      const original = btn.textContent;
-      btn.textContent = 'Copied ✓';
-      setTimeout(() => {
-        btn.textContent = original;
-      }, 2000);
-    }
-  }
-
-  if (navigator.clipboard && window.isSecureContext) {
-    navigator.clipboard.writeText(text).then(showCopied);
-    return;
-  }
-
-  const ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-
-  try {
-    document.execCommand('copy');
-    showCopied();
-  } catch (e) {}
-
-  document.body.removeChild(ta);
-}
-
-function promoteTextShare() {
-  if (!isIOS()) return;
-  document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el) {
-    el.style.background = 'rgba(107,144,128,.08)';
-    el.style.fontWeight = '500';
-  });
-}
 
 function isMobile() {
   return /iphone|ipad|ipod|android/i.test(navigator.userAgent);
@@ -1002,17 +884,6 @@ function closeSharePreview() {
   if (img) img.src = '';
 }
 
-// ── Q1 Final input wiring ──
-const inp2 = document.getElementById('input-q1-final');
-const btn2 = document.getElementById('btn-q1-final');
-if (inp2 && btn2) {
-  inp2.addEventListener('input', function() {
-    const ok = inp2.value.trim().length > 0;
-    btn2.disabled = !ok;
-    btn2.style.opacity = ok ? '1' : '.45';
-  });
-  inp2.addEventListener('keydown', e => { if (e.key === 'Enter') e.preventDefault(); });
-}
 
 
 // ── UNLOCK PAID ──
@@ -1023,53 +894,6 @@ function unlockPaid() {
   }
 }
 
-// ── CONTINUE SESSION (same theme, skip theme selector, go to Q1) ──
-function continueSession() {
-  D.q1 = ''; D.q1BF = null; D.q1BP = null; D.q1AF = null; D.q1AP = null;
-  D.yn1 = ''; D.yn2 = '';
-  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
-  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
-  const inp = document.getElementById('input-q1');
-  if (inp) inp.value = '';
-  const btn = document.getElementById('btn-q1');
-  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
-  breathing = false; bc = 0;
-  hist.push(cur);
-  saveState();
-  go('s-p-q1');
-}
-
-// ── FINAL CONFIRMATION Q1 ──
-function onQ1Final() {
-  const v = document.getElementById('input-q1-final').value.trim();
-  if (!v) return;
-  D.q1 = v;
-  D.q1NothingComesUp = false; // real answer came up — reset
-  const qd = '"' + v + '"';
-  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(function(id) {
-    const el = document.getElementById(id);
-    if (el) el.textContent = qd;
-  });
-  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
-  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
-  document.getElementById('input-q1-final').value = '';
-  D.yn2 = '';
-  fwd('s-p-q1f');
-}
-
-function onQ1FinalEmpty() {
-  D.q1NothingComesUp = true;
-  if (D.ynMeaningless) {
-    // Both conditions met → complete
-    D.themeComplete = true;
-    saveState();
-    clearState();
-    fwd('s-p-complete');
-  } else {
-    // Nothing came up but YN not meaningless yet — back to YN2
-    fwd('s-p-yn2');
-  }
-}
 
 function goToNewTheme() {
   clearState();
@@ -1178,58 +1002,6 @@ function returnToIntro() {
 }
 
 
-// ══════════════════════════════════════════════
-// ── PWA / ADD TO HOME SCREEN ──
-// ══════════════════════════════════════════════
-
-var _pwaPrompt = null;
-var _pwaShown  = false;
-
-// Capture Android install prompt
-window.addEventListener('beforeinstallprompt', function(e) {
-  e.preventDefault();
-  _pwaPrompt = e;
-});
-
-function isIOS() {
-  return /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-}
-
-function isInStandaloneMode() {
-  return ('standalone' in window.navigator && window.navigator.standalone) ||
-         window.matchMedia('(display-mode: standalone)').matches;
-}
-
-function showAddToHome() {
-  if (_pwaShown) return;
-  if (isInStandaloneMode()) return; // Already installed
-  var el = document.getElementById('add-to-home');
-  if (!el) return;
-  if (isIOS()) {
-    el.style.display = 'block';
-    var hint = document.getElementById('pwa-ios-hint');
-    var btn  = document.getElementById('pwa-install-btn');
-    if (hint) hint.style.display = 'block';
-    if (btn)  btn.style.display  = 'none';
-  } else if (_pwaPrompt) {
-    el.style.display = 'block';
-  }
-  // else: unsupported (desktop non-PWA) — don't show
-  _pwaShown = true;
-}
-
-function triggerPWAInstall() {
-  if (_pwaPrompt) {
-    _pwaPrompt.prompt();
-    _pwaPrompt.userChoice.then(function(result) {
-      _pwaPrompt = null;
-      if (result.outcome === 'accepted') {
-        var el = document.getElementById('add-to-home');
-        if (el) el.style.display = 'none';
-      }
-    });
-  }
-}
 
 // ── Visit tracking ──
 (function(){
@@ -1243,36 +1015,6 @@ function triggerPWAInstall() {
 
 updateProgress();
 checkOnStartup();
-promoteTextShare();
-
-function formatVal(v) {
-  return (v === 'N/A' || v === null) ? '∞' : v;
-}
-
-function buildShareText(type) {
-  const lines = [];
-  const topic = (type === 'free')
-    ? topicLabel(TOPIC)
-    : (D.q1 || topicLabel(TOPIC));
-
-  lines.push('Noetune — Self-Healing Flow');
-  lines.push('');
-
-  if (type === 'free') {
-    lines.push(topic + ' shift:');
-    lines.push('Future: ' + formatVal(D.freeBF) + ' → ' + formatVal(D.freeAF));
-    lines.push('Past:   ' + formatVal(D.freeBP) + ' → ' + formatVal(D.freeAP));
-  } else {
-    lines.push(topic + ' shift:');
-    lines.push('Future: ' + formatVal(D.q1BF) + ' → ' + formatVal(D.q1AF));
-    lines.push('Past:   ' + formatVal(D.q1BP) + ' → ' + formatVal(D.q1AP));
-  }
-
-  lines.push('');
-  lines.push('noetune.com');
-
-  return lines.join('\n');
-}
 </script>
 
 </body>
