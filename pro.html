@@ -640,7 +640,7 @@ function resultToText_paid(){
   return lines.join('\n');
 }
 async function shareResultText(type){var t=resultToText_paid();if(navigator.share){try{await navigator.share({text:t,title:'Noetune'});return;}catch(e){if(e&&e.name==='AbortError')return;}}var fb=document.getElementById('share-fallback-paid');if(fb)fb.style.display='flex';var xa=document.getElementById('share-x-paid');if(xa)xa.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(t);}
-function copyResult(type){var t=resultToText_paid();if(navigator.clipboard){navigator.clipboard.writeText(t).then(function(){showShareMsg('paid','Copied!');});}else{var ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showShareMsg('paid','Copied!');}}
+function copyResult(type){var t=resultToText_paid();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){showShareMsg('paid','Copied!');});return;}var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showShareMsg('paid','Copied!');}catch(e){}document.body.removeChild(ta);}
 
 // ── PWA ──
 var _pwaPrompt=null,_pwaShown=false;
