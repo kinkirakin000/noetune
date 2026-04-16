@@ -315,51 +315,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 
 
-<!-- ====== PAID: Final Yes/No ====== -->
-<div class="screen" id="s-p-yn2">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK</div>
-  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
-  <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN2('yes',this)">Yes</button>
-    <button class="yn-btn" onclick="onYN2('no',this)">No</button>
-    <button class="yn-btn" onclick="onYN2('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
-  </div>
-</div>
-
-<!-- ====== PAID: Full Result ====== -->
-<div class="screen" id="s-p-result">
-  <div class="label">FULL SESSION COMPLETE</div>
-  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em">Something shifted.</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
-  <div id="paid-result-rows"></div>
-  <div style="height:1.2rem"></div>
-  <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
-  <button class="btn" onclick="shareImage('paid')" style="background:#1A1A1A">Share as Image</button>
-  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
-  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
-  <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
-    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
-    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
-  </div>
-  <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
-  <button class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
-  <button class="btn-skip" onclick="startFree()">New topic</button>
-  <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
-    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
-    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
-    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif">Tap <span style="font-size:.8rem">⬆️</span> then "Add to Home Screen"</div>
-  </div>
-</div>
-
-<!-- ====== PAID: Final Confirmation Q1 ====== -->
-<div class="screen" id="s-p-q1-final">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CONFIRMATION</div>
-  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
-  <div style="font-size:.75rem;color:#B8B8B0;line-height:1.7;text-align:center;max-width:260px;margin-bottom:1.4rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em">If no answer comes naturally,<br>this theme may be complete.</div>
-  <input class="text-input" id="input-q1-final" placeholder="Type your answer..." autocomplete="off">
-  <button class="btn" id="btn-q1-final" onclick="onQ1Final()" style="margin-top:1.8rem">Confirm</button>
-  <button class="btn-skip" onclick="onQ1FinalEmpty()">No answer comes</button>
-</div>
 
 <!-- ====== PAID: Theme Complete ====== -->
 <div class="screen" id="s-p-complete">
