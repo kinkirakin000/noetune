@@ -486,6 +486,44 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   </div>
 </div>
 
+<!-- ====== PAID: Final Confirmation Q1 ====== -->
+<div class="screen" id="s-p-q1-final">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CONFIRMATION</div>
+  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
+  <div style="font-size:.75rem;color:#B8B8B0;line-height:1.7;text-align:center;max-width:260px;margin-bottom:1.4rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em">If no answer comes naturally,<br>this theme may be complete.</div>
+  <input class="text-input" id="input-q1-final" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-q1-final" onclick="onQ1Final()" style="margin-top:1.8rem">Confirm</button>
+  <button class="btn-skip" onclick="onQ1FinalEmpty()">No answer comes</button>
+</div>
+
+<!-- ====== PAID: Theme Complete ====== -->
+<div class="screen" id="s-p-complete">
+  <div class="label">THEME COMPLETE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:.4rem;letter-spacing:.1em">✓</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:300;color:#AAA;letter-spacing:.12em;margin-bottom:.5rem">No longer present.</div>
+  <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
+  <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
+  <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
+  <button class="btn-ghost" onclick="returnToIntro()" style="margin-top:.6rem">Return to start</button>
+</div>
+
+<!-- ── Share image preview overlay (mobile fallback) ── -->
+<div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
+  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
+  <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;-webkit-tap-highlight-color:transparent">Close</button>
+</div>
+
+<!-- ── Hidden share card ── -->
+<div id="share-card">
+  <div class="sc-label" id="sc-label">FULL SESSION COMPLETE</div>
+  <div class="sc-headline" id="sc-headline">Something shifted.</div>
+  <div class="sc-topic" id="sc-topic"></div>
+  <div id="sc-rows"></div>
+  <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
+  <div class="sc-footer">noetune.app</div>
+</div>
+
 <script>
 function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
 
@@ -1369,45 +1407,6 @@ updateProgress();
 checkOnStartup();
 promoteTextShare();
 </script>
-
-<!-- ====== PAID: Final Confirmation Q1 ====== -->
-<div class="screen" id="s-p-q1-final">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CONFIRMATION</div>
-  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
-  <div style="font-size:.75rem;color:#B8B8B0;line-height:1.7;text-align:center;max-width:260px;margin-bottom:1.4rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em">If no answer comes naturally,<br>this theme may be complete.</div>
-  <input class="text-input" id="input-q1-final" placeholder="Type your answer..." autocomplete="off">
-  <button class="btn" id="btn-q1-final" onclick="onQ1Final()" style="margin-top:1.8rem">Confirm</button>
-  <button class="btn-skip" onclick="onQ1FinalEmpty()">No answer comes</button>
-</div>
-
-<!-- ====== PAID: Theme Complete ====== -->
-<div class="screen" id="s-p-complete">
-  <div class="label">THEME COMPLETE</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:.4rem;letter-spacing:.1em">✓</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:300;color:#AAA;letter-spacing:.12em;margin-bottom:.5rem">No longer present.</div>
-  <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
-  <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
-  <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
-  <button class="btn-ghost" onclick="returnToIntro()" style="margin-top:.6rem">Return to start</button>
-</div>
-
-
-<!-- ── Share image preview overlay (mobile fallback) ── -->
-<div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
-  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
-  <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
-  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;-webkit-tap-highlight-color:transparent">Close</button>
-</div>
-
-<!-- ── Hidden share card ── -->
-<div id="share-card">
-  <div class="sc-label" id="sc-label">FULL SESSION COMPLETE</div>
-  <div class="sc-headline" id="sc-headline">Something shifted.</div>
-  <div class="sc-topic" id="sc-topic"></div>
-  <div id="sc-rows"></div>
-  <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
-  <div class="sc-footer">noetune.app</div>
-</div>
 
 </body>
 </html>
