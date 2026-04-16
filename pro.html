@@ -554,7 +554,7 @@ function showPaidResult(){
     else{headline.textContent='Your state shifted.';}
   }
   var rows=document.getElementById('paid-result-rows');rows.innerHTML='';
-  var label=D.q1||TOPIC;
+  var label=D.q1||topicLabel(TOPIC);
   rows.innerHTML+=makeResultRow(label,D.stateBefore,D.stateAfter,'q1');
   var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
   var pastLabel=finalLabels[D.finalStatePast]||'—';
@@ -562,7 +562,7 @@ function showPaidResult(){
   var pastCol=D.finalStatePast==='no'||D.finalStatePast==='meaningless'?'#6B9080':'#C47A5A';
   var futureCol=D.finalStateFuture==='no'||D.finalStateFuture==='meaningless'?'#6B9080':'#C47A5A';
   document.getElementById('paid-yn-result').innerHTML=
-    '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+TOPIC.toUpperCase()+'</div>'+
+    '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+topicLabel(TOPIC).toUpperCase()+'</div>'+
     '<div style="display:flex;justify-content:center;gap:2rem">'+
       '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Past<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
       '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Future<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
@@ -608,19 +608,19 @@ function returnToStart(){
 // ── Share ──
 function buildShareCard_paid(){
   document.getElementById('sc-label').textContent='FULL SESSION COMPLETE';
-  document.getElementById('sc-topic').textContent=(D.q1||TOPIC).toUpperCase()+' RATE';
+  document.getElementById('sc-topic').textContent=(D.q1||topicLabel(TOPIC)).toUpperCase()+' RATE';
   var hl;
   if(D.stateAfter==='N/A'||D.stateAfter===null){hl='Beyond measure.';}
   else if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'&&D.stateAfter>D.stateBefore){hl='State expanded.';}
   else{hl='Your state shifted.';}
   document.getElementById('sc-headline').textContent=hl;
-  buildShareCardRows([{label:D.q1||TOPIC,before:D.stateBefore,after:D.stateAfter,rtype:'q1'}]);
+  buildShareCardRows([{label:D.q1||topicLabel(TOPIC),before:D.stateBefore,after:D.stateAfter,rtype:'q1'}]);
   var descEl=document.getElementById('sc-desc');
   if(descEl){
     var desc='';
     if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'){
       var verb=D.stateAfter>D.stateBefore?'expanded':'reduced';
-      desc='I '+verb+' "'+( D.q1||TOPIC)+'" from '+D.stateBefore+' → '+D.stateAfter+' in 30 seconds.';
+      desc='I '+verb+' "'+(D.q1||topicLabel(TOPIC))+'" from '+D.stateBefore+' → '+D.stateAfter+' in 30 seconds.';
     }
     descEl.textContent=desc;
   }
@@ -630,7 +630,7 @@ function buildShareCard_paid(){
 async function shareImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}if(navigator.share){try{var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Noetune'});return;}}catch(e){if(e&&e.name==='AbortError')return;}}if(isMobile()){showSharePreview(d);}else{triggerDownload(d,'noetune-result.png');}}
 async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
 function resultToText_paid(){
-  var label=D.q1||TOPIC;
+  var label=D.q1||topicLabel(TOPIC);
   var lines=['Noetune — Full Session','',label.toUpperCase()+' RATE'];
   lines.push('State: '+(D.stateBefore==='N/A'||D.stateBefore===null?'∞':D.stateBefore)+' → '+(D.stateAfter==='N/A'||D.stateAfter===null?'∞':D.stateAfter));
   var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
