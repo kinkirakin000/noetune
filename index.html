@@ -1123,15 +1123,38 @@ async function shareResultText(type) {
 }
 
 function copyResult(type) {
-  var t = resultToText_paid();
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(t).then(function() { showShareMsg('paid', 'Copied!'); });
-  } else {
-    var ta = document.createElement('textarea');
-    ta.value = t; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); document.body.removeChild(ta);
-    showShareMsg('paid', 'Copied!');
+  const text = buildShareText(type);
+
+  function showCopied() {
+    const btn = document.getElementById('copy-btn-' + type);
+    if (btn) {
+      const original = btn.textContent;
+      btn.textContent = 'Copied ✓';
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 2000);
+    }
   }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(showCopied);
+    return;
+  }
+
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+
+  try {
+    document.execCommand('copy');
+    showCopied();
+  } catch (e) {}
+
+  document.body.removeChild(ta);
 }
 
 function promoteTextShare() {
