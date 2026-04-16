@@ -1433,6 +1433,35 @@ function triggerPWAInstall() {
 updateProgress();
 checkOnStartup();
 promoteTextShare();
+
+function formatVal(v) {
+  return (v === 'N/A' || v === null) ? '∞' : v;
+}
+
+function buildShareText(type) {
+  const lines = [];
+  const topic = (type === 'free')
+    ? topicLabel(TOPIC)
+    : (D.q1 || topicLabel(TOPIC));
+
+  lines.push('Noetune — Self-Healing Flow');
+  lines.push('');
+
+  if (type === 'free') {
+    lines.push(topic + ' shift:');
+    lines.push('Future: ' + formatVal(D.freeBF) + ' → ' + formatVal(D.freeAF));
+    lines.push('Past:   ' + formatVal(D.freeBP) + ' → ' + formatVal(D.freeAP));
+  } else {
+    lines.push(topic + ' shift:');
+    lines.push('Future: ' + formatVal(D.q1BF) + ' → ' + formatVal(D.q1AF));
+    lines.push('Past:   ' + formatVal(D.q1BP) + ' → ' + formatVal(D.q1AP));
+  }
+
+  lines.push('');
+  lines.push('noetune.com');
+
+  return lines.join('\n');
+}
 </script>
 
 </body>
