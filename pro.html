@@ -319,8 +319,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
   </div>
   <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
-  <button class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
-  <button class="btn-skip" onclick="goToNewTheme()">New topic</button>
+  <button id="cta-continue" class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Continue session</button>
+  <button id="cta-new-topic" class="btn-skip" onclick="goToNewTheme()">New topic</button>
   <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
     <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
     <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
@@ -508,6 +508,22 @@ function onYN2Future(val,btn){
   }
 }
 
+function renderResultCTA(){
+  var p=D.finalStatePast,f=D.finalStateFuture;
+  var cont=document.getElementById('cta-continue'),nt=document.getElementById('cta-new-topic');
+  if(!cont||!nt)return;
+  if(p==='yes'||f==='yes'){
+    cont.className='btn';cont.style.marginTop='.8rem';
+    nt.className='btn-skip';
+  }else if(p==='not_sure'||f==='not_sure'){
+    cont.className='btn-ghost';cont.style.marginTop='.8rem';
+    nt.className='btn-skip';
+  }else{
+    cont.className='btn-skip';cont.style.marginTop='.8rem';
+    nt.className='btn-ghost';nt.style.marginTop='.4rem';
+  }
+}
+
 function showPaidResult(){
   track('session_complete_paid',{topic:TOPIC});
   var headline=document.getElementById('paid-result-headline');
@@ -530,7 +546,7 @@ function showPaidResult(){
       '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Past<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
       '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Future<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
     '</div>';
-  saveState();fwd('s-p-result');
+  renderResultCTA();saveState();fwd('s-p-result');
   setTimeout(showAddToHome,600);
 }
 
