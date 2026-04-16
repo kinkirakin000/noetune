@@ -313,40 +313,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="btn-skip" onclick="goBack()" style="margin-top:1.2rem">← Back</button>
 </div>
 
-<!-- ====== PAID: Theme selector ====== -->
-<div class="screen" id="s-p-theme">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
-  <div class="title" style="margin-bottom:1.4rem">Choose your theme</div>
-  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
-    <button class="theme-btn selected" id="pt-overthinking" onclick="selectPaidTheme(this,'Overthinking')">Can't stop thinking</button>
-    <button class="theme-btn" id="pt-anxiety" onclick="selectPaidTheme(this,'Anxiety')">Something might go wrong</button>
-    <button class="theme-btn" id="pt-resistance" onclick="selectPaidTheme(this,'Resistance')">I don't want to face this</button>
-    <button class="theme-btn" id="pt-selfdoubt" onclick="selectPaidTheme(this,'Self-doubt')">I'm not sure about myself</button>
-    <button class="theme-btn" id="pt-emotional" onclick="selectPaidTheme(this,'Emotional reaction')">I get triggered easily</button>
-    <button class="theme-btn" id="pt-urge" onclick="selectPaidTheme(this,'Urge')">I have to do it now</button>
-  </div>
-  <button class="btn" onclick="fwd('s-p-yn')">Continue</button>
-</div>
-
-<!-- ====== PAID: Yes/No question ====== -->
-<div class="screen" id="s-p-yn">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CHECK-IN</div>
-  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere inside you?</div>
-  <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN('yes',this)">Yes</button>
-    <button class="yn-btn" onclick="onYN('no',this)">No</button>
-    <button class="yn-btn" onclick="onYN('meaningless',this)" style="font-size:.78rem;color:#AAA">This question no longer<br>holds meaning for me</button>
-  </div>
-</div>
-
-<!-- ====== PAID: Q1 — reversal question ====== -->
-<div class="screen" id="s-p-q1">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
-  <div class="title">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</div>
-  <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
-  <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
-  <button class="btn-skip" onclick="onQ1Nothing()" style="margin-top:.6rem;color:#B8B8B0;font-size:.78rem">Nothing comes up</button>
-</div>
 
 <!-- ====== PAID: Q1 answer — Future ====== -->
 <div class="screen" id="s-p-q1f">
