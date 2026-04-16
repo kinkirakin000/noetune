@@ -1104,15 +1104,22 @@ function resultToText_paid() {
 }
 
 async function shareResultText(type) {
-  var t = resultToText_paid();
+  const text = buildShareText(type);
+
   if (navigator.share) {
-    try { await navigator.share({ text: t, title: 'Noetune' }); return; }
-    catch(e) { if (e && e.name === 'AbortError') return; }
+    try {
+      await navigator.share({ text });
+      return;
+    } catch (e) {}
   }
-  var fb = document.getElementById('share-fallback-paid');
-  if (fb) fb.style.display = 'flex';
-  var xa = document.getElementById('share-x-paid');
-  if (xa) xa.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(t);
+
+  const box = document.getElementById('share-fallback-' + type);
+  if (box) box.style.display = 'flex';
+
+  const xLink = document.getElementById('share-x-' + type);
+  if (xLink) {
+    xLink.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text);
+  }
 }
 
 function copyResult(type) {
