@@ -521,6 +521,10 @@ let TOPIC = 'Overthinking';
 const TOPIC_LABELS = {'Overthinking':"Can't stop thinking",'Anxiety':"Something might go wrong",'Resistance':"I don't want to face this",'Self-doubt':"I'm not sure about myself",'Emotional reaction':"I get triggered easily",'Urge':"I have to do it now"};
 function topicLabel(t){return TOPIC_LABELS[t]||t;}
 let cur = 's-intro', hist = [];
+
+const PAID_KEY = 'noetune_paid';
+const STRIPE_URL = ''; // TODO: set to your Stripe payment link
+function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(e){return false;}}
 let breathing = false, bc = 0;
 
 const D = {
@@ -926,16 +930,11 @@ document.addEventListener('keydown', function(e) {
 
 // ── PAID DIRECT ──
 function goToPaidDirect() {
-  // Reset paid sliders/data but keep topic
-  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
-  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
-  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
-  const inp = document.getElementById('input-q1');
-  if (inp) inp.value = '';
-  const btn = document.getElementById('btn-q1');
-  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
-  hist = []; breathing = false; bc = 0;
-  fwd('s-p-theme');
+  if (hasPaidAccess()) {
+    window.location.href = 'pro.html';
+  } else if (STRIPE_URL) {
+    window.location.href = STRIPE_URL;
+  }
 }
 
 // ── CANVAS IMAGE CARD ──
@@ -1189,28 +1188,9 @@ if (inp2 && btn2) {
 // ── UNLOCK PAID ──
 function unlockPaid() {
   track('checkout_start',{topic:TOPIC});
-  // Apply pending theme if user clicked a locked theme from intro
-  if (D.pendingTheme) {
-    TOPIC = D.pendingTheme;
-    D.pendingTheme = null;
-    ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = '"' + topicLabel(TOPIC) + '"';
-    });
-    document.querySelectorAll('.topic-d').forEach(function(el) {
-      el.textContent = '"' + topicLabel(TOPIC) + '"';
-    });
+  if (STRIPE_URL) {
+    window.location.href = STRIPE_URL;
   }
-  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
-  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
-  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,
-    q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
-  const inp = document.getElementById('input-q1');
-  if (inp) inp.value = '';
-  const btn = document.getElementById('btn-q1');
-  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
-  breathing = false; bc = 0;
-  fwd('s-p-theme');
 }
 
 // ── CONTINUE SESSION (same theme, skip theme selector, go to Q1) ──
@@ -1263,17 +1243,11 @@ function onQ1FinalEmpty() {
 
 function goToNewTheme() {
   clearState();
-  D.themeComplete = false;
-  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
-  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
-  Object.assign(D, {paidBF:null,paidBP:null,paidAF:null,paidAP:null,
-    q1:'',q1BF:null,q1BP:null,q1AF:null,q1AP:null,yn1:'',yn2:''});
-  const inp = document.getElementById('input-q1');
-  if (inp) inp.value = '';
-  const inp2 = document.getElementById('input-q1-final');
-  if (inp2) inp2.value = '';
-  hist = []; breathing = false; bc = 0;
-  fwd('s-p-theme');
+  if (hasPaidAccess()) {
+    window.location.href = 'pro.html';
+  } else if (STRIPE_URL) {
+    window.location.href = STRIPE_URL;
+  }
 }
 
 
@@ -1338,25 +1312,13 @@ function applyTopic(theme) {
 }
 
 function continueFromStorage() {
-  // Restore flags from storage if available
-  var state = loadState();
-  if (state) {
-    D.ynMeaningless    = !!state.ynMeaningless;
-    D.q1NothingComesUp = !!state.q1NothingComesUp;
+  if (hasPaidAccess()) {
+    window.location.href = 'pro.html';
+  } else if (STRIPE_URL) {
+    window.location.href = STRIPE_URL;
+  } else {
+    go('s-intro');
   }
-  // Reset session data, keep TOPIC
-  D.q1 = ''; D.q1BF = null; D.q1BP = null; D.q1AF = null; D.q1AP = null;
-  D.yn1 = ''; D.yn2 = ''; D.themeComplete = false;
-  resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
-  hideNums('num-pq1f','num-pq1p','num-pq1af','num-pq1ap');
-  var inp = document.getElementById('input-q1');
-  if (inp) inp.value = '';
-  var btn = document.getElementById('btn-q1');
-  if (btn) { btn.disabled = true; btn.style.opacity = '.45'; }
-  breathing = false; bc = 0; hist = [];
-  // Pre-select the theme in paid theme screen
-  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
-  fwd('s-p-q1');
 }
 
 function newTopicFromStorage() {
