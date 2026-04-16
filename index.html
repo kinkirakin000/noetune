@@ -150,7 +150,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-continue">
   <div class="label" style="margin-bottom:2rem">STILL IN PROGRESS</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">You are still working on:</div>
-  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"Overthinking"</div>
+  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"Can't stop thinking"</div>
   <button class="btn-start" onclick="continueFromStorage()">Continue</button>
   <div style="height:14px"></div>
   <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">Start new topic</button>
@@ -318,12 +318,12 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
   <div class="title" style="margin-bottom:1.4rem">Choose your theme</div>
   <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
-    <button class="theme-btn selected" id="pt-overthinking" onclick="selectPaidTheme(this,'Overthinking')">Overthinking</button>
-    <button class="theme-btn" id="pt-anxiety" onclick="selectPaidTheme(this,'Anxiety')">Anxiety</button>
-    <button class="theme-btn" id="pt-resistance" onclick="selectPaidTheme(this,'Resistance')">Resistance</button>
-    <button class="theme-btn" id="pt-selfdoubt" onclick="selectPaidTheme(this,'Self-doubt')">Self-doubt</button>
-    <button class="theme-btn" id="pt-emotional" onclick="selectPaidTheme(this,'Emotional reaction')">Emotional reaction</button>
-    <button class="theme-btn" id="pt-urge" onclick="selectPaidTheme(this,'Urge')">Urge</button>
+    <button class="theme-btn selected" id="pt-overthinking" onclick="selectPaidTheme(this,'Overthinking')">Can't stop thinking</button>
+    <button class="theme-btn" id="pt-anxiety" onclick="selectPaidTheme(this,'Anxiety')">Something might go wrong</button>
+    <button class="theme-btn" id="pt-resistance" onclick="selectPaidTheme(this,'Resistance')">I don't want to face this</button>
+    <button class="theme-btn" id="pt-selfdoubt" onclick="selectPaidTheme(this,'Self-doubt')">I'm not sure about myself</button>
+    <button class="theme-btn" id="pt-emotional" onclick="selectPaidTheme(this,'Emotional reaction')">I get triggered easily</button>
+    <button class="theme-btn" id="pt-urge" onclick="selectPaidTheme(this,'Urge')">I have to do it now</button>
   </div>
   <button class="btn" onclick="fwd('s-p-yn')">Continue</button>
 </div>
@@ -528,6 +528,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
 
 let TOPIC = 'Overthinking';
+const TOPIC_LABELS = {'Overthinking':"Can't stop thinking",'Anxiety':"Something might go wrong",'Resistance':"I don't want to face this",'Self-doubt':"I'm not sure about myself",'Emotional reaction':"I get triggered easily",'Urge':"I have to do it now"};
+function topicLabel(t){return TOPIC_LABELS[t]||t;}
 let cur = 's-intro', hist = [];
 let breathing = false, bc = 0;
 
@@ -587,13 +589,13 @@ function selectPaidTheme(btn, theme) {
   btn.classList.add('selected');
   TOPIC = theme;
   // Update all topic display elements
-  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
   // Only update IDs that actually exist in DOM
   ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.textContent = '"' + theme + '"';
+    if (el) el.textContent = '"' + topicLabel(theme) + '"';
   });
-  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
 }
 
 function selectTheme(btn, theme) {
@@ -601,12 +603,12 @@ function selectTheme(btn, theme) {
   btn.classList.add('selected');
   TOPIC = theme;
   // Update all topic display elements
-  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
   ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.textContent = '"' + theme + '"';
+    if (el) el.textContent = '"' + topicLabel(theme) + '"';
   });
-  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + theme + '"');
+  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
 }
 
 // ── Slider reveal ──
@@ -1149,10 +1151,10 @@ function unlockPaid() {
     D.pendingTheme = null;
     ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
       var el = document.getElementById(id);
-      if (el) el.textContent = '"' + TOPIC + '"';
+      if (el) el.textContent = '"' + topicLabel(TOPIC) + '"';
     });
     document.querySelectorAll('.topic-d').forEach(function(el) {
-      el.textContent = '"' + TOPIC + '"';
+      el.textContent = '"' + topicLabel(TOPIC) + '"';
     });
   }
   resetSliders('sl-pq1f','sl-pq1p','sl-pq1af','sl-pq1ap');
@@ -1266,7 +1268,7 @@ function checkOnStartup() {
     // Show continue screen
     TOPIC = state.activeTheme;
     var el = document.getElementById('continue-topic-name');
-    if (el) el.textContent = '"' + TOPIC + '"';
+    if (el) el.textContent = '"' + topicLabel(TOPIC) + '"';
     // Update all topic displays
     applyTopic(TOPIC);
     // Switch to continue screen
@@ -1284,10 +1286,10 @@ function applyTopic(theme) {
   TOPIC = theme;
   ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id) {
     var el = document.getElementById(id);
-    if (el) el.textContent = '"' + theme + '"';
+    if (el) el.textContent = '"' + topicLabel(theme) + '"';
   });
   document.querySelectorAll('.topic-d').forEach(function(el) {
-    el.textContent = '"' + theme + '"';
+    el.textContent = '"' + topicLabel(theme) + '"';
   });
 }
 
