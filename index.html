@@ -338,10 +338,7 @@ let breathing = false, bc = 0;
 
 const D = {
   freeBF: null, freeBP: null, freeAF: null, freeAP: null,
-  paidBF: null, paidBP: null, paidAF: null, paidAP: null,
-  q1: '', q1BF: null, q1BP: null, q1AF: null, q1AP: null,
-  yn1: '', yn2: '', themeComplete: false, pendingTheme: null,
-  q1NothingComesUp: false, ynMeaningless: false
+  q1: '', q1BF: null, q1BP: null, q1AF: null, q1AP: null
 };
 
 function go(id) {
@@ -376,9 +373,7 @@ function updateProgress() {
 }
 
 // ── Theme selector ──
-function showThemeLock(theme) {
-  // Remember which theme the user wanted, then show paywall
-  D.pendingTheme = theme;
+function showThemeLock() {
   fwd('s-paywall');
 }
 
