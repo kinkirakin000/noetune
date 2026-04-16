@@ -1099,7 +1099,7 @@ async function shareResultText(type) {
     try {
       await navigator.share({ text });
       return;
-    } catch (e) {}
+    } catch (e) { if (e && e.name === 'AbortError') return; }
   }
 
   const box = document.getElementById('share-fallback-' + type);
