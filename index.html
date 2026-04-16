@@ -316,16 +316,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 
 
-<!-- ====== PAID: Theme Complete ====== -->
-<div class="screen" id="s-p-complete">
-  <div class="label">THEME COMPLETE</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:.4rem;letter-spacing:.1em">✓</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:300;color:#AAA;letter-spacing:.12em;margin-bottom:.5rem">No longer present.</div>
-  <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
-  <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
-  <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
-  <button class="btn-ghost" onclick="returnToIntro()" style="margin-top:.6rem">Return to start</button>
-</div>
 
 <!-- ── Share image preview overlay (mobile fallback) ── -->
 <div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
@@ -389,11 +379,7 @@ function updateBack() {
 const SCREEN_ORDER = [
   's-continue', 's-intro',
   's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
-  's-paywall',
-  's-p-theme','s-p-yn','s-p-q1','s-p-q1f','s-p-q1p',
-  's-p-b21','s-p-b22','s-p-b23','s-p-b24',
-  's-p-q1af','s-p-q1ap','s-p-yn2','s-p-result',
-  's-p-q1-final','s-p-complete'
+  's-paywall'
 ];
 function updateProgress() {
   const i = SCREEN_ORDER.indexOf(cur);
@@ -593,7 +579,6 @@ function bCycle(t, c) {
 
 const BREATH_NEXT = {
   'fb1': 's-f-b2', 'fb2': 's-f-b3', 'fb3': 's-f-af',
-  'pb21': 's-p-b22', 'pb22': 's-p-b23', 'pb23': 's-p-b24', 'pb24': 's-p-q1af'
 };
 
 function afterBreath(t) {
@@ -812,14 +797,6 @@ function unlockPaid() {
 }
 
 
-function goToNewTheme() {
-  clearState();
-  if (hasPaidAccess()) {
-    window.location.href = 'pro.html';
-  } else if (STRIPE_URL) {
-    window.location.href = STRIPE_URL;
-  }
-}
 
 
 // ══════════════════════════════════════════════
@@ -905,18 +882,6 @@ function newTopicFromStorage() {
   hist = [];
 }
 
-function returnToIntro() {
-  clearState();
-  D.themeComplete = false;
-  TOPIC = 'Overthinking';
-  applyTopic(TOPIC);
-  // Re-select Overthinking in intro theme list
-  document.querySelectorAll('#s-intro .theme-btn').forEach(function(b) { b.classList.remove('selected'); });
-  var ft = document.querySelector('#s-intro .theme-btn');
-  if (ft) ft.classList.add('selected');
-  hist = []; breathing = false; bc = 0;
-  go('s-intro');
-}
 
 
 
