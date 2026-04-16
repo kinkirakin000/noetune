@@ -408,19 +408,6 @@ function showThemeLock(theme) {
   fwd('s-paywall');
 }
 
-function selectPaidTheme(btn, theme) {
-  document.querySelectorAll('#s-p-theme .theme-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  TOPIC = theme;
-  // Update all topic display elements
-  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
-  // Only update IDs that actually exist in DOM
-  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = '"' + topicLabel(theme) + '"';
-  });
-  document.querySelectorAll('.topic-d').forEach(el => el.textContent = '"' + topicLabel(theme) + '"');
-}
 
 function selectTheme(btn, theme) {
   document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('selected'));
@@ -570,64 +557,6 @@ function arrowSVG(dir, color) {
 function showPaywall() { track('paywall_view',{topic:TOPIC});fwd('s-paywall'); }
 
 
-// ── PAID FLOW ──
-// Paid topic Before/After removed — only Q1 (positive) is tracked
-
-function onYN(val, btn) {
-  D.yn1 = val;
-  document.querySelectorAll('#s-p-yn .yn-btn').forEach(b => b.classList.remove('selected'));
-  if (btn) btn.classList.add('selected');
-  if (val === 'meaningless') {
-    D.ynMeaningless = true;
-    // Check if both graduation conditions are met
-    if (D.q1NothingComesUp) {
-      // Both conditions met → complete
-      setTimeout(() => {
-        D.themeComplete = true;
-        saveState();
-        clearState();
-        fwd('s-p-complete');
-      }, 400);
-      return;
-    }
-    // Only meaningless so far → go to Q1 to check
-    setTimeout(() => fwd('s-p-q1'), 400);
-  } else {
-    D.ynMeaningless = false;
-    setTimeout(() => fwd('s-p-q1'), 400);
-  }
-}
-
-function onQ1Nothing() {
-  D.q1NothingComesUp = true;
-  // Go back to YN to confirm meaninglessness
-  hist.push(cur);
-  go('s-p-yn');
-}
-
-function onQ1() {
-  const v = document.getElementById('input-q1').value.trim();
-  if (!v) return;
-  D.q1 = v;
-  D.q1NothingComesUp = false; // real answer: reset nothing flag
-  const qd = '"' + v + '"';
-  ['q1-display-f','q1-display-p','q1-display-b21','q1-display-b22','q1-display-b23','q1-display-af','q1-display-ap'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = qd;
-  });
-  fwd('s-p-q1f');
-}
-
-function onPQ1F() { D.q1BF = +document.getElementById('sl-pq1f').value; fwd('s-p-q1p'); }
-function onPQ1FSkip() { D.q1BF = 'N/A'; fwd('s-p-q1p'); }
-function onPQ1P() { D.q1BP = +document.getElementById('sl-pq1p').value; fwd('s-p-b21'); }
-function onPQ1PSkip() { D.q1BP = 'N/A'; fwd('s-p-b21'); }
-
-// Paid topic After removed
-function onPQ1AF() { D.q1AF = +document.getElementById('sl-pq1af').value; fwd('s-p-q1ap'); }
-function onPQ1AFSkip() { D.q1AF = 'N/A'; fwd('s-p-q1ap'); }
-function onPQ1AP() { D.q1AP = +document.getElementById('sl-pq1ap').value; fwd('s-p-yn2'); }
-function onPQ1APSkip() { D.q1AP = 'N/A'; fwd('s-p-yn2'); }
 
 
 // ── BREATHING ──
@@ -687,18 +616,6 @@ function afterBreath(t) {
   }
 }
 
-// ── Q1 input wiring ──
-const inp1 = document.getElementById('input-q1');
-const btn1 = document.getElementById('btn-q1');
-inp1.addEventListener('input', function() {
-  const ok = inp1.value.trim().length > 0;
-  btn1.disabled = !ok;
-  btn1.style.opacity = ok ? '1' : '.45';
-  btn1.style.cursor = ok ? 'pointer' : 'default';
-});
-inp1.addEventListener('keydown', e => {
-  if (e.key === 'Enter') e.preventDefault();
-});
 
 // Global Enter prevention
 document.addEventListener('keydown', function(e) {
