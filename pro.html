@@ -125,9 +125,14 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 }
 #share-card .sc-up-arrow{display:inline-flex;align-items:center;margin-left:14px}
 #share-card .sc-up-arrow svg{display:block;overflow:visible}
+#share-card .sc-desc{
+  font-size:24px;color:#909088;letter-spacing:.03em;
+  margin-top:44px;font-weight:300;font-family:-apple-system,sans-serif;
+  text-align:center;
+}
 #share-card .sc-tagline{
   font-size:26px;color:#B8B8B0;letter-spacing:.08em;
-  margin-top:60px;font-weight:300;font-family:-apple-system,sans-serif;
+  margin-top:20px;font-weight:300;font-family:-apple-system,sans-serif;
 }
 #share-card .sc-footer{
   font-size:22px;color:#C8C8C0;letter-spacing:.1em;
@@ -360,6 +365,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="sc-headline" id="sc-headline">Something shifted.</div>
   <div class="sc-topic" id="sc-topic"></div>
   <div id="sc-rows"></div>
+  <div class="sc-desc" id="sc-desc"></div>
   <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
   <div class="sc-footer">noetune.app</div>
   <div class="sc-qr" id="sc-qr"></div>
@@ -607,6 +613,15 @@ function buildShareCard_paid(){
   else{hl='Your state shifted.';}
   document.getElementById('sc-headline').textContent=hl;
   buildShareCardRows([{label:D.q1||TOPIC,before:D.stateBefore,after:D.stateAfter,rtype:'q1'}]);
+  var descEl=document.getElementById('sc-desc');
+  if(descEl){
+    var desc='';
+    if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'){
+      var verb=D.stateAfter>D.stateBefore?'expanded':'reduced';
+      desc='I '+verb+' "'+( D.q1||TOPIC)+'" from '+D.stateBefore+' → '+D.stateAfter+' in 30 seconds.';
+    }
+    descEl.textContent=desc;
+  }
   var qrEl=document.getElementById('sc-qr');
   if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.app',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
 }
