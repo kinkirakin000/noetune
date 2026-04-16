@@ -663,8 +663,7 @@ function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(
 
 updateProgress();
 checkPaidParam();
-const DEV = location.hostname.includes('github.io') || location.hostname.includes('localhost');
-if(!hasPaidAccess() && !DEV){window.location.replace('index.html');}else{checkOnStartup();}
+checkOnStartup();
 promoteTextShare();
 </script>
 </body>
