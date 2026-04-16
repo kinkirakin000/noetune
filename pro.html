@@ -445,7 +445,6 @@ function clearState(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
 
 function applyTopic(theme){
   TOPIC=theme;
-  ['topic-display-1','topic-display-2','topic-display-3','topic-display-4'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent='"'+topicLabel(theme)+'"';});
   document.querySelectorAll('.topic-d').forEach(function(el){el.textContent='"'+topicLabel(theme)+'"';});
 }
 

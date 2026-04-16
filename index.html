@@ -337,8 +337,7 @@ function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(
 let breathing = false, bc = 0;
 
 const D = {
-  freeBF: null, freeBP: null, freeAF: null, freeAP: null,
-  q1: '', q1BF: null, q1BP: null, q1AF: null, q1AP: null
+  freeBF: null, freeBP: null, freeAF: null, freeAP: null
 };
 
 function go(id) {
@@ -402,7 +401,7 @@ function resetSliders(...ids) {
 
 function startFree() {
   track('session_start_free',{topic:TOPIC});
-  Object.keys(D).forEach(k => { if (typeof D[k] === 'number' || D[k] === null) D[k] = null; else D[k] = ''; });
+  D.freeBF = null; D.freeBP = null; D.freeAF = null; D.freeAP = null;
   hist = []; breathing = false; bc = 0;
   resetSliders('sl-fbf','sl-fbp','sl-faf','sl-fap');
   hideNums('num-fbf','num-fbp','num-faf','num-fap');
@@ -587,48 +586,26 @@ function goToPaidDirect() {
   }
 }
 
-// ── CANVAS IMAGE CARD ──
 // ── SHARE CARD BUILDER ──
-function buildShareCard(type) {
-  var topic = (type === 'free') ? TOPIC : (D.q1 || TOPIC);
-  document.getElementById('sc-topic').textContent = topic.toUpperCase() + ' RATE';
+function buildShareCard() {
+  document.getElementById('sc-topic').textContent = TOPIC.toUpperCase() + ' RATE';
 
-  // Headline
-  var allBeyond = false;
-  if (type === 'paid') {
-    allBeyond = (D.q1AF === null || D.q1AF === 'N/A') && (D.q1AP === null || D.q1AP === 'N/A');
-  } else {
-    allBeyond = (D.freeAF === null || D.freeAF === 'N/A') && (D.freeAP === null || D.freeAP === 'N/A');
-  }
+  var allBeyond = (D.freeAF === null || D.freeAF === 'N/A') && (D.freeAP === null || D.freeAP === 'N/A');
   var scHeadline;
   if (allBeyond) {
     scHeadline = "It's gone.";
-  } else if (type === 'free') {
+  } else {
     var fd = (typeof D.freeBF === 'number' && typeof D.freeAF === 'number') ? (D.freeBF - D.freeAF) : 0;
     scHeadline = fd > 0 ? (TOPIC + " dropped.") : "Your state shifted.";
-  } else {
-    var pd = (typeof D.q1BF === 'number' && typeof D.q1AF === 'number') ? (D.q1AF - D.q1BF) : 0;
-    scHeadline = pd > 0 ? "State expanded." : "Your state shifted.";
   }
   document.getElementById('sc-headline').textContent = scHeadline;
 
-  // Build rows
-  var rows;
-  if (type === 'free') {
-    rows = [
-      { label: 'Future', before: D.freeBF, after: D.freeAF, rtype: 'topic' },
-      { label: 'Past',   before: D.freeBP, after: D.freeAP, rtype: 'topic' },
-    ];
-  } else {
-    rows = [
-      { label: 'Future', before: D.q1BF, after: D.q1AF, rtype: 'q1' },
-      { label: 'Past',   before: D.q1BP, after: D.q1AP, rtype: 'q1' },
-    ];
-  }
+  var rows = [
+    { label: 'Future', before: D.freeBF, after: D.freeAF, rtype: 'topic' },
+    { label: 'Past',   before: D.freeBP, after: D.freeAP, rtype: 'topic' },
+  ];
 
   var INF_SVG = '<span class="sc-inf"><svg viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg></span>';
-  var UP_ARR  = '<svg width="34" height="42" viewBox="0 0 32 42"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
-  var DN_ARR  = '<svg width="34" height="42" viewBox="0 0 32 42"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
 
   var html = '';
   rows.forEach(function(row) {
@@ -636,21 +613,15 @@ function buildShareCard(type) {
     var isBeyondB = (row.before === null || row.before === 'N/A');
     var bStr = isBeyondB ? '' : String(row.before);
     var aStr = isBeyondA ? '' : String(row.after);
-    var col = '#1A1A1A';
     var dirArrow = '';
     if (!isBeyondA && !isBeyondB) {
       var d = Number(row.before) - Number(row.after);
       var UP_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
       var DN_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
-      if (row.rtype === 'topic') {
-        if (d > 0) dirArrow = DN_G;
-        else if (d < 0) dirArrow = UP_G;
-      } else {
-        if (d < 0) dirArrow = UP_G;
-        else if (d > 0) dirArrow = DN_G;
-      }
+      if (d > 0) dirArrow = DN_G;
+      else if (d < 0) dirArrow = UP_G;
     }
-        var afterHtml = isBeyondA
+    var afterHtml = isBeyondA
       ? INF_SVG
       : '<span class="sc-after" style="color:#1A1A1A">' + aStr + '</span>';
     var beforeHtml = isBeyondB ? INF_SVG : '<span class="sc-before">' + bStr + '</span>';
@@ -666,7 +637,7 @@ function buildShareCard(type) {
 }
 
 async function renderShareCard(type) {
-  buildShareCard(type);
+  buildShareCard();
   var card = document.getElementById('share-card');
   // Temporarily make visible for rendering
   card.style.top = '-9999px';
@@ -727,14 +698,6 @@ function triggerDownload(dataURL, filename) {
   setTimeout(function(){ document.body.removeChild(a); }, 200);
 }
 
-function showShareMsg(type, msg) {
-  var el = document.getElementById('share-msg-' + type);
-  if (!el) return;
-  el.textContent = msg;
-  el.style.opacity = '1';
-  clearTimeout(el._fadeTimer);
-  el._fadeTimer = setTimeout(function() { el.style.opacity = '0'; }, 3800);
-}
 
 
 function isMobile() {
