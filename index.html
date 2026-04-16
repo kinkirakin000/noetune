@@ -846,8 +846,8 @@ function bCycle(t, c) {
   c.textContent = 'In'; c.className = 'breath-circle inhale';
   setTimeout(() => {
     c.textContent = 'Out'; c.className = 'breath-circle exhale';
-    setTimeout(() => { bc++; bCycle(t, c); }, 2000);
-  }, 2000);
+    setTimeout(() => { bc++; bCycle(t, c); }, 1500);
+  }, 1500);
 }
 
 const BREATH_NEXT = {
