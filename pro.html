@@ -646,7 +646,7 @@ function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(
 
 updateProgress();
 checkPaidParam();
-checkOnStartup();
+if(!hasPaidAccess()){window.location.replace('index.html');}else{checkOnStartup();}
 promoteTextShare();
 </script>
 </body>
