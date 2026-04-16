@@ -932,8 +932,8 @@ document.addEventListener('keydown', function(e) {
 function goToPaidDirect() {
   if (hasPaidAccess()) {
     window.location.href = 'pro.html';
-  } else if (STRIPE_URL) {
-    window.location.href = STRIPE_URL;
+  } else {
+    fwd('s-paywall');
   }
 }
 
