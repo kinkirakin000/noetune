@@ -625,7 +625,7 @@ function buildShareCard_paid(){
     descEl.textContent=desc;
   }
   var qrEl=document.getElementById('sc-qr');
-  if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.app',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
+  if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.com',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
 }
 async function shareImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}if(navigator.share){try{var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Noetune'});return;}}catch(e){if(e&&e.name==='AbortError')return;}}if(isMobile()){showSharePreview(d);}else{triggerDownload(d,'noetune-result.png');}}
 async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
@@ -636,7 +636,7 @@ function resultToText_paid(){
   var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
   lines.push('Past: '+(finalLabels[D.finalStatePast]||'Shifted'));
   lines.push('Future: '+(finalLabels[D.finalStateFuture]||'Shifted'));
-  lines.push('','noetune.app');
+  lines.push('','noetune.com');
   return lines.join('\n');
 }
 async function shareResultText(type){var t=resultToText_paid();if(navigator.share){try{await navigator.share({text:t,title:'Noetune'});return;}catch(e){if(e&&e.name==='AbortError')return;}}var fb=document.getElementById('share-fallback-paid');if(fb)fb.style.display='flex';var xa=document.getElementById('share-x-paid');if(xa)xa.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(t);}
