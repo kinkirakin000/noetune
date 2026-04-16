@@ -1092,6 +1092,41 @@ function showShareMsg(type, msg) {
   el._fadeTimer = setTimeout(function() { el.style.opacity = '0'; }, 3800);
 }
 
+function resultToText_paid() {
+  var label = D.q1 || topicLabel(TOPIC);
+  var lines = ['Noetune — Full Session', '', label.toUpperCase() + ' RATE'];
+  lines.push('Future: ' + (D.q1BF === 'N/A' || D.q1BF === null ? '∞' : D.q1BF) + ' → ' + (D.q1AF === 'N/A' || D.q1AF === null ? '∞' : D.q1AF));
+  lines.push('Past:   ' + (D.q1BP === 'N/A' || D.q1BP === null ? '∞' : D.q1BP) + ' → ' + (D.q1AP === 'N/A' || D.q1AP === null ? '∞' : D.q1AP));
+  var ynLabels = { 'yes': 'Still present', 'no': 'Released', 'meaningless': 'Dissolved' };
+  lines.push(topicLabel(TOPIC) + ': ' + (ynLabels[D.yn2] || 'Shifted'));
+  lines.push('', 'noetune.com');
+  return lines.join('\n');
+}
+
+async function shareResultText(type) {
+  var t = resultToText_paid();
+  if (navigator.share) {
+    try { await navigator.share({ text: t, title: 'Noetune' }); return; }
+    catch(e) { if (e && e.name === 'AbortError') return; }
+  }
+  var fb = document.getElementById('share-fallback-paid');
+  if (fb) fb.style.display = 'flex';
+  var xa = document.getElementById('share-x-paid');
+  if (xa) xa.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(t);
+}
+
+function copyResult(type) {
+  var t = resultToText_paid();
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(t).then(function() { showShareMsg('paid', 'Copied!'); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showShareMsg('paid', 'Copied!');
+  }
+}
+
 function promoteTextShare() {
   if (!isIOS()) return;
   document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el) {
