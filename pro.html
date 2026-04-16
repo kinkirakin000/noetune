@@ -311,6 +311,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div id="paid-result-rows"></div>
   <div style="height:1.2rem"></div>
   <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
+  <div id="result-follow-up" style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#B8B8B0;text-align:center;letter-spacing:.06em;margin-bottom:.8rem;line-height:1.7"></div>
   <button class="btn" onclick="shareImage('paid')" style="background:#1A1A1A">Share as Image</button>
   <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
   <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
@@ -511,16 +512,20 @@ function onYN2Future(val,btn){
 function renderResultCTA(){
   var p=D.finalStatePast,f=D.finalStateFuture;
   var cont=document.getElementById('cta-continue'),nt=document.getElementById('cta-new-topic');
+  var fu=document.getElementById('result-follow-up');
   if(!cont||!nt)return;
   if(p==='yes'||f==='yes'){
     cont.className='btn';cont.style.marginTop='.8rem';
     nt.className='btn-skip';
+    if(fu)fu.textContent='The root is still there.';
   }else if(p==='not_sure'||f==='not_sure'){
     cont.className='btn-ghost';cont.style.marginTop='.8rem';
     nt.className='btn-skip';
+    if(fu)fu.textContent='Still in motion.';
   }else{
     cont.className='btn-skip';cont.style.marginTop='.8rem';
     nt.className='btn-ghost';nt.style.marginTop='.4rem';
+    if(fu)fu.textContent='';
   }
 }
 
