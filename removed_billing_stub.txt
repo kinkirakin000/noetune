@@ -1,0 +1,15 @@
+// Removed from pro.html on 2026-04-17
+// Reason: unused at time of cleanup. Restore here if billing flow is re-implemented.
+
+var PAID_KEY='noetune_paid';
+function checkPaidParam(){
+  var params=new URLSearchParams(window.location.search);
+  if(params.get('paid')==='1'){
+    try{localStorage.setItem(PAID_KEY,'1');}catch(e){}
+    history.replaceState(null,'',window.location.pathname);
+  }
+}
+function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(e){return false;}}
+
+// Caller (was at bottom of <script>, after updateProgress()):
+// checkPaidParam();
