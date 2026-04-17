@@ -649,19 +649,19 @@ function showAddToHome(){if(_pwaShown)return;if(isInStandaloneMode())return;var 
 function triggerPWAInstall(){if(_pwaPrompt){_pwaPrompt.prompt();_pwaPrompt.userChoice.then(function(r){_pwaPrompt=null;if(r.outcome==='accepted'){var el=document.getElementById('add-to-home');if(el)el.style.display='none';}});}}
 function promoteTextShare(){if(!isIOS())return;document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el){el.style.background='rgba(107,144,128,.08)';el.style.fontWeight='500';});}
 
-// ── Paid access detection ──
-var PAID_KEY='noetune_paid';
-function checkPaidParam(){
-  var params=new URLSearchParams(window.location.search);
-  if(params.get('paid')==='1'){
-    try{localStorage.setItem(PAID_KEY,'1');}catch(e){}
-    history.replaceState(null,'',window.location.pathname);
-  }
-}
-function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(e){return false;}}
+// ── Paid access detection (currently unused; reserved for future billing flow) ──
+// var PAID_KEY='noetune_paid';
+// function checkPaidParam(){
+//   var params=new URLSearchParams(window.location.search);
+//   if(params.get('paid')==='1'){
+//     try{localStorage.setItem(PAID_KEY,'1');}catch(e){}
+//     history.replaceState(null,'',window.location.pathname);
+//   }
+// }
+// function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(e){return false;}}
 
 updateProgress();
-checkPaidParam();
+// checkPaidParam();
 checkOnStartup();
 promoteTextShare();
 </script>
