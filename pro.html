@@ -229,6 +229,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-p-measure1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
   <div class="title">What proportion of your current self is in this state?</div>
+  <em id="q1-display-measure1" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>
   <div class="score-num" id="num-measure1" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-measure1" oninput="revealNum('num-measure1',this.value)">
@@ -282,6 +283,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-p-measure2">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
   <div class="title">Now — what proportion of your current self is in this state?</div>
+  <em id="q1-display-measure2" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>
   <div class="score-num" id="num-measure2" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-measure2" oninput="revealNum('num-measure2',this.value)">
@@ -494,7 +496,7 @@ function onQ1(){
   var v=document.getElementById('input-q1').value.trim();if(!v)return;
   D.q1=v;
   var qd='"'+v+'"';
-  ['q1-display-b21','q1-display-b22','q1-display-b23'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
+  ['q1-display-b21','q1-display-b22','q1-display-b23','q1-display-measure1','q1-display-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
   fwd('s-p-measure1');
 }
 function onQ1Nothing(){fwd('s-p-cal1');}
