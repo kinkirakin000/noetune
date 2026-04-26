@@ -333,23 +333,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
   <div id="recent-history" style="width:100%;max-width:280px;margin-bottom:.8rem"></div>
   <div id="result-follow-up" style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#B8B8B0;text-align:center;letter-spacing:.06em;margin-bottom:.8rem;line-height:1.7"></div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:.5rem">There's more here.</div>
   <button id="cta-continue" class="btn-main-cta" onclick="continueSession()">Go deeper →</button>
-  <button class="btn-secondary" onclick="shareImage('paid')">Show this shift →</button>
-  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.78rem;opacity:.6">Save image</button>
-  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
-  <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
-    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
-    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
-  </div>
-  <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
+  <button class="btn-secondary" onclick="shareImage('paid')" style="margin-top:1rem">Share to Instagram</button>
+  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.6rem;padding:10px 36px;font-size:.82rem">Save image</button>
   <button id="cta-new-topic" class="btn-skip" onclick="goToNewTheme()">New topic</button>
-  <button id="cta-view-history" class="btn-skip" onclick="openFullHistory()" style="color:#C0C0B8;font-size:.72rem;margin-top:.1rem;display:none">View full history →</button>
-  <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
-    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
-    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
-    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif">Tap <span style="font-size:.8rem">⬆️</span> then "Add to Home Screen"</div>
-  </div>
 </div>
 
 <!-- ====== PAID: Theme Complete ====== -->
@@ -605,19 +592,7 @@ function onYN2Future(val,btn){
   setTimeout(function(){showPaidResult();},400);
 }
 
-function renderResultCTA(){
-  var p=D.finalStatePast,f=D.finalStateFuture;
-  var cont=document.getElementById('cta-continue');
-  var nt=document.getElementById('cta-new-topic');
-  var fu=document.getElementById('result-follow-up');
-  if(!cont||!nt)return;
-  // Always keep Go deeper as the primary CTA
-  cont.className='btn-main-cta';
-  cont.style.marginTop='1.6rem';
-  // Keep New topic weak
-  nt.className='btn-skip';
-  if(fu)fu.textContent='There\'s more here.';
-}
+function renderResultCTA(){}
 
 function openFullHistory(){renderFullHistory();fwd('s-p-history');}
 function renderFullHistory(){
