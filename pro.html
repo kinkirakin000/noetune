@@ -10,6 +10,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
+.completion-hint{margin-top:10px;font-size:0.72rem;color:#C0C0B8;text-align:center;line-height:1.6;letter-spacing:0.05em;font-family:'Noto Serif JP',serif;}
+.meaningful{margin-top:1.2rem;padding:14px 42px;font-size:1rem;font-weight:500;color:#6B9080;border:1.8px solid #6B9080;border-radius:30px;background:#F2F7F5;letter-spacing:.08em;transition:all .25s;}
+.meaningful:active{transform:scale(.97);background:#6B9080;color:#fff;}
+.btn-primary-next{margin-top:1.4rem;background:#6B9080;color:#fff;border:none;padding:15px 46px;font-size:1rem;font-weight:500;letter-spacing:.1em;box-shadow:0 4px 18px rgba(107,144,128,.22);}
+.btn-primary-next:active{transform:scale(.97);opacity:.85;}
+.btn-main-cta{margin-top:1.6rem;background:#6B9080 !important;color:#fff !important;border:none !important;padding:20px 72px;font-size:1.15rem;font-weight:700;letter-spacing:.14em;border-radius:40px;box-shadow:0 10px 36px rgba(107,144,128,.45);cursor:pointer;font-family:'Noto Serif JP',serif;transform:scale(1);transition:all .25s ease;width:auto;}
+.btn-main-cta:active{transform:scale(.96);box-shadow:0 4px 14px rgba(107,144,128,.28);}
+.btn-secondary{margin-top:1rem;background:transparent;color:#888;border:1px solid #D4DDD8;padding:14px 48px;font-size:.9rem;border-radius:28px;opacity:1;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;}
+.btn-secondary:active{transform:scale(.97);opacity:.7;}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
 body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#FAFAF7;color:#1A1A1A}
@@ -38,7 +47,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-skip{background:none;border:none;font-family:'Noto Serif JP',serif;font-size:.75rem;color:#C0C0B8;letter-spacing:.1em;cursor:pointer;margin-top:.8rem;padding:.3rem .8rem}
 .breath-focus{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#888;text-align:center;line-height:1.9;margin-bottom:1.8rem;max-width:280px}
 .breath-focus em{color:#1A1A1A;font-style:normal;font-weight:500}
-.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:300;transition:transform 4s cubic-bezier(.4,0,.2,1),box-shadow 4s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);cursor:pointer}
+.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:300;transition:transform 1.7s cubic-bezier(.4,0,.2,1),box-shadow 1.7s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);cursor:pointer}
 .breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
 .breath-circle.exhale{transform:scale(1)}
 .intro-title{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;letter-spacing:.15em;color:#1A1A1A;margin-bottom:.3rem}
@@ -60,6 +69,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .r-after{}
 .yes-no-wrap{display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;margin-bottom:1.2rem}
 .yn-btn{padding:1rem 1.2rem;border-radius:16px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.95rem;color:#1A1A1A;transition:all .25s;letter-spacing:.06em}
+.yn-btn.meaningless{opacity:1;color:#6B9080;border-color:#6B9080;font-weight:500}
 .yn-btn:active{transform:scale(.97)}
 .yn-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080}
 .theme-btn{width:100%;padding:.7rem 1rem;border-radius:12px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.88rem;color:#555;transition:all .22s;letter-spacing:.05em}
@@ -130,9 +140,15 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   margin-top:44px;font-weight:300;font-family:-apple-system,sans-serif;
   text-align:center;
 }
+#share-card .sc-hook{
+  font-size:28px;color:#6B9080;letter-spacing:.06em;
+  margin-top:48px;font-weight:400;font-family:-apple-system,sans-serif;
+  text-align:center;
+}
 #share-card .sc-tagline{
-  font-size:26px;color:#B8B8B0;letter-spacing:.08em;
-  margin-top:20px;font-weight:300;font-family:-apple-system,sans-serif;
+  font-size:26px;color:#1A1A1A;letter-spacing:.1em;
+  margin-top:10px;font-weight:500;font-family:-apple-system,sans-serif;
+  text-align:center;
 }
 #share-card .sc-footer{
   font-size:22px;color:#C8C8C0;letter-spacing:.1em;
@@ -145,7 +161,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   margin-top:28px;
 }
 #share-card .sc-qr canvas,#share-card .sc-qr img{
-  width:72px;height:72px;border-radius:4px;opacity:.45;display:block;
+  width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -162,7 +178,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-continue">
   <div class="label" style="margin-bottom:2rem">STILL IN PROGRESS</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">You are still working on:</div>
-  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"Overthinking"</div>
+  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"..."</div>
   <button class="btn-start" onclick="continueFromStorage()">Continue</button>
   <div style="height:14px"></div>
   <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">Start new topic</button>
@@ -171,35 +187,40 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== PAID: Theme selector ====== -->
 <div class="screen active" id="s-p-theme">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
-  <div class="title" style="margin-bottom:1.4rem">Choose your theme</div>
+  <div class="title" style="margin-bottom:1.4rem">What feeling or state do you want to resolve?</div>
   <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
-    <button class="theme-btn selected" id="pt-overthinking" onclick="selectPaidTheme(this,'Overthinking')">Overthinking</button>
-    <button class="theme-btn" id="pt-worry" onclick="selectPaidTheme(this,'Worry')">Worry</button>
-    <button class="theme-btn" id="pt-avoidance" onclick="selectPaidTheme(this,'Avoidance')">Avoidance</button>
-    <button class="theme-btn" id="pt-selfdoubt" onclick="selectPaidTheme(this,'Self-doubt')">Self-doubt</button>
-    <button class="theme-btn" id="pt-trigger" onclick="selectPaidTheme(this,'Trigger')">Trigger</button>
-    <button class="theme-btn" id="pt-pressure" onclick="selectPaidTheme(this,'Pressure')">Pressure</button>
+    <input class="text-input" id="input-custom-theme" placeholder="Type your theme..." autocomplete="off" style="font-size:1rem;margin-bottom:.4rem" oninput="onCustomThemeInput()">
   </div>
-  <button class="btn" onclick="fwd('s-p-cal1')">Continue</button>
+  <button class="btn" id="btn-custom-theme" disabled onclick="onCustomThemeContinue()" style="opacity:.45">Continue</button>
+</div>
+
+<!-- ====== PAID: Theme Extreme ====== -->
+<div class="screen" id="s-p-theme-extreme">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> EXTREME</div>
+  <div class="title">What is the most extreme form of this feeling or state?</div>
+  <em id="theme-base-display-extreme" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
+  <input class="text-input" id="input-theme-extreme" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-theme-extreme" disabled onclick="onThemeExtreme()" style="opacity:.45">Confirm</button>
+  <button class="yn-btn meaningless" onclick="onThemeExtremeNothing()" style="margin-top:12px">Nothing comes up</button>
 </div>
 
 <!-- ====== PAID: Calibration 1/3 ====== -->
 <div class="screen" id="s-p-cal1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 1/3</div>
-  <div class="breath-focus">Feel the feeling of <em class="topic-d">"Overthinking"</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div class="breath-focus">Feel the resistance to <em class="topic-d">"Overthinking"</em> —<br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pcal1" onclick="startBreath('pcal1')"></div>
-    <div id="hint-pcal1" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pcal1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
 <!-- ====== PAID: Calibration 2/3 ====== -->
 <div class="screen" id="s-p-cal2">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 2/3</div>
-  <div class="breath-focus">Feel everything —<br>except the feeling of <em class="topic-d">"Overthinking"</em>.<br>While feeling it,<br>take one deep breath.</div>
+  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>While feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pcal2" onclick="startBreath('pcal2')"></div>
-    <div id="hint-pcal2" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pcal2" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
@@ -209,7 +230,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pcal3" onclick="startBreath('pcal3')"></div>
-    <div id="hint-pcal3" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pcal3" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
@@ -217,65 +238,74 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-p-q1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
   <div class="yes-no-wrap" style="margin-bottom:1.4rem">
-    <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What kind of state is someone in who has nothing to do with <em class="topic-d">"Overthinking"</em>?</button>
-    <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What kind of state am I in when I have nothing to do with <em class="topic-d">"Overthinking"</em>?</button>
+    <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What is someone like who has absolutely none of <em class="topic-d">"Overthinking"</em>?</button>
+    <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What am I like when I have absolutely none of <em class="topic-d">"Overthinking"</em>?</button>
   </div>
   <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
-  <button class="btn-skip" onclick="onQ1Nothing()" style="margin-top:.6rem;color:#B8B8B0;font-size:.78rem">Nothing comes up</button>
+  <!-- Promote "Nothing comes up" to primary state (near completion condition) -->
+  <button class="yn-btn meaningless" onclick="onQ1Nothing()" style="margin-top:12px">Nothing comes up — already clear</button>
 </div>
 
 <!-- ====== PAID: Measure 1 (Before) ====== -->
 <div class="screen" id="s-p-measure1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
   <div class="title">What proportion of your current self is in this state?</div>
-  <em id="q1-display-measure1" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>
+  <em id="q1-display-measure1" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
   <div class="score-num" id="num-measure1" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-measure1" oninput="revealNum('num-measure1',this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
   <button class="btn" onclick="onMeasure1()">Confirm</button>
-  <button class="btn-skip" onclick="onMeasure1Skip()">Beyond measure</button>
+  <button class="btn-ghost meaningful" onclick="onMeasure1Skip()">No longer measurable</button>
 </div>
 
-<!-- ====== PAID: Breath 2-1 ====== -->
+<!-- ====== PAID: Breath 2-0 ====== -->
+<div class="screen" id="s-p-b20">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/5</div>
+  <div class="breath-focus">What is it like when you are not<br><br><em id="q1-display-b20" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>?</div>
+  <input class="text-input" id="input-b20" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-b20" disabled onclick="onB20()" style="opacity:.45">Confirm</button>
+  <button class="btn-ghost" onclick="onNoMoreAnswer()" style="margin-top:.8rem">No more answer comes up</button>
+</div>
+
 <div class="screen" id="s-p-b21">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/4</div>
-  <div class="breath-focus">Feel the tension that arises against:<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/5</div>
+  <div class="breath-focus">Feel the resistance<br>to<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
-    <div id="hint-pb21" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pb21" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
 <!-- ====== PAID: Breath 2-2 ====== -->
 <div class="screen" id="s-p-b22">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/4</div>
-  <div class="breath-focus">Feel everything —<br>except the tension that arises against:<br><br><em id="q1-display-b22" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/5</div>
+  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
-    <div id="hint-pb22" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pb22" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
 <!-- ====== PAID: Breath 2-3 ====== -->
 <div class="screen" id="s-p-b23">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/4</div>
-  <div class="breath-focus">Feel the state of<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/5</div>
+  <div class="breath-focus">Feel the state of<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br><br>while feeling it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
-    <div id="hint-pb23" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pb23" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
 <!-- ====== PAID: Breath 2-4 ====== -->
 <div class="screen" id="s-p-b24">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/4</div>
-  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br>While feeling all of it,<br>take one deep breath.</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 5/5</div>
+  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br><br>While feeling all of it,<br>take one deep breath.</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb24" onclick="startBreath('pb24')"></div>
-    <div id="hint-pb24" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+    <div id="hint-pb24" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
 </div>
 
@@ -283,14 +313,14 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-p-measure2">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
   <div class="title">Now — what proportion of your current self is in this state?</div>
-  <em id="q1-display-measure2" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>
+  <em id="q1-display-measure2" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
   <div class="score-num" id="num-measure2" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-measure2" oninput="revealNum('num-measure2',this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
   <button class="btn" onclick="onMeasure2()">Confirm</button>
-  <button class="btn-skip" onclick="onMeasure2Skip()">Beyond measure</button>
+  <button class="btn-ghost meaningful" onclick="onMeasure2Skip()">No longer measurable</button>
 </div>
 
 <!-- ====== PAID: Final Check — Past ====== -->
@@ -300,8 +330,11 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="yes-no-wrap">
     <button class="yn-btn" onclick="onYN2Past('yes',this)">Yes</button>
     <button class="yn-btn" onclick="onYN2Past('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Past('maybe',this)">Maybe</button>
     <button class="yn-btn" onclick="onYN2Past('not_sure',this)">Not sure</button>
-    <button class="yn-btn" onclick="onYN2Past('meaningless',this)" style="font-size:.72rem;color:#CCC;opacity:.6">This question no longer<br>holds meaning for me</button>
+    <button class="yn-btn" onclick="onYN2Past('dont_know',this)">I don't know</button>
+    <button class="yn-btn meaningless" onclick="onYN2Past('meaningless',this)" style="margin-top:12px">No longer a question — almost complete</button>
+    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
   </div>
 </div>
 
@@ -312,30 +345,36 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="yes-no-wrap">
     <button class="yn-btn" onclick="onYN2Future('yes',this)">Yes</button>
     <button class="yn-btn" onclick="onYN2Future('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Future('maybe',this)">Maybe</button>
     <button class="yn-btn" onclick="onYN2Future('not_sure',this)">Not sure</button>
-    <button class="yn-btn" onclick="onYN2Future('meaningless',this)" style="font-size:.72rem;color:#CCC;opacity:.6">This question no longer<br>holds meaning for me</button>
+    <button class="yn-btn" onclick="onYN2Future('dont_know',this)">I don't know</button>
+    <button class="yn-btn meaningless" onclick="onYN2Future('meaningless',this)" style="margin-top:12px">No longer a question — almost complete</button>
+    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
   </div>
 </div>
 
 <!-- ====== PAID: Full Result ====== -->
 <div class="screen" id="s-p-result">
   <div class="label">FULL SESSION COMPLETE</div>
-  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em">Something shifted.</div>
+  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em;opacity:.85">Something shifted.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
   <div id="paid-result-rows"></div>
   <div style="height:1.2rem"></div>
   <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
+  <div id="recent-history" style="width:100%;max-width:280px;margin-bottom:.8rem"></div>
   <div id="result-follow-up" style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#B8B8B0;text-align:center;letter-spacing:.06em;margin-bottom:.8rem;line-height:1.7"></div>
-  <button class="btn" onclick="shareImage('paid')" style="background:#1A1A1A">Share as Image</button>
-  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Save Image</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:.5rem">There's more here.</div>
+  <button id="cta-continue" class="btn-main-cta" onclick="continueSession()">Go deeper →</button>
+  <button class="btn-secondary" onclick="shareImage('paid')">Show this shift →</button>
+  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.78rem;opacity:.6">Save image</button>
   <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
   <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
     <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
     <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
   </div>
   <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
-  <button id="cta-continue" class="btn-ghost" onclick="continueSession()" style="margin-top:.8rem">Go one layer deeper →</button>
   <button id="cta-new-topic" class="btn-skip" onclick="goToNewTheme()">New topic</button>
+  <button id="cta-view-history" class="btn-skip" onclick="openFullHistory()" style="color:#C0C0B8;font-size:.72rem;margin-top:.1rem;display:none">View full history →</button>
   <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
     <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
     <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
@@ -346,12 +385,24 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ====== PAID: Theme Complete ====== -->
 <div class="screen" id="s-p-complete">
   <div class="label">THEME COMPLETE</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:.4rem;letter-spacing:.1em">✓</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:300;color:#AAA;letter-spacing:.12em;margin-bottom:.5rem">No longer present.</div>
-  <div class="title" style="margin-bottom:.8rem">This theme is complete.</div>
-  <div style="font-size:.82rem;color:#AAA;line-height:1.9;text-align:center;max-width:260px;margin-bottom:2rem;font-family:'Noto Serif JP',serif">The pattern has dissolved.<br>You are free to choose a new theme.</div>
-  <button class="btn" onclick="goToNewTheme()" style="background:#1A1A1A">Choose new theme</button>
-  <button class="btn-ghost" onclick="returnToStart()" style="margin-top:.6rem">Return to start</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:1rem;letter-spacing:.1em">✓</div>
+  <div id="completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:.5rem;max-width:280px"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">You've felt this too.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past or future.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">This pattern no longer appears in your experience.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">Others need this too.</div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Show this shift →</button>
+  <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">Start a new layer →</button>
+</div>
+
+
+<!-- ====== PAID: Full History ====== -->
+<div class="screen" id="s-p-history">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> HISTORY</div>
+  <div class="title" style="margin-bottom:.3rem">Full history</div>
+  <div id="history-theme-label" style="font-family:'Noto Serif JP',serif;font-size:.75rem;color:#AAA;letter-spacing:.1em;margin-bottom:1.4rem;text-align:center"></div>
+  <div id="history-list" style="width:100%;max-width:280px"></div>
+  <button class="btn-ghost" onclick="goBack()" style="margin-top:1.6rem">← Back</button>
 </div>
 
 
@@ -368,7 +419,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="sc-topic" id="sc-topic"></div>
   <div id="sc-rows"></div>
   <div class="sc-desc" id="sc-desc"></div>
-  <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
+  <div class="sc-hook" id="sc-hook">This took 2 minutes.</div>
+  <div class="sc-tagline" id="sc-tagline">Try it yourself.</div>
   <div class="sc-footer">noetune.com</div>
   <div class="sc-qr" id="sc-qr"></div>
 </div>
@@ -378,13 +430,16 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
 
 let TOPIC = 'Overthinking';
-const TOPIC_LABELS = {'Overthinking':'Overthinking','Worry':'Worry','Avoidance':'Avoidance','Self-doubt':'Self-doubt','Trigger':'Trigger','Pressure':'Pressure'};
-function topicLabel(t){return TOPIC_LABELS[t]||t;}
+function getCoreTheme(){return D.themeBase||TOPIC||'';}
+function topicLabel(t){return t;}
 let cur = 's-p-theme', hist = [];
 let breathing = false, bc = 0;
+let hasNotAnswer = false;
 
 const D = {
-  q1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false
+  q1:'', notQ1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false, readyToComplete:false, completionGateReady:false,
+  themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false,
+  rounds:[]
 };
 
 
@@ -436,26 +491,33 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefa
 
 
 function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete');}
-var SCREEN_ORDER=['s-continue','s-p-theme','s-p-cal1','s-p-cal2','s-p-cal3','s-p-q1','s-p-measure1','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-result','s-p-complete'];
+var SCREEN_ORDER=['s-continue','s-p-theme','s-p-theme-extreme','s-p-q1','s-p-measure1','s-p-b20','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-result','s-p-complete'];
 function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
 
 // ── localStorage ──
 var STORAGE_KEY='noetune_state';
-function saveState(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless'}));}catch(e){}}
+function saveState(){
+  try{
+    var hasStarted=(D.q1&&D.q1.trim().length>0)||(D.stateBefore!==null)||(D.stateAfter!==null)||(D.notQ1&&D.notQ1.trim().length>0);
+    if(!hasStarted){localStorage.removeItem(STORAGE_KEY);return;}
+    localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',hasStarted:true,lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless'}));
+  }catch(e){}
+}
 function loadState(){try{var raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):null;}catch(e){return null;}}
 function clearState(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
 
 function applyTopic(theme){
   TOPIC=theme;
-  document.querySelectorAll('.topic-d').forEach(function(el){el.textContent='"'+topicLabel(theme)+'"';});
+  document.querySelectorAll('.topic-d').forEach(function(el){el.textContent='"'+theme+'"';});
 }
 
 function checkOnStartup(){
+  return;
   var state=loadState();
-  if(state&&state.status==='in-progress'&&state.activeTheme){
+  if(state&&state.status==='in-progress'&&state.activeTheme&&state.hasStarted===true){
     TOPIC=state.activeTheme;
     applyTopic(TOPIC);
-    var el=document.getElementById('continue-topic-name');if(el)el.textContent='"'+topicLabel(TOPIC)+'"';
+    var el=document.getElementById('continue-topic-name');if(el)el.textContent='"'+getCoreTheme()+'"';
     var theme=document.getElementById('s-p-theme'),cont=document.getElementById('s-continue');
     if(theme&&cont){theme.classList.remove('active');cont.classList.add('active');cur='s-continue';}
   }
@@ -484,8 +546,21 @@ function selectPaidTheme(btn,theme){
   btn.classList.add('selected');
   applyTopic(theme);
 }
-
-
+function onCustomThemeInput(){
+  var inp=document.getElementById('input-custom-theme');
+  var btn=document.getElementById('btn-custom-theme');
+  var ok=inp&&inp.value.trim().length>0;
+  if(btn){btn.disabled=!ok;btn.style.opacity=ok?'1':'.45';btn.style.cursor=ok?'pointer':'default';}
+}
+function onCustomThemeContinue(){
+  var inp=document.getElementById('input-custom-theme');
+  if(!inp||!inp.value.trim())return;
+  D.themeBase=inp.value.trim();
+  applyTopic(D.themeBase);
+  var el=document.getElementById('theme-base-display-extreme');
+  if(el)el.textContent='"'+D.themeBase+'"';
+  fwd('s-p-theme-extreme');
+}
 function selectFrame(btn){
   document.querySelectorAll('#s-p-q1 .yn-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
@@ -493,17 +568,58 @@ function selectFrame(btn){
 }
 
 function onQ1(){
+  D.readyToComplete=false;
+  hasNotAnswer=false;
   var v=document.getElementById('input-q1').value.trim();if(!v)return;
   D.q1=v;
   var qd='"'+v+'"';
-  ['q1-display-b21','q1-display-b22','q1-display-b23','q1-display-measure1','q1-display-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
+  ['q1-display-b20','q1-display-b22','q1-display-b23','q1-display-measure1','q1-display-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
   fwd('s-p-measure1');
 }
-function onQ1Nothing(){fwd('s-p-cal1');}
-function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b21');}
-function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b21');}
-function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;fwd('s-p-yn2-past');}
-function onMeasure2Skip(){D.stateAfter='N/A';fwd('s-p-yn2-past');}
+function showComplete(){
+  var theme=getCoreTheme();
+  var el=document.getElementById('completed-headline');
+  if(el){
+    var before=D.stateBefore,after=D.stateAfter;
+    var hasMeasure=typeof before==='number'&&typeof after==='number';
+    if(hasMeasure){
+      el.textContent=theme+' '+before+' → '+after;
+    }else{
+      el.textContent=theme+' → none';
+    }
+  }
+  fwd('s-p-complete');
+}
+function onQ1Nothing(){
+  // Gate 1 check (Past + Future)
+  if(D.completionGateReady){
+    // Gate 2 achieved → COMPLETE
+    D.themeComplete=true;
+    saveState();
+    clearState();
+    showComplete();
+    return;
+  }
+  // Otherwise continue loop
+  D.stateBefore=null;
+  D.stateAfter=null;
+  D.q1='';
+  fwd('s-p-yn2-past');
+}
+function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b20');}
+function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b20');}
+function applyFinalCheckTheme(){
+  document.querySelectorAll('#s-p-yn2-past .topic-d, #s-p-yn2-future .topic-d').forEach(function(el){
+    el.textContent='"'+D.themeBase+'"';
+  });
+}
+function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;applyFinalCheckTheme();fwd('s-p-yn2-past');}
+function onMeasure2Skip(){D.stateAfter='N/A';applyFinalCheckTheme();fwd('s-p-yn2-past');}
+function onThemeCheckFinal(val,btn){
+  document.querySelectorAll('#s-p-theme-check-final .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  setTimeout(function(){fwd('s-p-yn2-past');},400);
+}
 
 function onYN2Past(val,btn){
   D.finalStatePast=val;
@@ -513,40 +629,77 @@ function onYN2Past(val,btn){
 }
 function onYN2Future(val,btn){
   D.finalStateFuture=val;
+  D.completionGateReady=D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless';
   document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
-  var hasMeaningless=val==='meaningless'&&D.finalStatePast==='meaningless';
-  var hasYes=val==='yes'||D.finalStatePast==='yes';
-  if(hasMeaningless){
-    setTimeout(function(){D.themeComplete=true;saveState();clearState();fwd('s-p-complete');},400);
-  }else if(hasYes){
-    setTimeout(function(){continueSession();},400);
-  }else{
-    setTimeout(function(){showPaidResult();},400);
-  }
+  setTimeout(function(){showPaidResult();},400);
 }
 
 function renderResultCTA(){
   var p=D.finalStatePast,f=D.finalStateFuture;
-  var cont=document.getElementById('cta-continue'),nt=document.getElementById('cta-new-topic');
+  var cont=document.getElementById('cta-continue');
+  var nt=document.getElementById('cta-new-topic');
   var fu=document.getElementById('result-follow-up');
   if(!cont||!nt)return;
-  if(p==='yes'||f==='yes'){
-    cont.className='btn';cont.style.marginTop='.8rem';
-    nt.className='btn-skip';
-    if(fu)fu.textContent='The root is still there.';
-  }else if(p==='not_sure'||f==='not_sure'){
-    cont.className='btn-ghost';cont.style.marginTop='.8rem';
-    nt.className='btn-skip';
-    if(fu)fu.textContent='Still in motion.';
-  }else{
-    cont.className='btn-skip';cont.style.marginTop='.8rem';
-    nt.className='btn-ghost';nt.style.marginTop='.4rem';
-    if(fu)fu.textContent='';
-  }
+  // Always keep Go deeper as the primary CTA
+  cont.className='btn-main-cta';
+  cont.style.marginTop='1.6rem';
+  // Keep New topic weak
+  nt.className='btn-skip';
+  if(fu)fu.textContent='There\'s more here.';
 }
 
+function openFullHistory(){renderFullHistory();fwd('s-p-history');}
+function renderFullHistory(){
+  var lbl=document.getElementById('history-theme-label');
+  if(lbl)lbl.textContent=getCoreTheme().toUpperCase();
+  var el=document.getElementById('history-list');if(!el)return;
+  var rounds=D.rounds.filter(function(r){return r.theme===TOPIC;}).slice().reverse();
+  if(!rounds.length){el.innerHTML='<div style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#C0C0B8;text-align:center">No records yet.</div>';return;}
+  var html='';
+  rounds.forEach(function(r){
+    var ans=r.answer?r.answer:'—';
+    var b=r.before===null||r.before==='N/A'?'∞':r.before;
+    var a=r.after===null||r.after==='N/A'?'∞':r.after;
+    html+='<div style="padding:.55rem .7rem;margin-bottom:.4rem;border:1px solid #EAEAE6;border-radius:10px;background:#fff;">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.2rem">'+
+        '<span style="font-family:\'Noto Serif JP\',serif;font-size:.66rem;color:#B0B0A8;letter-spacing:.1em">ROUND '+r.round+'</span>'+
+        '<span style="font-family:\'Noto Serif JP\',serif;font-size:.75rem;color:#6B9080">'+b+' → '+a+'</span>'+
+      '</div>'+
+      '<div style="font-family:\'Noto Serif JP\',serif;font-size:.82rem;color:#555;line-height:1.6;word-break:break-word">'+ans+'</div>'+
+    '</div>';
+  });
+  el.innerHTML=html;
+}
+function renderRecentHistory(){
+  var el=document.getElementById('recent-history');if(!el)return;
+  var themed=D.rounds.filter(function(r){return r.theme===TOPIC;});
+  var recent=themed.slice(-3).reverse();
+  var histBtn=document.getElementById('cta-view-history');
+  if(histBtn)histBtn.style.display=themed.length>=2?'block':'none';
+  if(recent.length<1){el.innerHTML='';return;}
+  var html='<div style="font-size:.66rem;letter-spacing:.18em;color:#C0C0B8;text-align:center;margin-bottom:.6rem;font-family:\'Noto Serif JP\',serif">HISTORY</div>';
+  recent.forEach(function(r){
+    var ans=r.answer?r.answer:'—';
+    if(ans.length>24)ans=ans.slice(0,24)+'…';
+    var b=r.before===null||r.before==='N/A'?'∞':r.before;
+    var a=r.after===null||r.after==='N/A'?'∞':r.after;
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:.45rem .6rem;margin-bottom:.35rem;border:1px solid #EAEAE6;border-radius:10px;background:#fff;">'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.68rem;color:#B0B0A8;min-width:1.6rem">R'+r.round+'</span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.78rem;color:#555;flex:1;padding:0 .5rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+ans+'</span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.75rem;color:#6B9080;white-space:nowrap">'+b+' → '+a+'</span>'+
+    '</div>';
+  });
+  el.innerHTML=html;
+}
+function saveRound(){
+  var last=D.rounds[D.rounds.length-1];
+  if(last&&last.theme===TOPIC&&last.answer===D.q1&&last.before===D.stateBefore&&last.after===D.stateAfter)return;
+  D.rounds.push({round:D.rounds.length+1,theme:TOPIC,frame:D.questionFrame,answer:D.q1,before:D.stateBefore,after:D.stateAfter});
+}
 function showPaidResult(){
+  saveRound();
+  D.readyToComplete=true;
   track('session_complete_paid',{topic:TOPIC});
   var headline=document.getElementById('paid-result-headline');
   if(headline){
@@ -555,86 +708,155 @@ function showPaidResult(){
     else{headline.textContent='Your state shifted.';}
   }
   var rows=document.getElementById('paid-result-rows');rows.innerHTML='';
-  var label=D.q1||topicLabel(TOPIC);
+  var label=D.q1||getCoreTheme();
   rows.innerHTML+=makeResultRow(label,D.stateBefore,D.stateAfter,'q1');
-  var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
+  var finalLabels={'yes':'Still present','no':'Released','maybe':'Fading','not_sure':'In transition','dont_know':'Not perceived','meaningless':'Dissolved'};
   var pastLabel=finalLabels[D.finalStatePast]||'—';
   var futureLabel=finalLabels[D.finalStateFuture]||'—';
   var pastCol=D.finalStatePast==='no'||D.finalStatePast==='meaningless'?'#6B9080':'#C47A5A';
   var futureCol=D.finalStateFuture==='no'||D.finalStateFuture==='meaningless'?'#6B9080':'#C47A5A';
   document.getElementById('paid-yn-result').innerHTML=
-    '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+topicLabel(TOPIC).toUpperCase()+'</div>'+
+    '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+getCoreTheme().toUpperCase()+'</div>'+
     '<div style="display:flex;justify-content:center;gap:2rem">'+
       '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Past<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
       '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Future<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
     '</div>';
+  renderRecentHistory();
   renderResultCTA();saveState();fwd('s-p-result');
   setTimeout(showAddToHome,600);
 }
 
 // ── Breathing ──
 function startBreath(t){if(breathing)return;breathing=true;var h=document.getElementById('hint-'+t);if(h)h.style.display='none';var c=document.getElementById('circle-'+t);c.classList.remove('pulse');bc=0;setTimeout(function(){bCycle(t,c);},600);}
-function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},1500);},1500);}
-var BREATH_NEXT={'pcal1':'s-p-cal2','pcal2':'s-p-cal3','pcal3':'s-p-q1','pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-measure2'};
-function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}} );document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
+function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='';setTimeout(function(){c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2100);},1700);},200);}
+var BREATH_NEXT={'pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-b20'};
+function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);if(next==='s-p-b20'){var inp=document.getElementById('input-b20');if(inp)inp.value='';var btn=document.getElementById('btn-b20');if(btn){btn.disabled=true;btn.style.opacity='.45';btn.style.cursor='default';}}setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}} );document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
 
 // ── Q1 input wiring ──
 var inp1=document.getElementById('input-q1'),btn1=document.getElementById('btn-q1');
 inp1.addEventListener('input',function(){var ok=inp1.value.trim().length>0;btn1.disabled=!ok;btn1.style.opacity=ok?'1':'.45';btn1.style.cursor=ok?'pointer':'default';});
 
+function onB20(){
+  var v=document.getElementById('input-b20').value.trim();
+  if(!v)return;
+  D.notQ1=v;
+  hasNotAnswer=true;
+  var notQ='"'+v+'"';
+  var q='"'+D.q1+'"';
+  var el21=document.getElementById('q1-display-b21');if(el21)el21.textContent=notQ;
+  var el23=document.getElementById('q1-display-b23');if(el23)el23.textContent=q;
+  fwd('s-p-b21');
+}
+function onNoMoreAnswer(){
+  if(!hasNotAnswer){fwd('s-p-q1');return;}
+  fwd('s-p-measure2');
+}
+var inpB20=document.getElementById('input-b20'),btnB20=document.getElementById('btn-b20');
+if(inpB20){inpB20.addEventListener('input',function(){var ok=inpB20.value.trim().length>0;btnB20.disabled=!ok;btnB20.style.opacity=ok?'1':'.45';btnB20.style.cursor=ok?'pointer':'default';});}
+
+function onThemeExtreme(){
+  var v=document.getElementById('input-theme-extreme').value.trim();
+  if(!v)return;
+  D.themeExtreme=v;
+  D.useExtreme=true;
+  D.themeActive=v;
+  applyTopic(D.themeActive);
+  fwd('s-p-q1');
+}
+function onThemeExtremeNothing(){
+  if(D.completionGateReady){D.themeComplete=true;saveState();clearState();showComplete();return;}
+  D.themeExtreme='';
+  D.useExtreme=false;
+  D.themeActive=D.themeBase;
+  applyTopic(D.themeActive);
+  fwd('s-p-q1');
+}
+var inpExtreme=document.getElementById('input-theme-extreme'),btnExtreme=document.getElementById('btn-theme-extreme');
+if(inpExtreme){inpExtreme.addEventListener('input',function(){var ok=inpExtreme.value.trim().length>0;btnExtreme.disabled=!ok;btnExtreme.style.opacity=ok?'1':'.45';btnExtreme.style.cursor=ok?'pointer':'default';});}
+
 
 // ── Session controls ──
 function continueSession(){
-  D.q1='';D.questionFrame='person';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';
+  D.q1='';D.notQ1='';D.stateBefore=null;D.stateAfter=null;
+  if(!D.completionGateReady){D.finalStatePast='';D.finalStateFuture='';}
+  hasNotAnswer=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
-  breathing=false;bc=0;hist=[];saveState();go('s-p-cal1');
+  var inpB20=document.getElementById('input-b20');if(inpB20)inpB20.value='';
+  var btnB20=document.getElementById('btn-b20');if(btnB20){btnB20.disabled=true;btnB20.style.opacity='.45';}
+  var inpExtreme=document.getElementById('input-theme-extreme');if(inpExtreme)inpExtreme.value='';
+  var btnExtreme=document.getElementById('btn-theme-extreme');if(btnExtreme){btnExtreme.disabled=true;btnExtreme.style.opacity='.45';btnExtreme.style.cursor='default';}
+  var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+D.themeBase+'"';
+  breathing=false;bc=0;hist=[];go('s-p-theme-extreme');
 }
 function goToNewTheme(){
-  clearState();D.themeComplete=false;
+  clearState();
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
+  hasNotAnswer=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
-  Object.assign(D,{q1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:''});
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
 function returnToStart(){
-  clearState();hist=[];breathing=false;bc=0;
-  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b){b.classList.remove('selected');});
-  var first=document.querySelector('#s-p-theme .theme-btn');if(first)first.classList.add('selected');
-  TOPIC='Overthinking';applyTopic(TOPIC);
+  clearState();
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
+  hasNotAnswer=false;
+  hist=[];breathing=false;bc=0;
+  var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
+  var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
+  TOPIC='';
   go('s-p-theme');
 }
 
 // ── Share ──
 function buildShareCard_paid(){
+  var coreTheme=getCoreTheme();
+  var before=D.stateBefore,after=D.stateAfter;
+  var hasMeasure=typeof before==='number'&&typeof after==='number';
+  var isInf=after==='N/A'||after===null;
+
+  // Main headline: first-person experience
+  document.getElementById('sc-headline').textContent='I stopped '+coreTheme.toLowerCase()+'.';
+
+  // Sub topic: transformation as secondary
+  var topicEl=document.getElementById('sc-topic');
+  if(hasMeasure){topicEl.textContent=coreTheme+' '+before+' → '+after;}
+  else{topicEl.textContent=coreTheme+' → none';}
+
   document.getElementById('sc-label').textContent='FULL SESSION COMPLETE';
-  document.getElementById('sc-topic').textContent=(D.q1||topicLabel(TOPIC)).toUpperCase()+' RATE';
-  var hl;
-  if(D.stateAfter==='N/A'||D.stateAfter===null){hl='Beyond measure.';}
-  else if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'&&D.stateAfter>D.stateBefore){hl='State expanded.';}
-  else{hl='Your state shifted.';}
-  document.getElementById('sc-headline').textContent=hl;
-  buildShareCardRows([{label:D.q1||topicLabel(TOPIC),before:D.stateBefore,after:D.stateAfter,rtype:'q1'}]);
+  buildShareCardRows([{label:coreTheme,before:before,after:after,rtype:'q1'}]);
+
   var descEl=document.getElementById('sc-desc');
-  if(descEl){
-    var desc='';
-    if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'){
-      var verb=D.stateAfter>D.stateBefore?'expanded':'reduced';
-      desc='I '+verb+' "'+(D.q1||topicLabel(TOPIC))+'" from '+D.stateBefore+' → '+D.stateAfter+' in 30 seconds.';
-    }
-    descEl.textContent=desc;
-  }
+  if(descEl)descEl.textContent='';
+
   var qrEl=document.getElementById('sc-qr');
   if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.com',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
 }
-async function shareImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}if(navigator.share){try{var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'Noetune'});return;}}catch(e){if(e&&e.name==='AbortError')return;}}if(isMobile()){showSharePreview(d);}else{triggerDownload(d,'noetune-result.png');}}
+async function shareImage(type){
+  buildShareCard_paid();
+  var d=await renderShareCard();
+  if(!d){alert('Could not generate image.');return;}
+  var coreTheme=getCoreTheme();
+  var title='I stopped '+coreTheme.toLowerCase()+'.';
+  if(navigator.share){
+    try{
+      var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        await navigator.share({files:[file],title:title,text:'This took 2 minutes. noetune.com'});
+        return;
+      }
+    }catch(e){if(e&&e.name==='AbortError')return;}
+  }
+  if(isMobile()){showSharePreview(d);}
+  else{triggerDownload(d,'noetune-result.png');}
+}
 async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
 function resultToText_paid(){
-  var label=D.q1||topicLabel(TOPIC);
+  var label=getCoreTheme();
   var lines=['Noetune — Full Session','',label.toUpperCase()+' RATE'];
   lines.push('State: '+(D.stateBefore==='N/A'||D.stateBefore===null?'∞':D.stateBefore)+' → '+(D.stateAfter==='N/A'||D.stateAfter===null?'∞':D.stateAfter));
-  var finalLabels={'yes':'Still present','no':'Released','not_sure':'In transition','meaningless':'Dissolved'};
+  var finalLabels={'yes':'Still present','no':'Released','maybe':'Fading','not_sure':'In transition','dont_know':'Not perceived','meaningless':'Dissolved'};
   lines.push('Past: '+(finalLabels[D.finalStatePast]||'Shifted'));
   lines.push('Future: '+(finalLabels[D.finalStateFuture]||'Shifted'));
   lines.push('','noetune.com');
@@ -651,8 +873,9 @@ function showAddToHome(){if(_pwaShown)return;if(isInStandaloneMode())return;var 
 function triggerPWAInstall(){if(_pwaPrompt){_pwaPrompt.prompt();_pwaPrompt.userChoice.then(function(r){_pwaPrompt=null;if(r.outcome==='accepted'){var el=document.getElementById('add-to-home');if(el)el.style.display='none';}});}}
 function promoteTextShare(){if(!isIOS())return;document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el){el.style.background='rgba(107,144,128,.08)';el.style.fontWeight='500';});}
 
+clearState();
 updateProgress();
-checkOnStartup();
+// checkOnStartup();
 promoteTextShare();
 </script>
 </body>
