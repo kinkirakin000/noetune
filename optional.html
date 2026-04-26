@@ -106,8 +106,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   font-weight:300;
 }
 #share-card .sc-headline{
-  font-size:72px;font-weight:700;color:#1A1A1A;
-  margin-bottom:56px;letter-spacing:.02em;
+  font-size:84px;font-weight:700;color:#1A1A1A;
+  margin-bottom:56px;letter-spacing:.02em;text-align:center;
 }
 #share-card .sc-topic{
   font-size:28px;color:#B0B0A8;letter-spacing:.14em;
@@ -146,8 +146,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   text-align:center;
 }
 #share-card .sc-tagline{
-  font-size:26px;color:#1A1A1A;letter-spacing:.1em;
-  margin-top:10px;font-weight:500;font-family:-apple-system,sans-serif;
+  font-size:26px;color:#B8B8B0;letter-spacing:.14em;
+  margin-top:20px;font-weight:300;font-family:-apple-system,sans-serif;
   text-align:center;
 }
 #share-card .sc-footer{
@@ -244,7 +244,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
   <!-- Promote "Nothing comes up" to primary state (near completion condition) -->
-  <button class="yn-btn meaningless" onclick="onQ1Nothing()" style="margin-top:12px">Nothing comes up — already clear</button>
+  <button class="yn-btn meaningless" onclick="onQ1Nothing()" style="margin-top:12px">Nothing comes up — no answer appears</button>
+  <div class="completion-hint">If no answer appears, tap above.</div>
 </div>
 
 <!-- ====== PAID: Measure 1 (Before) ====== -->
@@ -365,7 +366,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div id="result-follow-up" style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#B8B8B0;text-align:center;letter-spacing:.06em;margin-bottom:.8rem;line-height:1.7"></div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:.5rem">There's more here.</div>
   <button id="cta-continue" class="btn-main-cta" onclick="continueSession()">Go deeper →</button>
-  <button class="btn-secondary" onclick="shareImage('paid')">Show this shift →</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-top:1.2rem;margin-bottom:.4rem">Tap once. Choose Instagram.</div>
+  <button class="btn-secondary" onclick="shareImage('paid')">Share to Instagram →</button>
   <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.78rem;opacity:.6">Save image</button>
   <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
   <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
@@ -391,7 +393,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past or future.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">This pattern no longer appears in your experience.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">Others need this too.</div>
-  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Show this shift →</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.4rem">Tap once. Choose Instagram.</div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Share to Instagram →</button>
   <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">Start a new layer →</button>
 </div>
 
@@ -419,7 +422,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <div class="sc-topic" id="sc-topic"></div>
   <div id="sc-rows"></div>
   <div class="sc-desc" id="sc-desc"></div>
-  <div class="sc-hook" id="sc-hook">This took 2 minutes.</div>
+  <div class="sc-hook" id="sc-hook"></div>
   <div class="sc-tagline" id="sc-tagline">Try it yourself.</div>
   <div class="sc-footer">noetune.com</div>
   <div class="sc-qr" id="sc-qr"></div>
@@ -437,7 +440,7 @@ let breathing = false, bc = 0;
 let hasNotAnswer = false;
 
 const D = {
-  q1:'', notQ1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false, readyToComplete:false, completionGateReady:false,
+  q1:'', notQ1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false, readyToComplete:false, completionGateReady:false, gate3_noAnswer:false,
   themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false,
   rounds:[]
 };
@@ -591,16 +594,17 @@ function showComplete(){
   fwd('s-p-complete');
 }
 function onQ1Nothing(){
-  // Gate 1 check (Past + Future)
-  if(D.completionGateReady){
-    // Gate 2 achieved → COMPLETE
+  // Gate 3発火
+  D.gate3_noAnswer=true;
+  // 3 Gate揃ったら終了
+  if(D.completionGateReady&&D.gate3_noAnswer){
     D.themeComplete=true;
     saveState();
     clearState();
     showComplete();
     return;
   }
-  // Otherwise continue loop
+  // まだ未完成なら通常フロー
   D.stateBefore=null;
   D.stateAfter=null;
   D.q1='';
@@ -630,6 +634,14 @@ function onYN2Past(val,btn){
 function onYN2Future(val,btn){
   D.finalStateFuture=val;
   D.completionGateReady=D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless';
+  // 3 Gate成立で即終了（gate3がすでに立っている場合）
+  if(D.completionGateReady&&D.gate3_noAnswer){
+    D.themeComplete=true;
+    saveState();
+    clearState();
+    showComplete();
+    return;
+  }
   document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
   setTimeout(function(){showPaidResult();},400);
@@ -778,6 +790,7 @@ if(inpExtreme){inpExtreme.addEventListener('input',function(){var ok=inpExtreme.
 // ── Session controls ──
 function continueSession(){
   D.q1='';D.notQ1='';D.stateBefore=null;D.stateAfter=null;
+  D.gate3_noAnswer=false;
   if(!D.completionGateReady){D.finalStatePast='';D.finalStateFuture='';}
   hasNotAnswer=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
@@ -814,42 +827,58 @@ function buildShareCard_paid(){
   var coreTheme=getCoreTheme();
   var before=D.stateBefore,after=D.stateAfter;
   var hasMeasure=typeof before==='number'&&typeof after==='number';
-  var isInf=after==='N/A'||after===null;
-
-  // Main headline: first-person experience
-  document.getElementById('sc-headline').textContent='I stopped '+coreTheme.toLowerCase()+'.';
-
-  // Sub topic: transformation as secondary
-  var topicEl=document.getElementById('sc-topic');
-  if(hasMeasure){topicEl.textContent=coreTheme+' '+before+' → '+after;}
-  else{topicEl.textContent=coreTheme+' → none';}
 
   document.getElementById('sc-label').textContent='FULL SESSION COMPLETE';
-  buildShareCardRows([{label:coreTheme,before:before,after:after,rtype:'q1'}]);
+  document.getElementById('sc-headline').textContent='Stop '+coreTheme.toLowerCase()+' in 2 minutes.';
 
+  var topicEl=document.getElementById('sc-topic');
+  var rowsEl=document.getElementById('sc-rows');
   var descEl=document.getElementById('sc-desc');
-  if(descEl)descEl.textContent='';
+
+  if(D.themeComplete){
+    // Theme Complete: proof of change — minimal
+    document.getElementById('sc-label').textContent='';
+    document.getElementById('sc-headline').textContent=coreTheme+' → none';
+    topicEl.textContent='';
+    if(rowsEl)rowsEl.innerHTML='';
+    if(descEl)descEl.textContent='';
+    var hookEl=document.getElementById('sc-hook');if(hookEl)hookEl.textContent='';
+    var tagEl=document.getElementById('sc-tagline');if(tagEl)tagEl.textContent='Noetune';
+  }else{
+    // Normal result share: show transformation data
+    if(hasMeasure){topicEl.textContent=coreTheme+' '+before+' → '+after;}
+    else{topicEl.textContent=coreTheme+' → none';}
+    buildShareCardRows([{label:coreTheme,before:before,after:after,rtype:'q1'}]);
+    if(descEl)descEl.textContent='';
+  }
 
   var qrEl=document.getElementById('sc-qr');
   if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.com',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
 }
 async function shareImage(type){
   buildShareCard_paid();
-  var d=await renderShareCard();
-  if(!d){alert('Could not generate image.');return;}
+  var dataUrl=await renderShareCard();
+  if(!dataUrl){alert('Could not generate image.');return;}
   var coreTheme=getCoreTheme();
-  var title='I stopped '+coreTheme.toLowerCase()+'.';
-  if(navigator.share){
-    try{
-      var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});
-      if(navigator.canShare&&navigator.canShare({files:[file]})){
-        await navigator.share({files:[file],title:title,text:'This took 2 minutes. noetune.com'});
-        return;
-      }
-    }catch(e){if(e&&e.name==='AbortError')return;}
+  try{
+    var res=await fetch(dataUrl);
+    var blob=await res.blob();
+    var file=new File([blob],'noetune.png',{type:'image/png'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){
+      await navigator.share({
+        files:[file],
+        title:'Noetune',
+        text:'Stop '+coreTheme.toLowerCase()+' in 2 minutes. noetune.com'
+      });
+      return;
+    }else{
+      throw new Error('Share not supported');
+    }
+  }catch(e){
+    if(e&&e.name==='AbortError')return;
+    if(isMobile()){showSharePreview(dataUrl);}
+    else{triggerDownload(dataUrl,'noetune.png');}
   }
-  if(isMobile()){showSharePreview(d);}
-  else{triggerDownload(d,'noetune-result.png');}
 }
 async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
 function resultToText_paid(){
