@@ -570,10 +570,11 @@ function onQ1Nothing(){
     showComplete();
     return;
   }
-  // Otherwise continue loop
+  // Otherwise continue to Final Check — always use original theme
   D.stateBefore=null;
   D.stateAfter=null;
   D.q1='';
+  applyFinalCheckTheme();
   fwd('s-p-yn2-past');
 }
 function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b20');}
