@@ -343,13 +343,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-p-complete">
   <div class="label">THEME COMPLETE</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:1rem;letter-spacing:.1em">✓</div>
-  <div id="completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:.5rem;max-width:280px"></div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">You've felt this too.</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past or future.</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">This pattern no longer appears in your experience.</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">Others need this too.</div>
-  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Show this shift →</button>
-  <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">Start a new layer →</button>
+  <div id="completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:1rem;max-width:280px"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:2rem;max-width:240px">No longer present.<br>Not found in past or future.</div>
+  <button class="btn-main-cta" onclick="shareImage('paid')">Share to Instagram →</button>
+  <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1rem;padding:12px 40px;font-size:.88rem">Start a new layer →</button>
 </div>
 
 
@@ -534,17 +531,8 @@ function onQ1(){
   fwd('s-p-measure1');
 }
 function showComplete(){
-  var theme=getCoreTheme();
   var el=document.getElementById('completed-headline');
-  if(el){
-    var before=D.stateBefore,after=D.stateAfter;
-    var hasMeasure=typeof before==='number'&&typeof after==='number';
-    if(hasMeasure){
-      el.textContent=theme+' '+before+' → '+after;
-    }else{
-      el.textContent=theme+' → none';
-    }
-  }
+  if(el)el.textContent=getCoreTheme()+' → none';
   fwd('s-p-complete');
 }
 function onQ1Nothing(){
