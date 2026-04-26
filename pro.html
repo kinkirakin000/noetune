@@ -204,36 +204,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="yn-btn meaningless" onclick="onThemeExtremeNothing()" style="margin-top:12px">Nothing comes up</button>
 </div>
 
-<!-- ====== PAID: Calibration 1/3 ====== -->
-<div class="screen" id="s-p-cal1">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 1/3</div>
-  <div class="breath-focus">Feel the resistance to <em class="topic-d">"Overthinking"</em> —<br>while feeling it,<br>take one deep breath.</div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-pcal1" onclick="startBreath('pcal1')"></div>
-    <div id="hint-pcal1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
-  </div>
-</div>
-
-<!-- ====== PAID: Calibration 2/3 ====== -->
-<div class="screen" id="s-p-cal2">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 2/3</div>
-  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>While feeling it,<br>take one deep breath.</div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-pcal2" onclick="startBreath('pcal2')"></div>
-    <div id="hint-pcal2" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
-  </div>
-</div>
-
-<!-- ====== PAID: Calibration 3/3 ====== -->
-<div class="screen" id="s-p-cal3">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 3/3</div>
-  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-pcal3" onclick="startBreath('pcal3')"></div>
-    <div id="hint-pcal3" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
-  </div>
-</div>
-
 <!-- ====== PAID: Q1 — reversal question ====== -->
 <div class="screen" id="s-p-q1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
@@ -530,7 +500,7 @@ function continueFromStorage(){
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
   breathing=false;bc=0;hist=[];
-  fwd('s-p-cal1');
+  fwd('s-p-q1');
 }
 
 function newTopicFromStorage(){
