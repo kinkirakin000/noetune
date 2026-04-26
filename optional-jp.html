@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FAFAF7">
-<title>Noetune — Full Session</title>
+<title>Noetune｜フルセッション</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
 <style>
@@ -176,253 +176,253 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== CONTINUE: In-progress screen ====== -->
 <div class="screen" id="s-continue">
-  <div class="label" style="margin-bottom:2rem">セッション継続中</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">取り組み中のテーマ：</div>
+  <div class="label" style="margin-bottom:2rem">まだ途中</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">今のテーマ</div>
   <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"..."</div>
   <button class="btn-start" onclick="continueFromStorage()">続ける</button>
   <div style="height:14px"></div>
-  <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">新しいテーマを始める</button>
+  <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">新しく始める</button>
 </div>
 
 <!-- ====== PAID: Theme selector ====== -->
 <div class="screen active" id="s-p-theme">
-  <div class="label">フルセッション <span style="color:#6B9080">•</span> テーマ</div>
-  <div class="title" style="margin-bottom:1.4rem">解消したい感情や状態は何ですか？</div>
+  <div class="label">テーマ</div>
+  <div class="title" style="margin-bottom:1.4rem">今の感覚は？</div>
   <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
-    <input class="text-input" id="input-custom-theme" placeholder="テーマを入力..." autocomplete="off" style="font-size:1rem;margin-bottom:.4rem" oninput="onCustomThemeInput()">
+    <input class="text-input" id="input-custom-theme" placeholder="入力" autocomplete="off" style="font-size:1rem;margin-bottom:.4rem" oninput="onCustomThemeInput()">
   </div>
   <button class="btn" id="btn-custom-theme" disabled onclick="onCustomThemeContinue()" style="opacity:.45">続ける</button>
 </div>
 
 <!-- ====== PAID: Theme Extreme ====== -->
 <div class="screen" id="s-p-theme-extreme">
-  <div class="label">フルセッション <span style="color:#6B9080">•</span> 極端な形</div>
-  <div class="title">その感情・状態の、最も極端な形は何ですか？</div>
+  <div class="label">最大状態</div>
+  <div class="title">一番強い状態は？</div>
   <em id="theme-base-display-extreme" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
-  <input class="text-input" id="input-theme-extreme" placeholder="回答を入力..." autocomplete="off">
-  <button class="btn" id="btn-theme-extreme" disabled onclick="onThemeExtreme()" style="opacity:.45">確認</button>
-  <button class="yn-btn meaningless" onclick="onThemeExtremeNothing()" style="margin-top:12px">Nothing comes up</button>
+  <input class="text-input" id="input-theme-extreme" placeholder="入力" autocomplete="off">
+  <button class="btn" id="btn-theme-extreme" disabled onclick="onThemeExtreme()" style="opacity:.45">決定</button>
+  <button class="yn-btn meaningless" onclick="onThemeExtremeNothing()" style="margin-top:12px">浮かばない</button>
 </div>
 
 <!-- ====== PAID: Calibration 1/3 ====== -->
 <div class="screen" id="s-p-cal1">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> キャリブレーション 1/3</div>
-  <div class="breath-focus">Feel the resistance to <em class="topic-d">"Overthinking"</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">調整 1/3</div>
+  <div class="breath-focus"><em class="topic-d">"考えすぎ"</em>への抵抗を感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pcal1" onclick="startBreath('pcal1')"></div>
-    <div id="hint-pcal1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pcal1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Calibration 2/3 ====== -->
 <div class="screen" id="s-p-cal2">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> キャリブレーション 2/3</div>
-  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>While feeling it,<br>take one deep breath.</div>
+  <div class="label">調整 2/3</div>
+  <div class="breath-focus">抵抗以外を感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pcal2" onclick="startBreath('pcal2')"></div>
-    <div id="hint-pcal2" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pcal2" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Calibration 3/3 ====== -->
 <div class="screen" id="s-p-cal3">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> キャリブレーション 3/3</div>
-  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div class="label">調整 3/3</div>
+  <div class="breath-focus">すべてをそのまま感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pcal3" onclick="startBreath('pcal3')"></div>
-    <div id="hint-pcal3" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pcal3" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Q1 — reversal question ====== -->
 <div class="screen" id="s-p-q1">
-  <div class="label">フルセッション <span style="color:#6B9080">•</span> リバーサル</div>
+  <div class="label">反転</div>
   <div class="yes-no-wrap" style="margin-bottom:1.4rem">
-    <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">全くない人はどんな状態ですか — <em class="topic-d">"Overthinking"</em>?</button>
-    <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">自分が全くない状態とはどんな感じですか — <em class="topic-d">"Overthinking"</em>?</button>
+    <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7"><em class="topic-d">"考えすぎ"</em>がない人は？</button>
+    <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">私から<em class="topic-d">"考えすぎ"</em>が消えたら？</button>
   </div>
-  <input class="text-input" id="input-q1" placeholder="回答を入力..." autocomplete="off">
-  <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">確認</button>
+  <input class="text-input" id="input-q1" placeholder="入力" autocomplete="off">
+  <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">決定</button>
   <!-- Promote "Nothing comes up" to primary state (near completion condition) -->
-  <button class="yn-btn meaningless" onclick="onQ1Nothing()" style="margin-top:12px">何も出てこない — すでに明確</button>
+  <button class="yn-btn meaningless" onclick="onQ1Nothing()" style="margin-top:12px">浮かばない（すでにクリア）</button>
 </div>
 
 <!-- ====== PAID: Measure 1 (Before) ====== -->
 <div class="screen" id="s-p-measure1">
-  <div class="label">フルセッション <span style="color:#6B9080">•</span> 測定</div>
-  <div class="title">今の自分のどのくらいがこの状態ですか？</div>
+  <div class="label">測定</div>
+  <div class="title">今の自分にどれくらいある？</div>
   <em id="q1-display-measure1" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
   <div class="score-num" id="num-measure1" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-measure1" oninput="revealNum('num-measure1',this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
-  <button class="btn" onclick="onMeasure1()">確認</button>
-  <button class="btn-ghost meaningful" onclick="onMeasure1Skip()">もう測定できない</button>
+  <button class="btn" onclick="onMeasure1()">決定</button>
+  <button class="btn-ghost meaningful" onclick="onMeasure1Skip()">測れない</button>
 </div>
 
 <!-- ====== PAID: Breath 2-0 ====== -->
 <div class="screen" id="s-p-b20">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> 呼吸 1/5</div>
-  <div class="breath-focus">あなたが〜でない状態はどんな感じですか<br><br><em id="q1-display-b20" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>?</div>
-  <input class="text-input" id="input-b20" placeholder="回答を入力..." autocomplete="off">
-  <button class="btn" id="btn-b20" disabled onclick="onB20()" style="opacity:.45">確認</button>
-  <button class="btn-ghost" onclick="onNoMoreAnswer()" style="margin-top:.8rem">これ以上答えが出てこない</button>
+  <div class="label">呼吸 1/5</div>
+  <div class="breath-focus">これがない状態は？<br><br><em id="q1-display-b20" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em></div>
+  <input class="text-input" id="input-b20" placeholder="入力" autocomplete="off">
+  <button class="btn" id="btn-b20" disabled onclick="onB20()" style="opacity:.45">決定</button>
+  <button class="btn-ghost" onclick="onNoMoreAnswer()" style="margin-top:.8rem">もう出ない</button>
 </div>
 
 <div class="screen" id="s-p-b21">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> 呼吸 2/5</div>
-  <div class="breath-focus">Feel the resistance<br>to<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">呼吸 2/5</div>
+  <div class="breath-focus"><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br>への抵抗を感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
-    <div id="hint-pb21" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pb21" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Breath 2-2 ====== -->
 <div class="screen" id="s-p-b22">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> 呼吸 3/5</div>
-  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">呼吸 3/5</div>
+  <div class="breath-focus">抵抗以外を感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
-    <div id="hint-pb22" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pb22" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Breath 2-3 ====== -->
 <div class="screen" id="s-p-b23">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> 呼吸 4/5</div>
-  <div class="breath-focus">この状態を感じてください<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br><br>while feeling it,<br>take one deep breath.</div>
+  <div class="label">呼吸 4/5</div>
+  <div class="breath-focus"><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em><br>の状態を感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
-    <div id="hint-pb23" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pb23" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Breath 2-4 ====== -->
 <div class="screen" id="s-p-b24">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> 呼吸 5/5</div>
-  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br><br>While feeling all of it,<br>take one deep breath.</div>
+  <div class="label">呼吸 5/5</div>
+  <div class="breath-focus">すべてをそのまま感じる<br>そのまま、深呼吸</div>
   <div style="position:relative;display:inline-block">
     <div class="breath-circle pulse" id="circle-pb24" onclick="startBreath('pb24')"></div>
-    <div id="hint-pb24" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップして呼吸を開始</div>
+    <div id="hint-pb24" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">タップで開始</div>
   </div>
 </div>
 
 <!-- ====== PAID: Measure 2 (After) ====== -->
 <div class="screen" id="s-p-measure2">
-  <div class="label">フルセッション <span style="color:#6B9080">•</span> 測定</div>
-  <div class="title">いま — 自分のどのくらいがこの状態ですか？</div>
+  <div class="label">測定</div>
+  <div class="title">今はどれくらいある？</div>
   <em id="q1-display-measure2" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
   <div class="score-num" id="num-measure2" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-measure2" oninput="revealNum('num-measure2',this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
-  <button class="btn" onclick="onMeasure2()">確認</button>
-  <button class="btn-ghost meaningful" onclick="onMeasure2Skip()">もう測定できない</button>
+  <button class="btn" onclick="onMeasure2()">決定</button>
+  <button class="btn-ghost meaningful" onclick="onMeasure2Skip()">測れない</button>
 </div>
 
 <!-- ====== PAID: Final Check — Past ====== -->
 <div class="screen" id="s-p-yn2-past">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> ファイナルチェック 1/2</div>
-  <div class="title">まだ感覚がありますか — <em class="topic-d">"Overthinking"</em> — あなたの過去のどこかに？</div>
+  <div class="label">最終確認 1/2</div>
+  <div class="title">過去にまだある？</div>
   <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN2Past('yes',this)">はい</button>
-    <button class="yn-btn" onclick="onYN2Past('no',this)">いいえ</button>
-    <button class="yn-btn" onclick="onYN2Past('maybe',this)">たぶん</button>
-    <button class="yn-btn" onclick="onYN2Past('not_sure',this)">よくわからない</button>
-    <button class="yn-btn" onclick="onYN2Past('dont_know',this)">認識できない</button>
-    <button class="yn-btn meaningless" onclick="onYN2Past('meaningless',this)" style="margin-top:12px">もはや問いでない — もうすぐ完了</button>
-    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
+    <button class="yn-btn" onclick="onYN2Past('yes',this)">ある</button>
+    <button class="yn-btn" onclick="onYN2Past('no',this)">ない</button>
+    <button class="yn-btn" onclick="onYN2Past('maybe',this)">少しある</button>
+    <button class="yn-btn" onclick="onYN2Past('not_sure',this)">不明</button>
+    <button class="yn-btn" onclick="onYN2Past('dont_know',this)">わからない</button>
+    <button class="yn-btn meaningless" onclick="onYN2Past('meaningless',this)" style="margin-top:12px">消えている（ほぼ完了）</button>
+    <div class="completion-hint">次に何も出なければ完了</div>
   </div>
 </div>
 
 <!-- ====== PAID: Final Check — Future ====== -->
 <div class="screen" id="s-p-yn2-future">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> ファイナルチェック 2/2</div>
-  <div class="title">まだ感覚がありますか — <em class="topic-d">"Overthinking"</em> — あなたの未来のどこかに？</div>
+  <div class="label">最終確認 2/2</div>
+  <div class="title">未来にまだある？</div>
   <div class="yes-no-wrap">
-    <button class="yn-btn" onclick="onYN2Future('yes',this)">はい</button>
-    <button class="yn-btn" onclick="onYN2Future('no',this)">いいえ</button>
-    <button class="yn-btn" onclick="onYN2Future('maybe',this)">たぶん</button>
-    <button class="yn-btn" onclick="onYN2Future('not_sure',this)">よくわからない</button>
-    <button class="yn-btn" onclick="onYN2Future('dont_know',this)">認識できない</button>
-    <button class="yn-btn meaningless" onclick="onYN2Future('meaningless',this)" style="margin-top:12px">もはや問いでない — もうすぐ完了</button>
-    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
+    <button class="yn-btn" onclick="onYN2Future('yes',this)">ある</button>
+    <button class="yn-btn" onclick="onYN2Future('no',this)">ない</button>
+    <button class="yn-btn" onclick="onYN2Future('maybe',this)">少しある</button>
+    <button class="yn-btn" onclick="onYN2Future('not_sure',this)">不明</button>
+    <button class="yn-btn" onclick="onYN2Future('dont_know',this)">わからない</button>
+    <button class="yn-btn meaningless" onclick="onYN2Future('meaningless',this)" style="margin-top:12px">消えている（ほぼ完了）</button>
+    <div class="completion-hint">次に何も出なければ完了</div>
   </div>
 </div>
 
 <!-- ====== PAID: Full Result ====== -->
 <div class="screen" id="s-p-result">
-  <div class="label">フルセッション完了</div>
-  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em;opacity:.85">何かが変わった。</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">あなたの変化</div>
+  <div class="label">完了</div>
+  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em;opacity:.85">変化あり</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">結果</div>
   <div id="paid-result-rows"></div>
   <div style="height:1.2rem"></div>
   <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
   <div id="recent-history" style="width:100%;max-width:280px;margin-bottom:.8rem"></div>
   <div id="result-follow-up" style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#B8B8B0;text-align:center;letter-spacing:.06em;margin-bottom:.8rem;line-height:1.7"></div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:.5rem">まだ深みがある。</div>
-  <button id="cta-continue" class="btn-main-cta" onclick="continueSession()">さらに深く →</button>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-top:1.2rem;margin-bottom:.4rem">タップしてInstagramを選択。</div>
-  <button class="btn-secondary" onclick="shareImage('paid')">Instagramでシェア →</button>
-  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.78rem;opacity:.6">画像を保存</button>
-  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">テキストでシェア</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:.5rem">さらに進む</div>
+  <button id="cta-continue" class="btn-main-cta" onclick="continueSession()">深く進む</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-top:1.2rem;margin-bottom:.4rem">タップしてInstagram</div>
+  <button class="btn-secondary" onclick="shareImage('paid')">Instagramで共有</button>
+  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.78rem;opacity:.6">保存</button>
+  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">テキスト共有</button>
   <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
-    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Xでシェア →</a>
-    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">テキストをコピー</button>
+    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Xで共有</a>
+    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">コピー</button>
   </div>
   <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
   <button id="cta-new-topic" class="btn-skip" onclick="goToNewTheme()">新しいテーマ</button>
-  <button id="cta-view-history" class="btn-skip" onclick="openFullHistory()" style="color:#C0C0B8;font-size:.72rem;margin-top:.1rem;display:none">全履歴を見る →</button>
+  <button id="cta-view-history" class="btn-skip" onclick="openFullHistory()" style="color:#C0C0B8;font-size:.72rem;margin-top:.1rem;display:none">履歴を見る</button>
   <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
-    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
-    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
-    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif">Tap <span style="font-size:.8rem">⬆️</span> then "Add to Home Screen"</div>
+    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">すぐ使えるように</div>
+    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">ホーム画面に追加</button>
+    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif"><span style="font-size:.8rem">⬆️</span> を押して「ホーム画面に追加」</div>
   </div>
 </div>
 
 <!-- ====== PAID: Theme Complete ====== -->
 <div class="screen" id="s-p-complete">
-  <div class="label">テーマ完了</div>
+  <div class="label">完了</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:1rem;letter-spacing:.1em">✓</div>
   <div id="completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:.5rem;max-width:280px"></div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">あなたにも心当たりがあるはず。</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">もう存在しない。<br>過去にも未来にも見当たらない。</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">このパターンはあなたの体験から消えた。</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">同じ悩みを持つ人がいる。</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.4rem">タップしてInstagramを選択。</div>
-  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Instagramでシェア →</button>
-  <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">新しい層へ →</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">あなたはこれを感じていた</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">消えた<br>過去にも未来にもない</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">この状態はもう現れない</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">共有する</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.4rem">タップしてInstagram</div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Instagramで共有</button>
+  <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">次へ</button>
 </div>
 
 
 <!-- ====== PAID: Full History ====== -->
 <div class="screen" id="s-p-history">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> 履歴</div>
-  <div class="title" style="margin-bottom:.3rem">全履歴</div>
+  <div class="label">履歴</div>
+  <div class="title" style="margin-bottom:.3rem">履歴</div>
   <div id="history-theme-label" style="font-family:'Noto Serif JP',serif;font-size:.75rem;color:#AAA;letter-spacing:.1em;margin-bottom:1.4rem;text-align:center"></div>
   <div id="history-list" style="width:100%;max-width:280px"></div>
-  <button class="btn-ghost" onclick="goBack()" style="margin-top:1.6rem">← 戻る</button>
+  <button class="btn-ghost" onclick="goBack()" style="margin-top:1.6rem">戻る</button>
 </div>
 
 
 <!-- ── Share preview overlay ── -->
 <div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
-  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">長押しで保存<br>保存後に共有</div>
   <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
-  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer">Close</button>
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer">閉じる</button>
 </div>
 <!-- ── Hidden share card ── -->
 <div id="share-card">
-  <div class="sc-label" id="sc-label">フルセッション完了</div>
-  <div class="sc-headline" id="sc-headline">何かが変わった。</div>
+  <div class="sc-label" id="sc-label">完了</div>
+  <div class="sc-headline" id="sc-headline">変化あり</div>
   <div class="sc-topic" id="sc-topic"></div>
   <div id="sc-rows"></div>
   <div class="sc-desc" id="sc-desc"></div>
   <div class="sc-hook" id="sc-hook"></div>
-  <div class="sc-tagline" id="sc-tagline">あなたも試してみて。</div>
+  <div class="sc-tagline" id="sc-tagline">体験してみてください</div>
   <div class="sc-footer">noetune.com</div>
   <div class="sc-qr" id="sc-qr"></div>
 </div>
@@ -431,7 +431,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <script>
 function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
 
-let TOPIC = 'Overthinking';
+let TOPIC = '考えすぎ';
 function getCoreTheme(){return D.themeBase||TOPIC||'';}
 function topicLabel(t){return t;}
 let cur = 's-p-theme', hist = [];
@@ -539,7 +539,7 @@ function newTopicFromStorage(){
   clearState();D.themeComplete=false;
   document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b){b.classList.remove('selected');});
   var first=document.querySelector('#s-p-theme .theme-btn');if(first)first.classList.add('selected');
-  TOPIC='Overthinking';applyTopic(TOPIC);
+  TOPIC='考えすぎ';applyTopic(TOPIC);
   hist=[];go('s-p-theme');
 }
 
@@ -587,7 +587,7 @@ function showComplete(){
     if(hasMeasure){
       el.textContent=theme+' '+before+' → '+after;
     }else{
-      el.textContent=theme+' → none';
+      el.textContent=theme+' → なし';
     }
   }
   fwd('s-p-complete');
@@ -648,7 +648,7 @@ function renderResultCTA(){
   cont.style.marginTop='1.6rem';
   // Keep New topic weak
   nt.className='btn-skip';
-  if(fu)fu.textContent='There\'s more here.';
+  if(fu)fu.textContent='さらに進む';
 }
 
 function openFullHistory(){renderFullHistory();fwd('s-p-history');}
@@ -657,7 +657,7 @@ function renderFullHistory(){
   if(lbl)lbl.textContent=getCoreTheme().toUpperCase();
   var el=document.getElementById('history-list');if(!el)return;
   var rounds=D.rounds.filter(function(r){return r.theme===TOPIC;}).slice().reverse();
-  if(!rounds.length){el.innerHTML='<div style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#C0C0B8;text-align:center">まだ記録がありません。</div>';return;}
+  if(!rounds.length){el.innerHTML='<div style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#C0C0B8;text-align:center">記録なし</div>';return;}
   var html='';
   rounds.forEach(function(r){
     var ans=r.answer?r.answer:'—';
@@ -665,7 +665,7 @@ function renderFullHistory(){
     var a=r.after===null||r.after==='N/A'?'∞':r.after;
     html+='<div style="padding:.55rem .7rem;margin-bottom:.4rem;border:1px solid #EAEAE6;border-radius:10px;background:#fff;">'+
       '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.2rem">'+
-        '<span style="font-family:\'Noto Serif JP\',serif;font-size:.66rem;color:#B0B0A8;letter-spacing:.1em">ラウンド '+r.round+'</span>'+
+        '<span style="font-family:\'Noto Serif JP\',serif;font-size:.66rem;color:#B0B0A8;letter-spacing:.1em">回数 '+r.round+'</span>'+
         '<span style="font-family:\'Noto Serif JP\',serif;font-size:.75rem;color:#6B9080">'+b+' → '+a+'</span>'+
       '</div>'+
       '<div style="font-family:\'Noto Serif JP\',serif;font-size:.82rem;color:#555;line-height:1.6;word-break:break-word">'+ans+'</div>'+
@@ -705,14 +705,14 @@ function showPaidResult(){
   track('session_complete_paid',{topic:TOPIC});
   var headline=document.getElementById('paid-result-headline');
   if(headline){
-    if(D.stateAfter==='N/A'||D.stateAfter===null){headline.textContent='測定を超えた。';}
-    else if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'&&D.stateAfter>D.stateBefore){headline.textContent='状態が広がった。';}
-    else{headline.textContent='あなたの状態が変わった。';}
+    if(D.stateAfter==='N/A'||D.stateAfter===null){headline.textContent='測定を超えた';}
+    else if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'&&D.stateAfter>D.stateBefore){headline.textContent='状態が広がった';}
+    else{headline.textContent='変化あり';}
   }
   var rows=document.getElementById('paid-result-rows');rows.innerHTML='';
   var label=D.q1||getCoreTheme();
   rows.innerHTML+=makeResultRow(label,D.stateBefore,D.stateAfter,'q1');
-  var finalLabels={'yes':'まだある','no':'解放された','maybe':'薄れている','not_sure':'変化の途中','dont_know':'認識できない','meaningless':'溶けた'};
+  var finalLabels={'yes':'まだある','no':'消えた','maybe':'薄い','not_sure':'変化中','dont_know':'感じない','meaningless':'消えた'};
   var pastLabel=finalLabels[D.finalStatePast]||'—';
   var futureLabel=finalLabels[D.finalStateFuture]||'—';
   var pastCol=D.finalStatePast==='no'||D.finalStatePast==='meaningless'?'#6B9080':'#C47A5A';
@@ -720,8 +720,8 @@ function showPaidResult(){
   document.getElementById('paid-yn-result').innerHTML=
     '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+getCoreTheme().toUpperCase()+'</div>'+
     '<div style="display:flex;justify-content:center;gap:2rem">'+
-      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Past<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
-      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Future<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">過去<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">未来<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
     '</div>';
   renderRecentHistory();
   renderResultCTA();saveState();fwd('s-p-result');
@@ -730,7 +730,7 @@ function showPaidResult(){
 
 // ── Breathing ──
 function startBreath(t){if(breathing)return;breathing=true;var h=document.getElementById('hint-'+t);if(h)h.style.display='none';var c=document.getElementById('circle-'+t);c.classList.remove('pulse');bc=0;setTimeout(function(){bCycle(t,c);},600);}
-function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='';setTimeout(function(){c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2100);},1700);},200);}
+function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='';setTimeout(function(){c.textContent='吸う';c.className='breath-circle inhale';setTimeout(function(){c.textContent='吐く';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2100);},1700);},200);}
 var BREATH_NEXT={'pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-b20'};
 function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);if(next==='s-p-b20'){var inp=document.getElementById('input-b20');if(inp)inp.value='';var btn=document.getElementById('btn-b20');if(btn){btn.disabled=true;btn.style.opacity='.45';btn.style.cursor='default';}}setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}} );document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
 
@@ -817,8 +817,8 @@ function buildShareCard_paid(){
   var before=D.stateBefore,after=D.stateAfter;
   var hasMeasure=typeof before==='number'&&typeof after==='number';
 
-  document.getElementById('sc-label').textContent='フルセッション完了';
-  document.getElementById('sc-headline').textContent='Stop '+coreTheme.toLowerCase()+' in 2 minutes.';
+  document.getElementById('sc-label').textContent='完了';
+  document.getElementById('sc-headline').textContent=coreTheme+'を2分で整える';
 
   var topicEl=document.getElementById('sc-topic');
   var rowsEl=document.getElementById('sc-rows');
@@ -827,7 +827,7 @@ function buildShareCard_paid(){
   if(D.themeComplete){
     // Theme Complete: proof of change — minimal
     document.getElementById('sc-label').textContent='';
-    document.getElementById('sc-headline').textContent=coreTheme+' → none';
+    document.getElementById('sc-headline').textContent=coreTheme+' → なし';
     topicEl.textContent='';
     if(rowsEl)rowsEl.innerHTML='';
     if(descEl)descEl.textContent='';
@@ -836,7 +836,7 @@ function buildShareCard_paid(){
   }else{
     // Normal result share: show transformation data
     if(hasMeasure){topicEl.textContent=coreTheme+' '+before+' → '+after;}
-    else{topicEl.textContent=coreTheme+' → none';}
+    else{topicEl.textContent=coreTheme+' → なし';}
     buildShareCardRows([{label:coreTheme,before:before,after:after,rtype:'q1'}]);
     if(descEl)descEl.textContent='';
   }
@@ -847,7 +847,7 @@ function buildShareCard_paid(){
 async function shareImage(type){
   buildShareCard_paid();
   var dataUrl=await renderShareCard();
-  if(!dataUrl){alert('Could not generate image.');return;}
+  if(!dataUrl){alert('画像を生成できませんでした。');return;}
   var coreTheme=getCoreTheme();
   try{
     var res=await fetch(dataUrl);
@@ -857,7 +857,7 @@ async function shareImage(type){
       await navigator.share({
         files:[file],
         title:'Noetune',
-        text:'たった2分で変わった。 noetune.com'
+        text:coreTheme+'を2分で整える。 noetune.com'
       });
       return;
     }else{
@@ -869,19 +869,19 @@ async function shareImage(type){
     else{triggerDownload(dataUrl,'noetune.png');}
   }
 }
-async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
+async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('画像を生成できませんでした。');return;}triggerDownload(d,'noetune-result.png');}
 function resultToText_paid(){
   var label=getCoreTheme();
-  var lines=['Noetune — Full Session','',label.toUpperCase()+' RATE'];
-  lines.push('State: '+(D.stateBefore==='N/A'||D.stateBefore===null?'∞':D.stateBefore)+' → '+(D.stateAfter==='N/A'||D.stateAfter===null?'∞':D.stateAfter));
-  var finalLabels={'yes':'まだある','no':'解放された','maybe':'薄れている','not_sure':'変化の途中','dont_know':'認識できない','meaningless':'溶けた'};
-  lines.push('過去: '+(finalLabels[D.finalStatePast]||'変化'));
-  lines.push('未来: '+(finalLabels[D.finalStateFuture]||'変化'));
+  var lines=['Noetune｜フルセッション','',label.toUpperCase()+' 変化'];
+  lines.push('状態: '+(D.stateBefore==='N/A'||D.stateBefore===null?'∞':D.stateBefore)+' → '+(D.stateAfter==='N/A'||D.stateAfter===null?'∞':D.stateAfter));
+  var finalLabels={'yes':'まだある','no':'消えた','maybe':'薄い','not_sure':'変化中','dont_know':'感じない','meaningless':'消えた'};
+  lines.push('過去: '+(finalLabels[D.finalStatePast]||'変化あり'));
+  lines.push('未来: '+(finalLabels[D.finalStateFuture]||'変化あり'));
   lines.push('','noetune.com');
   return lines.join('\n');
 }
 async function shareResultText(type){var t=resultToText_paid();if(navigator.share){try{await navigator.share({text:t,title:'Noetune'});return;}catch(e){if(e&&e.name==='AbortError')return;}}var fb=document.getElementById('share-fallback-paid');if(fb)fb.style.display='flex';var xa=document.getElementById('share-x-paid');if(xa)xa.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(t);}
-function copyResult(type){var t=resultToText_paid();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){showShareMsg('paid','Copied!');});return;}var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showShareMsg('paid','Copied!');}catch(e){}document.body.removeChild(ta);}
+function copyResult(type){var t=resultToText_paid();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){showShareMsg('paid','コピーしました');});return;}var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showShareMsg('paid','コピーしました');}catch(e){}document.body.removeChild(ta);}
 
 // ── PWA ──
 var _pwaPrompt=null,_pwaShown=false;
