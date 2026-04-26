@@ -408,7 +408,7 @@ let hasNotAnswer = false;
 
 const D = {
   q1:'', notQ1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false, readyToComplete:false, completionGateReady:false,
-  themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false,
+  themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false, extremeEmpty:false,
   rounds:[]
 };
 
@@ -561,9 +561,8 @@ function showComplete(){
   fwd('s-p-complete');
 }
 function onQ1Nothing(){
-  // Gate 1 check (Past + Future)
-  if(D.completionGateReady){
-    // Gate 2 achieved → COMPLETE
+  // Gate 2: both Extreme and Reversal were empty → COMPLETE
+  if(D.completionGateReady&&D.extremeEmpty){
     D.themeComplete=true;
     saveState();
     clearState();
@@ -728,6 +727,7 @@ if(inpB20){inpB20.addEventListener('input',function(){var ok=inpB20.value.trim()
 function onThemeExtreme(){
   var v=document.getElementById('input-theme-extreme').value.trim();
   if(!v)return;
+  D.extremeEmpty=false;
   D.themeExtreme=v;
   D.useExtreme=true;
   D.themeActive=v;
@@ -735,7 +735,7 @@ function onThemeExtreme(){
   fwd('s-p-q1');
 }
 function onThemeExtremeNothing(){
-  if(D.completionGateReady){D.themeComplete=true;saveState();clearState();showComplete();return;}
+  D.extremeEmpty=true;
   D.themeExtreme='';
   D.useExtreme=false;
   D.themeActive=D.themeBase;
@@ -748,7 +748,7 @@ if(inpExtreme){inpExtreme.addEventListener('input',function(){var ok=inpExtreme.
 
 // ── Session controls ──
 function continueSession(){
-  D.q1='';D.notQ1='';D.stateBefore=null;D.stateAfter=null;
+  D.q1='';D.notQ1='';D.stateBefore=null;D.stateAfter=null;D.extremeEmpty=false;
   if(!D.completionGateReady){D.finalStatePast='';D.finalStateFuture='';}
   hasNotAnswer=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
@@ -763,7 +763,7 @@ function continueSession(){
 }
 function goToNewTheme(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,extremeEmpty:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
   hasNotAnswer=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
@@ -771,7 +771,7 @@ function goToNewTheme(){
 }
 function returnToStart(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,extremeEmpty:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
   hasNotAnswer=false;
   hist=[];breathing=false;bc=0;
   var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
