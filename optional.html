@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAFAF7">
+<title>Noetune — Full Session</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+.completion-hint{margin-top:10px;font-size:0.72rem;color:#C0C0B8;text-align:center;line-height:1.6;letter-spacing:0.05em;font-family:'Noto Serif JP',serif;}
+.meaningful{margin-top:1.2rem;padding:14px 42px;font-size:1rem;font-weight:500;color:#6B9080;border:1.8px solid #6B9080;border-radius:30px;background:#F2F7F5;letter-spacing:.08em;transition:all .25s;}
+.meaningful:active{transform:scale(.97);background:#6B9080;color:#fff;}
+.btn-primary-next{margin-top:1.4rem;background:#6B9080;color:#fff;border:none;padding:15px 46px;font-size:1rem;font-weight:500;letter-spacing:.1em;box-shadow:0 4px 18px rgba(107,144,128,.22);}
+.btn-primary-next:active{transform:scale(.97);opacity:.85;}
+.btn-main-cta{margin-top:1.6rem;background:#6B9080 !important;color:#fff !important;border:none !important;padding:20px 72px;font-size:1.15rem;font-weight:700;letter-spacing:.14em;border-radius:40px;box-shadow:0 10px 36px rgba(107,144,128,.45);cursor:pointer;font-family:'Noto Serif JP',serif;transform:scale(1);transition:all .25s ease;width:auto;}
+.btn-main-cta:active{transform:scale(.96);box-shadow:0 4px 14px rgba(107,144,128,.28);}
+.btn-secondary{margin-top:1rem;background:transparent;color:#888;border:1px solid #D4DDD8;padding:14px 48px;font-size:.9rem;border-radius:28px;opacity:1;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;}
+.btn-secondary:active{transform:scale(.97);opacity:.7;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#FAFAF7;color:#1A1A1A}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:#6B9080;transition:width .6s cubic-bezier(.4,0,.2,1);z-index:100}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem 2rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen.active{opacity:1;transform:translateY(0);pointer-events:all}
+.screen.exit{opacity:0;transform:translateY(-12px)}
+.label{font-size:.72rem;letter-spacing:.18em;color:#A0A09A;margin-bottom:1.2rem;text-align:center}
+.title{font-family:'Noto Serif JP',serif;font-size:1.25rem;font-weight:300;text-align:center;line-height:1.9;margin-bottom:2rem;max-width:320px}
+.score-num{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;line-height:1;margin-bottom:1.8rem}
+.slider-wrap{width:100%;max-width:280px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:#D4DDD8;border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(107,144,128,.3)}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;border:none}
+.slider-labels{display:flex;justify-content:space-between;margin-top:.6rem;font-size:.7rem;color:#BBB}
+.text-input{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;text-align:center;border:none;border-bottom:1.5px solid #D4DDD8;background:transparent;padding:.6rem 1rem;width:92%;max-width:300px;outline:none;color:#1A1A1A;transition:border-color .3s}
+.text-input:focus{border-bottom-color:#6B9080}
+.text-input::placeholder{color:#CCC;font-weight:300}
+.btn{margin-top:2rem;padding:14px 52px;background:#6B9080;color:#fff;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;transition:opacity .3s,transform .15s;font-family:'Noto Serif JP',serif;letter-spacing:.08em}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn-ghost{margin-top:1rem;padding:11px 36px;background:transparent;color:#6B9080;border:1.5px solid #6B9080;border-radius:30px;font-size:.85rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .25s}
+.btn-ghost:active{background:#6B9080;color:#fff}
+.btn-start{padding:16px 64px;background:#1A1A1A;color:#FAFAF7;border:none;border-radius:30px;font-size:1rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.2em;transition:opacity .3s}
+.btn-start:active{opacity:.7}
+.btn-skip{background:none;border:none;font-family:'Noto Serif JP',serif;font-size:.75rem;color:#C0C0B8;letter-spacing:.1em;cursor:pointer;margin-top:.8rem;padding:.3rem .8rem}
+.breath-focus{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#888;text-align:center;line-height:1.9;margin-bottom:1.8rem;max-width:280px}
+.breath-focus em{color:#1A1A1A;font-style:normal;font-weight:500}
+.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:300;transition:transform 1.7s cubic-bezier(.4,0,.2,1),box-shadow 1.7s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);cursor:pointer}
+.breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
+.breath-circle.exhale{transform:scale(1)}
+.intro-title{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;letter-spacing:.15em;color:#1A1A1A;margin-bottom:.3rem}
+.intro-sub{font-size:.78rem;color:#AAA;letter-spacing:.15em;margin-bottom:.4rem;font-family:'Noto Serif JP',serif}
+.btn-back{position:fixed;top:1rem;left:1rem;width:36px;height:36px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
+.btn-back.visible{opacity:1;pointer-events:all}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.pulse{animation:pulse 2s infinite}
+.r-row{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-bottom:1.8rem}
+.r-label{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:500;letter-spacing:.05em;min-width:2.6rem;text-align:right}
+.r-arrow{display:flex;align-items:center;flex-shrink:0}
+.r-nums{display:flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:2.2rem;font-weight:700}
+.infinity{font-size:3.4rem;line-height:1;display:inline-flex;align-items:center;font-weight:800;color:#1A1A1A;letter-spacing:-.02em;transition:opacity .2s ease}
+
+
+.r-sep-beyond{font-size:1.4rem;color:#C0A84A;margin:0 .3rem;opacity:.8}
+.r-before{font-size:1.4rem;color:#B3B3AD;font-weight:300}
+.r-sep{font-size:1.1rem;color:#C8C8C4;margin:0 .3rem;font-weight:300;font-family:sans-serif}
+.r-after{}
+.yes-no-wrap{display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;margin-bottom:1.2rem}
+.yn-btn{padding:1rem 1.2rem;border-radius:16px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.95rem;color:#1A1A1A;transition:all .25s;letter-spacing:.06em}
+.yn-btn.meaningless{opacity:1;color:#6B9080;border-color:#6B9080;font-weight:500}
+.yn-btn:active{transform:scale(.97)}
+.yn-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080}
+.theme-btn{width:100%;padding:.7rem 1rem;border-radius:12px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.88rem;color:#555;transition:all .22s;letter-spacing:.05em}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080;font-weight:500}
+.theme-btn.locked{color:#C0C0B8;border-color:#EAEAE6;background:#FAFAF7;cursor:pointer}
+.theme-btn.locked:active{transform:scale(.97)}
+.lock-icon{font-size:.8rem;margin-left:.3rem;opacity:.7}
+.paywall-box{background:#fff;border:1.5px solid #E4E4DE;border-radius:20px;padding:2rem 1.5rem;max-width:320px;width:100%;text-align:center}
+.paywall-box .pw-title{font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:500;margin-bottom:.8rem;letter-spacing:.08em}
+.paywall-box .pw-desc{font-size:.82rem;color:#888;line-height:1.8;margin-bottom:1.6rem}
+.paywall-box .pw-feature{display:flex;align-items:center;gap:.5rem;padding:.35rem 0;font-size:.82rem;color:#555;text-align:left}
+.paywall-box .pw-feature::before{content:'◇';color:#6B9080;font-size:.8rem}
+.pw-price-btn{width:100%;padding:14px;background:#1A1A1A;color:#FAFAF7;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.1em;margin-top:1.6rem}
+.pw-price-btn:active{opacity:.7}
+.pw-annual{font-size:.7rem;color:#B0B0A8;margin-top:.6rem;letter-spacing:.05em}
+@media(max-height:640px){.title{font-size:1.1rem;margin-bottom:1.5rem}.score-num{font-size:2.2rem}.breath-circle{width:110px;height:110px}.screen{padding:2rem 1.2rem 1.5rem}}
+
+/* ── Share card (hidden, rendered to image) ── */
+#share-card{
+  position:fixed;top:-9999px;left:-9999px;
+  width:1080px;height:1080px;
+  background:#FAFAF7;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:120px 100px;
+  font-family:'Noto Serif JP',Georgia,serif;
+  box-sizing:border-box;
+  z-index:-1;
+}
+#share-card .sc-label{
+  font-size:22px;letter-spacing:.22em;color:#B0B0A8;
+  margin-bottom:48px;font-family:-apple-system,sans-serif;
+  font-weight:300;
+}
+#share-card .sc-headline{
+  font-size:72px;font-weight:700;color:#1A1A1A;
+  margin-bottom:56px;letter-spacing:.02em;
+}
+#share-card .sc-topic{
+  font-size:28px;color:#B0B0A8;letter-spacing:.14em;
+  margin-bottom:64px;font-weight:300;
+}
+#share-card .sc-row{
+  display:flex;align-items:center;
+  gap:20px;margin-bottom:44px;width:100%;
+  justify-content:center;
+  overflow:visible;
+}
+#share-card .sc-row-label{
+  font-size:38px;color:#8F8F89;font-weight:400;
+  min-width:110px;text-align:right;
+}
+#share-card .sc-before{
+  font-size:48px;color:#B3B3AD;font-weight:300;
+}
+#share-card .sc-arrow{
+  font-size:32px;color:#CCC;font-weight:300;
+  margin:0 4px;
+}
+#share-card .sc-after{
+  font-size:72px;font-weight:700;color:#1A1A1A;line-height:1;
+}
+#share-card .sc-up-arrow{display:inline-flex;align-items:center;margin-left:14px}
+#share-card .sc-up-arrow svg{display:block;overflow:visible}
+#share-card .sc-desc{
+  font-size:24px;color:#909088;letter-spacing:.03em;
+  margin-top:44px;font-weight:300;font-family:-apple-system,sans-serif;
+  text-align:center;
+}
+#share-card .sc-hook{
+  font-size:28px;color:#6B9080;letter-spacing:.06em;
+  margin-top:48px;font-weight:400;font-family:-apple-system,sans-serif;
+  text-align:center;
+}
+#share-card .sc-tagline{
+  font-size:26px;color:#1A1A1A;letter-spacing:.1em;
+  margin-top:10px;font-weight:500;font-family:-apple-system,sans-serif;
+  text-align:center;
+}
+#share-card .sc-footer{
+  font-size:22px;color:#C8C8C0;letter-spacing:.1em;
+  margin-top:16px;font-weight:300;font-family:-apple-system,sans-serif;
+}
+#share-card .sc-inf svg{
+  width:80px;height:40px;
+}
+#share-card .sc-qr{
+  margin-top:28px;
+}
+#share-card .sc-qr canvas,#share-card .sc-qr img{
+  width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+
+<button class="btn-back" id="btn-back" onclick="goBack()">
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<div class="progress-bar" id="progress"></div>
+
+<!-- ====== CONTINUE: In-progress screen ====== -->
+<div class="screen" id="s-continue">
+  <div class="label" style="margin-bottom:2rem">STILL IN PROGRESS</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;color:#AAA;letter-spacing:.14em;margin-bottom:.6rem">You are still working on:</div>
+  <div class="title" id="continue-topic-name" style="font-size:1.6rem;margin-bottom:2.4rem">"..."</div>
+  <button class="btn-start" onclick="continueFromStorage()">Continue</button>
+  <div style="height:14px"></div>
+  <button class="btn-ghost" onclick="newTopicFromStorage()" style="opacity:.5;font-size:.82rem;padding:9px 28px">Start new topic</button>
+</div>
+
+<!-- ====== PAID: Theme selector ====== -->
+<div class="screen active" id="s-p-theme">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
+  <div class="title" style="margin-bottom:1.4rem">What feeling or state do you want to resolve?</div>
+  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
+    <input class="text-input" id="input-custom-theme" placeholder="Type your theme..." autocomplete="off" style="font-size:1rem;margin-bottom:.4rem" oninput="onCustomThemeInput()">
+  </div>
+  <button class="btn" id="btn-custom-theme" disabled onclick="onCustomThemeContinue()" style="opacity:.45">Continue</button>
+</div>
+
+<!-- ====== PAID: Theme Extreme ====== -->
+<div class="screen" id="s-p-theme-extreme">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> EXTREME</div>
+  <div class="title">What is the most extreme form of this feeling or state?</div>
+  <em id="theme-base-display-extreme" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
+  <input class="text-input" id="input-theme-extreme" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-theme-extreme" disabled onclick="onThemeExtreme()" style="opacity:.45">Confirm</button>
+  <button class="yn-btn meaningless" onclick="onThemeExtremeNothing()" style="margin-top:12px">Nothing comes up</button>
+</div>
+
+<!-- ====== PAID: Calibration 1/3 ====== -->
+<div class="screen" id="s-p-cal1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 1/3</div>
+  <div class="breath-focus">Feel the resistance to <em class="topic-d">"Overthinking"</em> —<br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pcal1" onclick="startBreath('pcal1')"></div>
+    <div id="hint-pcal1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Calibration 2/3 ====== -->
+<div class="screen" id="s-p-cal2">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 2/3</div>
+  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>While feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pcal2" onclick="startBreath('pcal2')"></div>
+    <div id="hint-pcal2" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Calibration 3/3 ====== -->
+<div class="screen" id="s-p-cal3">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> CALIBRATE 3/3</div>
+  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pcal3" onclick="startBreath('pcal3')"></div>
+    <div id="hint-pcal3" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Q1 — reversal question ====== -->
+<div class="screen" id="s-p-q1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> REVERSAL</div>
+  <div class="yes-no-wrap" style="margin-bottom:1.4rem">
+    <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What is someone like who has absolutely none of <em class="topic-d">"Overthinking"</em>?</button>
+    <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">What am I like when I have absolutely none of <em class="topic-d">"Overthinking"</em>?</button>
+  </div>
+  <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
+  <!-- Promote "Nothing comes up" to primary state (near completion condition) -->
+  <button class="yn-btn meaningless" onclick="onQ1Nothing()" style="margin-top:12px">Nothing comes up — already clear</button>
+</div>
+
+<!-- ====== PAID: Measure 1 (Before) ====== -->
+<div class="screen" id="s-p-measure1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
+  <div class="title">What proportion of your current self is in this state?</div>
+  <em id="q1-display-measure1" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
+  <div class="score-num" id="num-measure1" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-measure1" oninput="revealNum('num-measure1',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onMeasure1()">Confirm</button>
+  <button class="btn-ghost meaningful" onclick="onMeasure1Skip()">No longer measurable</button>
+</div>
+
+<!-- ====== PAID: Breath 2-0 ====== -->
+<div class="screen" id="s-p-b20">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/5</div>
+  <div class="breath-focus">What is it like when you are not<br><br><em id="q1-display-b20" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em>?</div>
+  <input class="text-input" id="input-b20" placeholder="Type your answer..." autocomplete="off">
+  <button class="btn" id="btn-b20" disabled onclick="onB20()" style="opacity:.45">Confirm</button>
+  <button class="btn-ghost" onclick="onNoMoreAnswer()" style="margin-top:.8rem">No more answer comes up</button>
+</div>
+
+<div class="screen" id="s-p-b21">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/5</div>
+  <div class="breath-focus">Feel the resistance<br>to<br><br><em id="q1-display-b21" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem">"..."</em><br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb21" onclick="startBreath('pb21')"></div>
+    <div id="hint-pb21" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-2 ====== -->
+<div class="screen" id="s-p-b22">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/5</div>
+  <div class="breath-focus">Feel everything —<br>except that resistance.<br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb22" onclick="startBreath('pb22')"></div>
+    <div id="hint-pb22" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-3 ====== -->
+<div class="screen" id="s-p-b23">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/5</div>
+  <div class="breath-focus">Feel the state of<br><em id="q1-display-b23" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em> —<br><br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb23" onclick="startBreath('pb23')"></div>
+    <div id="hint-pb23" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Breath 2-4 ====== -->
+<div class="screen" id="s-p-b24">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 5/5</div>
+  <div class="breath-focus">Feel everything —<br>all that is, as it is.<br><br>While feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-pb24" onclick="startBreath('pb24')"></div>
+    <div id="hint-pb24" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Measure 2 (After) ====== -->
+<div class="screen" id="s-p-measure2">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
+  <div class="title">Now — what proportion of your current self is in this state?</div>
+  <em id="q1-display-measure2" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
+  <div class="score-num" id="num-measure2" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-measure2" oninput="revealNum('num-measure2',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onMeasure2()">Confirm</button>
+  <button class="btn-ghost meaningful" onclick="onMeasure2Skip()">No longer measurable</button>
+</div>
+
+<!-- ====== PAID: Final Check — Past ====== -->
+<div class="screen" id="s-p-yn2-past">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 1/2</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere in your past?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN2Past('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2Past('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Past('maybe',this)">Maybe</button>
+    <button class="yn-btn" onclick="onYN2Past('not_sure',this)">Not sure</button>
+    <button class="yn-btn" onclick="onYN2Past('dont_know',this)">I don't know</button>
+    <button class="yn-btn meaningless" onclick="onYN2Past('meaningless',this)" style="margin-top:12px">No longer a question — almost complete</button>
+    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Final Check — Future ====== -->
+<div class="screen" id="s-p-yn2-future">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 2/2</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere in your future?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN2Future('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2Future('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Future('maybe',this)">Maybe</button>
+    <button class="yn-btn" onclick="onYN2Future('not_sure',this)">Not sure</button>
+    <button class="yn-btn" onclick="onYN2Future('dont_know',this)">I don't know</button>
+    <button class="yn-btn meaningless" onclick="onYN2Future('meaningless',this)" style="margin-top:12px">No longer a question — almost complete</button>
+    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Full Result ====== -->
+<div class="screen" id="s-p-result">
+  <div class="label">FULL SESSION COMPLETE</div>
+  <div id="paid-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.5rem;letter-spacing:.04em;opacity:.85">Something shifted.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
+  <div id="paid-result-rows"></div>
+  <div style="height:1.2rem"></div>
+  <div id="paid-yn-result" style="font-family:'Noto Serif JP',serif;font-size:.85rem;color:#888;text-align:center;margin-bottom:1rem"></div>
+  <div id="recent-history" style="width:100%;max-width:280px;margin-bottom:.8rem"></div>
+  <div id="result-follow-up" style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#B8B8B0;text-align:center;letter-spacing:.06em;margin-bottom:.8rem;line-height:1.7"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:.5rem">There's more here.</div>
+  <button id="cta-continue" class="btn-main-cta" onclick="continueSession()">Go deeper →</button>
+  <button class="btn-secondary" onclick="shareImage('paid')">Show this shift →</button>
+  <button class="btn-ghost" onclick="saveImage('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.78rem;opacity:.6">Save image</button>
+  <button class="btn-ghost" onclick="shareResultText('paid')" style="margin-top:.4rem;padding:10px 36px;font-size:.82rem">Share as Text</button>
+  <div id="share-fallback-paid" style="display:none;margin-top:.7rem;flex-direction:column;align-items:center;gap:.45rem">
+    <a id="share-x-paid" href="#" target="_blank" style="font-size:.76rem;color:#6B9080;letter-spacing:.08em;font-family:'Noto Serif JP',serif;text-decoration:none">Share on X →</a>
+    <button onclick="copyResult('paid')" style="background:none;border:none;font-size:.76rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em" id="copy-btn-paid">Copy text</button>
+  </div>
+  <div id="share-msg-paid" style="font-size:.72rem;color:#B0B0A8;text-align:center;max-width:260px;margin-top:.5rem;opacity:0;transition:opacity .5s ease;letter-spacing:.04em;font-family:'Noto Serif JP',serif;line-height:1.6"></div>
+  <button id="cta-new-topic" class="btn-skip" onclick="goToNewTheme()">New topic</button>
+  <button id="cta-view-history" class="btn-skip" onclick="openFullHistory()" style="color:#C0C0B8;font-size:.72rem;margin-top:.1rem;display:none">View full history →</button>
+  <div id="add-to-home" style="display:none;margin-top:2.4rem;text-align:center;padding-bottom:.5rem">
+    <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.12em;font-family:'Noto Serif JP',serif;margin-bottom:.5rem">Keep this close</div>
+    <button id="pwa-install-btn" onclick="triggerPWAInstall()" style="background:none;border:1px solid #D4D4CC;border-radius:20px;padding:7px 22px;font-size:.72rem;color:#AAA;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .2s" onmouseover="this.style.borderColor='#6B9080';this.style.color='#6B9080'" onmouseout="this.style.borderColor='#D4D4CC';this.style.color='#AAA'">Add to Home Screen</button>
+    <div id="pwa-ios-hint" style="display:none;font-size:.66rem;color:#C8C8C4;margin-top:.5rem;letter-spacing:.05em;font-family:'Noto Serif JP',serif">Tap <span style="font-size:.8rem">⬆️</span> then "Add to Home Screen"</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Theme Complete ====== -->
+<div class="screen" id="s-p-complete">
+  <div class="label">THEME COMPLETE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:1rem;letter-spacing:.1em">✓</div>
+  <div id="completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:.5rem;max-width:280px"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">You've felt this too.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past or future.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">This pattern no longer appears in your experience.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">Others need this too.</div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Show this shift →</button>
+  <button class="btn-ghost" onclick="goToNewTheme()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">Start a new layer →</button>
+</div>
+
+
+<!-- ====== PAID: Full History ====== -->
+<div class="screen" id="s-p-history">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> HISTORY</div>
+  <div class="title" style="margin-bottom:.3rem">Full history</div>
+  <div id="history-theme-label" style="font-family:'Noto Serif JP',serif;font-size:.75rem;color:#AAA;letter-spacing:.1em;margin-bottom:1.4rem;text-align:center"></div>
+  <div id="history-list" style="width:100%;max-width:280px"></div>
+  <button class="btn-ghost" onclick="goBack()" style="margin-top:1.6rem">← Back</button>
+</div>
+
+
+<!-- ── Share preview overlay ── -->
+<div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
+  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
+  <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer">Close</button>
+</div>
+<!-- ── Hidden share card ── -->
+<div id="share-card">
+  <div class="sc-label" id="sc-label">FULL SESSION COMPLETE</div>
+  <div class="sc-headline" id="sc-headline">Something shifted.</div>
+  <div class="sc-topic" id="sc-topic"></div>
+  <div id="sc-rows"></div>
+  <div class="sc-desc" id="sc-desc"></div>
+  <div class="sc-hook" id="sc-hook">This took 2 minutes.</div>
+  <div class="sc-tagline" id="sc-tagline">Try it yourself.</div>
+  <div class="sc-footer">noetune.com</div>
+  <div class="sc-qr" id="sc-qr"></div>
+</div>
+
+
+<script>
+function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
+
+let TOPIC = 'Overthinking';
+function getCoreTheme(){return D.themeBase||TOPIC||'';}
+function topicLabel(t){return t;}
+let cur = 's-p-theme', hist = [];
+let breathing = false, bc = 0;
+let hasNotAnswer = false;
+
+const D = {
+  q1:'', notQ1:'', questionFrame:'person', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false, readyToComplete:false, completionGateReady:false,
+  themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false,
+  rounds:[]
+};
+
+
+function go(id){var c=document.getElementById(cur),n=document.getElementById(id);if(!c||!n)return;c.classList.remove('active');c.classList.add('exit');setTimeout(function(){c.classList.remove('exit');},500);setTimeout(function(){n.classList.add('active');cur=id;updateBack();updateProgress();},120);}
+function fwd(id){hist.push(cur);go(id);}
+function goBack(){var p=hist.pop();if(!p||p==='s-p-theme'){go('s-p-theme');hist=[];return;}breathing=false;bc=0;go(p);}
+function revealNum(id,val){var el=document.getElementById(id);el.style.visibility='visible';el.textContent=val;}
+function hideNums(){Array.prototype.slice.call(arguments).forEach(function(id){var el=document.getElementById(id);if(el){el.style.visibility='hidden';el.textContent='—';}});}
+function resetSliders(){Array.prototype.slice.call(arguments).forEach(function(id){var el=document.getElementById(id);if(el)el.value=50;});}
+function isMobile(){return /iphone|ipad|ipod|android/i.test(navigator.userAgent);}
+function isIOS(){return /iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;}
+function triggerDownload(dataURL,filename){var a=document.createElement('a');a.href=dataURL;a.download=filename;a.style.display='none';document.body.appendChild(a);a.click();setTimeout(function(){document.body.removeChild(a);},200);}
+function showShareMsg(type,msg){var el=document.getElementById('share-msg-'+type);if(!el)return;el.textContent=msg;el.style.opacity='1';clearTimeout(el._fadeTimer);el._fadeTimer=setTimeout(function(){el.style.opacity='0';},3800);}
+function showSharePreview(dataURL){var img=document.getElementById('share-preview-img'),ov=document.getElementById('share-preview-overlay');if(!img||!ov){triggerDownload(dataURL,'noetune-result.png');return;}img.src=dataURL;ov.style.display='flex';}
+function closeSharePreview(){var ov=document.getElementById('share-preview-overlay');if(ov)ov.style.display='none';var img=document.getElementById('share-preview-img');if(img)img.src='';}
+function arrowSVG(dir,color){var p=dir==='up'?'M16 3L31 20H22V39H10V20H1Z':'M16 39L31 22H22V3H10V22H1Z';return '<svg width="20" height="26" viewBox="0 0 32 42" style="display:block;flex-shrink:0"><path d="'+p+'" fill="'+color+'"/></svg>';}
+function makeResultRow(label,before,after,rowType){
+  var isBB=(before==='N/A'||before===null),isBA=(after==='N/A'||after===null);
+  var INF='<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span>';
+  var dirArrow='';
+  if(!isBA&&!isBB&&typeof before==='number'&&typeof after==='number'){var d=before-after;var isUp=(rowType==='topic')?d>0:d<0;var isDn=(rowType==='topic')?d<0:d>0;if(isUp)dirArrow=arrowSVG('up','#A8A8A2');else if(isDn)dirArrow=arrowSVG('down','#A8A8A2');}
+  if(isBA){var bP=isBB?INF:'<span class="r-before">'+before+'</span>';return'<div class="r-row"><span class="r-label" style="color:#8F8F89">'+label+'</span><span class="r-arrow"></span><span class="r-nums">'+bP+'<span class="r-sep">→</span>'+INF+'</span></div>';}
+  var aStr=String(after);return'<div class="r-row"><span class="r-label" style="color:#8F8F89">'+label+'</span><span class="r-arrow"></span><span class="r-nums"><span class="r-before">'+(isBB?INF:before)+'</span><span class="r-sep">→</span><span class="r-after" style="color:#1A1A1A">'+aStr+'</span>'+(dirArrow?'<span style="display:inline-flex;align-items:center;flex-shrink:0">'+dirArrow+'</span>':'')+'</span></div>';
+}
+function buildShareCardRows(rows){
+  var INF='<span class="sc-inf"><svg viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg></span>';
+  var html='';
+  rows.forEach(function(row){
+    var isA=(row.after===null||row.after==='N/A'),isB=(row.before===null||row.before==='N/A');
+    var d=(!isA&&!isB)?Number(row.before)-Number(row.after):0;
+    var UP='<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
+    var DN='<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
+    var arr='';
+    if(!isA&&!isB){if(row.rtype==='topic'){arr=d>0?DN:d<0?UP:'';}else{arr=d<0?UP:d>0?DN:'';}}
+    var aHtml=isA?INF:'<span class="sc-after" style="color:#1A1A1A">'+row.after+'</span>';
+    var bHtml=isB?INF:'<span class="sc-before">'+row.before+'</span>';
+    html+='<div class="sc-row"><span class="sc-row-label">'+row.label+'</span>'+bHtml+'<span class="sc-arrow">→</span>'+aHtml+(arr?'<span class="sc-up-arrow">'+arr+'</span>':'')+'</div>';
+  });
+  document.getElementById('sc-rows').innerHTML=html;
+}
+async function renderShareCard(){
+  var card=document.getElementById('share-card');
+  card.style.top='-9999px';card.style.left='-9999px';card.style.zIndex='9999';
+  await new Promise(function(r){setTimeout(r,80);});
+  try{var canvas=await html2canvas(card,{scale:1,useCORS:true,backgroundColor:'#FAFAF7',width:1080,height:1080,logging:false});card.style.zIndex='-1';return canvas.toDataURL('image/png');}
+  catch(e){card.style.zIndex='-1';console.error(e);return null;}
+}
+document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault();});
+
+
+function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete');}
+var SCREEN_ORDER=['s-continue','s-p-theme','s-p-theme-extreme','s-p-q1','s-p-measure1','s-p-b20','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-result','s-p-complete'];
+function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
+
+// ── localStorage ──
+var STORAGE_KEY='noetune_state';
+function saveState(){
+  try{
+    var hasStarted=(D.q1&&D.q1.trim().length>0)||(D.stateBefore!==null)||(D.stateAfter!==null)||(D.notQ1&&D.notQ1.trim().length>0);
+    if(!hasStarted){localStorage.removeItem(STORAGE_KEY);return;}
+    localStorage.setItem(STORAGE_KEY,JSON.stringify({activeTheme:TOPIC,status:D.themeComplete?'completed':'in-progress',hasStarted:true,lastSessionDate:new Date().toISOString().slice(0,10),graduation:D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless'}));
+  }catch(e){}
+}
+function loadState(){try{var raw=localStorage.getItem(STORAGE_KEY);return raw?JSON.parse(raw):null;}catch(e){return null;}}
+function clearState(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
+
+function applyTopic(theme){
+  TOPIC=theme;
+  document.querySelectorAll('.topic-d').forEach(function(el){el.textContent='"'+theme+'"';});
+}
+
+function checkOnStartup(){
+  return;
+  var state=loadState();
+  if(state&&state.status==='in-progress'&&state.activeTheme&&state.hasStarted===true){
+    TOPIC=state.activeTheme;
+    applyTopic(TOPIC);
+    var el=document.getElementById('continue-topic-name');if(el)el.textContent='"'+getCoreTheme()+'"';
+    var theme=document.getElementById('s-p-theme'),cont=document.getElementById('s-continue');
+    if(theme&&cont){theme.classList.remove('active');cont.classList.add('active');cur='s-continue';}
+  }
+}
+
+function continueFromStorage(){
+  D.q1='';D.questionFrame='person';D.stateBefore=null;D.stateAfter=null;D.finalStatePast='';D.finalStateFuture='';D.themeComplete=false;
+  resetSliders('sl-measure1','sl-measure2');
+  hideNums('num-measure1','num-measure2');
+  var inp=document.getElementById('input-q1');if(inp)inp.value='';
+  var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
+  breathing=false;bc=0;hist=[];
+  fwd('s-p-cal1');
+}
+
+function newTopicFromStorage(){
+  clearState();D.themeComplete=false;
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b){b.classList.remove('selected');});
+  var first=document.querySelector('#s-p-theme .theme-btn');if(first)first.classList.add('selected');
+  TOPIC='Overthinking';applyTopic(TOPIC);
+  hist=[];go('s-p-theme');
+}
+
+function selectPaidTheme(btn,theme){
+  document.querySelectorAll('#s-p-theme .theme-btn').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  applyTopic(theme);
+}
+function onCustomThemeInput(){
+  var inp=document.getElementById('input-custom-theme');
+  var btn=document.getElementById('btn-custom-theme');
+  var ok=inp&&inp.value.trim().length>0;
+  if(btn){btn.disabled=!ok;btn.style.opacity=ok?'1':'.45';btn.style.cursor=ok?'pointer':'default';}
+}
+function onCustomThemeContinue(){
+  var inp=document.getElementById('input-custom-theme');
+  if(!inp||!inp.value.trim())return;
+  D.themeBase=inp.value.trim();
+  applyTopic(D.themeBase);
+  var el=document.getElementById('theme-base-display-extreme');
+  if(el)el.textContent='"'+D.themeBase+'"';
+  fwd('s-p-theme-extreme');
+}
+function selectFrame(btn){
+  document.querySelectorAll('#s-p-q1 .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  btn.classList.add('selected');
+  D.questionFrame=btn.id==='q-frame-a'?'person':'self';
+}
+
+function onQ1(){
+  D.readyToComplete=false;
+  hasNotAnswer=false;
+  var v=document.getElementById('input-q1').value.trim();if(!v)return;
+  D.q1=v;
+  var qd='"'+v+'"';
+  ['q1-display-b20','q1-display-b22','q1-display-b23','q1-display-measure1','q1-display-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
+  fwd('s-p-measure1');
+}
+function showComplete(){
+  var theme=getCoreTheme();
+  var el=document.getElementById('completed-headline');
+  if(el){
+    var before=D.stateBefore,after=D.stateAfter;
+    var hasMeasure=typeof before==='number'&&typeof after==='number';
+    if(hasMeasure){
+      el.textContent=theme+' '+before+' → '+after;
+    }else{
+      el.textContent=theme+' → none';
+    }
+  }
+  fwd('s-p-complete');
+}
+function onQ1Nothing(){
+  // Gate 1 check (Past + Future)
+  if(D.completionGateReady){
+    // Gate 2 achieved → COMPLETE
+    D.themeComplete=true;
+    saveState();
+    clearState();
+    showComplete();
+    return;
+  }
+  // Otherwise continue loop
+  D.stateBefore=null;
+  D.stateAfter=null;
+  D.q1='';
+  fwd('s-p-yn2-past');
+}
+function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b20');}
+function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b20');}
+function applyFinalCheckTheme(){
+  document.querySelectorAll('#s-p-yn2-past .topic-d, #s-p-yn2-future .topic-d').forEach(function(el){
+    el.textContent='"'+D.themeBase+'"';
+  });
+}
+function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;applyFinalCheckTheme();fwd('s-p-yn2-past');}
+function onMeasure2Skip(){D.stateAfter='N/A';applyFinalCheckTheme();fwd('s-p-yn2-past');}
+function onThemeCheckFinal(val,btn){
+  document.querySelectorAll('#s-p-theme-check-final .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  setTimeout(function(){fwd('s-p-yn2-past');},400);
+}
+
+function onYN2Past(val,btn){
+  D.finalStatePast=val;
+  document.querySelectorAll('#s-p-yn2-past .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  setTimeout(function(){fwd('s-p-yn2-future');},400);
+}
+function onYN2Future(val,btn){
+  D.finalStateFuture=val;
+  D.completionGateReady=D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless';
+  document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  setTimeout(function(){showPaidResult();},400);
+}
+
+function renderResultCTA(){
+  var p=D.finalStatePast,f=D.finalStateFuture;
+  var cont=document.getElementById('cta-continue');
+  var nt=document.getElementById('cta-new-topic');
+  var fu=document.getElementById('result-follow-up');
+  if(!cont||!nt)return;
+  // Always keep Go deeper as the primary CTA
+  cont.className='btn-main-cta';
+  cont.style.marginTop='1.6rem';
+  // Keep New topic weak
+  nt.className='btn-skip';
+  if(fu)fu.textContent='There\'s more here.';
+}
+
+function openFullHistory(){renderFullHistory();fwd('s-p-history');}
+function renderFullHistory(){
+  var lbl=document.getElementById('history-theme-label');
+  if(lbl)lbl.textContent=getCoreTheme().toUpperCase();
+  var el=document.getElementById('history-list');if(!el)return;
+  var rounds=D.rounds.filter(function(r){return r.theme===TOPIC;}).slice().reverse();
+  if(!rounds.length){el.innerHTML='<div style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#C0C0B8;text-align:center">No records yet.</div>';return;}
+  var html='';
+  rounds.forEach(function(r){
+    var ans=r.answer?r.answer:'—';
+    var b=r.before===null||r.before==='N/A'?'∞':r.before;
+    var a=r.after===null||r.after==='N/A'?'∞':r.after;
+    html+='<div style="padding:.55rem .7rem;margin-bottom:.4rem;border:1px solid #EAEAE6;border-radius:10px;background:#fff;">'+
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.2rem">'+
+        '<span style="font-family:\'Noto Serif JP\',serif;font-size:.66rem;color:#B0B0A8;letter-spacing:.1em">ROUND '+r.round+'</span>'+
+        '<span style="font-family:\'Noto Serif JP\',serif;font-size:.75rem;color:#6B9080">'+b+' → '+a+'</span>'+
+      '</div>'+
+      '<div style="font-family:\'Noto Serif JP\',serif;font-size:.82rem;color:#555;line-height:1.6;word-break:break-word">'+ans+'</div>'+
+    '</div>';
+  });
+  el.innerHTML=html;
+}
+function renderRecentHistory(){
+  var el=document.getElementById('recent-history');if(!el)return;
+  var themed=D.rounds.filter(function(r){return r.theme===TOPIC;});
+  var recent=themed.slice(-3).reverse();
+  var histBtn=document.getElementById('cta-view-history');
+  if(histBtn)histBtn.style.display=themed.length>=2?'block':'none';
+  if(recent.length<1){el.innerHTML='';return;}
+  var html='<div style="font-size:.66rem;letter-spacing:.18em;color:#C0C0B8;text-align:center;margin-bottom:.6rem;font-family:\'Noto Serif JP\',serif">HISTORY</div>';
+  recent.forEach(function(r){
+    var ans=r.answer?r.answer:'—';
+    if(ans.length>24)ans=ans.slice(0,24)+'…';
+    var b=r.before===null||r.before==='N/A'?'∞':r.before;
+    var a=r.after===null||r.after==='N/A'?'∞':r.after;
+    html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:.45rem .6rem;margin-bottom:.35rem;border:1px solid #EAEAE6;border-radius:10px;background:#fff;">'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.68rem;color:#B0B0A8;min-width:1.6rem">R'+r.round+'</span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.78rem;color:#555;flex:1;padding:0 .5rem;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+ans+'</span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.75rem;color:#6B9080;white-space:nowrap">'+b+' → '+a+'</span>'+
+    '</div>';
+  });
+  el.innerHTML=html;
+}
+function saveRound(){
+  var last=D.rounds[D.rounds.length-1];
+  if(last&&last.theme===TOPIC&&last.answer===D.q1&&last.before===D.stateBefore&&last.after===D.stateAfter)return;
+  D.rounds.push({round:D.rounds.length+1,theme:TOPIC,frame:D.questionFrame,answer:D.q1,before:D.stateBefore,after:D.stateAfter});
+}
+function showPaidResult(){
+  saveRound();
+  D.readyToComplete=true;
+  track('session_complete_paid',{topic:TOPIC});
+  var headline=document.getElementById('paid-result-headline');
+  if(headline){
+    if(D.stateAfter==='N/A'||D.stateAfter===null){headline.textContent='Beyond measure.';}
+    else if(typeof D.stateBefore==='number'&&typeof D.stateAfter==='number'&&D.stateAfter>D.stateBefore){headline.textContent='State expanded.';}
+    else{headline.textContent='Your state shifted.';}
+  }
+  var rows=document.getElementById('paid-result-rows');rows.innerHTML='';
+  var label=D.q1||getCoreTheme();
+  rows.innerHTML+=makeResultRow(label,D.stateBefore,D.stateAfter,'q1');
+  var finalLabels={'yes':'Still present','no':'Released','maybe':'Fading','not_sure':'In transition','dont_know':'Not perceived','meaningless':'Dissolved'};
+  var pastLabel=finalLabels[D.finalStatePast]||'—';
+  var futureLabel=finalLabels[D.finalStateFuture]||'—';
+  var pastCol=D.finalStatePast==='no'||D.finalStatePast==='meaningless'?'#6B9080':'#C47A5A';
+  var futureCol=D.finalStateFuture==='no'||D.finalStateFuture==='meaningless'?'#6B9080':'#C47A5A';
+  document.getElementById('paid-yn-result').innerHTML=
+    '<div style="font-size:.66rem;letter-spacing:.18em;color:#CCC;margin-bottom:.6rem">'+getCoreTheme().toUpperCase()+'</div>'+
+    '<div style="display:flex;justify-content:center;gap:2rem">'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Past<br><span style="color:'+pastCol+'">'+pastLabel+'</span></span>'+
+      '<span style="font-family:\'Noto Serif JP\',serif;font-size:.8rem;color:#AAA;line-height:1.8">Future<br><span style="color:'+futureCol+'">'+futureLabel+'</span></span>'+
+    '</div>';
+  renderRecentHistory();
+  renderResultCTA();saveState();fwd('s-p-result');
+  setTimeout(showAddToHome,600);
+}
+
+// ── Breathing ──
+function startBreath(t){if(breathing)return;breathing=true;var h=document.getElementById('hint-'+t);if(h)h.style.display='none';var c=document.getElementById('circle-'+t);c.classList.remove('pulse');bc=0;setTimeout(function(){bCycle(t,c);},600);}
+function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='';setTimeout(function(){c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2100);},1700);},200);}
+var BREATH_NEXT={'pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-b20'};
+function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);if(next==='s-p-b20'){var inp=document.getElementById('input-b20');if(inp)inp.value='';var btn=document.getElementById('btn-b20');if(btn){btn.disabled=true;btn.style.opacity='.45';btn.style.cursor='default';}}setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}} );document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
+
+// ── Q1 input wiring ──
+var inp1=document.getElementById('input-q1'),btn1=document.getElementById('btn-q1');
+inp1.addEventListener('input',function(){var ok=inp1.value.trim().length>0;btn1.disabled=!ok;btn1.style.opacity=ok?'1':'.45';btn1.style.cursor=ok?'pointer':'default';});
+
+function onB20(){
+  var v=document.getElementById('input-b20').value.trim();
+  if(!v)return;
+  D.notQ1=v;
+  hasNotAnswer=true;
+  var notQ='"'+v+'"';
+  var q='"'+D.q1+'"';
+  var el21=document.getElementById('q1-display-b21');if(el21)el21.textContent=notQ;
+  var el23=document.getElementById('q1-display-b23');if(el23)el23.textContent=q;
+  fwd('s-p-b21');
+}
+function onNoMoreAnswer(){
+  if(!hasNotAnswer){fwd('s-p-q1');return;}
+  fwd('s-p-measure2');
+}
+var inpB20=document.getElementById('input-b20'),btnB20=document.getElementById('btn-b20');
+if(inpB20){inpB20.addEventListener('input',function(){var ok=inpB20.value.trim().length>0;btnB20.disabled=!ok;btnB20.style.opacity=ok?'1':'.45';btnB20.style.cursor=ok?'pointer':'default';});}
+
+function onThemeExtreme(){
+  var v=document.getElementById('input-theme-extreme').value.trim();
+  if(!v)return;
+  D.themeExtreme=v;
+  D.useExtreme=true;
+  D.themeActive=v;
+  applyTopic(D.themeActive);
+  fwd('s-p-q1');
+}
+function onThemeExtremeNothing(){
+  if(D.completionGateReady){D.themeComplete=true;saveState();clearState();showComplete();return;}
+  D.themeExtreme='';
+  D.useExtreme=false;
+  D.themeActive=D.themeBase;
+  applyTopic(D.themeActive);
+  fwd('s-p-q1');
+}
+var inpExtreme=document.getElementById('input-theme-extreme'),btnExtreme=document.getElementById('btn-theme-extreme');
+if(inpExtreme){inpExtreme.addEventListener('input',function(){var ok=inpExtreme.value.trim().length>0;btnExtreme.disabled=!ok;btnExtreme.style.opacity=ok?'1':'.45';btnExtreme.style.cursor=ok?'pointer':'default';});}
+
+
+// ── Session controls ──
+function continueSession(){
+  D.q1='';D.notQ1='';D.stateBefore=null;D.stateAfter=null;
+  if(!D.completionGateReady){D.finalStatePast='';D.finalStateFuture='';}
+  hasNotAnswer=false;
+  resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
+  var inp=document.getElementById('input-q1');if(inp)inp.value='';
+  var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
+  var inpB20=document.getElementById('input-b20');if(inpB20)inpB20.value='';
+  var btnB20=document.getElementById('btn-b20');if(btnB20){btnB20.disabled=true;btnB20.style.opacity='.45';}
+  var inpExtreme=document.getElementById('input-theme-extreme');if(inpExtreme)inpExtreme.value='';
+  var btnExtreme=document.getElementById('btn-theme-extreme');if(btnExtreme){btnExtreme.disabled=true;btnExtreme.style.opacity='.45';btnExtreme.style.cursor='default';}
+  var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+D.themeBase+'"';
+  breathing=false;bc=0;hist=[];go('s-p-theme-extreme');
+}
+function goToNewTheme(){
+  clearState();
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
+  hasNotAnswer=false;
+  resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
+  var inp=document.getElementById('input-q1');if(inp)inp.value='';
+  hist=[];breathing=false;bc=0;fwd('s-p-theme');
+}
+function returnToStart(){
+  clearState();
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
+  hasNotAnswer=false;
+  hist=[];breathing=false;bc=0;
+  var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
+  var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
+  TOPIC='';
+  go('s-p-theme');
+}
+
+// ── Share ──
+function buildShareCard_paid(){
+  var coreTheme=getCoreTheme();
+  var before=D.stateBefore,after=D.stateAfter;
+  var hasMeasure=typeof before==='number'&&typeof after==='number';
+  var isInf=after==='N/A'||after===null;
+
+  // Main headline: first-person experience
+  document.getElementById('sc-headline').textContent='I stopped '+coreTheme.toLowerCase()+'.';
+
+  // Sub topic: transformation as secondary
+  var topicEl=document.getElementById('sc-topic');
+  if(hasMeasure){topicEl.textContent=coreTheme+' '+before+' → '+after;}
+  else{topicEl.textContent=coreTheme+' → none';}
+
+  document.getElementById('sc-label').textContent='FULL SESSION COMPLETE';
+  buildShareCardRows([{label:coreTheme,before:before,after:after,rtype:'q1'}]);
+
+  var descEl=document.getElementById('sc-desc');
+  if(descEl)descEl.textContent='';
+
+  var qrEl=document.getElementById('sc-qr');
+  if(qrEl&&typeof QRCode!=='undefined'){qrEl.innerHTML='';new QRCode(qrEl,{text:'https://noetune.com',width:72,height:72,colorDark:'#8A8A82',colorLight:'#FAFAF7',correctLevel:QRCode.CorrectLevel.M});}
+}
+async function shareImage(type){
+  buildShareCard_paid();
+  var d=await renderShareCard();
+  if(!d){alert('Could not generate image.');return;}
+  var coreTheme=getCoreTheme();
+  var title='I stopped '+coreTheme.toLowerCase()+'.';
+  if(navigator.share){
+    try{
+      var r=await fetch(d),blob=await r.blob(),file=new File([blob],'noetune-result.png',{type:'image/png'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        await navigator.share({files:[file],title:title,text:'This took 2 minutes. noetune.com'});
+        return;
+      }
+    }catch(e){if(e&&e.name==='AbortError')return;}
+  }
+  if(isMobile()){showSharePreview(d);}
+  else{triggerDownload(d,'noetune-result.png');}
+}
+async function saveImage(type){buildShareCard_paid();var d=await renderShareCard();if(!d){alert('Could not generate image.');return;}triggerDownload(d,'noetune-result.png');}
+function resultToText_paid(){
+  var label=getCoreTheme();
+  var lines=['Noetune — Full Session','',label.toUpperCase()+' RATE'];
+  lines.push('State: '+(D.stateBefore==='N/A'||D.stateBefore===null?'∞':D.stateBefore)+' → '+(D.stateAfter==='N/A'||D.stateAfter===null?'∞':D.stateAfter));
+  var finalLabels={'yes':'Still present','no':'Released','maybe':'Fading','not_sure':'In transition','dont_know':'Not perceived','meaningless':'Dissolved'};
+  lines.push('Past: '+(finalLabels[D.finalStatePast]||'Shifted'));
+  lines.push('Future: '+(finalLabels[D.finalStateFuture]||'Shifted'));
+  lines.push('','noetune.com');
+  return lines.join('\n');
+}
+async function shareResultText(type){var t=resultToText_paid();if(navigator.share){try{await navigator.share({text:t,title:'Noetune'});return;}catch(e){if(e&&e.name==='AbortError')return;}}var fb=document.getElementById('share-fallback-paid');if(fb)fb.style.display='flex';var xa=document.getElementById('share-x-paid');if(xa)xa.href='https://twitter.com/intent/tweet?text='+encodeURIComponent(t);}
+function copyResult(type){var t=resultToText_paid();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){showShareMsg('paid','Copied!');});return;}var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');showShareMsg('paid','Copied!');}catch(e){}document.body.removeChild(ta);}
+
+// ── PWA ──
+var _pwaPrompt=null,_pwaShown=false;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();_pwaPrompt=e;});
+function isInStandaloneMode(){return('standalone' in window.navigator&&window.navigator.standalone)||window.matchMedia('(display-mode: standalone)').matches;}
+function showAddToHome(){if(_pwaShown)return;if(isInStandaloneMode())return;var el=document.getElementById('add-to-home');if(!el)return;if(isIOS()){el.style.display='block';var hint=document.getElementById('pwa-ios-hint'),btn=document.getElementById('pwa-install-btn');if(hint)hint.style.display='block';if(btn)btn.style.display='none';}else if(_pwaPrompt){el.style.display='block';} _pwaShown=true;}
+function triggerPWAInstall(){if(_pwaPrompt){_pwaPrompt.prompt();_pwaPrompt.userChoice.then(function(r){_pwaPrompt=null;if(r.outcome==='accepted'){var el=document.getElementById('add-to-home');if(el)el.style.display='none';}});}}
+function promoteTextShare(){if(!isIOS())return;document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el){el.style.background='rgba(107,144,128,.08)';el.style.fontWeight='500';});}
+
+clearState();
+updateProgress();
+// checkOnStartup();
+promoteTextShare();
+</script>
+</body>
+</html>
