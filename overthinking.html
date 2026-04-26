@@ -2,45 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Noetune - Overthinking</title>
-<style>
-body {
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #FAFAF7;
-  color: #1A1A1A;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-.container {
-  text-align: center;
-}
-button {
-  padding: 16px 24px;
-  border-radius: 999px;
-  border: none;
-  background: #6B9080;
-  color: white;
-  font-size: 18px;
-}
-</style>
-</head>
-<body>
-
-<div class="container">
-  <h1>Overthinking</h1>
-  <p>Tap to start</p>
-  <button onclick="start()">Start</button>
-</div>
-
-<script>
-function start() {
-  alert("<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -225,12 +186,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ====== PAID: Theme selector ====== -->
 <div class="screen active" id="s-p-theme">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> THEME</div>
-  <div class="title" style="margin-bottom:1.4rem">What feeling or state do you want to resolve?</div>
-  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:8px;margin-bottom:1.2rem">
-    <input class="text-input" id="input-custom-theme" placeholder="Type your theme..." autocomplete="off" style="font-size:1rem;margin-bottom:.4rem" oninput="onCustomThemeInput()">
-  </div>
-  <button class="btn" id="btn-custom-theme" disabled onclick="onCustomThemeContinue()" style="opacity:.45">Continue</button>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.22em;color:#B8B8B0;margin-bottom:2.4rem;text-align:center">NOETUNE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:600;color:#1A1A1A;letter-spacing:.04em;text-align:center;margin-bottom:3.2rem">Overthinking</div>
+  <button class="btn-start" onclick="startOverthinking()" style="padding:16px 64px;letter-spacing:.18em;font-size:.95rem">Start</button>
 </div>
 
 <!-- ====== PAID: Theme Extreme ====== -->
@@ -844,17 +802,7 @@ function goToNewTheme(){
   var inpExt=document.getElementById('input-theme-extreme');if(inpExt)inpExt.value='';
   var btnExt=document.getElementById('btn-theme-extreme');if(btnExt){btnExt.disabled=true;btnExt.style.opacity='.45';}
   var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+TOPIC_FIXED+'"';
-  hist=[];breathing=false;bc=0;go('s-p-theme-extreme');
-}
-function returnToStart(){
-  clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,q1:'',notQ1:'',questionFrame:'person',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false});
-  hasNotAnswer=false;
-  hist=[];breathing=false;bc=0;
-  var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
-  var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
-  TOPIC='';
-  go('s-p-theme');
+  hist=[];breathing=false;bc=0;go('s-p-theme');
 }
 
 // ── Share ──
@@ -937,31 +885,25 @@ function showAddToHome(){if(_pwaShown)return;if(isInStandaloneMode())return;var 
 function triggerPWAInstall(){if(_pwaPrompt){_pwaPrompt.prompt();_pwaPrompt.userChoice.then(function(r){_pwaPrompt=null;if(r.outcome==='accepted'){var el=document.getElementById('add-to-home');if(el)el.style.display='none';}});}}
 function promoteTextShare(){if(!isIOS())return;document.querySelectorAll('[onclick^="shareResultText"]').forEach(function(el){el.style.background='rgba(107,144,128,.08)';el.style.fontWeight='500';});}
 
+function startOverthinking(){
+  D.themeBase=TOPIC_FIXED;
+  D.themeActive=TOPIC_FIXED;
+  applyTopic(TOPIC_FIXED);
+  var el=document.getElementById('theme-base-display-extreme');
+  if(el)el.textContent='"'+TOPIC_FIXED+'"';
+  fwd('s-p-theme-extreme');
+}
 // ── Overthinking.html: theme locked ──
 D.themeBase = TOPIC_FIXED;
 D.themeActive = TOPIC_FIXED;
 applyTopic(TOPIC_FIXED);
-// Skip theme entry — start directly at theme-extreme
-(function(){
-  var theme=document.getElementById('s-p-theme'),ext=document.getElementById('s-p-theme-extreme');
-  if(theme&&ext){
-    theme.classList.remove('active');
-    ext.classList.add('active');
-    cur='s-p-theme-extreme';
-    var el=document.getElementById('theme-base-display-extreme');
-    if(el)el.textContent='"'+TOPIC_FIXED+'"';
-    updateBack();updateProgress();
-  }
-})();
+// Start at top screen (s-p-theme), not theme-extreme
+cur='s-p-theme';
+updateBack();updateProgress();
 clearState();
 updateProgress();
 // checkOnStartup();
 promoteTextShare();
 </script>
-</body>
-</html>");
-}
-</script>
-
 </body>
 </html>
