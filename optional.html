@@ -214,6 +214,50 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
   <button class="yn-btn meaningless" onclick="onThemeExtremeNothing()" style="margin-top:12px">Nothing comes up</button>
 </div>
 
+<!-- ====== PAID: Extreme Breathe 1/4 ====== -->
+
+<div class="screen" id="s-p-ext-b1">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 1/4</div>
+  <div class="breath-focus">その状態（<em id="ext-b1-display" style="color:#1A1A1A;font-style:normal;font-weight:500">"..."</em>）に対する抵抗を感じながら、1回深呼吸</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-peb1" onclick="startBreath('peb1')"></div>
+    <div id="hint-peb1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Extreme Breathe 2/4 ====== -->
+
+<div class="screen" id="s-p-ext-b2">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 2/4</div>
+  <div class="breath-focus">その抵抗以外の全てを感じながら、1回深呼吸</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-peb2" onclick="startBreath('peb2')"></div>
+    <div id="hint-peb2" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Extreme Breathe 3/4 ====== -->
+
+<div class="screen" id="s-p-ext-b3">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 3/4</div>
+  <div class="breath-focus">その抵抗が存在しない状態を感じながら、1回深呼吸</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-peb3" onclick="startBreath('peb3')"></div>
+    <div id="hint-peb3" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Extreme Breathe 4/4 ====== -->
+
+<div class="screen" id="s-p-ext-b4">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> BREATHE 4/4</div>
+  <div class="breath-focus">あるがままのすべてを感じながら、1回深呼吸</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-peb4" onclick="startBreath('peb4')"></div>
+    <div id="hint-peb4" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
 <!-- ====== PAID: Calibration 1/3 ====== -->
 
 <div class="screen" id="s-p-cal1">
@@ -556,7 +600,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefa
 
 
 function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete'&&cur!=='s-p-sub-complete');}
-var SCREEN_ORDER=['s-continue','s-p-theme','s-p-theme-extreme','s-p-q1','s-p-measure1','s-p-b20','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-yn2-present','s-p-result','s-p-complete'];
+var SCREEN_ORDER=['s-continue','s-p-theme','s-p-theme-extreme','s-p-ext-b1','s-p-ext-b2','s-p-ext-b3','s-p-ext-b4','s-p-q1','s-p-measure1','s-p-b20','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-yn2-present','s-p-result','s-p-complete'];
 function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
 
 // ── localStorage ──
@@ -832,7 +876,7 @@ function showPaidResult(){
 // ── Breathing ──
 function startBreath(t){if(breathing)return;breathing=true;var h=document.getElementById('hint-'+t);if(h)h.style.display='none';var c=document.getElementById('circle-'+t);c.classList.remove('pulse');bc=0;setTimeout(function(){bCycle(t,c);},600);}
 function bCycle(t,c){if(bc>=1){c.textContent='✓';c.className='breath-circle';setTimeout(function(){afterBreath(t);},800);return;}c.textContent='';setTimeout(function(){c.textContent='In';c.className='breath-circle inhale';setTimeout(function(){c.textContent='Out';c.className='breath-circle exhale';setTimeout(function(){bc++;bCycle(t,c);},2100);},1700);},200);}
-var BREATH_NEXT={'pb20':'s-p-b21','pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-measure2'};
+var BREATH_NEXT={'peb1':'s-p-ext-b2','peb2':'s-p-ext-b3','peb3':'s-p-ext-b4','peb4':'s-p-q1','pb20':'s-p-b21','pb21':'s-p-b22','pb22':'s-p-b23','pb23':'s-p-b24','pb24':'s-p-measure2'};
 function afterBreath(t){breathing=false;bc=0;var next=BREATH_NEXT[t];if(next){fwd(next);setTimeout(function(){document.querySelectorAll('.breath-circle').forEach(function(c){if(c.textContent==='✓'||c.textContent==='In'||c.textContent==='Out'){c.textContent='';c.className='breath-circle pulse';}});document.querySelectorAll('[id^="hint-"]').forEach(function(h){h.style.display='block';});},150);}}
 
 // ── Q1 input wiring ──
@@ -848,7 +892,8 @@ function onThemeExtreme(){
   D.themeActive=v;
   D.isMainThemeMode=false;
   applyTopic(D.themeActive);
-  fwd('s-p-q1');
+  var extDisp=document.getElementById('ext-b1-display');if(extDisp)extDisp.textContent='"'+v+'"';
+  fwd('s-p-ext-b1');
 }
 function onThemeExtremeNothing(){
   D.themeExtreme='';
