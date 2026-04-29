@@ -714,8 +714,18 @@ function onQ1Nothing(){
   D.stateBefore=null;
   D.stateAfter=null;
   D.q1='';
-  applyFinalCheckTheme();
-  fwd('s-p-yn2-past');
+  resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
+  var inp=document.getElementById('input-q1');if(inp)inp.value='';
+  var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
+  var inpE=document.getElementById('input-theme-extreme');if(inpE)inpE.value='';
+  var btnE=document.getElementById('btn-theme-extreme');if(btnE){btnE.disabled=true;btnE.style.opacity='.45';btnE.style.cursor='default';}
+  document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  var efSelf=document.getElementById('ef-self');if(efSelf)efSelf.classList.add('selected');
+  D.themeExtremeFrame='self';
+  applyBaseTheme(D.themeBase);
+  applyTopic(D.themeBase);
+  breathing=false;bc=0;
+  fwd('s-p-theme-extreme');
 }
 function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b20');}
 function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b20');}
