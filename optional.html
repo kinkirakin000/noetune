@@ -731,6 +731,7 @@ function startNewLayer(){
   document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
   var efNow=document.getElementById('ef-now');if(efNow)efNow.classList.add('selected');
   var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+D.themeBase+'"';
+  applyTopic(D.themeBase);
   breathing=false;bc=0;
   fwd('s-p-theme-extreme');
 }
