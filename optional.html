@@ -548,7 +548,7 @@ const D = {
   q1:'', notQ1:'', questionFrame:'not_choose_self', stateBefore:null, stateAfter:null,
   finalStatePast:'', finalStateFuture:'', finalStatePresent:'',
   themeComplete:false, readyToComplete:false,
-  isMainThemeMode:false, gateReversalNothing:false,
+  isMainThemeMode:false, gateReversalNothing:false, extremeEmpty:false, reversalEmpty:false,
   themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false, themeExtremeFrame:'self',
   rounds:[]
 };
@@ -711,26 +711,33 @@ function showComplete(){
 }
 function onQ1Nothing(){
   D.gateReversalNothing=true;
+  D.reversalEmpty=true;
   D.stateBefore=null;
   D.stateAfter=null;
   D.q1='';
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
-  var inpE=document.getElementById('input-theme-extreme');if(inpE)inpE.value='';
-  var btnE=document.getElementById('btn-theme-extreme');if(btnE){btnE.disabled=true;btnE.style.opacity='.45';btnE.style.cursor='default';}
-  document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
-  var efSelf=document.getElementById('ef-self');if(efSelf)efSelf.classList.add('selected');
-  D.themeExtremeFrame='self';
-  applyBaseTheme(D.themeBase);
-  applyTopic(D.themeBase);
-  breathing=false;bc=0;
-  fwd('s-p-theme-extreme');
+  if(D.extremeEmpty===true&&D.isMainThemeMode===true){
+    applyFinalCheckTheme();
+    fwd('s-p-yn2-past');
+  } else {
+    var inpE=document.getElementById('input-theme-extreme');if(inpE)inpE.value='';
+    var btnE=document.getElementById('btn-theme-extreme');if(btnE){btnE.disabled=true;btnE.style.opacity='.45';btnE.style.cursor='default';}
+    document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
+    var efSelf=document.getElementById('ef-self');if(efSelf)efSelf.classList.add('selected');
+    D.themeExtremeFrame='self';
+    D.extremeEmpty=false;D.reversalEmpty=false;
+    applyBaseTheme(D.themeBase);
+    applyTopic(D.themeBase);
+    breathing=false;bc=0;
+    fwd('s-p-theme-extreme');
+  }
 }
 function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b20');}
 function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b20');}
 function applyFinalCheckTheme(){
-  var label='"'+(D.themeActive||D.themeBase)+'"';
+  var label='"'+D.themeBase+'"';
   document.querySelectorAll('#s-p-yn2-past .topic-d, #s-p-yn2-future .topic-d, #s-p-yn2-present .topic-d').forEach(function(el){
     el.textContent=label;
   });
@@ -781,7 +788,7 @@ function showSubComplete(){
 function startNewLayer(){
   D.themeExtreme='';D.themeActive=D.themeBase;D.useExtreme=false;D.isMainThemeMode=false;D.themeExtremeFrame='self';
   D.q1='';D.stateBefore=null;D.stateAfter=null;
-  D.finalStatePast='';D.finalStateFuture='';D.finalStatePresent='';D.gateReversalNothing=false;
+  D.finalStatePast='';D.finalStateFuture='';D.finalStatePresent='';D.gateReversalNothing=false;D.extremeEmpty=false;D.reversalEmpty=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
@@ -903,6 +910,7 @@ function onThemeExtreme(){
   D.useExtreme=true;
   D.themeActive=v;
   D.isMainThemeMode=false;
+  D.extremeEmpty=false;
   applyTopic(D.themeActive);
   var extDisp=document.getElementById('ext-b1-display');if(extDisp)extDisp.textContent='"'+v+'"';
   fwd('s-p-ext-b1');
@@ -912,6 +920,7 @@ function onThemeExtremeNothing(){
   D.useExtreme=false;
   D.themeActive=D.themeBase;
   D.isMainThemeMode=true;
+  D.extremeEmpty=true;
   applyTopic(D.themeBase);
   applyBaseTheme(D.themeBase);
   fwd('s-p-q1');
@@ -923,7 +932,7 @@ if(inpExtreme){inpExtreme.addEventListener('input',function(){var ok=inpExtreme.
 // ── Session controls ──
 function continueSession(){
   D.themeExtreme='';D.themeActive=D.themeBase;D.useExtreme=false;D.themeExtremeFrame='self';
-  D.q1='';D.stateBefore=null;D.stateAfter=null;D.gateReversalNothing=false;
+  D.q1='';D.stateBefore=null;D.stateAfter=null;D.gateReversalNothing=false;D.extremeEmpty=false;D.reversalEmpty=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
@@ -938,14 +947,14 @@ function continueSession(){
 }
 function goToNewTheme(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'self',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'self',isMainThemeMode:false,gateReversalNothing:false,extremeEmpty:false,reversalEmpty:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
 function returnToStart(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'self',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'self',isMainThemeMode:false,gateReversalNothing:false,extremeEmpty:false,reversalEmpty:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   hist=[];breathing=false;bc=0;
   var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
   var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
