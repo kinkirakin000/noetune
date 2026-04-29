@@ -266,7 +266,7 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
 
 <div class="screen" id="s-p-measure1">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
-  <div class="title">今の自分の中で、その状態（Reversal回答）の割合はどれくらい？</div>
+  <div class="title">今の自分の中で、<em id="q1-title-measure1">"..."</em> の割合はどれくらい？</div>
   <em id="q1-display-measure1" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
   <div class="score-num" id="num-measure1" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
@@ -334,7 +334,7 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
 
 <div class="screen" id="s-p-measure2">
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> MEASURE</div>
-  <div class="title">今の自分の中で、その状態の割合はどれくらい？</div>
+  <div class="title">今の自分の中で、<em id="q1-title-measure2">"..."</em> の割合はどれくらい？</div>
   <em id="q1-display-measure2" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1rem">"..."</em>
   <div class="score-num" id="num-measure2" style="color:#6B9080;visibility:hidden">—</div>
   <div class="slider-wrap">
@@ -604,7 +604,7 @@ function onQ1(){
   var v=document.getElementById('input-q1').value.trim();if(!v)return;
   D.q1=v;
   var qd='"'+v+'"';
-  ['q1-display-b20','q1-display-b23','q1-display-measure1','q1-display-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
+  ['q1-display-b20','q1-display-b23','q1-display-measure1','q1-display-measure2','q1-title-measure1','q1-title-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
   fwd('s-p-measure1');
 }
 function showComplete(){
