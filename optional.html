@@ -254,6 +254,8 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
   <div class="yes-no-wrap" style="margin-bottom:1.4rem">
     <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>を選択していない私はどんな様子？」</button>
     <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が微塵もない私はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-c" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>を選択していない人はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-d" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が微塵もない人はどんな様子？」</button>
   </div>
   <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
@@ -495,7 +497,7 @@ let breathing = false, bc = 0;
 
 
 const D = {
-  q1:'', notQ1:'', questionFrame:'not_choose', stateBefore:null, stateAfter:null,
+  q1:'', notQ1:'', questionFrame:'not_choose_self', stateBefore:null, stateAfter:null,
   finalStatePast:'', finalStateFuture:'', finalStatePresent:'',
   themeComplete:false, readyToComplete:false,
   isMainThemeMode:false, gateReversalNothing:false,
@@ -625,7 +627,8 @@ function onCustomThemeContinue(){
 function selectFrame(btn){
   document.querySelectorAll('#s-p-q1 .yn-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
-  D.questionFrame=btn.id==='q-frame-a'?'not_choose':'none';
+  var frameMap={'q-frame-a':'not_choose_self','q-frame-b':'none_self','q-frame-c':'not_choose_person','q-frame-d':'none_person'};
+  D.questionFrame=frameMap[btn.id]||'not_choose_self';
 }
 function selectExtremeFrame(btn,frame){
   document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
@@ -863,14 +866,14 @@ function continueSession(){
 }
 function goToNewTheme(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
 function returnToStart(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   hist=[];breathing=false;bc=0;
   var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
   var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
