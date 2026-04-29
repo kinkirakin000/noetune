@@ -348,7 +348,7 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
 <!-- ====== PAID: Final Check — Past ====== -->
 
 <div class="screen" id="s-p-yn2-past">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 1/2</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 1/3</div>
   <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere in your past?</div>
   <div class="yes-no-wrap">
     <button class="yn-btn" onclick="onYN2Past('yes',this)">Yes</button>
@@ -364,7 +364,7 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
 <!-- ====== PAID: Final Check — Future ====== -->
 
 <div class="screen" id="s-p-yn2-future">
-  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 2/2</div>
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 2/3</div>
   <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere in your future?</div>
   <div class="yes-no-wrap">
     <button class="yn-btn" onclick="onYN2Future('yes',this)">Yes</button>
@@ -375,6 +375,37 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
     <button class="yn-btn meaningless" onclick="onYN2Future('meaningless',this)" style="margin-top:12px">No longer a question — almost complete</button>
     <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
   </div>
+</div>
+
+<!-- ====== PAID: Final Check — Present ====== -->
+
+<div class="screen" id="s-p-yn2-present">
+  <div class="label">FULL SESSION <span style="color:#6B9080">•</span> FINAL CHECK 3/3</div>
+  <div class="title">Is there still a feeling of <em class="topic-d">"Overthinking"</em> somewhere at this moment?</div>
+  <div class="yes-no-wrap">
+    <button class="yn-btn" onclick="onYN2Present('yes',this)">Yes</button>
+    <button class="yn-btn" onclick="onYN2Present('no',this)">No</button>
+    <button class="yn-btn" onclick="onYN2Present('maybe',this)">Maybe</button>
+    <button class="yn-btn" onclick="onYN2Present('not_sure',this)">Not sure</button>
+    <button class="yn-btn" onclick="onYN2Present('dont_know',this)">I don't know</button>
+    <button class="yn-btn meaningless" onclick="onYN2Present('meaningless',this)" style="margin-top:12px">No longer a question — almost complete</button>
+    <div class="completion-hint">If nothing comes up next,<br>this is already complete.</div>
+  </div>
+</div>
+
+<!-- ====== PAID: Sub Theme Complete ====== -->
+
+<div class="screen" id="s-p-sub-complete">
+  <div class="label">SUB THEME COMPLETE</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:1rem;letter-spacing:.1em">✓</div>
+  <div id="sub-completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:.5rem;max-width:280px"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">You've felt this too.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past, future, or this moment.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">This pattern no longer appears in your experience.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">Others need this too.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.4rem">Tap once. Choose Instagram.</div>
+  <button class="btn" onclick="shareImage('paid')" style="background:#6B9080;color:#fff;border:none;padding:19px 56px;font-size:1.05rem;font-weight:700;letter-spacing:.12em;border-radius:36px;box-shadow:0 8px 28px rgba(107,144,128,.38);cursor:pointer;font-family:'Noto Serif JP',serif">Share to Instagram →</button>
+  <button class="btn-ghost" onclick="startNewLayer()" style="margin-top:1.2rem;padding:12px 40px;font-size:.88rem;opacity:.8">Start a new layer →</button>
 </div>
 
 <!-- ====== PAID: Full Result ====== -->
@@ -415,7 +446,7 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
   <div style="font-family:'Noto Serif JP',serif;font-size:2rem;font-weight:300;color:#6B9080;margin-bottom:1rem;letter-spacing:.1em">✓</div>
   <div id="completed-headline" style="font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:600;color:#1A1A1A;text-align:center;letter-spacing:.04em;margin-bottom:.5rem;max-width:280px"></div>
   <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#6B9080;text-align:center;letter-spacing:.08em;margin-bottom:1.2rem">You've felt this too.</div>
-  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past or future.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.82rem;color:#AAA;text-align:center;line-height:2;margin-bottom:.3rem;max-width:240px">No longer present.<br>Not found in past, future, or this moment.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#C8C8C0;text-align:center;line-height:1.8;margin-bottom:2.6rem;max-width:220px">This pattern no longer appears in your experience.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.7rem">Others need this too.</div>
   <div style="font-family:'Noto Serif JP',serif;font-size:.72rem;color:#AAA;text-align:center;letter-spacing:.06em;margin-bottom:.4rem">Tap once. Choose Instagram.</div>
@@ -464,7 +495,10 @@ let breathing = false, bc = 0;
 
 
 const D = {
-  q1:'', notQ1:'', questionFrame:'not_choose', stateBefore:null, stateAfter:null, finalStatePast:'', finalStateFuture:'', themeComplete:false, readyToComplete:false, completionGateReady:false, gate3_noAnswer:false,
+  q1:'', notQ1:'', questionFrame:'not_choose', stateBefore:null, stateAfter:null,
+  finalStatePast:'', finalStateFuture:'', finalStatePresent:'',
+  themeComplete:false, readyToComplete:false,
+  isMainThemeMode:false, gateReversalNothing:false,
   themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false, themeExtremeFrame:'now',
   rounds:[]
 };
@@ -517,8 +551,8 @@ async function renderShareCard(){
 document.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault();});
 
 
-function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete');}
-var SCREEN_ORDER=['s-continue','s-p-theme','s-p-theme-extreme','s-p-q1','s-p-measure1','s-p-b20','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-result','s-p-complete'];
+function updateBack(){document.getElementById('btn-back').classList.toggle('visible',cur!=='s-p-theme'&&cur!=='s-continue'&&!cur.includes('result')&&cur!=='s-p-complete'&&cur!=='s-p-sub-complete');}
+var SCREEN_ORDER=['s-continue','s-p-theme','s-p-theme-extreme','s-p-q1','s-p-measure1','s-p-b20','s-p-b21','s-p-b22','s-p-b23','s-p-b24','s-p-measure2','s-p-yn2-past','s-p-yn2-future','s-p-yn2-present','s-p-result','s-p-complete'];
 function updateProgress(){var i=SCREEN_ORDER.indexOf(cur);document.getElementById('progress').style.width=(i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';}
 
 // ── localStorage ──
@@ -622,17 +656,7 @@ function showComplete(){
   fwd('s-p-complete');
 }
 function onQ1Nothing(){
-  // Gate 3発火
-  D.gate3_noAnswer=true;
-  // 3 Gate揃ったら終了
-  if(D.completionGateReady&&D.gate3_noAnswer){
-    D.themeComplete=true;
-    saveState();
-    clearState();
-    showComplete();
-    return;
-  }
-  // まだ未完成なら通常フロー
+  D.gateReversalNothing=true;
   D.stateBefore=null;
   D.stateAfter=null;
   D.q1='';
@@ -642,8 +666,9 @@ function onQ1Nothing(){
 function onMeasure1(){D.stateBefore=+document.getElementById('sl-measure1').value;fwd('s-p-b20');}
 function onMeasure1Skip(){D.stateBefore='N/A';fwd('s-p-b20');}
 function applyFinalCheckTheme(){
-  document.querySelectorAll('#s-p-yn2-past .topic-d, #s-p-yn2-future .topic-d').forEach(function(el){
-    el.textContent='"'+D.themeBase+'"';
+  var label='"'+(D.themeActive||D.themeBase)+'"';
+  document.querySelectorAll('#s-p-yn2-past .topic-d, #s-p-yn2-future .topic-d, #s-p-yn2-present .topic-d').forEach(function(el){
+    el.textContent=label;
   });
 }
 function onMeasure2(){D.stateAfter=+document.getElementById('sl-measure2').value;showPaidResult();}
@@ -662,20 +687,48 @@ function onYN2Past(val,btn){
 }
 function onYN2Future(val,btn){
   D.finalStateFuture=val;
-  D.completionGateReady=D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless';
-  // 3 Gate成立で即終了（gate3がすでに立っている場合）
-  if(D.completionGateReady&&D.gate3_noAnswer){
-    D.themeComplete=true;
-    saveState();
-    clearState();
-    showComplete();
-    return;
-  }
   document.querySelectorAll('#s-p-yn2-future .yn-btn').forEach(function(b){b.classList.remove('selected');});
   if(btn)btn.classList.add('selected');
-  setTimeout(function(){showPaidResult();},400);
+  setTimeout(function(){fwd('s-p-yn2-present');},400);
 }
 
+function onYN2Present(val,btn){
+  D.finalStatePresent=val;
+  document.querySelectorAll('#s-p-yn2-present .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  if(btn)btn.classList.add('selected');
+  setTimeout(function(){
+    var allMeaningless=D.finalStatePast==='meaningless'&&D.finalStateFuture==='meaningless'&&D.finalStatePresent==='meaningless';
+    if(allMeaningless){
+      if(D.isMainThemeMode){
+        D.themeComplete=true;saveState();clearState();showComplete();
+      }else{
+        saveState();clearState();showSubComplete();
+      }
+    }else{
+      showPaidResult();
+    }
+  },400);
+}
+function showSubComplete(){
+  var el=document.getElementById('sub-completed-headline');
+  if(el)el.textContent=(D.themeActive||D.themeExtreme)+' → none';
+  fwd('s-p-sub-complete');
+}
+function startNewLayer(){
+  D.themeExtreme='';D.themeActive=D.themeBase;D.useExtreme=false;D.isMainThemeMode=false;D.themeExtremeFrame='now';
+  D.q1='';D.stateBefore=null;D.stateAfter=null;
+  D.finalStatePast='';D.finalStateFuture='';D.finalStatePresent='';D.gateReversalNothing=false;
+  resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
+  var inp=document.getElementById('input-q1');if(inp)inp.value='';
+  var btn=document.getElementById('btn-q1');if(btn){btn.disabled=true;btn.style.opacity='.45';}
+  var inpE=document.getElementById('input-theme-extreme');if(inpE)inpE.value='';
+  var btnE=document.getElementById('btn-theme-extreme');if(btnE){btnE.disabled=true;btnE.style.opacity='.45';btnE.style.cursor='default';}
+  document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
+  var efNow=document.getElementById('ef-now');if(efNow)efNow.classList.add('selected');
+  var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+D.themeBase+'"';
+  breathing=false;bc=0;
+  fwd('s-p-theme-extreme');
+}
 function renderResultCTA(){
   var p=D.finalStatePast,f=D.finalStateFuture;
   var cont=document.getElementById('cta-continue');
@@ -784,14 +837,15 @@ function onThemeExtreme(){
   D.themeExtreme=v;
   D.useExtreme=true;
   D.themeActive=v;
+  D.isMainThemeMode=false;
   applyTopic(D.themeActive);
   fwd('s-p-q1');
 }
 function onThemeExtremeNothing(){
-  if(D.completionGateReady){D.themeComplete=true;saveState();clearState();showComplete();return;}
   D.themeExtreme='';
   D.useExtreme=false;
   D.themeActive=D.themeBase;
+  D.isMainThemeMode=true;
   applyTopic(D.themeActive);
   fwd('s-p-q1');
 }
@@ -809,14 +863,14 @@ function continueSession(){
 }
 function goToNewTheme(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',q1:'',notQ1:'',questionFrame:'not_choose',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false,gate3_noAnswer:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
 function returnToStart(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',q1:'',notQ1:'',questionFrame:'not_choose',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',themeComplete:false,readyToComplete:false,completionGateReady:false,gate3_noAnswer:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   hist=[];breathing=false;bc=0;
   var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
   var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
