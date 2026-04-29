@@ -205,9 +205,8 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> EXTREME</div>
   <em id="theme-base-display-extreme" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1.2rem">"..."</em>
   <div class="yes-no-wrap" style="margin-bottom:1rem">
-    <button class="yn-btn" id="ef-past" onclick="selectExtremeFrame(this,'past')" style="font-size:.82rem;text-align:left;line-height:1.7">「過去の私が<em class="theme-base-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
-    <button class="yn-btn" id="ef-future" onclick="selectExtremeFrame(this,'future')" style="font-size:.82rem;text-align:left;line-height:1.7">「未来の私が<em class="theme-base-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
-    <button class="yn-btn selected" id="ef-now" onclick="selectExtremeFrame(this,'now')" style="font-size:.82rem;text-align:left;line-height:1.7">「今の私が<em class="theme-base-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
+    <button class="yn-btn selected" id="ef-self" onclick="selectExtremeFrame(this,'self')" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="theme-base-d">"..."</em>に飲み込まれている私はどんな様子？」</button>
+    <button class="yn-btn" id="ef-person" onclick="selectExtremeFrame(this,'person')" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="theme-base-d">"..."</em>に飲み込まれている人はどんな様子？」</button>
   </div>
   <input class="text-input" id="input-theme-extreme" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-theme-extreme" disabled onclick="onThemeExtreme()" style="opacity:.45">Confirm</button>
@@ -547,7 +546,7 @@ const D = {
   finalStatePast:'', finalStateFuture:'', finalStatePresent:'',
   themeComplete:false, readyToComplete:false,
   isMainThemeMode:false, gateReversalNothing:false,
-  themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false, themeExtremeFrame:'now',
+  themeBase:'', themeExtreme:'', themeActive:'', useExtreme:false, themeExtremeFrame:'self',
   rounds:[]
 };
 
@@ -767,7 +766,7 @@ function showSubComplete(){
   fwd('s-p-sub-complete');
 }
 function startNewLayer(){
-  D.themeExtreme='';D.themeActive=D.themeBase;D.useExtreme=false;D.isMainThemeMode=false;D.themeExtremeFrame='now';
+  D.themeExtreme='';D.themeActive=D.themeBase;D.useExtreme=false;D.isMainThemeMode=false;D.themeExtremeFrame='self';
   D.q1='';D.stateBefore=null;D.stateAfter=null;
   D.finalStatePast='';D.finalStateFuture='';D.finalStatePresent='';D.gateReversalNothing=false;
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
@@ -776,7 +775,7 @@ function startNewLayer(){
   var inpE=document.getElementById('input-theme-extreme');if(inpE)inpE.value='';
   var btnE=document.getElementById('btn-theme-extreme');if(btnE){btnE.disabled=true;btnE.style.opacity='.45';btnE.style.cursor='default';}
   document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
-  var efNow=document.getElementById('ef-now');if(efNow)efNow.classList.add('selected');
+  var efSelf=document.getElementById('ef-self');if(efSelf)efSelf.classList.add('selected');
   applyBaseTheme(D.themeBase);
   applyTopic(D.themeBase);
   breathing=false;bc=0;
@@ -918,14 +917,14 @@ function continueSession(){
 }
 function goToNewTheme(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'self',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   resetSliders('sl-measure1','sl-measure2');hideNums('num-measure1','num-measure2');
   var inp=document.getElementById('input-q1');if(inp)inp.value='';
   hist=[];breathing=false;bc=0;fwd('s-p-theme');
 }
 function returnToStart(){
   clearState();
-  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'now',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
+  Object.assign(D,{themeBase:'',themeExtreme:'',themeActive:'',useExtreme:false,themeExtremeFrame:'self',isMainThemeMode:false,gateReversalNothing:false,q1:'',notQ1:'',questionFrame:'not_choose_self',stateBefore:null,stateAfter:null,finalStatePast:'',finalStateFuture:'',finalStatePresent:'',themeComplete:false,readyToComplete:false});
   hist=[];breathing=false;bc=0;
   var inp=document.getElementById('input-custom-theme');if(inp)inp.value='';
   var btn=document.getElementById('btn-custom-theme');if(btn){btn.disabled=true;btn.style.opacity='.45';}
