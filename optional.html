@@ -298,9 +298,11 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
     <button class="yn-btn selected" id="q-frame-a" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>を選択していない私はどんな様子？」</button>
     <button class="yn-btn" id="q-frame-b" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が微塵もない私はどんな様子？」</button>
     <button class="yn-btn" id="q-frame-c" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>という概念が全く存在しない私はどんな様子？」</button>
-    <button class="yn-btn" id="q-frame-d" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>を選択していない人はどんな様子？」</button>
-    <button class="yn-btn" id="q-frame-e" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が微塵もない人はどんな様子？」</button>
-    <button class="yn-btn" id="q-frame-f" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>という概念が全く存在しない人はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-d" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が選択肢として存在しない私はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-e" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>を選択していない人はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-f" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が微塵もない人はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-g" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>という概念が全く存在しない人はどんな様子？」</button>
+    <button class="yn-btn" id="q-frame-h" onclick="selectFrame(this)" style="font-size:.82rem;text-align:left;line-height:1.7">「<em class="topic-d">"Overthinking"</em>が選択肢として存在しない人はどんな様子？」</button>
   </div>
   <input class="text-input" id="input-q1" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-q1" disabled onclick="onQ1()" style="opacity:.45">Confirm</button>
@@ -675,7 +677,7 @@ function onCustomThemeContinue(){
 function selectFrame(btn){
   document.querySelectorAll('#s-p-q1 .yn-btn').forEach(function(b){b.classList.remove('selected');});
   btn.classList.add('selected');
-  var frameMap={'q-frame-a':'not_choose_self','q-frame-b':'none_self','q-frame-c':'no_concept_self','q-frame-d':'not_choose_person','q-frame-e':'none_person','q-frame-f':'no_concept_person'};
+  var frameMap={'q-frame-a':'not_choose_self','q-frame-b':'none_self','q-frame-c':'no_concept_self','q-frame-d':'no_option_self','q-frame-e':'not_choose_person','q-frame-f':'none_person','q-frame-g':'no_concept_person','q-frame-h':'no_option_person'};
   D.questionFrame=frameMap[btn.id]||'not_choose_self';
 }
 function selectExtremeFrame(btn,frame){
