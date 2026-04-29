@@ -205,9 +205,9 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
   <div class="label">FULL SESSION <span style="color:#6B9080">•</span> EXTREME</div>
   <em id="theme-base-display-extreme" style="color:#1A1A1A;font-style:normal;font-weight:500;font-size:1.05rem;display:block;text-align:center;margin-bottom:1.2rem">"..."</em>
   <div class="yes-no-wrap" style="margin-bottom:1rem">
-    <button class="yn-btn" id="ef-past" onclick="selectExtremeFrame(this,'past')" style="font-size:.82rem;text-align:left;line-height:1.7">「過去の私が<em class="topic-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
-    <button class="yn-btn" id="ef-future" onclick="selectExtremeFrame(this,'future')" style="font-size:.82rem;text-align:left;line-height:1.7">「未来の私が<em class="topic-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
-    <button class="yn-btn selected" id="ef-now" onclick="selectExtremeFrame(this,'now')" style="font-size:.82rem;text-align:left;line-height:1.7">「今の私が<em class="topic-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
+    <button class="yn-btn" id="ef-past" onclick="selectExtremeFrame(this,'past')" style="font-size:.82rem;text-align:left;line-height:1.7">「過去の私が<em class="theme-base-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
+    <button class="yn-btn" id="ef-future" onclick="selectExtremeFrame(this,'future')" style="font-size:.82rem;text-align:left;line-height:1.7">「未来の私が<em class="theme-base-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
+    <button class="yn-btn selected" id="ef-now" onclick="selectExtremeFrame(this,'now')" style="font-size:.82rem;text-align:left;line-height:1.7">「今の私が<em class="theme-base-d">"..."</em>に飲み込まれているとして、その私はどんな様子？」</button>
   </div>
   <input class="text-input" id="input-theme-extreme" placeholder="Type your answer..." autocomplete="off">
   <button class="btn" id="btn-theme-extreme" disabled onclick="onThemeExtreme()" style="opacity:.45">Confirm</button>
@@ -575,6 +575,10 @@ function applyTopic(theme){
   TOPIC=theme;
   document.querySelectorAll('.topic-d').forEach(function(el){el.textContent='"'+theme+'"';});
 }
+function applyBaseTheme(theme){
+  document.querySelectorAll('.theme-base-d').forEach(function(el){el.textContent='"'+theme+'"';});
+  var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+theme+'"';
+}
 
 function checkOnStartup(){
   return;
@@ -621,9 +625,8 @@ function onCustomThemeContinue(){
   var inp=document.getElementById('input-custom-theme');
   if(!inp||!inp.value.trim())return;
   D.themeBase=inp.value.trim();
+  applyBaseTheme(D.themeBase);
   applyTopic(D.themeBase);
-  var el=document.getElementById('theme-base-display-extreme');
-  if(el)el.textContent='"'+D.themeBase+'"';
   fwd('s-p-theme-extreme');
 }
 function selectFrame(btn){
@@ -730,7 +733,7 @@ function startNewLayer(){
   var btnE=document.getElementById('btn-theme-extreme');if(btnE){btnE.disabled=true;btnE.style.opacity='.45';btnE.style.cursor='default';}
   document.querySelectorAll('#s-p-theme-extreme .yn-btn').forEach(function(b){b.classList.remove('selected');});
   var efNow=document.getElementById('ef-now');if(efNow)efNow.classList.add('selected');
-  var el=document.getElementById('theme-base-display-extreme');if(el)el.textContent='"'+D.themeBase+'"';
+  applyBaseTheme(D.themeBase);
   applyTopic(D.themeBase);
   breathing=false;bc=0;
   fwd('s-p-theme-extreme');
@@ -852,7 +855,8 @@ function onThemeExtremeNothing(){
   D.useExtreme=false;
   D.themeActive=D.themeBase;
   D.isMainThemeMode=true;
-  applyTopic(D.themeActive);
+  applyTopic(D.themeBase);
+  applyBaseTheme(D.themeBase);
   fwd('s-p-q1');
 }
 var inpExtreme=document.getElementById('input-theme-extreme'),btnExtreme=document.getElementById('btn-theme-extreme');
