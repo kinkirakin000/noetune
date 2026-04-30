@@ -224,6 +224,7 @@ width:140px;height:140px;border-radius:6px;opacity:.6;display:block;
     <div class="breath-circle pulse" id="circle-peb1" onclick="startBreath('peb1')"></div>
     <div id="hint-peb1" style="position:absolute;bottom:-2.4rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
   </div>
+  <button class="btn-skip" onclick="skipExtremeBreath()">呼吸をスキップ</button>
 </div>
 
 <!-- ====== PAID: Extreme Breathe 2/4 ====== -->
@@ -890,6 +891,11 @@ var inp1=document.getElementById('input-q1'),btn1=document.getElementById('btn-q
 inp1.addEventListener('input',function(){var ok=inp1.value.trim().length>0;btn1.disabled=!ok;btn1.style.opacity=ok?'1':'.45';btn1.style.cursor=ok?'pointer':'default';});
 
 
+function skipExtremeBreath(){
+  breathing=false;
+  bc=0;
+  fwd('s-p-q1');
+}
 function onThemeExtreme(){
   var v=document.getElementById('input-theme-extreme').value.trim();
   if(!v)return;
