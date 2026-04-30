@@ -689,8 +689,9 @@ function onQ1(){
   D.readyToComplete=false;
   var v=document.getElementById('input-q1').value.trim();if(!v)return;
   D.q1=v;
+  D.reversalEmpty=false;
   var qd='"'+v+'"';
-  ['q1-display-b20','q1-display-b23','q1-display-measure1','q1-display-measure2','q1-title-measure1','q1-title-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
+  ['q1-title-measure1','q1-display-measure1','q1-display-b20','q1-display-b23','q1-title-measure2','q1-display-measure2'].forEach(function(id){var el=document.getElementById(id);if(el)el.textContent=qd;});
   fwd('s-p-measure1');
 }
 function showComplete(){
@@ -905,23 +906,26 @@ function onThemeExtreme(){
   var v=document.getElementById('input-theme-extreme').value.trim();
   if(!v)return;
   D.themeExtreme=v;
+  D.themeActive=D.themeExtreme;
   D.useExtreme=true;
-  D.themeActive=v;
-  D.isMainThemeMode=false;
   D.extremeEmpty=false;
+  D.reversalEmpty=false;
+  D.isMainThemeMode=false;
   applyTopic(D.themeActive);
-  var extDisp=document.getElementById('ext-b1-display');if(extDisp)extDisp.textContent='"'+v+'"';
+  var extDisp=document.getElementById('ext-b1-display');if(extDisp)extDisp.textContent='"'+D.themeActive+'"';
   fwd('s-p-ext-b1');
 }
 function onThemeExtremeNothing(){
   D.themeExtreme='';
-  D.useExtreme=false;
   D.themeActive=D.themeBase;
-  D.isMainThemeMode=true;
+  D.useExtreme=false;
   D.extremeEmpty=true;
-  applyTopic(D.themeBase);
+  D.reversalEmpty=false;
+  D.isMainThemeMode=true;
   applyBaseTheme(D.themeBase);
-  fwd('s-p-q1');
+  applyTopic(D.themeBase);
+  var extDisp=document.getElementById('ext-b1-display');if(extDisp)extDisp.textContent='"'+D.themeActive+'"';
+  fwd('s-p-ext-b1');
 }
 var inpExtreme=document.getElementById('input-theme-extreme'),btnExtreme=document.getElementById('btn-theme-extreme');
 if(inpExtreme){inpExtreme.addEventListener('input',function(){var ok=inpExtreme.value.trim().length>0;btnExtreme.disabled=!ok;btnExtreme.style.opacity=ok?'1':'.45';btnExtreme.style.cursor=ok?'pointer':'default';});}
