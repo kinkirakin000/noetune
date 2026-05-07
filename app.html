@@ -275,6 +275,20 @@ input[type=range]::-moz-range-thumb{
   margin-bottom:.6rem;min-height:1em;
 }
 
+.btn-not-measurable{
+  font-family:var(--ntn-font);
+  margin-top:.8rem;padding:8px 20px;
+  background:transparent;color:#B5B5AD;
+  border:1.5px solid #E4E4DE;border-radius:30px;
+  font-size:.78rem;letter-spacing:.08em;
+  cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s,transform .15s;
+}
+.btn-not-measurable:active{transform:scale(.97)}
+.btn-not-measurable.selected{
+  background:#F2F7F5;color:#6B9080;border-color:#6B9080;
+}
+
 @media(max-height:640px){
   .intro-title{font-size:2.4rem}
   .screen{padding:2rem 1.2rem 1.5rem}
@@ -329,6 +343,7 @@ input[type=range]::-moz-range-thumb{
     <input type="range" min="0" max="100" step="1" value="50" id="sl-2-1" oninput="updateNum('2-1', this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
+  <button class="btn-not-measurable" id="nm-2-1" onclick="setNotMeasurable('2-1')"></button>
   <button class="btn" id="btn-2-1" onclick="submit21()"></button>
 </div>
 
@@ -340,6 +355,7 @@ input[type=range]::-moz-range-thumb{
     <input type="range" min="0" max="100" step="1" value="50" id="sl-2-2" oninput="updateNum('2-2', this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
+  <button class="btn-not-measurable" id="nm-2-2" onclick="setNotMeasurable('2-2')"></button>
   <button class="btn" id="btn-2-2" onclick="submit22()"></button>
 </div>
 
@@ -397,6 +413,7 @@ input[type=range]::-moz-range-thumb{
     <input type="range" min="0" max="100" step="1" value="50" id="sl-final-c" oninput="updateNum('final-c', this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
+  <button class="btn-not-measurable" id="nm-final-c" onclick="setNotMeasurable('final-c')"></button>
   <button class="btn" id="btn-final-c" onclick="submitFinalC()"></button>
 </div>
 
@@ -408,6 +425,7 @@ input[type=range]::-moz-range-thumb{
     <input type="range" min="0" max="100" step="1" value="50" id="sl-final-g" oninput="updateNum('final-g', this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
+  <button class="btn-not-measurable" id="nm-final-g" onclick="setNotMeasurable('final-g')"></button>
   <button class="btn" id="btn-final-g" onclick="submitFinalG()"></button>
 </div>
 
@@ -464,6 +482,8 @@ var STR = {
     breath2_4: function(ga){ return '感じてください。\n「なぜ私は、『' + ga + '』？」'; },
     next: '次へ',
     nothingComesUp: '出てこない',
+    notMeasurable: '数値化不可',
+    notMeasurableShort: 'N/A',
     startBreathing: '呼吸を始める',
     inhale: '吸う',
     exhale: '吐く',
@@ -494,6 +514,8 @@ var STR = {
     breath2_4: function(ga){ return 'Feel this.\n“Why am I, ‘' + ga + '’?”'; },
     next: 'Next',
     nothingComesUp: 'Nothing comes up',
+    notMeasurable: 'Not measurable',
+    notMeasurableShort: 'N/A',
     startBreathing: 'Start breathing',
     inhale: 'In',
     exhale: 'Out',
@@ -524,6 +546,8 @@ var STR = {
     breath2_4: function(ga){ return '請感受。\n「為什麼我是『' + ga + '』？」'; },
     next: '下一步',
     nothingComesUp: '沒有浮現',
+    notMeasurable: '無法數值化',
+    notMeasurableShort: 'N/A',
     startBreathing: '開始呼吸',
     inhale: '吸',
     exhale: '吐',
@@ -623,6 +647,10 @@ function applyStaticLabels(){
   setText('btn-1-2-skip', s.nothingComesUp);
   setText('btn-2-1', s.next);
   setText('btn-2-2', s.next);
+  setText('nm-2-1', s.notMeasurable);
+  setText('nm-2-2', s.notMeasurable);
+  setText('nm-final-c', s.notMeasurable);
+  setText('nm-final-g', s.notMeasurable);
   setText('btn-3-1', s.next);
   setText('btn-3-1-skip', s.nothingComesUp);
   setText('btn-4-1', s.next);
@@ -686,22 +714,39 @@ function resetSlider(key){
   setText('num-' + key, '50');
   var num = document.getElementById('num-' + key);
   if (num) num.classList.remove('shown');
+  var nmBtn = document.getElementById('nm-' + key);
+  if (nmBtn) nmBtn.classList.remove('selected');
 }
 
 function updateNum(key, v){
+  var nmBtn = document.getElementById('nm-' + key);
+  if (nmBtn) nmBtn.classList.remove('selected');
   setText('num-' + key, v);
   var num = document.getElementById('num-' + key);
   if (num) num.classList.add('shown');
 }
 
+function setNotMeasurable(key){
+  var nmBtn = document.getElementById('nm-' + key);
+  if (!nmBtn) return;
+  nmBtn.classList.add('selected');
+  var numEl = document.getElementById('num-' + key);
+  if (numEl) numEl.classList.remove('shown');
+}
+
+function isNM(key){
+  var nmBtn = document.getElementById('nm-' + key);
+  return nmBtn && nmBtn.classList.contains('selected');
+}
+
 function submit21(){
-  D.initialComfort = parseInt(val('sl-2-1'), 10);
+  D.initialComfort = isNM('2-1') ? 'not_measurable' : parseInt(val('sl-2-1'), 10);
   setText('t-2-2', STR[LANG].s2g(D.coreProblem));
   fwd('s-2-2');
 }
 
 function submit22(){
-  D.initialGoodFeeling = parseInt(val('sl-2-2'), 10);
+  D.initialGoodFeeling = isNM('2-2') ? 'not_measurable' : parseInt(val('sl-2-2'), 10);
   enterComfortBlock();
 }
 
@@ -885,13 +930,13 @@ function enterFinalMeasurement(){
 }
 
 function submitFinalC(){
-  D.finalComfort = parseInt(val('sl-final-c'), 10);
+  D.finalComfort = isNM('final-c') ? 'not_measurable' : parseInt(val('sl-final-c'), 10);
   setText('t-final-g', STR[LANG].s2g(D.coreProblem));
   fwd('s-final-g');
 }
 
 function submitFinalG(){
-  D.finalGoodFeeling = parseInt(val('sl-final-g'), 10);
+  D.finalGoodFeeling = isNM('final-g') ? 'not_measurable' : parseInt(val('sl-final-g'), 10);
   populateResult();
   var saved = saveHistoryEntry();
   var note = document.getElementById('t-result-saved');
@@ -899,18 +944,24 @@ function submitFinalG(){
   fwd('s-result');
 }
 
+function nmLabel(v){
+  if (v === 'not_measurable') return STR[LANG].notMeasurableShort;
+  return (v != null ? String(v) : '—');
+}
+
 function populateResult(){
   setText('t-result-core', D.coreProblem);
-  setText('t-result-comfort-before', D.initialComfort != null ? String(D.initialComfort) : '—');
-  setText('t-result-comfort-after',  D.finalComfort   != null ? String(D.finalComfort)   : '—');
-  setText('t-result-good-before',    D.initialGoodFeeling != null ? String(D.initialGoodFeeling) : '—');
-  setText('t-result-good-after',     D.finalGoodFeeling   != null ? String(D.finalGoodFeeling)   : '—');
+  setText('t-result-comfort-before', nmLabel(D.initialComfort));
+  setText('t-result-comfort-after',  nmLabel(D.finalComfort));
+  setText('t-result-good-before',    nmLabel(D.initialGoodFeeling));
+  setText('t-result-good-after',     nmLabel(D.finalGoodFeeling));
   document.getElementById('t-result-comfort-dir').innerHTML = dirArrow(D.initialComfort, D.finalComfort);
   document.getElementById('t-result-good-dir').innerHTML    = dirArrow(D.initialGoodFeeling, D.finalGoodFeeling);
 }
 
 function dirArrow(before, after){
   if (before == null || after == null) return '';
+  if (before === 'not_measurable' || after === 'not_measurable') return '';
   if (after > before) return '<svg width="14" height="18" viewBox="0 0 32 42"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8C2B5"/></svg>';
   if (after < before) return '<svg width="14" height="18" viewBox="0 0 32 42"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#C8C8C2"/></svg>';
   return '';
