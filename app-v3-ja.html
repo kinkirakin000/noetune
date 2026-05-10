@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAFAF7">
+<title>Noetune</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;background:#FAFAF7;color:#1A1A1A}
+
+.screen{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3.5rem 1.8rem 2.5rem;
+  opacity:0;transform:translateY(18px);
+  transition:opacity .5s ease,transform .5s ease;
+  pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+.screen.active{opacity:1;transform:translateY(0);pointer-events:all}
+.screen.exit{opacity:0;transform:translateY(-12px)}
+
+.progress-bar{
+  position:fixed;top:0;left:0;height:2px;background:#6B9080;width:0;
+  transition:width .6s cubic-bezier(.4,0,.2,1);z-index:100;opacity:.7;
+}
+.btn-back{
+  position:fixed;top:1rem;left:1rem;width:36px;height:36px;
+  background:transparent;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .3s;z-index:200;
+}
+.btn-back.visible{opacity:1;pointer-events:auto}
+.btn-back svg{display:block}
+.btn-back:active svg path{stroke:#6B9080}
+
+/* opening */
+.intro-title{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;letter-spacing:.15em;color:#1A1A1A;margin-bottom:.3rem}
+.intro-sub{font-size:.76rem;color:#A8A8A2;letter-spacing:.2em;margin-bottom:2.8rem}
+
+/* input */
+.screen-title{
+  font-family:'Noto Serif JP',serif;font-size:.97rem;font-weight:300;
+  letter-spacing:.04em;text-align:center;line-height:2;
+  margin-bottom:1.5rem;max-width:300px;color:#1A1A1A;white-space:pre-line;
+}
+.text-input{
+  font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;
+  text-align:center;border:none;border-bottom:1.5px solid #D4DDD8;
+  background:transparent;padding:.7rem 1rem;width:92%;max-width:320px;
+  outline:none;color:#1A1A1A;transition:border-color .3s;
+}
+.text-input:focus{border-bottom-color:#6B9080}
+.text-input::placeholder{color:#CCC;font-weight:300}
+
+/* measurement */
+.measure-problem{
+  font-family:'Noto Serif JP',serif;font-size:.93rem;font-weight:400;
+  color:#1A1A1A;text-align:center;letter-spacing:.03em;
+  margin-bottom:.5rem;max-width:300px;line-height:1.75;white-space:pre-line;
+}
+.measure-question{
+  font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:300;
+  color:#6A6A62;text-align:center;letter-spacing:.04em;
+  margin-bottom:1.8rem;max-width:300px;line-height:1.85;
+}
+
+/* slider */
+.slider-wrap{width:100%;max-width:280px;display:flex;flex-direction:column;align-items:center}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:#D4DDD8;border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(107,144,128,.3)}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;border:none}
+.slider-labels{display:flex;justify-content:space-between;width:100%;margin-top:.6rem;font-size:.7rem;color:#BBB}
+
+.score-num{
+  font-family:'Noto Serif JP',serif;font-size:2.6rem;font-weight:700;
+  line-height:1;margin-bottom:1.6rem;color:#C47A5A;letter-spacing:.02em;
+  visibility:hidden;min-height:2.6rem;display:flex;align-items:center;justify-content:center;
+}
+.score-num.shown{visibility:visible}
+.score-num.nm{visibility:visible;font-size:1.3rem;font-weight:500;color:#6B9080;letter-spacing:.1em}
+
+.btn-nm{
+  font-family:'Noto Serif JP',serif;margin-top:.9rem;padding:8px 22px;
+  background:transparent;color:#B5B5AD;border:1.5px solid #E4E4DE;border-radius:30px;
+  font-size:.8rem;letter-spacing:.08em;cursor:pointer;
+  transition:background .25s,color .25s,border-color .25s,transform .15s;
+}
+.btn-nm:active{transform:scale(.97)}
+.btn-nm.selected{background:#F2F7F5;color:#6B9080;border-color:#6B9080}
+.btn-nm-after{padding:10px 30px;font-size:.84rem;color:#8A8A82;border-color:#C8C8C2}
+
+/* buttons */
+.btn{
+  font-family:'Noto Serif JP',serif;margin-top:2rem;padding:14px 52px;
+  background:#6B9080;color:#fff;border:none;border-radius:30px;
+  font-size:.95rem;letter-spacing:.08em;cursor:pointer;
+  box-shadow:0 4px 18px rgba(107,144,128,.22);
+  transition:opacity .3s,transform .15s,box-shadow .25s;
+}
+.btn:active{transform:scale(.97);box-shadow:0 2px 8px rgba(107,144,128,.18)}
+.btn:disabled{opacity:.3;cursor:default;box-shadow:none}
+.btn-ghost{
+  font-family:'Noto Serif JP',serif;margin-top:.5rem;padding:8px 22px;
+  background:transparent;color:#B5B5AD;border:none;border-radius:30px;
+  font-size:.74rem;letter-spacing:.1em;cursor:pointer;transition:color .25s;
+}
+.btn-ghost:active{color:#6B9080}
+.btn-outline{
+  font-family:'Noto Serif JP',serif;margin-top:.9rem;padding:12px 36px;
+  background:transparent;color:#6B9080;border:1.5px solid #6B9080;
+  border-radius:30px;font-size:.9rem;letter-spacing:.08em;cursor:pointer;
+  transition:background .25s,color .25s,transform .15s;
+}
+.btn-outline:active{transform:scale(.97);background:#F2F7F5}
+.link-quiet{
+  font-family:'Noto Serif JP',serif;margin-top:.8rem;
+  background:transparent;border:none;color:#B5B5AD;
+  font-size:.78rem;letter-spacing:.08em;cursor:pointer;
+  text-decoration:underline;text-decoration-color:#E0E0DA;
+}
+.link-quiet:active{color:#888}
+
+/* breathing */
+.breath-line1{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#AEAEAA;text-align:center;letter-spacing:.1em;margin-bottom:.35rem}
+.breath-line2{
+  font-family:'Noto Serif JP',serif;font-size:.93rem;font-weight:400;
+  color:#1A1A1A;text-align:center;letter-spacing:.03em;line-height:1.85;
+  max-width:300px;margin-bottom:1.8rem;white-space:pre-line;
+}
+.breath-dots{display:flex;gap:.5rem;margin-bottom:1.4rem}
+.breath-dot{width:6px;height:6px;border-radius:50%;background:#D4DDD8;transition:background .25s}
+.breath-dot.active{background:#6B9080}
+.breath-dot.done{background:#A8C2B5}
+.breath-circle{
+  width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.92);font-family:'Noto Serif JP',serif;
+  font-size:1.4rem;font-weight:300;letter-spacing:.05em;
+  transition:transform 1.5s cubic-bezier(.4,0,.2,1),box-shadow 1.5s ease;
+  box-shadow:0 4px 30px rgba(107,144,128,.15);
+  user-select:none;-webkit-user-select:none;margin-bottom:1.6rem;cursor:pointer;
+}
+.breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
+.breath-circle.exhale{transform:scale(1)}
+.breath-circle.dissolve{opacity:0;transform:scale(.93);box-shadow:0 0 0 rgba(107,144,128,0);transition:opacity 350ms ease-out,transform 350ms ease-out,box-shadow 350ms ease-out}
+@keyframes ntn-pulse{0%,100%{opacity:.55}50%{opacity:1}}
+.breath-circle.pulse{animation:ntn-pulse 2.4s infinite}
+@keyframes ntn-breathe{0%,100%{opacity:.55}50%{opacity:1}}
+.btn-breathe{animation:ntn-breathe 3.2s ease-in-out infinite}
+
+/* result */
+.result-subject{font-family:'Noto Serif JP',serif;font-size:.97rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;margin-bottom:.5rem;max-width:280px;white-space:pre-line}
+.result-header{font-family:'Noto Serif JP',serif;font-size:.62rem;letter-spacing:.22em;color:#A8A8A2;text-align:center;margin-bottom:1rem}
+.result-message{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:300;color:#555;text-align:center;line-height:1.9;letter-spacing:.04em;max-width:280px;margin-bottom:1.5rem;white-space:pre-line}
+.result-table{width:100%;max-width:320px;margin-bottom:1.4rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #EDEDE7}
+.result-row:last-child{border-bottom:none}
+.result-label{font-family:'Noto Serif JP',serif;font-size:.82rem;color:#666;letter-spacing:.04em;flex-shrink:0;margin-right:.6rem}
+.result-values{display:inline-flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:500;letter-spacing:.02em}
+.result-before{color:#B3B3AD;font-weight:400}
+.result-arrow{color:#C8C8C2;font-weight:300;font-size:.9rem}
+.result-after{color:#1A1A1A;font-weight:600}
+.result-dir{display:inline-flex;align-items:center;margin-left:.2rem}
+.result-dir svg{display:block}
+.val-nm{color:#3D7A5A;font-weight:500;letter-spacing:.06em}
+.val-pending{color:#C8C8C2;font-weight:400}
+
+/* angle selection */
+.angle-list{width:100%;max-width:300px;display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.4rem}
+.angle-option{
+  font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:300;
+  letter-spacing:.06em;text-align:center;padding:1rem 1.2rem;
+  border:1.5px solid #E4E4DE;border-radius:16px;background:#fff;
+  cursor:pointer;color:#1A1A1A;
+  transition:background .2s,border-color .2s,color .2s,transform .1s;
+}
+.angle-option:active{transform:scale(.98)}
+.angle-option.selected{background:#F2F7F5;border-color:#6B9080;color:#3D7A5A}
+.angle-option.done{opacity:.45;cursor:default;color:#A8A8A2;background:#F5F5F0;border-color:#EDEDE7}
+.angle-option.done:active{transform:none;background:#F5F5F0}
+.angle-helper{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#A8A8A2;text-align:center;letter-spacing:.08em;line-height:1.8;margin-bottom:1.4rem;max-width:260px;white-space:pre-line}
+.angle-select-all{
+  font-family:'Noto Serif JP',serif;margin-bottom:.4rem;padding:7px 20px;
+  background:transparent;color:#A8A8A2;border:1px solid #E0E0DA;
+  border-radius:20px;font-size:.75rem;letter-spacing:.08em;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.angle-select-all:active{color:#6B9080;border-color:#6B9080}
+.angle-time{font-family:'Noto Serif JP',serif;font-size:.75rem;color:#A8A8A2;letter-spacing:.06em;margin-top:.6rem;min-height:1.1em;text-align:center}
+
+/* install suggestion */
+.install-wrap{margin-top:1.4rem;text-align:center;display:flex;flex-direction:column;align-items:center;gap:.4rem}
+.install-hint{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;color:#C0C0B8;letter-spacing:.08em}
+.btn-install{
+  font-family:'Noto Serif JP',serif;padding:8px 20px;
+  background:transparent;color:#A8A8A2;border:1px solid #E0E0DA;
+  border-radius:20px;font-size:.78rem;letter-spacing:.08em;cursor:pointer;
+  transition:color .2s,border-color .2s;
+}
+.btn-install:active{color:#6B9080;border-color:#6B9080}
+
+/* end options */
+.end-options{width:100%;max-width:280px;display:flex;flex-direction:column;gap:.6rem;margin-top:1.6rem}
+.end-option{
+  font-family:'Noto Serif JP',serif;padding:.85rem 1rem;
+  background:transparent;border:1px solid #E4E4DE;border-radius:14px;
+  font-size:.85rem;letter-spacing:.05em;color:#555;cursor:pointer;
+  text-align:center;transition:background .2s,border-color .2s;
+}
+.end-option:active{background:#F2F7F5;border-color:#C8DDD5}
+
+@media(max-height:640px){
+  .screen{padding:2.5rem 1.4rem 1.8rem}
+  .breath-circle{width:110px;height:110px}
+  .intro-title{font-size:2.3rem}
+}
+</style>
+</head>
+<body>
+
+<button class="btn-back" id="btn-back" onclick="goBack()" aria-label="戻る">
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+    <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+<div class="progress-bar" id="progress"></div>
+
+<!-- ── 0: OPEN ── -->
+<div class="screen active" id="s-open">
+  <div class="intro-title">Noetune</div>
+  <div class="intro-sub">— a quiet practice —</div>
+  <button class="btn" onclick="fwd('s-1-1')">始める</button>
+</div>
+
+<!-- ── 1-1 ── -->
+<div class="screen" id="s-1-1">
+  <div class="screen-title">次の瞬間、最も気になることは何？</div>
+  <input type="text" class="text-input" id="in-1-1" placeholder="気になることを入力…" autocomplete="off" oninput="onInput('1-1')">
+  <button class="btn" id="btn-1-1" onclick="submit11()" disabled>次へ</button>
+</div>
+
+<!-- ── 1-2 ── -->
+<div class="screen" id="s-1-2">
+  <div class="screen-title" id="t-1-2"></div>
+  <input type="text" class="text-input" id="in-1-2" placeholder="問題を入力…" autocomplete="off" oninput="onInput('1-2')">
+  <button class="btn" id="btn-1-2" onclick="submit12()" disabled>次へ</button>
+  <button class="btn-ghost" onclick="skip12()">出てこない</button>
+</div>
+
+<!-- ── 2: ideal experience ── -->
+<div class="screen" id="s-2">
+  <div class="screen-title" id="t-2"></div>
+  <input type="text" class="text-input" id="in-2" placeholder="理想の体験を入力…" autocomplete="off" oninput="onInput('2')">
+  <button class="btn" id="btn-2" onclick="submit2()" disabled>次へ</button>
+</div>
+
+<!-- ── 3: pastFocusBefore ── -->
+<div class="screen" id="s-3">
+  <div class="measure-problem" id="t-3-p"></div>
+  <div class="measure-question">過去全体での割合は？</div>
+  <div class="score-num" id="num-3"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-3" oninput="onSlider('3',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm" id="nm-3" onclick="selectNM('3')">数値化不可</button>
+  <button class="btn" onclick="submitAngleBefore('pf')">次へ</button>
+</div>
+
+<!-- ── 4: free breathing ── -->
+<div class="screen" id="s-4">
+  <div class="breath-dots" id="dots-4"></div>
+  <div class="breath-line1">感じてください。</div>
+  <div class="breath-line2" id="bl2-4"></div>
+  <div class="breath-circle pulse" id="circle-4" onclick="doBreath('4')"></div>
+  <button class="btn" id="btn-4" onclick="doBreath('4')">呼吸を始める</button>
+</div>
+
+<!-- ── 5: pastFocusAfter ── -->
+<div class="screen" id="s-5">
+  <div class="measure-problem" id="t-5-p"></div>
+  <div class="measure-question">過去全体での割合は？</div>
+  <div class="score-num" id="num-5"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-5" oninput="onSlider('5',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm btn-nm-after" id="nm-5" onclick="selectNM('5')">数値化不可</button>
+  <button class="btn" onclick="submitPaidSlider('5','pastFocusAfter')">次へ</button>
+</div>
+
+<!-- ── 6: free result #1 ── -->
+<div class="screen" id="s-6">
+  <div class="result-header">— ここまでの変化 —</div>
+  <div class="result-message" id="t-6-msg"></div>
+  <div class="result-table">
+    <div class="result-row">
+      <div class="result-label">過去全体</div>
+      <div class="result-values">
+        <span class="result-before" id="r6-pf-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r6-pf-a"></span>
+        <span class="result-dir" id="r6-pf-dir"></span>
+      </div>
+    </div>
+  </div>
+  <button class="btn" onclick="fwd('s-7-1')">別の角度からも意識状態を計測</button>
+</div>
+
+<!-- ── 7-1: nextMomentBefore ── -->
+<div class="screen" id="s-7-1">
+  <div class="measure-problem" id="t-71-p"></div>
+  <div class="score-num" id="num-71"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-71" oninput="onSlider('71',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm" id="nm-71" onclick="selectNM('71')">数値化不可</button>
+  <button class="btn" onclick="submitAngleBefore('nm')">次へ</button>
+</div>
+
+<!-- ── 7-2: breathStabilityBefore ── -->
+<div class="screen" id="s-7-2">
+  <div class="measure-problem" id="t-72-p"></div>
+  <div class="score-num" id="num-72"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-72" oninput="onSlider('72',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm" id="nm-72" onclick="selectNM('72')">数値化不可</button>
+  <button class="btn" onclick="submitAngleBefore('bs')">次へ</button>
+</div>
+
+<!-- ── 7-3: bodyRelaxationBefore ── -->
+<div class="screen" id="s-7-3">
+  <div class="measure-problem" id="t-73-p"></div>
+  <div class="score-num" id="num-73"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-73" oninput="onSlider('73',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm" id="nm-73" onclick="selectNM('73')">数値化不可</button>
+  <button class="btn" onclick="submitAngleBefore('br')">次へ</button>
+</div>
+
+<!-- ── 7-4: faceSoftnessBefore ── -->
+<div class="screen" id="s-7-4">
+  <div class="measure-problem" id="t-74-p"></div>
+  <div class="score-num" id="num-74"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-74" oninput="onSlider('74',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm" id="nm-74" onclick="selectNM('74')">数値化不可</button>
+  <button class="btn" onclick="submitAngleBefore('fs')">次へ</button>
+</div>
+
+<!-- ── 8: free result #2 ── -->
+<div class="screen" id="s-8">
+  <div class="result-header">— 現在の意識状態 —</div>
+  <div class="result-message" id="t-8-msg"></div>
+  <div class="result-table" id="tbl-8">
+    <div class="result-row">
+      <div class="result-label">過去全体</div>
+      <div class="result-values">
+        <span class="result-before" id="r8-pf-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r8-pf-a"></span>
+        <span class="result-dir" id="r8-pf-dir"></span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">次の瞬間</div>
+      <div class="result-values">
+        <span class="result-before" id="r8-nm-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after val-pending">未実行</span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">呼吸</div>
+      <div class="result-values">
+        <span class="result-before" id="r8-bs-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after val-pending">未実行</span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">身体</div>
+      <div class="result-values">
+        <span class="result-before" id="r8-br-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after val-pending">未実行</span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">表情</div>
+      <div class="result-values">
+        <span class="result-before" id="r8-fs-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after val-pending">未実行</span>
+      </div>
+    </div>
+  </div>
+  <button class="btn" onclick="fwd('s-9')">各角度のクリアリングに進む</button>
+  <button class="link-quiet" onclick="quietExit()">ここで終える</button>
+  <div class="install-wrap">
+    <div class="install-hint">また必要なときのために、ホーム画面に追加できます。</div>
+    <button class="btn-install" onclick="promptInstall()">ホーム画面に追加</button>
+    <button class="link-quiet" onclick="fwd('s-open')" style="margin-top:0">あとで</button>
+  </div>
+</div>
+
+<!-- ── 9: angle selection ── -->
+<div class="screen" id="s-9">
+  <div class="screen-title">角度を選ぶ</div>
+  <div class="angle-helper">気になる角度を選んでください。
+合計時間が下に表示されます。</div>
+  <div class="angle-list">
+    <button class="angle-option" id="ao-pf" onclick="toggleAngle('pf')">過去全体</button>
+    <button class="angle-option" id="ao-nm" onclick="toggleAngle('nm')">次の瞬間</button>
+    <button class="angle-option" id="ao-bs" onclick="toggleAngle('bs')">呼吸</button>
+    <button class="angle-option" id="ao-br" onclick="toggleAngle('br')">身体</button>
+    <button class="angle-option" id="ao-fs" onclick="toggleAngle('fs')">表情</button>
+  </div>
+  <div class="angle-time" id="t-angle-time"></div>
+  <button class="btn" id="btn-9" onclick="startPaid()" disabled>調律を始める</button>
+</div>
+
+<!-- ── 10a: next-moment breathing ── -->
+<div class="screen" id="s-10a">
+  <div class="breath-dots" id="dots-10a"></div>
+  <div class="breath-line1">感じてください。</div>
+  <div class="breath-line2" id="bl2-10a"></div>
+  <div class="breath-circle pulse" id="circle-10a" onclick="doBreath('10a')"></div>
+  <button class="btn" id="btn-10a" onclick="doBreath('10a')">呼吸を始める</button>
+</div>
+
+<!-- ── 10a-m: nextMomentAfter ── -->
+<div class="screen" id="s-10a-m">
+  <div class="measure-problem" id="t-10am-p"></div>
+  <div class="score-num" id="num-10am"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-10am" oninput="onSlider('10am',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm btn-nm-after" id="nm-10am" onclick="selectNM('10am')">数値化不可</button>
+  <button class="btn" onclick="submitPaidSlider('10am','nextMomentAfter')">次へ</button>
+</div>
+
+<!-- ── 10b: breathing breathing ── -->
+<div class="screen" id="s-10b">
+  <div class="breath-dots" id="dots-10b"></div>
+  <div class="breath-line1">感じてください。</div>
+  <div class="breath-line2" id="bl2-10b"></div>
+  <div class="breath-circle pulse" id="circle-10b" onclick="doBreath('10b')"></div>
+  <button class="btn" id="btn-10b" onclick="doBreath('10b')">呼吸を始める</button>
+</div>
+
+<!-- ── 10b-m: breathStabilityAfter ── -->
+<div class="screen" id="s-10b-m">
+  <div class="measure-problem" id="t-10bm-p"></div>
+  <div class="score-num" id="num-10bm"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-10bm" oninput="onSlider('10bm',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm btn-nm-after" id="nm-10bm" onclick="selectNM('10bm')">数値化不可</button>
+  <button class="btn" onclick="submitPaidSlider('10bm','breathStabilityAfter')">次へ</button>
+</div>
+
+<!-- ── 10c: body breathing ── -->
+<div class="screen" id="s-10c">
+  <div class="breath-dots" id="dots-10c"></div>
+  <div class="breath-line1">感じてください。</div>
+  <div class="breath-line2" id="bl2-10c"></div>
+  <div class="breath-circle pulse" id="circle-10c" onclick="doBreath('10c')"></div>
+  <button class="btn" id="btn-10c" onclick="doBreath('10c')">呼吸を始める</button>
+</div>
+
+<!-- ── 10c-m: bodyRelaxationAfter ── -->
+<div class="screen" id="s-10c-m">
+  <div class="measure-problem" id="t-10cm-p"></div>
+  <div class="score-num" id="num-10cm"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-10cm" oninput="onSlider('10cm',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm btn-nm-after" id="nm-10cm" onclick="selectNM('10cm')">数値化不可</button>
+  <button class="btn" onclick="submitPaidSlider('10cm','bodyRelaxationAfter')">次へ</button>
+</div>
+
+<!-- ── 10d: face breathing ── -->
+<div class="screen" id="s-10d">
+  <div class="breath-dots" id="dots-10d"></div>
+  <div class="breath-line1">感じてください。</div>
+  <div class="breath-line2" id="bl2-10d"></div>
+  <div class="breath-circle pulse" id="circle-10d" onclick="doBreath('10d')"></div>
+  <button class="btn" id="btn-10d" onclick="doBreath('10d')">呼吸を始める</button>
+</div>
+
+<!-- ── 10d-m: faceSoftnessAfter ── -->
+<div class="screen" id="s-10d-m">
+  <div class="measure-problem" id="t-10dm-p"></div>
+  <div class="score-num" id="num-10dm"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-10dm" oninput="onSlider('10dm',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn-nm btn-nm-after" id="nm-10dm" onclick="selectNM('10dm')">数値化不可</button>
+  <button class="btn" onclick="submitPaidSlider('10dm','faceSoftnessAfter')">次へ</button>
+</div>
+
+<!-- ── 11: paid final result ── -->
+<div class="screen" id="s-11">
+  <div class="result-subject" id="t-11-sub"></div>
+  <div class="result-header">— セッションの変化 —</div>
+  <div class="result-table">
+    <div class="result-row">
+      <div class="result-label">過去全体</div>
+      <div class="result-values">
+        <span class="result-before" id="r11-pf-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r11-pf-a"></span>
+        <span class="result-dir" id="r11-pf-dir"></span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">次の瞬間</div>
+      <div class="result-values">
+        <span class="result-before" id="r11-nm-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r11-nm-a"></span>
+        <span class="result-dir" id="r11-nm-dir"></span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">呼吸</div>
+      <div class="result-values">
+        <span class="result-before" id="r11-bs-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r11-bs-a"></span>
+        <span class="result-dir" id="r11-bs-dir"></span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">身体</div>
+      <div class="result-values">
+        <span class="result-before" id="r11-br-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r11-br-a"></span>
+        <span class="result-dir" id="r11-br-dir"></span>
+      </div>
+    </div>
+    <div class="result-row">
+      <div class="result-label">表情</div>
+      <div class="result-values">
+        <span class="result-before" id="r11-fs-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r11-fs-a"></span>
+        <span class="result-dir" id="r11-fs-dir"></span>
+      </div>
+    </div>
+  </div>
+  <div class="end-options">
+    <button class="end-option btn-breathe" id="btn-continue-angles" onclick="continueOtherAngles()">さらに、別の角度から調律する</button>
+    <button class="end-option" onclick="goToIdealChoice()">理想体験をもう一度選ぶ</button>
+    <button class="end-option" onclick="goToCoreProblem()">今まさに発生している問題に戻る</button>
+    <button class="end-option" onclick="startAgain()">新しいテーマで始める</button>
+    <button class="end-option" onclick="startAgain()">終了する</button>
+  </div>
+</div>
+
+<script>
+/* ── state ── */
+var D = {
+  originalProblem:'', coreProblem:'', idealExperience:'',
+  pastFocusBefore:null, pastFocusAfter:null,
+  nextMomentBefore:null, nextMomentAfter:null,
+  breathStabilityBefore:null, breathStabilityAfter:null,
+  bodyRelaxationBefore:null, bodyRelaxationAfter:null,
+  faceSoftnessBefore:null, faceSoftnessAfter:null
+};
+var selectedAngles = [];
+var paidQueue = [];
+var paidQueueIdx = 0;
+
+var cur = 's-open';
+var navHistory = [];
+var breathingInProgress = false;
+var bStep = {};
+
+var BACK_SCREENS = {
+  's-1-1':1,'s-1-2':1,'s-2':1,
+  's-3':1,'s-5':1,
+  's-7-1':1,'s-7-2':1,'s-7-3':1,'s-7-4':1,
+  's-9':1,
+  's-10a-m':1,'s-10b-m':1,'s-10c-m':1,'s-10d-m':1
+};
+
+var SCREEN_ORDER = [
+  's-open','s-1-1','s-1-2','s-2',
+  's-3','s-4','s-5','s-6',
+  's-7-1','s-7-2','s-7-3','s-7-4','s-8',
+  's-9',
+  's-10a','s-10a-m','s-10b','s-10b-m',
+  's-10c','s-10c-m','s-10d','s-10d-m',
+  's-11'
+];
+
+var BREATH_SCREENS = {'s-4':1,'s-10a':1,'s-10b':1,'s-10c':1,'s-10d':1};
+var RESULT_SCREENS = {'s-6':1,'s-8':1,'s-11':1,'s-open':1};
+
+/* breathing phrases — full phrase kept as one visual unit on line 2 */
+var PHRASES = {
+  '4': function(ie){ return [
+    '「今までの私」',
+    '「'+ie+'」\nそうであった今までの私',
+    '「その私に対する抵抗」',
+    '「その抵抗以外のすべて」',
+    '「その抵抗が存在しない状態」'
+  ];},
+  '10a': function(ie){ return [
+    '「次の瞬間の私」',
+    '「'+ie+'」\nそうである次の瞬間の私',
+    '「その私に対する抵抗」',
+    '「その抵抗以外のすべて」',
+    '「その抵抗が存在しない状態」'
+  ];},
+  '10b': function(ie){ return [
+    '「私の呼吸」',
+    '「'+ie+'」\nそうである私の呼吸',
+    '「その呼吸に対する抵抗」',
+    '「その抵抗以外のすべて」',
+    '「その抵抗が存在しない状態」'
+  ];},
+  '10c': function(ie){ return [
+    '「私の身体」',
+    '「'+ie+'」\nそうである私の身体',
+    '「その身体に対する抵抗」',
+    '「その抵抗以外のすべて」',
+    '「その抵抗が存在しない状態」'
+  ];},
+  '10d': function(ie){ return [
+    '「私の表情」',
+    '「'+ie+'」\nそうである私の表情',
+    '「その表情に対する抵抗」',
+    '「その抵抗以外のすべて」',
+    '「その抵抗が存在しない状態」'
+  ];}
+};
+
+var ANGLE_ORDER = ['pf','nm','bs','br','fs'];
+var ANGLE_BREATH = {'pf':'s-4','nm':'s-10a','bs':'s-10b','br':'s-10c','fs':'s-10d'};
+var ANGLE_MEASURE = {'nm':'s-10a-m','bs':'s-10b-m','br':'s-10c-m','fs':'s-10d-m'};
+var ANGLE_AFTER_KEY = {'pf':'pastFocusAfter','nm':'nextMomentAfter','bs':'breathStabilityAfter','br':'bodyRelaxationAfter','fs':'faceSoftnessAfter'};
+var ANGLE_BEFORE_SCREEN = {'pf':'s-3','nm':'s-7-1','bs':'s-7-2','br':'s-7-3','fs':'s-7-4'};
+var ANGLE_BEFORE_KEY = {'pf':'pastFocusBefore','nm':'nextMomentBefore','bs':'breathStabilityBefore','br':'bodyRelaxationBefore','fs':'faceSoftnessBefore'};
+var ANGLE_BEFORE_SLIDER = {'pf':'3','nm':'71','bs':'72','br':'73','fs':'74'};
+var ANGLE_AFTER_SLIDER = {'pf':'5','nm':'10am','bs':'10bm','br':'10cm','fs':'10dm'};
+var BREATH_TO_AFTER = {'4':'s-5','10a':'s-10a-m','10b':'s-10b-m','10c':'s-10c-m','10d':'s-10d-m'};
+var TIME_LABELS = {1:'約1分30秒',2:'約3分',3:'約4分30秒',4:'約6分',5:'約7分30秒'};
+
+/* ── navigation ── */
+function fwd(id){
+  var c = document.getElementById(cur);
+  var n = document.getElementById(id);
+  if (!c||!n||cur===id) return;
+  if (!BREATH_SCREENS[cur] && !RESULT_SCREENS[cur]) navHistory.push(cur);
+  c.classList.remove('active'); c.classList.add('exit');
+  setTimeout(function(){ c.classList.remove('exit'); },500);
+  setTimeout(function(){
+    n.classList.add('active'); cur=id;
+    updateBackBtn(); updateProgress();
+    var bid = id.replace('s-','');
+    if (PHRASES[bid]) initBreath(bid);
+    if (id==='s-9') refreshAngleDoneStates();
+  },130);
+}
+
+function refreshAngleDoneStates(){
+  ANGLE_ORDER.forEach(function(a){
+    var el = document.getElementById('ao-'+a);
+    if (!el) return;
+    el.classList.toggle('done', D[ANGLE_AFTER_KEY[a]] != null);
+  });
+}
+
+function goBack(){
+  if (!navHistory.length) return;
+  var prev = navHistory.pop();
+  var c = document.getElementById(cur), n = document.getElementById(prev);
+  if (!c||!n||cur===prev){ updateBackBtn(); return; }
+  c.classList.remove('active'); c.classList.add('exit');
+  setTimeout(function(){ c.classList.remove('exit'); },500);
+  setTimeout(function(){ n.classList.add('active'); cur=prev; updateBackBtn(); updateProgress(); },130);
+}
+
+function updateBackBtn(){
+  var b = document.getElementById('btn-back');
+  if (b) b.classList.toggle('visible', !!BACK_SCREENS[cur] && navHistory.length>0);
+}
+
+function updateProgress(){
+  var p = document.getElementById('progress');
+  if (!p) return;
+  var i = SCREEN_ORDER.indexOf(cur);
+  p.style.width = (i<0?0:(i/(SCREEN_ORDER.length-1))*100)+'%';
+}
+
+/* ── inputs ── */
+function onInput(key){
+  var inp = document.getElementById('in-'+key);
+  var btn = document.getElementById('btn-'+key);
+  if (btn) btn.disabled = !inp||inp.value.trim().length===0;
+}
+
+function submit11(){
+  var v = document.getElementById('in-1-1').value.trim();
+  if (!v) return;
+  D.originalProblem = v;
+  setEl('t-1-2','「'+v+'」\nそこから、今まさに発生している問題は何？');
+  document.getElementById('in-1-2').value='';
+  document.getElementById('btn-1-2').disabled=true;
+  fwd('s-1-2');
+}
+
+function submit12(){
+  var v = document.getElementById('in-1-2').value.trim();
+  if (!v) return;
+  D.coreProblem = v;
+  goIdeal();
+}
+
+function skip12(){
+  D.coreProblem = D.originalProblem;
+  goIdeal();
+}
+
+function goIdeal(){
+  setEl('t-2','「'+D.coreProblem+'」\nそれを超えて、\n今この瞬間、どんな体験が理想？');
+  document.getElementById('in-2').value='';
+  document.getElementById('btn-2').disabled=true;
+  fwd('s-2');
+}
+
+function submit2(){
+  var v = document.getElementById('in-2').value.trim();
+  if (!v) return;
+  D.idealExperience = v;
+  initMeasureLabels();
+  fwd('s-9');
+}
+
+function initMeasureLabels(){
+  var ie = D.idealExperience;
+  setEl('t-3-p','「'+ie+'」');
+  setEl('t-5-p','「'+ie+'」');
+  setEl('t-71-p','「'+ie+'」\n\n次の瞬間、そうである確率は？');
+  setEl('t-72-p','「'+ie+'」\nを感じる。\nその呼吸の安定度合いは？');
+  setEl('t-73-p','「'+ie+'」\nを感じる。\nその身体のリラックス度合いは？');
+  setEl('t-74-p','「'+ie+'」\nを感じる。\nその表情の柔らかさの度合いは？');
+  setEl('t-10am-p','「'+ie+'」\n\n次の瞬間、そうである確率は？');
+  setEl('t-10bm-p','「'+ie+'」\nを感じる。\nその呼吸の安定度合いは？');
+  setEl('t-10cm-p','「'+ie+'」\nを感じる。\nその身体のリラックス度合いは？');
+  setEl('t-10dm-p','「'+ie+'」\nを感じる。\nその表情の柔らかさの度合いは？');
+}
+
+/* ── sliders ── */
+function onSlider(key, v){
+  var nm = document.getElementById('nm-'+key);
+  if (nm) nm.classList.remove('selected');
+  var num = document.getElementById('num-'+key);
+  if (num){ num.textContent=v; num.className='score-num shown'; }
+}
+
+function selectNM(key){
+  var nm = document.getElementById('nm-'+key);
+  if (!nm) return;
+  nm.classList.add('selected');
+  var num = document.getElementById('num-'+key);
+  if (num){ num.textContent='数値化不可'; num.className='score-num nm'; }
+}
+
+function isNM(key){ var b=document.getElementById('nm-'+key); return b&&b.classList.contains('selected'); }
+
+function resetSlider(key){
+  var sl=document.getElementById('sl-'+key); if(sl) sl.value=50;
+  var num=document.getElementById('num-'+key); if(num){num.textContent='';num.className='score-num';}
+  var nm=document.getElementById('nm-'+key); if(nm) nm.classList.remove('selected');
+}
+
+function getSliderVal(key){
+  return isNM(key)?'not_measurable':parseInt(document.getElementById('sl-'+key).value,10);
+}
+
+function submitSlider(key, field, next){
+  D[field] = getSliderVal(key);
+  if (next==='s-6'){ populateFreeResult1(); }
+  if (next==='s-8'){ populateFreeResult2(); }
+  var nkey = next.replace('s-','');
+  if (!PHRASES[nkey] && next!=='s-6' && next!=='s-8') resetSlider(nkey.replace(/-/g,''));
+  fwd(next);
+}
+
+/* ── free results ── */
+function populateFreeResult1(){
+  setEl('t-6-msg','「'+D.idealExperience+'」\nについて、\n過去全体でのフォーカスは\nシフトしました。');
+  setH('r6-pf-b', fmt(D.pastFocusBefore));
+  setH('r6-pf-a', fmt(D.pastFocusAfter));
+  setH('r6-pf-dir', dir(D.pastFocusBefore,D.pastFocusAfter));
+}
+
+function populateFreeResult2(){
+  setEl('t-8-msg','「'+D.idealExperience+'」\nについて、\n他の角度での状態も\n見えてきました。');
+  setH('r8-pf-b', fmt(D.pastFocusBefore));
+  setH('r8-pf-a', fmt(D.pastFocusAfter));
+  setH('r8-pf-dir', dir(D.pastFocusBefore,D.pastFocusAfter));
+  setH('r8-nm-b', fmt(D.nextMomentBefore));
+  setH('r8-bs-b', fmt(D.breathStabilityBefore));
+  setH('r8-br-b', fmt(D.bodyRelaxationBefore));
+  setH('r8-fs-b', fmt(D.faceSoftnessBefore));
+}
+
+/* ── angle selection ── */
+function toggleAngle(a){
+  if (D[ANGLE_AFTER_KEY[a]] != null) return;
+  var idx = selectedAngles.indexOf(a);
+  if (idx >= 0){
+    selectedAngles.splice(idx, 1);
+    document.getElementById('ao-'+a).classList.remove('selected');
+  } else {
+    selectedAngles.forEach(function(s){
+      document.getElementById('ao-'+s).classList.remove('selected');
+    });
+    selectedAngles = [a];
+    document.getElementById('ao-'+a).classList.add('selected');
+  }
+  updateAngleCTA();
+}
+
+function selectAllAngles(){
+  ANGLE_ORDER.forEach(function(a){
+    if (D[ANGLE_AFTER_KEY[a]] != null) return;
+    if (selectedAngles.indexOf(a)<0) selectedAngles.push(a);
+    document.getElementById('ao-'+a).classList.add('selected');
+  });
+  updateAngleCTA();
+}
+
+function updateAngleCTA(){
+  var n = selectedAngles.length;
+  var btn = document.getElementById('btn-9');
+  var timeEl = document.getElementById('t-angle-time');
+  btn.disabled = n===0;
+  timeEl.textContent = n>0 ? TIME_LABELS[n]||'' : '';
+}
+
+function startPaid(){
+  /* build queue in fixed order */
+  paidQueue = ANGLE_ORDER.filter(function(a){ return selectedAngles.indexOf(a)>=0; });
+  paidQueueIdx = 0;
+  runNextPaidAngle();
+}
+
+function runNextPaidAngle(){
+  if (paidQueueIdx >= paidQueue.length){
+    populatePaidResult();
+    fwd('s-11');
+    return;
+  }
+  var angle = paidQueue[paidQueueIdx];
+  resetSlider(ANGLE_BEFORE_SLIDER[angle]);
+  fwd(ANGLE_BEFORE_SCREEN[angle]);
+}
+
+function submitAngleBefore(angle){
+  D[ANGLE_BEFORE_KEY[angle]] = getSliderVal(ANGLE_BEFORE_SLIDER[angle]);
+  resetSlider(ANGLE_AFTER_SLIDER[angle]);
+  fwd(ANGLE_BREATH[angle]);
+}
+
+function submitPaidSlider(key, field){
+  D[field] = getSliderVal(key);
+  paidQueueIdx++;
+  runNextPaidAngle();
+}
+
+/* ── breathing ── */
+function initBreath(bid){
+  bStep[bid]=1;
+  applyStep(bid);
+}
+
+function applyStep(bid){
+  var step = bStep[bid];
+  var lines = PHRASES[bid](D.idealExperience);
+  document.getElementById('bl2-'+bid).textContent = lines[step-1];
+  var dotsEl = document.getElementById('dots-'+bid);
+  dotsEl.innerHTML='';
+  for (var i=1;i<=5;i++){
+    var d=document.createElement('div');
+    d.className='breath-dot'+(i<step?' done':(i===step?' active':''));
+    dotsEl.appendChild(d);
+  }
+  var c=document.getElementById('circle-'+bid);
+  c.className='breath-circle pulse'; c.textContent='';
+  var btn=document.getElementById('btn-'+bid);
+  btn.style.visibility='visible'; btn.disabled=false;
+}
+
+function doBreath(bid){
+  if (breathingInProgress) return;
+  breathingInProgress=true;
+  var c=document.getElementById('circle-'+bid);
+  var btn=document.getElementById('btn-'+bid);
+  btn.style.visibility='hidden';
+  c.classList.remove('pulse');
+  setTimeout(function(){
+    c.textContent='吸う'; c.classList.add('inhale');
+    setTimeout(function(){
+      c.textContent='吐く'; c.classList.remove('inhale'); c.classList.add('exhale');
+      setTimeout(function(){
+        c.classList.remove('exhale'); c.classList.add('dissolve');
+        setTimeout(function(){
+          breathingInProgress=false;
+          if (bStep[bid]<5){ bStep[bid]++; applyStep(bid); }
+          else {
+            var afterScreen = BREATH_TO_AFTER[bid];
+            if (afterScreen) fwd(afterScreen);
+          }
+        },380);
+      },1500);
+    },1500);
+  },600);
+}
+
+/* ── paid final result ── */
+function populatePaidResult(){
+  setEl('t-11-sub','「'+D.idealExperience+'」');
+  setH('r11-pf-b',fmt(D.pastFocusBefore)); populatePaidAfter('r11-pf-a','r11-pf-dir',D.pastFocusBefore,D.pastFocusAfter);
+  setH('r11-nm-b',fmt(D.nextMomentBefore)); populatePaidAfter('r11-nm-a','r11-nm-dir',D.nextMomentBefore,D.nextMomentAfter);
+  setH('r11-bs-b',fmt(D.breathStabilityBefore)); populatePaidAfter('r11-bs-a','r11-bs-dir',D.breathStabilityBefore,D.breathStabilityAfter);
+  setH('r11-br-b',fmt(D.bodyRelaxationBefore)); populatePaidAfter('r11-br-a','r11-br-dir',D.bodyRelaxationBefore,D.bodyRelaxationAfter);
+  setH('r11-fs-b',fmt(D.faceSoftnessBefore)); populatePaidAfter('r11-fs-a','r11-fs-dir',D.faceSoftnessBefore,D.faceSoftnessAfter);
+  var allDone = D.pastFocusAfter!=null && D.nextMomentAfter!=null && D.breathStabilityAfter!=null && D.bodyRelaxationAfter!=null && D.faceSoftnessAfter!=null;
+  var contBtn = document.getElementById('btn-continue-angles');
+  if (contBtn) contBtn.style.display = allDone ? 'none' : '';
+}
+
+function populatePaidAfter(afterId, dirId, beforeVal, afterVal){
+  if (afterVal != null){
+    setH(afterId, fmt(afterVal));
+    setH(dirId, dir(beforeVal, afterVal));
+  } else {
+    setH(afterId,'<span class="val-pending">未実行</span>');
+    setH(dirId,'');
+  }
+}
+
+/* ── helpers ── */
+function fmt(v){
+  if (v==='not_measurable') return '<span class="val-nm">数値化不可</span>';
+  return v!=null?String(v):'—';
+}
+function dir(b,a){
+  if (b==null||a==null||b==='not_measurable'||a==='not_measurable') return '';
+  if (a>b) return '<svg width="13" height="17" viewBox="0 0 32 42"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8C2B5"/></svg>';
+  if (a<b) return '<svg width="13" height="17" viewBox="0 0 32 42"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#C8C8C2"/></svg>';
+  return '';
+}
+function setEl(id,t){ var e=document.getElementById(id); if(e) e.textContent=t; }
+function setH(id,h){ var e=document.getElementById(id); if(e) e.innerHTML=h; }
+
+/* ── end options ── */
+function continueOtherAngles(){
+  selectedAngles=[]; paidQueue=[]; paidQueueIdx=0;
+  ANGLE_ORDER.forEach(function(a){
+    document.getElementById('ao-'+a).classList.remove('selected');
+  });
+  updateAngleCTA();
+  navHistory=[];
+  fwd('s-9');
+}
+
+function goToIdealChoice(){
+  setEl('t-2','「'+D.coreProblem+'」\nそれを超えて、\n今この瞬間、どんな体験が理想？');
+  document.getElementById('in-2').value='';
+  document.getElementById('btn-2').disabled=true;
+  selectedAngles=[]; paidQueue=[]; paidQueueIdx=0;
+  ANGLE_ORDER.forEach(function(a){ document.getElementById('ao-'+a).classList.remove('selected'); });
+  updateAngleCTA();
+  ['3','5','71','72','73','74','10am','10bm','10cm','10dm'].forEach(resetSlider);
+  D.idealExperience='';
+  D.pastFocusBefore=null;D.pastFocusAfter=null;
+  D.nextMomentBefore=null;D.nextMomentAfter=null;
+  D.breathStabilityBefore=null;D.breathStabilityAfter=null;
+  D.bodyRelaxationBefore=null;D.bodyRelaxationAfter=null;
+  D.faceSoftnessBefore=null;D.faceSoftnessAfter=null;
+  navHistory=[];
+  fwd('s-2');
+}
+
+function goToCoreProblem(){
+  setEl('t-1-2','「'+D.originalProblem+'」\nそこから、今まさに発生している問題は何？');
+  document.getElementById('in-1-2').value='';
+  document.getElementById('btn-1-2').disabled=true;
+  selectedAngles=[]; paidQueue=[]; paidQueueIdx=0;
+  ANGLE_ORDER.forEach(function(a){ document.getElementById('ao-'+a).classList.remove('selected'); });
+  updateAngleCTA();
+  ['3','5','71','72','73','74','10am','10bm','10cm','10dm'].forEach(resetSlider);
+  D.coreProblem='';D.idealExperience='';
+  D.pastFocusBefore=null;D.pastFocusAfter=null;
+  D.nextMomentBefore=null;D.nextMomentAfter=null;
+  D.breathStabilityBefore=null;D.breathStabilityAfter=null;
+  D.bodyRelaxationBefore=null;D.bodyRelaxationAfter=null;
+  D.faceSoftnessBefore=null;D.faceSoftnessAfter=null;
+  navHistory=[];
+  fwd('s-1-2');
+}
+
+function quietExit(){
+  navHistory=[];
+  fwd('s-open');
+}
+
+function promptInstall(){
+  /* PWA install: no-op for now */
+}
+
+function startAgain(){
+  D={
+    originalProblem:'',coreProblem:'',idealExperience:'',
+    pastFocusBefore:null,pastFocusAfter:null,
+    nextMomentBefore:null,nextMomentAfter:null,
+    breathStabilityBefore:null,breathStabilityAfter:null,
+    bodyRelaxationBefore:null,bodyRelaxationAfter:null,
+    faceSoftnessBefore:null,faceSoftnessAfter:null
+  };
+  selectedAngles=[]; paidQueue=[]; paidQueueIdx=0; navHistory=[];
+  breathingInProgress=false; bStep={};
+  ['1-1','1-2','2'].forEach(function(k){
+    var inp=document.getElementById('in-'+k); if(inp) inp.value='';
+    var btn=document.getElementById('btn-'+k); if(btn) btn.disabled=true;
+  });
+  ANGLE_ORDER.forEach(function(a){ document.getElementById('ao-'+a).classList.remove('selected'); });
+  updateAngleCTA();
+  ['3','5','71','72','73','74','10am','10bm','10cm','10dm'].forEach(resetSlider);
+  fwd('s-open');
+}
+</script>
+</body>
+</html>
