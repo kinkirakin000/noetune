@@ -223,6 +223,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   .intro-title{font-size:2.3rem}
 }
 </style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TH1504X2CK',{send_page_view:true});</script>
 </head>
 <body>
 
@@ -312,7 +314,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
       </div>
     </div>
   </div>
-  <button class="btn" onclick="fwd('s-7-1')">別の角度からも意識状態を計測</button>
+  <button class="btn" onclick="fwd('s-7-1')">別の視点からも意識状態を計測</button>
 </div>
 
 <!-- ── 7-1: nextMomentBefore ── -->
@@ -410,7 +412,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
       </div>
     </div>
   </div>
-  <button class="btn" onclick="fwd('s-9')">各角度のクリアリングに進む</button>
+  <button class="btn" onclick="fwd('s-9')">各視点のクリアリングに進む</button>
   <button class="link-quiet" onclick="quietExit()">ここで終える</button>
   <div class="install-wrap">
     <div class="install-hint">また必要なときのために、ホーム画面に追加できます。</div>
@@ -421,8 +423,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ── 9: angle selection ── -->
 <div class="screen" id="s-9">
-  <div class="screen-title">角度を選ぶ</div>
-  <div class="angle-helper">気になる角度を選んでください。
+  <div class="screen-title">視点を選ぶ</div>
+  <div class="angle-helper">気になる視点を選んでください。
 合計時間が下に表示されます。</div>
   <div class="angle-list">
     <button class="angle-option" id="ao-pf" onclick="toggleAngle('pf')">過去全体</button>
@@ -571,7 +573,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     </div>
   </div>
   <div class="end-options">
-    <button class="end-option btn-breathe" id="btn-continue-angles" onclick="continueOtherAngles()">さらに、別の角度から調律する</button>
+    <button class="end-option btn-breathe" id="btn-continue-angles" onclick="continueOtherAngles()">さらに、別の視点から調律する</button>
     <button class="end-option" onclick="goToIdealChoice()">理想体験をもう一度選ぶ</button>
     <button class="end-option" onclick="goToCoreProblem()">今まさに発生している問題に戻る</button>
     <button class="end-option" onclick="startAgain()">新しいテーマで始める</button>
@@ -580,6 +582,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 </div>
 
 <script>
+function trackEvent(name){try{if(typeof gtag==='function')gtag('event',name);}catch(e){}}
+
 /* ── state ── */
 var D = {
   originalProblem:'', coreProblem:'', idealExperience:'',
@@ -820,7 +824,7 @@ function populateFreeResult1(){
 }
 
 function populateFreeResult2(){
-  setEl('t-8-msg','「'+D.idealExperience+'」\nについて、\n他の角度での状態も\n見えてきました。');
+  setEl('t-8-msg','「'+D.idealExperience+'」\nについて、\n他の視点での状態も\n見えてきました。');
   setH('r8-pf-b', fmt(D.pastFocusBefore));
   setH('r8-pf-a', fmt(D.pastFocusAfter));
   setH('r8-pf-dir', dir(D.pastFocusBefore,D.pastFocusAfter));
@@ -945,6 +949,7 @@ function doBreath(bid){
 
 /* ── paid final result ── */
 function populatePaidResult(){
+  trackEvent('v3_complete');
   setEl('t-11-sub','「'+D.idealExperience+'」');
   setH('r11-pf-b',fmt(D.pastFocusBefore)); populatePaidAfter('r11-pf-a','r11-pf-dir',D.pastFocusBefore,D.pastFocusAfter);
   setH('r11-nm-b',fmt(D.nextMomentBefore)); populatePaidAfter('r11-nm-a','r11-nm-dir',D.nextMomentBefore,D.nextMomentAfter);
@@ -1056,6 +1061,25 @@ function startAgain(){
   ['3','5','71','72','73','74','10am','10bm','10cm','10dm'].forEach(resetSlider);
   fwd('s-open');
 }
+
+/* ── V4 entry ── */
+(function(){
+  var flag;
+  try { flag = localStorage.getItem('noe_v4entry'); } catch(e) {}
+  if (flag !== '1') return;
+  try { localStorage.removeItem('noe_v4entry'); } catch(e) {}
+  D.originalProblem = '考えすぎ';
+  setEl('t-1-2', '「' + D.originalProblem + '」\nそこから、今まさに発生している問題は何？');
+  document.getElementById('in-1-2').value = '';
+  document.getElementById('btn-1-2').disabled = true;
+  document.getElementById('s-open').classList.remove('active');
+  document.getElementById('s-1-2').classList.add('active');
+  cur = 's-1-2';
+  navHistory = [];
+  updateBackBtn();
+  updateProgress();
+  trackEvent('v3_start');
+})();
 </script>
 </body>
 </html>
