@@ -196,7 +196,17 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-free-result">
   <div class="result-header" id="t-free-result-header"></div>
   <div class="result-table" id="tbl-free-result"></div>
-  <button class="btn" onclick="fwd('s-paid-issue')" style="background:#1A1A1A">さらに深く見る →</button>
+  <button class="btn" onclick="fwd('s-paywall')" style="background:#1A1A1A">さらに深く見る →</button>
+</div>
+
+<!-- ── PAYWALL PREVIEW: Boundary Only ── -->
+<div class="screen" id="s-paywall">
+  <div class="result-header">— boundary preview —</div>
+  <div class="screen-title" style="margin-bottom:.8rem">ここまでが無料パートです</div>
+  <div class="theme-select-sub" style="max-width:320px;margin-bottom:2.2rem">ここから先はフルセッション領域です。
+現在は確認用のため、
+そのまま続けられます。</div>
+  <button class="btn" onclick="fwd('s-paid-issue')" style="background:#1A1A1A">フルセッションを確認する</button>
 </div>
 
 <!-- ── PAID: Issue Input ── -->
@@ -351,6 +361,7 @@ var PAID_BREATH_SCREENS = {'s-paid-br1':1,'s-paid-br2':1,'s-paid-br3':1,'s-paid-
 var RESULT_SCREENS      = {'s-free-result':1,'s-paid-result':1,'s-open':1};
 var BACK_SCREENS        = {
   's-free-bf-future':1,'s-free-af-future':1,
+  's-paywall':1,
   's-paid-issue':1,'s-paid-ideal':1,
   's-paid-before1':1,'s-paid-before2':1,
   's-paid-after1':1,'s-paid-after2':1
@@ -362,6 +373,7 @@ var SCREEN_ORDER = [
   's-free-br1','s-free-br2','s-free-br3',
   's-free-af-future',
   's-free-result',
+  's-paywall',
   's-paid-issue','s-paid-ideal',
   's-paid-before1','s-paid-before2',
   's-paid-br1','s-paid-br2','s-paid-br3','s-paid-br4',
@@ -374,7 +386,7 @@ function fwd(id) {
   var c = document.getElementById(cur);
   var n = document.getElementById(id);
   if (!c || !n || cur === id) return;
-  if (!FREE_BREATH_SCREENS[cur] && !PAID_BREATH_SCREENS[cur] && !RESULT_SCREENS[cur]) navHistory.push(cur);
+  if ((!FREE_BREATH_SCREENS[cur] && !PAID_BREATH_SCREENS[cur] && !RESULT_SCREENS[cur]) || (cur === 's-free-result' && id === 's-paywall')) navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
   setTimeout(function(){
