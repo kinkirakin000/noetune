@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#FAFAF7">
+<title>Noetune — Self-Healing Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,'Helvetica Neue',sans-serif;background:#FAFAF7;color:#1A1A1A}
+.progress-bar{position:fixed;top:0;left:0;height:2px;background:#6B9080;transition:width .6s cubic-bezier(.4,0,.2,1);z-index:100}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 1.5rem 2rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen.active{opacity:1;transform:translateY(0);pointer-events:all}
+.screen.exit{opacity:0;transform:translateY(-12px)}
+.label{font-size:.72rem;letter-spacing:.18em;color:#A0A09A;margin-bottom:1.2rem;text-align:center}
+.title{font-family:'Noto Serif JP',serif;font-size:1.25rem;font-weight:300;text-align:center;line-height:1.9;margin-bottom:2rem;max-width:320px}
+.score-num{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;line-height:1;margin-bottom:1.8rem}
+.slider-wrap{width:100%;max-width:280px}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:#D4DDD8;border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;box-shadow:0 2px 8px rgba(107,144,128,.3)}
+input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;border-radius:50%;cursor:pointer;border:none}
+.slider-labels{display:flex;justify-content:space-between;margin-top:.6rem;font-size:.7rem;color:#BBB}
+.text-input{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;text-align:center;border:none;border-bottom:1.5px solid #D4DDD8;background:transparent;padding:.6rem 1rem;width:92%;max-width:300px;outline:none;color:#1A1A1A;transition:border-color .3s}
+.text-input:focus{border-bottom-color:#6B9080}
+.text-input::placeholder{color:#CCC;font-weight:300}
+.btn{margin-top:2rem;padding:14px 52px;background:#6B9080;color:#fff;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;transition:opacity .3s,transform .15s;font-family:'Noto Serif JP',serif;letter-spacing:.08em}
+.btn:active{transform:scale(.97)}
+.btn:disabled{opacity:.3;cursor:default}
+.btn-ghost{margin-top:1rem;padding:11px 36px;background:transparent;color:#6B9080;border:1.5px solid #6B9080;border-radius:30px;font-size:.85rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.08em;transition:all .25s}
+.btn-ghost:active{background:#6B9080;color:#fff}
+.btn-start{padding:16px 64px;background:#1A1A1A;color:#FAFAF7;border:none;border-radius:30px;font-size:1rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.2em;transition:opacity .3s}
+.btn-start:active{opacity:.7}
+.btn-skip{background:none;border:none;font-family:'Noto Serif JP',serif;font-size:.75rem;color:#C0C0B8;letter-spacing:.1em;cursor:pointer;margin-top:.8rem;padding:.3rem .8rem}
+.breath-focus{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#888;text-align:center;line-height:1.9;margin-bottom:1.8rem;max-width:280px}
+.breath-focus em{color:#1A1A1A;font-style:normal;font-weight:500}
+.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.9);font-family:'Noto Serif JP',serif;font-size:1.5rem;font-weight:300;transition:transform 4s cubic-bezier(.4,0,.2,1),box-shadow 4s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);cursor:pointer}
+.breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
+.breath-circle.exhale{transform:scale(1)}
+.intro-title{font-family:'Noto Serif JP',serif;font-size:2.8rem;font-weight:700;letter-spacing:.15em;color:#1A1A1A;margin-bottom:.3rem}
+.intro-sub{font-size:.78rem;color:#AAA;letter-spacing:.15em;margin-bottom:.4rem;font-family:'Noto Serif JP',serif}
+.btn-back{position:fixed;top:1rem;left:1rem;width:36px;height:36px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
+.btn-back.visible{opacity:1;pointer-events:all}
+@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.pulse{animation:pulse 2s infinite}
+.r-row{display:flex;align-items:center;justify-content:center;gap:.55rem;margin-bottom:1.8rem}
+.r-label{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:500;letter-spacing:.05em;min-width:2.6rem;text-align:right}
+.r-arrow{display:flex;align-items:center;flex-shrink:0}
+.r-nums{display:flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:2.2rem;font-weight:700}
+.infinity{font-size:3.4rem;line-height:1;display:inline-flex;align-items:center;font-weight:800;color:#1A1A1A;letter-spacing:-.02em;transition:opacity .2s ease}
+
+
+.r-sep-beyond{font-size:1.4rem;color:#C0A84A;margin:0 .3rem;opacity:.8}
+.r-before{font-size:1.4rem;color:#B3B3AD;font-weight:300}
+.r-sep{font-size:1.1rem;color:#C8C8C4;margin:0 .3rem;font-weight:300;font-family:sans-serif}
+.r-after{}
+.yes-no-wrap{display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;margin-bottom:1.2rem}
+.yn-btn{padding:1rem 1.2rem;border-radius:16px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.95rem;color:#1A1A1A;transition:all .25s;letter-spacing:.06em}
+.yn-btn:active{transform:scale(.97)}
+.yn-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080}
+.theme-btn{width:100%;padding:.7rem 1rem;border-radius:12px;border:1.5px solid #E4E4DE;background:#fff;cursor:pointer;text-align:center;font-family:'Noto Serif JP',serif;font-size:.88rem;color:#555;transition:all .22s;letter-spacing:.05em}
+.theme-btn:active{transform:scale(.97)}
+.theme-btn.selected{background:#F2F7F5;border-color:#6B9080;color:#6B9080;font-weight:500}
+.theme-btn.locked{color:#C0C0B8;border-color:#EAEAE6;background:#FAFAF7;cursor:pointer}
+.theme-btn.locked:active{transform:scale(.97)}
+.lock-icon{font-size:.8rem;margin-left:.3rem;opacity:.7}
+.paywall-box{background:#fff;border:1.5px solid #E4E4DE;border-radius:20px;padding:2rem 1.5rem;max-width:320px;width:100%;text-align:center}
+.paywall-box .pw-title{font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:500;margin-bottom:.8rem;letter-spacing:.08em}
+.paywall-box .pw-desc{font-size:.82rem;color:#888;line-height:1.8;margin-bottom:1.6rem}
+.paywall-box .pw-feature{display:flex;align-items:center;gap:.5rem;padding:.35rem 0;font-size:.82rem;color:#555;text-align:left}
+.paywall-box .pw-feature::before{content:'◇';color:#6B9080;font-size:.8rem}
+.pw-price-btn{width:100%;padding:14px;background:#1A1A1A;color:#FAFAF7;border:none;border-radius:30px;font-size:.95rem;cursor:pointer;font-family:'Noto Serif JP',serif;letter-spacing:.1em;margin-top:1.6rem}
+.pw-price-btn:active{opacity:.7}
+.pw-annual{font-size:.7rem;color:#B0B0A8;margin-top:.6rem;letter-spacing:.05em}
+@media(max-height:640px){.title{font-size:1.1rem;margin-bottom:1.5rem}.score-num{font-size:2.2rem}.breath-circle{width:110px;height:110px}.screen{padding:2rem 1.2rem 1.5rem}}
+
+/* ── Share card (hidden, rendered to image) ── */
+#share-card{
+  position:fixed;top:-9999px;left:-9999px;
+  width:1080px;height:1080px;
+  background:#FAFAF7;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:120px 100px;
+  font-family:'Noto Serif JP',Georgia,serif;
+  box-sizing:border-box;
+  z-index:-1;
+}
+#share-card .sc-label{
+  font-size:22px;letter-spacing:.22em;color:#B0B0A8;
+  margin-bottom:48px;font-family:-apple-system,sans-serif;
+  font-weight:300;
+}
+#share-card .sc-headline{
+  font-size:72px;font-weight:700;color:#1A1A1A;
+  margin-bottom:56px;letter-spacing:.02em;
+}
+#share-card .sc-topic{
+  font-size:28px;color:#B0B0A8;letter-spacing:.14em;
+  margin-bottom:64px;font-weight:300;
+}
+#share-card .sc-row{
+  display:flex;align-items:center;
+  gap:20px;margin-bottom:44px;width:100%;
+  justify-content:center;
+  overflow:visible;
+}
+#share-card .sc-row-label{
+  font-size:38px;color:#8F8F89;font-weight:400;
+  min-width:110px;text-align:right;
+}
+#share-card .sc-before{
+  font-size:48px;color:#B3B3AD;font-weight:300;
+}
+#share-card .sc-arrow{
+  font-size:32px;color:#CCC;font-weight:300;
+  margin:0 4px;
+}
+#share-card .sc-after{
+  font-size:72px;font-weight:700;color:#1A1A1A;line-height:1;
+}
+#share-card .sc-up-arrow{display:inline-flex;align-items:center;margin-left:14px}
+#share-card .sc-up-arrow svg{display:block;overflow:visible}
+#share-card .sc-tagline{
+  font-size:26px;color:#B8B8B0;letter-spacing:.08em;
+  margin-top:60px;font-weight:300;font-family:-apple-system,sans-serif;
+}
+#share-card .sc-footer{
+  font-size:22px;color:#C8C8C0;letter-spacing:.1em;
+  margin-top:16px;font-weight:300;font-family:-apple-system,sans-serif;
+}
+#share-card .sc-inf svg{
+  width:80px;height:40px;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+<button class="btn-back" id="btn-back" onclick="goBack()">
+  <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+<div class="progress-bar" id="progress"></div>
+
+
+<!-- ====== INTRO ====== -->
+<div class="screen active" id="s-intro">
+  <div class="intro-title">Noetune</div>
+  <div style="height:16px"></div>
+  <div class="intro-sub">— Self-Healing Flow —</div>
+  <div style="height:28px"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:300;color:#444;letter-spacing:.12em">Shift your state — and see it change in numbers</div>
+  <div style="height:36px"></div>
+  <!-- Theme selector -->
+  <div style="width:100%;max-width:280px;margin-bottom:1.2rem">
+    <div style="font-size:.66rem;letter-spacing:.16em;color:#B0B0A8;margin-bottom:.7rem;text-align:center;font-family:'Noto Serif JP',serif">CHOOSE THEME</div>
+    <div id="theme-list" style="display:flex;flex-direction:column;gap:8px">
+      <button class="theme-btn selected" onclick="startFree()" style="line-height:1.5">
+        Overthinking<br><span style="font-size:.6rem;color:#6B9080;letter-spacing:.1em;font-weight:400">Free preview</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Worry')">
+        Worry <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Avoidance')">
+        Avoidance <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Self-doubt')">
+        Self-doubt <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Trigger')">
+        Trigger <span class="lock-icon">🔒</span>
+      </button>
+      <button class="theme-btn locked" onclick="showThemeLock('Pressure')">
+        Pressure <span class="lock-icon">🔒</span>
+      </button>
+    </div>
+  </div>
+  <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.14em;font-family:'Noto Serif JP',serif;margin-bottom:1.1rem">Measure · Breathe · See the shift</div>
+  <button class="btn-start" onclick="startFree()">Start Free Session</button>
+  <div style="height:8px"></div>
+  <div style="font-size:.68rem;color:#C0C0B8;letter-spacing:.08em">No account needed</div>
+  <div style="height:18px"></div>
+  <button class="btn-ghost" onclick="goToPaidDirect()">Continue Full Session →</button>
+  <div style="height:6px"></div>
+  <div style="font-size:.64rem;color:#C8C8C0;letter-spacing:.06em;font-family:'Noto Serif JP',serif" style="font-style:italic">(Member only)</div>
+</div>
+
+<!-- ====== FREE: Before — Future ====== -->
+<div class="screen" id="s-f-bf">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">How much of your future feels occupied by <em id="topic-display-1">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-fbf" style="color:#C47A5A;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-fbf" oninput="revealNum('num-fbf',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeBF()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeBFSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== FREE: Before — Past ====== -->
+<div class="screen" id="s-f-bp">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BEFORE</div>
+  <div class="title">How much of your past feels occupied by <em id="topic-display-2">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-fbp" style="color:#C47A5A;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-fbp" oninput="revealNum('num-fbp',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeBP()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeBPSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== FREE: Breath 1 — Focus ====== -->
+<div class="screen" id="s-f-b1">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
+  <div class="breath-focus">Feel the feeling of overthinking —<br>while feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-fb1" onclick="startBreath('fb1')"></div>
+    <div id="hint-fb1" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== FREE: Breath 2 — Contrast ====== -->
+<div class="screen" id="s-f-b2">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
+  <div class="breath-focus">Feel everything —<br>except the feeling of overthinking.<br>While feeling it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-fb2" onclick="startBreath('fb2')"></div>
+    <div id="hint-fb2" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== FREE: Breath 3 — Whole ====== -->
+<div class="screen" id="s-f-b3">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> BREATHE</div>
+  <div class="breath-focus">Feel everything, as it is —<br>while feeling all of it,<br>take one deep breath.</div>
+  <div style="position:relative;display:inline-block">
+    <div class="breath-circle pulse" id="circle-fb3" onclick="startBreath('fb3')"></div>
+    <div id="hint-fb3" style="position:absolute;bottom:-1.6rem;left:0;right:0;text-align:center;font-size:.7rem;color:#C0C0B8;letter-spacing:.1em;font-family:'Noto Serif JP',serif;pointer-events:none">Tap to start breathing</div>
+  </div>
+</div>
+
+<!-- ====== FREE: After — Future ====== -->
+<div class="screen" id="s-f-af">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — how much of your future feels occupied by <em id="topic-display-3">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-faf" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-faf" oninput="revealNum('num-faf',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeAF()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeAFSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== FREE: After — Past ====== -->
+<div class="screen" id="s-f-ap">
+  <div class="label">FREE SESSION <span style="color:#6B9080">•</span> AFTER</div>
+  <div class="title">Now — how much of your past feels occupied by <em id="topic-display-4">"Overthinking"</em>?</div>
+  <div class="score-num" id="num-fap" style="color:#6B9080;visibility:hidden">—</div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-fap" oninput="revealNum('num-fap',this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" onclick="onFreeAP()">Confirm</button>
+  <button class="btn-skip" onclick="onFreeAPSkip()">Beyond measure</button>
+</div>
+
+<!-- ====== FREE: Result ====== -->
+<div class="screen" id="s-f-result">
+  <div class="label">FREE PREVIEW</div>
+  <div id="free-result-headline" style="font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;color:#1A1A1A;margin-bottom:.4rem;letter-spacing:.04em"></div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;color:#999;margin-bottom:1rem;letter-spacing:.06em;text-align:center">What you feel now is just the surface layer.</div>
+  <div style="font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:300;color:#BBB;margin-bottom:1.4rem;letter-spacing:.08em">Your shift</div>
+  <div id="free-result-rows"></div>
+  <div style="height:1.5rem"></div>
+  <button class="btn" onclick="showPaywall()" style="background:#1A1A1A">Go one layer deeper →</button>
+  <button class="btn-ghost" onclick="shareImage('free')" style="margin-top:.8rem">Share as Image</button>
+  <div id="email-capture" style="display:none;margin-top:1.6rem;width:100%;max-width:280px;flex-direction:column;align-items:center;gap:.4rem">
+    <div style="font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;color:#C0C0B8;letter-spacing:.1em;text-align:center;margin-bottom:.3rem">Get notified when new themes are added</div>
+    <div style="display:flex;width:100%;gap:.5rem;align-items:flex-end">
+      <input id="email-input" type="email" placeholder="your@email.com" autocomplete="email" onkeydown="if(event.key==='Enter'){event.preventDefault();submitEmail();}" style="flex:1;background:transparent;border:none;border-bottom:1.5px solid #D4DDD8;padding:.5rem .2rem;font-size:.82rem;font-family:'Noto Serif JP',serif;color:#1A1A1A;outline:none;-webkit-appearance:none;transition:border-color .3s" onfocus="this.style.borderBottomColor='#6B9080'" onblur="this.style.borderBottomColor='#D4DDD8'">
+      <button onclick="submitEmail()" style="background:none;border:none;font-size:1rem;color:#8A8A82;cursor:pointer;padding:.3rem .4rem;line-height:1">→</button>
+    </div>
+    <button onclick="dismissEmail()" style="background:none;border:none;font-family:'Noto Serif JP',serif;font-size:.68rem;color:#CACAC2;cursor:pointer;letter-spacing:.08em;margin-top:.2rem;padding:.2rem .6rem">skip</button>
+  </div>
+  <div id="email-thanks" style="display:none;margin-top:1.6rem;font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:#B8B8B0;letter-spacing:.1em;text-align:center">Noted.</div>
+</div>
+
+<!-- ====== PAYWALL ====== -->
+<div class="screen" id="s-paywall">
+  <div class="paywall-box">
+    <div class="pw-title">You touched the surface.</div>
+    <div class="pw-desc">The surface moved.<br>The root is still active.</div>
+    <button class="pw-price-btn" onclick="unlockPaid()">Unlock Full Session →</button>
+    <div class="pw-annual">$9.99/month · Cancel anytime</div>
+  </div>
+  <button class="btn-skip" onclick="goBack()" style="margin-top:1.2rem">← Back</button>
+</div>
+
+
+
+
+
+<!-- ── Share image preview overlay (mobile fallback) ── -->
+<div id="share-preview-overlay" onclick="closeSharePreview()" style="display:none;position:fixed;inset:0;background:rgba(20,20,20,.88);z-index:9001;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;-webkit-tap-highlight-color:transparent">
+  <div style="font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;color:rgba(255,255,255,.5);letter-spacing:.12em;margin-bottom:1.2rem;text-align:center;line-height:1.8" onclick="event.stopPropagation()">Long press the image to save<br>then share from Photos</div>
+  <img id="share-preview-img" src="" style="width:100%;max-width:300px;border-radius:10px;display:block;box-shadow:0 8px 40px rgba(0,0,0,.5)" onclick="event.stopPropagation()">
+  <button onclick="closeSharePreview()" style="margin-top:1.8rem;background:none;border:1.5px solid rgba(255,255,255,.22);color:rgba(255,255,255,.5);border-radius:30px;padding:10px 40px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.12em;cursor:pointer;-webkit-tap-highlight-color:transparent">Close</button>
+</div>
+
+<!-- ── Hidden share card ── -->
+<div id="share-card">
+  <div class="sc-label" id="sc-label">FULL SESSION COMPLETE</div>
+  <div class="sc-headline" id="sc-headline">Something shifted.</div>
+  <div class="sc-topic" id="sc-topic"></div>
+  <div id="sc-rows"></div>
+  <div class="sc-tagline" id="sc-tagline">No thinking. Just feel.</div>
+  <div class="sc-footer">noetune.com</div>
+</div>
+
+<script>
+function track(event,params){try{if(typeof gtag==='function')gtag('event',event,params||{});}catch(e){}}
+
+let TOPIC = 'Overthinking';
+let cur = 's-intro', hist = [];
+
+const PAID_KEY = 'noetune_paid';
+const STRIPE_URL = ''; // TODO: set to your Stripe payment link
+function hasPaidAccess(){try{return localStorage.getItem(PAID_KEY)==='1';}catch(e){return false;}}
+let breathing = false, bc = 0;
+
+const D = {
+  freeBF: null, freeBP: null, freeAF: null, freeAP: null
+};
+
+function go(id) {
+  const c = document.getElementById(cur), n = document.getElementById(id);
+  if (!c || !n) return;
+  c.classList.remove('active'); c.classList.add('exit');
+  setTimeout(() => c.classList.remove('exit'), 500);
+  setTimeout(() => { n.classList.add('active'); cur = id; updateBack(); updateProgress(); }, 120);
+}
+function fwd(id) { hist.push(cur); go(id); }
+function goBack() {
+  const p = hist.pop();
+  if (!p || p === 's-intro') { go('s-intro'); hist = []; return; }
+  breathing = false; bc = 0;
+  go(p);
+}
+
+function updateBack() {
+  document.getElementById('btn-back').classList.toggle('visible',
+    cur !== 's-intro' && !cur.includes('result') && cur !== 's-paywall');
+}
+
+const SCREEN_ORDER = [
+  's-intro',
+  's-f-bf','s-f-bp','s-f-b1','s-f-b2','s-f-b3','s-f-af','s-f-ap','s-f-result',
+  's-paywall'
+];
+function updateProgress() {
+  const i = SCREEN_ORDER.indexOf(cur);
+  const pct = i < 0 ? 0 : (i / (SCREEN_ORDER.length - 1)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+}
+
+// ── Theme selector ──
+function showThemeLock() {
+  fwd('s-paywall');
+}
+
+
+
+// ── Slider reveal ──
+function revealNum(id, val) {
+  const el = document.getElementById(id);
+  el.style.visibility = 'visible';
+  el.textContent = val;
+}
+
+function hideNums(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) { el.style.visibility = 'hidden'; el.textContent = '—'; }
+  });
+}
+
+function resetSliders(...ids) {
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = 50;
+  });
+}
+
+function startFree() {
+  track('session_start_free',{topic:TOPIC});
+  D.freeBF = null; D.freeBP = null; D.freeAF = null; D.freeAP = null;
+  hist = []; breathing = false; bc = 0;
+  resetSliders('sl-fbf','sl-fbp','sl-faf','sl-fap');
+  hideNums('num-fbf','num-fbp','num-faf','num-fap');
+  fwd('s-f-bf');
+}
+
+// ── FREE FLOW ──
+function onFreeBF() { D.freeBF = +document.getElementById('sl-fbf').value; fwd('s-f-bp'); }
+function onFreeBFSkip() { D.freeBF = 'N/A'; fwd('s-f-bp'); }
+function onFreeBP() { D.freeBP = +document.getElementById('sl-fbp').value; fwd('s-f-b1'); }
+function onFreeBPSkip() { D.freeBP = 'N/A'; fwd('s-f-b1'); }
+function onFreeAF() { D.freeAF = +document.getElementById('sl-faf').value; fwd('s-f-ap'); }
+function onFreeAFSkip() { D.freeAF = 'N/A'; fwd('s-f-ap'); }
+function onFreeAP() { D.freeAP = +document.getElementById('sl-fap').value; showFreeResult(); }
+function onFreeAPSkip() { D.freeAP = 'N/A'; showFreeResult(); }
+
+function showFreeResult() {
+  track('session_complete_free',{topic:TOPIC});
+  const rows = document.getElementById('free-result-rows');
+  rows.innerHTML = '';
+  rows.innerHTML += '<div style="font-size:.66rem;color:#CCC;letter-spacing:.18em;margin-bottom:.6rem;text-align:center">' + TOPIC.toUpperCase() + ' RATE</div>';
+  rows.innerHTML += makeResultRow('Future', D.freeBF, D.freeAF, 'topic');
+  rows.innerHTML += makeResultRow('Past', D.freeBP, D.freeAP, 'topic');
+  var hl = document.getElementById('free-result-headline');
+  if (hl) {
+    var beyondA = (D.freeAF === 'N/A' || D.freeAF === null);
+    var dropped = !beyondA && typeof D.freeBF === 'number' && typeof D.freeAF === 'number' && D.freeBF > D.freeAF;
+    hl.textContent = beyondA ? "It's gone." : dropped ? (TOPIC + " dropped.") : "Surface shifted.";
+  }
+  var ec=document.getElementById('email-capture'),et=document.getElementById('email-thanks');
+  var hadEmail=false;try{hadEmail=!!localStorage.getItem('noetune_email');}catch(e){}
+  if(ec)ec.style.display=hadEmail?'none':'flex';
+  if(et)et.style.display='none';
+  if(!hadEmail){var ei=document.getElementById('email-input');if(ei)ei.value='';}
+  fwd('s-f-result');
+}
+
+function submitEmail(){
+  var val=document.getElementById('email-input').value.trim();
+  if(!val||!val.includes('@'))return;
+  try{localStorage.setItem('noetune_email',val);}catch(e){}
+  track('email_capture',{topic:TOPIC,email:val});
+  var ec=document.getElementById('email-capture'),et=document.getElementById('email-thanks');
+  if(ec)ec.style.display='none';
+  if(et)et.style.display='block';
+}
+function dismissEmail(){
+  var ec=document.getElementById('email-capture');
+  if(ec)ec.style.display='none';
+}
+
+function makeResultRow(label, before, after, rowType) {
+  const isBeyondB = (before === 'N/A' || before === null);
+  const isBeyondA = (after  === 'N/A' || after  === null);
+
+  // SVG infinity
+  const INF = '<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="5" fill="none" stroke-linecap="round"/></svg></span>';
+
+  // Arrow SVG (unified grey)
+  const ARROW_COLOR = '#A8A8A2';
+  let dirArrow = '';
+  if (!isBeyondA && !isBeyondB && typeof before === 'number' && typeof after === 'number') {
+    const d = before - after;
+    // For topic: decrease=up(good), For q1: increase=up(good)
+    // Direction only — no color meaning, all grey
+    const isUp = (rowType === 'topic') ? d > 0 : d < 0;
+    const isDown = (rowType === 'topic') ? d < 0 : d > 0;
+    if (isUp || isDown) {
+      dirArrow = arrowSVG(isUp ? 'up' : 'down', ARROW_COLOR);
+    }
+  }
+
+  // Beyond row: "10 → ∞"
+  if (isBeyondA) {
+    const bPart = isBeyondB
+      ? INF
+      : '<span class="r-before">' + before + '</span>';
+    return '<div class="r-row">' +
+      '<span class="r-label" style="color:#8F8F89">' + label + '</span>' +
+      '<span class="r-arrow"></span>' +
+      '<span class="r-nums">' + bPart +
+      '<span class="r-sep">→</span>' +
+      INF +
+      '</span></div>';
+  }
+
+  // Normal row: "26 → 90 ↑"
+  const afterStr = isBeyondB ? '' : String(after);
+  return '<div class="r-row">' +
+    '<span class="r-label" style="color:#8F8F89">' + label + '</span>' +
+    '<span class="r-arrow"></span>' +
+    '<span class="r-nums">' +
+    '<span class="r-before">' + (isBeyondB ? '<span class="infinity"><svg width="52" height="26" viewBox="0 0 100 50"><path d=\"M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25\" stroke=\"#1A1A1A\" stroke-width=\"5\" fill=\"none\" stroke-linecap=\"round\"/></svg></span>' : before) + '</span>' +
+    '<span class="r-sep">→</span>' +
+    '<span class="r-after" style="color:#1A1A1A">' + afterStr + '</span>' +
+    (dirArrow ? '<span style="display:inline-flex;align-items:center;flex-shrink:0">' + dirArrow + '</span>' : '') +
+    '</span></div>';
+}
+
+function arrowSVG(dir, color) {
+  const p = dir === 'up'
+    ? 'M16 3L31 20H22V39H10V20H1Z'
+    : 'M16 39L31 22H22V3H10V22H1Z';
+  return '<svg width="20" height="26" viewBox="0 0 32 42" style="display:block;flex-shrink:0"><path d="'+p+'" fill="'+color+'"/></svg>';
+}
+
+// ── PAYWALL ──
+function showPaywall() { track('paywall_view',{topic:TOPIC});fwd('s-paywall'); }
+
+
+
+
+// ── BREATHING ──
+
+function startBreath(t) {
+  if (breathing) return;
+  breathing = true;
+  const h = document.getElementById('hint-' + t);
+  if (h) h.style.display = 'none';
+  const c = document.getElementById('circle-' + t);
+  c.classList.remove('pulse');
+  bc = 0;
+  setTimeout(() => bCycle(t, c), 600);
+}
+
+function bCycle(t, c) {
+  if (bc >= 1) {
+    c.textContent = '✓'; c.className = 'breath-circle';
+    setTimeout(() => afterBreath(t), 800);
+    return;
+  }
+  c.textContent = 'In'; c.className = 'breath-circle inhale';
+  setTimeout(() => {
+    c.textContent = 'Out'; c.className = 'breath-circle exhale';
+    setTimeout(() => { bc++; bCycle(t, c); }, 1500);
+  }, 1500);
+}
+
+const BREATH_NEXT = {
+  'fb1': 's-f-b2', 'fb2': 's-f-b3', 'fb3': 's-f-af',
+};
+
+function afterBreath(t) {
+  breathing = false; bc = 0;
+  const next = BREATH_NEXT[t];
+  if (next) {
+    fwd(next);
+    // Reset ALL breath circles on the next screen after transition
+    setTimeout(function() {
+      document.querySelectorAll('.breath-circle').forEach(function(c) {
+        if (c.textContent === '✓' || c.textContent === 'In' || c.textContent === 'Out') {
+          c.textContent = '';
+          c.className = 'breath-circle pulse';
+        }
+      });
+      document.querySelectorAll('[id^="hint-"]').forEach(function(h) {
+        h.style.display = 'block';
+      });
+    }, 150);
+  }
+}
+
+
+// Global Enter prevention
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') e.preventDefault();
+});
+
+
+// ── PAID DIRECT ──
+function goToPaidDirect() {
+  if (hasPaidAccess()) {
+    window.location.href = 'pro.html';
+  } else {
+    fwd('s-paywall');
+  }
+}
+
+// ── SHARE CARD BUILDER ──
+function buildShareCard() {
+  document.getElementById('sc-topic').textContent = TOPIC.toUpperCase() + ' RATE';
+
+  var allBeyond = (D.freeAF === null || D.freeAF === 'N/A') && (D.freeAP === null || D.freeAP === 'N/A');
+  var scHeadline;
+  if (allBeyond) {
+    scHeadline = "It's gone.";
+  } else {
+    var fd = (typeof D.freeBF === 'number' && typeof D.freeAF === 'number') ? (D.freeBF - D.freeAF) : 0;
+    scHeadline = fd > 0 ? (TOPIC + " dropped.") : "Your state shifted.";
+  }
+  document.getElementById('sc-headline').textContent = scHeadline;
+
+  var rows = [
+    { label: 'Future', before: D.freeBF, after: D.freeAF, rtype: 'topic' },
+    { label: 'Past',   before: D.freeBP, after: D.freeAP, rtype: 'topic' },
+  ];
+
+  var INF_SVG = '<span class="sc-inf"><svg viewBox="0 0 100 50"><path d="M15,25 C22,8 40,8 50,25 C60,42 78,42 85,25 C78,8 60,8 50,25 C40,42 22,42 15,25" stroke="#1A1A1A" stroke-width="4.5" fill="none" stroke-linecap="round"/></svg></span>';
+
+  var html = '';
+  rows.forEach(function(row) {
+    var isBeyondA = (row.after === null || row.after === 'N/A');
+    var isBeyondB = (row.before === null || row.before === 'N/A');
+    var bStr = isBeyondB ? '' : String(row.before);
+    var aStr = isBeyondA ? '' : String(row.after);
+    var dirArrow = '';
+    if (!isBeyondA && !isBeyondB) {
+      var d = Number(row.before) - Number(row.after);
+      var UP_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 3L31 20H22V39H10V20H1Z" fill="#A8A8A2"/></svg>';
+      var DN_G = '<svg width="30" height="40" viewBox="0 0 32 42" style="display:block;overflow:visible"><path d="M16 39L31 22H22V3H10V22H1Z" fill="#A8A8A2"/></svg>';
+      if (d > 0) dirArrow = DN_G;
+      else if (d < 0) dirArrow = UP_G;
+    }
+    var afterHtml = isBeyondA
+      ? INF_SVG
+      : '<span class="sc-after" style="color:#1A1A1A">' + aStr + '</span>';
+    var beforeHtml = isBeyondB ? INF_SVG : '<span class="sc-before">' + bStr + '</span>';
+    html += '<div class="sc-row">' +
+      '<span class="sc-row-label">' + row.label + '</span>' +
+      beforeHtml +
+      '<span class="sc-arrow">\u2192</span>' +
+      afterHtml +
+      (dirArrow ? '<span class="sc-up-arrow">' + dirArrow + '</span>' : '') +
+      '</div>';
+  });
+  document.getElementById('sc-rows').innerHTML = html;
+}
+
+async function renderShareCard(type) {
+  buildShareCard();
+  var card = document.getElementById('share-card');
+  // Temporarily make visible for rendering
+  card.style.top = '-9999px';
+  card.style.left = '-9999px';
+  card.style.zIndex = '9999';
+  await new Promise(function(r){ setTimeout(r, 80); }); // let fonts load
+  try {
+    var canvas = await html2canvas(card, {
+      scale: 1,
+      useCORS: true,
+      backgroundColor: '#FAFAF7',
+      width: 1080,
+      height: 1080,
+      logging: false,
+    });
+    card.style.zIndex = '-1';
+    return canvas.toDataURL('image/png');
+  } catch(e) {
+    card.style.zIndex = '-1';
+    console.error('html2canvas error:', e);
+    return null;
+  }
+}
+
+async function shareImage(type) {
+  var dataURL = await renderShareCard(type);
+  if (!dataURL) { alert('Could not generate image.'); return; }
+  if (navigator.share) {
+    try {
+      var res = await fetch(dataURL);
+      var blob = await res.blob();
+      var file = new File([blob], 'noetune-result.png', { type: 'image/png' });
+      var canFile = navigator.canShare && navigator.canShare({ files: [file] });
+      if (canFile) {
+        await navigator.share({ files: [file], title: 'Noetune' });
+        return;
+      }
+    } catch(e) {
+      if (e && e.name === 'AbortError') return; // user cancelled — do nothing
+    }
+  }
+  // File sharing not supported
+  if (isMobile()) {
+    showSharePreview(dataURL); // overlay: long-press to save, avoids download dialog
+  } else {
+    triggerDownload(dataURL, 'noetune-result.png');
+  }
+}
+
+
+function triggerDownload(dataURL, filename) {
+  var a = document.createElement('a');
+  a.href = dataURL;
+  a.download = filename;
+  a.style.display = 'none';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function(){ document.body.removeChild(a); }, 200);
+}
+
+
+
+function isMobile() {
+  return /iphone|ipad|ipod|android/i.test(navigator.userAgent);
+}
+
+function showSharePreview(dataURL) {
+  var img     = document.getElementById('share-preview-img');
+  var overlay = document.getElementById('share-preview-overlay');
+  if (!img || !overlay) { triggerDownload(dataURL, 'noetune-result.png'); return; }
+  img.src = dataURL;
+  overlay.style.display = 'flex';
+}
+
+function closeSharePreview() {
+  var overlay = document.getElementById('share-preview-overlay');
+  if (overlay) overlay.style.display = 'none';
+  var img = document.getElementById('share-preview-img');
+  if (img) img.src = '';
+}
+
+
+
+// ── UNLOCK PAID ──
+function unlockPaid() {
+  track('checkout_start',{topic:TOPIC});
+  if (STRIPE_URL) {
+    window.location.href = STRIPE_URL;
+  }
+}
+
+
+// ── Visit tracking ──
+(function(){
+  var today=new Date().toISOString().slice(0,10);
+  try{
+    var n=parseInt(localStorage.getItem('noetune_visit_count')||'0',10);
+    localStorage.setItem('noetune_visit_count',String(n+1));
+    localStorage.setItem('noetune_last_visit',today);
+  }catch(e){}
+})();
+
+updateProgress();
+</script>
+
+</body>
+</html>
