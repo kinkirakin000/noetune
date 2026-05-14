@@ -7,6 +7,15 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FAFAF7">
 <title>Noetune</title>
+<meta name="description" content="Tune your next moment through short questions and breathing.">
+<meta property="og:title" content="Noetune">
+<meta property="og:description" content="Tune your next moment through short questions and breathing.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://noetune.com">
+<meta property="og:site_name" content="Noetune">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Noetune">
+<meta name="twitter:description" content="Tune your next moment through short questions and breathing.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -47,7 +56,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .breath-sub{font-family:'Noto Serif JP',serif;font-size:.86rem;font-weight:400;color:#8F8F88;text-align:center;letter-spacing:.08em;margin-bottom:.35rem}
 .breath-main{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;line-height:1.85;max-width:300px;margin-bottom:1.8rem;white-space:pre-line}
 .breath-hint{position:absolute;bottom:-1.8rem;left:0;right:0;text-align:center;font-size:.82rem;color:#8F8F88;letter-spacing:.08em;font-family:'Noto Serif JP',serif;pointer-events:none}
-.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92);font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:300;letter-spacing:.05em;transition:transform 1.5s cubic-bezier(.4,0,.2,1),box-shadow 1.5s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);user-select:none;-webkit-user-select:none;margin-bottom:1.6rem;cursor:pointer}
+.breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92);font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:300;letter-spacing:.05em;transition:transform 2.1s cubic-bezier(.4,0,.2,1),box-shadow 2.1s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);user-select:none;-webkit-user-select:none;margin-bottom:1.6rem;cursor:pointer}
 .breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
 .breath-circle.exhale{transform:scale(1)}
 @keyframes ntn-pulse{0%,100%{opacity:.55}50%{opacity:1}}
@@ -136,7 +145,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 </head>
 <body>
 
-<div id="admin-badge">Admin mode</div>
+<div id="admin-badge" aria-hidden="true"></div>
 <button class="btn-back" id="btn-back" onclick="goBack()" aria-label="戻る">
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
     <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -381,7 +390,7 @@ function isAdminMode() {
 
 if (isAdminMode()) {
   var _ab = document.getElementById('admin-badge');
-  if (_ab) _ab.style.display = 'block';
+  if (_ab) { _ab.textContent = 'Admin mode'; _ab.style.display = 'block'; }
 }
 
 function trackEvent(name){if(isAdminMode())return;try{if(typeof gtag==='function')gtag('event',name);}catch(e){}}
@@ -474,7 +483,7 @@ var copy = {
     theme_dp_danger:'安全でない感じ',
     /* rest of UI */
     next_button:'次へ', not_measurable_button:'数値化不可',
-    feel_prompt:'感じてください。', breathe_start_hint:'呼吸を始める',
+    feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'— セッションの変化 —',
     result_label_next_moment:'次の瞬間',
     result_label_breath_ease:'呼吸の余裕度',
@@ -593,7 +602,7 @@ var copy = {
     theme_dp_danger:'Feeling unsafe',
     /* rest of UI */
     next_button:'Next', not_measurable_button:'Not measurable',
-    feel_prompt:'Feel it.', breathe_start_hint:'Tap to start breathing',
+    feel_prompt:'Feel it.', breathe_start_hint:'Exhale gently, then tap',
     session_result_header:'— Shift in this session —',
     result_label_next_moment:'Next moment',
     result_label_breath_ease:'Breathing Ease Rate',
@@ -712,7 +721,7 @@ var copy = {
     theme_dp_danger:'感到不安全',
     /* rest of UI */
     next_button:'下一步', not_measurable_button:'無法量化',
-    feel_prompt:'請感受它。', breathe_start_hint:'點一下開始呼吸',
+    feel_prompt:'請感受它。', breathe_start_hint:'先輕輕吐氣，再點一下',
     session_result_header:'— 本次流程的變化 —',
     result_label_next_moment:'下一個瞬間',
     result_label_breath_ease:'呼吸餘裕度',
@@ -1683,8 +1692,8 @@ function breathCycle(t, c) {
   c.textContent = T('breath_in'); c.className = 'breath-circle inhale';
   setTimeout(function(){
     c.textContent = T('breath_out'); c.className = 'breath-circle exhale';
-    setTimeout(function(){ breathCount++; breathCycle(t, c); }, 1500);
-  }, 1500);
+    setTimeout(function(){ breathCount++; breathCycle(t, c); }, 2100);
+  }, 2100);
 }
 
 function afterBreath(t) {
