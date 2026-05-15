@@ -136,8 +136,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .ideal-btn:active{transform:scale(.97)}
 .ideal-btn-sm{min-height:40px;padding:8px 8px;font-size:13px}
 #s-theme{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
-#s-theme-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
+#s-theme-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
 #s-theme-inner>*{flex-shrink:0}
+#theme-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:none}
 </style>
 <script>if(new URLSearchParams(window.location.search).get('admin')==='1'){window['ga-disable-G-TH1504X2CK']=true;}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
@@ -220,9 +221,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <div class="theme-grid" id="fixed-theme-grid"></div>
     <button class="btn-see-more" id="btn-see-more" onclick="seeMoreThemes()">さらに見る</button>
     <div id="theme-groups-wrap"></div>
-    <div id="theme-cta-wrap" style="opacity:0;transition:opacity .4s;pointer-events:none;margin-top:1.8rem;text-align:center">
-      <button class="btn" id="btn-theme-cta" onclick="startSession()">始める</button>
-    </div>
   </div>
 </div>
 
@@ -383,6 +381,11 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   </div>
 </div>
 
+<!-- ── THEME FIXED CTA ── -->
+<div id="theme-cta-wrap">
+  <button class="btn" id="btn-theme-cta" onclick="startSession()">このテーマで始める</button>
+</div>
+
 <script>
 function isAdminMode() {
   try { return new URLSearchParams(window.location.search).get('admin') === '1'; } catch(e) { return false; }
@@ -403,7 +406,7 @@ var copy = {
     btn_expand_everyday:'すべてのテーマを見る',
     btn_expand_deeper:'もっと深いテーマを見る',
     custom_input_placeholder:'自由に入力…',
-    theme_cta_button:'始める',
+    theme_cta_button:'このテーマで始める',
     app_sub:'— 次の瞬間を調律する —',
     see_more_themes:'さらに見る',
     about_link:'Noetuneとは',
@@ -522,7 +525,7 @@ var copy = {
     btn_expand_everyday:'See all themes',
     btn_expand_deeper:'See deeper themes',
     custom_input_placeholder:'Type freely…',
-    theme_cta_button:'Begin',
+    theme_cta_button:'Begin with this theme',
     app_sub:'— tune your next moment —',
     see_more_themes:'See more',
     about_link:'What is Noetune?',
@@ -641,7 +644,7 @@ var copy = {
     btn_expand_everyday:'展開所有主題',
     btn_expand_deeper:'更深入的主題',
     custom_input_placeholder:'自由輸入…',
-    theme_cta_button:'開始',
+    theme_cta_button:'用這個主題開始',
     app_sub:'— 調整下一個瞬間 —',
     see_more_themes:'查看更多',
     about_link:'Noetune 是什麼？',
@@ -1314,7 +1317,7 @@ function fwd(id) {
   navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); }, 130);
 }
 
 function goBack() {
@@ -1330,7 +1333,7 @@ function goBack() {
   if (!c || !n || cur === prev) { updateBackBtn(); return; }
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); }, 130);
 }
 
 function updateBackBtn() {
@@ -1517,8 +1520,8 @@ function onCustomTheme(val) {
 function updateThemeCTA() {
   var wrap = document.getElementById('theme-cta-wrap');
   if (!wrap) return;
-  if (themeChosen) { wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto'; }
-  else             { wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none'; }
+  if (themeChosen && cur === 's-theme') { wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto'; }
+  else                                  { wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none'; }
 }
 
 function startSession() {
