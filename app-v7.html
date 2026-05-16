@@ -55,7 +55,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-ghost:active{color:#6B9080}
 .breath-sub{font-family:'Noto Serif JP',serif;font-size:.86rem;font-weight:400;color:#8F8F88;text-align:center;letter-spacing:.08em;margin-bottom:.35rem}
 .breath-main{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;line-height:1.85;max-width:300px;margin-bottom:1.8rem;white-space:pre-line}
-.breath-hint{position:absolute;bottom:-1.8rem;left:0;right:0;text-align:center;font-size:.82rem;color:#8F8F88;letter-spacing:.08em;font-family:'Noto Serif JP',serif;pointer-events:none}
+.breath-hint{text-align:center;font-size:.82rem;color:#8F8F88;letter-spacing:.08em;font-family:'Noto Serif JP',serif;pointer-events:none;margin-bottom:1.2rem}
 .breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92);font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:300;letter-spacing:.05em;transition:transform 2.1s cubic-bezier(.4,0,.2,1),box-shadow 2.1s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);user-select:none;-webkit-user-select:none;margin-bottom:1.6rem;cursor:pointer}
 .breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25)}
 .breath-circle.exhale{transform:scale(1)}
@@ -276,40 +276,32 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <div class="screen" id="s-br1">
   <div class="breath-sub" id="lbl-feel-br1">感じてください。</div>
   <div class="breath-main" id="br1-main"></div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-br1" onclick="startBreath('br1')"></div>
-    <div id="hint-br1" class="breath-hint">呼吸を始める</div>
-  </div>
+  <div id="hint-br1" class="breath-hint">呼吸を始める</div>
+  <div class="breath-circle pulse" id="circle-br1" onclick="startBreath('br1')"></div>
 </div>
 
 <!-- ── BREATH 2: Spaciousness ── -->
 <div class="screen" id="s-br2">
   <div class="breath-sub" id="lbl-feel-br2">感じてください。</div>
   <div class="breath-main" id="lbl-br2-main">そのときの呼吸の余裕度</div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-br2" onclick="startBreath('br2')"></div>
-    <div id="hint-br2" class="breath-hint">呼吸を始める</div>
-  </div>
+  <div id="hint-br2" class="breath-hint">呼吸を始める</div>
+  <div class="breath-circle pulse" id="circle-br2" onclick="startBreath('br2')"></div>
 </div>
 
 <!-- ── BREATH 3: Resistance ── -->
 <div class="screen" id="s-br3">
   <div class="breath-sub" id="lbl-feel-br3">感じてください。</div>
   <div class="breath-main" id="lbl-br3-main">その感覚に対する抵抗</div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-br3" onclick="startBreath('br3')"></div>
-    <div id="hint-br3" class="breath-hint">呼吸を始める</div>
-  </div>
+  <div id="hint-br3" class="breath-hint">呼吸を始める</div>
+  <div class="breath-circle pulse" id="circle-br3" onclick="startBreath('br3')"></div>
 </div>
 
 <!-- ── BREATH 4: Everything Except Resistance ── -->
 <div class="screen" id="s-br4">
   <div class="breath-sub" id="lbl-feel-br4">感じてください。</div>
   <div class="breath-main" id="lbl-br4-main">その抵抗以外の全て</div>
-  <div style="position:relative;display:inline-block">
-    <div class="breath-circle pulse" id="circle-br4" onclick="startBreath('br4')"></div>
-    <div id="hint-br4" class="breath-hint">呼吸を始める</div>
-  </div>
+  <div id="hint-br4" class="breath-hint">呼吸を始める</div>
+  <div class="breath-circle pulse" id="circle-br4" onclick="startBreath('br4')"></div>
 </div>
 
 <!-- ── AFTER 1: Breathing Stability re-measure ── -->
