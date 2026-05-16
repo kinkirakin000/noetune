@@ -61,55 +61,23 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .breath-circle.exhale{transform:scale(1)}
 @keyframes ntn-pulse{0%,100%{opacity:.55}50%{opacity:1}}
 .breath-circle.pulse{animation:ntn-pulse 2.4s infinite}
-.sc-card{width:100%;max-width:320px;background:#FAFAF7;border:1px solid #E8E8E2;border-radius:14px;padding:1.1rem 1.2rem .9rem;box-sizing:border-box;margin-bottom:.5rem}
-.sc-card-header{text-align:center;margin-bottom:.35rem}
-.sc-card-title{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:600;color:#1A1A1A;letter-spacing:.08em}
-.sc-card-badge{font-family:'Noto Serif JP',serif;font-size:.58rem;color:#A8A8A2;letter-spacing:.22em;margin-top:.1rem}
-.sc-card-poem{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#A8A8A2;letter-spacing:.08em;text-align:center;margin-bottom:.7rem;line-height:1.5}
-.sc-section-label{font-family:'Noto Serif JP',serif;font-size:.6rem;color:#A8A8A2;letter-spacing:.18em;margin-bottom:.2rem}
-.sc-from-wrap{margin-bottom:.25rem}
-.sc-from-value{font-family:'Noto Serif JP',serif;font-size:.88rem;color:#777770;letter-spacing:.04em;line-height:1.45}
-.sc-down-arrow{color:#C8C8C2;font-size:.8rem;margin:.2rem 0}
-.sc-toward-wrap{margin-bottom:.65rem}
-.sc-toward-value{font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;color:#1A1A1A;letter-spacing:.03em;line-height:1.45}
-.sc-shift-section{border-top:1px solid #EDEDE7;padding-top:.6rem}
-.sc-shift-header{font-family:'Noto Serif JP',serif;font-size:.6rem;color:#A8A8A2;letter-spacing:.18em;margin-bottom:.35rem}
-.sc-shift-row{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0;border-bottom:1px solid #EDEDE7}
-.sc-shift-row-last{border-bottom:none}
-.sc-shift-row-left{flex:1;margin-right:.5rem}
-.sc-shift-label{font-family:'Noto Serif JP',serif;font-size:.78rem;color:#444;letter-spacing:.04em;font-weight:500}
-.sc-shift-helper{display:none}
-.sc-shift-values{display:inline-flex;align-items:center;gap:.3rem;flex-shrink:0}
-.sc-val-before{font-family:'Noto Serif JP',serif;font-size:.95rem;color:#B3B3AD;font-weight:400}
-.sc-val-arrow{color:#C8C8C2;font-size:.82rem}
-.sc-val-after{font-family:'Noto Serif JP',serif;font-size:.95rem;color:#6B9080;font-weight:600}
-.sc-meaning{font-family:'Noto Serif JP',serif;font-size:.65rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.6;margin-top:.6rem;padding-top:.6rem;border-top:1px solid #EDEDE7}
-.sc-card-footer{font-family:'Noto Serif JP',serif;font-size:.58rem;color:#C8C8C2;letter-spacing:.12em;text-align:center;margin-top:.6rem}
-.sc-note-wrap{padding-top:.6rem;margin-top:.6rem;border-top:1px solid #EDEDE7}
-.sc-note-value{font-family:'Noto Serif JP',serif;font-size:.85rem;color:#1A1A1A;font-weight:400;letter-spacing:.03em;margin-top:.15rem;line-height:1.5}
-.result-dir{display:none}
-.btn-save-image{font-family:'Noto Serif JP',serif;background:transparent;border:1px solid #B8C8C2;color:#6B9080;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:1.2rem;padding:8px 22px;border-radius:20px;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s;display:inline-block}
-.btn-save-image:active{background:#F2F7F5}
-.btn-save-image:disabled{opacity:.6;cursor:default}
-.save-fallback-note{font-family:'Noto Serif JP',serif;font-size:.65rem;color:#A8A8A2;letter-spacing:.04em;text-align:center;margin-top:.5rem;line-height:1.65;max-width:280px}
-.save-preview-wrap{margin-top:1rem;text-align:center;max-width:320px;width:100%}
-.save-preview-wrap img{max-width:100%;border-radius:10px;border:1px solid #E8E8E2}
+.result-subject{font-family:'Noto Serif JP',serif;font-size:.97rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;margin-bottom:.5rem;max-width:280px;white-space:pre-line}
+.result-header{font-family:'Noto Serif JP',serif;font-size:.62rem;letter-spacing:.22em;color:#A8A8A2;text-align:center;margin-bottom:1rem}
+.result-table{width:100%;max-width:320px;margin-bottom:1.4rem}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:.8rem 0;border-bottom:1px solid #EDEDE7}
+.result-row:last-child{border-bottom:none}
+.result-label{font-family:'Noto Serif JP',serif;font-size:.82rem;color:#666;letter-spacing:.04em;flex-shrink:0;margin-right:.6rem}
+.result-values{display:inline-flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:1.2rem;font-weight:500;letter-spacing:.02em}
+.result-before{color:#B3B3AD;font-weight:400}
+.result-arrow{color:#C8C8C2;font-weight:300;font-size:.9rem}
+.result-after{color:#1A1A1A;font-weight:600}
+.result-dir{display:inline-flex;align-items:center;margin-left:.2rem}
+.result-dir svg{display:block}
 .result-hint{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.06em;text-align:center;margin-top:.5rem;margin-bottom:.2rem}
 .btn-secondary-result{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:.5rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-secondary-result:active{color:#6B9080}
 .result-pricing-note{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#8F8F88;letter-spacing:.08em;text-align:center;margin-top:2rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s}
 .result-pricing-note:active{color:#6B9080}
-.share-card{width:100%;max-width:320px;background:#FAFAF7;border:1px solid #E8E8E2;border-radius:12px;padding:1.6rem 1.4rem 1.2rem;box-sizing:border-box}
-.share-card-title{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:600;color:#1A1A1A;letter-spacing:.06em;text-align:center;margin-bottom:.2rem}
-.share-card-subtitle{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.2em;text-align:center;margin-bottom:1.4rem}
-.share-card-ideal-label{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.1em;text-align:center;margin-bottom:.3rem}
-.share-card-ideal-value{font-family:'Noto Serif JP',serif;font-size:.95rem;color:#1A1A1A;font-weight:500;letter-spacing:.03em;text-align:center;margin-bottom:1.4rem}
-.share-card-table{width:100%;border-top:1px solid #EDEDE7}
-.share-card-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid #EDEDE7}
-.share-card-row-label{font-family:'Noto Serif JP',serif;font-size:.75rem;color:#666;letter-spacing:.04em;flex:1;margin-right:.6rem}
-.share-card-row-values{display:inline-flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;white-space:nowrap;flex-shrink:0}
-.share-card-nm-note{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.04em;margin-top:1rem;line-height:1.75}
-.share-card-footer{font-family:'Noto Serif JP',serif;font-size:.6rem;color:#C8C8C2;letter-spacing:.12em;text-align:center;margin-top:1.1rem}
 .btn-nm{font-family:'Noto Serif JP',serif;margin-top:.9rem;padding:8px 22px;background:transparent;color:#8F8F88;border:1.5px solid #E4E4DE;border-radius:30px;font-size:.8rem;letter-spacing:.08em;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .15s}
 .btn-nm:active{transform:scale(.97)}
 .btn-nm.selected{background:#F2F7F5;color:#6B9080;border-color:#6B9080}
@@ -360,70 +328,29 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="btn" id="next-a2" onclick="submitAfter2()" disabled>次へ</button>
 </div>
 
-<!-- ── SHIFT NOTE ── -->
-<div class="screen" id="s-shift-note">
-  <div class="screen-title" id="t-shift-note-title">今の感覚を、ひとことで表すなら？</div>
-  <input type="text" class="text-input" id="in-shift-note" placeholder="例：少しほどけた / 静かに戻った" autocomplete="off" maxlength="60">
-  <button class="btn" id="btn-shift-note" onclick="submitShiftNote()" style="margin-top:1.6rem">結果を見る</button>
-  <button class="btn-ghost" id="btn-skip-shift-note" onclick="skipShiftNote()">スキップ</button>
-</div>
-
 <!-- ── RESULT ── -->
 <div class="screen" id="s-result">
-  <div class="sc-card" id="result-card">
-    <div class="sc-card-header">
-      <div class="sc-card-title">Noetune</div>
-      <div class="sc-card-badge" id="lbl-session-header">Session Shift</div>
-    </div>
-    <div class="sc-card-poem" id="t-result-poem"></div>
-    <div class="sc-from-wrap" id="sc-from-wrap">
-      <div class="sc-section-label" id="lbl-result-from">From</div>
-      <div class="sc-from-value" id="t-result-from"></div>
-      <div class="sc-down-arrow">↓</div>
-    </div>
-    <div class="sc-toward-wrap">
-      <div class="sc-section-label" id="lbl-result-toward">Toward</div>
-      <div class="sc-toward-value" id="t-result-sub"></div>
-    </div>
-    <div class="sc-shift-section">
-      <div class="sc-shift-header" id="lbl-shift-section">Shift</div>
-      <div class="sc-shift-row">
-        <div class="sc-shift-row-left">
-          <div class="sc-shift-label" id="lbl-next-moment">反応に戻る感覚</div>
-          <div class="sc-shift-helper" id="lbl-nc-helper"></div>
-        </div>
-        <div class="sc-shift-values">
-          <span class="sc-val-before" id="r-nc-b"></span>
-          <span class="sc-val-arrow">→</span>
-          <span class="sc-val-after" id="r-nc-a"></span>
-          <span class="result-dir" id="r-nc-dir"></span>
-        </div>
-      </div>
-      <div class="sc-shift-row sc-shift-row-last">
-        <div class="sc-shift-row-left">
-          <div class="sc-shift-label" id="lbl-breath-ease">呼吸の余裕</div>
-          <div class="sc-shift-helper" id="lbl-be-helper"></div>
-        </div>
-        <div class="sc-shift-values">
-          <span class="sc-val-before" id="r-be-b"></span>
-          <span class="sc-val-arrow">→</span>
-          <span class="sc-val-after" id="r-be-a"></span>
-          <span class="result-dir" id="r-be-dir"></span>
-        </div>
+  <div class="result-subject" id="t-result-sub"></div>
+  <div class="result-header" id="lbl-session-header">— セッションの変化 —</div>
+  <div class="result-table">
+    <div class="result-row">
+      <div class="result-label" id="lbl-next-moment">次の瞬間</div>
+      <div class="result-values">
+        <span class="result-before" id="r-nc-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r-nc-a"></span>
+        <span class="result-dir" id="r-nc-dir"></span>
       </div>
     </div>
-    <div class="sc-note-wrap" id="sc-note-wrap" style="display:none">
-      <div class="sc-section-label" id="lbl-shift-note-label">今の感覚</div>
-      <div class="sc-note-value" id="t-shift-note-display"></div>
+    <div class="result-row">
+      <div class="result-label" id="lbl-breath-ease">呼吸の余裕度</div>
+      <div class="result-values">
+        <span class="result-before" id="r-be-b"></span>
+        <span class="result-arrow">→</span>
+        <span class="result-after" id="r-be-a"></span>
+        <span class="result-dir" id="r-be-dir"></span>
+      </div>
     </div>
-    <div class="sc-meaning" id="t-result-meaning" style="display:none"></div>
-    <div class="sc-card-footer">noetune.com</div>
-  </div>
-  <button class="btn-save-image" id="btn-save-image" onclick="saveResultCard()">画像として保存</button>
-  <div class="save-fallback-note" id="t-save-fallback-note" style="display:none"></div>
-  <div class="save-preview-wrap" id="save-preview-wrap" style="display:none">
-    <img id="save-preview-img" alt="">
-    <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマでもう一度</button>
   <div class="result-hint" id="t-repeat-hint">今日感じたことを、もう少し見てみましょう</div>
@@ -555,61 +482,36 @@ var copy = {
     /* rest of UI */
     next_button:'次へ', not_measurable_button:'数値化不可',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
-    session_result_header:'Session Shift',
-    result_label_next_moment:'反応に戻る感覚',
-    result_label_breath_ease:'呼吸の余裕',
-    result_poem:'いま、この瞬間の変化を大切に。',
-    result_label_from:'From',
-    result_label_toward:'Toward',
-    result_shift_section:'Shift',
-    result_nc_helper:'次の瞬間、その反応に戻る確率',
-    result_be_helper:'呼吸の余裕度',
-    result_nm_display:'固定されていない',
-    result_meaning:'固定されていない＝数字に閉じ込められない感覚',
+    session_result_header:'— セッションの変化 —',
+    result_label_next_moment:'次の瞬間',
+    result_label_breath_ease:'呼吸の余裕度',
     restart_button:'もう一度',
     breath_in:'吸う', breath_out:'吐く',
     issue_placeholder:'問題を入力…', issue_skip:'出てこない',
     ideal_placeholder:'今、感じてみたいことを…',
     ideal_skip:'ことばにならない',
-    ideal_top_copy:'次の瞬間、\n感じてみたい体験を書く\nまたは\n下の理想体験から始めるのがおすすめです。',
+    ideal_top_copy:'今この瞬間、\n感じてみたい体験を書く\nまたは\n下の理想体験から始めるのがおすすめです。',
     see_more_ideals:'さらに理想体験を見る',
     ideal_cta_button:'次へ',
     breath_2_text:'そのときの呼吸の余裕度',
     breath_3_text:'その感覚に対する抵抗',
     breath_4_text:'その抵抗以外の全て',
     issue_title:'「{theme}」から、\n今まさに発生している問題は何？',
-    ideal_title:'「{issue}」\nそれが存在しないとしたら、\n次の瞬間、どんな体験が理想？',
+    ideal_title:'「{issue}」\nそれが存在しないとしたら、\n今この瞬間、どんな体験が理想？',
     before1_title:'「{issue}」\n\n次の瞬間、そうである確率は？',
     before2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     after1_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     after2_title:'「{issue}」\n\n次の瞬間、そうである確率は？',
     result_subject:'「{ideal}」',
     breath_1_text:'「{ideal}」',
-    ideal_entry_title:'次の瞬間、どんな体験が理想？',
+    ideal_entry_title:'今この瞬間、どんな体験が理想？',
     ideal_blocker_title:'「{ideal}」を邪魔する状態は？',
     ideal_blocker_placeholder:'邪魔する状態を入力…',
     ideal_before1_title:'次の瞬間、\n「{issue}」に入る確率は？',
     ideal_before2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     ideal_after1_title:'次の瞬間、\n「{issue}」に入る確率は？',
     ideal_after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
-    ideal_breath_1_text:'「{issue}」',
-    save_image_button:'画像として保存',
-    save_image_creating:'画像を作成中…',
-    save_image_fallback_note:'保存できない場合は、画像を長押し、またはスクリーンショットで保存してください。',
-    save_image_error:'画像を保存できませんでした。スクリーンショットで保存してください。',
-    save_image_preview_note:'長押しで画像を保存できます。',
-    shift_note_title:'今の感覚を、ひとことで表すなら？',
-    shift_note_placeholder:'例：少しほどけた / 静かに戻った',
-    shift_note_button:'結果を見る',
-    shift_note_skip:'スキップ',
-    result_shift_note_label:'今の感覚',
-    share_card_button:'共有用カードを表示',
-    share_card_subtitle:'セッション結果',
-    share_card_ideal_label:'理想の体験',
-    share_card_nc_label:'次の瞬間、その反応に戻る確率',
-    share_card_be_label:'呼吸の余裕度',
-    share_card_nm_explain:'「数値化不可」は、0〜100の数字では表しにくいほど、状態が固定されていない感覚です。',
-    share_card_back:'結果に戻る'
+    ideal_breath_1_text:'「{issue}」'
   },
   en: {
     back_button:'Back', start_button:'Begin',
@@ -699,61 +601,36 @@ var copy = {
     /* rest of UI */
     next_button:'Next', not_measurable_button:'Not measurable',
     feel_prompt:'Feel it.', breathe_start_hint:'Exhale gently, then tap',
-    session_result_header:'Session Shift',
-    result_label_next_moment:'Returning reaction',
+    session_result_header:'— Shift in this session —',
+    result_label_next_moment:'Next moment',
     result_label_breath_ease:'Breathing Ease',
-    result_poem:'A shift in this moment.',
-    result_label_from:'From',
-    result_label_toward:'Toward',
-    result_shift_section:'Shift',
-    result_nc_helper:'Chance of returning to that reaction',
-    result_be_helper:'Ease in the breath',
-    result_nm_display:'Free to shift',
-    result_meaning:'Free to shift = no longer fixed to one number',
     restart_button:'Again',
     breath_in:'In', breath_out:'Out',
     issue_placeholder:'Type the problem…', issue_skip:'Nothing comes up',
     ideal_placeholder:'Something you\'d like to feel right now…',
     ideal_skip:'Hard to name',
-    ideal_top_copy:'Write the experience you would like to feel in the next moment\nor\nstart with one of the states below',
+    ideal_top_copy:'Write the experience you would like to feel right now\nor\nstart with one of the states below',
     see_more_ideals:'See more ideal states',
     ideal_cta_button:'Next',
     breath_2_text:'The ease in your breathing at that moment',
     breath_3_text:'Resistance to that feeling',
     breath_4_text:'Everything except that resistance',
     issue_title:'From "{theme}",\nwhat problem is arising right now?',
-    ideal_title:'If "{issue}" were not here,\nwhat experience would be ideal\nin the next moment?',
+    ideal_title:'If "{issue}" were not here,\nwhat experience would be ideal\nright now, in this moment?',
     before1_title:'"{issue}"\n\nWhat is the chance it will still be there\nin the next moment?',
     before2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
     after1_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
     after2_title:'"{issue}"\n\nWhat is the chance it will still be there\nin the next moment?',
     result_subject:'"{ideal}"',
     breath_1_text:'"{ideal}"',
-    ideal_entry_title:'What experience would be ideal in the next moment?',
+    ideal_entry_title:'What experience would be ideal right now?',
     ideal_blocker_title:'What gets in the way of "{ideal}"?',
     ideal_blocker_placeholder:'Type what gets in the way…',
     ideal_before1_title:'What is the chance you will enter "{issue}"\nin the next moment?',
     ideal_before2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
     ideal_after1_title:'What is the chance you will enter "{issue}"\nin the next moment?',
     ideal_after2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
-    ideal_breath_1_text:'"{issue}"',
-    save_image_button:'Save as image',
-    save_image_creating:'Creating image…',
-    save_image_fallback_note:'If saving does not work, long-press the image or take a screenshot.',
-    save_image_error:'Could not save the image. Please take a screenshot instead.',
-    save_image_preview_note:'Long-press the image to save it.',
-    shift_note_title:'If you could describe this feeling in one phrase?',
-    shift_note_placeholder:'Example: Something softened / I feel more space',
-    shift_note_button:'View result',
-    shift_note_skip:'Skip',
-    result_shift_note_label:'Words after the shift',
-    share_card_button:'View share card',
-    share_card_subtitle:'Session Result',
-    share_card_ideal_label:'Ideal experience',
-    share_card_nc_label:'Chance of returning to that reaction',
-    share_card_be_label:'Breathing Ease',
-    share_card_nm_explain:'"Not measurable" means the state no longer felt fixed enough to express as a number from 0 to 100.',
-    share_card_back:'Back to result'
+    ideal_breath_1_text:'"{issue}"'
   },
   'zh-TW': {
     back_button:'返回', start_button:'開始',
@@ -843,61 +720,36 @@ var copy = {
     /* rest of UI */
     next_button:'下一步', not_measurable_button:'無法量化',
     feel_prompt:'請感受它。', breathe_start_hint:'先輕輕吐氣，再點一下',
-    session_result_header:'Session Shift',
-    result_label_next_moment:'回到反應',
-    result_label_breath_ease:'呼吸餘裕',
-    result_poem:'珍惜此刻的轉變。',
-    result_label_from:'From',
-    result_label_toward:'Toward',
-    result_shift_section:'Shift',
-    result_nc_helper:'下一個瞬間回到那個反應的機率',
-    result_be_helper:'呼吸餘裕度',
-    result_nm_display:'不再被固定',
-    result_meaning:'不再被固定＝不再被某個數字限制',
+    session_result_header:'— 本次流程的變化 —',
+    result_label_next_moment:'下一個瞬間',
+    result_label_breath_ease:'呼吸餘裕度',
     restart_button:'再一次',
     breath_in:'吸氣', breath_out:'吐氣',
     issue_placeholder:'輸入問題…', issue_skip:'想不到',
     ideal_placeholder:'現在想感受的狀態…',
     ideal_skip:'說不出來',
-    ideal_top_copy:'寫下下一個瞬間想感受的體驗\n或\n從下方的狀態開始也可以',
+    ideal_top_copy:'寫下此刻想感受的體驗\n或\n從下方的狀態開始也可以',
     see_more_ideals:'查看更多理想狀態',
     ideal_cta_button:'下一步',
     breath_2_text:'那個瞬間的呼吸餘裕度',
     breath_3_text:'對那個感覺的抵抗',
     breath_4_text:'除了那個抵抗之外的一切',
     issue_title:'因為「{theme}」，\n此刻正發生的問題是什麼？',
-    ideal_title:'如果「{issue}」不存在，\n下一個瞬間，\n什麼樣的體驗會是理想的？',
+    ideal_title:'如果「{issue}」不存在，\n此時此刻，\n什麼樣的體驗會是理想的？',
     before1_title:'「{issue}」\n\n下一個瞬間，\n它仍然存在的機率是多少？',
     before2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
     after1_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
     after2_title:'「{issue}」\n\n下一個瞬間，\n它仍然存在的機率是多少？',
     result_subject:'「{ideal}」',
     breath_1_text:'「{ideal}」',
-    ideal_entry_title:'下一個瞬間，什麼樣的體驗會是理想的？',
+    ideal_entry_title:'此時此刻，什麼樣的體驗會是理想的？',
     ideal_blocker_title:'是什麼狀態在阻礙「{ideal}」？',
     ideal_blocker_placeholder:'輸入阻礙它的狀態…',
     ideal_before1_title:'下一個瞬間，\n進入「{issue}」的機率是多少？',
     ideal_before2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
     ideal_after1_title:'下一個瞬間，\n進入「{issue}」的機率是多少？',
     ideal_after2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
-    ideal_breath_1_text:'「{issue}」',
-    save_image_button:'儲存為圖片',
-    save_image_creating:'正在生成圖片…',
-    save_image_fallback_note:'如果無法直接儲存，請長按圖片或使用截圖保存。',
-    save_image_error:'無法儲存圖片。請改用截圖保存。',
-    save_image_preview_note:'長按圖片即可儲存。',
-    shift_note_title:'如果用一句話形容現在的感覺？',
-    shift_note_placeholder:'例：放鬆了一點 / 感覺有空間了',
-    shift_note_button:'查看結果',
-    shift_note_skip:'跳過',
-    result_shift_note_label:'現在的感覺',
-    share_card_button:'查看分享卡',
-    share_card_subtitle:'本次結果',
-    share_card_ideal_label:'理想體驗',
-    share_card_nc_label:'下一個瞬間回到那個反應的機率',
-    share_card_be_label:'呼吸餘裕度',
-    share_card_nm_explain:'「無法量化」表示此刻的狀態不再適合用 0–100 的固定數字來表示。',
-    share_card_back:'返回結果'
+    ideal_breath_1_text:'「{issue}」'
   }
 };
 
@@ -946,20 +798,8 @@ function applyLang() {
   setEl('btn-see-more-ideals', T('see_more_ideals'));
   setEl('btn-ideal-cta',       T('ideal_cta_button'));
   setEl('lbl-session-header',  T('session_result_header'));
-  setEl('t-result-poem',       T('result_poem'));
-  setEl('lbl-result-from',     T('result_label_from'));
-  setEl('lbl-result-toward',   T('result_label_toward'));
-  setEl('lbl-shift-section',   T('result_shift_section'));
   setEl('lbl-next-moment',     T('result_label_next_moment'));
-  setEl('lbl-nc-helper',       T('result_nc_helper'));
   setEl('lbl-breath-ease',     T('result_label_breath_ease'));
-  setEl('lbl-be-helper',       T('result_be_helper'));
-  setEl('btn-save-image',        T('save_image_button'));
-  setEl('t-save-preview-note',   T('save_image_preview_note'));
-  setEl('t-shift-note-title',    T('shift_note_title'));
-  setEl('btn-shift-note',        T('shift_note_button'));
-  setEl('btn-skip-shift-note',   T('shift_note_skip'));
-  setEl('lbl-shift-note-label',  T('result_shift_note_label'));
   setEl('btn-repeat-theme',    T('repeat_same_theme'));
   setEl('t-repeat-hint',       T('repeat_same_theme_hint'));
   setEl('btn-new-theme',       T('choose_new_theme'));
@@ -989,7 +829,7 @@ function setLang(l) { lang = l; applyLang(); fwd('s-open'); }
 
 var D = {
   theme:'', themeKey:null,
-  issue:'', ideal:'', shiftNote:'',
+  issue:'', ideal:'',
   entryMode: null,
   nextChanceBefore:null, breathEaseBefore:null,
   breathEaseAfter:null,  nextChanceAfter:null
@@ -1794,63 +1634,18 @@ function submitAfter2() {
   } else {
     D.nextChanceAfter = getSliderVal('a2');
   }
-  goToShiftNote();
-}
-
-function goToShiftNote() {
-  var inp = document.getElementById('in-shift-note');
-  if (inp) { inp.value = ''; inp.placeholder = T('shift_note_placeholder'); }
-  fwd('s-shift-note');
-}
-
-function submitShiftNote() {
-  var inp = document.getElementById('in-shift-note');
-  D.shiftNote = inp ? inp.value.trim() : '';
   showResult();
-}
-
-function skipShiftNote() {
-  D.shiftNote = '';
-  showResult();
-}
-
-function fmtResult(v) {
-  if (v === 'NM') return T('result_nm_display');
-  return v != null ? String(v) : '—';
 }
 
 function showResult() {
   trackEvent('v7_complete');
-  setEl('t-result-sub', D.ideal);
-  var fromWrap = document.getElementById('sc-from-wrap');
-  var fromVal  = document.getElementById('t-result-from');
-  if (fromWrap && fromVal) {
-    if (D.issue) { fromVal.textContent = D.issue; fromWrap.style.display = ''; }
-    else         { fromWrap.style.display = 'none'; }
-  }
-  setEl('r-nc-b', fmtResult(D.nextChanceBefore));
-  setEl('r-nc-a', fmtResult(D.nextChanceAfter));
-  setEl('r-be-b', fmtResult(D.breathEaseBefore));
-  setEl('r-be-a', fmtResult(D.breathEaseAfter));
-  var hasNM = D.nextChanceBefore === 'NM' || D.nextChanceAfter === 'NM' ||
-              D.breathEaseBefore === 'NM' || D.breathEaseAfter === 'NM';
-  var meaning = document.getElementById('t-result-meaning');
-  if (meaning) {
-    if (hasNM) { meaning.textContent = T('result_meaning'); meaning.style.display = ''; }
-    else        { meaning.style.display = 'none'; }
-  }
-  var noteWrap    = document.getElementById('sc-note-wrap');
-  var noteDisplay = document.getElementById('t-shift-note-display');
-  if (noteWrap && noteDisplay) {
-    if (D.shiftNote) {
-      var qo = lang === 'en' ? '“' : '「';
-      var qc = lang === 'en' ? '”' : '」';
-      noteDisplay.textContent = qo + D.shiftNote + qc;
-      noteWrap.style.display = '';
-    } else {
-      noteWrap.style.display = 'none';
-    }
-  }
+  setEl('t-result-sub', T('result_subject', {ideal: D.ideal}));
+  setH('r-nc-b',   fmt(D.nextChanceBefore));
+  setH('r-nc-a',   fmt(D.nextChanceAfter));
+  setH('r-nc-dir', dir(D.nextChanceBefore, D.nextChanceAfter));
+  setH('r-be-b',   fmt(D.breathEaseBefore));
+  setH('r-be-a',   fmt(D.breathEaseAfter));
+  setH('r-be-dir', dir(D.breathEaseBefore, D.breathEaseAfter));
   fwd('s-result');
 }
 
@@ -2018,7 +1813,7 @@ function enterIdealFirst() {
 function repeatSameTheme() {
   if (D.entryMode === 'ideal') {
     var savedIdeal = D.ideal;
-    D = { theme:'', themeKey:null, issue:'', ideal: savedIdeal, shiftNote:'', entryMode:'ideal',
+    D = { theme:'', themeKey:null, issue:'', ideal: savedIdeal, entryMode:'ideal',
           nextChanceBefore:null, breathEaseBefore:null,
           breathEaseAfter:null,  nextChanceAfter:null };
     navHistory = []; breathing = false; breathCount = 0;
@@ -2032,7 +1827,7 @@ function repeatSameTheme() {
     fwd('s-issue');
   } else {
     var savedKey = D.themeKey; var savedTheme = D.theme;
-    D = { theme: savedTheme, themeKey: savedKey, issue:'', ideal:'', shiftNote:'', entryMode:'reaction',
+    D = { theme: savedTheme, themeKey: savedKey, issue:'', ideal:'', entryMode:'reaction',
           nextChanceBefore:null, breathEaseBefore:null,
           breathEaseAfter:null,  nextChanceAfter:null };
     navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
@@ -2048,7 +1843,7 @@ function repeatSameTheme() {
 }
 
 function chooseNewTheme() {
-  D = { theme:'', themeKey:null, issue:'', ideal:'', shiftNote:'', entryMode:null,
+  D = { theme:'', themeKey:null, issue:'', ideal:'', entryMode:null,
         nextChanceBefore:null, breathEaseBefore:null,
         breathEaseAfter:null,  nextChanceAfter:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
@@ -2064,7 +1859,7 @@ function chooseNewTheme() {
 }
 
 function startAgain() {
-  D = { theme:'', themeKey:null, issue:'', ideal:'', shiftNote:'', entryMode:null,
+  D = { theme:'', themeKey:null, issue:'', ideal:'', entryMode:null,
         nextChanceBefore:null, breathEaseBefore:null,
         breathEaseAfter:null,  nextChanceAfter:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
@@ -2076,73 +1871,8 @@ function startAgain() {
   fwd('s-lang');
 }
 
-function saveResultCard() {
-  var btn = document.getElementById('btn-save-image');
-  var card = document.getElementById('result-card');
-  if (!card || typeof html2canvas !== 'function') { showSaveError(); return; }
-  if (btn) { btn.textContent = T('save_image_creating'); btn.disabled = true; }
-  var doCapture = function() {
-    var scale = window.devicePixelRatio || 2;
-    html2canvas(card, { scale: scale, backgroundColor: '#FAFAF7', useCORS: true, logging: false })
-      .then(function(canvas) {
-        if (btn) { btn.textContent = T('save_image_button'); btn.disabled = false; }
-        canvas.toBlob(function(blob) {
-          if (!blob) { tryNewTabFallback(canvas); return; }
-          try {
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url; a.download = 'noetune-session-shift.png';
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
-            setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
-            showSaveFallbackNote();
-          } catch(e) { tryNewTabFallback(canvas); }
-        }, 'image/png');
-      })
-      .catch(function() {
-        if (btn) { btn.textContent = T('save_image_button'); btn.disabled = false; }
-        showSaveError();
-      });
-  };
-  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(doCapture); }
-  else { doCapture(); }
-}
-
-function tryNewTabFallback(canvas) {
-  try {
-    var dataUrl = canvas.toDataURL('image/png');
-    var win = window.open('', '_blank');
-    if (win) {
-      win.document.write('<html><body style="margin:0;background:#FAFAF7;text-align:center"><img src="' + dataUrl + '" style="max-width:100%"><p style="font-family:sans-serif;font-size:12px;color:#999;padding:8px">' + T('save_image_fallback_note') + '</p></body></html>');
-      win.document.close();
-    } else { showInlinePreview(dataUrl); }
-  } catch(e) { showSaveError(); }
-}
-
-function showInlinePreview(dataUrl) {
-  var wrap = document.getElementById('save-preview-wrap');
-  var img  = document.getElementById('save-preview-img');
-  var note = document.getElementById('t-save-fallback-note');
-  if (wrap && img) {
-    img.src = dataUrl;
-    wrap.style.display = '';
-    if (note) { note.textContent = T('save_image_fallback_note'); note.style.display = ''; }
-  } else { showSaveError(); }
-}
-
-function showSaveFallbackNote() {
-  var el = document.getElementById('t-save-fallback-note');
-  if (el) { el.textContent = T('save_image_fallback_note'); el.style.display = ''; }
-}
-
-function showSaveError() {
-  var btn = document.getElementById('btn-save-image');
-  if (btn) { btn.textContent = T('save_image_button'); btn.disabled = false; }
-  alert(T('save_image_error'));
-}
-
 document.addEventListener('keydown', function(e){ if (e.key === 'Enter') e.preventDefault(); });
 updateProgress();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
 </html>
