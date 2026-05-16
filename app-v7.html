@@ -85,6 +85,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .sc-val-after{font-family:'Noto Serif JP',serif;font-size:1rem;color:#6B9080;font-weight:600}
 .sc-meaning{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.75;margin-top:1rem;padding-top:.9rem;border-top:1px solid #EDEDE7}
 .sc-card-footer{font-family:'Noto Serif JP',serif;font-size:.58rem;color:#C8C8C2;letter-spacing:.12em;text-align:center;margin-top:1rem}
+.sc-note-wrap{padding-top:.9rem;margin-top:.9rem;border-top:1px solid #EDEDE7}
+.sc-note-value{font-family:'Noto Serif JP',serif;font-size:.88rem;color:#1A1A1A;font-weight:400;letter-spacing:.03em;margin-top:.25rem;line-height:1.6}
 .result-dir{display:none}
 .result-hint{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.06em;text-align:center;margin-top:.5rem;margin-bottom:.2rem}
 .btn-secondary-result{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:.5rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
@@ -352,6 +354,14 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="btn" id="next-a2" onclick="submitAfter2()" disabled>次へ</button>
 </div>
 
+<!-- ── SHIFT NOTE ── -->
+<div class="screen" id="s-shift-note">
+  <div class="screen-title" id="t-shift-note-title">今の感覚を、ひとことで表すなら？</div>
+  <input type="text" class="text-input" id="in-shift-note" placeholder="例：少しほどけた / 静かに戻った" autocomplete="off" maxlength="60">
+  <button class="btn" id="btn-shift-note" onclick="submitShiftNote()" style="margin-top:1.6rem">結果を見る</button>
+  <button class="btn-ghost" id="btn-skip-shift-note" onclick="skipShiftNote()">スキップ</button>
+</div>
+
 <!-- ── RESULT ── -->
 <div class="screen" id="s-result">
   <div class="sc-card">
@@ -395,6 +405,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
           <span class="result-dir" id="r-be-dir"></span>
         </div>
       </div>
+    </div>
+    <div class="sc-note-wrap" id="sc-note-wrap" style="display:none">
+      <div class="sc-section-label" id="lbl-shift-note-label">今の感覚</div>
+      <div class="sc-note-value" id="t-shift-note-display"></div>
     </div>
     <div class="sc-meaning" id="t-result-meaning" style="display:none"></div>
     <div class="sc-card-footer">noetune.com</div>
@@ -567,6 +581,11 @@ var copy = {
     ideal_after1_title:'次の瞬間、\n「{issue}」に入る確率は？',
     ideal_after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     ideal_breath_1_text:'「{issue}」',
+    shift_note_title:'今の感覚を、ひとことで表すなら？',
+    shift_note_placeholder:'例：少しほどけた / 静かに戻った',
+    shift_note_button:'結果を見る',
+    shift_note_skip:'スキップ',
+    result_shift_note_label:'今の感覚',
     share_card_button:'共有用カードを表示',
     share_card_subtitle:'セッション結果',
     share_card_ideal_label:'理想の体験',
@@ -701,6 +720,11 @@ var copy = {
     ideal_after1_title:'What is the chance you will enter "{issue}"\nin the next moment?',
     ideal_after2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
     ideal_breath_1_text:'"{issue}"',
+    shift_note_title:'If you could describe this feeling in one phrase?',
+    shift_note_placeholder:'Example: Something softened / I feel more space',
+    shift_note_button:'View result',
+    shift_note_skip:'Skip',
+    result_shift_note_label:'Words after the shift',
     share_card_button:'View share card',
     share_card_subtitle:'Session Result',
     share_card_ideal_label:'Ideal experience',
@@ -835,6 +859,11 @@ var copy = {
     ideal_after1_title:'下一個瞬間，\n進入「{issue}」的機率是多少？',
     ideal_after2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
     ideal_breath_1_text:'「{issue}」',
+    shift_note_title:'如果用一句話形容現在的感覺？',
+    shift_note_placeholder:'例：放鬆了一點 / 感覺有空間了',
+    shift_note_button:'查看結果',
+    shift_note_skip:'跳過',
+    result_shift_note_label:'現在的感覺',
     share_card_button:'查看分享卡',
     share_card_subtitle:'本次結果',
     share_card_ideal_label:'理想體驗',
@@ -898,6 +927,10 @@ function applyLang() {
   setEl('lbl-nc-helper',       T('result_nc_helper'));
   setEl('lbl-breath-ease',     T('result_label_breath_ease'));
   setEl('lbl-be-helper',       T('result_be_helper'));
+  setEl('t-shift-note-title',    T('shift_note_title'));
+  setEl('btn-shift-note',        T('shift_note_button'));
+  setEl('btn-skip-shift-note',   T('shift_note_skip'));
+  setEl('lbl-shift-note-label',  T('result_shift_note_label'));
   setEl('btn-repeat-theme',    T('repeat_same_theme'));
   setEl('t-repeat-hint',       T('repeat_same_theme_hint'));
   setEl('btn-new-theme',       T('choose_new_theme'));
@@ -927,7 +960,7 @@ function setLang(l) { lang = l; applyLang(); fwd('s-open'); }
 
 var D = {
   theme:'', themeKey:null,
-  issue:'', ideal:'',
+  issue:'', ideal:'', shiftNote:'',
   entryMode: null,
   nextChanceBefore:null, breathEaseBefore:null,
   breathEaseAfter:null,  nextChanceAfter:null
@@ -1732,6 +1765,23 @@ function submitAfter2() {
   } else {
     D.nextChanceAfter = getSliderVal('a2');
   }
+  goToShiftNote();
+}
+
+function goToShiftNote() {
+  var inp = document.getElementById('in-shift-note');
+  if (inp) { inp.value = ''; inp.placeholder = T('shift_note_placeholder'); }
+  fwd('s-shift-note');
+}
+
+function submitShiftNote() {
+  var inp = document.getElementById('in-shift-note');
+  D.shiftNote = inp ? inp.value.trim() : '';
+  showResult();
+}
+
+function skipShiftNote() {
+  D.shiftNote = '';
   showResult();
 }
 
@@ -1759,6 +1809,18 @@ function showResult() {
   if (meaning) {
     if (hasNM) { meaning.textContent = T('result_meaning'); meaning.style.display = ''; }
     else        { meaning.style.display = 'none'; }
+  }
+  var noteWrap    = document.getElementById('sc-note-wrap');
+  var noteDisplay = document.getElementById('t-shift-note-display');
+  if (noteWrap && noteDisplay) {
+    if (D.shiftNote) {
+      var qo = lang === 'en' ? '“' : '「';
+      var qc = lang === 'en' ? '”' : '」';
+      noteDisplay.textContent = qo + D.shiftNote + qc;
+      noteWrap.style.display = '';
+    } else {
+      noteWrap.style.display = 'none';
+    }
   }
   fwd('s-result');
 }
@@ -1927,7 +1989,7 @@ function enterIdealFirst() {
 function repeatSameTheme() {
   if (D.entryMode === 'ideal') {
     var savedIdeal = D.ideal;
-    D = { theme:'', themeKey:null, issue:'', ideal: savedIdeal, entryMode:'ideal',
+    D = { theme:'', themeKey:null, issue:'', ideal: savedIdeal, shiftNote:'', entryMode:'ideal',
           nextChanceBefore:null, breathEaseBefore:null,
           breathEaseAfter:null,  nextChanceAfter:null };
     navHistory = []; breathing = false; breathCount = 0;
@@ -1941,7 +2003,7 @@ function repeatSameTheme() {
     fwd('s-issue');
   } else {
     var savedKey = D.themeKey; var savedTheme = D.theme;
-    D = { theme: savedTheme, themeKey: savedKey, issue:'', ideal:'', entryMode:'reaction',
+    D = { theme: savedTheme, themeKey: savedKey, issue:'', ideal:'', shiftNote:'', entryMode:'reaction',
           nextChanceBefore:null, breathEaseBefore:null,
           breathEaseAfter:null,  nextChanceAfter:null };
     navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
@@ -1957,7 +2019,7 @@ function repeatSameTheme() {
 }
 
 function chooseNewTheme() {
-  D = { theme:'', themeKey:null, issue:'', ideal:'', entryMode:null,
+  D = { theme:'', themeKey:null, issue:'', ideal:'', shiftNote:'', entryMode:null,
         nextChanceBefore:null, breathEaseBefore:null,
         breathEaseAfter:null,  nextChanceAfter:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
@@ -1973,7 +2035,7 @@ function chooseNewTheme() {
 }
 
 function startAgain() {
-  D = { theme:'', themeKey:null, issue:'', ideal:'', entryMode:null,
+  D = { theme:'', themeKey:null, issue:'', ideal:'', shiftNote:'', entryMode:null,
         nextChanceBefore:null, breathEaseBefore:null,
         breathEaseAfter:null,  nextChanceAfter:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
