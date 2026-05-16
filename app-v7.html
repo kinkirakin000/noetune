@@ -128,8 +128,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .about-para{font-family:'Noto Serif JP',serif;font-size:.84rem;font-weight:300;color:#555550;letter-spacing:.04em;line-height:2.1;margin-bottom:1.5rem;white-space:pre-line}
 .about-safety{color:#77736E;font-size:.78rem;border-top:1px solid #EDEDE7;padding-top:1.2rem;margin-top:1.8rem}
 #s-ideal{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
-#s-ideal-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
+#s-ideal-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
 #s-ideal-inner>*{flex-shrink:0}
+#ideal-cta-fixed{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:none}
 #ideal-groups-wrap{display:none;width:100%;margin-top:.4rem}
 .ideal-btn{height:auto;min-height:52px;padding:10px 12px;white-space:normal;line-height:1.4;background:rgba(255,255,255,.06);border:1.5px solid rgba(200,200,195,.3);border-radius:26px;font-family:'Noto Serif JP',serif;font-size:15px;letter-spacing:.08em;color:#1A1A1A;cursor:pointer;transition:background .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
 .ideal-btn.selected{background:rgba(107,144,128,.2);border-color:#6B9080}
@@ -243,9 +244,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <div class="theme-grid" id="fixed-ideal-grid"></div>
     <button class="btn-see-more" id="btn-see-more-ideals" onclick="seeMoreIdeals()">さらに理想体験を見る</button>
     <div id="ideal-groups-wrap"></div>
-    <div id="ideal-cta-wrap" style="margin-top:1.8rem;text-align:center">
-      <button class="btn" id="btn-ideal-cta" onclick="startIdealFromSelection()" disabled>次へ</button>
-    </div>
     <button class="btn-ghost" id="btn-ideal-skip" onclick="skipIdeal()" style="margin-top:.5rem">ことばにならない</button>
   </div>
 </div>
@@ -384,6 +382,11 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 <!-- ── THEME FIXED CTA ── -->
 <div id="theme-cta-wrap">
   <button class="btn" id="btn-theme-cta" onclick="startSession()">このテーマで始める</button>
+</div>
+
+<!-- ── IDEAL FIXED CTA ── -->
+<div id="ideal-cta-fixed">
+  <button class="btn" id="btn-ideal-cta" onclick="startIdealFromSelection()">次へ</button>
 </div>
 
 <script>
@@ -1317,7 +1320,7 @@ function fwd(id) {
   navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); }, 130);
 }
 
 function goBack() {
@@ -1333,7 +1336,7 @@ function goBack() {
   if (!c || !n || cur === prev) { updateBackBtn(); return; }
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); }, 130);
 }
 
 function updateBackBtn() {
@@ -1571,7 +1574,6 @@ function setIdealScreenMode(mode) {
   var fixedGrid= document.getElementById('fixed-ideal-grid');
   var moreBtn  = document.getElementById('btn-see-more-ideals');
   var groups   = document.getElementById('ideal-groups-wrap');
-  var ctaWrap  = document.getElementById('ideal-cta-wrap');
   var skip     = document.getElementById('btn-ideal-skip');
   if (mode === 'reaction') {
     if (title)    title.style.display    = '';
@@ -1579,7 +1581,6 @@ function setIdealScreenMode(mode) {
     if (fixedGrid)fixedGrid.style.display= 'none';
     if (moreBtn)  moreBtn.style.display  = 'none';
     if (groups)   groups.style.display   = 'none';
-    if (ctaWrap)  ctaWrap.style.display  = '';
     if (skip)     skip.style.display     = '';
   }
   if (mode === 'ideal') {
@@ -1588,7 +1589,6 @@ function setIdealScreenMode(mode) {
     if (fixedGrid)fixedGrid.style.display= '';
     if (moreBtn)  moreBtn.style.display  = '';
     if (groups)   groups.style.display   = 'none';
-    if (ctaWrap)  ctaWrap.style.display  = '';
     if (skip)     skip.style.display     = 'none';
   }
 }
@@ -1803,9 +1803,10 @@ function onCustomIdeal(v) {
 }
 
 function updateIdealCTA() {
-  var btn = document.getElementById('btn-ideal-cta');
-  if (!btn) return;
-  btn.disabled = !D.ideal;
+  var wrap = document.getElementById('ideal-cta-fixed');
+  if (!wrap) return;
+  if (D.ideal && cur === 's-ideal') { wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto'; }
+  else                              { wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none'; }
 }
 
 function startIdealFromSelection() {
