@@ -88,6 +88,12 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .sc-note-wrap{padding-top:.6rem;margin-top:.6rem;border-top:1px solid #EDEDE7}
 .sc-note-value{font-family:'Noto Serif JP',serif;font-size:.85rem;color:#1A1A1A;font-weight:400;letter-spacing:.03em;margin-top:.15rem;line-height:1.5}
 .result-dir{display:none}
+.btn-save-image{font-family:'Noto Serif JP',serif;background:transparent;border:1px solid #B8C8C2;color:#6B9080;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:1.2rem;padding:8px 22px;border-radius:20px;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s;display:inline-block}
+.btn-save-image:active{background:#F2F7F5}
+.btn-save-image:disabled{opacity:.6;cursor:default}
+.save-fallback-note{font-family:'Noto Serif JP',serif;font-size:.65rem;color:#A8A8A2;letter-spacing:.04em;text-align:center;margin-top:.5rem;line-height:1.65;max-width:280px}
+.save-preview-wrap{margin-top:1rem;text-align:center;max-width:320px;width:100%}
+.save-preview-wrap img{max-width:100%;border-radius:10px;border:1px solid #E8E8E2}
 .result-hint{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.06em;text-align:center;margin-top:.5rem;margin-bottom:.2rem}
 .btn-secondary-result{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:.5rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-secondary-result:active{color:#6B9080}
@@ -364,7 +370,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 
 <!-- ── RESULT ── -->
 <div class="screen" id="s-result">
-  <div class="sc-card">
+  <div class="sc-card" id="result-card">
     <div class="sc-card-header">
       <div class="sc-card-title">Noetune</div>
       <div class="sc-card-badge" id="lbl-session-header">Session Shift</div>
@@ -412,6 +418,12 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     </div>
     <div class="sc-meaning" id="t-result-meaning" style="display:none"></div>
     <div class="sc-card-footer">noetune.com</div>
+  </div>
+  <button class="btn-save-image" id="btn-save-image" onclick="saveResultCard()">画像として保存</button>
+  <div class="save-fallback-note" id="t-save-fallback-note" style="display:none"></div>
+  <div class="save-preview-wrap" id="save-preview-wrap" style="display:none">
+    <img id="save-preview-img" alt="">
+    <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマでもう一度</button>
   <div class="result-hint" id="t-repeat-hint">今日感じたことを、もう少し見てみましょう</div>
@@ -581,6 +593,11 @@ var copy = {
     ideal_after1_title:'次の瞬間、\n「{issue}」に入る確率は？',
     ideal_after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     ideal_breath_1_text:'「{issue}」',
+    save_image_button:'画像として保存',
+    save_image_creating:'画像を作成中…',
+    save_image_fallback_note:'保存できない場合は、画像を長押し、またはスクリーンショットで保存してください。',
+    save_image_error:'画像を保存できませんでした。スクリーンショットで保存してください。',
+    save_image_preview_note:'長押しで画像を保存できます。',
     shift_note_title:'今の感覚を、ひとことで表すなら？',
     shift_note_placeholder:'例：少しほどけた / 静かに戻った',
     shift_note_button:'結果を見る',
@@ -720,6 +737,11 @@ var copy = {
     ideal_after1_title:'What is the chance you will enter "{issue}"\nin the next moment?',
     ideal_after2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
     ideal_breath_1_text:'"{issue}"',
+    save_image_button:'Save as image',
+    save_image_creating:'Creating image…',
+    save_image_fallback_note:'If saving does not work, long-press the image or take a screenshot.',
+    save_image_error:'Could not save the image. Please take a screenshot instead.',
+    save_image_preview_note:'Long-press the image to save it.',
     shift_note_title:'If you could describe this feeling in one phrase?',
     shift_note_placeholder:'Example: Something softened / I feel more space',
     shift_note_button:'View result',
@@ -859,6 +881,11 @@ var copy = {
     ideal_after1_title:'下一個瞬間，\n進入「{issue}」的機率是多少？',
     ideal_after2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
     ideal_breath_1_text:'「{issue}」',
+    save_image_button:'儲存為圖片',
+    save_image_creating:'正在生成圖片…',
+    save_image_fallback_note:'如果無法直接儲存，請長按圖片或使用截圖保存。',
+    save_image_error:'無法儲存圖片。請改用截圖保存。',
+    save_image_preview_note:'長按圖片即可儲存。',
     shift_note_title:'如果用一句話形容現在的感覺？',
     shift_note_placeholder:'例：放鬆了一點 / 感覺有空間了',
     shift_note_button:'查看結果',
@@ -927,6 +954,8 @@ function applyLang() {
   setEl('lbl-nc-helper',       T('result_nc_helper'));
   setEl('lbl-breath-ease',     T('result_label_breath_ease'));
   setEl('lbl-be-helper',       T('result_be_helper'));
+  setEl('btn-save-image',        T('save_image_button'));
+  setEl('t-save-preview-note',   T('save_image_preview_note'));
   setEl('t-shift-note-title',    T('shift_note_title'));
   setEl('btn-shift-note',        T('shift_note_button'));
   setEl('btn-skip-shift-note',   T('shift_note_skip'));
@@ -2047,8 +2076,73 @@ function startAgain() {
   fwd('s-lang');
 }
 
+function saveResultCard() {
+  var btn = document.getElementById('btn-save-image');
+  var card = document.getElementById('result-card');
+  if (!card || typeof html2canvas !== 'function') { showSaveError(); return; }
+  if (btn) { btn.textContent = T('save_image_creating'); btn.disabled = true; }
+  var doCapture = function() {
+    var scale = window.devicePixelRatio || 2;
+    html2canvas(card, { scale: scale, backgroundColor: '#FAFAF7', useCORS: true, logging: false })
+      .then(function(canvas) {
+        if (btn) { btn.textContent = T('save_image_button'); btn.disabled = false; }
+        canvas.toBlob(function(blob) {
+          if (!blob) { tryNewTabFallback(canvas); return; }
+          try {
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url; a.download = 'noetune-session-shift.png';
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+            setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+            showSaveFallbackNote();
+          } catch(e) { tryNewTabFallback(canvas); }
+        }, 'image/png');
+      })
+      .catch(function() {
+        if (btn) { btn.textContent = T('save_image_button'); btn.disabled = false; }
+        showSaveError();
+      });
+  };
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(doCapture); }
+  else { doCapture(); }
+}
+
+function tryNewTabFallback(canvas) {
+  try {
+    var dataUrl = canvas.toDataURL('image/png');
+    var win = window.open('', '_blank');
+    if (win) {
+      win.document.write('<html><body style="margin:0;background:#FAFAF7;text-align:center"><img src="' + dataUrl + '" style="max-width:100%"><p style="font-family:sans-serif;font-size:12px;color:#999;padding:8px">' + T('save_image_fallback_note') + '</p></body></html>');
+      win.document.close();
+    } else { showInlinePreview(dataUrl); }
+  } catch(e) { showSaveError(); }
+}
+
+function showInlinePreview(dataUrl) {
+  var wrap = document.getElementById('save-preview-wrap');
+  var img  = document.getElementById('save-preview-img');
+  var note = document.getElementById('t-save-fallback-note');
+  if (wrap && img) {
+    img.src = dataUrl;
+    wrap.style.display = '';
+    if (note) { note.textContent = T('save_image_fallback_note'); note.style.display = ''; }
+  } else { showSaveError(); }
+}
+
+function showSaveFallbackNote() {
+  var el = document.getElementById('t-save-fallback-note');
+  if (el) { el.textContent = T('save_image_fallback_note'); el.style.display = ''; }
+}
+
+function showSaveError() {
+  var btn = document.getElementById('btn-save-image');
+  if (btn) { btn.textContent = T('save_image_button'); btn.disabled = false; }
+  alert(T('save_image_error'));
+}
+
 document.addEventListener('keydown', function(e){ if (e.key === 'Enter') e.preventDefault(); });
 updateProgress();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
 </html>
