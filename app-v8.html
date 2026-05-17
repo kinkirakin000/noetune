@@ -6,6 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FAFAF7">
+<meta name="theme-color" content="#151412" media="(prefers-color-scheme:dark)">
 <title>Noetune V8</title>
 <!-- Noetune V8 experimental positive-side measurement -->
 <meta name="description" content="Tune your next moment through short questions and breathing.">
@@ -140,7 +141,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
 #admin-badge{position:fixed;bottom:.8rem;right:.9rem;font-size:.6rem;letter-spacing:.08em;color:#CCC;opacity:.4;pointer-events:none;z-index:9999;font-family:monospace;display:none}
-#s-entry{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 #s-entry-inner{width:100%;max-width:300px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
 .entry-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.1em;color:#A8A8A2;text-align:center;margin-bottom:2rem}
 .entry-choice{display:flex;flex-direction:column;align-items:stretch;margin-bottom:1.2rem}
@@ -161,6 +161,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .about-para{font-family:'Noto Serif JP',serif;font-size:.84rem;font-weight:300;color:#555550;letter-spacing:.04em;line-height:2.1;margin-bottom:1.5rem;white-space:pre-line}
 .about-safety{color:#77736E;font-size:.78rem;border-top:1px solid #EDEDE7;padding-top:1.2rem;margin-top:1.8rem}
 #s-ideal{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-ideal.ideal-reaction-mode{display:flex;align-items:center;justify-content:center;padding:3.5rem 1.8rem 2.5rem}
+#s-ideal.ideal-reaction-mode #s-ideal-inner{padding-bottom:0}
 #s-ideal-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
 #s-ideal-inner>*{flex-shrink:0}
 #ideal-cta-fixed{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:none}
@@ -173,6 +175,76 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #s-theme-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
 #s-theme-inner>*{flex-shrink:0}
 #theme-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:none}
+/* ── DARK MODE ── */
+:root{--bg:#FAFAF7;--text:#1A1A1A;--muted:#A8A8A2;--soft:#77736E;--border:#E8E8E2;--card-bg:#FAFAF7;--primary:#6B9080;--input-line:#D4DDD8}
+@media(prefers-color-scheme:dark){
+:root{--bg:#151412;--text:#F5EFE6;--muted:#8E8981;--soft:#B8B2A8;--border:rgba(245,239,230,.14);--card-bg:#1B1A17;--primary:#8FB8A4;--input-line:rgba(143,184,164,.45)}
+body{background:#151412;color:#F5EFE6}
+.progress-bar{background:#8FB8A4}
+.btn-back svg path{stroke:#B8B2A8}
+.btn-back:active svg path{stroke:#8FB8A4}
+.intro-title,.screen-title,.measure-problem,.breath-main,.sc-card-title,.sc-toward-value,.sc-note-value,.about-title,.sc-shift-label{color:#F5EFE6}
+.intro-sub,.sc-card-badge,.sc-card-poem,.sc-section-label,.sc-shift-header,.sc-meaning,.save-fallback-note,.result-hint,.theme-top-copy,.breath-hint,.breath-sub,.entry-title,.entry-choice-desc,.entry-ideal-soon,.pricing-soon{color:#8E8981}
+.lang-btn{color:#F5EFE6;border-color:rgba(245,239,230,.2)}
+.lang-btn:active{background:rgba(143,184,164,.15)}
+.text-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
+.text-input:focus{border-bottom-color:#8FB8A4}
+.text-input::placeholder{color:#4A4845}
+input[type=range]{background:rgba(143,184,164,.2)}
+input[type=range]::-webkit-slider-thumb{background:#8FB8A4}
+input[type=range]::-moz-range-thumb{background:#8FB8A4}
+.slider-labels{color:#4A4845}
+.score-num{color:#D4956A}
+.score-num.nm{color:#8FB8A4}
+.btn{background:#8FB8A4}
+#btn-repeat-theme{background:#252320}
+.btn-ghost{color:#B8B2A8}
+.btn-ghost:active{color:#8FB8A4}
+.breath-circle{box-shadow:0 4px 30px rgba(143,184,164,.12)}
+.breath-circle.inhale{box-shadow:0 8px 50px rgba(143,184,164,.22)}
+.sc-card{background:#1B1A17;border-color:rgba(245,239,230,.14)}
+.sc-from-value{color:#A0998F}
+.sc-down-arrow,.sc-val-arrow,.sc-card-footer,.theme-group-arrow,.share-card-footer{color:#4A4845}
+.sc-val-before{color:#6C6861}
+.sc-val-after{color:#8FB8A4}
+.sc-shift-section{border-top-color:rgba(245,239,230,.1)}
+.sc-shift-row{border-bottom-color:rgba(245,239,230,.1)}
+.sc-meaning{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
+.sc-note-wrap{border-top-color:rgba(245,239,230,.1)}
+.btn-save-image{border-color:rgba(143,184,164,.35);color:#8FB8A4}
+.btn-save-image:active{background:rgba(143,184,164,.08)}
+.save-preview-wrap img{border-color:rgba(245,239,230,.14)}
+.btn-secondary-result{color:#B8B2A8}
+.btn-secondary-result:active{color:#8FB8A4}
+.result-pricing-note{color:#8E8981}
+.result-pricing-note:active{color:#8FB8A4}
+.share-card{background:#1B1A17;border-color:rgba(245,239,230,.14)}
+.share-card-title,.share-card-ideal-value{color:#F5EFE6}
+.share-card-subtitle,.share-card-ideal-label,.share-card-nm-note{color:#8E8981}
+.share-card-row-label{color:#B8B2A8}
+.share-card-table{border-top-color:rgba(245,239,230,.1)}
+.share-card-row{border-bottom-color:rgba(245,239,230,.1)}
+.custom-theme-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
+.custom-theme-input:focus{border-bottom-color:#8FB8A4}
+.custom-theme-input::placeholder{color:#4A4845}
+.theme-btn,.ideal-btn{color:#F5EFE6;border-color:rgba(245,239,230,.18);background:rgba(245,239,230,.04)}
+.theme-btn.selected,.ideal-btn.selected{background:rgba(143,184,164,.2);border-color:#8FB8A4}
+.btn-see-more{color:#8E8981}
+.btn-see-more:active{color:#8FB8A4}
+.theme-group-header{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
+.btn-about-link{color:#B8B2A8}
+.btn-about-link:active{color:#8FB8A4}
+.entry-choice-btn{background:#252320;color:#F5EFE6}
+.entry-choice-btn.disabled{background:#1E1D1A;color:#4A4845}
+.entry-choice-desc{color:#8E8981}
+.entry-explain-link{color:#B8B2A8}
+.entry-explain-link:active{color:#8FB8A4}
+.about-para{color:#B8B2A8}
+.about-safety{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
+.btn-nm{color:#B8B2A8;border-color:rgba(245,239,230,.18)}
+.btn-nm.selected{background:rgba(143,184,164,.1);color:#8FB8A4;border-color:#8FB8A4}
+#theme-cta-wrap,#ideal-cta-fixed{background:linear-gradient(transparent,rgba(21,20,18,.97) 28%)}
+}
 </style>
 <script>if(new URLSearchParams(window.location.search).get('admin')==='1'){window['ga-disable-G-TH1504X2CK']=true;}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
@@ -277,6 +349,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     <div class="theme-grid" id="fixed-ideal-grid"></div>
     <button class="btn-see-more" id="btn-see-more-ideals" onclick="seeMoreIdeals()">さらに理想体験を見る</button>
     <div id="ideal-groups-wrap"></div>
+    <button class="btn" id="btn-ideal-inline-next" onclick="submitIdeal()" disabled style="margin-top:1.2rem;display:none">次へ</button>
     <button class="btn-ghost" id="btn-ideal-skip" onclick="skipIdeal()" style="margin-top:.5rem">ことばにならない</button>
   </div>
 </div>
@@ -417,6 +490,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
   <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマでもう一度</button>
   <div class="result-hint" id="t-repeat-hint">今日感じたことを、もう少し見てみましょう</div>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別のテーマを選ぶ</button>
+  <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">スタート画面に戻る</button>
   <div class="result-pricing-note" id="t-result-pricing" onclick="fwd('s-pricing')">Noetuneを続けるには →</div>
 </div>
 
@@ -491,6 +565,7 @@ var copy = {
     repeat_same_theme:'同じテーマでもう一度',
     repeat_same_theme_hint:'答えが自然に出なくなるまで、同じテーマで何度か試すのもおすすめです。',
     choose_new_theme:'別のテーマを選ぶ',
+    back_to_start:'スタート画面に戻る',
     result_pricing_note:'料金について →',
     /* core themes */
     theme_core_cant_stay_open:'開いた感覚が続かない',
@@ -635,6 +710,7 @@ var copy = {
     repeat_same_theme:'Try again with the same theme',
     repeat_same_theme_hint:'It can help to try the same theme a few times, until answers naturally stop coming.',
     choose_new_theme:'Choose a different theme',
+    back_to_start:'Back to start',
     result_pricing_note:'Pricing →',
     /* core themes */
     theme_core_cant_stay_open:"I can't stay open",
@@ -779,6 +855,7 @@ var copy = {
     repeat_same_theme:'以相同主題再試一次',
     repeat_same_theme_hint:'也建議用同一個主題試幾次，直到答案自然不再浮現。',
     choose_new_theme:'選擇不同的主題',
+    back_to_start:'回到開始',
     result_pricing_note:'收費方式 →',
     /* core themes */
     theme_core_cant_stay_open:'無法保持敞開',
@@ -845,7 +922,7 @@ var copy = {
     result_meaning:'不再被固定＝不再被某個數字限制',
     restart_button:'再一次',
     breath_in:'吸氣', breath_out:'吐氣',
-    issue_placeholder:'輸入問題…', issue_skip:'想不到',
+    issue_placeholder:'輸入問題…', issue_skip:'沒有浮現',
     ideal_placeholder:'現在想感受的狀態…',
     ideal_skip:'說不出來',
     ideal_top_copy:'寫下下一個瞬間想感受的體驗\n或\n從下方的狀態開始也可以',
@@ -931,6 +1008,7 @@ function applyLang() {
   setEl('t-pricing-soon',   T('pricing_soon'));
   setEl('btn-issue-skip',      T('issue_skip'));
   setEl('btn-ideal-skip',      T('ideal_skip'));
+  setEl('btn-ideal-inline-next', T('next_button'));
   setEl('ideal-top-copy',      T('ideal_top_copy'));
   setEl('btn-see-more-ideals', T('see_more_ideals'));
   setEl('btn-ideal-cta',       T('ideal_cta_button'));
@@ -952,6 +1030,7 @@ function applyLang() {
   setEl('btn-repeat-theme',    T('repeat_same_theme'));
   setEl('t-repeat-hint',       T('repeat_same_theme_hint'));
   setEl('btn-new-theme',       T('choose_new_theme'));
+  setEl('btn-back-start',      T('back_to_start'));
   setEl('t-result-pricing',    T('result_pricing_note'));
   ['br1','br2','br3','br4'].forEach(function(k){
     setEl('lbl-feel-' + k, T('feel_prompt'));
@@ -1595,6 +1674,12 @@ function renderThemeScreen() {
   if (smBtn) smBtn.style.display = '';
   /* clear input */
   var inp = document.getElementById('in-custom-theme'); if (inp) inp.value = '';
+  /* sync D.theme with current-language label when a keyed theme is active */
+  if (themeChosen && D.themeKey) {
+    var syncedLabel = getThemeLabel(D.themeKey);
+    if (syncedLabel && syncedLabel !== D.themeKey) D.theme = syncedLabel;
+  }
+  if (themeChosen && !D.theme) themeChosen = false;
   updateThemeCTA();
 }
 
@@ -1650,7 +1735,39 @@ function updateThemeCTA() {
   else                                  { wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none'; }
 }
 
+function ensureCurrentTheme() {
+  if (D.theme && D.theme.trim()) return true;
+
+  if (D.themeKey) {
+    var label = getThemeLabel(D.themeKey);
+    if (label && label !== D.themeKey) {
+      D.theme = label;
+      themeChosen = true;
+      return true;
+    }
+  }
+
+  var selected = document.querySelector('.theme-btn.selected');
+  if (selected && selected.textContent.trim()) {
+    D.theme = selected.textContent.trim();
+    D.themeKey = selected.dataset.themeKey || D.themeKey || null;
+    themeChosen = true;
+    return true;
+  }
+
+  var inp = document.getElementById('in-custom-theme');
+  if (inp && inp.value.trim()) {
+    D.theme = inp.value.trim();
+    D.themeKey = null;
+    themeChosen = true;
+    return true;
+  }
+
+  return false;
+}
+
 function startSession() {
+  if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
   trackEvent('v7_start');
   setEl('t-issue-title', T('issue_title', {theme: D.theme}));
   var inp = document.getElementById('in-issue'); if (inp) inp.value = '';
@@ -1675,7 +1792,17 @@ function submitIssue() {
   }
 }
 
-function skipIssue() { if (D.entryMode === 'ideal') return; _enterIdeal(D.theme); }
+function skipIssue() {
+  if (D.entryMode === 'ideal') {
+    D.issue = '';
+    setEl('t-b2', T('before2_title', {ideal: D.ideal}));
+    setEl('t-a2', T('after2_title',  {ideal: D.ideal}));
+    ['b2','a2'].forEach(resetSlider);
+    fwd('s-before2');
+    return;
+  }
+  _enterIdeal(D.theme);
+}
 
 function skipIdeal() {
   if (D.entryMode === 'ideal') return;
@@ -1688,27 +1815,33 @@ function skipIdeal() {
 }
 
 function setIdealScreenMode(mode) {
-  var title    = document.getElementById('t-ideal');
-  var topCopy  = document.getElementById('ideal-top-copy');
-  var fixedGrid= document.getElementById('fixed-ideal-grid');
-  var moreBtn  = document.getElementById('btn-see-more-ideals');
-  var groups   = document.getElementById('ideal-groups-wrap');
-  var skip     = document.getElementById('btn-ideal-skip');
+  var screen     = document.getElementById('s-ideal');
+  var title      = document.getElementById('t-ideal');
+  var topCopy    = document.getElementById('ideal-top-copy');
+  var fixedGrid  = document.getElementById('fixed-ideal-grid');
+  var moreBtn    = document.getElementById('btn-see-more-ideals');
+  var groups     = document.getElementById('ideal-groups-wrap');
+  var skip       = document.getElementById('btn-ideal-skip');
+  var inlineNext = document.getElementById('btn-ideal-inline-next');
   if (mode === 'reaction') {
-    if (title)    title.style.display    = '';
-    if (topCopy)  topCopy.style.display  = 'none';
-    if (fixedGrid)fixedGrid.style.display= 'none';
-    if (moreBtn)  moreBtn.style.display  = 'none';
-    if (groups)   groups.style.display   = 'none';
-    if (skip)     skip.style.display     = '';
+    if (screen)     screen.classList.add('ideal-reaction-mode');
+    if (title)      title.style.display      = '';
+    if (topCopy)    topCopy.style.display    = 'none';
+    if (fixedGrid)  fixedGrid.style.display  = 'none';
+    if (moreBtn)    moreBtn.style.display    = 'none';
+    if (groups)     groups.style.display     = 'none';
+    if (skip)       skip.style.display       = '';
+    if (inlineNext) inlineNext.style.display = '';
   }
   if (mode === 'ideal') {
-    if (title)    title.style.display    = 'none';
-    if (topCopy)  topCopy.style.display  = '';
-    if (fixedGrid)fixedGrid.style.display= '';
-    if (moreBtn)  moreBtn.style.display  = '';
-    if (groups)   groups.style.display   = 'none';
-    if (skip)     skip.style.display     = 'none';
+    if (screen)     screen.classList.remove('ideal-reaction-mode');
+    if (title)      title.style.display      = 'none';
+    if (topCopy)    topCopy.style.display    = '';
+    if (fixedGrid)  fixedGrid.style.display  = '';
+    if (moreBtn)    moreBtn.style.display    = '';
+    if (groups)     groups.style.display     = 'none';
+    if (skip)       skip.style.display       = 'none';
+    if (inlineNext) inlineNext.style.display = 'none';
   }
 }
 
@@ -1721,6 +1854,8 @@ function _enterIdeal(issue) {
   var inp = document.getElementById('in-ideal');
   if (inp) { inp.value = ''; inp.placeholder = T('ideal_placeholder'); }
   document.querySelectorAll('.ideal-btn').forEach(function(b){ b.classList.remove('selected'); });
+  var inlineNext = document.getElementById('btn-ideal-inline-next');
+  if (inlineNext) inlineNext.disabled = true;
   updateIdealCTA();
   fwd('s-ideal');
 }
@@ -1734,7 +1869,7 @@ function submitIdeal() {
     setEl('t-issue-title', T('ideal_blocker_title', {ideal: D.ideal}));
     var inp = document.getElementById('in-issue'); if (inp) { inp.value = ''; inp.placeholder = T('ideal_blocker_placeholder'); }
     var btn = document.getElementById('btn-issue'); if (btn) btn.disabled = true;
-    var skip = document.getElementById('btn-issue-skip'); if (skip) skip.style.display = 'none';
+    var skip = document.getElementById('btn-issue-skip'); if (skip) skip.style.display = '';
     fwd('s-issue');
   } else {
     var vars = {issue: D.issue, ideal: D.ideal};
@@ -1753,7 +1888,7 @@ function submitBefore1() {
 
 function submitBefore2() {
   D.breathEaseBefore = getSliderVal('b2');
-  if (D.entryMode === 'ideal') {
+  if (D.entryMode === 'ideal' && D.issue) {
     setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
   } else {
     setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
@@ -1950,6 +2085,8 @@ function onCustomIdeal(v) {
   var trimmed = v.trim();
   document.querySelectorAll('.ideal-btn').forEach(function(b){ b.classList.remove('selected'); });
   D.ideal = trimmed;
+  var inlineNext = document.getElementById('btn-ideal-inline-next');
+  if (inlineNext) inlineNext.disabled = !trimmed;
   updateIdealCTA();
 }
 
@@ -1999,7 +2136,7 @@ function repeatSameTheme() {
     var inp2 = document.getElementById('in-ideal'); if (inp2) inp2.value = '';
     var bt1  = document.getElementById('btn-issue'); if (bt1) bt1.disabled = true;
     var bt2  = document.getElementById('btn-ideal'); if (bt2) bt2.disabled = true;
-    var skip = document.getElementById('btn-issue-skip'); if (skip) skip.style.display = 'none';
+    var skip = document.getElementById('btn-issue-skip'); if (skip) skip.style.display = '';
     setEl('t-issue-title', T('ideal_blocker_title', {ideal: savedIdeal}));
     fwd('s-issue');
   } else {
@@ -2033,6 +2170,37 @@ function chooseNewTheme() {
   var dSkip = document.getElementById('btn-ideal-skip'); if (dSkip) dSkip.style.display = '';
   renderThemeScreen();
   fwd('s-entry');
+}
+
+function showScreenDirect(id) {
+  document.querySelectorAll('.screen').forEach(function(s) {
+    s.classList.remove('active');
+    s.classList.remove('exit');
+  });
+  var next = document.getElementById(id);
+  if (next) next.classList.add('active');
+  cur = id;
+  navHistory = [];
+  updateBackBtn();
+  updateProgress();
+  updateThemeCTA();
+  updateIdealCTA();
+}
+
+function backToStart() {
+  D = { theme:'', themeKey:null, issue:'', ideal:'', shiftNote:'', entryMode:null,
+        nextChanceBefore:null, breathEaseBefore:null,
+        breathEaseAfter:null,  nextChanceAfter:null };
+  navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
+  ['b1','b2','a1','a2'].forEach(resetSlider);
+  var inp1 = document.getElementById('in-issue'); if (inp1) { inp1.value = ''; inp1.placeholder = T('issue_placeholder'); }
+  var inp2 = document.getElementById('in-ideal'); if (inp2) inp2.value = '';
+  var bt1  = document.getElementById('btn-issue'); if (bt1) bt1.disabled = true;
+  var bt2  = document.getElementById('btn-ideal'); if (bt2) bt2.disabled = true;
+  var iSkip = document.getElementById('btn-issue-skip'); if (iSkip) iSkip.style.display = '';
+  var dSkip = document.getElementById('btn-ideal-skip'); if (dSkip) dSkip.style.display = '';
+  renderThemeScreen();
+  showScreenDirect('s-lang');
 }
 
 function startAgain() {
