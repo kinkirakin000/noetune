@@ -6,7 +6,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FAFAF7">
-<title>Noetune</title>
+<title>Noetune V8</title>
+<!-- Noetune V8 experimental positive-side measurement -->
 <meta name="description" content="Tune your next moment through short questions and breathing.">
 <meta property="og:title" content="Noetune">
 <meta property="og:description" content="Tune your next moment through short questions and breathing.">
@@ -94,7 +95,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .save-fallback-note{font-family:'Noto Serif JP',serif;font-size:.65rem;color:#A8A8A2;letter-spacing:.04em;text-align:center;margin-top:.5rem;line-height:1.65;max-width:280px}
 .save-preview-wrap{margin-top:1rem;text-align:center;max-width:320px;width:100%}
 .save-preview-wrap img{max-width:100%;border-radius:10px;border:1px solid #E8E8E2}
-.result-hint{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.06em;text-align:center;margin-top:.5rem;margin-bottom:.2rem}
+.result-hint{font-family:'Noto Serif JP',serif;font-size:.78rem;color:#666660;letter-spacing:.04em;line-height:1.75;text-align:center;margin-top:.75rem;margin-bottom:.6rem;max-width:300px}
 .btn-secondary-result{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:.5rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-secondary-result:active{color:#6B9080}
 .result-pricing-note{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#8F8F88;letter-spacing:.08em;text-align:center;margin-top:2rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s}
@@ -387,18 +388,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
     </div>
     <div class="sc-shift-section">
       <div class="sc-shift-header" id="lbl-shift-section">Shift</div>
-      <div class="sc-shift-row">
-        <div class="sc-shift-row-left">
-          <div class="sc-shift-label" id="lbl-next-moment">反応に戻る感覚</div>
-          <div class="sc-shift-helper" id="lbl-nc-helper"></div>
-        </div>
-        <div class="sc-shift-values">
-          <span class="sc-val-before" id="r-nc-b"></span>
-          <span class="sc-val-arrow">→</span>
-          <span class="sc-val-after" id="r-nc-a"></span>
-          <span class="result-dir" id="r-nc-dir"></span>
-        </div>
-      </div>
       <div class="sc-shift-row sc-shift-row-last">
         <div class="sc-shift-row-left">
           <div class="sc-shift-label" id="lbl-breath-ease">呼吸の余裕</div>
@@ -500,7 +489,7 @@ var copy = {
     pricing_cta:'1ヶ月無料で始める',
     pricing_soon:'準備中です',
     repeat_same_theme:'同じテーマでもう一度',
-    repeat_same_theme_hint:'今日感じたことを、もう少し見てみましょう',
+    repeat_same_theme_hint:'答えが自然に出なくなるまで、同じテーマで何度か試すのもおすすめです。',
     choose_new_theme:'別のテーマを選ぶ',
     result_pricing_note:'料金について →',
     /* core themes */
@@ -556,13 +545,13 @@ var copy = {
     next_button:'次へ', not_measurable_button:'数値化不可',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'Session Shift',
-    result_label_next_moment:'反応に戻る感覚',
+    result_label_next_moment:'理想体験',
     result_label_breath_ease:'呼吸の余裕',
     result_poem:'いま、この瞬間の変化を大切に。',
     result_label_from:'From',
     result_label_toward:'Toward',
     result_shift_section:'Shift',
-    result_nc_helper:'次の瞬間、その反応に戻る確率',
+    result_nc_helper:'次の瞬間、その体験である確率',
     result_be_helper:'呼吸の余裕度',
     result_nm_display:'固定されていない',
     result_meaning:'固定されていない＝数字に閉じ込められない感覚',
@@ -579,19 +568,19 @@ var copy = {
     breath_4_text:'その抵抗以外の全て',
     issue_title:'「{theme}」から、\n今まさに発生している問題は何？',
     ideal_title:'「{issue}」\nそれが存在しないとしたら、\n次の瞬間、どんな体験が理想？',
-    before1_title:'「{issue}」\n\n次の瞬間、そうである確率は？',
+    before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
     before2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
-    after1_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
-    after2_title:'「{issue}」\n\n次の瞬間、そうである確率は？',
+    after1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
+    after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     result_subject:'「{ideal}」',
     breath_1_text:'「{ideal}」',
     ideal_entry_title:'次の瞬間、どんな体験が理想？',
     ideal_blocker_title:'「{ideal}」を邪魔する状態は？',
     ideal_blocker_placeholder:'邪魔する状態を入力…',
-    ideal_before1_title:'次の瞬間、\n「{issue}」に入る確率は？',
-    ideal_before2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
-    ideal_after1_title:'次の瞬間、\n「{issue}」に入る確率は？',
-    ideal_after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
+    ideal_before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
+    ideal_before2_title:'「{issue}」\n\nそのとき、\n呼吸の余裕度は？',
+    ideal_after1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
+    ideal_after2_title:'「{issue}」\n\nそのとき、\n呼吸の余裕度は？',
     ideal_breath_1_text:'「{issue}」',
     save_image_button:'画像として保存',
     save_image_creating:'画像を作成中…',
@@ -606,7 +595,7 @@ var copy = {
     share_card_button:'共有用カードを表示',
     share_card_subtitle:'セッション結果',
     share_card_ideal_label:'理想の体験',
-    share_card_nc_label:'次の瞬間、その反応に戻る確率',
+    share_card_nc_label:'次の瞬間、その体験である確率',
     share_card_be_label:'呼吸の余裕度',
     share_card_nm_explain:'「数値化不可」は、0〜100の数字では表しにくいほど、状態が固定されていない感覚です。',
     share_card_back:'結果に戻る'
@@ -644,7 +633,7 @@ var copy = {
     pricing_cta:'Start 1 month free',
     pricing_soon:'Coming soon',
     repeat_same_theme:'Try again with the same theme',
-    repeat_same_theme_hint:'There may be more to notice here',
+    repeat_same_theme_hint:'It can help to try the same theme a few times, until answers naturally stop coming.',
     choose_new_theme:'Choose a different theme',
     result_pricing_note:'Pricing →',
     /* core themes */
@@ -700,13 +689,13 @@ var copy = {
     next_button:'Next', not_measurable_button:'Not measurable',
     feel_prompt:'Feel it.', breathe_start_hint:'Exhale gently, then tap',
     session_result_header:'Session Shift',
-    result_label_next_moment:'Returning reaction',
+    result_label_next_moment:'Ideal experience',
     result_label_breath_ease:'Breathing Ease',
     result_poem:'A shift in this moment.',
     result_label_from:'From',
     result_label_toward:'Toward',
     result_shift_section:'Shift',
-    result_nc_helper:'Chance of returning to that reaction',
+    result_nc_helper:'Chance of being in that experience',
     result_be_helper:'Ease in the breath',
     result_nm_display:'Free to shift',
     result_meaning:'Free to shift = no longer fixed to one number',
@@ -723,19 +712,19 @@ var copy = {
     breath_4_text:'Everything except that resistance',
     issue_title:'From "{theme}",\nwhat problem is arising right now?',
     ideal_title:'If "{issue}" were not here,\nwhat experience would be ideal\nin the next moment?',
-    before1_title:'"{issue}"\n\nWhat is the chance it will still be there\nin the next moment?',
+    before1_title:'"{ideal}"\n\nIn the next moment,\nwhat is the chance of being in this experience?',
     before2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
-    after1_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
-    after2_title:'"{issue}"\n\nWhat is the chance it will still be there\nin the next moment?',
+    after1_title:'"{ideal}"\n\nIn the next moment,\nwhat is the chance of being in this experience?',
+    after2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
     result_subject:'"{ideal}"',
     breath_1_text:'"{ideal}"',
     ideal_entry_title:'What experience would be ideal in the next moment?',
     ideal_blocker_title:'What gets in the way of "{ideal}"?',
     ideal_blocker_placeholder:'Type what gets in the way…',
-    ideal_before1_title:'What is the chance you will enter "{issue}"\nin the next moment?',
-    ideal_before2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
-    ideal_after1_title:'What is the chance you will enter "{issue}"\nin the next moment?',
-    ideal_after2_title:'"{ideal}"\n\nIn that moment,\nhow much ease is there in your breathing?',
+    ideal_before1_title:'"{ideal}"\n\nIn the next moment,\nwhat is the chance of being in this experience?',
+    ideal_before2_title:'"{issue}"\n\nIn that state,\nhow much ease is there in your breathing?',
+    ideal_after1_title:'"{ideal}"\n\nIn the next moment,\nwhat is the chance of being in this experience?',
+    ideal_after2_title:'"{issue}"\n\nIn that state,\nhow much ease is there in your breathing?',
     ideal_breath_1_text:'"{issue}"',
     save_image_button:'Save as image',
     save_image_creating:'Creating image…',
@@ -750,7 +739,7 @@ var copy = {
     share_card_button:'View share card',
     share_card_subtitle:'Session Result',
     share_card_ideal_label:'Ideal experience',
-    share_card_nc_label:'Chance of returning to that reaction',
+    share_card_nc_label:'Chance of being in that experience',
     share_card_be_label:'Breathing Ease',
     share_card_nm_explain:'"Not measurable" means the state no longer felt fixed enough to express as a number from 0 to 100.',
     share_card_back:'Back to result'
@@ -788,7 +777,7 @@ var copy = {
     pricing_cta:'開始 1 個月免費使用',
     pricing_soon:'準備中',
     repeat_same_theme:'以相同主題再試一次',
-    repeat_same_theme_hint:'這裡或許還有更多可以察覺的',
+    repeat_same_theme_hint:'也建議用同一個主題試幾次，直到答案自然不再浮現。',
     choose_new_theme:'選擇不同的主題',
     result_pricing_note:'收費方式 →',
     /* core themes */
@@ -844,13 +833,13 @@ var copy = {
     next_button:'下一步', not_measurable_button:'無法量化',
     feel_prompt:'請感受它。', breathe_start_hint:'先輕輕吐氣，再點一下',
     session_result_header:'Session Shift',
-    result_label_next_moment:'回到反應',
+    result_label_next_moment:'理想體驗',
     result_label_breath_ease:'呼吸餘裕',
     result_poem:'珍惜此刻的轉變。',
     result_label_from:'From',
     result_label_toward:'Toward',
     result_shift_section:'Shift',
-    result_nc_helper:'下一個瞬間回到那個反應的機率',
+    result_nc_helper:'處於那個體驗的機率',
     result_be_helper:'呼吸餘裕度',
     result_nm_display:'不再被固定',
     result_meaning:'不再被固定＝不再被某個數字限制',
@@ -867,19 +856,19 @@ var copy = {
     breath_4_text:'除了那個抵抗之外的一切',
     issue_title:'因為「{theme}」，\n此刻正發生的問題是什麼？',
     ideal_title:'如果「{issue}」不存在，\n下一個瞬間，\n什麼樣的體驗會是理想的？',
-    before1_title:'「{issue}」\n\n下一個瞬間，\n它仍然存在的機率是多少？',
+    before1_title:'「{ideal}」\n\n下一個瞬間，\n處於這個體驗的機率是多少？',
     before2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
-    after1_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
-    after2_title:'「{issue}」\n\n下一個瞬間，\n它仍然存在的機率是多少？',
+    after1_title:'「{ideal}」\n\n下一個瞬間，\n處於這個體驗的機率是多少？',
+    after2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
     result_subject:'「{ideal}」',
     breath_1_text:'「{ideal}」',
     ideal_entry_title:'下一個瞬間，什麼樣的體驗會是理想的？',
     ideal_blocker_title:'是什麼狀態在阻礙「{ideal}」？',
     ideal_blocker_placeholder:'輸入阻礙它的狀態…',
-    ideal_before1_title:'下一個瞬間，\n進入「{issue}」的機率是多少？',
-    ideal_before2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
-    ideal_after1_title:'下一個瞬間，\n進入「{issue}」的機率是多少？',
-    ideal_after2_title:'「{ideal}」\n\n在那個瞬間，\n呼吸餘裕度是多少？',
+    ideal_before1_title:'「{ideal}」\n\n下一個瞬間，\n處於這個體驗的機率是多少？',
+    ideal_before2_title:'「{issue}」\n\n在那個狀態下，\n呼吸餘裕度是多少？',
+    ideal_after1_title:'「{ideal}」\n\n下一個瞬間，\n處於這個體驗的機率是多少？',
+    ideal_after2_title:'「{issue}」\n\n在那個狀態下，\n呼吸餘裕度是多少？',
     ideal_breath_1_text:'「{issue}」',
     save_image_button:'儲存為圖片',
     save_image_creating:'正在生成圖片…',
@@ -894,7 +883,7 @@ var copy = {
     share_card_button:'查看分享卡',
     share_card_subtitle:'本次結果',
     share_card_ideal_label:'理想體驗',
-    share_card_nc_label:'下一個瞬間回到那個反應的機率',
+    share_card_nc_label:'處於那個體驗的機率',
     share_card_be_label:'呼吸餘裕度',
     share_card_nm_explain:'「無法量化」表示此刻的狀態不再適合用 0–100 的固定數字來表示。',
     share_card_back:'返回結果'
@@ -1442,9 +1431,9 @@ var navHistory = [];
 var SCREEN_ORDER = [
   's-lang','s-open','s-entry','s-theme',
   's-issue','s-ideal',
-  's-before1','s-before2',
+  's-before2',
   's-br1','s-br2','s-br3','s-br4',
-  's-after1','s-after2','s-result'
+  's-after2','s-result'
 ];
 
 function fwd(id) {
@@ -1677,12 +1666,10 @@ function submitIssue() {
   if (D.entryMode === 'ideal') {
     D.issue = v;
     var vars = {issue: D.issue, ideal: D.ideal};
-    setEl('t-b1', T('ideal_before1_title', vars));
     setEl('t-b2', T('ideal_before2_title', vars));
-    setEl('t-a1', T('ideal_after1_title',  vars));
     setEl('t-a2', T('ideal_after2_title',  vars));
-    ['b1','b2','a1','a2'].forEach(resetSlider);
-    fwd('s-before1');
+    ['b2','a2'].forEach(resetSlider);
+    fwd('s-before2');
   } else {
     _enterIdeal(v);
   }
@@ -1694,12 +1681,10 @@ function skipIdeal() {
   if (D.entryMode === 'ideal') return;
   D.ideal = D.issue;
   var vars = {issue: D.issue, ideal: D.issue};
-  setEl('t-b1', T('before1_title', vars));
   setEl('t-b2', T('before2_title', vars));
-  setEl('t-a1', T('after1_title',  vars));
   setEl('t-a2', T('after2_title',  vars));
-  ['b1','b2','a1','a2'].forEach(resetSlider);
-  fwd('s-before1');
+  ['b2','a2'].forEach(resetSlider);
+  fwd('s-before2');
 }
 
 function setIdealScreenMode(mode) {
@@ -1753,12 +1738,10 @@ function submitIdeal() {
     fwd('s-issue');
   } else {
     var vars = {issue: D.issue, ideal: D.ideal};
-    setEl('t-b1', T('before1_title', vars));
     setEl('t-b2', T('before2_title', vars));
-    setEl('t-a1', T('after1_title',  vars));
     setEl('t-a2', T('after2_title',  vars));
-    ['b1','b2','a1','a2'].forEach(resetSlider);
-    fwd('s-before1');
+    ['b2','a2'].forEach(resetSlider);
+    fwd('s-before2');
   }
 }
 
@@ -1779,21 +1762,13 @@ function submitBefore2() {
 }
 
 function submitAfter1() {
-  if (D.entryMode === 'ideal') {
-    D.nextChanceAfter = getSliderVal('a1');
-  } else {
-    D.breathEaseAfter = getSliderVal('a1');
-  }
+  D.nextChanceAfter = getSliderVal('a1');
   resetSlider('a2');
   fwd('s-after2');
 }
 
 function submitAfter2() {
-  if (D.entryMode === 'ideal') {
-    D.breathEaseAfter = getSliderVal('a2');
-  } else {
-    D.nextChanceAfter = getSliderVal('a2');
-  }
+  D.breathEaseAfter = getSliderVal('a2');
   goToShiftNote();
 }
 
@@ -1828,12 +1803,9 @@ function showResult() {
     if (D.issue) { fromVal.textContent = D.issue; fromWrap.style.display = ''; }
     else         { fromWrap.style.display = 'none'; }
   }
-  setEl('r-nc-b', fmtResult(D.nextChanceBefore));
-  setEl('r-nc-a', fmtResult(D.nextChanceAfter));
   setEl('r-be-b', fmtResult(D.breathEaseBefore));
   setEl('r-be-a', fmtResult(D.breathEaseAfter));
-  var hasNM = D.nextChanceBefore === 'NM' || D.nextChanceAfter === 'NM' ||
-              D.breathEaseBefore === 'NM' || D.breathEaseAfter === 'NM';
+  var hasNM = D.breathEaseBefore === 'NM' || D.breathEaseAfter === 'NM';
   var meaning = document.getElementById('t-result-meaning');
   if (meaning) {
     if (hasNM) { meaning.textContent = T('result_meaning'); meaning.style.display = ''; }
@@ -1855,7 +1827,7 @@ function showResult() {
 }
 
 var breathing = false, breathCount = 0;
-var BREATH_NEXT = {'br1':'s-br2','br2':'s-br3','br3':'s-br4','br4':'s-after1'};
+var BREATH_NEXT = {'br1':'s-br2','br2':'s-br3','br3':'s-br4','br4':'s-after2'};
 
 function startBreath(t) {
   if (breathing) return;
