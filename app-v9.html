@@ -3183,46 +3183,67 @@ var HAPPINESS_THEMES = {
 
 var THEME_CATEGORIES = {
   ja: [
-    { label:'内側の土台',      themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'今ここ・身体',    themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'自分との一致',    themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'人・世界・方向',  themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'身体・神経系',            themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'余白・注意・思考',        themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'自己受容・自己信頼',      themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'充足・感情・軽さ',        themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'関係性・所属・つながり',  themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'方向性・行動・創造',      themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'手放し・深い解放',        themeIds:['flow'] }
   ],
   en: [
-    { label:'Inner foundation',          themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'Presence & body',           themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'Self-alignment',            themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'People, world & direction', themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'Body & nervous system',                   themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'Space, attention & thought',              themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'Self-acceptance & self-trust',            themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'Fulfillment, emotion & lightness',        themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'Relationships, belonging & connection',   themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'Direction, action & creation',            themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'Letting go & deep release',               themeIds:['flow'] }
   ],
   'zh-TW': [
-    { label:'內在基礎',       themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'當下與身體',     themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'與自己一致',     themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'人、世界與方向', themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'身體與神經系統',           themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'餘裕、注意力與思緒',       themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'自我接納與自我信任',       themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'滿足、情緒與輕盈',         themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'關係、歸屬與連結',         themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'方向、行動與創造',         themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'放下與深層釋放',           themeIds:['flow'] }
   ],
   es: [
-    { label:'Base interior',               themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'Presencia y cuerpo',          themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'Alineación contigo',          themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'Personas, mundo y dirección', themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'Cuerpo y sistema nervioso',               themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'Espacio, atención y pensamiento',         themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'Autoaceptación y confianza en uno mismo', themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'Plenitud, emoción y ligereza',            themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'Relaciones, pertenencia y conexión',      themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'Dirección, acción y creación',            themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'Soltar y liberación profunda',            themeIds:['flow'] }
   ],
   de: [
-    { label:'Innere Grundlage',             themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'Präsenz & Körper',             themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'Ausrichtung mit dir selbst',   themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'Menschen, Welt & Richtung',    themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'Körper & Nervensystem',                    themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'Raum, Aufmerksamkeit & Denken',            themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'Selbstannahme & Selbstvertrauen',          themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'Erfüllung, Gefühl & Leichtigkeit',         themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'Beziehungen, Zugehörigkeit & Verbindung',  themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'Richtung, Handlung & Schöpfung',           themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'Loslassen & tiefe Befreiung',              themeIds:['flow'] }
   ],
   'pt-BR': [
-    { label:'Base interior',             themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'Presença e corpo',          themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'Alinhamento consigo mesmo', themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'Pessoas, mundo e direção',  themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'Corpo e sistema nervoso',                  themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'Espaço, atenção e pensamento',             themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'Autoaceitação e autoconfiança',            themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'Plenitude, emoção e leveza',               themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'Relações, pertencimento e conexão',        themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'Direção, ação e criação',                  themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'Soltar e liberação profunda',              themeIds:['flow'] }
   ],
   fr: [
-    { label:'Fondation intérieure',             themeIds:['safety','space','openness','clarity','fulfillment','freedom'] },
-    { label:'Présence et corps',                themeIds:['presence','regulated','acceptance','sense_of_being_here','body_awareness','vitality'] },
-    { label:'Alignement avec soi',              themeIds:['inner_wholeness','return_to_true_self','self_choice','self_trust','flow','alignment'] },
-    { label:'Personnes, monde et direction',    themeIds:['safe_with_people','natural_with_people','meaningful_direction','sense_of_future','connection_with_world','love'] }
+    { id:'body_nervous',    label:'Corps et système nerveux',                 themeIds:['safety','regulated','sense_of_being_here','body_awareness','vitality'] },
+    { id:'space_thought',   label:'Espace, attention et pensée',              themeIds:['space','presence','clarity','openness'] },
+    { id:'self_acceptance', label:'Acceptation de soi et confiance en soi',  themeIds:['acceptance','inner_wholeness','return_to_true_self','self_choice','self_trust'] },
+    { id:'fulfillment_cat', label:'Plénitude, émotion et légèreté',           themeIds:['fulfillment','freedom','love'] },
+    { id:'relationships',   label:'Relations, appartenance et connexion',     themeIds:['safe_with_people','natural_with_people','connection_with_world'] },
+    { id:'direction',       label:'Direction, action et création',            themeIds:['meaningful_direction','sense_of_future','alignment'] },
+    { id:'letting_go',      label:'Lâcher-prise et libération profonde',      themeIds:['flow'] }
   ]
 };
 
