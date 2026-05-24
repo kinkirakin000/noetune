@@ -130,6 +130,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .theme-btn:active{transform:scale(.97)}
 .theme-grid-sm{gap:8px}
 .theme-btn-sm{min-height:40px;padding:8px 8px;font-size:13px}
+.theme-btn-label{display:block;font-size:15px;line-height:1.35}
+.theme-btn-desc{display:block;margin-top:3px;font-size:11px;line-height:1.35;letter-spacing:.04em;color:#8F8F88;font-weight:300}
+.ideal-btn-label{display:block;font-size:15px;line-height:1.35}
+.ideal-btn-desc{display:block;margin-top:3px;font-size:11px;line-height:1.35;letter-spacing:.04em;color:#8F8F88;font-weight:300}
 .btn-see-more{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#77736E;font-size:.74rem;letter-spacing:.12em;cursor:pointer;padding:12px 0;margin-top:.6rem;transition:color .2s;-webkit-tap-highlight-color:transparent;width:100%;text-align:center}
 .btn-see-more:active{color:#6B9080}
 #theme-groups-wrap{display:none;width:100%;margin-top:.4rem}
@@ -241,6 +245,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .custom-theme-input::placeholder{color:#4A4845}
 .theme-btn,.ideal-btn{color:#F5EFE6;border-color:rgba(245,239,230,.18);background:rgba(245,239,230,.04)}
 .theme-btn.selected,.ideal-btn.selected{background:rgba(143,184,164,.2);border-color:#8FB8A4}
+.theme-btn-desc,.ideal-btn-desc{color:#8E8981}
 .btn-see-more{color:#8E8981}
 .btn-see-more:active{color:#8FB8A4}
 .theme-group-header{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
@@ -2998,30 +3003,30 @@ var IDEAL_STATES = {
 
 var HAPPINESS_THEMES = {
   ja: [
-    { id:'safety',               label:'安心',             positive:'安心を感じる',            negative:'安心を感じない' },
-    { id:'return_here',          label:'ここに戻る',        positive:'ここに戻れる',            negative:'ここに戻れない' },
-    { id:'connect_body',         label:'体とつながる',      positive:'体とつながっている',       negative:'体とつながっていない' },
-    { id:'calm',                 label:'落ち着き',          positive:'落ち着きを感じる',         negative:'落ち着きを感じない' },
-    { id:'room',                 label:'ゆとり',            positive:'ゆとりを感じる',           negative:'ゆとりを感じない' },
-    { id:'body_comfort',         label:'体が心地よい',      positive:'体が心地よい',             negative:'体が心地よくない' },
-    { id:'clear',                label:'すっきり',          positive:'すっきり感じる',           negative:'すっきり感じない' },
-    { id:'fulfilled',            label:'満たされる',        positive:'満たされている',           negative:'満たされていない' },
-    { id:'small_joy',            label:'小さな喜びに気づく', positive:'小さな喜びに気づく',       negative:'小さな喜びに気づかない' },
-    { id:'self_acceptance',      label:'自分を認める',      positive:'自分を認める',             negative:'自分を認めない' },
-    { id:'self_kindness',        label:'自分にやさしい',    positive:'自分にやさしい',           negative:'自分にやさしくない' },
-    { id:'return_to_self',       label:'自分に戻る',        positive:'自分に戻れる',             negative:'自分に戻れない' },
-    { id:'self_decision',        label:'自分で決める',      positive:'自分で決める',             negative:'自分で決めない' },
-    { id:'can_do_feeling',       label:'できる感じ',        positive:'できるという感覚がある',   negative:'できるという感覚がない' },
-    { id:'can_return',           label:'戻れる',            positive:'戻れる',                  negative:'戻れない' },
-    { id:'comfortable_with_people', label:'人と心地よい',  positive:'人と心地よい',             negative:'人と心地よくない' },
-    { id:'safe_to_be_here',      label:'ここに居ていい',    positive:'ここに居ていい',           negative:'ここに居ちゃいけない' },
-    { id:'connection',           label:'つながり',          positive:'つながりを感じる',         negative:'つながりを感じない' },
-    { id:'path_visible',         label:'進む道が見える',    positive:'進む道が見える',           negative:'進む道が見えない' },
-    { id:'vitality',             label:'活力',              positive:'活力を感じる',             negative:'活力を感じない' },
-    { id:'smooth_flow',          label:'スムーズに流れる',  positive:'スムーズに流れる',         negative:'スムーズに流れない' },
-    { id:'gratitude',            label:'感謝',              positive:'感謝を感じる',             negative:'感謝を感じない' },
-    { id:'playfulness',          label:'遊び心',            positive:'遊び心がある',             negative:'遊び心がない' },
-    { id:'curiosity',            label:'好奇心',            positive:'好奇心がある',             negative:'好奇心がない' }
+    { id:'safety',               label:'安心',             positive:'安心を感じる',            negative:'安心を感じない',            desc:'不安や緊張から戻る' },
+    { id:'return_here',          label:'ここに戻る',        positive:'ここに戻れる',            negative:'ここに戻れない',            desc:'考えすぎから今へ戻る' },
+    { id:'connect_body',         label:'体とつながる',      positive:'体とつながっている',       negative:'体とつながっていない',       desc:'呼吸や感覚に気づく' },
+    { id:'calm',                 label:'落ち着き',          positive:'落ち着きを感じる',         negative:'落ち着きを感じない',         desc:'内側が静まる' },
+    { id:'room',                 label:'ゆとり',            positive:'ゆとりを感じる',           negative:'ゆとりを感じない',           desc:'心にスペースがある' },
+    { id:'body_comfort',         label:'体が心地よい',      positive:'体が心地よい',             negative:'体が心地よくない',           desc:'体の中が楽になる' },
+    { id:'clear',                label:'すっきり',          positive:'すっきり感じる',           negative:'すっきり感じない',           desc:'頭や心が軽くなる' },
+    { id:'fulfilled',            label:'満たされる',        positive:'満たされている',           negative:'満たされていない',           desc:'足りない感じがゆるむ' },
+    { id:'small_joy',            label:'小さな喜びに気づく', positive:'小さな喜びに気づく',       negative:'小さな喜びに気づかない',     desc:'身近なよさに気づく' },
+    { id:'self_acceptance',      label:'自分を認める',      positive:'自分を認める',             negative:'自分を認めない',             desc:'今の自分を否定しない' },
+    { id:'self_kindness',        label:'自分にやさしい',    positive:'自分にやさしい',           negative:'自分にやさしくない',         desc:'自分を責めすぎない' },
+    { id:'return_to_self',       label:'自分に戻る',        positive:'自分に戻れる',             negative:'自分に戻れない',             desc:'本来の自分に戻る' },
+    { id:'self_decision',        label:'自分で決める',      positive:'自分で決める',             negative:'自分で決めない',             desc:'人まかせにしない' },
+    { id:'can_do_feeling',       label:'できる感じ',        positive:'できるという感覚がある',   negative:'できるという感覚がない',     desc:'なんとかなりそう' },
+    { id:'can_return',           label:'戻れる',            positive:'戻れる',                  negative:'戻れない',                  desc:'崩れても立て直せる' },
+    { id:'comfortable_with_people', label:'人と心地よい',  positive:'人と心地よい',             negative:'人と心地よくない',           desc:'人といても無理しない' },
+    { id:'safe_to_be_here',      label:'ここに居ていい',    positive:'ここに居ていい',           negative:'ここに居ちゃいけない',       desc:'自分の居場所を感じる' },
+    { id:'connection',           label:'つながり',          positive:'つながりを感じる',         negative:'つながりを感じない',         desc:'ひとりではない感じ' },
+    { id:'path_visible',         label:'進む道が見える',    positive:'進む道が見える',           negative:'進む道が見えない',           desc:'次の一歩が見える' },
+    { id:'vitality',             label:'活力',              positive:'活力を感じる',             negative:'活力を感じない',             desc:'動く力が戻る' },
+    { id:'smooth_flow',          label:'スムーズに流れる',  positive:'スムーズに流れる',         negative:'スムーズに流れない',         desc:'力まず自然に進む' },
+    { id:'gratitude',            label:'感謝',              positive:'感謝を感じる',             negative:'感謝を感じない',             desc:'ありがたさに気づく' },
+    { id:'playfulness',          label:'遊び心',            positive:'遊び心がある',             negative:'遊び心がない',               desc:'軽く楽しめる' },
+    { id:'curiosity',            label:'好奇心',            positive:'好奇心がある',             negative:'好奇心がない',               desc:'知りたい気持ちが開く' }
   ],
   en: [
     { id:'safety',                positive:'safety',                              negative:'not feeling safe' },
@@ -3374,6 +3379,22 @@ function getThemeDisplayLabel(id) {
   return id;
 }
 
+function getThemeDesc(id) {
+  var ht = HAPPINESS_THEMES[lang] || HAPPINESS_THEMES.ja;
+  for (var i = 0; i < ht.length; i++) {
+    if (ht[i].id === id) return ht[i].desc || '';
+  }
+  return '';
+}
+
+function getThemeDescByLabel(label) {
+  var ht = HAPPINESS_THEMES.ja;
+  for (var i = 0; i < ht.length; i++) {
+    if (ht[i].label === label) return ht[i].desc || '';
+  }
+  return '';
+}
+
 function startApp() {
   themeVisibleCount = 3;
   var lastKey = null;
@@ -3394,8 +3415,16 @@ function startApp() {
 function makeThemeBtn(id, label, extraClass) {
   var b = document.createElement('button');
   b.className = 'theme-btn' + (extraClass ? ' ' + extraClass : '') + (id === D.themeKey && themeChosen ? ' selected' : '');
-  b.textContent = label;
+  var desc = getThemeDesc(id);
+  if (desc) {
+    var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = label;
+    var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = desc;
+    b.appendChild(ls); b.appendChild(ds);
+  } else {
+    b.textContent = label;
+  }
   b.dataset.themeKey = id;
+  b.dataset.themeLabel = label;
   b.onclick = (function(k, lbl){ return function(){ selectTheme(k, lbl); }; })(id, label);
   return b;
 }
@@ -3555,8 +3584,8 @@ function ensureCurrentTheme() {
     }
   }
   var selected = document.querySelector('.theme-btn.selected');
-  if (selected && selected.textContent.trim()) {
-    D.theme = selected.textContent.trim();
+  if (selected && (selected.dataset.themeLabel || selected.textContent.trim())) {
+    D.theme = selected.dataset.themeLabel || selected.textContent.trim();
     D.themeKey = selected.dataset.themeKey || D.themeKey || null;
     D.themePositive = D.themeKey ? getThemeLabel(D.themeKey) : D.theme;
     D.themeNegative = D.themeKey ? getThemeNegative(D.themeKey) : getAutoNegative(D.themePositive);
@@ -3983,7 +4012,14 @@ function currentIdealData() {
 function makeIdealBtn(label, extraClass) {
   var b = document.createElement('button');
   b.className = 'ideal-btn' + (extraClass ? ' ' + extraClass : '') + (D.ideal === label ? ' selected' : '');
-  b.textContent = label;
+  var desc = getThemeDescByLabel(label);
+  if (desc) {
+    var ls = document.createElement('span'); ls.className = 'ideal-btn-label'; ls.textContent = label;
+    var ds = document.createElement('span'); ds.className = 'ideal-btn-desc';  ds.textContent = desc;
+    b.appendChild(ls); b.appendChild(ds);
+  } else {
+    b.textContent = label;
+  }
   b.dataset.idealLabel = label;
   b.onclick = (function(lbl){ return function(){ selectIdealOption(lbl); }; })(label);
   return b;
