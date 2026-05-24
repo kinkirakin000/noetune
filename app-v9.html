@@ -179,12 +179,13 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #s-theme-inner>*{flex-shrink:0}
 #theme-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:none}
 /* Door cards */
-.door-card{font-family:'Noto Serif JP',serif;padding:16px 18px 14px;background:#F5F5F2;border:1.5px solid rgba(200,200,195,.4);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent}
+.door-card{font-family:'Noto Serif JP',serif;padding:12px 16px;background:#F5F5F2;border:1.5px solid rgba(200,200,195,.4);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent}
 .door-card.selected{background:rgba(107,144,128,.08);border-color:#6B9080}
-.door-card-question{font-size:.85rem;font-weight:300;color:#555550;line-height:1.75;letter-spacing:.05em;white-space:pre-line;margin-bottom:10px}
+.door-card-question{font-size:.85rem;font-weight:300;color:#555550;line-height:1.6;letter-spacing:.05em;white-space:pre-line}
 .door-card-input{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:300;border:none;border-bottom:1px solid #D4DDD8;background:transparent;padding:.45rem .2rem;width:100%;outline:none;color:#1A1A1A;transition:border-color .3s;box-sizing:border-box}
 .door-card-input:focus{border-bottom-color:#6B9080}
 .door-card-input::placeholder{color:#CCC;font-weight:300}
+#btn-no-answer{font-size:.85rem;color:#777;padding:10px 0;width:100%;text-align:center;border:none;background:none;cursor:pointer;margin-top:.4rem}
 #door-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
 /* ── DARK MODE ── */
 :root{--bg:#FAFAF7;--text:#1A1A1A;--muted:#A8A8A2;--soft:#77736E;--border:#E8E8E2;--card-bg:#FAFAF7;--primary:#6B9080;--input-line:#D4DDD8}
@@ -559,20 +560,29 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 <div class="screen" id="s-door" style="overflow-y:auto;padding:3.5rem 1.4rem 6rem">
   <div style="width:100%;max-width:340px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch">
     <div class="entry-title" id="t-door-title">答えやすい問いを選んでください。</div>
-    <div style="display:flex;flex-direction:column;gap:1rem">
+    <div style="display:flex;flex-direction:column;gap:.75rem">
       <div class="door-card" id="door-card-a" onclick="selectDoorCard('A')">
         <div class="door-card-question" id="door-q-a"></div>
-        <input type="text" class="door-card-input" id="door-inp-a" placeholder="反応を入力…" autocomplete="off" oninput="onDoorAnswerInput('A',this.value)" onclick="event.stopPropagation()">
       </div>
       <div class="door-card" id="door-card-b" onclick="selectDoorCard('B')">
         <div class="door-card-question" id="door-q-b"></div>
-        <input type="text" class="door-card-input" id="door-inp-b" placeholder="反応を入力…" autocomplete="off" oninput="onDoorAnswerInput('B',this.value)" onclick="event.stopPropagation()">
       </div>
       <div class="door-card" id="door-card-c" onclick="selectDoorCard('C')">
         <div class="door-card-question" id="door-q-c"></div>
-        <input type="text" class="door-card-input" id="door-inp-c" placeholder="反応を入力…" autocomplete="off" oninput="onDoorAnswerInput('C',this.value)" onclick="event.stopPropagation()">
       </div>
     </div>
+    <input type="text" class="door-card-input" id="door-answer-input" autocomplete="off" oninput="onDoorAnswerInput(this.value)" disabled style="margin-top:1rem">
+    <button class="btn-ghost" id="btn-no-answer" onclick="goNoAnswer()"></button>
+  </div>
+</div>
+
+<!-- ── CONGRATS ── -->
+<div class="screen" id="s-congrats" style="overflow-y:auto;padding:3.5rem 1.4rem 6rem">
+  <div style="width:100%;max-width:340px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center">
+    <div class="screen-title" id="t-congrats-title"></div>
+    <div class="about-para" id="t-congrats-body" style="text-align:center"></div>
+    <button class="btn" id="btn-congrats-new" onclick="chooseNewTheme()" style="margin-bottom:.8rem"></button>
+    <button class="btn-ghost" id="btn-congrats-start" onclick="backToStart()"></button>
   </div>
 </div>
 
@@ -619,9 +629,9 @@ var copy = {
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'反応を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'「{neg}」\nが当たり前である人\n\nその人はどんな反応ですか。',
-    door_b_question_template:'「{pos}」\nが当たり前でない人\n\nその人はどんな反応ですか。',
-    door_c_question_template:'「{pos}」\nが当たり前である人\n\nその人はどんな反応ですか。',
+    door_a_question_template:'「{neg}」\nが当たり前である人\nその人はどんな反応ですか。',
+    door_b_question_template:'「{pos}」\nが当たり前でない人\nその人はどんな反応ですか。',
+    door_c_question_template:'「{pos}」\nが当たり前である人\nその人はどんな反応ですか。',
     breath_mode_title:'呼吸の進め方を選んでください。',
     breath_mode_soft_label:'やさしく整える\n（内観初心者）',
     breath_mode_soft_desc:'今ある感覚を否定せず、\nやさしく含めながら整えます。',
@@ -820,9 +830,9 @@ var copy = {
     door_title:'Choose the question\nthat feels easiest to answer.',
     door_answer_placeholder:'Enter the reaction…',
     door_next_button:'Continue with this answer',
-    door_a_question_template:'A person for whom\n"{neg}"\nfeels normal.\n\nHow does that person react?',
-    door_b_question_template:'A person for whom\n"{pos}"\ndoes not feel normal.\n\nHow does that person react?',
-    door_c_question_template:'A person for whom\n"{pos}"\nfeels normal.\n\nHow does that person react?',
+    door_a_question_template:'A person for whom\n"{neg}"\nfeels normal.\nHow does that person react?',
+    door_b_question_template:'A person for whom\n"{pos}"\ndoes not feel normal.\nHow does that person react?',
+    door_c_question_template:'A person for whom\n"{pos}"\nfeels normal.\nHow does that person react?',
     no_answer_button:'No answer comes',
     congrats_title:'Congratulations',
     congrats_body:'No reaction is coming up\nfor this theme right now.\n\nThat may be a sign\nthat this theme is quiet\nin this moment.\n\nIf needed,\nchoose another theme.',
@@ -1021,9 +1031,9 @@ var copy = {
     door_title:'請選一個\n比較容易回答的問題。',
     door_answer_placeholder:'輸入反應…',
     door_next_button:'用這個答案繼續',
-    door_a_question_template:'一個「{neg}」\n是理所當然的人。\n\n那個人會有什麼反應？',
-    door_b_question_template:'一個「{pos}」\n並不是理所當然的人。\n\n那個人會有什麼反應？',
-    door_c_question_template:'一個「{pos}」\n是理所當然的人。\n\n那個人會有什麼反應？',
+    door_a_question_template:'一個覺得\n「{neg}」\n很正常的人\n會有什麼反應？',
+    door_b_question_template:'一個覺得\n「{pos}」\n不正常的人\n會有什麼反應？',
+    door_c_question_template:'一個覺得\n「{pos}」\n很正常的人\n會有什麼反應？',
     no_answer_button:'沒有答案出現',
     congrats_title:'Congratulations',
     congrats_body:'在這個主題裡，\n現在沒有反應浮現。\n\n這也許代表，\n此刻這個主題\n已經安靜下來了。\n\n如果需要，\n可以選擇別的主題。',
@@ -1220,9 +1230,9 @@ var copy = {
     door_title:'Elige la pregunta\nque se sienta más fácil de responder.',
     door_answer_placeholder:'Escribe la reacción…',
     door_next_button:'Continuar con esta respuesta',
-    door_a_question_template:'Una persona para quien\n"{neg}"\nse siente normal.\n\n¿Cómo reacciona esa persona?',
-    door_b_question_template:'Una persona para quien\n"{pos}"\nno se siente normal.\n\n¿Cómo reacciona esa persona?',
-    door_c_question_template:'Una persona para quien\n"{pos}"\nse siente normal.\n\n¿Cómo reacciona esa persona?',
+    door_a_question_template:'Una persona para quien\n"{neg}"\nse siente normal.\n¿Cómo reacciona esa persona?',
+    door_b_question_template:'Una persona para quien\n"{pos}"\nno se siente normal.\n¿Cómo reacciona esa persona?',
+    door_c_question_template:'Una persona para quien\n"{pos}"\nse siente normal.\n¿Cómo reacciona esa persona?',
     no_answer_button:'No aparece ninguna respuesta',
     congrats_title:'Congratulations',
     congrats_body:'En este tema,\nno aparece ninguna reacción ahora.\n\nEso puede ser una señal\nde que este tema está tranquilo\nen este momento.\n\nSi lo necesitas,\nelige otro tema.',
@@ -1397,9 +1407,9 @@ var copy = {
     door_title:'Wähle die Frage,\ndie sich am leichtesten beantworten lässt.',
     door_answer_placeholder:'Reaktion eingeben…',
     door_next_button:'Mit dieser Antwort fortfahren',
-    door_a_question_template:'Eine Person, für die\n„{neg}"\nnormal ist.\n\nWie reagiert diese Person?',
-    door_b_question_template:'Eine Person, für die\n„{pos}"\nnicht normal ist.\n\nWie reagiert diese Person?',
-    door_c_question_template:'Eine Person, für die\n„{pos}"\nnormal ist.\n\nWie reagiert diese Person?',
+    door_a_question_template:'Eine Person, für die\n„{neg}"\nnormal ist.\nWie reagiert diese Person?',
+    door_b_question_template:'Eine Person, für die\n„{pos}"\nnicht normal ist.\nWie reagiert diese Person?',
+    door_c_question_template:'Eine Person, für die\n„{pos}"\nnormal ist.\nWie reagiert diese Person?',
     no_answer_button:'Es kommt keine Antwort',
     congrats_title:'Congratulations',
     congrats_body:'Zu diesem Thema\nkommt gerade keine Reaktion hoch.\n\nDas kann ein Zeichen sein,\ndass dieses Thema\nin diesem Moment ruhig ist.\n\nWenn nötig,\nwähle ein anderes Thema.',
@@ -1574,9 +1584,9 @@ var copy = {
     door_title:'Escolha a pergunta\nque parece mais fácil de responder.',
     door_answer_placeholder:'Digite a reação…',
     door_next_button:'Continuar com esta resposta',
-    door_a_question_template:'Uma pessoa para quem\n"{neg}"\nparece normal.\n\nComo essa pessoa reage?',
-    door_b_question_template:'Uma pessoa para quem\n"{pos}"\nnão parece normal.\n\nComo essa pessoa reage?',
-    door_c_question_template:'Uma pessoa para quem\n"{pos}"\nparece normal.\n\nComo essa pessoa reage?',
+    door_a_question_template:'Uma pessoa para quem\n"{neg}"\nparece normal.\nComo essa pessoa reage?',
+    door_b_question_template:'Uma pessoa para quem\n"{pos}"\nnão parece normal.\nComo essa pessoa reage?',
+    door_c_question_template:'Uma pessoa para quem\n"{pos}"\nparece normal.\nComo essa pessoa reage?',
     no_answer_button:'Nenhuma resposta aparece',
     congrats_title:'Congratulations',
     congrats_body:'Neste tema,\nnenhuma reação está surgindo agora.\n\nIsso pode ser um sinal\nde que este tema está quieto\nneste momento.\n\nSe precisar,\nescolha outro tema.',
@@ -1752,9 +1762,9 @@ var copy = {
     door_title:'Choisis la question\nqui semble la plus facile à répondre.',
     door_answer_placeholder:'Écris la réaction…',
     door_next_button:'Continuer avec cette réponse',
-    door_a_question_template:'Une personne pour qui\n« {neg} »\nsemble normal.\n\nComment cette personne réagit-elle ?',
-    door_b_question_template:'Une personne pour qui\n« {pos} »\nne semble pas normal.\n\nComment cette personne réagit-elle ?',
-    door_c_question_template:'Une personne pour qui\n« {pos} »\nsemble normal.\n\nComment cette personne réagit-elle ?',
+    door_a_question_template:'Une personne pour qui\n« {neg} »\nsemble normal.\nComment cette personne réagit-elle ?',
+    door_b_question_template:'Une personne pour qui\n« {pos} »\nne semble pas normal.\nComment cette personne réagit-elle ?',
+    door_c_question_template:'Une personne pour qui\n« {pos} »\nsemble normal.\nComment cette personne réagit-elle ?',
     no_answer_button:'Aucune réponse ne vient',
     congrats_title:'Congratulations',
     congrats_body:'Pour ce thème,\naucune réaction ne monte maintenant.\n\nCela peut être un signe\nque ce thème est calme\nen ce moment.\n\nSi nécessaire,\nchoisis un autre thème.',
@@ -1943,8 +1953,13 @@ function applyLang() {
   /* Door screen */
   setEl('t-door-title', T('door_title'));
   setEl('btn-door-next', T('door_next_button'));
-  var ph = T('door_answer_placeholder');
-  ['a','b','c'].forEach(function(d){ var inp = document.getElementById('door-inp-' + d); if (inp) inp.placeholder = ph; });
+  setEl('btn-no-answer',     T('no_answer_button'));
+  setEl('t-congrats-title',  T('congrats_title'));
+  setEl('t-congrats-body',   T('congrats_body'));
+  setEl('btn-congrats-new',  T('congrats_choose_new_theme'));
+  setEl('btn-congrats-start',T('congrats_back_to_start'));
+  var sharedInp = document.getElementById('door-answer-input');
+  if (sharedInp) sharedInp.placeholder = T('door_answer_placeholder');
   setEl('lbl-br2-main', T('breath_2_text'));
   setEl('lbl-br3-main', T('breath_3_text'));
   setEl('lbl-br4-main', T('breath_4_text'));
@@ -3550,10 +3565,9 @@ function showDoorScreen() {
   setEl('door-q-a', T('door_a_question_template', {pos: pos, neg: neg}));
   setEl('door-q-b', T('door_b_question_template', {pos: pos, neg: neg}));
   setEl('door-q-c', T('door_c_question_template', {pos: pos, neg: neg}));
-  var ph = T('door_answer_placeholder');
+  var sharedInp = document.getElementById('door-answer-input');
+  if (sharedInp) { sharedInp.value = ''; sharedInp.placeholder = T('door_answer_placeholder'); sharedInp.disabled = true; }
   ['a','b','c'].forEach(function(d) {
-    var inp = document.getElementById('door-inp-' + d);
-    if (inp) { inp.value = ''; inp.placeholder = ph; }
     var card = document.getElementById('door-card-' + d);
     if (card) card.classList.remove('selected');
   });
@@ -3585,43 +3599,24 @@ function selectDoorCard(door) {
       else card.classList.remove('selected');
     }
   });
-  var inp = document.getElementById('door-inp-' + door.toLowerCase());
-  if (inp) inp.focus();
+  var inp = document.getElementById('door-answer-input');
+  if (inp) { inp.disabled = false; inp.focus(); }
+  var btn = document.getElementById('btn-door-next');
+  if (btn) btn.disabled = !inp || !inp.value.trim();
 }
 
-function onDoorAnswerInput(door, value) {
-  if (value.trim()) {
-    selectDoorCard(door);
-    ['A','B','C'].forEach(function(d) {
-      if (d !== door) {
-        var other = document.getElementById('door-inp-' + d.toLowerCase());
-        if (other && other.value) other.value = '';
-      }
-    });
-  } else {
-    var card = document.getElementById('door-card-' + door.toLowerCase());
-    if (card) card.classList.remove('selected');
-    _selectedDoorCard = null;
-  }
-  var hasAny = false;
-  ['A','B','C'].forEach(function(d) {
-    var inp = document.getElementById('door-inp-' + d.toLowerCase());
-    if (inp && inp.value.trim()) hasAny = true;
-  });
+function onDoorAnswerInput(value) {
   var btn = document.getElementById('btn-door-next');
-  if (btn) btn.disabled = !hasAny;
+  if (btn) btn.disabled = !value.trim() || !_selectedDoorCard;
 }
 
 function submitDoorAnswer() {
-  var answer = '', doorKey = _selectedDoorCard;
-  ['A','B','C'].forEach(function(d) {
-    var inp = document.getElementById('door-inp-' + d.toLowerCase());
-    if (inp && inp.value.trim()) { answer = inp.value.trim(); doorKey = d; }
-  });
-  if (!answer || !doorKey) return;
-  D.doorKey = doorKey;
-  D.doorSentence = _doorSentences[doorKey];
-  trackEvent('v9_door_' + doorKey.toLowerCase());
+  var inp = document.getElementById('door-answer-input');
+  var answer = inp ? inp.value.trim() : '';
+  if (!answer || !_selectedDoorCard) return;
+  D.doorKey = _selectedDoorCard;
+  D.doorSentence = _doorSentences[_selectedDoorCard];
+  trackEvent('v9_door_' + _selectedDoorCard.toLowerCase());
   enterV9Step2(answer);
 }
 
@@ -3630,6 +3625,19 @@ function updateDoorCTA() {
   if (!wrap) return;
   if (cur === 's-door') { wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto'; }
   else { wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none'; }
+}
+
+function goNoAnswer() {
+  var inp = document.getElementById('door-answer-input');
+  if (inp) { inp.value = ''; inp.disabled = true; }
+  ['a','b','c'].forEach(function(d) {
+    var card = document.getElementById('door-card-' + d);
+    if (card) card.classList.remove('selected');
+  });
+  _selectedDoorCard = null;
+  var btn = document.getElementById('btn-door-next');
+  if (btn) btn.disabled = true;
+  fwd('s-congrats');
 }
 
 function enterV9Step2(reaction) {
