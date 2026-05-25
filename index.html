@@ -8,7 +8,6 @@
 <meta name="theme-color" content="#FAFAF7">
 <meta name="theme-color" content="#151412" media="(prefers-color-scheme:dark)">
 <title>Noetune</title>
-<!-- Noetune V9 Experimental — Lack / Fulfillment observation layer -->
 <meta name="description" content="Tune your next moment through short questions and breathing.">
 <meta property="og:title" content="Noetune">
 <meta property="og:description" content="Tune your next moment through short questions and breathing.">
@@ -89,7 +88,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .sc-card-footer{font-family:'Noto Serif JP',serif;font-size:.58rem;color:#C8C8C2;letter-spacing:.12em;text-align:center;margin-top:.6rem}
 .sc-note-wrap{padding-top:.6rem;margin-top:.6rem;border-top:1px solid #EDEDE7}
 .sc-note-value{font-family:'Noto Serif JP',serif;font-size:.85rem;color:#1A1A1A;font-weight:400;letter-spacing:.03em;margin-top:.15rem;line-height:1.5}
-.result-dir{display:none}
 .btn-save-image{font-family:'Noto Serif JP',serif;background:transparent;border:1px solid #B8C8C2;color:#6B9080;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:1.2rem;padding:8px 22px;border-radius:20px;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s;display:inline-block}
 .btn-save-image:active{background:#F2F7F5}
 .btn-save-image:disabled{opacity:.6;cursor:default}
@@ -101,23 +99,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-secondary-result:active{color:#6B9080}
 .result-pricing-note{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#8F8F88;letter-spacing:.08em;text-align:center;margin-top:2rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s}
 .result-pricing-note:active{color:#6B9080}
-.share-card{width:100%;max-width:320px;background:#FAFAF7;border:1px solid #E8E8E2;border-radius:12px;padding:1.6rem 1.4rem 1.2rem;box-sizing:border-box}
-.share-card-title{font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:600;color:#1A1A1A;letter-spacing:.06em;text-align:center;margin-bottom:.2rem}
-.share-card-subtitle{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.2em;text-align:center;margin-bottom:1.4rem}
-.share-card-ideal-label{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.1em;text-align:center;margin-bottom:.3rem}
-.share-card-ideal-value{font-family:'Noto Serif JP',serif;font-size:.95rem;color:#1A1A1A;font-weight:500;letter-spacing:.03em;text-align:center;margin-bottom:1.4rem}
-.share-card-table{width:100%;border-top:1px solid #EDEDE7}
-.share-card-row{display:flex;justify-content:space-between;align-items:center;padding:.75rem 0;border-bottom:1px solid #EDEDE7}
-.share-card-row-label{font-family:'Noto Serif JP',serif;font-size:.75rem;color:#666;letter-spacing:.04em;flex:1;margin-right:.6rem}
-.share-card-row-values{display:inline-flex;align-items:center;gap:.3rem;font-family:'Noto Serif JP',serif;font-size:1.1rem;font-weight:500;white-space:nowrap;flex-shrink:0}
-.share-card-nm-note{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.04em;margin-top:1rem;line-height:1.75}
-.share-card-footer{font-family:'Noto Serif JP',serif;font-size:.6rem;color:#C8C8C2;letter-spacing:.12em;text-align:center;margin-top:1.1rem}
 .btn-nm{font-family:'Noto Serif JP',serif;margin-top:.9rem;padding:8px 22px;background:transparent;color:#8F8F88;border:1.5px solid #E4E4DE;border-radius:30px;font-size:.8rem;letter-spacing:.08em;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .15s}
 .btn-nm:active{transform:scale(.97)}
 .btn-nm.selected{background:#F2F7F5;color:#6B9080;border-color:#6B9080}
 .score-num.nm{visibility:visible;font-size:1.3rem;font-weight:500;color:#6B9080;letter-spacing:.1em}
-.v9-experimental-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#C8C8C2;letter-spacing:.15em;margin-top:.3rem;padding:0 2px}
-.v9-prev-answer{font-family:'Noto Serif JP',serif;font-size:.85rem;font-weight:300;color:#8F8F88;letter-spacing:.04em;line-height:1.65;text-align:center;margin-bottom:1.4rem;max-width:280px}
 @media(max-height:640px){.screen{padding:2.5rem 1.4rem 1.8rem}.breath-circle{width:110px;height:110px}.intro-title{font-size:2.3rem}}
 /* theme screen */
 .theme-top-copy{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;color:#666660;text-align:center;letter-spacing:.04em;line-height:2;margin-bottom:1.2rem;white-space:pre-line;max-width:300px}
@@ -220,7 +205,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .breath-circle.inhale{box-shadow:0 8px 50px rgba(143,184,164,.22)}
 .sc-card{background:#1B1A17;border-color:rgba(245,239,230,.14)}
 .sc-from-value{color:#A0998F}
-.sc-down-arrow,.sc-val-arrow,.sc-card-footer,.theme-group-arrow,.share-card-footer{color:#4A4845}
+.sc-down-arrow,.sc-val-arrow,.sc-card-footer,.theme-group-arrow{color:#4A4845}
 .sc-val-before{color:#6C6861}
 .sc-val-after{color:#8FB8A4}
 .sc-shift-section{border-top-color:rgba(245,239,230,.1)}
@@ -234,12 +219,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .btn-secondary-result:active{color:#8FB8A4}
 .result-pricing-note{color:#8E8981}
 .result-pricing-note:active{color:#8FB8A4}
-.share-card{background:#1B1A17;border-color:rgba(245,239,230,.14)}
-.share-card-title,.share-card-ideal-value{color:#F5EFE6}
-.share-card-subtitle,.share-card-ideal-label,.share-card-nm-note{color:#8E8981}
-.share-card-row-label{color:#B8B2A8}
-.share-card-table{border-top-color:rgba(245,239,230,.1)}
-.share-card-row{border-bottom-color:rgba(245,239,230,.1)}
 .custom-theme-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
 .custom-theme-input:focus{border-bottom-color:#8FB8A4}
 .custom-theme-input::placeholder{color:#4A4845}
@@ -267,8 +246,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .door-card-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.35)}
 .door-card-input:focus{border-bottom-color:#8FB8A4}
 .door-card-input::placeholder{color:#4A4845}
-.v9-experimental-label{color:#4A4845}
-.v9-prev-answer{color:#8E8981}
 .theme-cat-heading{color:#5A5855}
 }
 </style>
@@ -523,7 +500,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
           <span class="sc-val-before" id="r-be-b"></span>
           <span class="sc-val-arrow">→</span>
           <span class="sc-val-after" id="r-be-a"></span>
-          <span class="result-dir" id="r-be-dir"></span>
         </div>
       </div>
     </div>
@@ -623,14 +599,10 @@ var copy = {
     back_button:'戻る', start_button:'始める',
     theme_top_copy:'今の感覚で、\n幸せな人にあるものを\nひとつ選んでください。\n\nまたは、自由に入力してください。',
     category_section_label:'カテゴリから選ぶ',
-    section_label_core:'基本テーマ',
-    btn_expand_everyday:'すべてのテーマを見る',
-    btn_expand_deeper:'もっと深いテーマを見る',
     custom_input_placeholder:'自由に入力…',
     theme_cta_button:'このテーマで始める',
     app_sub:'— 次の瞬間を調律する —',
     see_more_themes:'さらに見る',
-    see_all_themes:'すべて見る',
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'反応を入力…',
     door_next_button:'この答えで進む',
@@ -649,7 +621,6 @@ var copy = {
     entry_ideal_button:'理想体験から始める',
     entry_ideal_desc:'今この瞬間に感じたい体験から、\n直接始めます。',
     entry_explain_link:'なぜ2つの入り口なのか',
-    entry_ideal_soon:'準備中です',
     entry_explain_title:'なぜ2つの入り口なのか',
     entry_explain_body:'Noetuneには、2つの始め方があります。\nどちらを選んでも、向かう方向は同じです。\n\n自動反応から始める方法では、\n幸せな人にある状態をひとつ選び、\nその状態に対して、今どんな反応が出るのかを見ます。\n\n理想体験から始める方法では、\n今この瞬間に感じたい体験から、直接始めます。\n\nNoetuneは、ネガティブを見るためのものではありません。\nまた、ポジティブを無理につくるためのものでもありません。\n\n反応を観察しながら、\n少しずつ、固定されていない状態へ戻っていくためのものです。\n\n迷ったら、自動反応から始めるのがおすすめです。',
     about_title:'Noetuneとは',
@@ -658,7 +629,6 @@ var copy = {
     about_p3:'Noetuneは、\n無理にポジティブになるためのものではありません。\n\nまた、\nネガティブを否定するためのものでもありません。',
     about_p4:'反応を観察しながら、\n少しずつ、\n固定されていない状態へ戻っていくための実践です。',
     about_safety_note:'Noetuneは、\n医療・診断・緊急支援を目的としたものではありません。\n\n強い危機感がある場合や、\n自分だけでは安全を保てないと感じる場合は、\n地域の医療機関や専門家へ相談してください。',
-    pricing_link:'Noetuneを続ける',
     pricing_title:'Noetuneを続ける',
     pricing_p1:'Noetuneは、\n最初の1ヶ月は無料で使えます。\n\nその後は、\n有料プランで続けられます。',
     pricing_p2:'これは、\n幸せな人にある状態を入口にして、\n今この瞬間の反応を整えるための\n小さなセルフチューニングです。\n\n安心。\nここに戻る。\n体とつながる。\n自分にやさしい。\n\nそうした状態に対する反応を見つめ、\n少しずつ、\n固定されていない状態へ戻っていきます。',
@@ -670,56 +640,6 @@ var copy = {
     back_to_start:'スタート画面に戻る',
     change_language:'言語を変える',
     result_pricing_note:'Noetuneを続けるには →',
-    /* core themes */
-    theme_core_cant_stay_open:'開いた感覚が続かない',
-    theme_core_lost_feeling:'何かを見失っている',
-    theme_core_overthink:'考えが止まらない',
-    theme_core_future_worry:'先のことが気になる',
-    theme_core_cant_rest:'うまく休めない',
-    theme_core_disconnected:'自分から離れている感じ',
-    /* everyday themes */
-    theme_ev_anxiety:'不安',
-    theme_ev_rushed:'焦り',
-    theme_ev_restless:'落ち着かない',
-    theme_ev_bothered:'気になる',
-    theme_ev_irritated:'イライラ',
-    theme_ev_afraid:'こわい',
-    theme_ev_sad:'悲しい',
-    theme_ev_lonely:'孤独',
-    theme_ev_compare:'比べてしまう',
-    theme_ev_no_confidence:'自信がない',
-    theme_ev_recognized:'認められたい',
-    theme_ev_regret:'後悔',
-    theme_ev_guilt:'罪悪感',
-    theme_ev_shame:'恥ずかしさ',
-    theme_ev_cant_let_go:'手放せない',
-    theme_ev_control:'コントロールしたい',
-    theme_ev_empty:'空虚感',
-    theme_ev_money:'お金のこと',
-    theme_ev_relationships:'人間関係',
-    theme_ev_slow_down:'もっとゆっくりしたい',
-    /* deeper themes */
-    theme_dp_abandoned:'見捨てられる感覚',
-    theme_dp_understood:'わかってもらえない',
-    theme_dp_alone:'ひとりぼっちの感覚',
-    theme_dp_left_behind:'置いてかれる感覚',
-    theme_dp_betrayed:'裏切られた感覚',
-    theme_dp_forgive:'許せない気持ち',
-    theme_dp_jealous:'嫉妬',
-    theme_dp_hurt:'傷ついている',
-    theme_dp_unrewarded:'報われない感覚',
-    theme_dp_blame:'責めてしまう',
-    theme_dp_dislike_self:'自分が嫌い',
-    theme_dp_hopeless:'希望が持てない',
-    theme_dp_valued:'大切にされたい',
-    theme_dp_expectations:'期待に応えられない',
-    theme_dp_lose:'失うのが怖い',
-    theme_dp_dependent:'依存している感覚',
-    theme_dp_cant_stop:'やめられない',
-    theme_dp_own_way:'自分のやり方を通したい',
-    theme_dp_afraid_let_go:'手放すのが怖い',
-    theme_dp_danger:'安全でない感じ',
-    /* rest of UI */
     next_button:'次へ', not_measurable_button:'数値化不可',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'Session Shift',
@@ -733,7 +653,6 @@ var copy = {
     result_be_helper:'呼吸の余裕度',
     result_nm_display:'固定されていない',
     result_meaning:'固定されていない＝\n数字に固定されず、\n自由に変化できる感覚',
-    restart_button:'もう一度',
     breath_in:'吸う', breath_out:'吐く',
     issue_placeholder:'問題を入力…', issue_skip:'出てこない',
     ideal_placeholder:'残る状態を入力…',
@@ -749,15 +668,12 @@ var copy = {
     breath_3_deep_text:'その感覚に対する抵抗',
     breath_4_deep_text:'その抵抗以外の全て',
     breath_5_deep_text:'その抵抗が存在しない状態。',
-    issue_title:'「{theme}」から、\n今まさに発生している問題は何？',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな理想状態が残る？',
     before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
     before2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     after1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
     after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
-    result_subject:'「{ideal}」',
     breath_1_text:'「{ideal}」',
-    ideal_entry_title:'次の瞬間、どんな体験が理想？',
     ideal_blocker_title:'「{ideal}」を邪魔する状態は？',
     ideal_blocker_placeholder:'邪魔する状態を入力…',
     ideal_before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
@@ -780,13 +696,6 @@ var copy = {
     congrats_choose_new_theme:'別のテーマを選ぶ',
     congrats_back_to_start:'スタート画面に戻る',
     result_shift_note_label:'今の感覚',
-    share_card_button:'共有用カードを表示',
-    share_card_subtitle:'セッション結果',
-    share_card_ideal_label:'理想の体験',
-    share_card_nc_label:'次の瞬間、その体験である確率',
-    share_card_be_label:'呼吸の余裕度',
-    share_card_nm_explain:'「数値化不可」は、0〜100の数字では表しにくいほど、状態が固定されていない感覚です。',
-    share_card_back:'結果に戻る',
     door_a_template:'「{neg}」が当たり前である人',
     door_b_template:'「{pos}」が当たり前でない人',
     door_c_template:'「{pos}」が当たり前である人',
@@ -795,43 +704,17 @@ var copy = {
     step1_placeholder:'反応を入力…',
     step2_placeholder:'残る状態を入力…',
     step1_skip_default:'静かに反応している',
-    step2_skip_default:'静かに戻っている',
-    /* V9 experimental (kept for reference) */
-    v9_entry_button:'不足 / 充足から始める（実験版）',
-    v9_entry_label:'Experimental',
-    v9_entry_desc:'不足と充足の観察から始める、実験的なフローです。',
-    v9_mode_title:'どちらから始めますか？',
-    v9_lack_button:'不足から始める',
-    v9_fulfillment_button:'充足から始める',
-    v9_lack_q1:'不足が当たり前である時、\nあなたはどのような状態ですか？',
-    v9_fulfillment_q1:'充足が当たり前である時、\nあなたはどのような状態ですか？',
-    v9_q2:'その状態が存在しない時、\nどんな理想の状態が残りますか？',
-    v9_breath_text:'その状態を、\n軽く感じながら呼吸してください',
-    v9_result_from_label:'From',
-    v9_result_toward_label:'Toward',
-    v9_result_phrase:'固定された不足から、\n少し余白が戻ることがあります。',
-    v9_safety_note:'これは答えを与えるものではなく、\n今の状態を観察するための実験的フローです。',
-    v9_placeholder_q1:'状態を入力…',
-    v9_placeholder_q2:'理想の状態を入力…',
-    v9_subject_title:'どちらの視点から見ますか？',
-    v9_subject_you:'あなた',
-    v9_subject_people:'人',
-    v9_lack_q1_people:'不足が当たり前である時、\n人はどのような状態ですか？',
-    v9_fulfillment_q1_people:'充足が当たり前である時、\n人はどのような状態ですか？'
+    step2_skip_default:'静かに戻っている'
   },
   en: {
     back_button:'Back',
     start_button:'Start',
     theme_top_copy:'Choose one state\nthat happy people carry.\n\nOr enter your own.',
     category_section_label:'Choose by category',
-    section_label_core:'Basic themes',
-    btn_expand_everyday:'Show all themes',
-    btn_expand_deeper:'Show deeper themes',
     custom_input_placeholder:'Enter freely…',
     theme_cta_button:'Start with this theme',
     app_sub:'— tune your next moment —',
     see_more_themes:'Show more',
-    see_all_themes:'Show all',
     door_title:'Choose the question\nthat feels easiest to answer.',
     door_answer_placeholder:'Enter the reaction…',
     door_next_button:'Continue with this answer',
@@ -850,7 +733,6 @@ var copy = {
     entry_ideal_button:'Begin from ideal experience',
     entry_ideal_desc:'Start directly from the experience\nyou want to feel in this moment.',
     entry_explain_link:'Why two entrances?',
-    entry_ideal_soon:'Coming soon',
     entry_explain_title:'Why two entrances?',
     entry_explain_body:'Noetune has two ways to begin.\nWhichever you choose,\nthe direction is the same.\n\nWhen you begin from automatic reaction,\nyou choose one state\nthat happy people carry,\nand observe what reaction appears\nin relation to that state.\n\nWhen you begin from ideal experience,\nyou start directly from the experience\nyou want to feel in this moment.\n\nNoetune is not for looking for negativity.\nAnd it is not for forcing positivity.\n\nIt is for observing reactions\nand gradually returning\nto a state that is not fixed.\n\nIf you are unsure,\nbeginning from automatic reaction\nis recommended.',
     about_title:'What is Noetune?',
@@ -859,7 +741,6 @@ var copy = {
     about_p3:'Noetune is not for forcing yourself\nto become positive.\n\nAnd it is not for rejecting\nwhat feels negative.',
     about_p4:'It is a practice\nfor observing reactions\nand gradually returning\nto a state that is not fixed.',
     about_safety_note:'Noetune is not intended\nfor medical care, diagnosis,\nor emergency support.\n\nIf you feel in immediate danger,\nor feel unable to keep yourself safe,\nplease contact local emergency services,\na medical professional,\nor someone you trust.',
-    pricing_link:'Continue Noetune',
     pricing_title:'Continue Noetune',
     pricing_p1:'Noetune is free\nfor the first month.\n\nAfter that,\nyou can continue\nwith a paid plan.',
     pricing_p2:'This is a small\nself-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.\n\nSafety.\nSpace.\nBeing here now.\nBeing yourself.\n\nBy observing reactions\nto those states,\nyou gradually return\nto a state that is not fixed.',
@@ -876,56 +757,6 @@ var copy = {
     back_to_start:'Return to start',
     change_language:'Change language',
     result_pricing_note:'Continue Noetune →',
-    /* core themes */
-    theme_core_cant_stay_open:"I can't stay open",
-    theme_core_lost_feeling:'Something feels lost',
-    theme_core_overthink:"I can't stop thinking",
-    theme_core_future_worry:"Worrying about what's ahead",
-    theme_core_cant_rest:"I can't really rest",
-    theme_core_disconnected:'Feeling disconnected from myself',
-    /* everyday themes */
-    theme_ev_anxiety:'Anxiety',
-    theme_ev_rushed:'Feeling rushed',
-    theme_ev_restless:'Restless',
-    theme_ev_bothered:'Something bothering me',
-    theme_ev_irritated:'Irritated',
-    theme_ev_afraid:'Afraid',
-    theme_ev_sad:'Sad',
-    theme_ev_lonely:'Lonely',
-    theme_ev_compare:'Comparing myself',
-    theme_ev_no_confidence:'Lack of confidence',
-    theme_ev_recognized:'Want to be recognized',
-    theme_ev_regret:'Regret',
-    theme_ev_guilt:'Guilt',
-    theme_ev_shame:'Shame',
-    theme_ev_cant_let_go:"Can't let go",
-    theme_ev_control:'Need to control',
-    theme_ev_empty:'Emptiness',
-    theme_ev_money:'Money worries',
-    theme_ev_relationships:'Relationships',
-    theme_ev_slow_down:'Want to slow down',
-    /* deeper themes */
-    theme_dp_abandoned:'Fear of being abandoned',
-    theme_dp_understood:'Not being understood',
-    theme_dp_alone:'Feeling utterly alone',
-    theme_dp_left_behind:'Being left behind',
-    theme_dp_betrayed:'Feeling betrayed',
-    theme_dp_forgive:'Unable to forgive',
-    theme_dp_jealous:'Jealousy',
-    theme_dp_hurt:'Feeling hurt',
-    theme_dp_unrewarded:'Going unrecognized',
-    theme_dp_blame:'Blaming myself or others',
-    theme_dp_dislike_self:'Disliking myself',
-    theme_dp_hopeless:'Losing hope',
-    theme_dp_valued:'Want to be valued',
-    theme_dp_expectations:'Not meeting expectations',
-    theme_dp_lose:'Fear of losing',
-    theme_dp_dependent:'Feeling dependent',
-    theme_dp_cant_stop:"Can't stop",
-    theme_dp_own_way:'Need things my way',
-    theme_dp_afraid_let_go:'Afraid to let go',
-    theme_dp_danger:'Feeling unsafe',
-    /* rest of UI */
     next_button:'Next', not_measurable_button:'Not measurable',
     feel_prompt:'Feel.', breathe_start_hint:'Exhale softly, then tap',
     session_result_header:'Session Shift',
@@ -939,7 +770,6 @@ var copy = {
     result_be_helper:'The space in your breathing',
     result_nm_display:'Not fixed',
     result_meaning:'Not fixed =\nnot held by numbers,\nfree to shift.',
-    restart_button:'Again',
     breath_in:'Inhale', breath_out:'Exhale',
     issue_placeholder:'Enter the issue…', issue_skip:'Nothing comes up',
     ideal_placeholder:'Enter the remaining state…',
@@ -955,15 +785,12 @@ var copy = {
     breath_3_deep_text:'The resistance to that feeling',
     breath_4_deep_text:'Everything except that resistance',
     breath_5_deep_text:'The state where that resistance\nis no longer there.',
-    issue_title:'From "{theme}",\nwhat issue is appearing right now?',
     ideal_title:'"{issue}"\n\nWhen that reaction is not there,\nwhat ideal state remains?',
     before1_title:'"{ideal}"\n\nIn the next moment,\nhow likely is that state?',
     before2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
     after1_title:'"{ideal}"\n\nIn the next moment,\nhow likely is that state?',
     after2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
-    result_subject:'"{ideal}"',
     breath_1_text:'"{ideal}"',
-    ideal_entry_title:'What experience would feel ideal\nin the next moment?',
     ideal_blocker_title:'What is blocking\n"{ideal}"?',
     ideal_blocker_placeholder:'Enter what is blocking it…',
     ideal_before1_title:'"{ideal}"\n\nIn the next moment,\nhow likely is that state?',
@@ -981,13 +808,6 @@ var copy = {
     shift_note_button:'See result',
     shift_note_skip:'Skip',
     result_shift_note_label:'Current Feeling',
-    share_card_button:'Show share card',
-    share_card_subtitle:'Session Result',
-    share_card_ideal_label:'Ideal Experience',
-    share_card_nc_label:'How likely this experience feels\nin the next moment',
-    share_card_be_label:'Breathing Space',
-    share_card_nm_explain:'"Not measurable" means the state is not easily expressed\nwithin a number from 0 to 100.',
-    share_card_back:'Back to result',
     door_a_template:'Someone for whom "{neg}" feels normal',
     door_b_template:'Someone for whom "{pos}" does not feel normal',
     door_c_template:'Someone for whom "{pos}" feels normal',
@@ -996,43 +816,17 @@ var copy = {
     step1_placeholder:'Type the reaction…',
     step2_placeholder:'What state remains…',
     step1_skip_default:'quietly reacting',
-    step2_skip_default:'quietly returning',
-    /* V9 experimental */
-    v9_entry_button:'Start from Lack / Fulfillment (Experimental)',
-    v9_entry_label:'Experimental',
-    v9_entry_desc:'An experimental flow starting from observation of lack and fulfillment.',
-    v9_mode_title:'Where would you like to begin?',
-    v9_lack_button:'Start from Lack',
-    v9_fulfillment_button:'Start from Fulfillment',
-    v9_lack_q1:'When lack feels normal,\nwhat state are you in?',
-    v9_fulfillment_q1:'When fulfillment feels natural,\nwhat state are you in?',
-    v9_q2:'If that state were absent,\nwhat ideal state would remain?',
-    v9_breath_text:'Breathe while lightly noticing that state.',
-    v9_result_from_label:'From',
-    v9_result_toward_label:'Toward',
-    v9_result_phrase:'Sometimes space returns\nwhen fixed lack softens.',
-    v9_safety_note:'This experimental flow is not meant to provide answers,\nonly observation.',
-    v9_placeholder_q1:'Describe your state…',
-    v9_placeholder_q2:'Describe the ideal state…',
-    v9_subject_title:'Which perspective would you like to observe from?',
-    v9_subject_you:'You',
-    v9_subject_people:'People',
-    v9_lack_q1_people:'When lack feels normal,\nwhat state are people in?',
-    v9_fulfillment_q1_people:'When fulfillment feels natural,\nwhat state are people in?'
+    step2_skip_default:'quietly returning'
   },
   'zh-TW': {
     back_button:'返回',
     start_button:'開始',
     theme_top_copy:'請依照現在的感覺，\n選一個幸福的人身上\n會有的狀態。\n\n或是自由輸入。',
     category_section_label:'依分類選擇',
-    section_label_core:'基本主題',
-    btn_expand_everyday:'查看所有主題',
-    btn_expand_deeper:'查看更深的主題',
     custom_input_placeholder:'自由輸入…',
     theme_cta_button:'用這個主題開始',
     app_sub:'— 調頻下一個瞬間 —',
     see_more_themes:'查看更多',
-    see_all_themes:'查看全部',
     door_title:'請選一個\n比較容易回答的問題。',
     door_answer_placeholder:'輸入反應…',
     door_next_button:'用這個答案繼續',
@@ -1051,7 +845,6 @@ var copy = {
     entry_ideal_button:'從理想體驗開始',
     entry_ideal_desc:'從此刻想感受到的體驗\n直接開始。',
     entry_explain_link:'為什麼有兩個入口？',
-    entry_ideal_soon:'準備中',
     entry_explain_title:'為什麼有兩個入口？',
     entry_explain_body:'Noetune 有兩種開始方式。\n不論選哪一種，\n前往的方向都是一樣的。\n\n從自動反應開始時，\n你會先選一個\n幸福的人身上會有的狀態，\n並觀察自己對那個狀態\n出現了什麼反應。\n\n從理想體驗開始時，\n你會直接從此刻\n想感受到的體驗開始。\n\nNoetune 不是為了尋找負面。\n也不是為了勉強自己變正向。\n\n它是為了觀察反應，\n並一點一點回到\n不被固定的狀態。\n\n如果不確定，\n建議從自動反應開始。',
     about_title:'什麼是 Noetune？',
@@ -1060,7 +853,6 @@ var copy = {
     about_p3:'Noetune 不是為了\n勉強自己變正向。\n\n也不是為了否定\n那些感覺負面的部分。',
     about_p4:'它是一個練習。\n觀察反應，\n並慢慢回到\n不被固定的狀態。',
     about_safety_note:'Noetune 不是醫療、診斷\n或緊急支援工具。\n\n如果你感到強烈危機，\n或覺得自己無法維持安全，\n請聯繫當地醫療機構、\n專業人員，\n或你信任的人。',
-    pricing_link:'繼續使用 Noetune',
     pricing_title:'繼續使用 Noetune',
     pricing_p1:'Noetune 第一個月\n可以免費使用。\n\n之後，\n可以透過付費方案\n繼續使用。',
     pricing_p2:'這是一個小小的\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。\n\n安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過觀察自己\n對這些狀態的反應，\n你會一點一點回到\n不被固定的狀態。',
@@ -1077,56 +869,6 @@ var copy = {
     back_to_start:'回到開始畫面',
     change_language:'切換語言',
     result_pricing_note:'繼續使用 Noetune →',
-    /* core themes */
-    theme_core_cant_stay_open:'無法保持敞開',
-    theme_core_lost_feeling:'有什麼東西消失了',
-    theme_core_overthink:'思緒停不下來',
-    theme_core_future_worry:'在意未來的事',
-    theme_core_cant_rest:'無法真正休息',
-    theme_core_disconnected:'與自己脫節的感覺',
-    /* everyday themes */
-    theme_ev_anxiety:'不安',
-    theme_ev_rushed:'焦躁',
-    theme_ev_restless:'靜不下來',
-    theme_ev_bothered:'很在意',
-    theme_ev_irritated:'煩躁',
-    theme_ev_afraid:'害怕',
-    theme_ev_sad:'悲傷',
-    theme_ev_lonely:'孤獨',
-    theme_ev_compare:'忍不住比較',
-    theme_ev_no_confidence:'沒有自信',
-    theme_ev_recognized:'想被認可',
-    theme_ev_regret:'後悔',
-    theme_ev_guilt:'罪惡感',
-    theme_ev_shame:'羞恥',
-    theme_ev_cant_let_go:'無法放手',
-    theme_ev_control:'想要控制',
-    theme_ev_empty:'空虛感',
-    theme_ev_money:'金錢的事',
-    theme_ev_relationships:'人際關係',
-    theme_ev_slow_down:'想慢下來',
-    /* deeper themes */
-    theme_dp_abandoned:'被拋棄的感覺',
-    theme_dp_understood:'無法被理解',
-    theme_dp_alone:'完全孤單的感覺',
-    theme_dp_left_behind:'被遺落的感覺',
-    theme_dp_betrayed:'被背叛的感覺',
-    theme_dp_forgive:'無法原諒',
-    theme_dp_jealous:'嫉妒',
-    theme_dp_hurt:'受傷的感覺',
-    theme_dp_unrewarded:'付出得不到回報',
-    theme_dp_blame:'責怪自己或他人',
-    theme_dp_dislike_self:'討厭自己',
-    theme_dp_hopeless:'感到絕望',
-    theme_dp_valued:'想被珍視',
-    theme_dp_expectations:'達不到期望',
-    theme_dp_lose:'害怕失去',
-    theme_dp_dependent:'依賴的感覺',
-    theme_dp_cant_stop:'停不下來',
-    theme_dp_own_way:'想按自己的方式',
-    theme_dp_afraid_let_go:'害怕放手',
-    theme_dp_danger:'感到不安全',
-    /* rest of UI */
     next_button:'下一步', not_measurable_button:'無法數值化',
     feel_prompt:'感受。', breathe_start_hint:'輕輕吐氣後，點一下',
     session_result_header:'Session Shift',
@@ -1140,7 +882,6 @@ var copy = {
     result_be_helper:'呼吸的餘裕度',
     result_nm_display:'沒有被固定',
     result_meaning:'沒有被固定＝\n不被數字固定住，\n可以自由變化的感覺',
-    restart_button:'再一次',
     breath_in:'吸氣', breath_out:'吐氣',
     issue_placeholder:'輸入問題…', issue_skip:'沒有浮現',
     ideal_placeholder:'輸入留下來的狀態…',
@@ -1156,15 +897,12 @@ var copy = {
     breath_3_deep_text:'對那個感覺的抗拒',
     breath_4_deep_text:'除了那份抗拒以外的一切',
     breath_5_deep_text:'那份抗拒不再存在的狀態。',
-    issue_title:'從「{theme}」來看，\n現在正在出現什麼問題？',
     ideal_title:'「{issue}」\n\n當那個反應不存在時，\n會留下什麼理想狀態？',
     before1_title:'「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？',
     before2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
     after1_title:'「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？',
     after2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
-    result_subject:'「{ideal}」',
     breath_1_text:'「{ideal}」',
-    ideal_entry_title:'下一個瞬間，\n什麼樣的體驗是理想的？',
     ideal_blocker_title:'是什麼阻礙了\n「{ideal}」？',
     ideal_blocker_placeholder:'輸入阻礙的狀態…',
     ideal_before1_title:'「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？',
@@ -1182,56 +920,23 @@ var copy = {
     shift_note_button:'查看結果',
     shift_note_skip:'跳過',
     result_shift_note_label:'現在的感覺',
-    share_card_button:'顯示分享卡片',
-    share_card_subtitle:'Session Result',
-    share_card_ideal_label:'理想體驗',
-    share_card_nc_label:'下一個瞬間，\n成為這個體驗的可能性',
-    share_card_be_label:'呼吸的餘裕',
-    share_card_nm_explain:'「無法數值化」代表這個狀態\n不容易用 0 到 100 的數字來表達。',
-    share_card_back:'回到結果',
     door_a_template:'「{neg}」是理所當然的人',
     door_b_template:'「{pos}」不是理所當然的人',
     door_c_template:'「{pos}」是理所當然的人',
     step1_question:'那個人有什麼樣的反應？',
     step2_question:'當那個反應不存在時，剩下什麼樣的理想狀態？',
     step1_placeholder:'輸入反應…',
-    step2_placeholder:'輸入理想狀態…',
-    /* V9 experimental */
-    v9_entry_button:'從不足 / 充足開始（實驗版）',
-    v9_entry_label:'Experimental',
-    v9_entry_desc:'從觀察不足與充足開始的實驗性流程。',
-    v9_mode_title:'你想從哪裡開始？',
-    v9_lack_button:'從不足開始',
-    v9_fulfillment_button:'從充足開始',
-    v9_lack_q1:'當不足變得理所當然時，\n你處於什麼樣的狀態？',
-    v9_fulfillment_q1:'當充足變得自然時，\n你處於什麼樣的狀態？',
-    v9_q2:'如果那個狀態不存在，\n會留下什麼理想狀態？',
-    v9_breath_text:'輕輕感受那個狀態，同時呼吸。',
-    v9_result_from_label:'From',
-    v9_result_toward_label:'Toward',
-    v9_result_phrase:'當固定的不足鬆動時，\n有時會重新出現一些空間感。',
-    v9_safety_note:'這是一個用來觀察狀態的實驗性流程，\n不是為了提供答案。',
-    v9_placeholder_q1:'描述你的狀態…',
-    v9_placeholder_q2:'描述理想狀態…',
-    v9_subject_title:'你想從哪個視角來觀察？',
-    v9_subject_you:'你',
-    v9_subject_people:'人',
-    v9_lack_q1_people:'當不足變得理所當然時，\n人們處於什麼樣的狀態？',
-    v9_fulfillment_q1_people:'當充足變得自然時，\n人們處於什麼樣的狀態？'
+    step2_placeholder:'輸入理想狀態…'
   },
   es: {
     back_button:'Volver',
     start_button:'Empezar',
     theme_top_copy:'Según lo que sientes ahora,\nelige un estado\nque las personas felices llevan dentro.\n\nO escribe libremente.',
     category_section_label:'Elegir por categoría',
-    section_label_core:'Temas básicos',
-    btn_expand_everyday:'Ver todos los temas',
-    btn_expand_deeper:'Ver temas más profundos',
     custom_input_placeholder:'Escribe libremente…',
     theme_cta_button:'Empezar con este tema',
     app_sub:'— sintoniza el próximo momento —',
     see_more_themes:'Ver más',
-    see_all_themes:'Ver todo',
     door_title:'Elige la pregunta\nque se sienta más fácil de responder.',
     door_answer_placeholder:'Escribe la reacción…',
     door_next_button:'Continuar con esta respuesta',
@@ -1250,7 +955,6 @@ var copy = {
     entry_ideal_button:'Empezar desde la experiencia ideal',
     entry_ideal_desc:'Empieza directamente desde la experiencia\nque quieres sentir en este momento.',
     entry_explain_link:'¿Por qué dos entradas?',
-    entry_ideal_soon:'Próximamente',
     entry_explain_title:'¿Por qué dos entradas?',
     entry_explain_body:'Noetune tiene dos formas de empezar.\nElijas la que elijas,\nla dirección es la misma.\n\nCuando empiezas desde la reacción automática,\neliges un estado\nque las personas felices llevan dentro,\ny observas qué reacción aparece\nen relación con ese estado.\n\nCuando empiezas desde la experiencia ideal,\nempiezas directamente desde la experiencia\nque quieres sentir en este momento.\n\nNoetune no es para buscar lo negativo.\nY tampoco es para forzar lo positivo.\n\nEs para observar reacciones\ny volver gradualmente\na un estado que no está fijo.\n\nSi no estás seguro,\nse recomienda empezar desde la reacción automática.',
     about_title:'¿Qué es Noetune?',
@@ -1259,7 +963,6 @@ var copy = {
     about_p3:'Noetune no es para obligarte\na volverte positivo.\n\nY tampoco es para rechazar\nlo que se siente negativo.',
     about_p4:'Es una práctica\npara observar reacciones\ny volver gradualmente\na un estado que no está fijo.',
     about_safety_note:'Noetune no está destinado\na atención médica, diagnóstico\nni apoyo de emergencia.\n\nSi sientes peligro inmediato,\no sientes que no puedes mantenerte a salvo,\ncontacta a los servicios de emergencia locales,\na un profesional de salud\no a alguien de confianza.',
-    pricing_link:'Continuar con Noetune',
     pricing_title:'Continuar con Noetune',
     pricing_p1:'Noetune es gratis\ndurante el primer mes.\n\nDespués,\npuedes continuar\ncon un plan de pago.',
     pricing_p2:'Esta es una pequeña\npráctica de autosintonización\nque empieza con estados\nque las personas felices llevan dentro,\ny te ayuda a sintonizar la reacción\nque surge en este momento.\n\nSeguridad.\nEspacio.\nEstar aquí y ahora.\nSer tú mismo.\n\nAl observar tus reacciones\na esos estados,\nvuelves gradualmente\na un estado que no está fijo.',
@@ -1276,52 +979,6 @@ var copy = {
     back_to_start:'Volver al inicio',
     change_language:'Cambiar idioma',
     result_pricing_note:'Continuar con Noetune →',
-    theme_core_cant_stay_open:'No logro mantener la apertura',
-    theme_core_lost_feeling:'Siento que algo se ha perdido',
-    theme_core_overthink:'No puedo dejar de pensar',
-    theme_core_future_worry:'Preocupación por lo que viene',
-    theme_core_cant_rest:'No logro descansar de verdad',
-    theme_core_disconnected:'Siento desconexión de mí mismo',
-    theme_ev_anxiety:'Ansiedad',
-    theme_ev_rushed:'Sensación de prisa',
-    theme_ev_restless:'Inquietud',
-    theme_ev_bothered:'Algo me molesta',
-    theme_ev_irritated:'Irritación',
-    theme_ev_afraid:'Miedo',
-    theme_ev_sad:'Tristeza',
-    theme_ev_lonely:'Soledad',
-    theme_ev_compare:'Me comparo',
-    theme_ev_no_confidence:'Falta de confianza',
-    theme_ev_recognized:'Quiero ser reconocido',
-    theme_ev_regret:'Arrepentimiento',
-    theme_ev_guilt:'Culpa',
-    theme_ev_shame:'Vergüenza',
-    theme_ev_cant_let_go:'No puedo soltar',
-    theme_ev_control:'Necesidad de controlar',
-    theme_ev_empty:'Vacío',
-    theme_ev_money:'Preocupaciones de dinero',
-    theme_ev_relationships:'Relaciones',
-    theme_ev_slow_down:'Quiero ir más despacio',
-    theme_dp_abandoned:'Miedo a ser abandonado',
-    theme_dp_understood:'No ser comprendido',
-    theme_dp_alone:'Sentirme completamente solo',
-    theme_dp_left_behind:'Quedarme atrás',
-    theme_dp_betrayed:'Sentirme traicionado',
-    theme_dp_forgive:'No poder perdonar',
-    theme_dp_jealous:'Celos',
-    theme_dp_hurt:'Sentirme herido',
-    theme_dp_unrewarded:'No sentirme reconocido',
-    theme_dp_blame:'Culparme a mí mismo o a otros',
-    theme_dp_dislike_self:'Rechazo hacia mí mismo',
-    theme_dp_hopeless:'Perder la esperanza',
-    theme_dp_valued:'Quiero ser valorado',
-    theme_dp_expectations:'No cumplir expectativas',
-    theme_dp_lose:'Miedo a perder',
-    theme_dp_dependent:'Sentirme dependiente',
-    theme_dp_cant_stop:'No puedo parar',
-    theme_dp_own_way:'Necesito que las cosas sean a mi manera',
-    theme_dp_afraid_let_go:'Miedo a soltar',
-    theme_dp_danger:'Sentirme inseguro',
     next_button:'Siguiente',
     not_measurable_button:'No medible',
     feel_prompt:'Siente.',
@@ -1337,7 +994,6 @@ var copy = {
     result_be_helper:'El espacio en tu respiración',
     result_nm_display:'No fijo',
     result_meaning:'No fijo =\nno sostenido por números,\nlibre de cambiar.',
-    restart_button:'Otra vez',
     breath_in:'Inhala',
     breath_out:'Exhala',
     issue_placeholder:'Escribe el problema…',
@@ -1355,15 +1011,12 @@ var copy = {
     breath_3_deep_text:'La resistencia a esa sensación',
     breath_4_deep_text:'Todo excepto esa resistencia',
     breath_5_deep_text:'El estado en el que esa resistencia\nya no está.',
-    issue_title:'Desde "{theme}",\n¿qué problema está apareciendo ahora?',
     ideal_title:'"{issue}"\n\nCuando esa reacción no está,\n¿qué estado ideal queda?',
     before1_title:'"{ideal}"\n\nEn el próximo momento,\n¿qué tan posible se siente ese estado?',
     before2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
     after1_title:'"{ideal}"\n\nEn el próximo momento,\n¿qué tan posible se siente ese estado?',
     after2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
-    result_subject:'"{ideal}"',
     breath_1_text:'"{ideal}"',
-    ideal_entry_title:'¿Qué experiencia se sentiría ideal\nen el próximo momento?',
     ideal_blocker_title:'¿Qué está bloqueando\n"{ideal}"?',
     ideal_blocker_placeholder:'Escribe lo que lo bloquea…',
     ideal_before1_title:'"{ideal}"\n\nEn el próximo momento,\n¿qué tan posible se siente ese estado?',
@@ -1381,13 +1034,6 @@ var copy = {
     shift_note_button:'Ver resultado',
     shift_note_skip:'Saltar',
     result_shift_note_label:'Sensación actual',
-    share_card_button:'Mostrar tarjeta para compartir',
-    share_card_subtitle:'Resultado de la sesión',
-    share_card_ideal_label:'Experiencia ideal',
-    share_card_nc_label:'Qué tan posible se siente esta experiencia\nen el próximo momento',
-    share_card_be_label:'Espacio en la respiración',
-    share_card_nm_explain:'"No medible" significa que este estado\nno se expresa fácilmente con un número de 0 a 100.',
-    share_card_back:'Volver al resultado',
     door_a_template:'Alguien para quien "{neg}" es lo normal',
     door_b_template:'Alguien para quien "{pos}" no es lo normal',
     door_c_template:'Alguien para quien "{pos}" es lo normal',
@@ -1401,14 +1047,10 @@ var copy = {
     start_button:'Starten',
     theme_top_copy:'Wähle nach deinem jetzigen Gefühl\neinen Zustand,\nden glückliche Menschen in sich tragen.\n\nOder gib frei etwas ein.',
     category_section_label:'Nach Kategorie wählen',
-    section_label_core:'Basisthemen',
-    btn_expand_everyday:'Alle Themen anzeigen',
-    btn_expand_deeper:'Tiefere Themen anzeigen',
     custom_input_placeholder:'Frei eingeben…',
     theme_cta_button:'Mit diesem Thema beginnen',
     app_sub:'— stimme den nächsten Moment ein —',
     see_more_themes:'Mehr anzeigen',
-    see_all_themes:'Alles anzeigen',
     door_title:'Wähle die Frage,\ndie sich am leichtesten beantworten lässt.',
     door_answer_placeholder:'Reaktion eingeben…',
     door_next_button:'Mit dieser Antwort fortfahren',
@@ -1427,7 +1069,6 @@ var copy = {
     entry_ideal_button:'Mit der idealen Erfahrung beginnen',
     entry_ideal_desc:'Beginne direkt mit der Erfahrung,\ndie du in diesem Moment fühlen möchtest.',
     entry_explain_link:'Warum zwei Eingänge?',
-    entry_ideal_soon:'Bald verfügbar',
     entry_explain_title:'Warum zwei Eingänge?',
     entry_explain_body:'Noetune hat zwei Wege zu beginnen.\nEgal welchen du wählst,\ndie Richtung ist dieselbe.\n\nWenn du mit der automatischen Reaktion beginnst,\nwählst du einen Zustand,\nden glückliche Menschen in sich tragen,\nund beobachtest,\nwelche Reaktion in Bezug auf diesen Zustand erscheint.\n\nWenn du mit der idealen Erfahrung beginnst,\nbeginnst du direkt mit der Erfahrung,\ndie du in diesem Moment fühlen möchtest.\n\nNoetune ist nicht dafür da,\nnach Negativität zu suchen.\nUnd es ist nicht dafür da,\nPositivität zu erzwingen.\n\nEs ist dafür da,\nReaktionen zu beobachten\nund allmählich zu einem Zustand zurückzukehren,\nder nicht festgelegt ist.\n\nWenn du unsicher bist,\nwird der Beginn mit der automatischen Reaktion empfohlen.',
     about_title:'Was ist Noetune?',
@@ -1436,7 +1077,6 @@ var copy = {
     about_p3:'Noetune ist nicht dafür da,\ndich zu zwingen,\npositiv zu werden.\n\nUnd es ist nicht dafür da,\ndas abzulehnen,\nwas sich negativ anfühlt.',
     about_p4:'Es ist eine Praxis,\num Reaktionen zu beobachten\nund allmählich zu einem Zustand zurückzukehren,\nder nicht festgelegt ist.',
     about_safety_note:'Noetune ist nicht für medizinische Versorgung,\nDiagnosen oder Notfallhilfe gedacht.\n\nWenn du dich in unmittelbarer Gefahr fühlst\noder das Gefühl hast,\ndich nicht sicher halten zu können,\nwende dich bitte an lokale Notdienste,\neine medizinische Fachperson\noder eine vertraute Person.',
-    pricing_link:'Noetune fortsetzen',
     pricing_title:'Noetune fortsetzen',
     pricing_p1:'Noetune ist im ersten Monat\nkostenlos nutzbar.\n\nDanach kannst du\nmit einem kostenpflichtigen Plan fortfahren.',
     pricing_p2:'Dies ist eine kleine Praxis\nder Selbst-Einstimmung.\nSie beginnt mit Zuständen,\ndie glückliche Menschen in sich tragen,\nund hilft dir,\ndie Reaktion zu stimmen,\ndie in diesem Moment entsteht.\n\nSicherheit.\nRaum.\nHier und jetzt sein.\nDu selbst sein.\n\nIndem du deine Reaktionen\nauf diese Zustände beobachtest,\nkehrst du allmählich zu einem Zustand zurück,\nder nicht festgelegt ist.',
@@ -1453,52 +1093,6 @@ var copy = {
     back_to_start:'Zum Start zurück',
     change_language:'Sprache ändern',
     result_pricing_note:'Noetune fortsetzen →',
-    theme_core_cant_stay_open:'Ich kann die Offenheit nicht halten',
-    theme_core_lost_feeling:'Etwas fühlt sich verloren an',
-    theme_core_overthink:'Ich kann nicht aufhören zu denken',
-    theme_core_future_worry:'Sorge um das, was kommt',
-    theme_core_cant_rest:'Ich kann mich nicht wirklich ausruhen',
-    theme_core_disconnected:'Ich fühle mich von mir selbst getrennt',
-    theme_ev_anxiety:'Angst',
-    theme_ev_rushed:'Gehetzt sein',
-    theme_ev_restless:'Unruhe',
-    theme_ev_bothered:'Etwas beschäftigt mich',
-    theme_ev_irritated:'Gereiztheit',
-    theme_ev_afraid:'Furcht',
-    theme_ev_sad:'Traurigkeit',
-    theme_ev_lonely:'Einsamkeit',
-    theme_ev_compare:'Mich vergleichen',
-    theme_ev_no_confidence:'Mangelndes Vertrauen',
-    theme_ev_recognized:'Gesehen werden wollen',
-    theme_ev_regret:'Bedauern',
-    theme_ev_guilt:'Schuldgefühl',
-    theme_ev_shame:'Scham',
-    theme_ev_cant_let_go:'Nicht loslassen können',
-    theme_ev_control:'Kontrollieren wollen',
-    theme_ev_empty:'Leere',
-    theme_ev_money:'Geldsorgen',
-    theme_ev_relationships:'Beziehungen',
-    theme_ev_slow_down:'Ich möchte langsamer werden',
-    theme_dp_abandoned:'Angst, verlassen zu werden',
-    theme_dp_understood:'Nicht verstanden werden',
-    theme_dp_alone:'Mich völlig allein fühlen',
-    theme_dp_left_behind:'Zurückgelassen werden',
-    theme_dp_betrayed:'Mich betrogen fühlen',
-    theme_dp_forgive:'Nicht vergeben können',
-    theme_dp_jealous:'Eifersucht',
-    theme_dp_hurt:'Mich verletzt fühlen',
-    theme_dp_unrewarded:'Nicht gewürdigt werden',
-    theme_dp_blame:'Mir selbst oder anderen die Schuld geben',
-    theme_dp_dislike_self:'Ablehnung mir selbst gegenüber',
-    theme_dp_hopeless:'Die Hoffnung verlieren',
-    theme_dp_valued:'Wertgeschätzt werden wollen',
-    theme_dp_expectations:'Erwartungen nicht erfüllen',
-    theme_dp_lose:'Angst zu verlieren',
-    theme_dp_dependent:'Mich abhängig fühlen',
-    theme_dp_cant_stop:'Nicht aufhören können',
-    theme_dp_own_way:'Es muss nach meinem Willen gehen',
-    theme_dp_afraid_let_go:'Angst loszulassen',
-    theme_dp_danger:'Mich unsicher fühlen',
     next_button:'Weiter',
     not_measurable_button:'Nicht messbar',
     feel_prompt:'Fühle.',
@@ -1514,7 +1108,6 @@ var copy = {
     result_be_helper:'Der Raum in deiner Atmung',
     result_nm_display:'Nicht festgelegt',
     result_meaning:'Nicht festgelegt =\nnicht von Zahlen gehalten,\nfrei, sich zu verändern.',
-    restart_button:'Noch einmal',
     breath_in:'Einatmen',
     breath_out:'Ausatmen',
     issue_placeholder:'Thema eingeben…',
@@ -1532,15 +1125,12 @@ var copy = {
     breath_3_deep_text:'Der Widerstand gegen dieses Gefühl',
     breath_4_deep_text:'Alles außer diesem Widerstand',
     breath_5_deep_text:'Der Zustand, in dem dieser Widerstand\nnicht mehr da ist.',
-    issue_title:'Ausgehend von „{theme}",\nwelches Thema erscheint gerade?',
     ideal_title:'„{issue}"\n\nWenn diese Reaktion nicht da ist,\nwelcher ideale Zustand bleibt?',
     before1_title:'„{ideal}"\n\nWie möglich fühlt sich dieser Zustand\nim nächsten Moment an?',
     before2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
     after1_title:'„{ideal}"\n\nWie möglich fühlt sich dieser Zustand\nim nächsten Moment an?',
     after2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
-    result_subject:'"{ideal}"',
     breath_1_text:'„{ideal}"',
-    ideal_entry_title:'Welche Erfahrung würde sich\nim nächsten Moment ideal anfühlen?',
     ideal_blocker_title:'Was blockiert\n„{ideal}"?',
     ideal_blocker_placeholder:'Gib ein, was es blockiert…',
     ideal_before1_title:'„{ideal}"\n\nWie möglich fühlt sich dieser Zustand\nim nächsten Moment an?',
@@ -1558,13 +1148,6 @@ var copy = {
     shift_note_button:'Ergebnis ansehen',
     shift_note_skip:'Überspringen',
     result_shift_note_label:'Aktuelles Gefühl',
-    share_card_button:'Share Card anzeigen',
-    share_card_subtitle:'Sitzungsergebnis',
-    share_card_ideal_label:'Ideale Erfahrung',
-    share_card_nc_label:'Wie möglich sich diese Erfahrung\nim nächsten Moment anfühlt',
-    share_card_be_label:'Atemraum',
-    share_card_nm_explain:'„Nicht messbar" bedeutet,\ndass dieser Zustand nicht leicht\nmit einer Zahl von 0 bis 100 ausgedrückt werden kann.',
-    share_card_back:'Zurück zum Ergebnis',
     door_a_template:'Jemand, für den „{neg}" normal ist',
     door_b_template:'Jemand, für den „{pos}" nicht normal ist',
     door_c_template:'Jemand, für den „{pos}" normal ist',
@@ -1578,14 +1161,10 @@ var copy = {
     start_button:'Começar',
     theme_top_copy:'Pelo que você sente agora,\nescolha um estado\nque pessoas felizes carregam.\n\nOu escreva livremente.',
     category_section_label:'Escolher por categoria',
-    section_label_core:'Temas básicos',
-    btn_expand_everyday:'Ver todos os temas',
-    btn_expand_deeper:'Ver temas mais profundos',
     custom_input_placeholder:'Escreva livremente…',
     theme_cta_button:'Começar com este tema',
     app_sub:'— sintonize o próximo momento —',
     see_more_themes:'Ver mais',
-    see_all_themes:'Ver tudo',
     door_title:'Escolha a pergunta\nque parece mais fácil de responder.',
     door_answer_placeholder:'Digite a reação…',
     door_next_button:'Continuar com esta resposta',
@@ -1604,7 +1183,6 @@ var copy = {
     entry_ideal_button:'Começar pela experiência ideal',
     entry_ideal_desc:'Comece diretamente pela experiência\nque você quer sentir neste momento.',
     entry_explain_link:'Por que duas entradas?',
-    entry_ideal_soon:'Em breve',
     entry_explain_title:'Por que duas entradas?',
     entry_explain_body:'Noetune tem duas formas de começar.\nQualquer uma que você escolha,\na direção é a mesma.\n\nQuando você começa pela reação automática,\nvocê escolhe um estado\nque pessoas felizes carregam,\ne observa qual reação aparece\nem relação a esse estado.\n\nQuando você começa pela experiência ideal,\nvocê começa diretamente pela experiência\nque quer sentir neste momento.\n\nNoetune não é para procurar negatividade.\nE também não é para forçar positividade.\n\nÉ para observar reações\ne voltar gradualmente\na um estado que não está fixo.\n\nSe você não tiver certeza,\nrecomenda-se começar pela reação automática.',
     about_title:'O que é Noetune?',
@@ -1613,7 +1191,6 @@ var copy = {
     about_p3:'Noetune não é para obrigar você\na se tornar positivo.\n\nE também não é para rejeitar\no que parece negativo.',
     about_p4:'É uma prática\npara observar reações\ne voltar gradualmente\na um estado que não está fixo.',
     about_safety_note:'Noetune não se destina\na cuidados médicos, diagnóstico\nou apoio de emergência.\n\nSe você sentir perigo imediato,\nou sentir que não consegue se manter seguro,\nentre em contato com serviços locais de emergência,\num profissional de saúde\nou alguém de confiança.',
-    pricing_link:'Continuar com Noetune',
     pricing_title:'Continuar com Noetune',
     pricing_p1:'Noetune é gratuito\nno primeiro mês.\n\nDepois disso,\nvocê pode continuar\ncom um plano pago.',
     pricing_p2:'Esta é uma pequena\nprática de autossintonização\nque começa com estados\nque pessoas felizes carregam,\ne ajuda você a sintonizar a reação\nque surge neste momento.\n\nSegurança.\nEspaço.\nEstar aqui agora.\nSer você mesmo.\n\nAo observar suas reações\na esses estados,\nvocê volta gradualmente\na um estado que não está fixo.',
@@ -1630,52 +1207,6 @@ var copy = {
     back_to_start:'Voltar ao início',
     change_language:'Mudar idioma',
     result_pricing_note:'Continuar com Noetune →',
-    theme_core_cant_stay_open:'Não consigo manter a abertura',
-    theme_core_lost_feeling:'Parece que algo se perdeu',
-    theme_core_overthink:'Não consigo parar de pensar',
-    theme_core_future_worry:'Preocupação com o que vem pela frente',
-    theme_core_cant_rest:'Não consigo descansar de verdade',
-    theme_core_disconnected:'Sentindo desconexão de mim mesmo',
-    theme_ev_anxiety:'Ansiedade',
-    theme_ev_rushed:'Sensação de pressa',
-    theme_ev_restless:'Inquietação',
-    theme_ev_bothered:'Algo está me incomodando',
-    theme_ev_irritated:'Irritação',
-    theme_ev_afraid:'Medo',
-    theme_ev_sad:'Tristeza',
-    theme_ev_lonely:'Solidão',
-    theme_ev_compare:'Comparação comigo mesmo',
-    theme_ev_no_confidence:'Falta de confiança',
-    theme_ev_recognized:'Querer ser reconhecido',
-    theme_ev_regret:'Arrependimento',
-    theme_ev_guilt:'Culpa',
-    theme_ev_shame:'Vergonha',
-    theme_ev_cant_let_go:'Não consigo soltar',
-    theme_ev_control:'Necessidade de controlar',
-    theme_ev_empty:'Vazio',
-    theme_ev_money:'Preocupações com dinheiro',
-    theme_ev_relationships:'Relacionamentos',
-    theme_ev_slow_down:'Quero desacelerar',
-    theme_dp_abandoned:'Medo de ser abandonado',
-    theme_dp_understood:'Não ser compreendido',
-    theme_dp_alone:'Sentir-se completamente só',
-    theme_dp_left_behind:'Ficar para trás',
-    theme_dp_betrayed:'Sentir-se traído',
-    theme_dp_forgive:'Não conseguir perdoar',
-    theme_dp_jealous:'Ciúmes',
-    theme_dp_hurt:'Sentir-se ferido',
-    theme_dp_unrewarded:'Não se sentir reconhecido',
-    theme_dp_blame:'Culpar a mim mesmo ou aos outros',
-    theme_dp_dislike_self:'Rejeição a mim mesmo',
-    theme_dp_hopeless:'Perder a esperança',
-    theme_dp_valued:'Querer ser valorizado',
-    theme_dp_expectations:'Não corresponder às expectativas',
-    theme_dp_lose:'Medo de perder',
-    theme_dp_dependent:'Sentir-se dependente',
-    theme_dp_cant_stop:'Não consigo parar',
-    theme_dp_own_way:'Preciso que as coisas sejam do meu jeito',
-    theme_dp_afraid_let_go:'Medo de soltar',
-    theme_dp_danger:'Sentir-se inseguro',
     next_button:'Próximo',
     not_measurable_button:'Não mensurável',
     feel_prompt:'Sinta.',
@@ -1691,7 +1222,6 @@ var copy = {
     result_be_helper:'O espaço na sua respiração',
     result_nm_display:'Não fixo',
     result_meaning:'Não fixo =\nnão preso a números,\nlivre para mudar.',
-    restart_button:'Outra vez',
     breath_in:'Inspire',
     breath_out:'Expire',
     issue_placeholder:'Digite o problema…',
@@ -1709,15 +1239,12 @@ var copy = {
     breath_3_deep_text:'A resistência a essa sensação',
     breath_4_deep_text:'Tudo exceto essa resistência',
     breath_5_deep_text:'O estado em que essa resistência\nnão está mais presente.',
-    issue_title:'A partir de "{theme}",\nque problema está aparecendo agora?',
     ideal_title:'"{issue}"\n\nQuando essa reação não está presente,\nque estado ideal permanece?',
     before1_title:'"{ideal}"\n\nNo próximo momento,\nquão possível esse estado parece?',
     before2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
     after1_title:'"{ideal}"\n\nNo próximo momento,\nquão possível esse estado parece?',
     after2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
-    result_subject:'"{ideal}"',
     breath_1_text:'"{ideal}"',
-    ideal_entry_title:'Que experiência pareceria ideal\nno próximo momento?',
     ideal_blocker_title:'O que está bloqueando\n"{ideal}"?',
     ideal_blocker_placeholder:'Digite o que está bloqueando…',
     ideal_before1_title:'"{ideal}"\n\nNo próximo momento,\nquão possível esse estado parece?',
@@ -1735,13 +1262,6 @@ var copy = {
     shift_note_button:'Ver resultado',
     shift_note_skip:'Pular',
     result_shift_note_label:'Sensação atual',
-    share_card_button:'Mostrar cartão de compartilhamento',
-    share_card_subtitle:'Resultado da sessão',
-    share_card_ideal_label:'Experiência ideal',
-    share_card_nc_label:'Quão possível esta experiência parece\nno próximo momento',
-    share_card_be_label:'Espaço na respiração',
-    share_card_nm_explain:'"Não mensurável" significa que este estado\nnão é facilmente expresso por um número de 0 a 100.',
-    share_card_back:'Voltar ao resultado',
     door_a_template:'Alguém para quem "{neg}" é normal',
     door_b_template:'Alguém para quem "{pos}" não é normal',
     door_c_template:'Alguém para quem "{pos}" é normal',
@@ -1757,13 +1277,9 @@ var copy = {
     about_link:'Qu’est-ce que Noetune ?',
     theme_top_copy:'Selon ce que tu ressens maintenant,\nchoisis un état\nque les personnes heureuses portent en elles.\n\nOu écris librement.',
     category_section_label:'Choisir par catégorie',
-    section_label_core:'Thèmes de base',
-    btn_expand_everyday:'Voir tous les thèmes',
-    btn_expand_deeper:'Voir les thèmes plus profonds',
     custom_input_placeholder:'Écris librement…',
     theme_cta_button:'Commencer avec ce thème',
     see_more_themes:'Voir plus',
-    see_all_themes:'Tout voir',
     door_title:'Choisis la question\nqui semble la plus facile à répondre.',
     door_answer_placeholder:'Écris la réaction…',
     door_next_button:'Continuer avec cette réponse',
@@ -1781,7 +1297,6 @@ var copy = {
     entry_ideal_button:'Commencer par l’expérience idéale',
     entry_ideal_desc:'Commence directement par l’expérience\nque tu veux ressentir en ce moment.',
     entry_explain_link:'Pourquoi deux entrées ?',
-    entry_ideal_soon:'Bientôt disponible',
     entry_explain_title:'Pourquoi deux entrées ?',
     entry_explain_body:'Noetune a deux façons de commencer.\nQuelle que soit celle que tu choisis,\nla direction est la même.\n\nQuand tu commences par la réaction automatique,\ntu choisis un état\nque les personnes heureuses portent en elles,\net tu observes quelle réaction apparaît\nen lien avec cet état.\n\nQuand tu commences par l’expérience idéale,\ntu commences directement par l’expérience\nque tu veux ressentir en ce moment.\n\nNoetune n’est pas fait pour chercher le négatif.\nEt ce n’est pas fait pour forcer le positif.\n\nC’est une façon d’observer les réactions\net de revenir progressivement\nà un état qui n’est pas fixé.\n\nSi tu n’es pas sûr,\nil est recommandé de commencer\npar la réaction automatique.',
     about_title:'Qu’est-ce que Noetune ?',
@@ -1790,7 +1305,6 @@ var copy = {
     about_p3:'Noetune n’est pas fait pour t’obliger\nà devenir positif.\n\nEt ce n’est pas fait pour rejeter\nce qui semble négatif.',
     about_p4:'C’est une pratique\npour observer les réactions\net revenir progressivement\nà un état qui n’est pas fixé.',
     about_safety_note:'Noetune n’est pas destiné\naux soins médicaux, au diagnostic\nni au soutien d’urgence.\n\nSi tu te sens en danger immédiat,\nou si tu sens que tu ne peux pas rester en sécurité,\ncontacte les services d’urgence locaux,\nun professionnel de santé\nou une personne de confiance.',
-    pricing_link:'Continuer Noetune',
     pricing_title:'Continuer Noetune',
     pricing_p1:'Noetune est gratuit\npendant le premier mois.\n\nEnsuite,\ntu peux continuer\navec une formule payante.',
     pricing_p2:'C’est une petite pratique\nd’auto-accordage\nqui commence par des états\nque les personnes heureuses portent en elles,\net t’aide à accorder la réaction\nqui apparaît en ce moment.\n\nSécurité.\nEspace.\nÊtre ici maintenant.\nÊtre soi-même.\n\nEn observant tes réactions\nà ces états,\ntu reviens progressivement\nà un état qui n’est pas fixé.',
@@ -1823,13 +1337,11 @@ var copy = {
     ideal_top_copy:'Écris l’expérience\nque tu veux ressentir ensuite,\nou commence par une ci-dessous.',
     see_more_ideals:'Voir plus d’expériences idéales',
     ideal_cta_button:'Suivant',
-    issue_title:'À partir de « {theme} »,\nquel problème apparaît maintenant ?',
     ideal_title:'« {issue} »\n\nQuand cette réaction n’est pas là,\nquel état idéal reste ?',
     before1_title:'« {ideal} »\n\nAu prochain moment,\nà quel point cet état semble-t-il possible ?',
     before2_title:'« {ideal} »\n\nDans cet état,\ncombien d’espace y a-t-il\ndans ta respiration ?',
     after1_title:'« {ideal} »\n\nAu prochain moment,\nà quel point cet état semble-t-il possible ?',
     after2_title:'« {ideal} »\n\nDans cet état,\ncombien d’espace y a-t-il\ndans ta respiration ?',
-    ideal_entry_title:'Quelle expérience semblerait idéale\nau prochain moment ?',
     ideal_blocker_title:'Qu’est-ce qui bloque\n« {ideal} » ?',
     ideal_blocker_placeholder:'Écris ce qui bloque…',
     ideal_before1_title:'« {ideal} »\n\nAu prochain moment,\nà quel point cet état semble-t-il possible ?',
@@ -1848,7 +1360,6 @@ var copy = {
     result_be_helper:'L’espace dans ta respiration',
     result_nm_display:'Non fixé',
     result_meaning:'Non fixé =\nnon retenu par les chiffres,\nlibre de changer.',
-    restart_button:'Encore une fois',
     save_image_button:'Enregistrer comme image',
     save_image_creating:'Création de l’image…',
     save_image_fallback_note:'Si l’enregistrement ne fonctionne pas,\nappuie longuement sur l’image\nou fais une capture d’écran.',
@@ -1865,21 +1376,13 @@ var copy = {
     back_to_start:'Revenir au début',
     change_language:'Changer de langue',
     result_pricing_note:'Continuer Noetune →',
-    share_card_button:'Afficher la carte de partage',
-    share_card_subtitle:'Résultat de la session',
-    share_card_ideal_label:'Expérience idéale',
-    share_card_nc_label:'À quel point cette expérience semble possible\nau prochain moment',
-    share_card_be_label:'Espace respiratoire',
-    share_card_nm_explain:'« Non mesurable » signifie que cet état\nne s’exprime pas facilement par un nombre de 0 à 100.',
-    share_card_back:'Retour au résultat',
     door_a_template:'Quelqu’un pour qui « {neg} » est normal',
     door_b_template:'Quelqu’un pour qui « {pos} » n’est pas normal',
     door_c_template:'Quelqu’un pour qui « {pos} » est normal',
     step1_question:'Quelle est la réaction de cette personne ?',
     step2_question:'Quand cette réaction n’existe pas, quel état idéal reste-t-il ?',
     step1_placeholder:'Écris la réaction…',
-    step2_placeholder:'Écris l’état idéal…',
-    result_subject:'"{ideal}"'
+    step2_placeholder:'Écris l’état idéal…'
   }
 };
 
@@ -1935,8 +1438,6 @@ function applyLang() {
   setEl('lbl-result-from',     T('result_label_from'));
   setEl('lbl-result-toward',   T('result_label_toward'));
   setEl('lbl-shift-section',   T('result_shift_section'));
-  setEl('lbl-next-moment',     T('result_label_next_moment'));
-  setEl('lbl-nc-helper',       T('result_nc_helper'));
   setEl('lbl-breath-ease',     T('result_label_breath_ease'));
   setEl('lbl-be-helper',       T('result_be_helper'));
   setEl('btn-save-image',        T('save_image_button'));
@@ -2887,21 +2388,6 @@ var THEMES = {
   }
 };
 
-var THEMES_SYNONYMS = {
-  'anxiety_general':    ['不安','ふあん','anxiety','心配','very anxious'],
-  'restlessness':       ['落ち着かない','そわそわ','restless','unsettled'],
-  'self_blame':         ['自分を責める','責める','self-blame','blame myself'],
-  'comparison':         ['比べてしまう','比較','compare','comparing'],
-  'letting_go_fear':    ['手放せない','手放す','can\'t let go','letting go'],
-  'relationship_heaviness':['人間関係が重い','人間関係','relationships','heavy'],
-  'repeating_patterns': ['また同じことを繰り返す','繰り返す','patterns','repeating'],
-  'authenticity_block': ['本音が出せない','本音','authentic','real feelings'],
-  'body_tension':       ['体が緊張している','緊張','tension','tense'],
-  'feeling_unloved':    ['愛されない気がする','愛されない','unloved','not loved'],
-  'future_fear':        ['先が怖い','先','future','afraid of future'],
-  'integration_gap':    ['わかったのに変われない','変われない','can\'t change','integration']
-};
-
 var IDEAL_STATES = {
   ja: {
     fixedStates: ['安心','ここに戻る','体とつながる'],
@@ -3342,10 +2828,6 @@ function getSliderVal(key) {
   return parseInt(document.getElementById('sl-' + key).value, 10);
 }
 
-function currentThemeData() {
-  return THEMES[lang] || THEMES.ja;
-}
-
 function currentHappinessThemes() {
   return HAPPINESS_THEMES[lang] || HAPPINESS_THEMES.ja;
 }
@@ -3632,17 +3114,6 @@ function showDoorScreen() {
   var btn = document.getElementById('btn-door-next');
   if (btn) { btn.disabled = true; btn.textContent = T('door_next_button'); }
   fwd('s-door');
-}
-
-function selectDoor(doorKey) {
-  D.doorKey = doorKey;
-  D.doorSentence = _doorSentences[doorKey];
-  trackEvent('v9_door_' + doorKey.toLowerCase());
-  var inp = document.getElementById('in-issue'); if (inp) { inp.value = ''; inp.placeholder = T('step1_placeholder'); }
-  var btn = document.getElementById('btn-issue'); if (btn) btn.disabled = true;
-  var iSkip = document.getElementById('btn-issue-skip'); if (iSkip) { iSkip.style.display = ''; iSkip.textContent = T('issue_skip'); }
-  setEl('t-issue-title', D.doorSentence + '\n' + T('step1_question'));
-  fwd('s-issue');
 }
 
 var _selectedDoorCard = null;
@@ -4001,15 +3472,7 @@ function afterBreath(t) {
   }
 }
 
-function fmt(v) {
-  if (v === 'NM') return '<span style="font-size:.85rem;font-weight:500;color:#6B9080;letter-spacing:.06em">' + T('not_measurable_button') + '</span>';
-  return v != null ? String(v) : '—';
-}
-
-function dir(b, a) { return ''; }
-
 function setEl(id, tx) { var e = document.getElementById(id); if (e) e.textContent = tx; }
-function setH(id, h)   { var e = document.getElementById(id); if (e) e.innerHTML  = h; }
 
 function currentIdealData() {
   return IDEAL_STATES[lang] || IDEAL_STATES.ja;
@@ -4193,17 +3656,6 @@ function changeLanguageFromResult() {
   ['b1','b2','a1','a2'].forEach(resetSlider);
   resetBreathScreens();
   showScreenDirect('s-lang');
-}
-
-function startAgain() {
-  D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
-        reactionAnswer:'', idealAnswer:'',
-        entryMode:null, doorKey:null, doorSentence:'',
-        nextChanceBefore:null, breathEaseBefore:null, breathEaseAfter:null, nextChanceAfter:null, breathMode:null };
-  navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
-  themeVisibleCount = 3;
-  ['b1','b2','a1','a2'].forEach(resetSlider);
-  fwd('s-lang');
 }
 
 function saveResultCard() {
