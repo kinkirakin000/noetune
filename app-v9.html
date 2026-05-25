@@ -361,18 +361,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   </div>
 </div>
 
-<!-- ── BEFORE 1: Re-Entry Probability ── -->
-<div class="screen" id="s-before1">
-  <div class="measure-problem" id="t-b1"></div>
-  <div class="score-num" id="num-b1"></div>
-  <div class="slider-wrap">
-    <input type="range" min="0" max="100" step="1" value="50" id="sl-b1" oninput="onSlider('b1',this.value)">
-    <div class="slider-labels"><span>0</span><span>100</span></div>
-  </div>
-  <button class="btn-nm" id="nm-b1" onclick="selectNM('b1')">数値化不可</button>
-  <button class="btn" id="next-b1" onclick="submitBefore1()" disabled>次へ</button>
-</div>
-
 <!-- ── BEFORE 2: Breathing Stability ── -->
 <div class="screen" id="s-before2">
   <div class="measure-problem" id="t-b2"></div>
@@ -438,18 +426,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   <div class="breath-main" id="lbl-br5-main">その抵抗が存在しない状態。</div>
   <div id="hint-br5" class="breath-hint">呼吸を始める</div>
   <div class="breath-circle pulse" id="circle-br5" onclick="startBreath('br5')"></div>
-</div>
-
-<!-- ── AFTER 1: Breathing Stability re-measure ── -->
-<div class="screen" id="s-after1">
-  <div class="measure-problem" id="t-a1"></div>
-  <div class="score-num" id="num-a1" style="color:#6B9080"></div>
-  <div class="slider-wrap">
-    <input type="range" min="0" max="100" step="1" value="50" id="sl-a1" oninput="onSlider('a1',this.value)">
-    <div class="slider-labels"><span>0</span><span>100</span></div>
-  </div>
-  <button class="btn-nm" id="nm-a1" onclick="selectNM('a1')">数値化不可</button>
-  <button class="btn" id="next-a1" onclick="submitAfter1()" disabled>次へ</button>
 </div>
 
 <!-- ── AFTER 2: Re-Entry Probability re-measure ── -->
@@ -669,9 +645,7 @@ var copy = {
     breath_4_deep_text:'その抵抗以外の全て',
     breath_5_deep_text:'その抵抗が存在しない状態。',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな理想状態が残る？',
-    before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
     before2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
-    after1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
     after2_title:'「{ideal}」\n\nそのとき、\n呼吸の余裕度は？',
     breath_1_text:'「{ideal}」',
     ideal_blocker_title:'「{ideal}」を邪魔する状態は？',
@@ -786,9 +760,7 @@ var copy = {
     breath_4_deep_text:'Everything except that resistance',
     breath_5_deep_text:'The state where that resistance\nis no longer there.',
     ideal_title:'"{issue}"\n\nWhen that reaction is not there,\nwhat ideal state remains?',
-    before1_title:'"{ideal}"\n\nIn the next moment,\nhow likely is that state?',
     before2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
-    after1_title:'"{ideal}"\n\nIn the next moment,\nhow likely is that state?',
     after2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
     breath_1_text:'"{ideal}"',
     ideal_blocker_title:'What is blocking\n"{ideal}"?',
@@ -898,9 +870,7 @@ var copy = {
     breath_4_deep_text:'除了那份抗拒以外的一切',
     breath_5_deep_text:'那份抗拒不再存在的狀態。',
     ideal_title:'「{issue}」\n\n當那個反應不存在時，\n會留下什麼理想狀態？',
-    before1_title:'「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？',
     before2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
-    after1_title:'「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？',
     after2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
     breath_1_text:'「{ideal}」',
     ideal_blocker_title:'是什麼阻礙了\n「{ideal}」？',
@@ -1012,9 +982,7 @@ var copy = {
     breath_4_deep_text:'Todo excepto esa resistencia',
     breath_5_deep_text:'El estado en el que esa resistencia\nya no está.',
     ideal_title:'"{issue}"\n\nCuando esa reacción no está,\n¿qué estado ideal queda?',
-    before1_title:'"{ideal}"\n\nEn el próximo momento,\n¿qué tan posible se siente ese estado?',
     before2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
-    after1_title:'"{ideal}"\n\nEn el próximo momento,\n¿qué tan posible se siente ese estado?',
     after2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
     breath_1_text:'"{ideal}"',
     ideal_blocker_title:'¿Qué está bloqueando\n"{ideal}"?',
@@ -1126,9 +1094,7 @@ var copy = {
     breath_4_deep_text:'Alles außer diesem Widerstand',
     breath_5_deep_text:'Der Zustand, in dem dieser Widerstand\nnicht mehr da ist.',
     ideal_title:'„{issue}"\n\nWenn diese Reaktion nicht da ist,\nwelcher ideale Zustand bleibt?',
-    before1_title:'„{ideal}"\n\nWie möglich fühlt sich dieser Zustand\nim nächsten Moment an?',
     before2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
-    after1_title:'„{ideal}"\n\nWie möglich fühlt sich dieser Zustand\nim nächsten Moment an?',
     after2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
     breath_1_text:'„{ideal}"',
     ideal_blocker_title:'Was blockiert\n„{ideal}"?',
@@ -1240,9 +1206,7 @@ var copy = {
     breath_4_deep_text:'Tudo exceto essa resistência',
     breath_5_deep_text:'O estado em que essa resistência\nnão está mais presente.',
     ideal_title:'"{issue}"\n\nQuando essa reação não está presente,\nque estado ideal permanece?',
-    before1_title:'"{ideal}"\n\nNo próximo momento,\nquão possível esse estado parece?',
     before2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
-    after1_title:'"{ideal}"\n\nNo próximo momento,\nquão possível esse estado parece?',
     after2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
     breath_1_text:'"{ideal}"',
     ideal_blocker_title:'O que está bloqueando\n"{ideal}"?',
@@ -1338,9 +1302,7 @@ var copy = {
     see_more_ideals:'Voir plus d’expériences idéales',
     ideal_cta_button:'Suivant',
     ideal_title:'« {issue} »\n\nQuand cette réaction n’est pas là,\nquel état idéal reste ?',
-    before1_title:'« {ideal} »\n\nAu prochain moment,\nà quel point cet état semble-t-il possible ?',
     before2_title:'« {ideal} »\n\nDans cet état,\ncombien d’espace y a-t-il\ndans ta respiration ?',
-    after1_title:'« {ideal} »\n\nAu prochain moment,\nà quel point cet état semble-t-il possible ?',
     after2_title:'« {ideal} »\n\nDans cet état,\ncombien d’espace y a-t-il\ndans ta respiration ?',
     ideal_blocker_title:'Qu’est-ce qui bloque\n« {ideal} » ?',
     ideal_blocker_placeholder:'Écris ce qui bloque…',
@@ -1492,8 +1454,7 @@ var D = {
   reactionAnswer:'', idealAnswer:'',
   entryMode: null,
   doorKey: null, doorSentence:'',
-  nextChanceBefore:null, breathEaseBefore:null,
-  breathEaseAfter:null,  nextChanceAfter:null,
+  breathEaseBefore:null, breathEaseAfter:null,
   breathMode: null
 };
 
@@ -3309,12 +3270,6 @@ function submitIdeal() {
   }
 }
 
-function submitBefore1() {
-  D.nextChanceBefore = getSliderVal('b1');
-  resetSlider('b2');
-  fwd('s-before2');
-}
-
 function submitBefore2() {
   D.breathEaseBefore = getSliderVal('b2');
   if (D.entryMode === 'ideal' && D.issue) {
@@ -3351,12 +3306,6 @@ function selectBreathMode(mode) {
   }
   resetBreathScreens();
   fwd('s-br1');
-}
-
-function submitAfter1() {
-  D.nextChanceAfter = getSliderVal('a1');
-  resetSlider('a2');
-  fwd('s-after2');
 }
 
 function submitAfter2() {
@@ -3602,7 +3551,7 @@ function repeatSameTheme() {
   D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
         issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
         entryMode: null, doorKey: null, doorSentence:'',
-        nextChanceBefore:null, breathEaseBefore:null, breathEaseAfter:null, nextChanceAfter:null, breathMode:null };
+        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
   ['b1','b2','a1','a2'].forEach(resetSlider);
   showDoorScreen();
@@ -3611,7 +3560,7 @@ function repeatSameTheme() {
 function chooseNewTheme() {
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'', entryMode:null, doorKey:null, doorSentence:'',
-        nextChanceBefore:null, breathEaseBefore:null, breathEaseAfter:null, nextChanceAfter:null, breathMode:null };
+        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
   ['b1','b2','a1','a2'].forEach(resetSlider);
@@ -3638,7 +3587,7 @@ function backToStart() {
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'',
         entryMode:null, doorKey:null, doorSentence:'',
-        nextChanceBefore:null, breathEaseBefore:null, breathEaseAfter:null, nextChanceAfter:null, breathMode:null };
+        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
   ['b1','b2','a1','a2'].forEach(resetSlider);
@@ -3650,7 +3599,7 @@ function changeLanguageFromResult() {
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'',
         entryMode:null, doorKey:null, doorSentence:'',
-        nextChanceBefore:null, breathEaseBefore:null, breathEaseAfter:null, nextChanceAfter:null, breathMode:null };
+        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
   ['b1','b2','a1','a2'].forEach(resetSlider);
