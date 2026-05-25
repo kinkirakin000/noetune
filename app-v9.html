@@ -140,10 +140,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .entry-choice-btn:active{transform:scale(.98);opacity:.85}
 .entry-choice-btn.disabled{background:#EDEDE7;color:#C0C0BA;cursor:default}
 .entry-choice-desc{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.05em;line-height:1.9;margin-top:.6rem;white-space:pre-line;padding:0 2px}
-.entry-ideal-soon{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#B3B3AD;letter-spacing:.08em;margin-top:.4rem;display:none}
-.entry-explain-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.7rem;letter-spacing:.08em;cursor:pointer;margin-top:1.6rem;padding:4px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block;text-align:center}
-.entry-explain-link:active{color:#6B9080}
-#s-entry-explain{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 #s-about{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 #s-pricing{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 .pricing-cta{margin-top:2rem;margin-bottom:0}
@@ -185,7 +181,7 @@ body{background:#151412;color:#F5EFE6}
 .btn-back svg path{stroke:#B8B2A8}
 .btn-back:active svg path{stroke:#8FB8A4}
 .intro-title,.screen-title,.measure-problem,.breath-main,.sc-card-title,.sc-toward-value,.sc-note-value,.about-title,.sc-shift-label{color:#F5EFE6}
-.intro-sub,.sc-card-badge,.sc-card-poem,.sc-section-label,.sc-shift-header,.sc-meaning,.save-fallback-note,.result-hint,.theme-top-copy,.breath-hint,.breath-sub,.entry-title,.entry-choice-desc,.entry-ideal-soon,.pricing-soon{color:#8E8981}
+.intro-sub,.sc-card-badge,.sc-card-poem,.sc-section-label,.sc-shift-header,.sc-meaning,.save-fallback-note,.result-hint,.theme-top-copy,.breath-hint,.breath-sub,.entry-title,.entry-choice-desc,.pricing-soon{color:#8E8981}
 .lang-btn{color:#F5EFE6;border-color:rgba(245,239,230,.2)}
 .lang-btn:active{background:rgba(143,184,164,.15)}
 .text-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
@@ -233,8 +229,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .entry-choice-btn{background:#252320;color:#F5EFE6}
 .entry-choice-btn.disabled{background:#1E1D1A;color:#4A4845}
 .entry-choice-desc{color:#8E8981}
-.entry-explain-link{color:#B8B2A8}
-.entry-explain-link:active{color:#8FB8A4}
 .about-para{color:#B8B2A8}
 .about-safety{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
 .btn-nm{color:#B8B2A8;border-color:rgba(245,239,230,.18)}
@@ -284,30 +278,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   <div class="intro-sub" id="intro-sub-open">— for when the body closes —</div>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
-</div>
-
-<!-- ── ENTRY ── -->
-<div class="screen" id="s-entry">
-  <div id="s-entry-inner">
-    <div class="entry-title" id="t-entry-title">どちらから始めますか？</div>
-    <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-reaction-entry" onclick="startReactionEntry()">自動反応から始める（おすすめ）</button>
-      <div class="entry-choice-desc" id="t-entry-reaction-desc">今気になる反応を見ることで、\n理想の体験がはっきりしやすくなります。</div>
-    </div>
-    <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-ideal-entry" onclick="startIdealEntry()">理想体験から始める</button>
-      <div class="entry-choice-desc" id="t-entry-ideal-desc">今この瞬間に感じたい体験から、\n直接始めます。</div>
-    </div>
-    <button class="entry-explain-link" id="btn-entry-explain" onclick="fwd('s-entry-explain')">なぜ2つの入り口なのか</button>
-  </div>
-</div>
-
-<!-- ── ENTRY EXPLAIN ── -->
-<div class="screen" id="s-entry-explain">
-  <div class="about-inner">
-    <div class="about-title" id="t-entry-explain-title">なぜ2つの入り口なのか</div>
-    <div class="about-para" id="t-entry-explain-body"></div>
-  </div>
 </div>
 
 <!-- ── ABOUT ── -->
@@ -591,14 +561,6 @@ var copy = {
     breath_mode_deep_label:'深く整える\n（内観熟練者）',
     breath_mode_deep_desc:'抵抗を見つめ、\n抵抗が存在しない状態まで感じます。',
     about_link:'Noetuneとは',
-    entry_title:'どちらから始めますか？',
-    entry_reaction_button:'自動反応から始める（おすすめ）',
-    entry_reaction_desc:'今気になる反応を見ることで、\n理想の体験がはっきりしやすくなります。',
-    entry_ideal_button:'理想体験から始める',
-    entry_ideal_desc:'今この瞬間に感じたい体験から、\n直接始めます。',
-    entry_explain_link:'なぜ2つの入り口なのか',
-    entry_explain_title:'なぜ2つの入り口なのか',
-    entry_explain_body:'Noetuneには、2つの始め方があります。\nどちらを選んでも、向かう方向は同じです。\n\n自動反応から始める方法では、\n幸せな人にある状態をひとつ選び、\nその状態に対して、今どんな反応が出るのかを見ます。\n\n理想体験から始める方法では、\n今この瞬間に感じたい体験から、直接始めます。\n\nNoetuneは、ネガティブを見るためのものではありません。\nまた、ポジティブを無理につくるためのものでもありません。\n\n反応を観察しながら、\n少しずつ、固定されていない状態へ戻っていくためのものです。\n\n迷ったら、自動反応から始めるのがおすすめです。',
     about_title:'Noetuneとは',
     about_p1:'Noetuneは、\n幸せな人にある状態を入口にして、\n今この瞬間の反応を整えるための\nセルフチューニングです。',
     about_p2:'安心。\nここに戻る。\n体とつながる。\n自分にやさしい。\n\nそうした状態に対して、\n身体や思考がどんな反応を持っているのかを、\n短い問いと呼吸で見つめます。',
@@ -701,14 +663,6 @@ var copy = {
     congrats_choose_new_theme:'Choose another theme',
     congrats_back_to_start:'Return to start',
     about_link:'What is Noetune?',
-    entry_title:'How would you like to begin?',
-    entry_reaction_button:'Begin from automatic reaction\n(recommended)',
-    entry_reaction_desc:'By looking at the reaction\nthat is present now,\nthe ideal experience becomes clearer.',
-    entry_ideal_button:'Begin from ideal experience',
-    entry_ideal_desc:'Start directly from the experience\nyou want to feel in this moment.',
-    entry_explain_link:'Why two entrances?',
-    entry_explain_title:'Why two entrances?',
-    entry_explain_body:'Noetune has two ways to begin.\nWhichever you choose,\nthe direction is the same.\n\nWhen you begin from automatic reaction,\nyou choose one state\nthat happy people carry,\nand observe what reaction appears\nin relation to that state.\n\nWhen you begin from ideal experience,\nyou start directly from the experience\nyou want to feel in this moment.\n\nNoetune is not for looking for negativity.\nAnd it is not for forcing positivity.\n\nIt is for observing reactions\nand gradually returning\nto a state that is not fixed.\n\nIf you are unsure,\nbeginning from automatic reaction\nis recommended.',
     about_title:'What is Noetune?',
     about_p1:'Noetune is\na self-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.',
     about_p2:'Safety.\nSpace.\nBeing here now.\nBeing yourself.\n\nThrough short questions\nand breathing,\nyou observe how your body and mind\nreact to those states.',
@@ -811,14 +765,6 @@ var copy = {
     congrats_choose_new_theme:'選擇別的主題',
     congrats_back_to_start:'回到開始畫面',
     about_link:'什麼是 Noetune？',
-    entry_title:'你想從哪裡開始？',
-    entry_reaction_button:'從自動反應開始\n（推薦）',
-    entry_reaction_desc:'看見現在在意的反應，\n理想的體驗會更容易清楚。',
-    entry_ideal_button:'從理想體驗開始',
-    entry_ideal_desc:'從此刻想感受到的體驗\n直接開始。',
-    entry_explain_link:'為什麼有兩個入口？',
-    entry_explain_title:'為什麼有兩個入口？',
-    entry_explain_body:'Noetune 有兩種開始方式。\n不論選哪一種，\n前往的方向都是一樣的。\n\n從自動反應開始時，\n你會先選一個\n幸福的人身上會有的狀態，\n並觀察自己對那個狀態\n出現了什麼反應。\n\n從理想體驗開始時，\n你會直接從此刻\n想感受到的體驗開始。\n\nNoetune 不是為了尋找負面。\n也不是為了勉強自己變正向。\n\n它是為了觀察反應，\n並一點一點回到\n不被固定的狀態。\n\n如果不確定，\n建議從自動反應開始。',
     about_title:'什麼是 Noetune？',
     about_p1:'Noetune 是一種\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。',
     about_p2:'安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過簡短的問題\n和呼吸，\n你會觀察身體與思緒\n對這些狀態有什麼反應。',
@@ -919,14 +865,6 @@ var copy = {
     congrats_choose_new_theme:'Elegir otro tema',
     congrats_back_to_start:'Volver al inicio',
     about_link:'¿Qué es Noetune?',
-    entry_title:'¿Por dónde quieres empezar?',
-    entry_reaction_button:'Empezar desde la reacción automática\n(recomendado)',
-    entry_reaction_desc:'Al mirar la reacción\nque está presente ahora,\nla experiencia ideal se vuelve más clara.',
-    entry_ideal_button:'Empezar desde la experiencia ideal',
-    entry_ideal_desc:'Empieza directamente desde la experiencia\nque quieres sentir en este momento.',
-    entry_explain_link:'¿Por qué dos entradas?',
-    entry_explain_title:'¿Por qué dos entradas?',
-    entry_explain_body:'Noetune tiene dos formas de empezar.\nElijas la que elijas,\nla dirección es la misma.\n\nCuando empiezas desde la reacción automática,\neliges un estado\nque las personas felices llevan dentro,\ny observas qué reacción aparece\nen relación con ese estado.\n\nCuando empiezas desde la experiencia ideal,\nempiezas directamente desde la experiencia\nque quieres sentir en este momento.\n\nNoetune no es para buscar lo negativo.\nY tampoco es para forzar lo positivo.\n\nEs para observar reacciones\ny volver gradualmente\na un estado que no está fijo.\n\nSi no estás seguro,\nse recomienda empezar desde la reacción automática.',
     about_title:'¿Qué es Noetune?',
     about_p1:'Noetune es\nuna práctica de autosintonización\nque empieza con estados\nque las personas felices llevan dentro,\ny te ayuda a sintonizar la reacción\nque surge en este momento.',
     about_p2:'Seguridad.\nEspacio.\nEstar aquí y ahora.\nSer tú mismo.\n\nA través de preguntas breves\ny la respiración,\nobservas cómo el cuerpo y la mente\nreaccionan a esos estados.',
@@ -1031,14 +969,6 @@ var copy = {
     congrats_choose_new_theme:'Anderes Thema wählen',
     congrats_back_to_start:'Zum Start zurück',
     about_link:'Was ist Noetune?',
-    entry_title:'Womit möchtest du beginnen?',
-    entry_reaction_button:'Mit der automatischen Reaktion beginnen\n(empfohlen)',
-    entry_reaction_desc:'Wenn du die Reaktion betrachtest,\ndie jetzt vorhanden ist,\nwird die ideale Erfahrung klarer.',
-    entry_ideal_button:'Mit der idealen Erfahrung beginnen',
-    entry_ideal_desc:'Beginne direkt mit der Erfahrung,\ndie du in diesem Moment fühlen möchtest.',
-    entry_explain_link:'Warum zwei Eingänge?',
-    entry_explain_title:'Warum zwei Eingänge?',
-    entry_explain_body:'Noetune hat zwei Wege zu beginnen.\nEgal welchen du wählst,\ndie Richtung ist dieselbe.\n\nWenn du mit der automatischen Reaktion beginnst,\nwählst du einen Zustand,\nden glückliche Menschen in sich tragen,\nund beobachtest,\nwelche Reaktion in Bezug auf diesen Zustand erscheint.\n\nWenn du mit der idealen Erfahrung beginnst,\nbeginnst du direkt mit der Erfahrung,\ndie du in diesem Moment fühlen möchtest.\n\nNoetune ist nicht dafür da,\nnach Negativität zu suchen.\nUnd es ist nicht dafür da,\nPositivität zu erzwingen.\n\nEs ist dafür da,\nReaktionen zu beobachten\nund allmählich zu einem Zustand zurückzukehren,\nder nicht festgelegt ist.\n\nWenn du unsicher bist,\nwird der Beginn mit der automatischen Reaktion empfohlen.',
     about_title:'Was ist Noetune?',
     about_p1:'Noetune ist\neine Praxis der Selbst-Einstimmung.\nSie beginnt mit Zuständen,\ndie glückliche Menschen in sich tragen,\nund hilft dir,\ndie Reaktion zu stimmen,\ndie in diesem Moment entsteht.',
     about_p2:'Sicherheit.\nRaum.\nHier und jetzt sein.\nDu selbst sein.\n\nDurch kurze Fragen\nund Atmung\nbeobachtest du,\nwie Körper und Geist\nauf diese Zustände reagieren.',
@@ -1143,14 +1073,6 @@ var copy = {
     congrats_choose_new_theme:'Escolher outro tema',
     congrats_back_to_start:'Voltar ao início',
     about_link:'O que é Noetune?',
-    entry_title:'Por onde você quer começar?',
-    entry_reaction_button:'Começar pela reação automática\n(recomendado)',
-    entry_reaction_desc:'Ao observar a reação\nque está presente agora,\na experiência ideal fica mais clara.',
-    entry_ideal_button:'Começar pela experiência ideal',
-    entry_ideal_desc:'Comece diretamente pela experiência\nque você quer sentir neste momento.',
-    entry_explain_link:'Por que duas entradas?',
-    entry_explain_title:'Por que duas entradas?',
-    entry_explain_body:'Noetune tem duas formas de começar.\nQualquer uma que você escolha,\na direção é a mesma.\n\nQuando você começa pela reação automática,\nvocê escolhe um estado\nque pessoas felizes carregam,\ne observa qual reação aparece\nem relação a esse estado.\n\nQuando você começa pela experiência ideal,\nvocê começa diretamente pela experiência\nque quer sentir neste momento.\n\nNoetune não é para procurar negatividade.\nE também não é para forçar positividade.\n\nÉ para observar reações\ne voltar gradualmente\na um estado que não está fixo.\n\nSe você não tiver certeza,\nrecomenda-se começar pela reação automática.',
     about_title:'O que é Noetune?',
     about_p1:'Noetune é\numa prática de autossintonização\nque começa com estados\nque pessoas felizes carregam,\ne ajuda você a sintonizar a reação\nque surge neste momento.',
     about_p2:'Segurança.\nEspaço.\nEstar aqui agora.\nSer você mesmo.\n\nPor meio de perguntas curtas\ne da respiração,\nvocê observa como o corpo e a mente\nreagem a esses estados.',
@@ -1255,14 +1177,6 @@ var copy = {
     congrats_body:'Pour ce thème,\naucune réaction ne monte maintenant.\n\nCela peut être un signe\nque ce thème est calme\nen ce moment.\n\nSi nécessaire,\nchoisis un autre thème.',
     congrats_choose_new_theme:'Choisir un autre thème',
     congrats_back_to_start:'Revenir au début',
-    entry_title:'Par où veux-tu commencer ?',
-    entry_reaction_button:'Commencer par la réaction automatique\n(recommandé)',
-    entry_reaction_desc:'En regardant la réaction\nprésente maintenant,\nl’expérience idéale devient plus claire.',
-    entry_ideal_button:'Commencer par l’expérience idéale',
-    entry_ideal_desc:'Commence directement par l’expérience\nque tu veux ressentir en ce moment.',
-    entry_explain_link:'Pourquoi deux entrées ?',
-    entry_explain_title:'Pourquoi deux entrées ?',
-    entry_explain_body:'Noetune a deux façons de commencer.\nQuelle que soit celle que tu choisis,\nla direction est la même.\n\nQuand tu commences par la réaction automatique,\ntu choisis un état\nque les personnes heureuses portent en elles,\net tu observes quelle réaction apparaît\nen lien avec cet état.\n\nQuand tu commences par l’expérience idéale,\ntu commences directement par l’expérience\nque tu veux ressentir en ce moment.\n\nNoetune n’est pas fait pour chercher le négatif.\nEt ce n’est pas fait pour forcer le positif.\n\nC’est une façon d’observer les réactions\net de revenir progressivement\nà un état qui n’est pas fixé.\n\nSi tu n’es pas sûr,\nil est recommandé de commencer\npar la réaction automatique.',
     about_title:'Qu’est-ce que Noetune ?',
     about_p1:'Noetune est\nune pratique d’auto-accordage\nqui commence par des états\nque les personnes heureuses portent en elles,\net t’aide à accorder la réaction\nqui apparaît en ce moment.',
     about_p2:'Sécurité.\nEspace.\nÊtre ici maintenant.\nÊtre soi-même.\n\nGrâce à de courtes questions\net à la respiration,\ntu observes comment le corps et l’esprit\nréagissent à ces états.',
@@ -1366,14 +1280,6 @@ function applyLang() {
   document.documentElement.lang = lang;
   setEl('btn-start',      T('start_button'));
   setEl('btn-about-link',  T('about_link'));
-  setEl('t-entry-title',        T('entry_title'));
-  setEl('btn-reaction-entry',   T('entry_reaction_button'));
-  setEl('t-entry-reaction-desc',T('entry_reaction_desc'));
-  setEl('btn-ideal-entry',      T('entry_ideal_button'));
-  setEl('t-entry-ideal-desc',   T('entry_ideal_desc'));
-  setEl('btn-entry-explain',    T('entry_explain_link'));
-  setEl('t-entry-explain-title',T('entry_explain_title'));
-  setEl('t-entry-explain-body', T('entry_explain_body'));
   setEl('btn-see-more',    T('see_more_themes'));
   setEl('lbl-theme-top',  T('theme_top_copy'));
   setEl('btn-theme-cta',  T('theme_cta_button'));
@@ -3520,19 +3426,6 @@ function updateIdealCTA() {
 
 function startIdealFromSelection() {
   submitIdeal();
-}
-
-function startReactionEntry() {
-  D.entryMode = 'reaction';
-  trackEvent('v7_entry_reaction');
-  fwd('s-theme');
-}
-
-function startIdealEntry() {
-  D.entryMode = 'ideal';
-  D.theme = ''; D.themeKey = null; D.issue = ''; D.ideal = '';
-  trackEvent('v7_entry_ideal');
-  enterIdealFirst();
 }
 
 function enterIdealFirst() {
