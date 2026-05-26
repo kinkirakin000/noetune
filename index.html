@@ -7,7 +7,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#FAFAF7">
 <meta name="theme-color" content="#151412" media="(prefers-color-scheme:dark)">
-<title>Noetune</title>
+<title>Noetune V10</title>
 <meta name="description" content="Tune your next moment through short questions and breathing.">
 <meta property="og:title" content="Noetune">
 <meta property="og:description" content="Tune your next moment through short questions and breathing.">
@@ -130,6 +130,31 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .theme-group-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .35s ease}
 .theme-group.open .theme-group-body{max-height:900px;opacity:1}
 .theme-cat-heading{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.2rem;padding:.2rem 0}
+.theme-section{width:100%;border-top:1px solid #EDEDE7}
+.theme-section-header{font-family:'Noto Serif JP',serif;background:transparent;border:none;width:100%;display:flex;justify-content:space-between;align-items:flex-start;padding:.9rem 0;cursor:pointer;color:#1A1A1A;font-size:.84rem;letter-spacing:.1em;-webkit-tap-highlight-color:transparent;min-height:48px}
+.theme-section-header:active{color:#6B9080}
+.theme-section-toggle{font-size:.88rem;color:#A8A8A2;flex-shrink:0;margin-left:.4rem;line-height:1;padding-top:.1rem}
+.theme-section-label-wrap{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.theme-section-label{font-size:.84rem;letter-spacing:.1em}
+.theme-section-desc{font-size:.7rem;color:#A8A8A2;letter-spacing:.04em;margin-top:.25rem;font-weight:300;line-height:1.45}
+.theme-section-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .35s ease}
+.theme-section.open .theme-section-body{max-height:2000px;opacity:1}
+#s-theme-top{margin-bottom:1.4rem;text-align:center}
+.theme-screen-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;color:#1A1A1A;letter-spacing:.06em;margin-bottom:.45rem}
+.theme-screen-sub{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.75}
+.entry-subtitle{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.7;text-align:center;margin-top:-.6rem;margin-bottom:1.8rem}
+#s-nega{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-nega-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
+#s-nega-inner>*{flex-shrink:0}
+#s-nega-top,#s-nega-cand-top{margin-bottom:1.4rem;text-align:center}
+#s-nega-candidate{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-nega-cand-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
+.nega-section-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.4rem;margin-bottom:.6rem;padding:.2rem 0}
+.nega-input-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.6rem;margin-bottom:.4rem;padding:.2rem 0}
+.nega-btn{height:auto;min-height:52px;padding:10px 12px;white-space:normal;line-height:1.4;background:rgba(255,255,255,.06);border:1.5px solid rgba(200,200,195,.3);border-radius:26px;font-family:'Noto Serif JP',serif;font-size:15px;letter-spacing:.08em;color:#1A1A1A;cursor:pointer;transition:background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;text-align:center}
+.nega-btn.selected{background:rgba(107,144,128,.2);border-color:#6B9080}
+.nega-btn:active{transform:scale(.97)}
+#nega-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
 #admin-badge{position:fixed;bottom:.8rem;right:.9rem;font-size:.6rem;letter-spacing:.08em;color:#CCC;opacity:.4;pointer-events:none;z-index:9999;font-family:monospace;display:none}
@@ -144,6 +169,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #s-pricing{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 .pricing-cta{margin-top:2rem;margin-bottom:0}
 .pricing-soon{color:#A8A8A2;font-size:.8rem;letter-spacing:.06em;text-align:center;margin-top:1.6rem;font-family:'Noto Serif JP',serif}
+.pricing-price{font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin:1.6rem 0 .4rem}
+.pricing-note{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#A8A8A2;letter-spacing:.06em;line-height:1.9;text-align:center;margin-top:1.2rem;white-space:pre-line}
+#s-lock{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 .about-inner{width:100%;max-width:300px;margin:0 auto}
 .about-title{font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;letter-spacing:.08em;color:#1A1A1A;margin-bottom:2rem}
 .about-para{font-family:'Noto Serif JP',serif;font-size:.84rem;font-weight:300;color:#555550;letter-spacing:.04em;line-height:2.1;margin-bottom:1.5rem;white-space:pre-line}
@@ -231,6 +259,8 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .entry-choice-desc{color:#8E8981}
 .about-para{color:#B8B2A8}
 .about-safety{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
+.pricing-price{color:#F5EFE6}
+.pricing-note{color:#5A5855}
 .btn-nm{color:#B8B2A8;border-color:rgba(245,239,230,.18)}
 .btn-nm.selected{background:rgba(143,184,164,.1);color:#8FB8A4;border-color:#8FB8A4}
 #theme-cta-wrap,#ideal-cta-fixed,#door-cta-wrap{background:linear-gradient(transparent,rgba(21,20,18,.97) 28%)}
@@ -241,6 +271,17 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .door-card-input:focus{border-bottom-color:#8FB8A4}
 .door-card-input::placeholder{color:#4A4845}
 .theme-cat-heading{color:#5A5855}
+.theme-section{border-top-color:rgba(245,239,230,.1)}
+.theme-section-header{color:#F5EFE6}
+.theme-section-header:active{color:#8FB8A4}
+.theme-section-toggle{color:#5A5855}
+.theme-section-desc{color:#5A5855}
+.theme-screen-title{color:#F5EFE6}
+.theme-screen-sub,.entry-subtitle{color:#5A5855}
+.nega-section-label,.nega-input-label{color:#5A5855}
+.nega-btn{color:#F5EFE6;border-color:rgba(245,239,230,.18);background:rgba(245,239,230,.04)}
+.nega-btn.selected{background:rgba(143,184,164,.2);border-color:#8FB8A4}
+#nega-cta-wrap{background:linear-gradient(transparent,rgba(21,20,18,.97) 28%)}
 }
 </style>
 <script>if(new URLSearchParams(window.location.search).get('admin')==='1'){window['ga-disable-G-TH1504X2CK']=true;}</script>
@@ -280,6 +321,19 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
 </div>
 
+<!-- ── ENTRY CHOICE ── -->
+<div class="screen" id="s-entry-choice">
+  <div id="s-entry-inner">
+    <div class="entry-title">今、どちらが近いですか？</div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="startPositiveEntry()">なりたい感覚がわかる</button>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="startNegaEntry()">モヤモヤや違和感がある</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── ABOUT ── -->
 <div class="screen" id="s-about">
   <div class="about-inner">
@@ -295,15 +349,32 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 <!-- ── THEME ── -->
 <div class="screen" id="s-theme">
   <div id="s-theme-inner">
-    <div class="theme-top-copy" id="lbl-theme-top">次の瞬間、気になることを書く
-または
-下のテーマから始めるのがおすすめです。</div>
-    <input type="text" class="custom-theme-input" id="in-custom-theme"
-      placeholder="自由に入力…" autocomplete="off" maxlength="40"
-      oninput="onCustomTheme(this.value)">
-    <div class="theme-grid" id="fixed-theme-grid"></div>
-    <button class="btn-see-more" id="btn-see-more" onclick="seeMoreThemes()">さらに見る</button>
-    <div id="theme-groups-wrap"></div>
+    <div id="s-theme-top">
+      <div class="theme-screen-title">今、戻りたい状態を選んでください。</div>
+      <div class="theme-screen-sub">今この瞬間に感じたい状態を、ひとつ選んでください。</div>
+    </div>
+    <div class="theme-section" id="tsec-free">
+      <button class="theme-section-header" onclick="toggleThemeSection('tsec-free')"><span class="theme-section-label-wrap"><span class="theme-section-label">自由に入力する</span><span class="theme-section-desc">自分の言葉で、感じたい状態を書く。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <input type="text" class="custom-theme-input" id="in-custom-theme"
+          placeholder="自由に入力…" autocomplete="off" maxlength="40"
+          oninput="onCustomTheme(this.value)" style="margin-top:.4rem;margin-bottom:.8rem">
+      </div>
+    </div>
+    <div class="theme-section" id="tsec-pro">
+      <button class="theme-section-header" onclick="toggleThemeSection('tsec-pro')"><span class="theme-section-label-wrap"><span class="theme-section-label">Professionalテーマ</span><span class="theme-section-desc">仕事の質に関わる状態へ戻る。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div id="professional-themes-wrap"></div>
+      </div>
+    </div>
+    <div class="theme-section" id="tsec-life">
+      <button class="theme-section-header" onclick="toggleThemeSection('tsec-life')"><span class="theme-section-label-wrap"><span class="theme-section-label">Lifeテーマ</span><span class="theme-section-desc">日常の安心・落ち着き・心地よさへ戻る。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div class="theme-grid" id="fixed-theme-grid"></div>
+        <button class="btn-see-more" id="btn-see-more" onclick="seeMoreThemes()">さらに見る</button>
+        <div id="theme-groups-wrap"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -468,18 +539,30 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">スタート画面に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
   <div class="result-pricing-note" id="t-result-pricing" onclick="fwd('s-pricing')">Noetuneを続けるには →</div>
+  <div class="pricing-note" id="t-trial-remaining" style="display:none"></div>
 </div>
 
 <!-- ── PRICING ── -->
 <div class="screen" id="s-pricing">
   <div class="about-inner">
-    <div class="about-title" id="t-pricing-title">Noetuneを続ける</div>
+    <div class="about-title" id="t-pricing-title">Professional</div>
     <div class="about-para" id="t-pricing-p1"></div>
-    <div class="about-para" id="t-pricing-p2"></div>
+    <div class="pricing-price" id="t-pricing-price"></div>
     <div style="text-align:center">
-      <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()">1ヶ月無料で始める</button>
+      <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()">Professionalを始める</button>
+      <div class="pricing-note" id="t-pricing-note"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
     </div>
+  </div>
+</div>
+
+<!-- ── LOCK (trial exhausted — dormant placeholder) ── -->
+<div class="screen" id="s-lock">
+  <div class="about-inner" style="text-align:center">
+    <div class="about-title" id="t-lock-title"></div>
+    <div class="about-para"  id="t-lock-body"></div>
+    <button class="btn pricing-cta" id="btn-lock-cta" onclick="pricingCtaClick()"></button>
+    <div class="pricing-note" id="t-lock-note"></div>
   </div>
 </div>
 
@@ -518,6 +601,52 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   <button class="btn" id="btn-door-next" onclick="submitDoorAnswer()" disabled>この答えで進む</button>
 </div>
 
+<!-- ── NEGA ROOM ── -->
+<div class="screen" id="s-nega">
+  <div id="s-nega-inner">
+    <div id="s-nega-top">
+      <div class="theme-screen-title">今、どんな感じ？</div>
+      <div class="theme-screen-sub">深く考えず、近いものを選んでください。</div>
+    </div>
+    <div class="theme-section" id="nsec-free">
+      <button class="theme-section-header" onclick="toggleThemeSection('nsec-free')"><span class="theme-section-label-wrap"><span class="theme-section-label">自由に入力する</span><span class="theme-section-desc">自分の言葉で、今の違和感を書く。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <input type="text" class="custom-theme-input" id="in-nega-text"
+          placeholder="例：なんとなく重い" autocomplete="off" maxlength="40"
+          oninput="onNegaInput(this.value)" style="margin-top:.4rem;margin-bottom:.8rem">
+      </div>
+    </div>
+    <div class="theme-section" id="nsec-pro">
+      <button class="theme-section-header" onclick="toggleThemeSection('nsec-pro')"><span class="theme-section-label-wrap"><span class="theme-section-label">Professionalテーマ</span><span class="theme-section-desc">仕事の質に影響する違和感。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div class="theme-grid" id="nega-pro-grid" style="margin-top:.5rem;margin-bottom:.6rem"></div>
+      </div>
+    </div>
+    <div class="theme-section" id="nsec-life">
+      <button class="theme-section-header" onclick="toggleThemeSection('nsec-life')"><span class="theme-section-label-wrap"><span class="theme-section-label">Lifeテーマ</span><span class="theme-section-desc">日常の違和感。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div class="theme-grid" id="nega-life-grid" style="margin-top:.5rem;margin-bottom:.6rem"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NEGA IDEAL ── -->
+<div class="screen" id="s-nega-ideal">
+  <div class="breath-sub" id="nega-ideal-quote"></div>
+  <div class="screen-title" style="margin-bottom:1.5rem">その反応が存在しないとき、<br>どんな理想状態が残る？</div>
+  <input type="text" class="text-input" id="in-nega-ideal"
+    placeholder="残る状態を入力…" autocomplete="off" maxlength="40"
+    oninput="onNegaIdealInput(this.value)">
+  <button class="btn" id="btn-nega-ideal-next" onclick="submitNegaIdeal()" disabled>次へ</button>
+  <button class="btn-ghost" onclick="skipNegaIdeal()">スキップ</button>
+</div>
+
+<!-- ── NEGA FIXED CTA ── -->
+<div id="nega-cta-wrap">
+  <button class="btn" id="btn-nega-cta" onclick="submitNegaEntry()" disabled>この反応から始める</button>
+</div>
+
 <!-- ── THEME FIXED CTA ── -->
 <div id="theme-cta-wrap">
   <button class="btn" id="btn-theme-cta" onclick="startSession()">このテーマで始める</button>
@@ -531,6 +660,26 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 <script>
 function isAdminMode() {
   try { return new URLSearchParams(window.location.search).get('admin') === '1'; } catch(e) { return false; }
+}
+
+/*
+ * isUnlimited() — single gate for all trial/paywall checks.
+ *
+ * Returns true when the user should be treated as a paid Professional:
+ *   - isAdminMode()          always unlimited (testing/demo)
+ *   - supabase isPro check   SaaS phase — not implemented yet
+ *
+ * Rules when isUnlimited() is true:
+ *   - Do not consume trial count
+ *   - Do not show s-lock
+ *   - Do not block same-theme repeat
+ *   - Do not block any theme or feature
+ *   - Pricing/lock screens can still be opened manually; never forced
+ */
+function isUnlimited() {
+  if (isAdminMode()) return true;
+  /* SaaS phase: return supabaseIsPro(); */
+  return false;
 }
 
 if (isAdminMode()) {
@@ -562,16 +711,23 @@ var copy = {
     breath_mode_deep_desc:'抵抗を見つめ、\n抵抗が存在しない状態まで感じます。',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n幸せな人にある状態を入口にして、\n今この瞬間の反応を整えるための\nセルフチューニングです。',
-    about_p2:'安心。\nここに戻る。\n体とつながる。\n自分にやさしい。\n\nそうした状態に対して、\n身体や思考がどんな反応を持っているのかを、\n短い問いと呼吸で見つめます。',
-    about_p3:'Noetuneは、\n無理にポジティブになるためのものではありません。\n\nまた、\nネガティブを否定するためのものでもありません。',
-    about_p4:'反応を観察しながら、\n少しずつ、\n固定されていない状態へ戻っていくための実践です。',
+    about_p1:'Noetuneは、\n今の反応から離れ、\n本来の状態へ戻るための\nセルフチューニングです。',
+    about_p2:'なりたい感覚がわかる時は、\nその状態から。\n\nモヤモヤや違和感がある時は、\n今の反応から。\n\nどちらからでも始められます。',
+    about_p3:'Noetuneは、\n悩みを深掘りするものではありません。\n\n反応を入口にして、\n自然な自分で選べる状態へ\n少しずつ戻っていきます。',
+    about_p4:'',
     about_safety_note:'Noetuneは、\n医療・診断・緊急支援を目的としたものではありません。\n\n強い危機感がある場合や、\n自分だけでは安全を保てないと感じる場合は、\n地域の医療機関や専門家へ相談してください。',
-    pricing_title:'Noetuneを続ける',
-    pricing_p1:'Noetuneは、\n最初の1ヶ月は無料で使えます。\n\nその後は、\n有料プランで続けられます。',
-    pricing_p2:'これは、\n幸せな人にある状態を入口にして、\n今この瞬間の反応を整えるための\n小さなセルフチューニングです。\n\n安心。\nここに戻る。\n体とつながる。\n自分にやさしい。\n\nそうした状態に対する反応を見つめ、\n少しずつ、\n固定されていない状態へ戻っていきます。',
-    pricing_cta:'1ヶ月無料で始める',
+    pricing_title:'Professional',
+    pricing_p1:'必要な時に、\n何度でも戻る。\n\n仕事の前。\n仕事の後。\n決める時。\n切り替えたい時。\n\n自分の状態が、\n仕事の質になる人のために。',
+    pricing_p2:'',
+    pricing_price:'¥1,480 / 月',
+    pricing_cta:'Professionalを始める',
+    pricing_note:'5回まで無料で体験できます。\nTrial終了後、Professionalで無制限に使えます。',
     pricing_soon:'準備中です',
+    lock_title:'Trialはここまでです。',
+    lock_body:'次に自分へ戻りたい時、\nNoetuneはここにあります。\n\n必要な時に、\n何度でも戻れる場所を持っておきますか。',
+    lock_cta:'Professionalを始める',
+    lock_note:'必要な時に、何度でも戻る。',
+    trial_remaining:'Trial {used} / 5　あと{remaining}回、Noetuneを体験できます。',
     repeat_same_theme:'同じテーマでもう一度',
     repeat_same_theme_hint:'答えが自然に出なくなるまで、\n同じテーマを何度か見つめるのもおすすめです。',
     choose_new_theme:'別のテーマを選ぶ',
@@ -1281,7 +1437,6 @@ function applyLang() {
   setEl('btn-start',      T('start_button'));
   setEl('btn-about-link',  T('about_link'));
   setEl('btn-see-more',    T('see_more_themes'));
-  setEl('lbl-theme-top',  T('theme_top_copy'));
   setEl('btn-theme-cta',  T('theme_cta_button'));
   setEl('intro-sub-open', T('app_sub'));
   setEl('t-about-title',  T('about_title'));
@@ -1292,9 +1447,14 @@ function applyLang() {
   setEl('t-about-safety',   T('about_safety_note'));
   setEl('t-pricing-title',  T('pricing_title'));
   setEl('t-pricing-p1',     T('pricing_p1'));
-  setEl('t-pricing-p2',     T('pricing_p2'));
+  setEl('t-pricing-price',  T('pricing_price'));
   setEl('btn-pricing-cta',  T('pricing_cta'));
+  setEl('t-pricing-note',   T('pricing_note'));
   setEl('t-pricing-soon',   T('pricing_soon'));
+  setEl('t-lock-title',     T('lock_title'));
+  setEl('t-lock-body',      T('lock_body'));
+  setEl('btn-lock-cta',     T('lock_cta'));
+  setEl('t-lock-note',      T('lock_note'));
   setEl('btn-issue-skip',      T('issue_skip'));
   setEl('btn-ideal-skip',      T('ideal_skip'));
   setEl('btn-ideal-inline-next', T('next_button'));
@@ -2612,14 +2772,70 @@ var THEME_CATEGORIES = {
   ]
 };
 
+var PROFESSIONAL_THEMES = [
+  { id:'pro_face_it',      label:'そのまま臨む',     positive:'そのまま臨める',          negative:'そのまま臨めない',        desc:'作らず、今の自分で向き合う。',     category:'仕事の前',       source:'professional' },
+  { id:'pro_deliver',      label:'まっすぐ届く',     positive:'まっすぐ届けられる',       negative:'まっすぐ届けられない',     desc:'言葉・声・意図が届く。',           category:'仕事の前',       source:'professional' },
+  { id:'pro_set_stage',    label:'場が整う',         positive:'場を整えられる',           negative:'場を整えられない',         desc:'人・空間・チームがそろう。',       category:'仕事の前',       source:'professional' },
+  { id:'pro_aftertaste',   label:'余韻をおさめる',   positive:'余韻をおさめられる',       negative:'余韻をおさめられない',     desc:'終わった余韻を収める。',           category:'仕事の後',       source:'professional' },
+  { id:'pro_not_carry',    label:'持ち帰らない',     positive:'持ち帰らずにいられる',     negative:'持ち帰ってしまう',         desc:'人の反応や重さを外に置く。',       category:'仕事の後',       source:'professional' },
+  { id:'pro_perspective',  label:'評価を俯瞰する',   positive:'評価を俯瞰できる',         negative:'評価を俯瞰できない',       desc:'評価や数字を離れて見る。',         category:'仕事の後',       source:'professional' },
+  { id:'pro_quiet_decide', label:'静かに決める',     positive:'静かに決められる',         negative:'静かに決められない',       desc:'焦らず、落ち着いて選ぶ。',         category:'決める時',       source:'professional' },
+  { id:'pro_own_standard', label:'自分基準で選ぶ',   positive:'自分基準で選べる',         negative:'自分基準で選べない',       desc:'外の正解ではなく選ぶ。',           category:'決める時',       source:'professional' },
+  { id:'pro_own_value',    label:'自分の価値を保つ', positive:'自分の価値を保てる',       negative:'自分の価値を保てない',     desc:'自分の価値に、静かに立つ。',       category:'決める時',       source:'professional' },
+  { id:'pro_move_on',      label:'次へ進む',         positive:'次へ進める',               negative:'次へ進めない',             desc:'前の余韻を置いて進む。',           category:'次への切り替え', source:'professional' },
+  { id:'pro_close',        label:'仕事を区切る',     positive:'仕事を区切れる',           negative:'仕事を区切れない',         desc:'仕事に区切りをつける。',           category:'次への切り替え', source:'professional' },
+  { id:'pro_reserve',      label:'余力を残す',       positive:'余力を残せる',             negative:'余力を残せない',           desc:'使い切らず、続ける。',             category:'次への切り替え', source:'professional' },
+  { id:'pro_align_core',   label:'自分の核に沿う',   positive:'自分の核に沿える',         negative:'自分の核に沿えない',       desc:'外の流れではなく、核に沿う。',     category:'仕事関連の違和感', source:'professional' },
+  { id:'pro_natural',      label:'見られても自然',   positive:'見られても自然でいられる', negative:'見られると不自然になる',   desc:'評価の目の中でも自然に。',         category:'仕事関連の違和感', source:'professional' },
+  { id:'pro_ease',         label:'力まず整う',       positive:'力まず整えられる',         negative:'力んで整えようとする',     desc:'力まず、自然に整う。',             category:'仕事関連の違和感', source:'professional' }
+];
+
+var PROFESSIONAL_CATEGORIES = [
+  { id:'pro_before',   label:'仕事の前',        themeIds:['pro_face_it','pro_deliver','pro_set_stage'] },
+  { id:'pro_after',    label:'仕事の後',        themeIds:['pro_aftertaste','pro_not_carry','pro_perspective'] },
+  { id:'pro_decide',   label:'決める時',        themeIds:['pro_quiet_decide','pro_own_standard','pro_own_value'] },
+  { id:'pro_switch',   label:'次への切り替え',  themeIds:['pro_move_on','pro_close','pro_reserve'] },
+  { id:'pro_friction', label:'仕事関連の違和感', themeIds:['pro_align_core','pro_natural','pro_ease'] }
+];
+
+var LIFE_NEGA_MAP = {
+  'モヤモヤ':     ['すっきり', 'ここに戻る', '満ち足りる'],
+  '落ち着かない': ['落ち着き', '安心', 'ゆとり'],
+  'イライラ':     ['落ち着き', '自分に戻る', '人と心地よい'],
+  '休めない':     ['ゆとり', 'ここに戻る', '体が心地よい'],
+  '体が重い':     ['体が心地よい', '体とつながる', '活力'],
+  '自分を責める': ['自分にやさしい', '自分を認める', '自分に戻る'],
+  '人と疲れる':   ['人と心地よい', 'ここに居ていい', 'つながり'],
+  '先が見えない': ['進む道が見える', 'できる感じ', 'スムーズに流れる'],
+  '喜べない':     ['小さな喜びに気づく', '感謝', '遊び心']
+};
+
+var PRO_NEGA_MAP = {
+  '力む':             ['そのまま臨む', '力まず整う', '場が整う'],
+  '届かない感じ':     ['まっすぐ届く', '自分の核に沿う', 'そのまま臨む'],
+  '持ち帰る':         ['持ち帰らない', 'おさめる', '仕事を置く'],
+  '評価が気になる':   ['評価を俯瞰する', '自分の価値を保つ', '持ち帰らない'],
+  '揺れる':           ['静かに決める', '自分基準で選ぶ', '自分の核に沿う'],
+  '断れない':         ['自分基準で選ぶ', '自分の価値を保つ', '自分の核に沿う'],
+  '安くしてしまう':   ['自分の価値を保つ', '自分基準で選ぶ', '静かに決める'],
+  '切り替えられない': ['次へ進む', '仕事を置く', 'おさめる'],
+  '自然でいられない': ['見られても自然', 'そのまま臨む', '力まず整う'],
+  '余力がない':       ['余力を残す', '仕事を置く', '力まず整う']
+};
+
+var NEGA_FALLBACK_CANDIDATES = ['ここに戻る', '落ち着き', 'すっきり'];
+
 var themeVisibleCount = 3;
 
 var themeChosen = false;
+var selectedNegaTheme = null;
+var negaFreeText = '';
+var negaEntryType = null;
 var cur = 's-lang';
 var navHistory = [];
 
 var SCREEN_ORDER = [
-  's-lang','s-open','s-theme','s-door',
+  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-before2','s-breath-mode',
   's-br1','s-br2','s-br3','s-br4','s-br5',
@@ -2633,7 +2849,7 @@ function fwd(id) {
   navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); }, 130);
 }
 
 function goBack() {
@@ -2649,7 +2865,7 @@ function goBack() {
   if (!c || !n || cur === prev) { updateBackBtn(); return; }
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); }, 130);
 }
 
 function updateBackBtn() {
@@ -2707,13 +2923,18 @@ function getAutoNegative(positive) {
 }
 
 function getAllThemeIds() {
-  return currentHappinessThemes().map(function(t){ return t.id; });
+  var lifeIds = currentHappinessThemes().map(function(t){ return t.id; });
+  var proIds  = PROFESSIONAL_THEMES.map(function(t){ return t.id; });
+  return lifeIds.concat(proIds);
 }
 
 function getThemeLabel(id) {
   var ht = currentHappinessThemes();
   for (var i = 0; i < ht.length; i++) {
     if (ht[i].id === id) return ht[i].positive;
+  }
+  for (var i = 0; i < PROFESSIONAL_THEMES.length; i++) {
+    if (PROFESSIONAL_THEMES[i].id === id) return PROFESSIONAL_THEMES[i].positive;
   }
   return id;
 }
@@ -2723,6 +2944,9 @@ function getThemeNegative(id) {
   for (var i = 0; i < ht.length; i++) {
     if (ht[i].id === id) return ht[i].negative;
   }
+  for (var i = 0; i < PROFESSIONAL_THEMES.length; i++) {
+    if (PROFESSIONAL_THEMES[i].id === id) return PROFESSIONAL_THEMES[i].negative;
+  }
   return '';
 }
 
@@ -2731,6 +2955,9 @@ function getThemeDisplayLabel(id) {
   for (var i = 0; i < ht.length; i++) {
     if (ht[i].id === id) return ht[i].label || ht[i].positive;
   }
+  for (var i = 0; i < PROFESSIONAL_THEMES.length; i++) {
+    if (PROFESSIONAL_THEMES[i].id === id) return PROFESSIONAL_THEMES[i].label || PROFESSIONAL_THEMES[i].positive;
+  }
   return id;
 }
 
@@ -2738,6 +2965,9 @@ function getThemeDesc(id) {
   var ht = HAPPINESS_THEMES[lang] || HAPPINESS_THEMES.ja;
   for (var i = 0; i < ht.length; i++) {
     if (ht[i].id === id) return ht[i].desc || '';
+  }
+  for (var i = 0; i < PROFESSIONAL_THEMES.length; i++) {
+    if (PROFESSIONAL_THEMES[i].id === id) return PROFESSIONAL_THEMES[i].desc || '';
   }
   return '';
 }
@@ -2752,6 +2982,7 @@ function getThemeDescByLabel(label) {
 
 function startApp() {
   themeVisibleCount = 3;
+  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
   var lastKey = null;
   try { lastKey = localStorage.getItem('ntn_last_theme_key'); } catch(e) { lastKey = null; }
   var allIds = getAllThemeIds();
@@ -2763,8 +2994,7 @@ function startApp() {
     D.themeKey = null; D.theme = ''; D.themePositive = ''; D.themeNegative = '';
     themeChosen = false;
   }
-  renderThemeScreen();
-  fwd('s-theme');
+  fwd('s-entry-choice');
 }
 
 function makeThemeBtn(id, label, extraClass) {
@@ -2786,7 +3016,41 @@ function makeThemeBtn(id, label, extraClass) {
 
 function renderThemeScreen() {
   var ht = currentHappinessThemes();
-  /* upper: fixed-theme-grid — show first themeVisibleCount themes */
+  /* professional-themes-wrap — always show all professional categories */
+  var pw = document.getElementById('professional-themes-wrap');
+  if (pw) {
+    pw.innerHTML = '';
+    for (var pi = 0; pi < PROFESSIONAL_CATEGORIES.length; pi++) {
+      var pcat = PROFESSIONAL_CATEGORIES[pi];
+      var pgroup = document.createElement('div');
+      pgroup.className = 'theme-group';
+      pgroup.id = 'tgrp-' + pcat.id;
+      var pheader = document.createElement('button');
+      pheader.className = 'theme-group-header';
+      pheader.innerHTML = '<span>' + pcat.label + '</span><span class="theme-group-arrow">▾</span>';
+      pheader.onclick = (function(cid){ return function(){ toggleThemeGroup(cid); }; })(pcat.id);
+      var pbody = document.createElement('div');
+      pbody.className = 'theme-group-body';
+      var pgrid = document.createElement('div');
+      pgrid.className = 'theme-grid';
+      pgrid.style.marginTop = '.5rem';
+      pgrid.style.marginBottom = '.4rem';
+      for (var pti = 0; pti < pcat.themeIds.length; pti++) {
+        var ptid = pcat.themeIds[pti];
+        for (var pki = 0; pki < PROFESSIONAL_THEMES.length; pki++) {
+          if (PROFESSIONAL_THEMES[pki].id === ptid) {
+            pgrid.appendChild(makeThemeBtn(PROFESSIONAL_THEMES[pki].id, PROFESSIONAL_THEMES[pki].label, ''));
+            break;
+          }
+        }
+      }
+      pbody.appendChild(pgrid);
+      pgroup.appendChild(pheader);
+      pgroup.appendChild(pbody);
+      pw.appendChild(pgroup);
+    }
+  }
+  /* upper: fixed-theme-grid — show first themeVisibleCount Life themes */
   var fg = document.getElementById('fixed-theme-grid');
   if (fg) {
     fg.innerHTML = '';
@@ -2874,16 +3138,159 @@ function toggleThemeGroup(groupId) {
   if (el) el.classList.toggle('open');
 }
 
-function pricingCtaClick() {
-  if (isAdminMode()) {
-    /* future: grant access */
-    return;
+function toggleThemeSection(sectionId) {
+  var el = document.getElementById(sectionId);
+  if (!el) return;
+  var isOpen = el.classList.toggle('open');
+  var tog = el.querySelector('.theme-section-toggle');
+  if (tog) tog.textContent = isOpen ? '－' : '＋';
+}
+
+function startPositiveEntry() {
+  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  D.entryMode = 'posi';
+  renderThemeScreen();
+  fwd('s-theme');
+}
+
+function startNegaEntry() {
+  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  D.entryMode = 'nega';
+  renderNegaScreen();
+  fwd('s-nega');
+}
+
+function renderNegaScreen() {
+  var lifeLabels = ['モヤモヤ','落ち着かない','イライラ','休めない','体が重い','自分を責める','人と疲れる','先が見えない','喜べない'];
+  var proData = [
+    ['力む',           'がんばりすぎる'],
+    ['届かない感じ',   '言葉が届かない'],
+    ['持ち帰る',       '場の重さが残る'],
+    ['評価が気になる', '反応に引っ張られる'],
+    ['揺れる',         '基準が定まらない'],
+    ['断れない',       '期待を受けすぎる'],
+    ['安くしてしまう', '価値を下げてしまう'],
+    ['切り替えられない','次へ移れない'],
+    ['自然でいられない','見られると固まる'],
+    ['余力がない',     '余白が残らない']
+  ];
+  function makeNegaBtn(lbl, type, helper) {
+    var btn = document.createElement('button');
+    btn.className = 'nega-btn' + (selectedNegaTheme === lbl ? ' selected' : '');
+    btn.dataset.negaLabel = lbl;
+    btn.onclick = function() { selectNegaTheme(lbl, type); };
+    if (helper) {
+      var ls = document.createElement('span');
+      ls.className = 'theme-btn-label'; ls.textContent = lbl;
+      var hs = document.createElement('span');
+      hs.className = 'theme-btn-desc'; hs.textContent = helper;
+      btn.appendChild(ls); btn.appendChild(hs);
+    } else {
+      btn.textContent = lbl;
+    }
+    return btn;
   }
+  var lg = document.getElementById('nega-life-grid');
+  if (lg) { lg.innerHTML = ''; lifeLabels.forEach(function(l){ lg.appendChild(makeNegaBtn(l,'life')); }); }
+  var pg = document.getElementById('nega-pro-grid');
+  if (pg) { pg.innerHTML = ''; proData.forEach(function(p){ pg.appendChild(makeNegaBtn(p[0],'professional',p[1])); }); }
+  var inp = document.getElementById('in-nega-text');
+  if (inp) inp.value = negaFreeText;
+}
+
+function selectNegaTheme(label, type) {
+  selectedNegaTheme = label; negaEntryType = type;
+  document.querySelectorAll('.nega-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.dataset.negaLabel === label);
+  });
+  updateNegaCTA();
+}
+
+function onNegaInput(val) {
+  negaFreeText = val;
+  updateNegaCTA();
+}
+
+function updateNegaCTA() {
+  var wrap = document.getElementById('nega-cta-wrap');
+  if (!wrap) return;
+  if (cur === 's-nega') {
+    wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto';
+    var btn = document.getElementById('btn-nega-cta');
+    if (btn) btn.disabled = !(!!selectedNegaTheme || negaFreeText.trim().length >= 1);
+  } else {
+    wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none';
+  }
+}
+
+function submitNegaEntry() {
+  var inp = document.getElementById('in-nega-text');
+  if (inp) negaFreeText = inp.value;
+  if (!selectedNegaTheme && negaFreeText.trim().length < 1) return;
+  showNegaIdeal();
+}
+
+function showNegaIdeal() {
+  var quote = selectedNegaTheme || negaFreeText.trim();
+  var qEl = document.getElementById('nega-ideal-quote');
+  if (qEl) qEl.textContent = quote ? '「' + quote + '」' : '';
+  var inp = document.getElementById('in-nega-ideal');
+  if (inp) inp.value = '';
+  var btn = document.getElementById('btn-nega-ideal-next');
+  if (btn) btn.disabled = true;
+  fwd('s-nega-ideal');
+}
+
+function onNegaIdealInput(val) {
+  var btn = document.getElementById('btn-nega-ideal-next');
+  if (btn) btn.disabled = val.trim().length < 1;
+}
+
+function submitNegaIdeal() {
+  var inp = document.getElementById('in-nega-ideal');
+  var val = inp ? inp.value.trim() : '';
+  if (!val) return;
+  var neg = selectedNegaTheme || negaFreeText.trim() || getAutoNegative(val);
+  D.themeKey = null; D.theme = val; D.themePositive = val; D.ideal = val;
+  D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
+  themeChosen = true;
+  trackEvent('v10_nega_ideal');
+  setEl('t-b2', T('before2_title', {ideal: D.ideal}));
+  setEl('t-a2', T('after2_title',  {ideal: D.ideal}));
+  ['b2','a2'].forEach(resetSlider);
+  fwd('s-before2');
+}
+
+function skipNegaIdeal() {
+  var neg = selectedNegaTheme || negaFreeText.trim() || getAutoNegative('落ち着き');
+  D.themeKey = null; D.theme = '落ち着き'; D.themePositive = '落ち着き'; D.ideal = '落ち着き';
+  D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
+  themeChosen = true;
+  trackEvent('v10_nega_skip');
+  setEl('t-b2', T('before2_title', {ideal: D.ideal}));
+  setEl('t-a2', T('after2_title',  {ideal: D.ideal}));
+  ['b2','a2'].forEach(resetSlider);
+  fwd('s-before2');
+}
+
+function pricingCtaClick() {
+  /* SaaS phase: redirect to Stripe Checkout here */
+  /* isUnlimited() users should never reach this via forced redirect */
   var btn = document.getElementById('btn-pricing-cta');
   var msg = document.getElementById('t-pricing-soon');
   if (btn) btn.style.display = 'none';
   if (msg) msg.style.display = 'block';
 }
+
+/*
+ * Future gating hook — call at session start (SaaS phase):
+ *
+ * function checkTrialGate() {
+ *   if (isUnlimited()) return;          // admin or paid — pass through
+ *   var used = supabase.trialUsedCount; // from profiles.trial_used_count
+ *   if (used >= 5) { fwd('s-lock'); }   // show lock screen
+ * }
+ */
 
 function selectTheme(key, label) {
   D.themeKey = key; D.theme = label;
@@ -3439,15 +3846,20 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
+  var isNega = D.entryMode === 'nega';
   var savedKey = D.themeKey; var savedTheme = D.theme;
   var savedPositive = D.themePositive; var savedNegative = D.themeNegative;
   D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
         issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
-        entryMode: null, doorKey: null, doorSentence:'',
+        entryMode: isNega ? 'nega' : null, doorKey: null, doorSentence:'',
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
   ['b1','b2','a1','a2'].forEach(resetSlider);
-  showDoorScreen();
+  if (isNega) {
+    showNegaIdeal();
+  } else {
+    showDoorScreen();
+  }
 }
 
 function chooseNewTheme() {
