@@ -3099,12 +3099,14 @@ function toggleThemeSection(sectionId) {
 
 function startPositiveEntry() {
   selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  D.entryMode = 'posi';
   renderThemeScreen();
   fwd('s-theme');
 }
 
 function startNegaEntry() {
   selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  D.entryMode = 'nega';
   renderNegaScreen();
   fwd('s-nega');
 }
@@ -3201,7 +3203,7 @@ function submitNegaIdeal() {
   if (!val) return;
   var neg = selectedNegaTheme || negaFreeText.trim() || getAutoNegative(val);
   D.themeKey = null; D.theme = val; D.themePositive = val; D.ideal = val;
-  D.themeNegative = neg; D.issue = neg;
+  D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
   themeChosen = true;
   trackEvent('v10_nega_ideal');
   setEl('t-b2', T('before2_title', {ideal: D.ideal}));
@@ -3213,7 +3215,7 @@ function submitNegaIdeal() {
 function skipNegaIdeal() {
   var neg = selectedNegaTheme || negaFreeText.trim() || getAutoNegative('落ち着き');
   D.themeKey = null; D.theme = '落ち着き'; D.themePositive = '落ち着き'; D.ideal = '落ち着き';
-  D.themeNegative = neg; D.issue = neg;
+  D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
   themeChosen = true;
   trackEvent('v10_nega_skip');
   setEl('t-b2', T('before2_title', {ideal: D.ideal}));
@@ -3787,15 +3789,20 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
+  var isNega = D.entryMode === 'nega';
   var savedKey = D.themeKey; var savedTheme = D.theme;
   var savedPositive = D.themePositive; var savedNegative = D.themeNegative;
   D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
         issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
-        entryMode: null, doorKey: null, doorSentence:'',
+        entryMode: isNega ? 'nega' : null, doorKey: null, doorSentence:'',
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
   ['b1','b2','a1','a2'].forEach(resetSlider);
-  showDoorScreen();
+  if (isNega) {
+    showNegaIdeal();
+  } else {
+    showDoorScreen();
+  }
 }
 
 function chooseNewTheme() {
