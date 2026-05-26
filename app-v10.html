@@ -662,6 +662,26 @@ function isAdminMode() {
   try { return new URLSearchParams(window.location.search).get('admin') === '1'; } catch(e) { return false; }
 }
 
+/*
+ * isUnlimited() — single gate for all trial/paywall checks.
+ *
+ * Returns true when the user should be treated as a paid Professional:
+ *   - isAdminMode()          always unlimited (testing/demo)
+ *   - supabase isPro check   SaaS phase — not implemented yet
+ *
+ * Rules when isUnlimited() is true:
+ *   - Do not consume trial count
+ *   - Do not show s-lock
+ *   - Do not block same-theme repeat
+ *   - Do not block any theme or feature
+ *   - Pricing/lock screens can still be opened manually; never forced
+ */
+function isUnlimited() {
+  if (isAdminMode()) return true;
+  /* SaaS phase: return supabaseIsPro(); */
+  return false;
+}
+
 if (isAdminMode()) {
   var _ab = document.getElementById('admin-badge');
   if (_ab) { _ab.textContent = 'Admin mode'; _ab.style.display = 'block'; }
@@ -3254,15 +3274,23 @@ function skipNegaIdeal() {
 }
 
 function pricingCtaClick() {
-  if (isAdminMode()) {
-    /* future: grant access */
-    return;
-  }
+  /* SaaS phase: redirect to Stripe Checkout here */
+  /* isUnlimited() users should never reach this via forced redirect */
   var btn = document.getElementById('btn-pricing-cta');
   var msg = document.getElementById('t-pricing-soon');
   if (btn) btn.style.display = 'none';
   if (msg) msg.style.display = 'block';
 }
+
+/*
+ * Future gating hook — call at session start (SaaS phase):
+ *
+ * function checkTrialGate() {
+ *   if (isUnlimited()) return;          // admin or paid — pass through
+ *   var used = supabase.trialUsedCount; // from profiles.trial_used_count
+ *   if (used >= 5) { fwd('s-lock'); }   // show lock screen
+ * }
+ */
 
 function selectTheme(key, label) {
   D.themeKey = key; D.theme = label;
