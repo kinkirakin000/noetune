@@ -130,6 +130,35 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .theme-group-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .35s ease}
 .theme-group.open .theme-group-body{max-height:900px;opacity:1}
 .theme-cat-heading{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.2rem;padding:.2rem 0}
+.theme-section{width:100%;border-top:1px solid #EDEDE7}
+.theme-section-header{font-family:'Noto Serif JP',serif;background:transparent;border:none;width:100%;display:flex;justify-content:space-between;align-items:flex-start;padding:.9rem 0;cursor:pointer;color:#1A1A1A;font-size:.84rem;letter-spacing:.1em;-webkit-tap-highlight-color:transparent;min-height:48px}
+.theme-section-header:active{color:#6B9080}
+.theme-section-toggle{font-size:.88rem;color:#A8A8A2;flex-shrink:0;margin-left:.4rem;line-height:1;padding-top:.1rem}
+.theme-section-label-wrap{display:flex;flex-direction:column;align-items:flex-start;text-align:left}
+.theme-section-label{font-size:.84rem;letter-spacing:.1em}
+.theme-section-desc{font-size:.7rem;color:#A8A8A2;letter-spacing:.04em;margin-top:.25rem;font-weight:300;line-height:1.45}
+.theme-section-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .35s ease}
+.theme-section.open .theme-section-body{max-height:2000px;opacity:1}
+#s-theme-top{margin-bottom:1.4rem;text-align:center}
+.theme-screen-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;color:#1A1A1A;letter-spacing:.06em;margin-bottom:.45rem}
+.theme-screen-sub{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.75}
+.entry-subtitle{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.7;text-align:center;margin-top:-.6rem;margin-bottom:1.8rem}
+#s-nega{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-nega-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
+#s-nega-inner>*{flex-shrink:0}
+#s-nega-top,#s-nega-cand-top{margin-bottom:1.4rem;text-align:center}
+#s-nega-candidate{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-nega-cand-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
+.nega-section-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.4rem;margin-bottom:.6rem;padding:.2rem 0}
+.nega-input-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.6rem;margin-bottom:.4rem;padding:.2rem 0}
+.nega-btn{height:auto;min-height:52px;padding:10px 12px;white-space:normal;line-height:1.4;background:rgba(255,255,255,.06);border:1.5px solid rgba(200,200,195,.3);border-radius:26px;font-family:'Noto Serif JP',serif;font-size:15px;letter-spacing:.08em;color:#1A1A1A;cursor:pointer;transition:background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;text-align:center}
+.nega-btn.selected{background:rgba(107,144,128,.2);border-color:#6B9080}
+.nega-btn:active{transform:scale(.97)}
+.candidate-grid{display:flex;flex-direction:column;gap:.8rem;width:100%}
+.candidate-btn{height:auto;min-height:52px;padding:12px 16px;white-space:normal;line-height:1.4;background:rgba(255,255,255,.06);border:1.5px solid rgba(200,200,195,.3);border-radius:26px;font-family:'Noto Serif JP',serif;font-size:15px;letter-spacing:.08em;color:#1A1A1A;cursor:pointer;transition:background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;width:100%;text-align:center}
+.candidate-btn.selected{background:rgba(107,144,128,.2);border-color:#6B9080}
+.candidate-btn:active{transform:scale(.97)}
+#nega-cta-wrap,#cand-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
 #admin-badge{position:fixed;bottom:.8rem;right:.9rem;font-size:.6rem;letter-spacing:.08em;color:#CCC;opacity:.4;pointer-events:none;z-index:9999;font-family:monospace;display:none}
@@ -241,6 +270,19 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .door-card-input:focus{border-bottom-color:#8FB8A4}
 .door-card-input::placeholder{color:#4A4845}
 .theme-cat-heading{color:#5A5855}
+.theme-section{border-top-color:rgba(245,239,230,.1)}
+.theme-section-header{color:#F5EFE6}
+.theme-section-header:active{color:#8FB8A4}
+.theme-section-toggle{color:#5A5855}
+.theme-section-desc{color:#5A5855}
+.theme-screen-title{color:#F5EFE6}
+.theme-screen-sub,.entry-subtitle{color:#5A5855}
+.nega-section-label,.nega-input-label{color:#5A5855}
+.nega-btn{color:#F5EFE6;border-color:rgba(245,239,230,.18);background:rgba(245,239,230,.04)}
+.nega-btn.selected{background:rgba(143,184,164,.2);border-color:#8FB8A4}
+.candidate-btn{color:#F5EFE6;border-color:rgba(245,239,230,.18);background:rgba(245,239,230,.04)}
+.candidate-btn.selected{background:rgba(143,184,164,.2);border-color:#8FB8A4}
+#nega-cta-wrap,#cand-cta-wrap{background:linear-gradient(transparent,rgba(21,20,18,.97) 28%)}
 }
 </style>
 <script>if(new URLSearchParams(window.location.search).get('admin')==='1'){window['ga-disable-G-TH1504X2CK']=true;}</script>
@@ -280,6 +322,19 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
 </div>
 
+<!-- ── ENTRY CHOICE ── -->
+<div class="screen" id="s-entry-choice">
+  <div id="s-entry-inner">
+    <div class="entry-title">今、どちらが近いですか？</div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="startPositiveEntry()">なりたい感覚がわかる</button>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="startNegaEntry()">モヤモヤや違和感がある</button>
+    </div>
+  </div>
+</div>
+
 <!-- ── ABOUT ── -->
 <div class="screen" id="s-about">
   <div class="about-inner">
@@ -295,17 +350,32 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 <!-- ── THEME ── -->
 <div class="screen" id="s-theme">
   <div id="s-theme-inner">
-    <div class="theme-top-copy" id="lbl-theme-top">次の瞬間、気になることを書く
-または
-下のテーマから始めるのがおすすめです。</div>
-    <input type="text" class="custom-theme-input" id="in-custom-theme"
-      placeholder="自由に入力…" autocomplete="off" maxlength="40"
-      oninput="onCustomTheme(this.value)">
-    <div id="professional-themes-wrap"></div>
-    <div class="theme-cat-heading" id="lbl-life-section" style="display:none">Lifeテーマ</div>
-    <div class="theme-grid" id="fixed-theme-grid"></div>
-    <button class="btn-see-more" id="btn-see-more" onclick="seeMoreThemes()">さらに見る</button>
-    <div id="theme-groups-wrap"></div>
+    <div id="s-theme-top">
+      <div class="theme-screen-title">今、戻りたい状態を選んでください。</div>
+      <div class="theme-screen-sub">今この瞬間に感じたい状態を、ひとつ選んでください。</div>
+    </div>
+    <div class="theme-section" id="tsec-free">
+      <button class="theme-section-header" onclick="toggleThemeSection('tsec-free')"><span class="theme-section-label-wrap"><span class="theme-section-label">自由に入力する</span><span class="theme-section-desc">自分の言葉で、感じたい状態を書く。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <input type="text" class="custom-theme-input" id="in-custom-theme"
+          placeholder="自由に入力…" autocomplete="off" maxlength="40"
+          oninput="onCustomTheme(this.value)" style="margin-top:.4rem;margin-bottom:.8rem">
+      </div>
+    </div>
+    <div class="theme-section" id="tsec-pro">
+      <button class="theme-section-header" onclick="toggleThemeSection('tsec-pro')"><span class="theme-section-label-wrap"><span class="theme-section-label">Professionalテーマ</span><span class="theme-section-desc">仕事の質に関わる状態へ戻る。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div id="professional-themes-wrap"></div>
+      </div>
+    </div>
+    <div class="theme-section" id="tsec-life">
+      <button class="theme-section-header" onclick="toggleThemeSection('tsec-life')"><span class="theme-section-label-wrap"><span class="theme-section-label">Lifeテーマ</span><span class="theme-section-desc">日常の安心・落ち着き・心地よさへ戻る。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div class="theme-grid" id="fixed-theme-grid"></div>
+        <button class="btn-see-more" id="btn-see-more" onclick="seeMoreThemes()">さらに見る</button>
+        <div id="theme-groups-wrap"></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -518,6 +588,57 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 <!-- ── DOOR CTA ── -->
 <div id="door-cta-wrap">
   <button class="btn" id="btn-door-next" onclick="submitDoorAnswer()" disabled>この答えで進む</button>
+</div>
+
+<!-- ── NEGA ROOM ── -->
+<div class="screen" id="s-nega">
+  <div id="s-nega-inner">
+    <div id="s-nega-top">
+      <div class="theme-screen-title">今、どんな感じ？</div>
+      <div class="theme-screen-sub">深く考えず、近いものを選んでください。</div>
+    </div>
+    <div class="theme-section" id="nsec-free">
+      <button class="theme-section-header" onclick="toggleThemeSection('nsec-free')"><span class="theme-section-label-wrap"><span class="theme-section-label">自由に入力する</span><span class="theme-section-desc">自分の言葉で、今の違和感を書く。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <input type="text" class="custom-theme-input" id="in-nega-text"
+          placeholder="例：なんとなく重い" autocomplete="off" maxlength="40"
+          oninput="onNegaInput(this.value)" style="margin-top:.4rem;margin-bottom:.8rem">
+      </div>
+    </div>
+    <div class="theme-section" id="nsec-pro">
+      <button class="theme-section-header" onclick="toggleThemeSection('nsec-pro')"><span class="theme-section-label-wrap"><span class="theme-section-label">Professionalテーマ</span><span class="theme-section-desc">仕事の質に影響する違和感。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div class="theme-grid" id="nega-pro-grid" style="margin-top:.5rem;margin-bottom:.6rem"></div>
+      </div>
+    </div>
+    <div class="theme-section" id="nsec-life">
+      <button class="theme-section-header" onclick="toggleThemeSection('nsec-life')"><span class="theme-section-label-wrap"><span class="theme-section-label">Lifeテーマ</span><span class="theme-section-desc">日常の違和感。</span></span><span class="theme-section-toggle">＋</span></button>
+      <div class="theme-section-body">
+        <div class="theme-grid" id="nega-life-grid" style="margin-top:.5rem;margin-bottom:.6rem"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NEGA CANDIDATE ── -->
+<div class="screen" id="s-nega-candidate">
+  <div id="s-nega-cand-inner">
+    <div id="s-nega-cand-top">
+      <div class="theme-screen-title">どの状態に戻りたいですか？</div>
+      <div class="theme-screen-sub">今の反応から、戻る入口を選びます。</div>
+    </div>
+    <div class="candidate-grid" id="nega-cand-grid"></div>
+  </div>
+</div>
+
+<!-- ── NEGA FIXED CTA ── -->
+<div id="nega-cta-wrap">
+  <button class="btn" id="btn-nega-cta" onclick="submitNegaEntry()" disabled>この反応から始める</button>
+</div>
+
+<!-- ── CANDIDATE FIXED CTA ── -->
+<div id="cand-cta-wrap">
+  <button class="btn" id="btn-cand-cta" onclick="submitNegaCandidate()" disabled>この状態へ進む</button>
 </div>
 
 <!-- ── THEME FIXED CTA ── -->
@@ -1283,7 +1404,6 @@ function applyLang() {
   setEl('btn-start',      T('start_button'));
   setEl('btn-about-link',  T('about_link'));
   setEl('btn-see-more',    T('see_more_themes'));
-  setEl('lbl-theme-top',  T('theme_top_copy'));
   setEl('btn-theme-cta',  T('theme_cta_button'));
   setEl('intro-sub-open', T('app_sub'));
   setEl('t-about-title',  T('about_title'));
@@ -2640,14 +2760,46 @@ var PROFESSIONAL_CATEGORIES = [
   { id:'pro_friction', label:'仕事関連の違和感', themeIds:['pro_align_core','pro_natural','pro_ease'] }
 ];
 
+var LIFE_NEGA_MAP = {
+  'モヤモヤ':     ['すっきり', 'ここに戻る', '満ち足りる'],
+  '落ち着かない': ['落ち着き', '安心', 'ゆとり'],
+  'イライラ':     ['落ち着き', '自分に戻る', '人と心地よい'],
+  '休めない':     ['ゆとり', 'ここに戻る', '体が心地よい'],
+  '体が重い':     ['体が心地よい', '体とつながる', '活力'],
+  '自分を責める': ['自分にやさしい', '自分を認める', '自分に戻る'],
+  '人と疲れる':   ['人と心地よい', 'ここに居ていい', 'つながり'],
+  '先が見えない': ['進む道が見える', 'できる感じ', 'スムーズに流れる'],
+  '喜べない':     ['小さな喜びに気づく', '感謝', '遊び心']
+};
+
+var PRO_NEGA_MAP = {
+  '力む':             ['そのまま臨む', '力まず整う', '場が整う'],
+  '届かない感じ':     ['まっすぐ届く', '自分の核に沿う', 'そのまま臨む'],
+  '持ち帰る':         ['持ち帰らない', 'おさめる', '仕事を置く'],
+  '評価が気になる':   ['評価を俯瞰する', '自分の価値を保つ', '持ち帰らない'],
+  '揺れる':           ['静かに決める', '自分基準で選ぶ', '自分の核に沿う'],
+  '断れない':         ['自分基準で選ぶ', '自分の価値を保つ', '自分の核に沿う'],
+  '安くしてしまう':   ['自分の価値を保つ', '自分基準で選ぶ', '静かに決める'],
+  '切り替えられない': ['次へ進む', '仕事を置く', 'おさめる'],
+  '自然でいられない': ['見られても自然', 'そのまま臨む', '力まず整う'],
+  '余力がない':       ['余力を残す', '仕事を置く', '力まず整う']
+};
+
+var NEGA_FALLBACK_CANDIDATES = ['ここに戻る', '落ち着き', 'すっきり'];
+
 var themeVisibleCount = 3;
 
 var themeChosen = false;
+var selectedNegaTheme = null;
+var negaFreeText = '';
+var negaEntryType = null;
+var negaCandidates = [];
+var selectedNegaCandidate = null;
 var cur = 's-lang';
 var navHistory = [];
 
 var SCREEN_ORDER = [
-  's-lang','s-open','s-theme','s-door',
+  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-nega-candidate','s-door',
   's-issue','s-ideal',
   's-before2','s-breath-mode',
   's-br1','s-br2','s-br3','s-br4','s-br5',
@@ -2661,7 +2813,7 @@ function fwd(id) {
   navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); updateCandidateCTA(); }, 130);
 }
 
 function goBack() {
@@ -2677,7 +2829,7 @@ function goBack() {
   if (!c || !n || cur === prev) { updateBackBtn(); return; }
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); updateCandidateCTA(); }, 130);
 }
 
 function updateBackBtn() {
@@ -2794,6 +2946,8 @@ function getThemeDescByLabel(label) {
 
 function startApp() {
   themeVisibleCount = 3;
+  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  negaCandidates = []; selectedNegaCandidate = null;
   var lastKey = null;
   try { lastKey = localStorage.getItem('ntn_last_theme_key'); } catch(e) { lastKey = null; }
   var allIds = getAllThemeIds();
@@ -2805,8 +2959,7 @@ function startApp() {
     D.themeKey = null; D.theme = ''; D.themePositive = ''; D.themeNegative = '';
     themeChosen = false;
   }
-  renderThemeScreen();
-  fwd('s-theme');
+  fwd('s-entry-choice');
 }
 
 function makeThemeBtn(id, label, extraClass) {
@@ -2832,10 +2985,6 @@ function renderThemeScreen() {
   var pw = document.getElementById('professional-themes-wrap');
   if (pw) {
     pw.innerHTML = '';
-    var proHeading = document.createElement('div');
-    proHeading.className = 'theme-cat-heading';
-    proHeading.textContent = 'Professionalテーマ';
-    pw.appendChild(proHeading);
     for (var pi = 0; pi < PROFESSIONAL_CATEGORIES.length; pi++) {
       var pcat = PROFESSIONAL_CATEGORIES[pi];
       var pgroup = document.createElement('div');
@@ -2866,9 +3015,6 @@ function renderThemeScreen() {
       pw.appendChild(pgroup);
     }
   }
-  /* show Life section heading */
-  var lifeLabel = document.getElementById('lbl-life-section');
-  if (lifeLabel) lifeLabel.style.display = '';
   /* upper: fixed-theme-grid — show first themeVisibleCount Life themes */
   var fg = document.getElementById('fixed-theme-grid');
   if (fg) {
@@ -2955,6 +3101,131 @@ function seeMoreThemes() {
 function toggleThemeGroup(groupId) {
   var el = document.getElementById('tgrp-' + groupId);
   if (el) el.classList.toggle('open');
+}
+
+function toggleThemeSection(sectionId) {
+  var el = document.getElementById(sectionId);
+  if (!el) return;
+  var isOpen = el.classList.toggle('open');
+  var tog = el.querySelector('.theme-section-toggle');
+  if (tog) tog.textContent = isOpen ? '－' : '＋';
+}
+
+function startPositiveEntry() {
+  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  renderThemeScreen();
+  fwd('s-theme');
+}
+
+function startNegaEntry() {
+  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  selectedNegaCandidate = null;
+  renderNegaScreen();
+  fwd('s-nega');
+}
+
+function renderNegaScreen() {
+  var lifeLabels = ['モヤモヤ','落ち着かない','イライラ','休めない','体が重い','自分を責める','人と疲れる','先が見えない','喜べない'];
+  var proLabels  = ['力む','届かない感じ','持ち帰る','評価が気になる','揺れる','断れない','安くしてしまう','切り替えられない','自然でいられない','余力がない'];
+  function makeNegaBtn(lbl, type) {
+    var btn = document.createElement('button');
+    btn.className = 'nega-btn' + (selectedNegaTheme === lbl ? ' selected' : '');
+    btn.textContent = lbl;
+    btn.dataset.negaLabel = lbl;
+    btn.onclick = function() { selectNegaTheme(lbl, type); };
+    return btn;
+  }
+  var lg = document.getElementById('nega-life-grid');
+  if (lg) { lg.innerHTML = ''; lifeLabels.forEach(function(l){ lg.appendChild(makeNegaBtn(l,'life')); }); }
+  var pg = document.getElementById('nega-pro-grid');
+  if (pg) { pg.innerHTML = ''; proLabels.forEach(function(l){ pg.appendChild(makeNegaBtn(l,'professional')); }); }
+  var inp = document.getElementById('in-nega-text');
+  if (inp) inp.value = negaFreeText;
+}
+
+function selectNegaTheme(label, type) {
+  selectedNegaTheme = label; negaEntryType = type;
+  document.querySelectorAll('.nega-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.dataset.negaLabel === label);
+  });
+  updateNegaCTA();
+}
+
+function onNegaInput(val) {
+  negaFreeText = val;
+  updateNegaCTA();
+}
+
+function updateNegaCTA() {
+  var wrap = document.getElementById('nega-cta-wrap');
+  if (!wrap) return;
+  if (cur === 's-nega') {
+    wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto';
+    var btn = document.getElementById('btn-nega-cta');
+    if (btn) btn.disabled = negaFreeText.trim().length < 1;
+  } else {
+    wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none';
+  }
+}
+
+function submitNegaEntry() {
+  var inp = document.getElementById('in-nega-text');
+  if (inp) negaFreeText = inp.value;
+  if (negaFreeText.trim().length < 1) return;
+  if (selectedNegaTheme && LIFE_NEGA_MAP[selectedNegaTheme]) {
+    negaCandidates = LIFE_NEGA_MAP[selectedNegaTheme];
+  } else if (selectedNegaTheme && PRO_NEGA_MAP[selectedNegaTheme]) {
+    negaCandidates = PRO_NEGA_MAP[selectedNegaTheme];
+  } else {
+    negaCandidates = NEGA_FALLBACK_CANDIDATES;
+  }
+  selectedNegaCandidate = null;
+  renderNegaCandidateScreen();
+  fwd('s-nega-candidate');
+}
+
+function renderNegaCandidateScreen() {
+  var wrap = document.getElementById('nega-cand-grid');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  negaCandidates.forEach(function(label) {
+    var btn = document.createElement('button');
+    btn.className = 'candidate-btn';
+    btn.textContent = label;
+    btn.onclick = function() { selectNegaCandidate(label); };
+    wrap.appendChild(btn);
+  });
+}
+
+function selectNegaCandidate(label) {
+  selectedNegaCandidate = label;
+  document.querySelectorAll('.candidate-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.textContent === label);
+  });
+  updateCandidateCTA();
+}
+
+function updateCandidateCTA() {
+  var wrap = document.getElementById('cand-cta-wrap');
+  if (!wrap) return;
+  if (cur === 's-nega-candidate') {
+    wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto';
+    var btn = document.getElementById('btn-cand-cta');
+    if (btn) btn.disabled = selectedNegaCandidate === null;
+  } else {
+    wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none';
+  }
+}
+
+function submitNegaCandidate() {
+  if (!selectedNegaCandidate) return;
+  D.themeKey = null;
+  D.theme = selectedNegaCandidate;
+  D.themePositive = selectedNegaCandidate;
+  D.themeNegative = negaFreeText.trim() ? negaFreeText.trim() + 'がある' : getAutoNegative(selectedNegaCandidate);
+  themeChosen = true;
+  trackEvent('v10_nega_candidate');
+  showDoorScreen();
 }
 
 function pricingCtaClick() {
