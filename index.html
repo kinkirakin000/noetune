@@ -171,6 +171,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .pricing-soon{color:#A8A8A2;font-size:.8rem;letter-spacing:.06em;text-align:center;margin-top:1.6rem;font-family:'Noto Serif JP',serif}
 .pricing-price{font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin:1.6rem 0 .4rem}
 .pricing-note{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#A8A8A2;letter-spacing:.06em;line-height:1.9;text-align:center;margin-top:1.2rem;white-space:pre-line}
+.btn-pricing-return{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block;width:100%;text-align:center}
+.btn-pricing-return:active{color:#6B9080}
+.pricing-return-wrap{margin-top:2rem;display:flex;flex-direction:column;align-items:center}
 #s-lock{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 .about-inner{width:100%;max-width:300px;margin:0 auto}
 .about-title{font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;letter-spacing:.08em;color:#1A1A1A;margin-bottom:2rem}
@@ -261,6 +264,8 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .about-safety{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
 .pricing-price{color:#F5EFE6}
 .pricing-note{color:#5A5855}
+.btn-pricing-return{color:#8E8981}
+.btn-pricing-return:active{color:#8FB8A4}
 .btn-nm{color:#B8B2A8;border-color:rgba(245,239,230,.18)}
 .btn-nm.selected{background:rgba(143,184,164,.1);color:#8FB8A4;border-color:#8FB8A4}
 #theme-cta-wrap,#ideal-cta-fixed,#door-cta-wrap{background:linear-gradient(transparent,rgba(21,20,18,.97) 28%)}
@@ -552,6 +557,12 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
       <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()">Professionalを始める</button>
       <div class="pricing-note" id="t-pricing-note"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
+    </div>
+    <div class="pricing-return-wrap">
+      <button class="btn-pricing-return" onclick="repeatSameTheme()">同じテーマでもう一度</button>
+      <button class="btn-pricing-return" onclick="chooseNewTheme()">別のテーマを選ぶ</button>
+      <button class="btn-pricing-return" onclick="backToStart()">スタート画面に戻る</button>
+      <button class="btn-pricing-return" onclick="changeLanguageFromResult()">言語を変える</button>
     </div>
   </div>
 </div>
