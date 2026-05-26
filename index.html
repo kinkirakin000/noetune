@@ -206,7 +206,11 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 /* ── LANDING SCREEN ── */
 #s-landing{display:block;overflow-y:auto;}
 .lp-wrap{width:100%;max-width:360px;margin:0 auto;padding:0 2rem;}
-.lp-logo{font-family:'Noto Serif JP',serif;font-size:.75rem;font-weight:400;letter-spacing:.2em;color:#A8A8A2;text-align:center;padding:3rem 0 0;}
+.lp-logo{font-family:'Noto Serif JP',serif;font-size:.75rem;font-weight:400;letter-spacing:.2em;color:#A8A8A2;text-align:center;padding:2.2rem 0 0;}
+.lp-lang-select{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;padding-top:2.4rem;}
+.lp-lang-btn{font-family:'Noto Serif JP',serif;background:transparent;border:none;font-size:.62rem;letter-spacing:.1em;color:#C8C8C2;cursor:pointer;padding:4px 8px;-webkit-tap-highlight-color:transparent;transition:color .2s;}
+.lp-lang-btn.selected{color:#6B9080;}
+.lp-lang-btn:active{color:#6B9080;}
 .lp-hero-title{font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:400;line-height:2;letter-spacing:.06em;color:#1A1A1A;text-align:center;white-space:pre-line;margin:3.5rem 0 1.6rem;}
 .lp-hero-sub{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#77736E;white-space:pre-line;text-align:center;margin-bottom:2.4rem;}
 .btn-lp-start{display:inline-block;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.12em;border:none;padding:14px 52px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
@@ -307,6 +311,8 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .lp-item-list li{color:#F5EFE6}
 .lp-section,.lp-footer{border-top-color:rgba(245,239,230,.1)}
 .btn-lp-start{background:#8FB8A4}
+.lp-lang-btn{color:#3A3836}
+.lp-lang-btn.selected,.lp-lang-btn:active{color:#8FB8A4}
 }
 </style>
 <script>if(new URLSearchParams(window.location.search).get('admin')==='1'){window['ga-disable-G-TH1504X2CK']=true;}</script>
@@ -328,28 +334,36 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 <div class="screen active" id="s-landing">
   <div class="lp-wrap">
     <div class="lp-logo">NOETUNE</div>
-    <div class="lp-hero-title">考えすぎた神経系を、
-数分で静かに戻す。</div>
-    <div class="lp-hero-sub">Noetuneは、
-情報や決断のノイズから、
-静かに自分へ戻るためのツールです。</div>
+    <div class="lp-lang-select">
+      <button class="lp-lang-btn selected" data-lp="en"    onclick="setLandingLang('en')">EN</button>
+      <button class="lp-lang-btn"          data-lp="es"    onclick="setLandingLang('es')">ES</button>
+      <button class="lp-lang-btn"          data-lp="de"    onclick="setLandingLang('de')">DE</button>
+      <button class="lp-lang-btn"          data-lp="pt-BR" onclick="setLandingLang('pt-BR')">PT</button>
+      <button class="lp-lang-btn"          data-lp="fr"    onclick="setLandingLang('fr')">FR</button>
+      <button class="lp-lang-btn"          data-lp="ja"    onclick="setLandingLang('ja')">JA</button>
+      <button class="lp-lang-btn"          data-lp="zh-TW" onclick="setLandingLang('zh-TW')">ZH</button>
+    </div>
+    <div class="lp-hero-title" id="lp-hero-title">Quiet the overthinking nervous system
+in a few minutes.</div>
+    <div class="lp-hero-sub" id="lp-hero-sub">Noetune is a quiet self-tuning tool
+for returning from information, decisions,
+and mental noise back to yourself.</div>
     <div style="text-align:center">
-      <button class="btn-lp-start" onclick="fwd('s-lang')">始める</button>
+      <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()">Start</button>
     </div>
     <div class="lp-section">
-      <div class="lp-section-title">こんな状態のときに</div>
-      <ul class="lp-item-list">
-        <li>・ChatGPTで整理しても、頭が止まらない</li>
-        <li>・Notionは整っているのに、自分は整わない</li>
-        <li>・休んでも、神経のスイッチが閉じない</li>
-        <li>・仕事の後も、切り替わらない</li>
+      <div class="lp-section-title" id="lp-section-title">When your mind will not settle</div>
+      <ul class="lp-item-list" id="lp-item-list">
+        <li>・ChatGPT helps you organize your thoughts, but your mind still will not stop.</li>
+        <li>・Notion is organized, but you are not.</li>
+        <li>・Even after resting, your nervous system does not switch off.</li>
+        <li>・After work, you still cannot fully transition back.</li>
       </ul>
     </div>
     <div class="lp-footer">
-      <p>Noetuneは、
-問題を分析するアプリではありません。</p>
-      <p>短い問いと呼吸だけで、
-静かに自分へ戻ります。</p>
+      <p id="lp-footer-p1">Noetune is not an app for analyzing your problems.</p>
+      <p id="lp-footer-p2">With short questions and breathing,
+it helps you quietly return to yourself.</p>
     </div>
   </div>
 </div>
@@ -2894,6 +2908,135 @@ var negaFreeText = '';
 var negaEntryType = null;
 var cur = 's-landing';
 var navHistory = [];
+
+/* ── LANDING PAGE COPY ── */
+var landingLang = 'en';
+var LP_COPY = {
+  en: {
+    hero: "Quiet the overthinking nervous system\nin a few minutes.",
+    sub:  "Noetune is a quiet self-tuning tool\nfor returning from information, decisions,\nand mental noise back to yourself.",
+    cta:  "Start",
+    section: "When your mind will not settle",
+    items: [
+      "・ChatGPT helps you organize your thoughts, but your mind still will not stop.",
+      "・Notion is organized, but you are not.",
+      "・Even after resting, your nervous system does not switch off.",
+      "・After work, you still cannot fully transition back."
+    ],
+    fp1: "Noetune is not an app for analyzing your problems.",
+    fp2: "With short questions and breathing,\nit helps you quietly return to yourself."
+  },
+  ja: {
+    hero: "考えすぎた神経系を、\n数分で静かに戻す。",
+    sub:  "Noetuneは、\n情報や決断のノイズから、\n静かに自分へ戻るためのツールです。",
+    cta:  "始める",
+    section: "こんな状態のときに",
+    items: [
+      "・ChatGPTで整理しても、頭が止まらない",
+      "・Notionは整っているのに、自分は整わない",
+      "・休んでも、神経のスイッチが閉じない",
+      "・仕事の後も、切り替わらない"
+    ],
+    fp1: "Noetuneは、\n問題を分析するアプリではありません。",
+    fp2: "短い問いと呼吸だけで、\n静かに自分へ戻ります。"
+  },
+  es: {
+    hero: "Silencia el sistema nervioso\nque no para de pensar,\nen pocos minutos.",
+    sub:  "Noetune es una herramienta silenciosa de autosintonización\npara volver a ti mismo\ntras el ruido de información y decisiones.",
+    cta:  "Comenzar",
+    section: "Cuando tu mente no puede detenerse",
+    items: [
+      "・ChatGPT te ayuda a organizar tus ideas, pero tu mente sigue sin parar.",
+      "・Notion está organizado. Tú, no.",
+      "・Incluso después de descansar, tu sistema nervioso no se apaga.",
+      "・Después del trabajo, aún no puedes desconectarte."
+    ],
+    fp1: "Noetune no es una aplicación para analizar tus problemas.",
+    fp2: "Con preguntas breves y respiración,\nte ayuda a volver silenciosamente a ti mismo."
+  },
+  de: {
+    hero: "Das rastlose Nervensystem\nin wenigen Minuten beruhigen.",
+    sub:  "Noetune ist ein stilles Selbst-Tuning-Werkzeug,\num nach dem Lärm von Informationen\nund Entscheidungen zu dir zurückzufinden.",
+    cta:  "Starten",
+    section: "Wenn der Kopf nicht zur Ruhe kommt",
+    items: [
+      "・ChatGPT hilft dir beim Ordnen – aber dein Kopf hört nicht auf.",
+      "・Notion ist organisiert. Du nicht.",
+      "・Auch nach dem Ausruhen schaltet das Nervensystem nicht ab.",
+      "・Nach der Arbeit kannst du nicht richtig abschalten."
+    ],
+    fp1: "Noetune ist keine App, um deine Probleme zu analysieren.",
+    fp2: "Mit kurzen Fragen und Atemübungen\nhilft es dir, still zu dir selbst zurückzukehren."
+  },
+  'pt-BR': {
+    hero: "Aquiete o sistema nervoso\nque não para de pensar,\nem poucos minutos.",
+    sub:  "Noetune é uma ferramenta silenciosa de autosintonização\npara voltar a si mesmo\napós o ruído de informações e decisões.",
+    cta:  "Começar",
+    section: "Quando a mente não consegue descansar",
+    items: [
+      "・O ChatGPT organiza seus pensamentos, mas sua mente ainda não para.",
+      "・O Notion está organizado. Você, não.",
+      "・Mesmo após descansar, seu sistema nervoso não desliga.",
+      "・Após o trabalho, você ainda não consegue se desligar."
+    ],
+    fp1: "Noetune não é um aplicativo para analisar seus problemas.",
+    fp2: "Com perguntas curtas e respiração,\nele te ajuda a retornar silenciosamente a si mesmo."
+  },
+  fr: {
+    hero: "Apaiser le système nerveux\nqui n’arrête pas de penser,\nen quelques minutes.",
+    sub:  "Noetune est un outil discret d’auto-accordage\npour revenir à soi\naprès le bruit des informations et des décisions.",
+    cta:  "Commencer",
+    section: "Quand l’esprit n’arrive pas à se calmer",
+    items: [
+      "・ChatGPT t’aide à organiser tes idées, mais ta tête ne s’arrête pas.",
+      "・Notion est organisé. Toi, non.",
+      "・Même après te reposer, ton système nerveux ne se déconnecte pas.",
+      "・Après le travail, tu n’arrives pas vraiment à décrocher."
+    ],
+    fp1: "Noetune n’est pas une application pour analyser tes problèmes.",
+    fp2: "Avec de courtes questions et la respiration,\nelle t’aide à revenir silencieusement à toi-même."
+  },
+  'zh-TW': {
+    hero: "讓過度思考的神經系統，\n在幾分鐘內靜下來。",
+    sub:  "Noetune 是一款安靜的自我調頻工具，\n幫助你從資訊、決策和心理噪音中，\n靜靜地回到自己。",
+    cta:  "開始",
+    section: "當你的思緒無法平靜時",
+    items: [
+      "・ChatGPT 幫你整理想法，但腦袋還是停不下來。",
+      "・Notion 井然有序，但你不是。",
+      "・就算休息了，神經系統還是無法關閉。",
+      "・下班後，還是無法真正切換狀態。"
+    ],
+    fp1: "Noetune 不是用來分析你的問題的應用程式。",
+    fp2: "透過簡短的問答與呼吸，\n幫助你靜靜地回到自己。"
+  }
+};
+
+function setLandingLang(code) {
+  landingLang = code;
+  var c = LP_COPY[code] || LP_COPY['en'];
+  setEl('lp-hero-title', c.hero);
+  setEl('lp-hero-sub',   c.sub);
+  var btn = document.getElementById('btn-lp-start');
+  if (btn) btn.textContent = c.cta;
+  setEl('lp-section-title', c.section);
+  var ul = document.getElementById('lp-item-list');
+  if (ul) {
+    ul.innerHTML = '';
+    c.items.forEach(function(item) {
+      var li = document.createElement('li');
+      li.textContent = item;
+      ul.appendChild(li);
+    });
+  }
+  setEl('lp-footer-p1', c.fp1);
+  setEl('lp-footer-p2', c.fp2);
+  document.querySelectorAll('.lp-lang-btn').forEach(function(b) {
+    b.classList.toggle('selected', b.dataset.lp === code);
+  });
+}
+
+function startLanding() { setLang(landingLang); }
 
 var SCREEN_ORDER = [
   's-lang','s-open','s-entry-choice','s-theme','s-nega','s-nega-ideal','s-door',
