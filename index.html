@@ -3562,12 +3562,34 @@ function skipNegaIdeal() {
 }
 
 function pricingCtaClick() {
-  /* SaaS phase: redirect to Stripe Checkout here */
-  /* isUnlimited() users should never reach this via forced redirect */
-  var btn = document.getElementById('btn-pricing-cta');
-  var msg = document.getElementById('t-pricing-soon');
-  if (btn) btn.style.display = 'none';
-  if (msg) msg.style.display = 'block';
+  var isLock = cur === 's-lock';
+  var activeBtn = document.getElementById(isLock ? 'btn-lock-cta' : 'btn-pricing-cta');
+  var activeBtnKey = isLock ? 'lock_cta' : 'pricing_cta';
+  var soonMsg = document.getElementById('t-pricing-soon');
+
+  function showFallback() {
+    if (activeBtn) { activeBtn.disabled = false; activeBtn.textContent = T(activeBtnKey); }
+    if (soonMsg) soonMsg.style.display = 'block';
+  }
+
+  if (!supabaseClient || !currentUser) { showFallback(); return; }
+
+  if (activeBtn) { activeBtn.disabled = true; activeBtn.textContent = '…'; }
+
+  supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) { showFallback(); return null; }
+      return fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      }).then(function(r) { return r.ok ? r.json() : null; });
+    })
+    .then(function(data) {
+      if (data && data.url) { window.location.href = data.url; }
+      else showFallback();
+    })
+    .catch(function() { showFallback(); });
 }
 
 /* ── Trial consumption ───────────────────────────────────────────────────── */
