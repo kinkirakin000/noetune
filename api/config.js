@@ -9,7 +9,9 @@ module.exports = async (req, res) => {
   }
   res.setHeader('Cache-Control', 'no-store');
   res.status(200).json({
-    supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL || null,
+    supabaseUrl:     process.env.NEXT_PUBLIC_SUPABASE_URL || null,
     supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || null,
+    posthogKey:      process.env.NEXT_PUBLIC_POSTHOG_KEY || null,
+    posthogHost:     process.env.NEXT_PUBLIC_POSTHOG_HOST || null,
   });
 };

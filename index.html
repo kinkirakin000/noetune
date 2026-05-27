@@ -787,6 +787,7 @@ function isUnlimited() {
 var currentUser    = null;
 var currentProfile = null;
 var supabaseClient = null;
+var _posthog       = null;
 
 function isLoggedIn() { return !!currentUser; }
 
@@ -807,7 +808,9 @@ function initSupabase() {
   fetch('/api/config')
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(cfg) {
-      if (!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
+      if (!cfg) return;
+      initPostHog(cfg);
+      if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
       var s = document.createElement('script');
       s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
       s.onload = function() {
@@ -834,12 +837,44 @@ function initSupabase() {
     .catch(function() {});
 }
 
+function initPostHog(cfg) {
+  if (isAdminMode() || !cfg || !cfg.posthogKey) return;
+  var host = cfg.posthogHost || 'https://us.i.posthog.com';
+  var s = document.createElement('script');
+  s.src = 'https://cdn.jsdelivr.net/npm/posthog-js/dist/array.full.js';
+  s.onload = function() {
+    try {
+      window.posthog.init(cfg.posthogKey, {
+        api_host: host,
+        autocapture: false,
+        capture_pageview: false,
+        loaded: function(ph) {
+          _posthog = ph;
+          trackEvent('app_opened', { lang: lang });
+          try {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('checkout') === 'success') {
+              trackEvent('subscription_active', { source: 'checkout_success', lang: lang });
+            }
+          } catch(e) {}
+        }
+      });
+    } catch(e) {}
+  };
+  s.onerror = function() {};
+  document.head.appendChild(s);
+}
+
 if (isAdminMode()) {
   var _ab = document.getElementById('admin-badge');
   if (_ab) { _ab.textContent = 'Admin mode'; _ab.style.display = 'block'; }
 }
 
-function trackEvent(name){if(isAdminMode())return;try{if(typeof gtag==='function')gtag('event',name);}catch(e){}}
+function trackEvent(name, props) {
+  if (isAdminMode()) return;
+  try { if (typeof gtag === 'function') gtag('event', name); } catch(e) {}
+  try { if (_posthog) _posthog.capture(name, props || {}); } catch(e) {}
+}
 
 var copy = {
   ja: {
@@ -1671,7 +1706,7 @@ function applyLang() {
   renderIdealScreen();
 }
 
-function setLang(l) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); fwd('s-open'); }
+function setLang(l) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); trackEvent('language_selected', { lang: l }); fwd('s-open'); }
 
 var D = {
   theme:'', themeKey:null,
@@ -3138,7 +3173,7 @@ function fwd(id) {
   navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); }, 130);
+  setTimeout(function(){ n.classList.add('active'); cur = id; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); if (id === 's-pricing') trackEvent('pricing_viewed', { source: navHistory[navHistory.length - 1] || '' }); }, 130);
 }
 
 function goBack() {
@@ -3544,6 +3579,7 @@ function submitNegaIdeal() {
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
   themeChosen = true;
   trackEvent('v10_nega_ideal');
+  trackEvent('ideal_submitted', { source: 'nega', lang: lang });
   setEl('t-b2', T('before2_title', {ideal: D.ideal}));
   setEl('t-a2', T('after2_title',  {ideal: D.ideal}));
   ['b2','a2'].forEach(resetSlider);
@@ -3575,6 +3611,7 @@ function pricingCtaClick() {
 
   if (!supabaseClient || !currentUser) { showFallback(); return; }
 
+  trackEvent('checkout_started', { source: isLock ? 's-lock' : 's-pricing', lang: lang });
   if (activeBtn) { activeBtn.disabled = true; activeBtn.textContent = '…'; }
 
   supabaseClient.auth.getSession()
@@ -3607,7 +3644,7 @@ function openCustomerPortal() {
       }).then(function(r) { return r.ok ? r.json() : null; });
     })
     .then(function(data) {
-      if (data && data.url) { window.location.href = data.url; }
+      if (data && data.url) { trackEvent('portal_opened', { lang: lang }); window.location.href = data.url; }
       else updatePortalButton();
     })
     .catch(function() { updatePortalButton(); });
@@ -3621,6 +3658,7 @@ function updatePortalButton() {
   btn.disabled = false;
   if (isPlus) {
     btn.textContent = lang === 'ja' ? 'サブスクリプションを管理する' : 'Manage subscription';
+    if (!btn._plusTracked) { btn._plusTracked = true; trackEvent('subscription_active', { source: 'profile' }); }
   }
 }
 
@@ -3643,8 +3681,9 @@ function consumeTrialOnResult() {
     })
     .then(function(data) {
       if (!data) return;
-      if (data.locked) { fwd('s-lock'); return; }
+      if (data.locked) { trackEvent('trial_limit_reached', {}); fwd('s-lock'); return; }
       if (data.allowed && !data.unlimited && data.remaining != null) {
+        trackEvent('trial_consumed', { remaining: data.remaining });
         updateTrialRemainingDisplay(data);
       }
     })
@@ -3674,6 +3713,7 @@ function selectTheme(key, label) {
   D.themePositive = getThemeLabel(key);
   D.themeNegative = getThemeNegative(key);
   themeChosen = true;
+  trackEvent('theme_selected', { themeKey: key, lang: lang });
   try { localStorage.setItem('ntn_last_theme_key', key); } catch(e) {}
   document.querySelectorAll('.theme-btn').forEach(function(b){
     b.classList.toggle('selected', b.dataset.themeKey === key);
@@ -3789,6 +3829,7 @@ var _selectedDoorCard = null;
 
 function selectDoorCard(door) {
   _selectedDoorCard = door;
+  trackEvent('door_selected', { door: door, lang: lang });
   ['A','B','C'].forEach(function(d) {
     var card = document.getElementById('door-card-' + d.toLowerCase());
     if (card) {
@@ -3804,6 +3845,7 @@ function selectDoorCard(door) {
 
 function selectDoorRadio(door) {
   _selectedDoorCard = door;
+  trackEvent('door_selected', { door: door, lang: lang });
   ['B','C'].forEach(function(d) {
     var opt = document.getElementById('door-radio-' + d.toLowerCase());
     if (opt) {
@@ -3833,6 +3875,7 @@ function submitDoorAnswer() {
   D.doorKey = _selectedDoorCard;
   D.doorSentence = _doorSentences[_selectedDoorCard];
   trackEvent('v9_door_' + _selectedDoorCard.toLowerCase());
+  trackEvent('door_answer_submitted', { door: _selectedDoorCard, lang: lang });
   enterV9Step2(answer);
 }
 
@@ -3857,6 +3900,7 @@ function goNoAnswer() {
   _selectedDoorCard = null;
   var btn = document.getElementById('btn-door-next');
   if (btn) btn.disabled = true;
+  trackEvent('no_answer_clicked', { lang: lang });
   fwd('s-congrats');
 }
 
@@ -3883,6 +3927,7 @@ function enterV9Step2(reaction) {
 function startSession() {
   if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
   trackEvent('v9_start');
+  if (!D.themeKey) trackEvent('custom_theme_entered', { source: 'custom', lang: lang });
   showDoorScreen();
 }
 
@@ -3985,6 +4030,7 @@ function submitIdeal() {
   var v = inp ? inp.value.trim() : '';
   if (v) D.ideal = v;
   if (!D.ideal) return;
+  trackEvent('ideal_submitted', { lang: lang });
   if (D.entryMode === 'ideal') {
     setEl('t-issue-title', T('ideal_blocker_title', {ideal: D.ideal}));
     var inp2 = document.getElementById('in-issue'); if (inp2) { inp2.value = ''; inp2.placeholder = T('ideal_blocker_placeholder'); }
@@ -4068,6 +4114,7 @@ function fmtResult(v) {
 
 function showResult() {
   trackEvent('v7_complete');
+  trackEvent('result_viewed', { lang: lang, has_door: !!D.doorKey });
   var useWesternQuotes = ['en','es','de','pt-BR','fr'].indexOf(lang) >= 0;
   var qo = useWesternQuotes ? '”' : '「';
   var qc = useWesternQuotes ? '”' : '」';
@@ -4115,6 +4162,7 @@ var BREATH_NEXT = {'br1':'s-br2','br2':'s-br3','br3':'s-br4','br5':'s-after2'};
 function startBreath(t) {
   if (breathing) return;
   breathing = true;
+  trackEvent('breath_started', { step: t, lang: lang });
   var h = document.getElementById('hint-' + t); if (h) h.style.display = 'none';
   var c = document.getElementById('circle-' + t);
   c.classList.remove('pulse'); breathCount = 0;
@@ -4135,6 +4183,7 @@ function breathCycle(t, c) {
 
 function afterBreath(t) {
   breathing = false; breathCount = 0;
+  trackEvent('breath_completed', { step: t, lang: lang });
   var next;
   if (t === 'br4') {
     next = D.breathMode === 'deep' ? 's-br5' : 's-after2';

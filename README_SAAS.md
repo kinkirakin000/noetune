@@ -72,8 +72,8 @@ If any API call fails, the app continues in a degraded mode (no trial enforcemen
 | 4 ✅ | Trial limit logic — consume-trial, lock screen wiring |
 | 5 ✅ | Stripe Checkout — /api/create-checkout-session |
 | 6 ✅ | Stripe Webhook — event handling, profiles.plan_status sync |
-| 7 | Customer Portal — /api/create-portal-session |
-| 8 | PostHog events — core analytics tracking |
+| 7 ✅ | Customer Portal — /api/create-portal-session |
+| 8 ✅ | PostHog events — core analytics tracking |
 
 ---
 
