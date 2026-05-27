@@ -28,13 +28,14 @@ Vercel preview URL will be used to test the SaaS stack before cutting DNS over.
 ```
 noetune/
 ├── api/
+│   ├── config.js                   # GET  /api/config  (public Supabase keys)
 │   ├── me.js                       # GET  /api/me
 │   ├── consume-trial.js            # POST /api/consume-trial
 │   ├── create-checkout-session.js  # POST /api/create-checkout-session
 │   ├── create-portal-session.js    # POST /api/create-portal-session
 │   └── stripe-webhook.js           # POST /api/stripe-webhook
 ├── supabase/
-│   ├── schema.sql                  # profiles table + RLS + triggers
+│   ├── schema.sql                  # profiles table + RLS + triggers (idempotent)
 │   └── migrations/                 # future migration files
 ├── lib/
 │   └── supabase-admin.js           # service-role Supabase client (server only)
@@ -65,9 +66,9 @@ If any API call fails, the app continues in a degraded mode (no trial enforcemen
 
 | Commit | What ships |
 |---|---|
-| 1 ✅ | SaaS scaffold (this commit) |
-| 2 | Supabase Auth — CDN + auth state listener in index.html |
-| 3 | profiles + trial schema — finalize SQL, RLS, trigger |
+| 1 ✅ | SaaS scaffold — Vercel, Supabase, Stripe file structure |
+| 2 ✅ | Supabase Auth — /api/config, /api/me, auth state in index.html |
+| 3 ✅ | profiles + trial schema — finalized SQL, RLS, CHECK constraint, triggers |
 | 4 | Trial limit logic — consume-trial, lock screen wiring |
 | 5 | Stripe Checkout — /api/create-checkout-session, USD $9.99/mo |
 | 6 | Stripe Webhook — event handling, profiles.plan_status sync |
@@ -90,20 +91,48 @@ Set all variables in the Vercel dashboard under Project Settings → Environment
 
 ## Payment truth
 
-Payment and account state lives in `supabase.profiles.plan_status`.
-It is never stored in `localStorage` (tampered easily, not shared across devices).
+Payment and account state lives in `profiles.plan_status`.
 
-Stripe secret keys and webhook secrets require server-side code.
-All Stripe operations go through `/api/*` serverless functions.
+**Rules:**
+- `plan_status` is never stored in `localStorage` or any client-side storage.
+- The browser reads `plan_status` via `GET /api/me` (server-verified, service role).
+- The browser can never write `plan_status` directly — there is no RLS UPDATE policy.
+- `plan_status` is set to `'free'` when the profile row is created (auto-trigger on signup).
+- Stripe webhook (`/api/stripe-webhook`, Commit 6) is the only code that updates `plan_status` after signup.
+- `isUnlimited()` in `index.html` checks `currentProfile.plan_status === 'plus'` in memory after `/api/me` returns.
+
+**plan_status values:**
+
+| Value | Meaning |
+|---|---|
+| `free` | Default. Trial counting applies. |
+| `plus` | Active paid subscription. No trial limits. |
+| `past_due` | Payment failed. Treated as free until resolved. |
+| `canceled` | Subscription canceled. Treated as free. |
 
 ---
 
 ## Trial logic
 
 - Trial limit: 5 completed result views (not abandoned sessions).
-- Increment: `POST /api/consume-trial` — called only when result screen is shown.
+- Increment: `POST /api/consume-trial` — called only when the result screen is shown.
+- Counter lives in `profiles.trial_used_count` — never in `localStorage`.
 - Gate: if `trial_used_count >= trial_limit` AND `plan_status !== 'plus'` → show `s-lock`.
-- Admin bypass: `isUnlimited()` in index.html returns `true` for `?admin=1` — always unlimited.
+- Admin bypass: `isUnlimited()` in `index.html` returns `true` for `?admin=1` — always unlimited.
+- Paid bypass: `isUnlimited()` returns `true` when `currentProfile.plan_status === 'plus'`.
+- Trial enforcement is not yet active — coming in Commit 4.
+
+---
+
+## Data ownership rules
+
+These rules are enforced at the database level, not just by convention:
+
+1. **`plan_status` is server-only.** No RLS UPDATE policy exists for authenticated users. The browser cannot change it.
+2. **`stripe_customer_id`, `subscription_id`, `current_period_end`** are set by `/api/stripe-webhook` only.
+3. **`trial_used_count`** is incremented by `/api/consume-trial` only.
+4. **`email`** is set on signup by the auto-create trigger and not updated afterward.
+5. **The service role** (used in all `/api/*` functions) bypasses RLS and can write any field.
 
 ---
 

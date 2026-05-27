@@ -1,18 +1,29 @@
--- Noetune Supabase schema — Commit 1 draft
--- Apply via Supabase SQL editor or CLI migration.
--- Not yet applied to production.
+-- Noetune Supabase schema — Commit 3 final
+-- Apply via Supabase SQL editor or CLI.
+-- Idempotent: safe to re-run against an existing database.
 
 -- ── profiles ──────────────────────────────────────────────────────────────────
 -- One row per authenticated user.
--- Auto-populated via trigger on auth.users insert.
--- All writes from the browser go through /api/* (service role), not direct RLS.
+-- Auto-created via trigger on auth.users insert.
+--
+-- PAYMENT TRUTH
+--   plan_status is the authoritative payment state for this user.
+--   It is never stored in localStorage or any client-side storage.
+--   Only /api/* serverless functions (service role) may write plan_status.
+--   Stripe webhook (/api/stripe-webhook, Commit 6) is the sole writer of
+--   plan_status after the initial signup row is created by the trigger.
+--
+-- TRIAL TRUTH
+--   trial_used_count is the authoritative trial session counter.
+--   It is incremented by /api/consume-trial only when the result screen
+--   is shown (not on session start or abandonment).
+--   It is never incremented from client-side JavaScript.
 
 create table if not exists public.profiles (
   id                  uuid        primary key references auth.users(id) on delete cascade,
   email               text,
   stripe_customer_id  text        unique,
   plan_status         text        not null default 'free',
-  -- plan_status values: free | plus | past_due | canceled
   plan_name           text        not null default 'free',
   trial_used_count    integer     not null default 0,
   trial_limit         integer     not null default 5,
@@ -22,18 +33,33 @@ create table if not exists public.profiles (
   updated_at          timestamptz not null default now()
 );
 
+-- CHECK constraint on plan_status.
+-- DROP + ADD pattern ensures idempotency across re-runs.
+alter table public.profiles
+  drop constraint if exists profiles_plan_status_check;
+alter table public.profiles
+  add constraint profiles_plan_status_check
+    check (plan_status in ('free', 'plus', 'past_due', 'canceled'));
+
 -- ── Row Level Security ────────────────────────────────────────────────────────
 alter table public.profiles enable row level security;
 
--- Users can read their own profile (needed for Supabase JS client on the browser).
+-- SELECT: users may read their own profile row.
+-- The browser uses /api/me (service role) for profile data as the primary path,
+-- but this policy is needed for any direct Supabase JS client reads.
+drop policy if exists "users can read own profile" on public.profiles;
 create policy "users can read own profile"
   on public.profiles
   for select
   using (auth.uid() = id);
 
--- No direct insert/update policy for the authenticated role.
--- All writes go through /api/* serverless functions using the service role key,
--- which bypasses RLS by default.
+-- INSERT / UPDATE / DELETE: no policy for the authenticated role.
+-- All writes go through /api/* serverless functions using the service role key.
+-- The service role bypasses RLS by design, so no explicit policy is needed.
+--
+-- Consequence: the browser CANNOT directly modify any profile field,
+-- including plan_status, stripe_customer_id, subscription_id, or
+-- trial_used_count. All mutations are server-authoritative.
 
 -- ── Auto-create profile on signup ────────────────────────────────────────────
 create or replace function public.handle_new_user()
