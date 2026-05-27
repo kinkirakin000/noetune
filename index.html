@@ -767,7 +767,7 @@ function isAdminMode() {
  *
  * Returns true when the user should be treated as a paid Professional:
  *   - isAdminMode()          always unlimited (testing/demo)
- *   - supabase isPro check   SaaS phase — not implemented yet
+ *   - currentProfile.plan_status === 'plus'  paid Supabase user
  *
  * Rules when isUnlimited() is true:
  *   - Do not consume trial count
@@ -778,8 +778,59 @@ function isAdminMode() {
  */
 function isUnlimited() {
   if (isAdminMode()) return true;
-  /* SaaS phase: return supabaseIsPro(); */
+  if (currentProfile && currentProfile.plan_status === 'plus') return true;
   return false;
+}
+
+/* ── Auth state ──────────────────────────────────────────────────────────── */
+var currentUser    = null;
+var currentProfile = null;
+var supabaseClient = null;
+
+function isLoggedIn() { return !!currentUser; }
+
+function fetchProfile() {
+  if (!supabaseClient || !currentUser) return;
+  supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) return;
+      return fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) { if (data && data.loggedIn) currentProfile = data.profile; });
+    })
+    .catch(function() {});
+}
+
+function initSupabase() {
+  fetch('/api/config')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(cfg) {
+      if (!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      s.onload = function() {
+        try {
+          supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+          supabaseClient.auth.onAuthStateChange(function(event, session) {
+            currentUser    = session ? session.user : null;
+            currentProfile = null;
+            if (currentUser) fetchProfile();
+          });
+          supabaseClient.auth.getSession()
+            .then(function(result) {
+              if (result.data && result.data.session) {
+                currentUser = result.data.session.user;
+                fetchProfile();
+              }
+            })
+            .catch(function() {});
+        } catch(e) {}
+      };
+      s.onerror = function() {};
+      document.head.appendChild(s);
+    })
+    .catch(function() {});
 }
 
 if (isAdminMode()) {
@@ -4249,6 +4300,7 @@ function showSaveError() {
 document.addEventListener('keydown', function(e){ if (e.key === 'Enter') e.preventDefault(); });
 applyLang();
 updateProgress();
+initSupabase();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 </body>
