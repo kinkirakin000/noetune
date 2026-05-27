@@ -776,7 +776,7 @@ var copy = {
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'反応を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'「{neg}」\nが当たり前である人\nその人はどんな反応ですか。',
+    door_a_question_template:'『「{pos}」がない』\nが当たり前である人\nその人はどんな反応ですか。',
     door_b_question_template:'「{pos}」\nが当たり前でない人\nその人はどんな反応ですか。',
     door_c_question_template:'「{pos}」\nが当たり前である人\nその人はどんな反応ですか。',
     breath_mode_title:'呼吸の進め方を選んでください。',
@@ -3589,6 +3589,9 @@ function showDoorScreen() {
     if (card) card.classList.remove('selected');
   });
   _selectedDoorCard = null;
+  // Japanese uses 2-door layout (B + C only); hide Door A
+  var cardA = document.getElementById('door-card-a');
+  if (cardA) cardA.style.display = lang === 'ja' ? 'none' : '';
   var btn = document.getElementById('btn-door-next');
   if (btn) { btn.disabled = true; btn.textContent = T('door_next_button'); }
   fwd('s-door');
