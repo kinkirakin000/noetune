@@ -69,9 +69,9 @@ If any API call fails, the app continues in a degraded mode (no trial enforcemen
 | 1 ✅ | SaaS scaffold — Vercel, Supabase, Stripe file structure |
 | 2 ✅ | Supabase Auth — /api/config, /api/me, auth state in index.html |
 | 3 ✅ | profiles + trial schema — finalized SQL, RLS, CHECK constraint, triggers |
-| 4 | Trial limit logic — consume-trial, lock screen wiring |
-| 5 | Stripe Checkout — /api/create-checkout-session, USD $9.99/mo |
-| 6 | Stripe Webhook — event handling, profiles.plan_status sync |
+| 4 ✅ | Trial limit logic — consume-trial, lock screen wiring |
+| 5 ✅ | Stripe Checkout — /api/create-checkout-session |
+| 6 ✅ | Stripe Webhook — event handling, profiles.plan_status sync |
 | 7 | Customer Portal — /api/create-portal-session |
 | 8 | PostHog events — core analytics tracking |
 
