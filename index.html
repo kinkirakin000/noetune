@@ -1049,7 +1049,13 @@ var copy = {
     step1_placeholder:'Type the reaction…',
     step2_placeholder:'What state remains…',
     step1_skip_default:'quietly reacting',
-    step2_skip_default:'quietly returning'
+    step2_skip_default:'quietly returning',
+    pricing_note:'Free for 5 sessions.\nAfter that, continue with Professional.',
+    lock_title:'Your trial is complete.',
+    lock_body:'Whenever you want to return to yourself,\nNoetune is here.\n\nWould you like a place\nto come back to, whenever you need?',
+    lock_cta:'Start Professional',
+    lock_note:'Return whenever you need.',
+    trial_remaining:'Trial {used} / 5 — {remaining} left.'
   },
   'zh-TW': {
     back_button:'返回',
@@ -1579,6 +1585,8 @@ function T(key, vars) {
     s = s.split('{ideal}').join(vars.ideal || '');
     s = s.split('{pos}').join(vars.pos || '');
     s = s.split('{neg}').join(vars.neg || '');
+    s = s.split('{used}').join(vars.used != null ? String(vars.used) : '');
+    s = s.split('{remaining}').join(vars.remaining != null ? String(vars.remaining) : '');
   }
   return s;
 }
@@ -3562,14 +3570,49 @@ function pricingCtaClick() {
   if (msg) msg.style.display = 'block';
 }
 
+/* ── Trial consumption ───────────────────────────────────────────────────── */
+var _trialConsumedThisSession = false;
+
+function consumeTrialOnResult() {
+  if (_trialConsumedThisSession) return;
+  if (isUnlimited()) return;
+  if (!supabaseClient || !currentUser) return;
+  _trialConsumedThisSession = true;
+  supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) return null;
+      return fetch('/api/consume-trial', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      }).then(function(r) { return r.ok ? r.json() : null; });
+    })
+    .then(function(data) {
+      if (!data) return;
+      if (data.locked) { fwd('s-lock'); return; }
+      if (data.allowed && !data.unlimited && data.remaining != null) {
+        updateTrialRemainingDisplay(data);
+      }
+    })
+    .catch(function() {});
+}
+
+function updateTrialRemainingDisplay(data) {
+  var el = document.getElementById('t-trial-remaining');
+  if (!el) return;
+  var remaining = data.remaining != null ? data.remaining : 0;
+  if (remaining > 0) {
+    el.textContent = T('trial_remaining', { used: data.trialUsedCount, remaining: remaining });
+    el.style.display = '';
+  } else {
+    el.style.display = 'none';
+  }
+}
+
 /*
- * Future gating hook — call at session start (SaaS phase):
- *
- * function checkTrialGate() {
- *   if (isUnlimited()) return;          // admin or paid — pass through
- *   var used = supabase.trialUsedCount; // from profiles.trial_used_count
- *   if (used >= 5) { fwd('s-lock'); }   // show lock screen
- * }
+ * Session-start gate (future commit):
+ * Check profile on app open and redirect to s-lock before flow begins
+ * if trial_used_count >= trial_limit and plan_status !== 'plus'.
  */
 
 function selectTheme(key, label) {
@@ -4009,6 +4052,7 @@ function showResult() {
     }
   }
   fwd('s-result');
+  consumeTrialOnResult();
 }
 
 var breathing = false, breathCount = 0;
@@ -4167,6 +4211,7 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
+  _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
   var savedKey = D.themeKey; var savedTheme = D.theme;
   var savedPositive = D.themePositive; var savedNegative = D.themeNegative;
@@ -4184,6 +4229,7 @@ function repeatSameTheme() {
 }
 
 function chooseNewTheme() {
+  _trialConsumedThisSession = false;
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'', entryMode:null, doorKey:null, doorSentence:'',
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
@@ -4210,6 +4256,7 @@ function showScreenDirect(id) {
 }
 
 function backToStart() {
+  _trialConsumedThisSession = false;
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'',
         entryMode:null, doorKey:null, doorSentence:'',
@@ -4222,6 +4269,7 @@ function backToStart() {
 }
 
 function changeLanguageFromResult() {
+  _trialConsumedThisSession = false;
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'',
         entryMode:null, doorKey:null, doorSentence:'',
