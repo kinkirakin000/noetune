@@ -849,7 +849,9 @@ function initPostHog(cfg) {
           try {
             var params = new URLSearchParams(window.location.search);
             if (params.get('checkout') === 'success') {
+              // Only fire once — remove the param from history so refreshes don't re-trigger.
               trackEvent('subscription_active', { source: 'checkout_success', lang: lang });
+              history.replaceState(null, '', window.location.pathname);
             }
           } catch(e) {}
         }
@@ -3340,7 +3342,8 @@ function renderThemeScreen() {
       pgroup.id = 'tgrp-' + pcat.id;
       var pheader = document.createElement('button');
       pheader.className = 'theme-group-header';
-      pheader.innerHTML = '<span>' + pcat.label + '</span><span class="theme-group-arrow">▾</span>';
+      var _ps1 = document.createElement('span'); _ps1.textContent = pcat.label; pheader.appendChild(_ps1);
+      var _ps2 = document.createElement('span'); _ps2.className = 'theme-group-arrow'; _ps2.textContent = '▾'; pheader.appendChild(_ps2);
       pheader.onclick = (function(cid){ return function(){ toggleThemeGroup(cid); }; })(pcat.id);
       var pbody = document.createElement('div');
       pbody.className = 'theme-group-body';
@@ -3399,7 +3402,8 @@ function renderThemeScreen() {
         group.id = 'tgrp-' + cat.id;
         var header = document.createElement('button');
         header.className = 'theme-group-header';
-        header.innerHTML = '<span>' + cat.label + '</span><span class="theme-group-arrow">▾</span>';
+        var _cs1 = document.createElement('span'); _cs1.textContent = cat.label; header.appendChild(_cs1);
+        var _cs2 = document.createElement('span'); _cs2.className = 'theme-group-arrow'; _cs2.textContent = '▾'; header.appendChild(_cs2);
         header.onclick = (function(cid){ return function(){ toggleThemeGroup(cid); }; })(cat.id);
         var body = document.createElement('div');
         body.className = 'theme-group-body';
@@ -4230,7 +4234,8 @@ function renderIdealScreen() {
       groupDiv.id = 'igrp-' + g.id;
       var header = document.createElement('button');
       header.className = 'theme-group-header';
-      header.innerHTML = '<span>' + g.group_label + '</span><span class="theme-group-arrow">▾</span>';
+      var _gs1 = document.createElement('span'); _gs1.textContent = g.group_label; header.appendChild(_gs1);
+      var _gs2 = document.createElement('span'); _gs2.className = 'theme-group-arrow'; _gs2.textContent = '▾'; header.appendChild(_gs2);
       header.onclick = (function(gid){ return function(){ toggleIdealGroup(gid); }; })(g.id);
       var body = document.createElement('div');
       body.className = 'theme-group-body';
