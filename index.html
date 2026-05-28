@@ -3781,16 +3781,21 @@ var _doorSentences = {A:'', B:'', C:''};
 function showDoorScreen() {
   var pos = D.themePositive || D.theme;
   var neg = D.themeNegative;
+  // qPos: raw theme name without the がある/がない suffix, used only for the
+  // question display text. D.theme holds the user's input or the keyed theme's
+  // short label before any suffix was appended. The _doorSentences templates
+  // continue to use pos (D.themePositive) for grammatically correct sentences.
+  var qPos = D.theme || D.themePositive;
   var isJa = lang === 'ja';
   setEl('t-door-title', T('door_title'));
   _doorSentences.A = T('door_a_template', {pos: pos, neg: neg});
   _doorSentences.B = T('door_b_template', {pos: pos, neg: neg});
   _doorSentences.C = T('door_c_template', {pos: pos, neg: neg});
-  setEl('door-q-a', T('door_a_question_template', {pos: pos, neg: neg}));
-  setEl('door-q-b', T('door_b_question_template', {pos: pos, neg: neg}));
-  setEl('door-q-c', T('door_c_question_template', {pos: pos, neg: neg}));
-  setEl('door-rq-b', T('door_b_question_template', {pos: pos, neg: neg}));
-  setEl('door-rq-c', T('door_c_question_template', {pos: pos, neg: neg}));
+  setEl('door-q-a', T('door_a_question_template', {pos: qPos, neg: neg}));
+  setEl('door-q-b', T('door_b_question_template', {pos: qPos, neg: neg}));
+  setEl('door-q-c', T('door_c_question_template', {pos: qPos, neg: neg}));
+  setEl('door-rq-b', T('door_b_question_template', {pos: qPos, neg: neg}));
+  setEl('door-rq-c', T('door_c_question_template', {pos: qPos, neg: neg}));
   var sharedInp = document.getElementById('door-answer-input');
   if (sharedInp) {
     sharedInp.value = '';
