@@ -3382,13 +3382,17 @@ var _doorSentences = {A:'', B:'', C:''};
 function showDoorScreen() {
   var pos = D.themePositive || D.theme;
   var neg = D.themeNegative;
+  // For question display, use the raw theme name without the がある/がない suffix
+  // that was appended to build grammatical sentences. D.theme holds the user's
+  // original input (or the keyed theme's short label) without any suffix.
+  var qPos = D.theme || D.themePositive;
   setEl('t-door-title', T('door_title'));
   _doorSentences.A = T('door_a_template', {pos: pos, neg: neg});
   _doorSentences.B = T('door_b_template', {pos: pos, neg: neg});
   _doorSentences.C = T('door_c_template', {pos: pos, neg: neg});
-  setEl('door-q-a', T('door_a_question_template', {pos: pos, neg: neg}));
-  setEl('door-q-b', T('door_b_question_template', {pos: pos, neg: neg}));
-  setEl('door-q-c', T('door_c_question_template', {pos: pos, neg: neg}));
+  setEl('door-q-a', T('door_a_question_template', {pos: qPos, neg: neg}));
+  setEl('door-q-b', T('door_b_question_template', {pos: qPos, neg: neg}));
+  setEl('door-q-c', T('door_c_question_template', {pos: qPos, neg: neg}));
   var sharedInp = document.getElementById('door-answer-input');
   if (sharedInp) { sharedInp.value = ''; sharedInp.placeholder = T('door_answer_placeholder'); sharedInp.disabled = true; }
   ['a','b','c'].forEach(function(d) {
