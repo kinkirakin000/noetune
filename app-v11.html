@@ -157,6 +157,16 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #nega-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
+#auth-modal{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(26,26,26,.52);z-index:9000;display:none;align-items:center;justify-content:center}
+#auth-modal.open{display:flex}
+.auth-box{background:#FAFAF7;border-radius:16px;padding:2rem 1.6rem 1.6rem;width:min(300px,88vw);text-align:center;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.14)}
+.auth-box-title{font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:500;letter-spacing:.1em;color:#1A1A1A;margin-bottom:1.4rem}
+.auth-box-input{width:100%;padding:12px 14px;border:1px solid #D8D8D4;border-radius:10px;font-size:.84rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em;background:#fff;color:#1A1A1A;outline:none;box-sizing:border-box;margin-bottom:.9rem;-webkit-appearance:none}
+.auth-box-input:focus{border-color:#6B9080}
+.auth-box-btn{width:100%;padding:13px;background:#1A1A1A;color:#fff;border:none;border-radius:10px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.1em;cursor:pointer;transition:opacity .2s}
+.auth-box-btn:disabled{opacity:.35;cursor:default}
+.auth-box-msg{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#6B9080;letter-spacing:.05em;line-height:1.9;margin-top:1rem;white-space:pre-line;min-height:1.2em}
+.auth-box-close{position:absolute;top:.7rem;right:.9rem;background:none;border:none;color:#C0C0BA;font-size:1rem;cursor:pointer;line-height:1;padding:4px 6px}
 #s-entry-inner{width:100%;max-width:300px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
 .entry-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.1em;color:#A8A8A2;text-align:center;margin-bottom:2rem}
 .entry-choice{display:flex;flex-direction:column;align-items:stretch;margin-bottom:1.2rem}
@@ -634,6 +644,7 @@ it helps you quietly return to yourself.</p>
       <div class="pricing-note" id="t-pricing-note"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="btn-pricing-return" id="btn-portal" onclick="openCustomerPortal()" style="display:none;margin-top:.8rem"></button>
+      <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
     </div>
     <div class="pricing-return-wrap">
       <button class="btn-pricing-return" onclick="repeatSameTheme()">同じテーマでもう一度</button>
@@ -651,6 +662,7 @@ it helps you quietly return to yourself.</p>
     <div class="about-para"  id="t-lock-body"></div>
     <button class="btn pricing-cta" id="btn-lock-cta" onclick="pricingCtaClick()"></button>
     <div class="pricing-note" id="t-lock-note"></div>
+    <button class="btn-pricing-return" id="btn-login-lock" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
   </div>
 </div>
 
@@ -812,7 +824,8 @@ function initSupabase() {
           supabaseClient.auth.onAuthStateChange(function(event, session) {
             currentUser    = session ? session.user : null;
             currentProfile = null;
-            if (currentUser) fetchProfile();
+            if (currentUser) { fetchProfile(); if (event === 'SIGNED_IN') closeAuthModal(); }
+            updateLoginButton();
           });
           supabaseClient.auth.getSession()
             .then(function(result) {
@@ -820,6 +833,7 @@ function initSupabase() {
                 currentUser = result.data.session.user;
                 fetchProfile();
               }
+              updateLoginButton();
             })
             .catch(function() {});
         } catch(e) {}
@@ -3591,6 +3605,74 @@ function skipNegaIdeal() {
   fwd('s-before2');
 }
 
+/* ── Auth modal ──────────────────────────────────────────────────────────── */
+
+function openAuthModal() {
+  var modal = document.getElementById('auth-modal');
+  var inp   = document.getElementById('auth-email-input');
+  var msg   = document.getElementById('auth-modal-msg');
+  var btn   = document.getElementById('auth-submit-btn');
+  var title = document.getElementById('auth-modal-title');
+  if (!modal) return;
+  if (msg)   msg.textContent = '';
+  if (inp)   { inp.value = ''; inp.disabled = false; }
+  if (title) title.textContent = lang === 'ja' ? 'ログイン'  : 'Log in';
+  if (btn)   { btn.disabled = false; btn.textContent = lang === 'ja' ? 'リンクを送る' : 'Send link'; }
+  if (inp)   { inp.placeholder = lang === 'ja' ? 'メールアドレス' : 'Email address'; }
+  modal.classList.add('open');
+  setTimeout(function() { if (inp) inp.focus(); }, 80);
+}
+
+function closeAuthModal() {
+  var modal = document.getElementById('auth-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function submitAuthEmail() {
+  if (!supabaseClient) return;
+  var inp   = document.getElementById('auth-email-input');
+  var msg   = document.getElementById('auth-modal-msg');
+  var btn   = document.getElementById('auth-submit-btn');
+  var email = inp ? inp.value.trim() : '';
+  var isJa  = lang === 'ja';
+  if (!email || !email.includes('@')) {
+    if (msg) msg.textContent = isJa ? 'メールアドレスを入力してください。' : 'Please enter a valid email.';
+    return;
+  }
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  if (msg) msg.textContent = '';
+  supabaseClient.auth.signInWithOtp({
+    email: email,
+    options: { emailRedirectTo: window.location.origin + window.location.pathname }
+  })
+  .then(function(result) {
+    if (result.error) {
+      if (msg) msg.textContent = isJa ? '送信できませんでした。もう一度お試しください。' : 'Could not send. Please try again.';
+      if (btn) { btn.disabled = false; btn.textContent = isJa ? 'リンクを送る' : 'Send link'; }
+    } else {
+      if (msg) msg.textContent = isJa ? 'ログインリンクをメールで送りました。\nメールを確認してください。' : 'Check your email for the login link.';
+      if (inp) inp.disabled = true;
+      if (btn) { btn.disabled = true; btn.textContent = isJa ? '送信済み' : 'Sent'; }
+    }
+  })
+  .catch(function() {
+    if (msg) msg.textContent = isJa ? '送信できませんでした。' : 'Could not send.';
+    if (btn) { btn.disabled = false; btn.textContent = isJa ? 'リンクを送る' : 'Send link'; }
+  });
+}
+
+function updateLoginButton() {
+  // Show login button only when Supabase is configured and user is not signed in.
+  var show = !!(supabaseClient && !currentUser);
+  var label = lang === 'ja' ? 'ログインする' : 'Log in';
+  ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.style.display = show ? '' : 'none';
+    btn.textContent = label;
+  });
+}
+
 function pricingCtaClick() {
   var isLock = cur === 's-lock';
   var activeBtn = document.getElementById(isLock ? 'btn-lock-cta' : 'btn-pricing-cta');
@@ -4453,5 +4535,18 @@ updateProgress();
 initSupabase();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
+
+<!-- ── AUTH MODAL ── -->
+<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-box">
+    <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
+    <div class="auth-box-title" id="auth-modal-title">ログイン</div>
+    <input class="auth-box-input" type="email" id="auth-email-input"
+      placeholder="メールアドレス" autocomplete="email" inputmode="email"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
+    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()">リンクを送る</button>
+    <div class="auth-box-msg" id="auth-modal-msg"></div>
+  </div>
+</div>
 </body>
 </html>
