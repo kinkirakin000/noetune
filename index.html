@@ -803,7 +803,9 @@ function initSupabase() {
       initPostHog(cfg);
       if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
       var s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js';
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.106.2/dist/umd/supabase.min.js';
+      s.integrity = 'sha384-4Cjkyy4cE1EgIS0C+Y3xzGmJ2noQFRRU91yKAW8IxtPfVtbQXPMqadSc3sYnjwou';
+      s.crossOrigin = 'anonymous';
       s.onload = function() {
         try {
           supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
@@ -832,7 +834,9 @@ function initPostHog(cfg) {
   if (!cfg || !cfg.posthogKey) return;
   var host = cfg.posthogHost || 'https://us.i.posthog.com';
   var s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/posthog-js/dist/array.full.js';
+  s.src = 'https://cdn.jsdelivr.net/npm/posthog-js@1.376.3/dist/array.full.js';
+  s.integrity = 'sha384-Uu5xCi3lU8Ydnx6H+cKic5VDv43LUd0icwW2kQWVPz103bH8Y5gjPKvi9BBRQWWa';
+  s.crossOrigin = 'anonymous';
   s.onload = function() {
     try {
       window.posthog.init(cfg.posthogKey, {
@@ -4438,6 +4442,6 @@ applyLang();
 updateProgress();
 initSupabase();
 </script>
-<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
 </body>
 </html>

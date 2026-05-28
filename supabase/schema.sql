@@ -95,3 +95,59 @@ drop trigger if exists profiles_updated_at on public.profiles;
 create trigger profiles_updated_at
   before update on public.profiles
   for each row execute procedure public.set_updated_at();
+
+-- ── consume_trial RPC ─────────────────────────────────────────────────────────
+-- Atomic check-and-increment for trial consumption.
+-- Uses FOR UPDATE to lock the row, preventing TOCTOU race conditions when
+-- the result screen is shown in multiple concurrent tabs/requests.
+--
+-- Returns a JSON object with the same shape as /api/consume-trial responses:
+--   { allowed, unlimited, locked, trialUsedCount, trialLimit, remaining }
+create or replace function public.consume_trial(p_user_id uuid)
+returns jsonb
+language plpgsql
+security definer set search_path = public
+as $$
+declare
+  v profiles%rowtype;
+  v_new_count integer;
+begin
+  -- Lock the row for this transaction to prevent concurrent increments.
+  select * into v from public.profiles where id = p_user_id for update;
+
+  if not found then
+    return jsonb_build_object('allowed', true, 'unlimited', false, 'locked', false, 'loggedIn', true);
+  end if;
+
+  -- Paid user — no trial logic applies.
+  if v.plan_status = 'plus' then
+    return jsonb_build_object('allowed', true, 'unlimited', true, 'locked', false, 'loggedIn', true);
+  end if;
+
+  -- Non-renewing statuses — treat as locked.
+  if v.plan_status in ('past_due', 'canceled') then
+    return jsonb_build_object(
+      'allowed', false, 'unlimited', false, 'locked', true, 'loggedIn', true,
+      'trialUsedCount', v.trial_used_count, 'trialLimit', v.trial_limit, 'remaining', 0
+    );
+  end if;
+
+  -- Free user: check limit before incrementing.
+  if v.trial_used_count >= v.trial_limit then
+    return jsonb_build_object(
+      'allowed', false, 'unlimited', false, 'locked', true, 'loggedIn', true,
+      'trialUsedCount', v.trial_used_count, 'trialLimit', v.trial_limit, 'remaining', 0
+    );
+  end if;
+
+  -- Atomically increment.
+  v_new_count := v.trial_used_count + 1;
+  update public.profiles set trial_used_count = v_new_count where id = p_user_id;
+
+  return jsonb_build_object(
+    'allowed', true, 'unlimited', false, 'locked', false, 'loggedIn', true,
+    'trialUsedCount', v_new_count, 'trialLimit', v.trial_limit,
+    'remaining', v.trial_limit - v_new_count
+  );
+end;
+$$;

@@ -2,6 +2,10 @@
 // Called once per completed result view. Increments trial_used_count for free users.
 // Always returns 200 — the caller must never break on a non-2xx from this endpoint.
 //
+// Uses the consume_trial(uuid) Postgres RPC which locks the profile row with
+// FOR UPDATE before checking and incrementing, preventing TOCTOU race conditions
+// when the result screen is shown in multiple concurrent tabs or requests.
+//
 // Response fields:
 //   loggedIn      — false when token is missing/invalid or Supabase not configured
 //   allowed       — true if the session should proceed (paid or trial not exhausted)
@@ -36,50 +40,17 @@ module.exports = async (req, res) => {
       return res.status(200).json({ allowed: true, unlimited: false, loggedIn: false });
     }
 
-    const { data: profile, error: profileError } = await supabaseAdmin
-      .from('profiles')
-      .select('plan_status, trial_used_count, trial_limit')
-      .eq('id', user.id)
-      .single();
+    // Atomic check-and-increment via Postgres RPC.
+    // The consume_trial function locks the row with FOR UPDATE, so concurrent
+    // requests cannot both read the same trial_used_count and both increment it.
+    const { data, error } = await supabaseAdmin.rpc('consume_trial', { p_user_id: user.id });
 
-    if (profileError || !profile) {
-      // Profile missing — allow session (will auto-create on next auth event)
+    if (error || !data) {
+      // RPC failure — allow session to complete rather than blocking the user
       return res.status(200).json({ allowed: true, unlimited: false, loggedIn: true });
     }
 
-    const { plan_status, trial_used_count, trial_limit } = profile;
-
-    if (plan_status === 'plus') {
-      return res.status(200).json({ allowed: true, unlimited: true, loggedIn: true });
-    }
-
-    if (plan_status === 'past_due' || plan_status === 'canceled') {
-      return res.status(200).json({
-        allowed: false, locked: true, loggedIn: true,
-        trialUsedCount: trial_used_count, trialLimit: trial_limit, remaining: 0,
-      });
-    }
-
-    // plan_status === 'free' — enforce trial limit
-    if (trial_used_count >= trial_limit) {
-      return res.status(200).json({
-        allowed: false, locked: true, loggedIn: true,
-        trialUsedCount: trial_used_count, trialLimit: trial_limit, remaining: 0,
-      });
-    }
-
-    // Consume one trial
-    const newCount = trial_used_count + 1;
-    await supabaseAdmin
-      .from('profiles')
-      .update({ trial_used_count: newCount })
-      .eq('id', user.id);
-
-    const remaining = trial_limit - newCount;
-    return res.status(200).json({
-      allowed: true, locked: false, loggedIn: true,
-      trialUsedCount: newCount, trialLimit: trial_limit, remaining,
-    });
+    return res.status(200).json(data);
   } catch (e) {
     // Any server error — allow session to complete rather than blocking the user
     return res.status(200).json({ allowed: true, unlimited: false, loggedIn: false });
