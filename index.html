@@ -157,7 +157,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #nega-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
-#admin-badge{position:fixed;bottom:.8rem;right:.9rem;font-size:.6rem;letter-spacing:.08em;color:#CCC;opacity:.4;pointer-events:none;z-index:9999;font-family:monospace;display:none}
 #s-entry-inner{width:100%;max-width:300px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
 .entry-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.1em;color:#A8A8A2;text-align:center;margin-bottom:2rem}
 .entry-choice{display:flex;flex-direction:column;align-items:stretch;margin-bottom:1.2rem}
@@ -330,13 +329,11 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .lp-lang-btn.selected,.lp-lang-btn:active{color:#8FB8A4}
 }
 </style>
-<script>if(new URLSearchParams(window.location.search).get('admin')==='1'){window['ga-disable-G-TH1504X2CK']=true;}</script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TH1504X2CK',{send_page_view:true});</script>
 </head>
 <body>
 
-<div id="admin-badge" aria-hidden="true"></div>
 <button class="btn-back" id="btn-back" onclick="goBack()" aria-label="戻る">
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
     <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
@@ -759,16 +756,11 @@ it helps you quietly return to yourself.</p>
 </div>
 
 <script>
-function isAdminMode() {
-  try { return new URLSearchParams(window.location.search).get('admin') === '1'; } catch(e) { return false; }
-}
-
 /*
  * isUnlimited() — single gate for all trial/paywall checks.
  *
- * Returns true when the user should be treated as a paid Professional:
- *   - isAdminMode()          always unlimited (testing/demo)
- *   - currentProfile.plan_status === 'plus'  paid Supabase user
+ * Returns true when currentProfile.plan_status === 'plus' (active Stripe subscription).
+ * Server-authoritative: plan_status is set by /api/stripe-webhook only.
  *
  * Rules when isUnlimited() is true:
  *   - Do not consume trial count
@@ -778,7 +770,6 @@ function isAdminMode() {
  *   - Pricing/lock screens can still be opened manually; never forced
  */
 function isUnlimited() {
-  if (isAdminMode()) return true;
   if (currentProfile && currentProfile.plan_status === 'plus') return true;
   return false;
 }
@@ -838,7 +829,7 @@ function initSupabase() {
 }
 
 function initPostHog(cfg) {
-  if (isAdminMode() || !cfg || !cfg.posthogKey) return;
+  if (!cfg || !cfg.posthogKey) return;
   var host = cfg.posthogHost || 'https://us.i.posthog.com';
   var s = document.createElement('script');
   s.src = 'https://cdn.jsdelivr.net/npm/posthog-js/dist/array.full.js';
@@ -865,13 +856,7 @@ function initPostHog(cfg) {
   document.head.appendChild(s);
 }
 
-if (isAdminMode()) {
-  var _ab = document.getElementById('admin-badge');
-  if (_ab) { _ab.textContent = 'Admin mode'; _ab.style.display = 'block'; }
-}
-
 function trackEvent(name, props) {
-  if (isAdminMode()) return;
   try { if (typeof gtag === 'function') gtag('event', name); } catch(e) {}
   try { if (_posthog) _posthog.capture(name, props || {}); } catch(e) {}
 }
