@@ -44,14 +44,26 @@ module.exports = async (req, res) => {
       return res.status(401).json({ error: 'Invalid token' });
     }
 
+    console.log('[create-checkout-session] user.id:', user.id);
+    console.log('[create-checkout-session] user.email:', user.email);
+
     const { data: profile, error: profileError } = await supabaseAdmin
       .from('profiles')
       .select('stripe_customer_id')
       .eq('id', user.id)
       .single();
 
+    console.log('[create-checkout-session] profile:', profile);
+    console.log('[create-checkout-session] profileError:', profileError);
+
     if (profileError || !profile) {
-      return res.status(404).json({ error: 'Profile not found' });
+      return res.status(404).json({
+        error: 'Profile not found',
+        userId: user.id,
+        userEmail: user.email,
+        profile,
+        profileError
+      });
     }
 
     // Lazy-require stripe so the file loads without error when STRIPE_SECRET_KEY is unset.
