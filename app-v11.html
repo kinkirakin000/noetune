@@ -4006,6 +4006,11 @@ function enterV9Step2(reaction) {
 
 function startSession() {
   if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
+  if (D.themeKey && D.themeKey.indexOf('pro_') === 0 && !isUnlimited()) {
+    trackEvent('pro_theme_paywall', { themeKey: D.themeKey, lang: lang });
+    fwd('s-pricing');
+    return;
+  }
   trackEvent('v9_start');
   if (!D.themeKey) trackEvent('custom_theme_entered', { source: 'custom', lang: lang });
   showDoorScreen();
