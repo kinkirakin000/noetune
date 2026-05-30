@@ -744,9 +744,10 @@ it helps you quietly return to yourself.</p>
 <!-- ── NEGA IDEAL ── -->
 <div class="screen" id="s-nega-ideal">
   <div class="breath-sub" id="nega-ideal-quote"></div>
-  <div class="screen-title" style="margin-bottom:1.5rem">その反応が存在しないとき、<br>どんな感情・状態・感覚が残る？</div>
+  <div class="screen-title" id="nega-ideal-title" style="margin-bottom:1.5rem">が存在しない人は、
+どんな理想状態？</div>
   <input type="text" class="text-input" id="in-nega-ideal"
-    placeholder="残る状態を入力…" autocomplete="off" maxlength="40"
+    placeholder="理想状態を入力…" autocomplete="off" maxlength="40"
     oninput="onNegaIdealInput(this.value)">
   <button class="btn" id="btn-nega-ideal-next" onclick="submitNegaIdeal()" disabled>次へ</button>
   <button class="btn-ghost" onclick="skipNegaIdeal()">スキップ</button>
@@ -893,9 +894,9 @@ var copy = {
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'状態を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'「{neg}」\nを感じる人は\nどんな状態ですか。',
-    door_b_question_template:'「{pos}」\nを感じない人は\nどんな状態ですか。',
-    door_c_question_template:'「{pos}」\nを感じる人は\nどんな状態ですか。',
+    door_a_question_template:'「{neg}」\n\nを感じている人は\n\nどんな状態？',
+    door_b_question_template:'「{pos}」\n\nを感じていない人は\n\nどんな状態？',
+    door_c_question_template:'「{pos}」\n\nを感じている人は\n\nどんな状態？',
     breath_mode_title:'呼吸の進め方を選んでください。',
     breath_mode_soft_label:'やさしく整える\n（内観初心者）',
     breath_mode_soft_desc:'今ある感覚を否定せず、\nやさしく含めながら整えます。',
@@ -955,15 +956,15 @@ var copy = {
     breath_4_deep_text:'その抵抗以外の全て',
     breath_5_deep_text:'その抵抗が存在しない状態。',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな感情・状態・感覚が残る？',
-    before2_title:'「{ideal}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
-    after2_title:'「{ideal}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
+    before2_title:'「{ideal}」\n\nそのときの、\n\n表情・呼吸・身体\n\nの余裕度は？',
+    after2_title:'「{ideal}」\n\nそのときの、\n\n表情・呼吸・身体\n\nの余裕度は？',
     breath_1_text:'「{ideal}」',
     ideal_blocker_title:'「{ideal}」を邪魔する状態は？',
     ideal_blocker_placeholder:'邪魔する状態を入力…',
     ideal_before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
-    ideal_before2_title:'「{issue}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
+    ideal_before2_title:'「{issue}」\n\nそのときの、\n\n表情・呼吸・身体\n\nの余裕度は？',
     ideal_after1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
-    ideal_after2_title:'「{issue}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
+    ideal_after2_title:'「{issue}」\n\nそのときの、\n\n表情・呼吸・身体\n\nの余裕度は？',
     ideal_breath_1_text:'「{issue}」',
     save_image_button:'画像として保存',
     save_image_creating:'画像を作成中…',
@@ -980,13 +981,15 @@ var copy = {
     congrats_choose_new_theme:'別のテーマを選ぶ',
     congrats_back_to_start:'スタート画面に戻る',
     result_shift_note_label:'今の感覚',
-    door_a_template:'「{neg}」を感じる人',
-    door_b_template:'「{pos}」を感じない人',
-    door_c_template:'「{pos}」を感じる人',
-    step1_question:'どんな状態ですか。',
+    door_a_template:'「{neg}」を感じている人',
+    door_b_template:'「{pos}」を感じていない人',
+    door_c_template:'「{pos}」を感じている人',
+    step1_question:'どんな状態？',
     step2_question:'その反応が存在しないとき、どんな感情・状態・感覚が残る？',
     step1_placeholder:'反応を入力…',
     step2_placeholder:'残る状態を入力…',
+    nega_ideal_title:'が存在しない人は、\nどんな理想状態？',
+    nega_ideal_placeholder:'理想状態を入力…',
     step1_skip_default:'静かに反応している',
     step2_skip_default:'静かに戻っている'
   },
@@ -1002,9 +1005,9 @@ var copy = {
     door_title:'Choose the question\nthat feels easiest to answer.',
     door_answer_placeholder:'Enter a state…',
     door_next_button:'Continue with this answer',
-    door_a_question_template:'"{neg}"\nA person who feels this.\nWhat state are they in?',
-    door_b_question_template:'"{pos}"\nA person who doesn\'t feel this.\nWhat state are they in?',
-    door_c_question_template:'"{pos}"\nA person who feels this.\nWhat state are they in?',
+    door_a_question_template:'"{neg}"\n\nA person who is feeling this.\n\nWhat state are they in?',
+    door_b_question_template:'"{pos}"\n\nA person who isn\'t feeling this.\n\nWhat state are they in?',
+    door_c_question_template:'"{pos}"\n\nA person who is feeling this.\n\nWhat state are they in?',
     no_answer_button:'No answer comes',
     congrats_title:'Congratulations',
     congrats_body:'No reaction is coming up\nfor this theme right now.\n\nThat may be a sign\nthat this theme is quiet\nin this moment.\n\nIf needed,\nchoose another theme.',
@@ -1082,13 +1085,15 @@ var copy = {
     shift_note_button:'See result',
     shift_note_skip:'Skip',
     result_shift_note_label:'Current Feeling',
-    door_a_template:'Someone who feels "{neg}"',
-    door_b_template:'Someone who doesn\'t feel "{pos}"',
-    door_c_template:'Someone who feels "{pos}"',
+    door_a_template:'Someone who is feeling "{neg}"',
+    door_b_template:'Someone who isn\'t feeling "{pos}"',
+    door_c_template:'Someone who is feeling "{pos}"',
     step1_question:'What state are they in?',
     step2_question:'When that reaction is absent, what ideal state remains?',
     step1_placeholder:'Type the reaction…',
     step2_placeholder:'What state remains…',
+    nega_ideal_title:'For someone without this,\nwhat would the ideal state be?',
+    nega_ideal_placeholder:'Enter the ideal state…',
     step1_skip_default:'quietly reacting',
     step2_skip_default:'quietly returning',
     pricing_note:'Free for 5 sessions.\nAfter that, continue with Professional.',
@@ -1110,9 +1115,9 @@ var copy = {
     door_title:'請選一個\n比較容易回答的問題。',
     door_answer_placeholder:'輸入狀態…',
     door_next_button:'用這個答案繼續',
-    door_a_question_template:'「{neg}」\n感受到這種感覺的人\n是什麼狀態？',
-    door_b_question_template:'「{pos}」\n感受不到這種感覺的人\n是什麼狀態？',
-    door_c_question_template:'「{pos}」\n感受到這種感覺的人\n是什麼狀態？',
+    door_a_question_template:'「{neg}」\n\n正在感受到這種感覺的人\n\n是什麼狀態？',
+    door_b_question_template:'「{pos}」\n\n沒有感受到這種感覺的人\n\n是什麼狀態？',
+    door_c_question_template:'「{pos}」\n\n正在感受到這種感覺的人\n\n是什麼狀態？',
     no_answer_button:'沒有答案出現',
     congrats_title:'Congratulations',
     congrats_body:'在這個主題裡，\n現在沒有反應浮現。\n\n這也許代表，\n此刻這個主題\n已經安靜下來了。\n\n如果需要，\n可以選擇別的主題。',
@@ -1190,13 +1195,15 @@ var copy = {
     shift_note_button:'查看結果',
     shift_note_skip:'跳過',
     result_shift_note_label:'現在的感覺',
-    door_a_template:'感受到「{neg}」的人',
-    door_b_template:'感受不到「{pos}」的人',
-    door_c_template:'感受到「{pos}」的人',
+    door_a_template:'正在感受到「{neg}」的人',
+    door_b_template:'沒有感受到「{pos}」的人',
+    door_c_template:'正在感受到「{pos}」的人',
     step1_question:'那個人是什麼狀態？',
     step2_question:'當那個反應不存在時，剩下什麼樣的理想狀態？',
     step1_placeholder:'輸入反應…',
-    step2_placeholder:'輸入理想狀態…'
+    step2_placeholder:'輸入理想狀態…',
+    nega_ideal_title:'沒有這個的人，\n會是什麼理想狀態？',
+    nega_ideal_placeholder:'輸入理想狀態…'
   },
   es: {
     back_button:'Volver',
@@ -1210,9 +1217,9 @@ var copy = {
     door_title:'Elige la pregunta\nque se sienta más fácil de responder.',
     door_answer_placeholder:'Escribe el estado…',
     door_next_button:'Continuar con esta respuesta',
-    door_a_question_template:'"{neg}"\nUna persona que siente esto.\n¿En qué estado está?',
-    door_b_question_template:'"{pos}"\nUna persona que no siente esto.\n¿En qué estado está?',
-    door_c_question_template:'"{pos}"\nUna persona que siente esto.\n¿En qué estado está?',
+    door_a_question_template:'"{neg}"\n\nUna persona que está sintiendo esto.\n\n¿En qué estado está?',
+    door_b_question_template:'"{pos}"\n\nUna persona que no está sintiendo esto.\n\n¿En qué estado está?',
+    door_c_question_template:'"{pos}"\n\nUna persona que está sintiendo esto.\n\n¿En qué estado está?',
     no_answer_button:'No aparece ninguna respuesta',
     congrats_title:'Congratulations',
     congrats_body:'En este tema,\nno aparece ninguna reacción ahora.\n\nEso puede ser una señal\nde que este tema está tranquilo\nen este momento.\n\nSi lo necesitas,\nelige otro tema.',
@@ -1294,13 +1301,15 @@ var copy = {
     shift_note_button:'Ver resultado',
     shift_note_skip:'Saltar',
     result_shift_note_label:'Sensación actual',
-    door_a_template:'Alguien que siente "{neg}"',
-    door_b_template:'Alguien que no siente "{pos}"',
-    door_c_template:'Alguien que siente "{pos}"',
+    door_a_template:'Alguien que está sintiendo "{neg}"',
+    door_b_template:'Alguien que no está sintiendo "{pos}"',
+    door_c_template:'Alguien que está sintiendo "{pos}"',
     step1_question:'¿En qué estado está esa persona?',
     step2_question:'Cuando esa reacción no existe, ¿qué estado ideal queda?',
     step1_placeholder:'Escribe la reacción…',
-    step2_placeholder:'Escribe el estado ideal…'
+    step2_placeholder:'Escribe el estado ideal…',
+    nega_ideal_title:'Para alguien sin esto,\n¿cuál sería el estado ideal?',
+    nega_ideal_placeholder:'Escribe el estado ideal…'
   },
   de: {
     back_button:'Zurück',
@@ -1314,9 +1323,9 @@ var copy = {
     door_title:'Wähle die Frage,\ndie sich am leichtesten beantworten lässt.',
     door_answer_placeholder:'Zustand eingeben…',
     door_next_button:'Mit dieser Antwort fortfahren',
-    door_a_question_template:'„{neg}"\nEine Person, die das fühlt.\nIn welchem Zustand ist sie?',
-    door_b_question_template:'„{pos}"\nEine Person, die das nicht fühlt.\nIn welchem Zustand ist sie?',
-    door_c_question_template:'„{pos}"\nEine Person, die das fühlt.\nIn welchem Zustand ist sie?',
+    door_a_question_template:'„{neg}"\n\nEine Person, die das gerade fühlt.\n\nIn welchem Zustand ist sie?',
+    door_b_question_template:'„{pos}"\n\nEine Person, die das gerade nicht fühlt.\n\nIn welchem Zustand ist sie?',
+    door_c_question_template:'„{pos}"\n\nEine Person, die das gerade fühlt.\n\nIn welchem Zustand ist sie?',
     no_answer_button:'Es kommt keine Antwort',
     congrats_title:'Congratulations',
     congrats_body:'Zu diesem Thema\nkommt gerade keine Reaktion hoch.\n\nDas kann ein Zeichen sein,\ndass dieses Thema\nin diesem Moment ruhig ist.\n\nWenn nötig,\nwähle ein anderes Thema.',
@@ -1398,13 +1407,15 @@ var copy = {
     shift_note_button:'Ergebnis ansehen',
     shift_note_skip:'Überspringen',
     result_shift_note_label:'Aktuelles Gefühl',
-    door_a_template:'Jemand, der „{neg}" fühlt',
-    door_b_template:'Jemand, der „{pos}" nicht fühlt',
-    door_c_template:'Jemand, der „{pos}" fühlt',
+    door_a_template:'Jemand, der „{neg}" gerade fühlt',
+    door_b_template:'Jemand, der „{pos}" gerade nicht fühlt',
+    door_c_template:'Jemand, der „{pos}" gerade fühlt',
     step1_question:'In welchem Zustand ist diese Person?',
     step2_question:'Wenn diese Reaktion nicht vorhanden ist, welcher ideale Zustand bleibt?',
     step1_placeholder:'Reaktion eingeben…',
-    step2_placeholder:'Idealzustand eingeben…'
+    step2_placeholder:'Idealzustand eingeben…',
+    nega_ideal_title:'Für jemanden ohne das,\nwie wäre der ideale Zustand?',
+    nega_ideal_placeholder:'Idealen Zustand eingeben…'
   },
   'pt-BR': {
     back_button:'Voltar',
@@ -1418,9 +1429,9 @@ var copy = {
     door_title:'Escolha a pergunta\nque parece mais fácil de responder.',
     door_answer_placeholder:'Digite o estado…',
     door_next_button:'Continuar com esta resposta',
-    door_a_question_template:'"{neg}"\nUma pessoa que sente isso.\nEm que estado está?',
-    door_b_question_template:'"{pos}"\nUma pessoa que não sente isso.\nEm que estado está?',
-    door_c_question_template:'"{pos}"\nUma pessoa que sente isso.\nEm que estado está?',
+    door_a_question_template:'"{neg}"\n\nUma pessoa que está sentindo isso.\n\nEm que estado está?',
+    door_b_question_template:'"{pos}"\n\nUma pessoa que não está sentindo isso.\n\nEm que estado está?',
+    door_c_question_template:'"{pos}"\n\nUma pessoa que está sentindo isso.\n\nEm que estado está?',
     no_answer_button:'Nenhuma resposta aparece',
     congrats_title:'Congratulations',
     congrats_body:'Neste tema,\nnenhuma reação está surgindo agora.\n\nIsso pode ser um sinal\nde que este tema está quieto\nneste momento.\n\nSe precisar,\nescolha outro tema.',
@@ -1502,13 +1513,15 @@ var copy = {
     shift_note_button:'Ver resultado',
     shift_note_skip:'Pular',
     result_shift_note_label:'Sensação atual',
-    door_a_template:'Alguém que sente "{neg}"',
-    door_b_template:'Alguém que não sente "{pos}"',
-    door_c_template:'Alguém que sente "{pos}"',
+    door_a_template:'Alguém que está sentindo "{neg}"',
+    door_b_template:'Alguém que não está sentindo "{pos}"',
+    door_c_template:'Alguém que está sentindo "{pos}"',
     step1_question:'Em que estado essa pessoa está?',
     step2_question:'Quando essa reação não existe, que estado ideal resta?',
     step1_placeholder:'Digite a reação…',
-    step2_placeholder:'Digite o estado ideal…'
+    step2_placeholder:'Digite o estado ideal…',
+    nega_ideal_title:'Para alguém sem isso,\nqual seria o estado ideal?',
+    nega_ideal_placeholder:'Digite o estado ideal…'
   },
   fr: {
     back_button:'Retour',
@@ -1523,9 +1536,9 @@ var copy = {
     door_title:'Choisis la question\nqui semble la plus facile à répondre.',
     door_answer_placeholder:'Écris l’état…',
     door_next_button:'Continuer avec cette réponse',
-    door_a_question_template:'« {neg} »\nUne personne qui ressent cela.\nDans quel état est-elle ?',
-    door_b_question_template:'« {pos} »\nUne personne qui ne ressent pas cela.\nDans quel état est-elle ?',
-    door_c_question_template:'« {pos} »\nUne personne qui ressent cela.\nDans quel état est-elle ?',
+    door_a_question_template:'« {neg} »\n\nUne personne qui ressent cela maintenant.\n\nDans quel état est-elle ?',
+    door_b_question_template:'« {pos} »\n\nUne personne qui ne ressent pas cela maintenant.\n\nDans quel état est-elle ?',
+    door_c_question_template:'« {pos} »\n\nUne personne qui ressent cela maintenant.\n\nDans quel état est-elle ?',
     no_answer_button:'Aucune réponse ne vient',
     congrats_title:'Congratulations',
     congrats_body:'Pour ce thème,\naucune réaction ne monte maintenant.\n\nCela peut être un signe\nque ce thème est calme\nen ce moment.\n\nSi nécessaire,\nchoisis un autre thème.',
@@ -1606,13 +1619,16 @@ var copy = {
     back_to_start:'Revenir au début',
     change_language:'Changer de langue',
     result_pricing_note:'Continuer Noetune →',
-    door_a_template:'Quelqu’un qui ressent « {neg} »',
-    door_b_template:'Quelqu’un qui ne ressent pas « {pos} »',
-    door_c_template:'Quelqu’un qui ressent « {pos} »',
+    door_a_template:'Quelqu’un qui ressent « {neg} » maintenant',
+    door_b_template:'Quelqu’un qui ne ressent pas « {pos} » maintenant',
+    door_c_template:'Quelqu’un qui ressent « {pos} » maintenant',
     step1_question:'Dans quel état est cette personne ?',
     step2_question:'Quand cette réaction n’existe pas, quel état idéal reste-t-il ?',
     step1_placeholder:'Écris la réaction…',
-    step2_placeholder:'Écris l’état idéal…'
+    step2_placeholder:'Écris l’état idéal…',
+    nega_ideal_title:'Pour quelqu’un sans cela,
+quel serait l’état idéal ?',
+    nega_ideal_placeholder:'Écris l’état idéal…'
   }
 };
 
@@ -3565,8 +3581,10 @@ function showNegaIdeal() {
   var quote = selectedNegaTheme || negaFreeText.trim();
   var qEl = document.getElementById('nega-ideal-quote');
   if (qEl) qEl.textContent = quote ? '「' + quote + '」' : '';
+  var titleEl = document.getElementById('nega-ideal-title');
+  if (titleEl) titleEl.textContent = T('nega_ideal_title');
   var inp = document.getElementById('in-nega-ideal');
-  if (inp) inp.value = '';
+  if (inp) { inp.value = ''; inp.placeholder = T('nega_ideal_placeholder'); }
   var btn = document.getElementById('btn-nega-ideal-next');
   if (btn) btn.disabled = true;
   fwd('s-nega-ideal');
