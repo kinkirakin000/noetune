@@ -157,6 +157,16 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #nega-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
+#auth-modal{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(26,26,26,.52);z-index:9000;display:none;align-items:center;justify-content:center}
+#auth-modal.open{display:flex}
+.auth-box{background:#FAFAF7;border-radius:16px;padding:2rem 1.6rem 1.6rem;width:min(300px,88vw);text-align:center;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.14)}
+.auth-box-title{font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:500;letter-spacing:.1em;color:#1A1A1A;margin-bottom:1.4rem}
+.auth-box-input{width:100%;padding:12px 14px;border:1px solid #D8D8D4;border-radius:10px;font-size:.84rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em;background:#fff;color:#1A1A1A;outline:none;box-sizing:border-box;margin-bottom:.9rem;-webkit-appearance:none}
+.auth-box-input:focus{border-color:#6B9080}
+.auth-box-btn{width:100%;padding:13px;background:#1A1A1A;color:#fff;border:none;border-radius:10px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.1em;cursor:pointer;transition:opacity .2s}
+.auth-box-btn:disabled{opacity:.35;cursor:default}
+.auth-box-msg{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#6B9080;letter-spacing:.05em;line-height:1.9;margin-top:1rem;white-space:pre-line;min-height:1.2em}
+.auth-box-close{position:absolute;top:.7rem;right:.9rem;background:none;border:none;color:#C0C0BA;font-size:1rem;cursor:pointer;line-height:1;padding:4px 6px}
 #s-entry-inner{width:100%;max-width:300px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
 .entry-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.1em;color:#A8A8A2;text-align:center;margin-bottom:2rem}
 .entry-choice{display:flex;flex-direction:column;align-items:stretch;margin-bottom:1.2rem}
@@ -521,7 +531,7 @@ it helps you quietly return to yourself.</p>
 <!-- ── BREATH 2: Spaciousness ── -->
 <div class="screen" id="s-br2">
   <div class="breath-sub" id="lbl-feel-br2">感じてください。</div>
-  <div class="breath-main" id="lbl-br2-main">その時の表情と呼吸の余裕</div>
+  <div class="breath-main" id="lbl-br2-main">その時の表情・呼吸・身体の余裕</div>
   <div id="hint-br2" class="breath-hint">呼吸を始める</div>
   <div class="breath-circle pulse" id="circle-br2" onclick="startBreath('br2')"></div>
 </div>
@@ -634,6 +644,7 @@ it helps you quietly return to yourself.</p>
       <div class="pricing-note" id="t-pricing-note"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="btn-pricing-return" id="btn-portal" onclick="openCustomerPortal()" style="display:none;margin-top:.8rem"></button>
+      <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
     </div>
     <div class="pricing-return-wrap">
       <button class="btn-pricing-return" onclick="repeatSameTheme()">同じテーマでもう一度</button>
@@ -651,6 +662,7 @@ it helps you quietly return to yourself.</p>
     <div class="about-para"  id="t-lock-body"></div>
     <button class="btn pricing-cta" id="btn-lock-cta" onclick="pricingCtaClick()"></button>
     <div class="pricing-note" id="t-lock-note"></div>
+    <button class="btn-pricing-return" id="btn-login-lock" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
   </div>
 </div>
 
@@ -732,7 +744,7 @@ it helps you quietly return to yourself.</p>
 <!-- ── NEGA IDEAL ── -->
 <div class="screen" id="s-nega-ideal">
   <div class="breath-sub" id="nega-ideal-quote"></div>
-  <div class="screen-title" style="margin-bottom:1.5rem">その反応が存在しないとき、<br>どんな理想状態が残る？</div>
+  <div class="screen-title" style="margin-bottom:1.5rem">その反応が存在しないとき、<br>どんな感情・状態・感覚が残る？</div>
   <input type="text" class="text-input" id="in-nega-ideal"
     placeholder="残る状態を入力…" autocomplete="off" maxlength="40"
     oninput="onNegaIdealInput(this.value)">
@@ -812,7 +824,8 @@ function initSupabase() {
           supabaseClient.auth.onAuthStateChange(function(event, session) {
             currentUser    = session ? session.user : null;
             currentProfile = null;
-            if (currentUser) fetchProfile();
+            if (currentUser) { fetchProfile(); if (event === 'SIGNED_IN') closeAuthModal(); }
+            updateLoginButton();
           });
           supabaseClient.auth.getSession()
             .then(function(result) {
@@ -820,6 +833,7 @@ function initSupabase() {
                 currentUser = result.data.session.user;
                 fetchProfile();
               }
+              updateLoginButton();
             })
             .catch(function() {});
         } catch(e) {}
@@ -877,11 +891,11 @@ var copy = {
     app_sub:'— 次の瞬間を調律する —',
     see_more_themes:'さらに見る',
     door_title:'答えやすい問いを選んでください。',
-    door_answer_placeholder:'反応を入力…',
+    door_answer_placeholder:'状態を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'『「{pos}」がない』\nが当たり前である人\nその人はどんな反応ですか。',
-    door_b_question_template:'「{pos}」\nが当たり前でない人\nその人はどんな反応ですか。',
-    door_c_question_template:'「{pos}」\nが当たり前である人\nその人はどんな反応ですか。',
+    door_a_question_template:'「{neg}」\nを感じる人は\nどんな状態ですか。',
+    door_b_question_template:'「{pos}」\nを感じない人は\nどんな状態ですか。',
+    door_c_question_template:'「{pos}」\nを感じる人は\nどんな状態ですか。',
     breath_mode_title:'呼吸の進め方を選んでください。',
     breath_mode_soft_label:'やさしく整える\n（内観初心者）',
     breath_mode_soft_desc:'今ある感覚を否定せず、\nやさしく含めながら整えます。',
@@ -932,7 +946,7 @@ var copy = {
     ideal_top_copy:'次の瞬間、\n感じてみたい体験を書く\nまたは\n下の理想体験から始めるのがおすすめです。',
     see_more_ideals:'さらに理想体験を見る',
     ideal_cta_button:'次へ',
-    breath_2_text:'その時の表情と呼吸の余裕',
+    breath_2_text:'その時の表情・呼吸・身体の余裕',
     breath_3_text:'その感覚を愛する。',
     breath_4_text:'その感覚を含めたあらゆるすべて。',
     breath_3_soft_text:'その感覚を愛する。',
@@ -940,16 +954,16 @@ var copy = {
     breath_3_deep_text:'その感覚に対する抵抗',
     breath_4_deep_text:'その抵抗以外の全て',
     breath_5_deep_text:'その抵抗が存在しない状態。',
-    ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな理想状態が残る？',
-    before2_title:'「{ideal}」\n\nそのとき、\n表情と呼吸には\nどれくらい余裕がありますか？',
-    after2_title:'「{ideal}」\n\nそのとき、\n表情と呼吸には\nどれくらい余裕がありますか？',
+    ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな感情・状態・感覚が残る？',
+    before2_title:'「{ideal}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
+    after2_title:'「{ideal}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
     breath_1_text:'「{ideal}」',
     ideal_blocker_title:'「{ideal}」を邪魔する状態は？',
     ideal_blocker_placeholder:'邪魔する状態を入力…',
     ideal_before1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
-    ideal_before2_title:'「{issue}」\n\nそのとき、\n表情と呼吸には\nどれくらい余裕がありますか？',
+    ideal_before2_title:'「{issue}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
     ideal_after1_title:'「{ideal}」\n\n次の瞬間、\nそうである確率は？',
-    ideal_after2_title:'「{issue}」\n\nそのとき、\n表情と呼吸には\nどれくらい余裕がありますか？',
+    ideal_after2_title:'「{issue}」\n\nそのとき、\n表情・呼吸・身体には\nどれくらい余裕がありますか？',
     ideal_breath_1_text:'「{issue}」',
     save_image_button:'画像として保存',
     save_image_creating:'画像を作成中…',
@@ -966,11 +980,11 @@ var copy = {
     congrats_choose_new_theme:'別のテーマを選ぶ',
     congrats_back_to_start:'スタート画面に戻る',
     result_shift_note_label:'今の感覚',
-    door_a_template:'「{neg}」が当たり前である人',
-    door_b_template:'「{pos}」が当たり前でない人',
-    door_c_template:'「{pos}」が当たり前である人',
-    step1_question:'その人はどんな反応ですか。',
-    step2_question:'その反応が存在しないとき、どんな理想状態が残る？',
+    door_a_template:'「{neg}」を感じる人',
+    door_b_template:'「{pos}」を感じない人',
+    door_c_template:'「{pos}」を感じる人',
+    step1_question:'どんな状態ですか。',
+    step2_question:'その反応が存在しないとき、どんな感情・状態・感覚が残る？',
     step1_placeholder:'反応を入力…',
     step2_placeholder:'残る状態を入力…',
     step1_skip_default:'静かに反応している',
@@ -986,11 +1000,11 @@ var copy = {
     app_sub:'— tune your next moment —',
     see_more_themes:'Show more',
     door_title:'Choose the question\nthat feels easiest to answer.',
-    door_answer_placeholder:'Enter the reaction…',
+    door_answer_placeholder:'Enter a state…',
     door_next_button:'Continue with this answer',
-    door_a_question_template:'A person for whom\n"{neg}"\nfeels normal.\nHow does that person react?',
-    door_b_question_template:'A person for whom\n"{pos}"\ndoes not feel normal.\nHow does that person react?',
-    door_c_question_template:'A person for whom\n"{pos}"\nfeels normal.\nHow does that person react?',
+    door_a_question_template:'"{neg}"\nA person who feels this.\nWhat state are they in?',
+    door_b_question_template:'"{pos}"\nA person who doesn\'t feel this.\nWhat state are they in?',
+    door_c_question_template:'"{pos}"\nA person who feels this.\nWhat state are they in?',
     no_answer_button:'No answer comes',
     congrats_title:'Congratulations',
     congrats_body:'No reaction is coming up\nfor this theme right now.\n\nThat may be a sign\nthat this theme is quiet\nin this moment.\n\nIf needed,\nchoose another theme.',
@@ -1068,10 +1082,10 @@ var copy = {
     shift_note_button:'See result',
     shift_note_skip:'Skip',
     result_shift_note_label:'Current Feeling',
-    door_a_template:'Someone for whom "{neg}" feels normal',
-    door_b_template:'Someone for whom "{pos}" does not feel normal',
-    door_c_template:'Someone for whom "{pos}" feels normal',
-    step1_question:'What reaction does that person have?',
+    door_a_template:'Someone who feels "{neg}"',
+    door_b_template:'Someone who doesn\'t feel "{pos}"',
+    door_c_template:'Someone who feels "{pos}"',
+    step1_question:'What state are they in?',
     step2_question:'When that reaction is absent, what ideal state remains?',
     step1_placeholder:'Type the reaction…',
     step2_placeholder:'What state remains…',
@@ -1094,11 +1108,11 @@ var copy = {
     app_sub:'— 調頻下一個瞬間 —',
     see_more_themes:'查看更多',
     door_title:'請選一個\n比較容易回答的問題。',
-    door_answer_placeholder:'輸入反應…',
+    door_answer_placeholder:'輸入狀態…',
     door_next_button:'用這個答案繼續',
-    door_a_question_template:'一個覺得\n「{neg}」\n很正常的人\n會有什麼反應？',
-    door_b_question_template:'一個覺得\n「{pos}」\n不正常的人\n會有什麼反應？',
-    door_c_question_template:'一個覺得\n「{pos}」\n很正常的人\n會有什麼反應？',
+    door_a_question_template:'「{neg}」\n感受到這種感覺的人\n是什麼狀態？',
+    door_b_question_template:'「{pos}」\n感受不到這種感覺的人\n是什麼狀態？',
+    door_c_question_template:'「{pos}」\n感受到這種感覺的人\n是什麼狀態？',
     no_answer_button:'沒有答案出現',
     congrats_title:'Congratulations',
     congrats_body:'在這個主題裡，\n現在沒有反應浮現。\n\n這也許代表，\n此刻這個主題\n已經安靜下來了。\n\n如果需要，\n可以選擇別的主題。',
@@ -1176,10 +1190,10 @@ var copy = {
     shift_note_button:'查看結果',
     shift_note_skip:'跳過',
     result_shift_note_label:'現在的感覺',
-    door_a_template:'「{neg}」是理所當然的人',
-    door_b_template:'「{pos}」不是理所當然的人',
-    door_c_template:'「{pos}」是理所當然的人',
-    step1_question:'那個人有什麼樣的反應？',
+    door_a_template:'感受到「{neg}」的人',
+    door_b_template:'感受不到「{pos}」的人',
+    door_c_template:'感受到「{pos}」的人',
+    step1_question:'那個人是什麼狀態？',
     step2_question:'當那個反應不存在時，剩下什麼樣的理想狀態？',
     step1_placeholder:'輸入反應…',
     step2_placeholder:'輸入理想狀態…'
@@ -1194,11 +1208,11 @@ var copy = {
     app_sub:'— sintoniza el próximo momento —',
     see_more_themes:'Ver más',
     door_title:'Elige la pregunta\nque se sienta más fácil de responder.',
-    door_answer_placeholder:'Escribe la reacción…',
+    door_answer_placeholder:'Escribe el estado…',
     door_next_button:'Continuar con esta respuesta',
-    door_a_question_template:'Una persona para quien\n"{neg}"\nse siente normal.\n¿Cómo reacciona esa persona?',
-    door_b_question_template:'Una persona para quien\n"{pos}"\nno se siente normal.\n¿Cómo reacciona esa persona?',
-    door_c_question_template:'Una persona para quien\n"{pos}"\nse siente normal.\n¿Cómo reacciona esa persona?',
+    door_a_question_template:'"{neg}"\nUna persona que siente esto.\n¿En qué estado está?',
+    door_b_question_template:'"{pos}"\nUna persona que no siente esto.\n¿En qué estado está?',
+    door_c_question_template:'"{pos}"\nUna persona que siente esto.\n¿En qué estado está?',
     no_answer_button:'No aparece ninguna respuesta',
     congrats_title:'Congratulations',
     congrats_body:'En este tema,\nno aparece ninguna reacción ahora.\n\nEso puede ser una señal\nde que este tema está tranquilo\nen este momento.\n\nSi lo necesitas,\nelige otro tema.',
@@ -1280,10 +1294,10 @@ var copy = {
     shift_note_button:'Ver resultado',
     shift_note_skip:'Saltar',
     result_shift_note_label:'Sensación actual',
-    door_a_template:'Alguien para quien "{neg}" es lo normal',
-    door_b_template:'Alguien para quien "{pos}" no es lo normal',
-    door_c_template:'Alguien para quien "{pos}" es lo normal',
-    step1_question:'¿Qué reacción tiene esa persona?',
+    door_a_template:'Alguien que siente "{neg}"',
+    door_b_template:'Alguien que no siente "{pos}"',
+    door_c_template:'Alguien que siente "{pos}"',
+    step1_question:'¿En qué estado está esa persona?',
     step2_question:'Cuando esa reacción no existe, ¿qué estado ideal queda?',
     step1_placeholder:'Escribe la reacción…',
     step2_placeholder:'Escribe el estado ideal…'
@@ -1298,11 +1312,11 @@ var copy = {
     app_sub:'— stimme den nächsten Moment ein —',
     see_more_themes:'Mehr anzeigen',
     door_title:'Wähle die Frage,\ndie sich am leichtesten beantworten lässt.',
-    door_answer_placeholder:'Reaktion eingeben…',
+    door_answer_placeholder:'Zustand eingeben…',
     door_next_button:'Mit dieser Antwort fortfahren',
-    door_a_question_template:'Eine Person, für die\n„{neg}"\nnormal ist.\nWie reagiert diese Person?',
-    door_b_question_template:'Eine Person, für die\n„{pos}"\nnicht normal ist.\nWie reagiert diese Person?',
-    door_c_question_template:'Eine Person, für die\n„{pos}"\nnormal ist.\nWie reagiert diese Person?',
+    door_a_question_template:'„{neg}"\nEine Person, die das fühlt.\nIn welchem Zustand ist sie?',
+    door_b_question_template:'„{pos}"\nEine Person, die das nicht fühlt.\nIn welchem Zustand ist sie?',
+    door_c_question_template:'„{pos}"\nEine Person, die das fühlt.\nIn welchem Zustand ist sie?',
     no_answer_button:'Es kommt keine Antwort',
     congrats_title:'Congratulations',
     congrats_body:'Zu diesem Thema\nkommt gerade keine Reaktion hoch.\n\nDas kann ein Zeichen sein,\ndass dieses Thema\nin diesem Moment ruhig ist.\n\nWenn nötig,\nwähle ein anderes Thema.',
@@ -1384,10 +1398,10 @@ var copy = {
     shift_note_button:'Ergebnis ansehen',
     shift_note_skip:'Überspringen',
     result_shift_note_label:'Aktuelles Gefühl',
-    door_a_template:'Jemand, für den „{neg}" normal ist',
-    door_b_template:'Jemand, für den „{pos}" nicht normal ist',
-    door_c_template:'Jemand, für den „{pos}" normal ist',
-    step1_question:'Wie reagiert diese Person?',
+    door_a_template:'Jemand, der „{neg}" fühlt',
+    door_b_template:'Jemand, der „{pos}" nicht fühlt',
+    door_c_template:'Jemand, der „{pos}" fühlt',
+    step1_question:'In welchem Zustand ist diese Person?',
     step2_question:'Wenn diese Reaktion nicht vorhanden ist, welcher ideale Zustand bleibt?',
     step1_placeholder:'Reaktion eingeben…',
     step2_placeholder:'Idealzustand eingeben…'
@@ -1402,11 +1416,11 @@ var copy = {
     app_sub:'— sintonize o próximo momento —',
     see_more_themes:'Ver mais',
     door_title:'Escolha a pergunta\nque parece mais fácil de responder.',
-    door_answer_placeholder:'Digite a reação…',
+    door_answer_placeholder:'Digite o estado…',
     door_next_button:'Continuar com esta resposta',
-    door_a_question_template:'Uma pessoa para quem\n"{neg}"\nparece normal.\nComo essa pessoa reage?',
-    door_b_question_template:'Uma pessoa para quem\n"{pos}"\nnão parece normal.\nComo essa pessoa reage?',
-    door_c_question_template:'Uma pessoa para quem\n"{pos}"\nparece normal.\nComo essa pessoa reage?',
+    door_a_question_template:'"{neg}"\nUma pessoa que sente isso.\nEm que estado está?',
+    door_b_question_template:'"{pos}"\nUma pessoa que não sente isso.\nEm que estado está?',
+    door_c_question_template:'"{pos}"\nUma pessoa que sente isso.\nEm que estado está?',
     no_answer_button:'Nenhuma resposta aparece',
     congrats_title:'Congratulations',
     congrats_body:'Neste tema,\nnenhuma reação está surgindo agora.\n\nIsso pode ser um sinal\nde que este tema está quieto\nneste momento.\n\nSe precisar,\nescolha outro tema.',
@@ -1488,10 +1502,10 @@ var copy = {
     shift_note_button:'Ver resultado',
     shift_note_skip:'Pular',
     result_shift_note_label:'Sensação atual',
-    door_a_template:'Alguém para quem "{neg}" é normal',
-    door_b_template:'Alguém para quem "{pos}" não é normal',
-    door_c_template:'Alguém para quem "{pos}" é normal',
-    step1_question:'Que reação essa pessoa tem?',
+    door_a_template:'Alguém que sente "{neg}"',
+    door_b_template:'Alguém que não sente "{pos}"',
+    door_c_template:'Alguém que sente "{pos}"',
+    step1_question:'Em que estado essa pessoa está?',
     step2_question:'Quando essa reação não existe, que estado ideal resta?',
     step1_placeholder:'Digite a reação…',
     step2_placeholder:'Digite o estado ideal…'
@@ -1507,11 +1521,11 @@ var copy = {
     theme_cta_button:'Commencer avec ce thème',
     see_more_themes:'Voir plus',
     door_title:'Choisis la question\nqui semble la plus facile à répondre.',
-    door_answer_placeholder:'Écris la réaction…',
+    door_answer_placeholder:'Écris l’état…',
     door_next_button:'Continuer avec cette réponse',
-    door_a_question_template:'Une personne pour qui\n« {neg} »\nsemble normal.\nComment cette personne réagit-elle ?',
-    door_b_question_template:'Une personne pour qui\n« {pos} »\nne semble pas normal.\nComment cette personne réagit-elle ?',
-    door_c_question_template:'Une personne pour qui\n« {pos} »\nsemble normal.\nComment cette personne réagit-elle ?',
+    door_a_question_template:'« {neg} »\nUne personne qui ressent cela.\nDans quel état est-elle ?',
+    door_b_question_template:'« {pos} »\nUne personne qui ne ressent pas cela.\nDans quel état est-elle ?',
+    door_c_question_template:'« {pos} »\nUne personne qui ressent cela.\nDans quel état est-elle ?',
     no_answer_button:'Aucune réponse ne vient',
     congrats_title:'Congratulations',
     congrats_body:'Pour ce thème,\naucune réaction ne monte maintenant.\n\nCela peut être un signe\nque ce thème est calme\nen ce moment.\n\nSi nécessaire,\nchoisis un autre thème.',
@@ -1592,10 +1606,10 @@ var copy = {
     back_to_start:'Revenir au début',
     change_language:'Changer de langue',
     result_pricing_note:'Continuer Noetune →',
-    door_a_template:'Quelqu’un pour qui « {neg} » est normal',
-    door_b_template:'Quelqu’un pour qui « {pos} » n’est pas normal',
-    door_c_template:'Quelqu’un pour qui « {pos} » est normal',
-    step1_question:'Quelle est la réaction de cette personne ?',
+    door_a_template:'Quelqu’un qui ressent « {neg} »',
+    door_b_template:'Quelqu’un qui ne ressent pas « {pos} »',
+    door_c_template:'Quelqu’un qui ressent « {pos} »',
+    step1_question:'Dans quel état est cette personne ?',
     step2_question:'Quand cette réaction n’existe pas, quel état idéal reste-t-il ?',
     step1_placeholder:'Écris la réaction…',
     step2_placeholder:'Écris l’état idéal…'
@@ -3591,6 +3605,74 @@ function skipNegaIdeal() {
   fwd('s-before2');
 }
 
+/* ── Auth modal ──────────────────────────────────────────────────────────── */
+
+function openAuthModal() {
+  var modal = document.getElementById('auth-modal');
+  var inp   = document.getElementById('auth-email-input');
+  var msg   = document.getElementById('auth-modal-msg');
+  var btn   = document.getElementById('auth-submit-btn');
+  var title = document.getElementById('auth-modal-title');
+  if (!modal) return;
+  if (msg)   msg.textContent = '';
+  if (inp)   { inp.value = ''; inp.disabled = false; }
+  if (title) title.textContent = lang === 'ja' ? 'ログイン'  : 'Log in';
+  if (btn)   { btn.disabled = false; btn.textContent = lang === 'ja' ? 'リンクを送る' : 'Send link'; }
+  if (inp)   { inp.placeholder = lang === 'ja' ? 'メールアドレス' : 'Email address'; }
+  modal.classList.add('open');
+  setTimeout(function() { if (inp) inp.focus(); }, 80);
+}
+
+function closeAuthModal() {
+  var modal = document.getElementById('auth-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function submitAuthEmail() {
+  if (!supabaseClient) return;
+  var inp   = document.getElementById('auth-email-input');
+  var msg   = document.getElementById('auth-modal-msg');
+  var btn   = document.getElementById('auth-submit-btn');
+  var email = inp ? inp.value.trim() : '';
+  var isJa  = lang === 'ja';
+  if (!email || !email.includes('@')) {
+    if (msg) msg.textContent = isJa ? 'メールアドレスを入力してください。' : 'Please enter a valid email.';
+    return;
+  }
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  if (msg) msg.textContent = '';
+  supabaseClient.auth.signInWithOtp({
+    email: email,
+    options: { emailRedirectTo: window.location.origin + window.location.pathname }
+  })
+  .then(function(result) {
+    if (result.error) {
+      if (msg) msg.textContent = isJa ? '送信できませんでした。もう一度お試しください。' : 'Could not send. Please try again.';
+      if (btn) { btn.disabled = false; btn.textContent = isJa ? 'リンクを送る' : 'Send link'; }
+    } else {
+      if (msg) msg.textContent = isJa ? 'ログインリンクをメールで送りました。\nメールを確認してください。' : 'Check your email for the login link.';
+      if (inp) inp.disabled = true;
+      if (btn) { btn.disabled = true; btn.textContent = isJa ? '送信済み' : 'Sent'; }
+    }
+  })
+  .catch(function() {
+    if (msg) msg.textContent = isJa ? '送信できませんでした。' : 'Could not send.';
+    if (btn) { btn.disabled = false; btn.textContent = isJa ? 'リンクを送る' : 'Send link'; }
+  });
+}
+
+function updateLoginButton() {
+  // Show login button only when Supabase is configured and user is not signed in.
+  var show = !!(supabaseClient && !currentUser);
+  var label = lang === 'ja' ? 'ログインする' : 'Log in';
+  ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.style.display = show ? '' : 'none';
+    btn.textContent = label;
+  });
+}
+
 function pricingCtaClick() {
   var isLock = cur === 's-lock';
   var activeBtn = document.getElementById(isLock ? 'btn-lock-cta' : 'btn-pricing-cta');
@@ -3924,6 +4006,11 @@ function enterV9Step2(reaction) {
 
 function startSession() {
   if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
+  if (D.themeKey && D.themeKey.indexOf('pro_') === 0 && !isUnlimited()) {
+    trackEvent('pro_theme_paywall', { themeKey: D.themeKey, lang: lang });
+    fwd('s-pricing');
+    return;
+  }
   trackEvent('v9_start');
   if (!D.themeKey) trackEvent('custom_theme_entered', { source: 'custom', lang: lang });
   showDoorScreen();
@@ -4453,5 +4540,18 @@ updateProgress();
 initSupabase();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
+
+<!-- ── AUTH MODAL ── -->
+<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-box">
+    <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
+    <div class="auth-box-title" id="auth-modal-title">ログイン</div>
+    <input class="auth-box-input" type="email" id="auth-email-input"
+      placeholder="メールアドレス" autocomplete="email" inputmode="email"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
+    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()">リンクを送る</button>
+    <div class="auth-box-msg" id="auth-modal-msg"></div>
+  </div>
+</div>
 </body>
 </html>
