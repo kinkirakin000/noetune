@@ -744,9 +744,10 @@ it helps you quietly return to yourself.</p>
 <!-- ── NEGA IDEAL ── -->
 <div class="screen" id="s-nega-ideal">
   <div class="breath-sub" id="nega-ideal-quote"></div>
-  <div class="screen-title" style="margin-bottom:1.5rem">その反応が存在しないとき、<br>どんな感情・状態・感覚が残る？</div>
+  <div class="screen-title" id="nega-ideal-title" style="margin-bottom:1.5rem">が存在しない人は、
+どんな理想状態？</div>
   <input type="text" class="text-input" id="in-nega-ideal"
-    placeholder="残る状態を入力…" autocomplete="off" maxlength="40"
+    placeholder="理想状態を入力…" autocomplete="off" maxlength="40"
     oninput="onNegaIdealInput(this.value)">
   <button class="btn" id="btn-nega-ideal-next" onclick="submitNegaIdeal()" disabled>次へ</button>
   <button class="btn-ghost" onclick="skipNegaIdeal()">スキップ</button>
@@ -987,6 +988,8 @@ var copy = {
     step2_question:'その反応が存在しないとき、どんな感情・状態・感覚が残る？',
     step1_placeholder:'反応を入力…',
     step2_placeholder:'残る状態を入力…',
+    nega_ideal_title:'が存在しない人は、\nどんな理想状態？',
+    nega_ideal_placeholder:'理想状態を入力…',
     step1_skip_default:'静かに反応している',
     step2_skip_default:'静かに戻っている'
   },
@@ -1089,6 +1092,8 @@ var copy = {
     step2_question:'When that reaction is absent, what ideal state remains?',
     step1_placeholder:'Type the reaction…',
     step2_placeholder:'What state remains…',
+    nega_ideal_title:'For someone without this,\nwhat would the ideal state be?',
+    nega_ideal_placeholder:'Enter the ideal state…',
     step1_skip_default:'quietly reacting',
     step2_skip_default:'quietly returning',
     pricing_note:'Free for 5 sessions.\nAfter that, continue with Professional.',
@@ -1196,7 +1201,9 @@ var copy = {
     step1_question:'那個人是什麼狀態？',
     step2_question:'當那個反應不存在時，剩下什麼樣的理想狀態？',
     step1_placeholder:'輸入反應…',
-    step2_placeholder:'輸入理想狀態…'
+    step2_placeholder:'輸入理想狀態…',
+    nega_ideal_title:'沒有這個的人，\n會是什麼理想狀態？',
+    nega_ideal_placeholder:'輸入理想狀態…'
   },
   es: {
     back_button:'Volver',
@@ -1300,7 +1307,9 @@ var copy = {
     step1_question:'¿En qué estado está esa persona?',
     step2_question:'Cuando esa reacción no existe, ¿qué estado ideal queda?',
     step1_placeholder:'Escribe la reacción…',
-    step2_placeholder:'Escribe el estado ideal…'
+    step2_placeholder:'Escribe el estado ideal…',
+    nega_ideal_title:'Para alguien sin esto,\n¿cuál sería el estado ideal?',
+    nega_ideal_placeholder:'Escribe el estado ideal…'
   },
   de: {
     back_button:'Zurück',
@@ -1404,7 +1413,9 @@ var copy = {
     step1_question:'In welchem Zustand ist diese Person?',
     step2_question:'Wenn diese Reaktion nicht vorhanden ist, welcher ideale Zustand bleibt?',
     step1_placeholder:'Reaktion eingeben…',
-    step2_placeholder:'Idealzustand eingeben…'
+    step2_placeholder:'Idealzustand eingeben…',
+    nega_ideal_title:'Für jemanden ohne das,\nwie wäre der ideale Zustand?',
+    nega_ideal_placeholder:'Idealen Zustand eingeben…'
   },
   'pt-BR': {
     back_button:'Voltar',
@@ -1508,7 +1519,9 @@ var copy = {
     step1_question:'Em que estado essa pessoa está?',
     step2_question:'Quando essa reação não existe, que estado ideal resta?',
     step1_placeholder:'Digite a reação…',
-    step2_placeholder:'Digite o estado ideal…'
+    step2_placeholder:'Digite o estado ideal…',
+    nega_ideal_title:'Para alguém sem isso,\nqual seria o estado ideal?',
+    nega_ideal_placeholder:'Digite o estado ideal…'
   },
   fr: {
     back_button:'Retour',
@@ -1612,7 +1625,10 @@ var copy = {
     step1_question:'Dans quel état est cette personne ?',
     step2_question:'Quand cette réaction n’existe pas, quel état idéal reste-t-il ?',
     step1_placeholder:'Écris la réaction…',
-    step2_placeholder:'Écris l’état idéal…'
+    step2_placeholder:'Écris l’état idéal…',
+    nega_ideal_title:'Pour quelqu’un sans cela,
+quel serait l’état idéal ?',
+    nega_ideal_placeholder:'Écris l’état idéal…'
   }
 };
 
@@ -3565,8 +3581,10 @@ function showNegaIdeal() {
   var quote = selectedNegaTheme || negaFreeText.trim();
   var qEl = document.getElementById('nega-ideal-quote');
   if (qEl) qEl.textContent = quote ? '「' + quote + '」' : '';
+  var titleEl = document.getElementById('nega-ideal-title');
+  if (titleEl) titleEl.textContent = T('nega_ideal_title');
   var inp = document.getElementById('in-nega-ideal');
-  if (inp) inp.value = '';
+  if (inp) { inp.value = ''; inp.placeholder = T('nega_ideal_placeholder'); }
   var btn = document.getElementById('btn-nega-ideal-next');
   if (btn) btn.disabled = true;
   fwd('s-nega-ideal');
