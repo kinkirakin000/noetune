@@ -432,6 +432,17 @@ it helps you quietly return to yourself.</p>
 <!-- ── THEME ── -->
 <div class="screen" id="s-theme">
   <div id="s-theme-inner">
+    <!-- V12 Core panel (shown only when v12Mode === 'core') -->
+    <div id="v12-core-panel" style="display:none">
+      <div id="s-theme-top">
+        <div class="theme-screen-title">Coreからほどく</div>
+        <div class="theme-screen-sub">あらゆる反応に共通する、古い前提を静かにほどきます。</div>
+      </div>
+      <div id="v12-core-grid"></div>
+      <button class="btn-see-more" id="btn-see-more-core" onclick="seeMoreCoreThemes()" style="display:none">さらにCoreを見る</button>
+    </div>
+    <!-- Legacy panel (shown when v12Mode !== 'core') -->
+    <div id="v12-legacy-panel">
     <div id="s-theme-top">
       <div class="theme-screen-title">今、戻りたい状態を選んでください。</div>
       <div class="theme-screen-sub">今この瞬間に感じたい状態を、ひとつ選んでください。</div>
@@ -458,6 +469,7 @@ it helps you quietly return to yourself.</p>
         <div id="theme-groups-wrap"></div>
       </div>
     </div>
+    </div><!-- end v12-legacy-panel -->
   </div>
 </div>
 
@@ -3042,6 +3054,23 @@ var themeVisibleCount = 3;
 var themeChosen = false;
 var negaFreeText = '';
 var v12Mode = '';
+var v12Invalidates = '';
+var coreVisibleCount = 3;
+
+var V12_CORE_THEMES = [
+  { id:'core_01', label:'大丈夫でいられる',   desc:'反応が起きても、私は崩れなくていい。',               invalidates:'何かが起きたら、私は崩れてしまう。',         free:true },
+  { id:'core_02', label:'十分である',          desc:'今の自分を修正対象にしなくていい。',                 invalidates:'もっと良くならなければ、私は足りない。' },
+  { id:'core_03', label:'ここにいていい',      desc:'存在を証明しなくても、ここにいていい。',             invalidates:'何かを証明しなければ、ここにいてはいけない。' },
+  { id:'core_04', label:'自分を信頼する',      desc:'身体・感情・感覚を信じる。',                        invalidates:'自分の感覚は信用できない。' },
+  { id:'core_05', label:'受け取っていい',      desc:'愛・お金・助け・成功を受け取っていい。',            invalidates:'受け取ると、何か悪いことが起きる。' },
+  { id:'core_06', label:'回復できる',          desc:'崩れても、また戻れる。',                            invalidates:'一度崩れたら、戻れない。' },
+  { id:'core_07', label:'つながっている',      desc:'ひとりで抱えなくていい。',                          invalidates:'私はひとりで何とかしなければならない。' },
+  { id:'core_08', label:'休んでいい',          desc:'武装解除してもいい。',                              invalidates:'止まったら終わる。' },
+  { id:'core_09', label:'失敗しても大丈夫',    desc:'失敗は終わりではない。',                            invalidates:'失敗したら価値がなくなる。' },
+  { id:'core_10', label:'人生は敵ではない',    desc:'現実を脅威として見なくていい。',                    invalidates:'現実は常に私を脅かす。' },
+  { id:'core_11', label:'人生は信頼できる',    desc:'流れを信頼していい。',                              invalidates:'すべてをコントロールしなければ危険。' },
+  { id:'core_12', label:'自由である',          desc:'今ここから選び直せる。',                            invalidates:'私はもう決められた道から出られない。' },
+];
 var cur = 's-landing';
 var navHistory = [];
 
@@ -3505,12 +3534,72 @@ function startNegaEntry() {
 
 function startCoreEntry() {
   v12Mode = 'core';
+  coreVisibleCount = 3;
+  renderCoreThemeScreen();
   fwd('s-theme');
 }
 
 function startSituationEntry() {
   v12Mode = 'situation';
+  var corePanel = document.getElementById('v12-core-panel');
+  var legacyPanel = document.getElementById('v12-legacy-panel');
+  if (corePanel) corePanel.style.display = 'none';
+  if (legacyPanel) legacyPanel.style.display = 'block';
   fwd('s-theme');
+}
+
+function clearChildren(el) {
+  while (el.firstChild) el.removeChild(el.firstChild);
+}
+
+function renderCoreThemeScreen() {
+  var corePanel   = document.getElementById('v12-core-panel');
+  var legacyPanel = document.getElementById('v12-legacy-panel');
+  if (!corePanel || !legacyPanel) return;
+  corePanel.style.display   = 'block';
+  legacyPanel.style.display = 'none';
+  var grid = document.getElementById('v12-core-grid');
+  if (!grid) return;
+  clearChildren(grid);
+  var visible = Math.min(coreVisibleCount, V12_CORE_THEMES.length);
+  for (var i = 0; i < visible; i++) {
+    grid.appendChild(makeCoreBtn(V12_CORE_THEMES[i]));
+  }
+  var moreBtn = document.getElementById('btn-see-more-core');
+  if (moreBtn) {
+    moreBtn.style.display = coreVisibleCount < V12_CORE_THEMES.length ? '' : 'none';
+  }
+}
+
+function makeCoreBtn(theme) {
+  var b = document.createElement('button');
+  b.className = 'theme-btn' + (D.themeKey === theme.id && themeChosen ? ' selected' : '');
+  b.style.width = '100%';
+  b.style.marginBottom = '.6rem';
+  var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = theme.label;
+  var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = theme.desc;
+  b.appendChild(ls); b.appendChild(ds);
+  b.dataset.themeKey = theme.id;
+  b.onclick = (function(t){ return function(){ selectCoreTheme(t); }; })(theme);
+  return b;
+}
+
+function selectCoreTheme(theme) {
+  D.themeKey      = theme.id;
+  D.theme         = theme.label;
+  D.themePositive = theme.label;
+  D.themeNegative = theme.invalidates;
+  v12Invalidates  = theme.invalidates;
+  themeChosen = true;
+  document.querySelectorAll('#v12-core-grid .theme-btn').forEach(function(b){
+    b.classList.toggle('selected', b.dataset.themeKey === theme.id);
+  });
+  updateThemeCTA();
+}
+
+function seeMoreCoreThemes() {
+  coreVisibleCount = Math.min(coreVisibleCount + 3, V12_CORE_THEMES.length);
+  renderCoreThemeScreen();
 }
 
 function onNegaInput(val) {
