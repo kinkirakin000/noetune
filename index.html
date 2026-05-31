@@ -939,6 +939,7 @@ var copy = {
     breath_4_deep_text:'その抵抗以外の全て',
     breath_5_deep_text:'その抵抗が存在しない状態。',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな感情・状態・感覚が残る？',
+    ideal_unified_title:'「{theme}」\n\nがある人にとっての\n\n理想状態は？',
     before2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
     after2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
     breath_1_text:'「{ideal}」',
@@ -1048,6 +1049,7 @@ var copy = {
     breath_4_deep_text:'Everything except that resistance',
     breath_5_deep_text:'The state where that resistance\nis no longer there.',
     ideal_title:'"{issue}"\n\nWhen that reaction is not there,\nwhat ideal state remains?',
+    ideal_unified_title:'"{theme}"\n\nFor someone who has this,\nwhat is their ideal state?',
     before2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
     after2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
     breath_1_text:'"{ideal}"',
@@ -1158,6 +1160,7 @@ var copy = {
     breath_4_deep_text:'除了那份抗拒以外的一切',
     breath_5_deep_text:'那份抗拒不再存在的狀態。',
     ideal_title:'「{issue}」\n\n當那個反應不存在時，\n會留下什麼理想狀態？',
+    ideal_unified_title:'「{theme}」\n\n有這個的人，\n理想狀態是？',
     before2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
     after2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
     breath_1_text:'「{ideal}」',
@@ -1264,6 +1267,7 @@ var copy = {
     breath_4_deep_text:'Todo excepto esa resistencia',
     breath_5_deep_text:'El estado en el que esa resistencia\nya no está.',
     ideal_title:'"{issue}"\n\nCuando esa reacción no está,\n¿qué estado ideal queda?',
+    ideal_unified_title:'"{theme}"\n\nPara alguien que tiene esto,\n¿cuál es el estado ideal?',
     before2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
     after2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
     breath_1_text:'"{ideal}"',
@@ -1370,6 +1374,7 @@ var copy = {
     breath_4_deep_text:'Alles außer diesem Widerstand',
     breath_5_deep_text:'Der Zustand, in dem dieser Widerstand\nnicht mehr da ist.',
     ideal_title:'„{issue}"\n\nWenn diese Reaktion nicht da ist,\nwelcher ideale Zustand bleibt?',
+    ideal_unified_title:'„{theme}"\n\nFür jemanden, der das hat,\nwas ist der ideale Zustand?',
     before2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
     after2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
     breath_1_text:'„{ideal}"',
@@ -1476,6 +1481,7 @@ var copy = {
     breath_4_deep_text:'Tudo exceto essa resistência',
     breath_5_deep_text:'O estado em que essa resistência\nnão está mais presente.',
     ideal_title:'"{issue}"\n\nQuando essa reação não está presente,\nque estado ideal permanece?',
+    ideal_unified_title:'"{theme}"\n\nPara alguém que tem isso,\nqual é o estado ideal?',
     before2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
     after2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
     breath_1_text:'"{ideal}"',
@@ -1566,6 +1572,7 @@ var copy = {
     see_more_ideals:'Voir plus d’expériences idéales',
     ideal_cta_button:'Suivant',
     ideal_title:'« {issue} »\n\nQuand cette réaction n’est pas là,\nquel état idéal reste ?',
+    ideal_unified_title:'« {theme} »\n\nPour quelqu’un qui a cela,\nquel est l’état idéal ?',
     before2_title:'« {ideal} »\n\nDans cet état,\ncombien d’espace y a-t-il\ndans ta respiration ?',
     after2_title:'« {ideal} »\n\nDans cet état,\ncombien d’espace y a-t-il\ndans ta respiration ?',
     ideal_blocker_title:'Qu’est-ce qui bloque\n« {ideal} » ?',
@@ -3507,9 +3514,9 @@ function submitNegaEntry() {
 function showNegaIdeal() {
   var quote = negaFreeText.trim();
   var qEl = document.getElementById('nega-ideal-quote');
-  if (qEl) qEl.textContent = quote ? '「' + quote + '」' : '';
+  if (qEl) qEl.textContent = '';
   var titleEl = document.getElementById('nega-ideal-title');
-  if (titleEl) titleEl.textContent = T('nega_ideal_title');
+  if (titleEl) titleEl.textContent = T('ideal_unified_title', {theme: quote});
   var inp = document.getElementById('in-nega-ideal');
   if (inp) { inp.value = ''; inp.placeholder = T('nega_ideal_placeholder'); }
   var btn = document.getElementById('btn-nega-ideal-next');
@@ -3937,12 +3944,9 @@ function goNoAnswer() {
 
 function enterV9Step2(reaction) {
   D.reactionAnswer = reaction; D.issue = reaction;
-  var useWesternQuotes = ['en','es','de','pt-BR','fr'].indexOf(lang) >= 0;
-  var qo = useWesternQuotes ? '"' : '「';
-  var qc = useWesternQuotes ? '"' : '」';
   setIdealScreenMode('reaction');
   var titleEl = document.getElementById('t-ideal');
-  if (titleEl) titleEl.textContent = qo + reaction + qc + '\n\n' + T('step2_question');
+  if (titleEl) titleEl.textContent = T('ideal_unified_title', {theme: D.themePositive || D.theme});
   var inp = document.getElementById('in-ideal');
   if (inp) { inp.value = ''; inp.placeholder = T('step2_placeholder'); }
   document.querySelectorAll('.ideal-btn').forEach(function(b){ b.classList.remove('selected'); });
@@ -4051,7 +4055,7 @@ function _enterIdeal(issue) {
   D.ideal = '';
   setIdealScreenMode('reaction');
   var titleEl = document.getElementById('t-ideal');
-  if (titleEl) titleEl.textContent = T('ideal_title', {issue: issue});
+  if (titleEl) titleEl.textContent = T('ideal_unified_title', {theme: D.themePositive || D.theme});
   var inp = document.getElementById('in-ideal');
   if (inp) { inp.value = ''; inp.placeholder = T('ideal_placeholder'); }
   document.querySelectorAll('.ideal-btn').forEach(function(b){ b.classList.remove('selected'); });
