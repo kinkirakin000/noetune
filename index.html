@@ -3507,8 +3507,13 @@ function updateNegaCTA() {
 function submitNegaEntry() {
   var inp = document.getElementById('in-nega-text');
   if (inp) negaFreeText = inp.value;
-  if (negaFreeText.trim().length < 1) return;
-  showNegaIdeal();
+  var theme = negaFreeText.trim();
+  if (theme.length < 1) return;
+  D.theme = theme;
+  D.themeNegative = theme;
+  D.themePositive = '';
+  D.themeKey = null;
+  showDoorScreen();
 }
 
 function showNegaIdeal() {
