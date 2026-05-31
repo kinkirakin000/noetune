@@ -803,9 +803,24 @@ function fetchProfile() {
       if (!token) return;
       return fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
         .then(function(r) { return r.ok ? r.json() : null; })
-        .then(function(data) { if (data && data.loggedIn) { currentProfile = data.profile; updatePortalButton(); } });
+        .then(function(data) { if (data && data.loggedIn) { currentProfile = data.profile; updatePortalButton(); updatePricingCTA(); } });
     })
     .catch(function() {});
+}
+
+function updatePricingCTA() {
+  var isPlus = isUnlimited();
+  var soonMsg = document.getElementById('t-pricing-soon');
+  var plusLabel = lang === 'ja' ? 'Professionalセッションへ進む' : 'Start Professional session';
+  [
+    { id: 'btn-pricing-cta', key: 'pricing_cta' },
+    { id: 'btn-lock-cta',    key: 'lock_cta'    }
+  ].forEach(function(item) {
+    var btn = document.getElementById(item.id);
+    if (!btn) return;
+    btn.textContent = isPlus ? plusLabel : T(item.key);
+  });
+  if (isPlus && soonMsg) soonMsg.style.display = 'none';
 }
 
 function initSupabase() {
@@ -3679,15 +3694,19 @@ function submitAuthEmail() {
 }
 
 function updateLoginButton() {
-  // Show login button only when Supabase is configured and user is not signed in.
   var show = !!(supabaseClient && !currentUser);
-  var label = lang === 'ja' ? 'ログインする' : 'Log in';
+  var label = lang === 'ja' ? 'メールでログイン' : 'Log in with email';
   ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.style.display = show ? '' : 'none';
     btn.textContent = label;
   });
+  if (show) {
+    var soonMsg = document.getElementById('t-pricing-soon');
+    if (soonMsg) soonMsg.style.display = 'none';
+  }
+  updatePricingCTA();
 }
 
 function pricingCtaClick() {
@@ -3701,7 +3720,9 @@ function pricingCtaClick() {
     if (soonMsg) soonMsg.style.display = 'block';
   }
 
-  if (!supabaseClient || !currentUser) { showFallback(); return; }
+  if (!supabaseClient) { showFallback(); return; }
+  if (!currentUser) { openAuthModal(); return; }
+  if (isUnlimited()) { startSession(); return; }
 
   trackEvent('checkout_started', { source: isLock ? 's-lock' : 's-pricing', lang: lang });
   if (activeBtn) { activeBtn.disabled = true; activeBtn.textContent = '…'; }
