@@ -144,17 +144,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .theme-screen-sub{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.75}
 .entry-subtitle{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.7;text-align:center;margin-top:-.6rem;margin-bottom:1.8rem}
 #s-nega{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
-#s-nega-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
+#s-nega-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:2rem}
 #s-nega-inner>*{flex-shrink:0}
-#s-nega-top,#s-nega-cand-top{margin-bottom:1.4rem;text-align:center}
-#s-nega-candidate{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
-#s-nega-cand-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
-.nega-section-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.4rem;margin-bottom:.6rem;padding:.2rem 0}
-.nega-input-label{font-family:'Noto Serif JP',serif;font-size:.62rem;color:#A8A8A2;letter-spacing:.16em;margin-top:1.6rem;margin-bottom:.4rem;padding:.2rem 0}
-.nega-btn{height:auto;min-height:52px;padding:10px 12px;white-space:normal;line-height:1.4;background:rgba(255,255,255,.06);border:1.5px solid rgba(200,200,195,.3);border-radius:26px;font-family:'Noto Serif JP',serif;font-size:15px;letter-spacing:.08em;color:#1A1A1A;cursor:pointer;transition:background .2s,border-color .2s;-webkit-tap-highlight-color:transparent;text-align:center}
-.nega-btn.selected{background:rgba(107,144,128,.2);border-color:#6B9080}
-.nega-btn:active{transform:scale(.97)}
-#nega-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s}
+#s-nega-top{margin-bottom:1.4rem;text-align:center}
 .btn-about-link{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block}
 .btn-about-link:active{color:#6B9080}
 #auth-modal{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(26,26,26,.52);z-index:9000;display:none;align-items:center;justify-content:center}
@@ -326,10 +318,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .theme-section-desc{color:#5A5855}
 .theme-screen-title{color:#F5EFE6}
 .theme-screen-sub,.entry-subtitle{color:#5A5855}
-.nega-section-label,.nega-input-label{color:#5A5855}
-.nega-btn{color:#F5EFE6;border-color:rgba(245,239,230,.18);background:rgba(245,239,230,.04)}
-.nega-btn.selected{background:rgba(143,184,164,.2);border-color:#8FB8A4}
-#nega-cta-wrap{background:linear-gradient(transparent,rgba(21,20,18,.97) 28%)}
 .lp-hero-title{color:#F5EFE6}
 .lp-hero-sub{color:#8E8981}
 .lp-item-list li{color:#F5EFE6}
@@ -716,28 +704,12 @@ it helps you quietly return to yourself.</p>
   <div id="s-nega-inner">
     <div id="s-nega-top">
       <div class="theme-screen-title">今、どんな感じ？</div>
-      <div class="theme-screen-sub">深く考えず、近いものを選んでください。</div>
+      <div class="theme-screen-sub">一言で書いてください。</div>
     </div>
-    <div class="theme-section" id="nsec-free">
-      <button class="theme-section-header" onclick="toggleThemeSection('nsec-free')"><span class="theme-section-label-wrap"><span class="theme-section-label">自由に入力する</span><span class="theme-section-desc">自分の言葉で、今の違和感を書く。</span></span><span class="theme-section-toggle">＋</span></button>
-      <div class="theme-section-body">
-        <input type="text" class="custom-theme-input" id="in-nega-text"
-          placeholder="例：なんとなく重い" autocomplete="off" maxlength="40"
-          oninput="onNegaInput(this.value)" style="margin-top:.4rem;margin-bottom:.8rem">
-      </div>
-    </div>
-    <div class="theme-section" id="nsec-pro">
-      <button class="theme-section-header" onclick="toggleThemeSection('nsec-pro')"><span class="theme-section-label-wrap"><span class="theme-section-label">Professionalテーマ</span><span class="theme-section-desc">仕事の質に影響する違和感。</span></span><span class="theme-section-toggle">＋</span></button>
-      <div class="theme-section-body">
-        <div class="theme-grid" id="nega-pro-grid" style="margin-top:.5rem;margin-bottom:.6rem"></div>
-      </div>
-    </div>
-    <div class="theme-section" id="nsec-life">
-      <button class="theme-section-header" onclick="toggleThemeSection('nsec-life')"><span class="theme-section-label-wrap"><span class="theme-section-label">Lifeテーマ</span><span class="theme-section-desc">日常の違和感。</span></span><span class="theme-section-toggle">＋</span></button>
-      <div class="theme-section-body">
-        <div class="theme-grid" id="nega-life-grid" style="margin-top:.5rem;margin-bottom:.6rem"></div>
-      </div>
-    </div>
+    <input type="text" class="text-input" id="in-nega-text"
+      placeholder="例：モヤモヤ / 重い / 彼のこと / お金のこと" autocomplete="off" maxlength="40"
+      oninput="onNegaInput(this.value)">
+    <button class="btn" id="btn-nega-submit" onclick="submitNegaEntry()" disabled style="margin-top:1.2rem">この反応から整える</button>
   </div>
 </div>
 
@@ -753,10 +725,6 @@ it helps you quietly return to yourself.</p>
   <button class="btn-ghost" onclick="skipNegaIdeal()">スキップ</button>
 </div>
 
-<!-- ── NEGA FIXED CTA ── -->
-<div id="nega-cta-wrap">
-  <button class="btn" id="btn-nega-cta" onclick="submitNegaEntry()" disabled>この反応から始める</button>
-</div>
 
 <!-- ── THEME FIXED CTA ── -->
 <div id="theme-cta-wrap">
@@ -3060,14 +3028,11 @@ var PRO_NEGA_MAP = {
   '余力がない':       ['余力を残す', '仕事を置く', '力まず整う']
 };
 
-var NEGA_FALLBACK_CANDIDATES = ['ここに戻る', '落ち着き', 'すっきり'];
 
 var themeVisibleCount = 3;
 
 var themeChosen = false;
-var selectedNegaTheme = null;
 var negaFreeText = '';
-var negaEntryType = null;
 var cur = 's-landing';
 var navHistory = [];
 
@@ -3348,7 +3313,7 @@ function getThemeDescByLabel(label) {
 
 function startApp() {
   themeVisibleCount = 3;
-  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  negaFreeText = '';
   var lastKey = null;
   try { lastKey = localStorage.getItem('ntn_last_theme_key'); } catch(e) { lastKey = null; }
   var allIds = getAllThemeIds();
@@ -3515,63 +3480,18 @@ function toggleThemeSection(sectionId) {
 }
 
 function startPositiveEntry() {
-  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  negaFreeText = '';
   D.entryMode = 'posi';
   renderThemeScreen();
   fwd('s-theme');
 }
 
 function startNegaEntry() {
-  selectedNegaTheme = null; negaFreeText = ''; negaEntryType = null;
+  negaFreeText = '';
   D.entryMode = 'nega';
-  renderNegaScreen();
-  fwd('s-nega');
-}
-
-function renderNegaScreen() {
-  var lifeLabels = ['モヤモヤ','落ち着かない','イライラ','休めない','体が重い','自分を責める','人と疲れる','先が見えない','喜べない'];
-  var proData = [
-    ['力む',           'がんばりすぎる'],
-    ['届かない感じ',   '言葉が届かない'],
-    ['持ち帰る',       '場の重さが残る'],
-    ['評価が気になる', '反応に引っ張られる'],
-    ['揺れる',         '基準が定まらない'],
-    ['断れない',       '期待を受けすぎる'],
-    ['安くしてしまう', '価値を下げてしまう'],
-    ['切り替えられない','次へ移れない'],
-    ['自然でいられない','見られると固まる'],
-    ['余力がない',     '余白が残らない']
-  ];
-  function makeNegaBtn(lbl, type, helper) {
-    var btn = document.createElement('button');
-    btn.className = 'nega-btn' + (selectedNegaTheme === lbl ? ' selected' : '');
-    btn.dataset.negaLabel = lbl;
-    btn.onclick = function() { selectNegaTheme(lbl, type); };
-    if (helper) {
-      var ls = document.createElement('span');
-      ls.className = 'theme-btn-label'; ls.textContent = lbl;
-      var hs = document.createElement('span');
-      hs.className = 'theme-btn-desc'; hs.textContent = helper;
-      btn.appendChild(ls); btn.appendChild(hs);
-    } else {
-      btn.textContent = lbl;
-    }
-    return btn;
-  }
-  var lg = document.getElementById('nega-life-grid');
-  if (lg) { lg.innerHTML = ''; lifeLabels.forEach(function(l){ lg.appendChild(makeNegaBtn(l,'life')); }); }
-  var pg = document.getElementById('nega-pro-grid');
-  if (pg) { pg.innerHTML = ''; proData.forEach(function(p){ pg.appendChild(makeNegaBtn(p[0],'professional',p[1])); }); }
   var inp = document.getElementById('in-nega-text');
-  if (inp) inp.value = negaFreeText;
-}
-
-function selectNegaTheme(label, type) {
-  selectedNegaTheme = label; negaEntryType = type;
-  document.querySelectorAll('.nega-btn').forEach(function(b) {
-    b.classList.toggle('selected', b.dataset.negaLabel === label);
-  });
-  updateNegaCTA();
+  if (inp) inp.value = '';
+  fwd('s-nega');
 }
 
 function onNegaInput(val) {
@@ -3580,26 +3500,19 @@ function onNegaInput(val) {
 }
 
 function updateNegaCTA() {
-  var wrap = document.getElementById('nega-cta-wrap');
-  if (!wrap) return;
-  if (cur === 's-nega') {
-    wrap.style.opacity = '1'; wrap.style.pointerEvents = 'auto';
-    var btn = document.getElementById('btn-nega-cta');
-    if (btn) btn.disabled = !(!!selectedNegaTheme || negaFreeText.trim().length >= 1);
-  } else {
-    wrap.style.opacity = '0'; wrap.style.pointerEvents = 'none';
-  }
+  var btn = document.getElementById('btn-nega-submit');
+  if (btn) btn.disabled = negaFreeText.trim().length < 1;
 }
 
 function submitNegaEntry() {
   var inp = document.getElementById('in-nega-text');
   if (inp) negaFreeText = inp.value;
-  if (!selectedNegaTheme && negaFreeText.trim().length < 1) return;
+  if (negaFreeText.trim().length < 1) return;
   showNegaIdeal();
 }
 
 function showNegaIdeal() {
-  var quote = selectedNegaTheme || negaFreeText.trim();
+  var quote = negaFreeText.trim();
   var qEl = document.getElementById('nega-ideal-quote');
   if (qEl) qEl.textContent = '';
   var titleEl = document.getElementById('nega-ideal-title');
@@ -3620,7 +3533,7 @@ function submitNegaIdeal() {
   var inp = document.getElementById('in-nega-ideal');
   var val = inp ? inp.value.trim() : '';
   if (!val) return;
-  var neg = selectedNegaTheme || negaFreeText.trim() || getAutoNegative(val);
+  var neg = negaFreeText.trim() || getAutoNegative(val);
   D.themeKey = null; D.theme = val; D.themePositive = val; D.ideal = val;
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
   themeChosen = true;
@@ -3633,7 +3546,7 @@ function submitNegaIdeal() {
 }
 
 function skipNegaIdeal() {
-  var neg = selectedNegaTheme || negaFreeText.trim() || getAutoNegative('落ち着き');
+  var neg = negaFreeText.trim() || getAutoNegative('落ち着き');
   D.themeKey = null; D.theme = '落ち着き'; D.themePositive = '落ち着き'; D.ideal = '落ち着き';
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
   themeChosen = true;
