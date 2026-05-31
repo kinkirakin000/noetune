@@ -491,6 +491,7 @@ it helps you quietly return to yourself.</p>
   </div>
   <button class="btn-nm" id="nm-b2" onclick="selectNM('b2')">数値化不可</button>
   <button class="btn" id="next-b2" onclick="submitBefore2()" disabled>次へ</button>
+  <button class="btn-ghost" id="skip-b2" onclick="skipMeasurementBefore()">計測をスキップする</button>
 </div>
 
 <!-- ── BREATH MODE ── -->
@@ -558,6 +559,7 @@ it helps you quietly return to yourself.</p>
   </div>
   <button class="btn-nm" id="nm-a2" onclick="selectNM('a2')">数値化不可</button>
   <button class="btn" id="next-a2" onclick="submitAfter2()" disabled>次へ</button>
+  <button class="btn-ghost" id="skip-a2" onclick="skipMeasurementAfter()">計測をスキップする</button>
 </div>
 
 <!-- ── SHIFT NOTE ── -->
@@ -910,7 +912,7 @@ var copy = {
     back_to_start:'スタート画面に戻る',
     change_language:'言語を変える',
     result_pricing_note:'Noetuneを続けるには →',
-    next_button:'次へ', not_measurable_button:'数値化不可',
+    next_button:'次へ', not_measurable_button:'数値化不可', skip_measurement:'計測をスキップする',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'Session Shift',
     result_label_next_moment:'理想体験',
@@ -1020,7 +1022,7 @@ var copy = {
     back_to_start:'Return to start',
     change_language:'Change language',
     result_pricing_note:'Continue Noetune →',
-    next_button:'Next', not_measurable_button:'Not measurable',
+    next_button:'Next', not_measurable_button:'Not measurable', skip_measurement:'Skip measurement',
     feel_prompt:'Feel.', breathe_start_hint:'Exhale softly, then tap',
     session_result_header:'Session Shift',
     result_label_next_moment:'Ideal Experience',
@@ -1131,7 +1133,7 @@ var copy = {
     back_to_start:'回到開始畫面',
     change_language:'切換語言',
     result_pricing_note:'繼續使用 Noetune →',
-    next_button:'下一步', not_measurable_button:'無法數值化',
+    next_button:'下一步', not_measurable_button:'無法數值化', skip_measurement:'跳過測量',
     feel_prompt:'感受。', breathe_start_hint:'輕輕吐氣後，點一下',
     session_result_header:'Session Shift',
     result_label_next_moment:'理想體驗',
@@ -1235,7 +1237,7 @@ var copy = {
     change_language:'Cambiar idioma',
     result_pricing_note:'Continuar con Noetune →',
     next_button:'Siguiente',
-    not_measurable_button:'No medible',
+    not_measurable_button:'No medible', skip_measurement:'Saltar medición',
     feel_prompt:'Siente.',
     breathe_start_hint:'Exhala suavemente y toca',
     session_result_header:'Session Shift',
@@ -1342,7 +1344,7 @@ var copy = {
     change_language:'Sprache ändern',
     result_pricing_note:'Noetune fortsetzen →',
     next_button:'Weiter',
-    not_measurable_button:'Nicht messbar',
+    not_measurable_button:'Nicht messbar', skip_measurement:'Messung überspringen',
     feel_prompt:'Fühle.',
     breathe_start_hint:'Sanft ausatmen, dann tippen',
     session_result_header:'Session Shift',
@@ -1449,7 +1451,7 @@ var copy = {
     change_language:'Mudar idioma',
     result_pricing_note:'Continuar com Noetune →',
     next_button:'Próximo',
-    not_measurable_button:'Não mensurável',
+    not_measurable_button:'Não mensurável', skip_measurement:'Pular medição',
     feel_prompt:'Sinta.',
     breathe_start_hint:'Expire suavemente e toque',
     session_result_header:'Session Shift',
@@ -1550,7 +1552,7 @@ var copy = {
     breath_mode_deep_label:'Accorder profondément\nPour travail intérieur expérimenté',
     breath_mode_deep_desc:'Ressens la résistance,\npuis l’état dans lequel cette résistance\nn’est plus là.',
     next_button:'Suivant',
-    not_measurable_button:'Non mesurable',
+    not_measurable_button:'Non mesurable', skip_measurement:'Ignorer la mesure',
     feel_prompt:'Ressens.',
     breathe_start_hint:'Expire doucement, puis touche',
     breath_in:'Inspire',
@@ -1706,6 +1708,8 @@ function applyLang() {
     setEl('nm-'   + k, T('not_measurable_button'));
     setEl('next-' + k, T('next_button'));
   });
+  setEl('skip-b2', T('skip_measurement'));
+  setEl('skip-a2', T('skip_measurement'));
   setEl('btn-issue', T('next_button'));
   setEl('btn-ideal', T('next_button'));
   var pi = document.getElementById('in-issue');        if (pi) pi.placeholder = T('issue_placeholder');
@@ -4090,6 +4094,26 @@ function submitIdeal() {
     ['b2','a2'].forEach(resetSlider);
     fwd('s-before2');
   }
+}
+
+function skipMeasurementBefore() {
+  D.breathEaseBefore = null;
+  if (D.entryMode === 'ideal' && D.issue) {
+    setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
+  } else {
+    setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
+  }
+  setEl('t-breath-mode-title', T('breath_mode_title'));
+  setEl('btn-breath-soft', T('breath_mode_soft_label'));
+  setEl('btn-breath-deep', T('breath_mode_deep_label'));
+  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
+  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
+  fwd('s-breath-mode');
+}
+
+function skipMeasurementAfter() {
+  D.breathEaseAfter = null;
+  goToShiftNote();
 }
 
 function submitBefore2() {
