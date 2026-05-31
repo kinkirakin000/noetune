@@ -3946,7 +3946,7 @@ function enterV9Step2(reaction) {
   D.reactionAnswer = reaction; D.issue = reaction;
   setIdealScreenMode('reaction');
   var titleEl = document.getElementById('t-ideal');
-  if (titleEl) titleEl.textContent = T('ideal_unified_title', {theme: D.themePositive || D.theme});
+  if (titleEl) titleEl.textContent = T('ideal_unified_title', {theme: reaction});
   var inp = document.getElementById('in-ideal');
   if (inp) { inp.value = ''; inp.placeholder = T('step2_placeholder'); }
   document.querySelectorAll('.ideal-btn').forEach(function(b){ b.classList.remove('selected'); });
