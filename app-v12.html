@@ -99,6 +99,14 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-secondary-result:active{color:#6B9080}
 .result-pricing-note{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#8F8F88;letter-spacing:.08em;text-align:center;margin-top:2rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s}
 .result-pricing-note:active{color:#6B9080}
+.result-upgrade-block{margin-top:2.2rem;padding:1.2rem 1.4rem 1.3rem;border:1px solid rgba(107,144,128,.28);border-radius:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s}
+.result-upgrade-block:active{opacity:.7}
+.result-upgrade-body{font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;line-height:2;letter-spacing:.05em;color:#77736E;text-align:center;margin-bottom:.9rem}
+.result-upgrade-plan{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:400;letter-spacing:.18em;color:#6B9080;text-align:center;margin-bottom:.65rem}
+.result-upgrade-features{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;line-height:1.85;letter-spacing:.04em;color:#A8A8A2;text-align:center;margin-bottom:.8rem}
+.result-upgrade-price{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:400;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin-bottom:.7rem}
+.result-upgrade-cta{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;letter-spacing:.1em;color:#6B9080;text-align:center}
+#t-lock-title{white-space:pre-line}
 .btn-nm{font-family:'Noto Serif JP',serif;margin-top:.9rem;padding:8px 22px;background:transparent;color:#8F8F88;border:1.5px solid #E4E4DE;border-radius:30px;font-size:.8rem;letter-spacing:.08em;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .15s}
 .btn-nm:active{transform:scale(.97)}
 .btn-nm.selected{background:#F2F7F5;color:#6B9080;border-color:#6B9080}
@@ -277,6 +285,9 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .btn-secondary-result:active{color:#8FB8A4}
 .result-pricing-note{color:#8E8981}
 .result-pricing-note:active{color:#8FB8A4}
+.result-upgrade-block{border-color:rgba(143,184,164,.2)}
+.result-upgrade-price{color:#F5EFE6}
+.result-upgrade-body{color:#8E8981}
 .custom-theme-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
 .custom-theme-input:focus{border-bottom-color:#8FB8A4}
 .custom-theme-input::placeholder{color:#4A4845}
@@ -349,10 +360,10 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
     <div class="lp-logo">NOETUNE</div>
     <div class="lp-lang-select">
       <button class="lp-lang-btn selected" data-lp="en"    onclick="setLandingLang('en')">EN</button>
-      <button class="lp-lang-btn"          data-lp="es"    onclick="setLandingLang('es')">ES</button>
-      <button class="lp-lang-btn"          data-lp="de"    onclick="setLandingLang('de')">DE</button>
-      <button class="lp-lang-btn"          data-lp="pt-BR" onclick="setLandingLang('pt-BR')">PT</button>
-      <button class="lp-lang-btn"          data-lp="fr"    onclick="setLandingLang('fr')">FR</button>
+      <button class="lp-lang-btn"          data-lp="es"    onclick="setLandingLang('es')"    style="display:none">ES</button>
+      <button class="lp-lang-btn"          data-lp="de"    onclick="setLandingLang('de')"    style="display:none">DE</button>
+      <button class="lp-lang-btn"          data-lp="pt-BR" onclick="setLandingLang('pt-BR')" style="display:none">PT</button>
+      <button class="lp-lang-btn"          data-lp="fr"    onclick="setLandingLang('fr')"    style="display:none">FR</button>
       <button class="lp-lang-btn"          data-lp="ja"    onclick="setLandingLang('ja')">日</button>
       <button class="lp-lang-btn"          data-lp="zh-TW" onclick="setLandingLang('zh-TW')">繁</button>
     </div>
@@ -386,10 +397,10 @@ it helps you quietly return to yourself.</p>
   <div class="intro-sub">— tune your next moment —</div>
   <div class="lang-select-wrap">
     <button class="lang-btn" onclick="setLang('en')">English</button>
-    <button class="lang-btn" onclick="setLang('es')">Español</button>
-    <button class="lang-btn" onclick="setLang('de')">Deutsch</button>
-    <button class="lang-btn" onclick="setLang('pt-BR')">Português</button>
-    <button class="lang-btn" onclick="setLang('fr')">Français</button>
+    <button class="lang-btn" onclick="setLang('es')"    style="display:none">Español</button>
+    <button class="lang-btn" onclick="setLang('de')"    style="display:none">Deutsch</button>
+    <button class="lang-btn" onclick="setLang('pt-BR')" style="display:none">Português</button>
+    <button class="lang-btn" onclick="setLang('fr')"    style="display:none">Français</button>
     <button class="lang-btn" onclick="setLang('ja')">日本語</button>
     <button class="lang-btn" onclick="setLang('zh-TW')">繁體中文</button>
   </div>
@@ -408,7 +419,7 @@ it helps you quietly return to yourself.</p>
   <div id="s-entry-inner">
     <div class="entry-title">どこからほどきますか？</div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" onclick="startCoreEntry()">Coreからほどく</button>
+      <button class="entry-choice-btn" onclick="startCoreEntry()">土台からほどく</button>
       <div class="entry-choice-desc">すでにある本来の感覚を覆っている、
 共通の古い前提をほどく。</div>
     </div>
@@ -457,7 +468,7 @@ it helps you quietly return to yourself.</p>
     <!-- V12 Core panel (shown only when v12Mode === 'core') -->
     <div id="v12-core-panel" style="display:none">
       <div id="s-theme-top">
-        <div class="theme-screen-title">Coreからほどく</div>
+        <div class="theme-screen-title">土台からほどく</div>
         <div class="theme-screen-sub">あらゆる反応に共通する、古い前提を静かにほどきます。</div>
       </div>
       <div id="v12-core-grid"></div>
@@ -651,7 +662,13 @@ it helps you quietly return to yourself.</p>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別の入口からほどく</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
-  <div class="result-pricing-note" id="t-result-pricing" onclick="fwd('s-pricing')">必要な時に、何度でも戻る →</div>
+  <div class="result-upgrade-block" onclick="fwd('s-pricing')">
+    <div class="result-upgrade-body">必要な時に、<br>何度でも戻れる場所。</div>
+    <div class="result-upgrade-plan">Professional</div>
+    <div class="result-upgrade-features">・自由入力<br>・すべての入口<br>・履歴</div>
+    <div class="result-upgrade-price">月額980円</div>
+    <div class="result-upgrade-cta" id="t-result-pricing">Professionalを見る</div>
+  </div>
   <div class="pricing-note" id="t-trial-remaining" style="display:none"></div>
 </div>
 
@@ -922,23 +939,23 @@ var copy = {
     about_p4:'あらゆる状況の土台となる本質から。\n\n人類に共通して繰り返し起こるシーンから。\n\n今、個人的に気になるトピックから。\n\nどれからでも始められます。',
     about_safety_note:'Noetuneは、\n医療・診断・緊急支援を目的としたものではありません。\n\n強い危機感がある場合や、\n自分だけでは安全を保てないと感じる場合は、\n地域の医療機関や専門家へ相談してください。',
     pricing_title:'Professional',
-    pricing_p1:'必要な時に、\n何度でも戻る。\n\n仕事の前。\n仕事の後。\n決める時。\n切り替えたい時。\n\n自分の状態が、\n仕事の質になる人のために。',
+    pricing_p1:'必要な時に、\n何度でも戻れる場所。\n\n・自由入力\n・すべての入口\n・履歴',
     pricing_p2:'',
-    pricing_price:'¥1,480 / 月',
+    pricing_price:'月額980円',
     pricing_cta:'Professionalを始める',
-    pricing_note:'5回まで無料で体験できます。\nTrial終了後、Professionalで無制限に使えます。',
+    pricing_note:'いつでも必要な時に、\nこの場所へ戻れます。',
     pricing_soon:'準備中です',
-    lock_title:'Trialはここまでです。',
-    lock_body:'次に自分へ戻りたい時、\nNoetuneはここにあります。\n\n必要な時に、\n何度でも戻れる場所を持っておきますか。',
+    lock_title:'必要な時に、\nまた戻れるように。',
+    lock_body:'あなたはもう、\nNoetuneが何をするか知っています。\n\nProfessionalでは、\n必要な時に何度でも\nこの場所へ戻れます。',
     lock_cta:'Professionalを始める',
-    lock_note:'必要な時に、何度でも戻る。',
-    trial_remaining:'Trial {used} / 5　あと{remaining}回、Noetuneを体験できます。',
+    lock_note:'月額980円',
+    trial_remaining:'あと{remaining}回体験できます',
     repeat_same_theme:'同じ感覚をもう一度ほどく',
     repeat_same_theme_hint:'同じ感覚を、もう少し静かに見てみます。',
     choose_new_theme:'別の入口からほどく',
     back_to_start:'最初に戻る',
     change_language:'言語を変える',
-    result_pricing_note:'必要な時に、何度でも戻る →',
+    result_pricing_note:'Professionalを見る',
     next_button:'次へ', not_measurable_button:'数値化不可', skip_measurement:'計測をスキップする',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'ほどけた記録',
@@ -3126,7 +3143,7 @@ var LP_COPY = {
     fp2: "With short questions and breathing,\nit helps you quietly return to yourself."
   },
   ja: {
-    hero: "あなたの本質を\n思い出す。\n\nそれを覆い、\n見えなくしている古い前提を、\n静かにほどく。",
+    hero: "あなたの本質を\n思い出す。\n\n本質を覆う、\n古い前提を、\n静かにほどく。",
     sub:  "Noetuneは、\nすでにある本来の感覚を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸でほどく\n2分の統合ツールです。",
     cta:  "始める",
     section: "例えば、こんな感覚を思い出したいときに",
