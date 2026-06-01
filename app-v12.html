@@ -414,6 +414,25 @@ it helps you quietly return to yourself.</p>
       <div class="entry-choice-desc">お金・人間関係・仕事・未来など、
 今反応しているテーマからほどく。</div>
     </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="startFreeV12Entry()">自由にほどく</button>
+      <div class="entry-choice-desc">今、意識が向いていることを
+自分の言葉で書く。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── V12 FREE INPUT ── -->
+<div class="screen" id="s-v12-free">
+  <div id="s-nega-inner">
+    <div id="s-nega-top">
+      <div class="theme-screen-title">何について意識が向いていますか？</div>
+    </div>
+    <input type="text" class="text-input" id="in-v12-free"
+      placeholder="例：お金のこと / あの人のこと / 将来のこと / 体の違和感"
+      autocomplete="off" maxlength="40"
+      oninput="onV12FreeInput(this.value)">
+    <button class="btn" id="btn-v12-free-submit" onclick="submitV12FreeEntry()" disabled style="margin-top:1.2rem">このテーマで始める</button>
   </div>
 </div>
 
@@ -568,7 +587,7 @@ it helps you quietly return to yourself.</p>
 <!-- ── BREATH 5: Deep mode only ── -->
 <div class="screen" id="s-br5">
   <div class="breath-sub" id="lbl-feel-br5">感じてください。</div>
-  <div class="breath-main" id="lbl-br5-main">その抵抗が存在しない状態。</div>
+  <div class="breath-main" id="lbl-br5-main">その感覚が存在しない状態。</div>
   <div id="hint-br5" class="breath-hint">呼吸を始める</div>
   <div class="breath-circle pulse" id="circle-br5" onclick="startBreath('br5')"></div>
 </div>
@@ -903,9 +922,9 @@ var copy = {
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'状態を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'「{neg}」\n\nを感じている人は\n\nどんな状態？',
-    door_b_question_template:'「{pos}」\n\nを感じていない人は\n\nどんな状態？',
-    door_c_question_template:'「{pos}」\n\nを感じている人は\n\nどんな状態？',
+    door_a_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
+    door_b_question_template:'「{pos}」\n\nそうでない私たちは\n\nどんな状態？',
+    door_c_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
     breath_mode_title:'呼吸の進め方を選んでください。',
     breath_mode_soft_label:'やさしく整える\n（内観初心者）',
     breath_mode_soft_desc:'今ある感覚を否定せず、\nやさしく含めながら整えます。',
@@ -961,11 +980,11 @@ var copy = {
     breath_4_text:'その感覚を含めたあらゆるすべて。',
     breath_3_soft_text:'その感覚を愛する。',
     breath_4_soft_text:'その感覚を含めたあらゆるすべて。',
-    breath_3_deep_text:'その感覚に対する抵抗',
-    breath_4_deep_text:'その抵抗以外の全て',
-    breath_5_deep_text:'その抵抗が存在しない状態。',
+    breath_3_deep_text:'その感覚に対する私の感覚',
+    breath_4_deep_text:'その感覚以外の全て',
+    breath_5_deep_text:'その感覚が存在しない状態。',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな感情・状態・感覚が残る？',
-    ideal_unified_title:'「{theme}」\n\nがある人にとっての\n\n理想状態は？',
+    ideal_unified_title:'「{theme}」\n\nそうである私たちにとって\n\n理想状態は？',
     before2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
     after2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
     breath_1_text:'「{ideal}」',
@@ -991,9 +1010,9 @@ var copy = {
     congrats_choose_new_theme:'別のテーマを選ぶ',
     congrats_back_to_start:'スタート画面に戻る',
     result_shift_note_label:'今の感覚',
-    door_a_template:'「{neg}」を感じている人',
-    door_b_template:'「{pos}」を感じていない人',
-    door_c_template:'「{pos}」を感じている人',
+    door_a_template:'「{neg}」を感じている私たち',
+    door_b_template:'「{pos}」を感じていない私たち',
+    door_c_template:'「{pos}」を感じている私たち',
     step1_question:'どんな状態？',
     step2_question:'その反応が存在しないとき、どんな感情・状態・感覚が残る？',
     step1_placeholder:'反応を入力…',
@@ -3063,7 +3082,7 @@ var themeChosen = false;
 var negaFreeText = '';
 var v12Mode = '';
 var v12Invalidates = '';
-var coreVisibleCount = 3;
+var coreVisibleCount = 2;
 var v12SituationCategory = '';
 var v12SituationLabel = '';
 
@@ -3072,6 +3091,7 @@ var V12_SITUATION_CATEGORIES = [
   { id:'money',        label:'お金・豊かさ', desc:'受け取ること、持つこと、増えることへの反応をほどく。' },
   { id:'relationship', label:'人間関係',     desc:'相手の感情や期待を背負う前提をほどく。' },
   { id:'work',         label:'仕事・使命',   desc:'正解探しや役割への反応をほどく。' },
+  { id:'creation',     label:'創造する',     desc:'固定された現実や不足の前提をほどき、創る力へ戻る。' },
   { id:'time',         label:'時間・未来',   desc:'遅れている感覚や未来不安をほどく。' },
   { id:'emotion',      label:'こころ・感情', desc:'感情を危険視する前提をほどく。' },
 ];
@@ -3081,6 +3101,53 @@ var V12_SITUATION_THEMES = {
     { id:'sit_money_01', label:'豊かさは続いていい',   desc:'良い状態が一瞬で終わる前提から離れる。',                     invalidates:'良い状態は長く続かない。' },
     { id:'sit_money_02', label:'豊かさは保持できる',   desc:'受け取ったものを、安心して持っていていい。',                 invalidates:'持っていると奪われる。' },
     { id:'sit_money_03', label:'豊かさは創出できる',   desc:'豊かさは外側から奪うものではなく、生み出せるもの。',         invalidates:'豊かさは限られていて、誰かから取らなければ得られない。' },
+  ],
+  health: [
+    { id:'sit_health_01', label:'身体は信頼できる',           desc:'身体を敵ではなく、共に生きる場所として感じる。',                   invalidates:'身体は私を裏切る。' },
+    { id:'sit_health_02', label:'身体は自己調整する',         desc:'身体が自然にバランスへ戻ろうとする力を思い出す。',               invalidates:'私は身体を完全にコントロールしなければならない。' },
+    { id:'sit_health_03', label:'身体感覚は内なる知恵である', desc:'違和感や感覚を、敵ではなく情報として受け取る。',                   invalidates:'身体感覚は邪魔なものだ。' },
+    { id:'sit_health_04', label:'休息は回復である',           desc:'休むことを、停滞ではなく回復として受け取る。',                   invalidates:'休むことは遅れることだ。' },
+    { id:'sit_health_05', label:'快は回復を助ける',           desc:'心地よさを、身体が戻るための力として感じる。',                   invalidates:'快や心地よさは後回しにすべきものだ。' },
+    { id:'sit_health_06', label:'限界は境界である',           desc:'身体の限界を、失敗ではなく大切な境界として尊重する。',           invalidates:'限界を感じることは弱さだ。' },
+  ],
+  relationship: [
+    { id:'sit_rel_01', label:'私と相手は別々でいい',       desc:'相手の感情や課題を、自分のものにしなくていい。',         invalidates:'相手の感情は私が背負わなければならない。' },
+    { id:'sit_rel_02', label:'本当の自分で関わっていい',   desc:'演じず、本音や弱さを持ったまま関わる。',                 invalidates:'本当の自分を見せると関係は壊れる。' },
+    { id:'sit_rel_03', label:'関係は管理しなくていい',     desc:'好かれるために、反応を操作しなくていい。',               invalidates:'関係は常に管理しなければならない。' },
+    { id:'sit_rel_04', label:'親密さと自由は両立する',     desc:'近づいても、自分を失わなくていい。',                     invalidates:'親密になると自由を失う。' },
+    { id:'sit_rel_05', label:'心は読まなくていい',         desc:'相手の内側を読み続ける反応から離れる。',                 invalidates:'相手の気持ちを読まなければ危険だ。' },
+    { id:'sit_rel_06', label:'関係は修復できる',           desc:'一度揺れても、関係は終わりではない。',                   invalidates:'関係が乱れたら終わりだ。' },
+  ],
+  work: [
+    { id:'sit_work_01', label:'人生に唯一の正解はない',     desc:'正解を探し続ける反応から離れる。',                       invalidates:'正しい道を選ばなければ人生は失敗する。' },
+    { id:'sit_work_02', label:'道は歩きながら創られる',     desc:'行動しながら、方向は見えてくる。',                       invalidates:'進む前に完全な道が見えていなければならない。' },
+    { id:'sit_work_03', label:'不確実なまま進んでいい',     desc:'完全に分からなくても、一歩進める。',                     invalidates:'確信がなければ動いてはいけない。' },
+    { id:'sit_work_04', label:'失敗はデータである',         desc:'失敗を価値の否定ではなく、情報として受け取る。',         invalidates:'失敗したら終わりだ。' },
+    { id:'sit_work_05', label:'仕事は私そのものではない',   desc:'仕事の結果と自分の存在価値を切り離す。',                 invalidates:'仕事の結果が私の価値を決める。' },
+    { id:'sit_work_06', label:'今ここから選び直せる',       desc:'過去の選択に縛られず、今ここから戻る。',                 invalidates:'もう選び直せない。' },
+  ],
+  creation: [
+    { id:'sit_creation_01', label:'世界は変えられる',     desc:'固定された現実ではなく、少しずつ形を変えられる。',         invalidates:'現実は固定されていて、私は変えられない。' },
+    { id:'sit_creation_02', label:'私は価値がある',       desc:'結果や評価とは別に、私の価値は消えない。',                 invalidates:'結果や評価がなければ、私には価値がない。' },
+    { id:'sit_creation_03', label:'失敗はヒント',         desc:'うまくいかないことは、次の道を教えてくれる。',             invalidates:'失敗は終わりであり、避けなければならない。' },
+    { id:'sit_creation_04', label:'足りないから工夫できる', desc:'不足は止まる理由ではなく、創る入口になる。',             invalidates:'足りないなら、始められない。' },
+    { id:'sit_creation_05', label:'人生は私が書く',       desc:'正解を探すより、自分の物語を生きる。',                     invalidates:'人生には外側に決められた正解がある。' },
+  ],
+  time: [
+    { id:'sit_time_01', label:'今この瞬間は完全',               desc:'未来で完成しなくても、今は欠けていない。',             invalidates:'未来で何かを達成しなければ、今は不完全だ。' },
+    { id:'sit_time_02', label:'私はちょうど良いタイミング',     desc:'遅れているという反応から離れる。',                     invalidates:'私は遅れている。' },
+    { id:'sit_time_03', label:'未来は自然に開いていく',         desc:'未来を脅威ではなく、開いていくものとして感じる。',     invalidates:'未来は管理しなければ危険だ。' },
+    { id:'sit_time_04', label:'すべての瞬間に価値がある',       desc:'待つ時間や止まる時間にも価値を見出す。',               invalidates:'成果が出ない時間は無駄だ。' },
+    { id:'sit_time_05', label:'時間は私の味方',                 desc:'時間を敵ではなく、展開の場として感じる。',             invalidates:'時間は私を追い詰める。' },
+    { id:'sit_time_06', label:'私には私のリズムがある',         desc:'他人の速度ではなく、自分のリズムに戻る。',             invalidates:'他人より遅い私は間違っている。' },
+  ],
+  emotion: [
+    { id:'sit_emo_01', label:'感情は安全である',       desc:'感情を感じても、壊れない。',                                   invalidates:'感情を感じると危険だ。' },
+    { id:'sit_emo_02', label:'感情は情報である',       desc:'ネガティブ感情も、今の状態を教えてくれる。',                   invalidates:'ネガティブ感情は消すべきものだ。' },
+    { id:'sit_emo_03', label:'私は戻れる',             desc:'感情に飲まれても、また戻れる。',                               invalidates:'感情に飲まれたら戻れない。' },
+    { id:'sit_emo_04', label:'感情は流れる',           desc:'感情を固定されたものではなく、流れるものとして感じる。',       invalidates:'この感情はずっと続く。' },
+    { id:'sit_emo_05', label:'私の感覚は信頼できる',   desc:'自分の感じていることを、敵ではなく手がかりとして扱う。',       invalidates:'私の感覚は間違っている。' },
+    { id:'sit_emo_06', label:'感情と私は別である',     desc:'感情があっても、それが私の全部ではない。',                     invalidates:'この感情が私そのものだ。' },
   ],
 };
 
@@ -3231,7 +3298,7 @@ function setLandingLang(code) {
 function startLanding() { setLang(landingLang); }
 
 var SCREEN_ORDER = [
-  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-nega-ideal','s-door',
+  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-before2','s-breath-mode',
   's-br1','s-br2','s-br3','s-br4','s-br5',
@@ -3559,9 +3626,35 @@ function startNegaEntry() {
   fwd('s-nega');
 }
 
+function startFreeV12Entry() {
+  var inp = document.getElementById('in-v12-free');
+  if (inp) inp.value = '';
+  var btn = document.getElementById('btn-v12-free-submit');
+  if (btn) btn.disabled = true;
+  fwd('s-v12-free');
+}
+
+function onV12FreeInput(val) {
+  var btn = document.getElementById('btn-v12-free-submit');
+  if (btn) btn.disabled = val.trim().length < 1;
+}
+
+function submitV12FreeEntry() {
+  var inp = document.getElementById('in-v12-free');
+  var val = inp ? inp.value.trim() : '';
+  if (val.length < 1) return;
+  D.themeKey      = 'v12_free';
+  D.theme         = val;
+  D.themePositive = val;
+  D.themeNegative = val;
+  v12Invalidates  = '';
+  themeChosen = true;
+  startSession();
+}
+
 function startCoreEntry() {
   v12Mode = 'core';
-  coreVisibleCount = 3;
+  coreVisibleCount = 2;
   renderCoreThemeScreen();
   fwd('s-theme');
 }
@@ -3690,6 +3783,7 @@ function renderCoreThemeScreen() {
   legacyPanel.style.display = 'none';
   var grid = document.getElementById('v12-core-grid');
   if (!grid) return;
+  grid.className = 'theme-grid';
   clearChildren(grid);
   var visible = Math.min(coreVisibleCount, V12_CORE_THEMES.length);
   for (var i = 0; i < visible; i++) {
@@ -3704,8 +3798,6 @@ function renderCoreThemeScreen() {
 function makeCoreBtn(theme) {
   var b = document.createElement('button');
   b.className = 'theme-btn' + (D.themeKey === theme.id && themeChosen ? ' selected' : '');
-  b.style.width = '100%';
-  b.style.marginBottom = '.6rem';
   var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = theme.label;
   var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = theme.desc;
   b.appendChild(ls); b.appendChild(ds);
@@ -3728,7 +3820,7 @@ function selectCoreTheme(theme) {
 }
 
 function seeMoreCoreThemes() {
-  coreVisibleCount = Math.min(coreVisibleCount + 3, V12_CORE_THEMES.length);
+  coreVisibleCount = Math.min(coreVisibleCount + 2, V12_CORE_THEMES.length);
   renderCoreThemeScreen();
 }
 
@@ -4332,17 +4424,7 @@ function submitIdeal() {
 
 function skipMeasurementBefore() {
   D.breathEaseBefore = null;
-  if (D.entryMode === 'ideal' && D.issue) {
-    setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
-  } else {
-    setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
-  }
-  setEl('t-breath-mode-title', T('breath_mode_title'));
-  setEl('btn-breath-soft', T('breath_mode_soft_label'));
-  setEl('btn-breath-deep', T('breath_mode_deep_label'));
-  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
-  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
-  fwd('s-breath-mode');
+  startUnifiedBreathFlow();
 }
 
 function skipMeasurementAfter() {
@@ -4352,17 +4434,21 @@ function skipMeasurementAfter() {
 
 function submitBefore2() {
   D.breathEaseBefore = getSliderVal('b2');
+  startUnifiedBreathFlow();
+}
+
+function startUnifiedBreathFlow() {
   if (D.entryMode === 'ideal' && D.issue) {
     setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
   } else {
     setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
   }
-  setEl('t-breath-mode-title', T('breath_mode_title'));
-  setEl('btn-breath-soft', T('breath_mode_soft_label'));
-  setEl('btn-breath-deep', T('breath_mode_deep_label'));
-  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
-  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
-  fwd('s-breath-mode');
+  setEl('lbl-br3-main', T('breath_3_deep_text'));
+  setEl('lbl-br4-main', T('breath_4_deep_text'));
+  setEl('lbl-br5-main', T('breath_5_deep_text'));
+  D.breathMode = 'deep';
+  resetBreathScreens();
+  fwd('s-br3');
 }
 
 function resetBreathScreens() {
