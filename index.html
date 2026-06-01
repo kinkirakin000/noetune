@@ -99,6 +99,14 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-secondary-result:active{color:#6B9080}
 .result-pricing-note{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#8F8F88;letter-spacing:.08em;text-align:center;margin-top:2rem;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s}
 .result-pricing-note:active{color:#6B9080}
+.result-upgrade-block{margin-top:2.2rem;padding:1.2rem 1.4rem 1.3rem;border:1px solid rgba(107,144,128,.28);border-radius:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s}
+.result-upgrade-block:active{opacity:.7}
+.result-upgrade-body{font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;line-height:2;letter-spacing:.05em;color:#77736E;text-align:center;margin-bottom:.9rem}
+.result-upgrade-plan{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:400;letter-spacing:.18em;color:#6B9080;text-align:center;margin-bottom:.65rem}
+.result-upgrade-features{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;line-height:1.85;letter-spacing:.04em;color:#A8A8A2;text-align:center;margin-bottom:.8rem}
+.result-upgrade-price{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:400;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin-bottom:.7rem}
+.result-upgrade-cta{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;letter-spacing:.1em;color:#6B9080;text-align:center}
+#t-lock-title{white-space:pre-line}
 .btn-nm{font-family:'Noto Serif JP',serif;margin-top:.9rem;padding:8px 22px;background:transparent;color:#8F8F88;border:1.5px solid #E4E4DE;border-radius:30px;font-size:.8rem;letter-spacing:.08em;cursor:pointer;transition:background .25s,color .25s,border-color .25s,transform .15s}
 .btn-nm:active{transform:scale(.97)}
 .btn-nm.selected{background:#F2F7F5;color:#6B9080;border-color:#6B9080}
@@ -222,6 +230,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .lp-lang-btn.selected{color:#6B9080;}
 .lp-lang-btn:active{color:#6B9080;}
 .lp-hero-title{font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:400;line-height:2;letter-spacing:.06em;color:#1A1A1A;text-align:center;white-space:pre-line;margin:3.5rem 0 1.6rem;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-hero-title{font-size:1.18rem;line-height:2.1;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{font-size:.76rem;line-height:1.9;letter-spacing:.08em;color:#A8A8A2;}
 .lp-hero-sub{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#77736E;white-space:pre-line;text-align:center;margin-bottom:2.4rem;}
 .btn-lp-start{display:inline-block;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.12em;border:none;padding:14px 52px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
 .btn-lp-start:active{opacity:.8;}
@@ -275,6 +285,9 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .btn-secondary-result:active{color:#8FB8A4}
 .result-pricing-note{color:#8E8981}
 .result-pricing-note:active{color:#8FB8A4}
+.result-upgrade-block{border-color:rgba(143,184,164,.2)}
+.result-upgrade-price{color:#F5EFE6}
+.result-upgrade-body{color:#8E8981}
 .custom-theme-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
 .custom-theme-input:focus{border-bottom-color:#8FB8A4}
 .custom-theme-input::placeholder{color:#4A4845}
@@ -321,6 +334,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .lp-hero-title{color:#F5EFE6}
 .lp-hero-sub{color:#8E8981}
 .lp-item-list li{color:#F5EFE6}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{color:#8E8981;}
 .lp-section,.lp-footer{border-top-color:rgba(245,239,230,.1)}
 .btn-lp-start{background:#8FB8A4}
 .lp-lang-btn{color:#3A3836}
@@ -346,10 +360,10 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
     <div class="lp-logo">NOETUNE</div>
     <div class="lp-lang-select">
       <button class="lp-lang-btn selected" data-lp="en"    onclick="setLandingLang('en')">EN</button>
-      <button class="lp-lang-btn"          data-lp="es"    onclick="setLandingLang('es')">ES</button>
-      <button class="lp-lang-btn"          data-lp="de"    onclick="setLandingLang('de')">DE</button>
-      <button class="lp-lang-btn"          data-lp="pt-BR" onclick="setLandingLang('pt-BR')">PT</button>
-      <button class="lp-lang-btn"          data-lp="fr"    onclick="setLandingLang('fr')">FR</button>
+      <button class="lp-lang-btn"          data-lp="es"    onclick="setLandingLang('es')"    style="display:none">ES</button>
+      <button class="lp-lang-btn"          data-lp="de"    onclick="setLandingLang('de')"    style="display:none">DE</button>
+      <button class="lp-lang-btn"          data-lp="pt-BR" onclick="setLandingLang('pt-BR')" style="display:none">PT</button>
+      <button class="lp-lang-btn"          data-lp="fr"    onclick="setLandingLang('fr')"    style="display:none">FR</button>
       <button class="lp-lang-btn"          data-lp="ja"    onclick="setLandingLang('ja')">日</button>
       <button class="lp-lang-btn"          data-lp="zh-TW" onclick="setLandingLang('zh-TW')">繁</button>
     </div>
@@ -383,10 +397,10 @@ it helps you quietly return to yourself.</p>
   <div class="intro-sub">— tune your next moment —</div>
   <div class="lang-select-wrap">
     <button class="lang-btn" onclick="setLang('en')">English</button>
-    <button class="lang-btn" onclick="setLang('es')">Español</button>
-    <button class="lang-btn" onclick="setLang('de')">Deutsch</button>
-    <button class="lang-btn" onclick="setLang('pt-BR')">Português</button>
-    <button class="lang-btn" onclick="setLang('fr')">Français</button>
+    <button class="lang-btn" onclick="setLang('es')"    style="display:none">Español</button>
+    <button class="lang-btn" onclick="setLang('de')"    style="display:none">Deutsch</button>
+    <button class="lang-btn" onclick="setLang('pt-BR')" style="display:none">Português</button>
+    <button class="lang-btn" onclick="setLang('fr')"    style="display:none">Français</button>
     <button class="lang-btn" onclick="setLang('ja')">日本語</button>
     <button class="lang-btn" onclick="setLang('zh-TW')">繁體中文</button>
   </div>
@@ -403,13 +417,36 @@ it helps you quietly return to yourself.</p>
 <!-- ── ENTRY CHOICE ── -->
 <div class="screen" id="s-entry-choice">
   <div id="s-entry-inner">
-    <div class="entry-title">今、どちらが近いですか？</div>
+    <div class="entry-title">どこからほどきますか？</div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" onclick="startPositiveEntry()">なりたい感覚がわかる</button>
+      <button class="entry-choice-btn" onclick="startCoreEntry()">土台からほどく</button>
+      <div class="entry-choice-desc">すでにある本来の感覚を覆っている、
+共通の古い前提をほどく。</div>
     </div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" onclick="startNegaEntry()">モヤモヤや違和感がある</button>
+      <button class="entry-choice-btn" onclick="startSituationEntry()">状況からほどく</button>
+      <div class="entry-choice-desc">お金・人間関係・仕事・未来など、
+今反応しているテーマからほどく。</div>
     </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="startFreeV12Entry()">自由にほどく</button>
+      <div class="entry-choice-desc">今、意識が向いていることを
+自分の言葉で書く。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── V12 FREE INPUT ── -->
+<div class="screen" id="s-v12-free">
+  <div id="s-nega-inner">
+    <div id="s-nega-top">
+      <div class="theme-screen-title">今意識が向いていることについて何を感じていますか？</div>
+    </div>
+    <input type="text" class="text-input" id="in-v12-free"
+      placeholder="例：不安 / 重い / 気になる / ざわざわする"
+      autocomplete="off" maxlength="40"
+      oninput="onV12FreeInput(this.value)">
+    <button class="btn" id="btn-v12-free-submit" onclick="submitV12FreeEntry()" disabled style="margin-top:1.2rem">このテーマで始める</button>
   </div>
 </div>
 
@@ -428,6 +465,25 @@ it helps you quietly return to yourself.</p>
 <!-- ── THEME ── -->
 <div class="screen" id="s-theme">
   <div id="s-theme-inner">
+    <!-- V12 Core panel (shown only when v12Mode === 'core') -->
+    <div id="v12-core-panel" style="display:none">
+      <div id="s-theme-top">
+        <div class="theme-screen-title">土台からほどく</div>
+        <div class="theme-screen-sub">あらゆる反応に共通する、古い前提を静かにほどきます。</div>
+      </div>
+      <div id="v12-core-grid"></div>
+      <button class="btn-see-more" id="btn-see-more-core" onclick="seeMoreCoreThemes()" style="display:none">さらにCoreを見る</button>
+    </div>
+    <!-- V12 Situation panel (shown only when v12Mode === 'situation') -->
+    <div id="v12-situation-panel" style="display:none">
+      <div id="s-theme-top">
+        <div class="theme-screen-title">状況からほどく</div>
+        <div class="theme-screen-sub">今反応しているテーマから、古い規律をほどきます。</div>
+      </div>
+      <div id="v12-situation-accordion"></div>
+    </div>
+    <!-- Legacy panel (shown when v12Mode !== 'core' and !== 'situation') -->
+    <div id="v12-legacy-panel">
     <div id="s-theme-top">
       <div class="theme-screen-title">今、戻りたい状態を選んでください。</div>
       <div class="theme-screen-sub">今この瞬間に感じたい状態を、ひとつ選んでください。</div>
@@ -454,6 +510,7 @@ it helps you quietly return to yourself.</p>
         <div id="theme-groups-wrap"></div>
       </div>
     </div>
+    </div><!-- end v12-legacy-panel -->
   </div>
 </div>
 
@@ -494,20 +551,6 @@ it helps you quietly return to yourself.</p>
   <button class="btn-ghost" id="skip-b2" onclick="skipMeasurementBefore()">計測をスキップする</button>
 </div>
 
-<!-- ── BREATH MODE ── -->
-<div class="screen" id="s-breath-mode">
-  <div id="s-entry-inner">
-    <div class="entry-title" id="t-breath-mode-title">呼吸の進め方を選んでください。</div>
-    <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-breath-soft" onclick="selectBreathMode('soft')" style="white-space:pre-line"></button>
-      <div class="entry-choice-desc" id="t-breath-soft-desc"></div>
-    </div>
-    <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-breath-deep" onclick="selectBreathMode('deep')" style="white-space:pre-line"></button>
-      <div class="entry-choice-desc" id="t-breath-deep-desc"></div>
-    </div>
-  </div>
-</div>
 
 <!-- ── BREATH 1: Ideal Experience ── -->
 <div class="screen" id="s-br1">
@@ -525,18 +568,18 @@ it helps you quietly return to yourself.</p>
   <div class="breath-circle pulse" id="circle-br2" onclick="startBreath('br2')"></div>
 </div>
 
-<!-- ── BREATH 3: Resistance ── -->
+<!-- ── BREATH 3: Feeling toward the feeling ── -->
 <div class="screen" id="s-br3">
   <div class="breath-sub" id="lbl-feel-br3">感じてください。</div>
-  <div class="breath-main" id="lbl-br3-main">その感覚を愛する。</div>
+  <div class="breath-main" id="lbl-br3-main">その感覚に対する私の感覚</div>
   <div id="hint-br3" class="breath-hint">呼吸を始める</div>
   <div class="breath-circle pulse" id="circle-br3" onclick="startBreath('br3')"></div>
 </div>
 
-<!-- ── BREATH 4: Everything Except Resistance ── -->
+<!-- ── BREATH 4: Everything including the feeling ── -->
 <div class="screen" id="s-br4">
   <div class="breath-sub" id="lbl-feel-br4">感じてください。</div>
-  <div class="breath-main" id="lbl-br4-main">その感覚を含めたあらゆるすべて。</div>
+  <div class="breath-main" id="lbl-br4-main">その感覚を含むあらゆる全て</div>
   <div id="hint-br4" class="breath-hint">呼吸を始める</div>
   <div class="breath-circle pulse" id="circle-br4" onclick="startBreath('br4')"></div>
 </div>
@@ -544,7 +587,7 @@ it helps you quietly return to yourself.</p>
 <!-- ── BREATH 5: Deep mode only ── -->
 <div class="screen" id="s-br5">
   <div class="breath-sub" id="lbl-feel-br5">感じてください。</div>
-  <div class="breath-main" id="lbl-br5-main">その抵抗が存在しない状態。</div>
+  <div class="breath-main" id="lbl-br5-main">その感覚が存在しない状態。</div>
   <div id="hint-br5" class="breath-hint">呼吸を始める</div>
   <div class="breath-circle pulse" id="circle-br5" onclick="startBreath('br5')"></div>
 </div>
@@ -575,23 +618,23 @@ it helps you quietly return to yourself.</p>
   <div class="sc-card" id="result-card">
     <div class="sc-card-header">
       <div class="sc-card-title">Noetune</div>
-      <div class="sc-card-badge" id="lbl-session-header">Session Shift</div>
+      <div class="sc-card-badge" id="lbl-session-header">ほどけた記録</div>
     </div>
     <div class="sc-card-poem" id="t-result-poem"></div>
     <div class="sc-from-wrap" id="sc-from-wrap">
-      <div class="sc-section-label" id="lbl-result-from">From</div>
+      <div class="sc-section-label" id="lbl-result-from">ほどく前</div>
       <div class="sc-from-value" id="t-result-from"></div>
       <div class="sc-down-arrow">↓</div>
     </div>
     <div class="sc-toward-wrap">
-      <div class="sc-section-label" id="lbl-result-toward">Toward</div>
+      <div class="sc-section-label" id="lbl-result-toward">戻った先</div>
       <div class="sc-toward-value" id="t-result-sub"></div>
     </div>
     <div class="sc-shift-section">
-      <div class="sc-shift-header" id="lbl-shift-section">Shift</div>
+      <div class="sc-shift-header" id="lbl-shift-section">変化</div>
       <div class="sc-shift-row sc-shift-row-last">
         <div class="sc-shift-row-left">
-          <div class="sc-shift-label" id="lbl-breath-ease">呼吸の余裕</div>
+          <div class="sc-shift-label" id="lbl-breath-ease">呼吸の変化</div>
           <div class="sc-shift-helper" id="lbl-be-helper"></div>
         </div>
         <div class="sc-shift-values">
@@ -602,7 +645,7 @@ it helps you quietly return to yourself.</p>
       </div>
     </div>
     <div class="sc-note-wrap" id="sc-note-wrap" style="display:none">
-      <div class="sc-section-label" id="lbl-shift-note-label">今の感覚</div>
+      <div class="sc-section-label" id="lbl-shift-note-label">今、残っている感覚</div>
       <div class="sc-note-value" id="t-shift-note-display"></div>
     </div>
     <div class="sc-meaning" id="t-result-meaning" style="display:none"></div>
@@ -614,12 +657,18 @@ it helps you quietly return to yourself.</p>
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマでもう一度</button>
-  <div class="result-hint" id="t-repeat-hint">今日感じたことを、もう少し見てみましょう</div>
-  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別のテーマを選ぶ</button>
-  <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">スタート画面に戻る</button>
+  <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じ感覚をもう一度ほどく</button>
+  <div class="result-hint" id="t-repeat-hint">同じ感覚を、もう少し静かに見てみます。</div>
+  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別の入口からほどく</button>
+  <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
-  <div class="result-pricing-note" id="t-result-pricing" onclick="fwd('s-pricing')">Noetuneを続けるには →</div>
+  <div class="result-upgrade-block" onclick="fwd('s-pricing')">
+    <div class="result-upgrade-body">必要な時に、<br>何度でも戻れる場所。</div>
+    <div class="result-upgrade-plan">Professional</div>
+    <div class="result-upgrade-features">・自由入力<br>・すべての入口<br>・履歴</div>
+    <div class="result-upgrade-price">月額980円</div>
+    <div class="result-upgrade-cta" id="t-result-pricing">Professionalを見る</div>
+  </div>
   <div class="pricing-note" id="t-trial-remaining" style="display:none"></div>
 </div>
 
@@ -637,9 +686,9 @@ it helps you quietly return to yourself.</p>
       <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
     </div>
     <div class="pricing-return-wrap">
-      <button class="btn-pricing-return" onclick="repeatSameTheme()">同じテーマでもう一度</button>
-      <button class="btn-pricing-return" onclick="chooseNewTheme()">別のテーマを選ぶ</button>
-      <button class="btn-pricing-return" onclick="backToStart()">スタート画面に戻る</button>
+      <button class="btn-pricing-return" onclick="repeatSameTheme()">同じ感覚をもう一度ほどく</button>
+      <button class="btn-pricing-return" onclick="chooseNewTheme()">別の入口からほどく</button>
+      <button class="btn-pricing-return" onclick="backToStart()">最初に戻る</button>
       <button class="btn-pricing-return" onclick="changeLanguageFromResult()">言語を変える</button>
     </div>
   </div>
@@ -879,50 +928,45 @@ var copy = {
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'状態を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'「{neg}」\n\nを感じている人は\n\nどんな状態？',
-    door_b_question_template:'「{pos}」\n\nを感じていない人は\n\nどんな状態？',
-    door_c_question_template:'「{pos}」\n\nを感じている人は\n\nどんな状態？',
-    breath_mode_title:'呼吸の進め方を選んでください。',
-    breath_mode_soft_label:'やさしく整える\n（内観初心者）',
-    breath_mode_soft_desc:'今ある感覚を否定せず、\nやさしく含めながら整えます。',
-    breath_mode_deep_label:'深く整える\n（内観熟練者）',
-    breath_mode_deep_desc:'抵抗を見つめ、\n抵抗が存在しない状態まで感じます。',
+    door_a_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
+    door_b_question_template:'「{pos}」\n\nそうでない私たちは\n\nどんな状態？',
+    door_c_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n今の反応から離れ、\n本来の状態へ戻るための\nセルフチューニングです。',
-    about_p2:'なりたい感覚がわかる時は、\nその状態から。\n\nモヤモヤや違和感がある時は、\n今の反応から。\n\nどちらからでも始められます。',
-    about_p3:'Noetuneは、\n悩みを深掘りするものではありません。\n\n反応を入口にして、\n自然な自分で選べる状態へ\n少しずつ戻っていきます。',
-    about_p4:'',
+    about_p1:'Noetuneは、\n理想の自分を作るためのアプリではありません。',
+    about_p2:'すでにある本質を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸で静かにほどくための\n2分の統合ツールです。',
+    about_p3:'何かを足すのではなく、\n覆っているものをほどく。\n\n変わるためではなく、\n本来の感覚を思い出す。',
+    about_p4:'あらゆる状況の土台となる本質から。\n\n人類に共通して繰り返し起こるシーンから。\n\n今、個人的に気になるトピックから。\n\nどれからでも始められます。',
     about_safety_note:'Noetuneは、\n医療・診断・緊急支援を目的としたものではありません。\n\n強い危機感がある場合や、\n自分だけでは安全を保てないと感じる場合は、\n地域の医療機関や専門家へ相談してください。',
     pricing_title:'Professional',
-    pricing_p1:'必要な時に、\n何度でも戻る。\n\n仕事の前。\n仕事の後。\n決める時。\n切り替えたい時。\n\n自分の状態が、\n仕事の質になる人のために。',
+    pricing_p1:'必要な時に、\n何度でも戻れる場所。\n\n・自由入力\n・すべての入口\n・履歴',
     pricing_p2:'',
-    pricing_price:'¥1,480 / 月',
+    pricing_price:'月額980円',
     pricing_cta:'Professionalを始める',
-    pricing_note:'5回まで無料で体験できます。\nTrial終了後、Professionalで無制限に使えます。',
+    pricing_note:'いつでも必要な時に、\nこの場所へ戻れます。',
     pricing_soon:'準備中です',
-    lock_title:'Trialはここまでです。',
-    lock_body:'次に自分へ戻りたい時、\nNoetuneはここにあります。\n\n必要な時に、\n何度でも戻れる場所を持っておきますか。',
+    lock_title:'必要な時に、\nまた戻れるように。',
+    lock_body:'あなたはもう、\nNoetuneが何をするか知っています。\n\nProfessionalでは、\n必要な時に何度でも\nこの場所へ戻れます。',
     lock_cta:'Professionalを始める',
-    lock_note:'必要な時に、何度でも戻る。',
-    trial_remaining:'Trial {used} / 5　あと{remaining}回、Noetuneを体験できます。',
-    repeat_same_theme:'同じテーマでもう一度',
-    repeat_same_theme_hint:'答えが自然に出なくなるまで、\n同じテーマを何度か見つめるのもおすすめです。',
-    choose_new_theme:'別のテーマを選ぶ',
-    back_to_start:'スタート画面に戻る',
+    lock_note:'月額980円',
+    trial_remaining:'あと{remaining}回体験できます',
+    repeat_same_theme:'同じ感覚をもう一度ほどく',
+    repeat_same_theme_hint:'同じ感覚を、もう少し静かに見てみます。',
+    choose_new_theme:'別の入口からほどく',
+    back_to_start:'最初に戻る',
     change_language:'言語を変える',
-    result_pricing_note:'Noetuneを続けるには →',
+    result_pricing_note:'Professionalを見る',
     next_button:'次へ', not_measurable_button:'数値化不可', skip_measurement:'計測をスキップする',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
-    session_result_header:'Session Shift',
+    session_result_header:'ほどけた記録',
     result_label_next_moment:'理想体験',
-    result_label_breath_ease:'呼吸の余裕',
+    result_label_breath_ease:'呼吸の変化',
     result_poem:'いま、この瞬間の変化を大切に。',
-    result_label_from:'From',
-    result_label_toward:'Toward',
-    result_shift_section:'Shift',
+    result_label_from:'ほどく前',
+    result_label_toward:'戻った先',
+    result_shift_section:'変化',
     result_nc_helper:'次の瞬間、その体験である確率',
-    result_be_helper:'呼吸の余裕度',
+    result_be_helper:'呼吸の変化',
     result_nm_display:'固定されていない',
     result_meaning:'固定されていない＝\n数字に固定されず、\n自由に変化できる感覚',
     breath_in:'吸う', breath_out:'吐く',
@@ -935,13 +979,11 @@ var copy = {
     breath_2_text:'その時の呼吸の余裕',
     breath_3_text:'その感覚を愛する。',
     breath_4_text:'その感覚を含めたあらゆるすべて。',
-    breath_3_soft_text:'その感覚を愛する。',
-    breath_4_soft_text:'その感覚を含めたあらゆるすべて。',
-    breath_3_deep_text:'その感覚に対する抵抗',
-    breath_4_deep_text:'その抵抗以外の全て',
-    breath_5_deep_text:'その抵抗が存在しない状態。',
+    breath_3_deep_text:'その感覚に対する私の感覚',
+    breath_4_deep_text:'その感覚を含むあらゆる全て',
+    breath_5_deep_text:'その感覚が存在しない状態。',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな感情・状態・感覚が残る？',
-    ideal_unified_title:'「{theme}」\n\nがある人にとっての\n\n理想状態は？',
+    ideal_unified_title:'「{theme}」\n\nそうである私たちにとって\n\n理想状態は？',
     before2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
     after2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
     breath_1_text:'「{ideal}」',
@@ -966,10 +1008,10 @@ var copy = {
     congrats_body:'このテーマでは、\n今出てくる反応はありません。\n\nそれは、今この瞬間、\nこのテーマが静かになっているサインかもしれません。\n\n必要なら、\n別のテーマを選んでください。',
     congrats_choose_new_theme:'別のテーマを選ぶ',
     congrats_back_to_start:'スタート画面に戻る',
-    result_shift_note_label:'今の感覚',
-    door_a_template:'「{neg}」を感じている人',
-    door_b_template:'「{pos}」を感じていない人',
-    door_c_template:'「{pos}」を感じている人',
+    result_shift_note_label:'今、残っている感覚',
+    door_a_template:'「{neg}」を感じている私たち',
+    door_b_template:'「{pos}」を感じていない私たち',
+    door_c_template:'「{pos}」を感じている私たち',
     step1_question:'どんな状態？',
     step2_question:'その反応が存在しないとき、どんな感情・状態・感覚が残る？',
     step1_placeholder:'反応を入力…',
@@ -1011,11 +1053,6 @@ var copy = {
     pricing_p2:'This is a small\nself-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.\n\nSafety.\nSpace.\nBeing here now.\nBeing yourself.\n\nBy observing reactions\nto those states,\nyou gradually return\nto a state that is not fixed.',
     pricing_cta:'Start with 1 month free',
     pricing_soon:'Coming soon',
-    breath_mode_title:'Choose how you want to breathe.',
-    breath_mode_soft_label:'Gently tune\nFor inner-work beginners',
-    breath_mode_soft_desc:'Without denying what is here,\nlet it be included gently.',
-    breath_mode_deep_label:'Deeply tune\nFor experienced inner work',
-    breath_mode_deep_desc:'Feel the resistance,\nthen the state where the resistance\nis no longer there.',
     repeat_same_theme:'Repeat this theme',
     repeat_same_theme_hint:'It can help to stay with\nthe same theme several times,\nuntil no answer comes naturally.',
     choose_new_theme:'Choose another theme',
@@ -1045,11 +1082,9 @@ var copy = {
     breath_2_text:'The space in your breathing',
     breath_3_text:'Love that feeling.',
     breath_4_text:'Everything that includes that feeling.',
-    breath_3_soft_text:'Love that feeling.',
-    breath_4_soft_text:'Everything that includes that feeling.',
-    breath_3_deep_text:'The resistance to that feeling',
-    breath_4_deep_text:'Everything except that resistance',
-    breath_5_deep_text:'The state where that resistance\nis no longer there.',
+    breath_3_deep_text:'My feeling toward that feeling',
+    breath_4_deep_text:'Everything that includes that feeling',
+    breath_5_deep_text:'The state where that feeling\nis no longer there.',
     ideal_title:'"{issue}"\n\nWhen that reaction is not there,\nwhat ideal state remains?',
     ideal_unified_title:'"{theme}"\n\nFor someone who has this,\nwhat is their ideal state?',
     before2_title:'"{ideal}"\n\nIn that state,\nhow much space is there\nin your breathing?',
@@ -1122,11 +1157,6 @@ var copy = {
     pricing_p2:'這是一個小小的\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。\n\n安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過觀察自己\n對這些狀態的反應，\n你會一點一點回到\n不被固定的狀態。',
     pricing_cta:'免費開始第一個月',
     pricing_soon:'準備中',
-    breath_mode_title:'請選擇呼吸的進行方式。',
-    breath_mode_soft_label:'溫柔調整\n給內在觀察初學者',
-    breath_mode_soft_desc:'不否定現在存在的感覺，\n溫柔地把它包含進來。',
-    breath_mode_deep_label:'深入調整\n給熟悉內在觀察的人',
-    breath_mode_deep_desc:'感受那份抗拒，\n再感受抗拒不再存在的狀態。',
     repeat_same_theme:'用同一個主題再一次',
     repeat_same_theme_hint:'可以用同一個主題\n多看幾次，\n直到答案自然不再出現。',
     choose_new_theme:'選擇別的主題',
@@ -1156,11 +1186,9 @@ var copy = {
     breath_2_text:'那時候呼吸的餘裕度',
     breath_3_text:'愛那個感覺。',
     breath_4_text:'包含那個感覺的一切。',
-    breath_3_soft_text:'愛那個感覺。',
-    breath_4_soft_text:'包含那個感覺的一切。',
-    breath_3_deep_text:'對那個感覺的抗拒',
-    breath_4_deep_text:'除了那份抗拒以外的一切',
-    breath_5_deep_text:'那份抗拒不再存在的狀態。',
+    breath_3_deep_text:'對那個感覺的感覺',
+    breath_4_deep_text:'包含那個感覺的一切',
+    breath_5_deep_text:'那個感覺不存在的狀態。',
     ideal_title:'「{issue}」\n\n當那個反應不存在時，\n會留下什麼理想狀態？',
     ideal_unified_title:'「{theme}」\n\n有這個的人，\n理想狀態是？',
     before2_title:'「{ideal}」\n\n那時候，\n呼吸有多少餘裕？',
@@ -1225,11 +1253,6 @@ var copy = {
     pricing_p2:'Esta es una pequeña\npráctica de autosintonización\nque empieza con estados\nque las personas felices llevan dentro,\ny te ayuda a sintonizar la reacción\nque surge en este momento.\n\nSeguridad.\nEspacio.\nEstar aquí y ahora.\nSer tú mismo.\n\nAl observar tus reacciones\na esos estados,\nvuelves gradualmente\na un estado que no está fijo.',
     pricing_cta:'Empezar con 1 mes gratis',
     pricing_soon:'Próximamente',
-    breath_mode_title:'Elige cómo quieres respirar.',
-    breath_mode_soft_label:'Sintonizar suavemente\nPara principiantes en trabajo interior',
-    breath_mode_soft_desc:'Sin negar lo que está aquí,\npermite que sea incluido suavemente.',
-    breath_mode_deep_label:'Sintonizar profundamente\nPara quienes tienen experiencia interior',
-    breath_mode_deep_desc:'Siente la resistencia,\ny luego el estado en el que esa resistencia\nya no está.',
     repeat_same_theme:'Repetir este tema',
     repeat_same_theme_hint:'Puede ayudar quedarte\ncon el mismo tema varias veces,\nhasta que no aparezca ninguna respuesta de forma natural.',
     choose_new_theme:'Elegir otro tema',
@@ -1263,11 +1286,9 @@ var copy = {
     breath_2_text:'El espacio en tu respiración',
     breath_3_text:'Ama esa sensación.',
     breath_4_text:'Todo lo que incluye esa sensación.',
-    breath_3_soft_text:'Ama esa sensación.',
-    breath_4_soft_text:'Todo lo que incluye esa sensación.',
-    breath_3_deep_text:'La resistencia a esa sensación',
-    breath_4_deep_text:'Todo excepto esa resistencia',
-    breath_5_deep_text:'El estado en el que esa resistencia\nya no está.',
+    breath_3_deep_text:'Mi sensación hacia esa sensación',
+    breath_4_deep_text:'Todo lo que incluye esa sensación',
+    breath_5_deep_text:'El estado en el que esa sensación ya no está.',
     ideal_title:'"{issue}"\n\nCuando esa reacción no está,\n¿qué estado ideal queda?',
     ideal_unified_title:'"{theme}"\n\nPara alguien que tiene esto,\n¿cuál es el estado ideal?',
     before2_title:'"{ideal}"\n\nEn ese estado,\n¿cuánto espacio hay\nen tu respiración?',
@@ -1332,11 +1353,6 @@ var copy = {
     pricing_p2:'Dies ist eine kleine Praxis\nder Selbst-Einstimmung.\nSie beginnt mit Zuständen,\ndie glückliche Menschen in sich tragen,\nund hilft dir,\ndie Reaktion zu stimmen,\ndie in diesem Moment entsteht.\n\nSicherheit.\nRaum.\nHier und jetzt sein.\nDu selbst sein.\n\nIndem du deine Reaktionen\nauf diese Zustände beobachtest,\nkehrst du allmählich zu einem Zustand zurück,\nder nicht festgelegt ist.',
     pricing_cta:'Mit 1 Monat kostenlos beginnen',
     pricing_soon:'Bald verfügbar',
-    breath_mode_title:'Wähle, wie du atmen möchtest.',
-    breath_mode_soft_label:'Sanft stimmen\nFür Anfänger der inneren Arbeit',
-    breath_mode_soft_desc:'Ohne zu verneinen, was da ist,\nlasse es sanft mit eingeschlossen sein.',
-    breath_mode_deep_label:'Tief stimmen\nFür erfahrene innere Arbeit',
-    breath_mode_deep_desc:'Fühle den Widerstand,\nund dann den Zustand,\nin dem dieser Widerstand\nnicht mehr da ist.',
     repeat_same_theme:'Dieses Thema wiederholen',
     repeat_same_theme_hint:'Es kann helfen,\nmehrmals beim selben Thema zu bleiben,\nbis keine Antwort mehr natürlich erscheint.',
     choose_new_theme:'Anderes Thema wählen',
@@ -1370,11 +1386,9 @@ var copy = {
     breath_2_text:'Der Raum in deiner Atmung',
     breath_3_text:'Liebe dieses Gefühl.',
     breath_4_text:'Alles, was dieses Gefühl einschließt.',
-    breath_3_soft_text:'Liebe dieses Gefühl.',
-    breath_4_soft_text:'Alles, was dieses Gefühl einschließt.',
-    breath_3_deep_text:'Der Widerstand gegen dieses Gefühl',
-    breath_4_deep_text:'Alles außer diesem Widerstand',
-    breath_5_deep_text:'Der Zustand, in dem dieser Widerstand\nnicht mehr da ist.',
+    breath_3_deep_text:'Mein Gefühl zu diesem Gefühl',
+    breath_4_deep_text:'Alles, was dieses Gefühl einschließt',
+    breath_5_deep_text:'Der Zustand, in dem dieses Gefühl nicht mehr da ist.',
     ideal_title:'„{issue}"\n\nWenn diese Reaktion nicht da ist,\nwelcher ideale Zustand bleibt?',
     ideal_unified_title:'„{theme}"\n\nFür jemanden, der das hat,\nwas ist der ideale Zustand?',
     before2_title:'„{ideal}"\n\nWie viel Raum gibt es\nin diesem Zustand\nin deiner Atmung?',
@@ -1439,11 +1453,6 @@ var copy = {
     pricing_p2:'Esta é uma pequena\nprática de autossintonização\nque começa com estados\nque pessoas felizes carregam,\ne ajuda você a sintonizar a reação\nque surge neste momento.\n\nSegurança.\nEspaço.\nEstar aqui agora.\nSer você mesmo.\n\nAo observar suas reações\na esses estados,\nvocê volta gradualmente\na um estado que não está fixo.',
     pricing_cta:'Começar com 1 mês grátis',
     pricing_soon:'Em breve',
-    breath_mode_title:'Escolha como você quer respirar.',
-    breath_mode_soft_label:'Sintonizar suavemente\nPara iniciantes no trabalho interior',
-    breath_mode_soft_desc:'Sem negar o que está aqui,\npermita que isso seja incluído suavemente.',
-    breath_mode_deep_label:'Sintonizar profundamente\nPara quem tem experiência interior',
-    breath_mode_deep_desc:'Sinta a resistência,\ne depois o estado em que essa resistência\nnão está mais presente.',
     repeat_same_theme:'Repetir este tema',
     repeat_same_theme_hint:'Pode ajudar permanecer\ncom o mesmo tema algumas vezes,\naté que nenhuma resposta apareça naturalmente.',
     choose_new_theme:'Escolher outro tema',
@@ -1477,11 +1486,9 @@ var copy = {
     breath_2_text:'O espaço na sua respiração',
     breath_3_text:'Ame essa sensação.',
     breath_4_text:'Tudo que inclui essa sensação.',
-    breath_3_soft_text:'Ame essa sensação.',
-    breath_4_soft_text:'Tudo que inclui essa sensação.',
-    breath_3_deep_text:'A resistência a essa sensação',
-    breath_4_deep_text:'Tudo exceto essa resistência',
-    breath_5_deep_text:'O estado em que essa resistência\nnão está mais presente.',
+    breath_3_deep_text:'Meu sentimento em relação a essa sensação',
+    breath_4_deep_text:'Tudo que inclui essa sensação',
+    breath_5_deep_text:'O estado em que essa sensação não está mais presente.',
     ideal_title:'"{issue}"\n\nQuando essa reação não está presente,\nque estado ideal permanece?',
     ideal_unified_title:'"{theme}"\n\nPara alguém que tem isso,\nqual é o estado ideal?',
     before2_title:'"{ideal}"\n\nNesse estado,\nquanto espaço existe\nna sua respiração?',
@@ -1546,11 +1553,6 @@ var copy = {
     pricing_p2:'C’est une petite pratique\nd’auto-accordage\nqui commence par des états\nque les personnes heureuses portent en elles,\net t’aide à accorder la réaction\nqui apparaît en ce moment.\n\nSécurité.\nEspace.\nÊtre ici maintenant.\nÊtre soi-même.\n\nEn observant tes réactions\nà ces états,\ntu reviens progressivement\nà un état qui n’est pas fixé.',
     pricing_cta:'Commencer avec 1 mois gratuit',
     pricing_soon:'Bientôt disponible',
-    breath_mode_title:'Choisis comment tu veux respirer.',
-    breath_mode_soft_label:'Accorder en douceur\nPour débutants en travail intérieur',
-    breath_mode_soft_desc:'Sans nier ce qui est là,\nlaisse-le être inclus en douceur.',
-    breath_mode_deep_label:'Accorder profondément\nPour travail intérieur expérimenté',
-    breath_mode_deep_desc:'Ressens la résistance,\npuis l’état dans lequel cette résistance\nn’est plus là.',
     next_button:'Suivant',
     not_measurable_button:'Non mesurable', skip_measurement:'Ignorer la mesure',
     feel_prompt:'Ressens.',
@@ -1561,11 +1563,9 @@ var copy = {
     breath_2_text:'L’espace dans ta respiration',
     breath_3_text:'Aime cette sensation.',
     breath_4_text:'Tout ce qui inclut cette sensation.',
-    breath_3_soft_text:'Aime cette sensation.',
-    breath_4_soft_text:'Tout ce qui inclut cette sensation.',
-    breath_3_deep_text:'La résistance à cette sensation',
-    breath_4_deep_text:'Tout sauf cette résistance',
-    breath_5_deep_text:'L’état dans lequel cette résistance\nn’est plus là.',
+    breath_3_deep_text:'Mon ressenti envers cette sensation',
+    breath_4_deep_text:'Tout ce qui inclut cette sensation',
+    breath_5_deep_text:"L’état dans lequel cette sensation n’est plus là.",
     issue_placeholder:'Écris le problème…',
     issue_skip:'Rien ne vient',
     ideal_placeholder:'Écris l’état qui reste…',
@@ -3037,6 +3037,91 @@ var themeVisibleCount = 3;
 
 var themeChosen = false;
 var negaFreeText = '';
+var v12Mode = '';
+var v12Invalidates = '';
+var coreVisibleCount = 2;
+var v12SituationCategory = '';
+var v12SituationLabel = '';
+
+var V12_SITUATION_CATEGORIES = [
+  { id:'health',       label:'健康・生存',   desc:'身体・安全・生きることへの反応をほどく。' },
+  { id:'money',        label:'お金・豊かさ', desc:'受け取ること、持つこと、増えることへの反応をほどく。' },
+  { id:'relationship', label:'人間関係',     desc:'相手の感情や期待を背負う前提をほどく。' },
+  { id:'work',         label:'仕事・使命',   desc:'正解探しや役割への反応をほどく。' },
+  { id:'creation',     label:'創造する',     desc:'固定された現実や不足の前提をほどき、創る力へ戻る。' },
+  { id:'time',         label:'時間・未来',   desc:'遅れている感覚や未来不安をほどく。' },
+  { id:'emotion',      label:'こころ・感情', desc:'感情を危険視する前提をほどく。' },
+];
+
+var V12_SITUATION_THEMES = {
+  money: [
+    { id:'sit_money_01', label:'豊かさは続いていい',   desc:'良い状態が一瞬で終わる前提から離れる。',                     invalidates:'良い状態は長く続かない。' },
+    { id:'sit_money_02', label:'豊かさは保持できる',   desc:'受け取ったものを、安心して持っていていい。',                 invalidates:'持っていると奪われる。' },
+    { id:'sit_money_03', label:'豊かさは創出できる',   desc:'豊かさは外側から奪うものではなく、生み出せるもの。',         invalidates:'豊かさは限られていて、誰かから取らなければ得られない。' },
+  ],
+  health: [
+    { id:'sit_health_01', label:'身体は信頼できる',           desc:'身体を敵ではなく、共に生きる場所として感じる。',                   invalidates:'身体は私を裏切る。' },
+    { id:'sit_health_02', label:'身体は自己調整する',         desc:'身体が自然にバランスへ戻ろうとする力を思い出す。',               invalidates:'私は身体を完全にコントロールしなければならない。' },
+    { id:'sit_health_03', label:'身体感覚は内なる知恵である', desc:'違和感や感覚を、敵ではなく情報として受け取る。',                   invalidates:'身体感覚は邪魔なものだ。' },
+    { id:'sit_health_04', label:'休息は回復である',           desc:'休むことを、停滞ではなく回復として受け取る。',                   invalidates:'休むことは遅れることだ。' },
+    { id:'sit_health_05', label:'快は回復を助ける',           desc:'心地よさを、身体が戻るための力として感じる。',                   invalidates:'快や心地よさは後回しにすべきものだ。' },
+    { id:'sit_health_06', label:'限界は境界である',           desc:'身体の限界を、失敗ではなく大切な境界として尊重する。',           invalidates:'限界を感じることは弱さだ。' },
+  ],
+  relationship: [
+    { id:'sit_rel_01', label:'私と相手は別々でいい',       desc:'相手の感情や課題を、自分のものにしなくていい。',         invalidates:'相手の感情は私が背負わなければならない。' },
+    { id:'sit_rel_02', label:'本当の自分で関わっていい',   desc:'演じず、本音や弱さを持ったまま関わる。',                 invalidates:'本当の自分を見せると関係は壊れる。' },
+    { id:'sit_rel_03', label:'関係は管理しなくていい',     desc:'好かれるために、反応を操作しなくていい。',               invalidates:'関係は常に管理しなければならない。' },
+    { id:'sit_rel_04', label:'親密さと自由は両立する',     desc:'近づいても、自分を失わなくていい。',                     invalidates:'親密になると自由を失う。' },
+    { id:'sit_rel_05', label:'心は読まなくていい',         desc:'相手の内側を読み続ける反応から離れる。',                 invalidates:'相手の気持ちを読まなければ危険だ。' },
+    { id:'sit_rel_06', label:'関係は修復できる',           desc:'一度揺れても、関係は終わりではない。',                   invalidates:'関係が乱れたら終わりだ。' },
+  ],
+  work: [
+    { id:'sit_work_01', label:'人生に唯一の正解はない',     desc:'正解を探し続ける反応から離れる。',                       invalidates:'正しい道を選ばなければ人生は失敗する。' },
+    { id:'sit_work_02', label:'道は歩きながら創られる',     desc:'行動しながら、方向は見えてくる。',                       invalidates:'進む前に完全な道が見えていなければならない。' },
+    { id:'sit_work_03', label:'不確実なまま進んでいい',     desc:'完全に分からなくても、一歩進める。',                     invalidates:'確信がなければ動いてはいけない。' },
+    { id:'sit_work_04', label:'失敗はデータである',         desc:'失敗を価値の否定ではなく、情報として受け取る。',         invalidates:'失敗したら終わりだ。' },
+    { id:'sit_work_05', label:'仕事は私そのものではない',   desc:'仕事の結果と自分の存在価値を切り離す。',                 invalidates:'仕事の結果が私の価値を決める。' },
+    { id:'sit_work_06', label:'今ここから選び直せる',       desc:'過去の選択に縛られず、今ここから戻る。',                 invalidates:'もう選び直せない。' },
+  ],
+  creation: [
+    { id:'sit_creation_01', label:'世界は変えられる',     desc:'固定された現実ではなく、少しずつ形を変えられる。',         invalidates:'現実は固定されていて、私は変えられない。' },
+    { id:'sit_creation_02', label:'私は価値がある',       desc:'結果や評価とは別に、私の価値は消えない。',                 invalidates:'結果や評価がなければ、私には価値がない。' },
+    { id:'sit_creation_03', label:'失敗はヒント',         desc:'うまくいかないことは、次の道を教えてくれる。',             invalidates:'失敗は終わりであり、避けなければならない。' },
+    { id:'sit_creation_04', label:'足りないから工夫できる', desc:'不足は止まる理由ではなく、創る入口になる。',             invalidates:'足りないなら、始められない。' },
+    { id:'sit_creation_05', label:'人生は私が書く',       desc:'正解を探すより、自分の物語を生きる。',                     invalidates:'人生には外側に決められた正解がある。' },
+  ],
+  time: [
+    { id:'sit_time_01', label:'今この瞬間は完全',               desc:'未来で完成しなくても、今は欠けていない。',             invalidates:'未来で何かを達成しなければ、今は不完全だ。' },
+    { id:'sit_time_02', label:'私はちょうど良いタイミング',     desc:'遅れているという反応から離れる。',                     invalidates:'私は遅れている。' },
+    { id:'sit_time_03', label:'未来は自然に開いていく',         desc:'未来を脅威ではなく、開いていくものとして感じる。',     invalidates:'未来は管理しなければ危険だ。' },
+    { id:'sit_time_04', label:'すべての瞬間に価値がある',       desc:'待つ時間や止まる時間にも価値を見出す。',               invalidates:'成果が出ない時間は無駄だ。' },
+    { id:'sit_time_05', label:'時間は私の味方',                 desc:'時間を敵ではなく、展開の場として感じる。',             invalidates:'時間は私を追い詰める。' },
+    { id:'sit_time_06', label:'私には私のリズムがある',         desc:'他人の速度ではなく、自分のリズムに戻る。',             invalidates:'他人より遅い私は間違っている。' },
+  ],
+  emotion: [
+    { id:'sit_emo_01', label:'感情は安全である',       desc:'感情を感じても、壊れない。',                                   invalidates:'感情を感じると危険だ。' },
+    { id:'sit_emo_02', label:'感情は情報である',       desc:'ネガティブ感情も、今の状態を教えてくれる。',                   invalidates:'ネガティブ感情は消すべきものだ。' },
+    { id:'sit_emo_03', label:'私は戻れる',             desc:'感情に飲まれても、また戻れる。',                               invalidates:'感情に飲まれたら戻れない。' },
+    { id:'sit_emo_04', label:'感情は流れる',           desc:'感情を固定されたものではなく、流れるものとして感じる。',       invalidates:'この感情はずっと続く。' },
+    { id:'sit_emo_05', label:'私の感覚は信頼できる',   desc:'自分の感じていることを、敵ではなく手がかりとして扱う。',       invalidates:'私の感覚は間違っている。' },
+    { id:'sit_emo_06', label:'感情と私は別である',     desc:'感情があっても、それが私の全部ではない。',                     invalidates:'この感情が私そのものだ。' },
+  ],
+};
+
+var V12_CORE_THEMES = [
+  { id:'core_01', label:'大丈夫でいられる',   desc:'反応が起きても、私は崩れなくていい。',               invalidates:'何かが起きたら、私は崩れてしまう。',         free:true },
+  { id:'core_02', label:'十分である',          desc:'今の自分を修正対象にしなくていい。',                 invalidates:'もっと良くならなければ、私は足りない。' },
+  { id:'core_03', label:'ここにいていい',      desc:'存在を証明しなくても、ここにいていい。',             invalidates:'何かを証明しなければ、ここにいてはいけない。' },
+  { id:'core_04', label:'自分を信頼する',      desc:'身体・感情・感覚を信じる。',                        invalidates:'自分の感覚は信用できない。' },
+  { id:'core_05', label:'受け取っていい',      desc:'愛・お金・助け・成功を受け取っていい。',            invalidates:'受け取ると、何か悪いことが起きる。' },
+  { id:'core_06', label:'回復できる',          desc:'崩れても、また戻れる。',                            invalidates:'一度崩れたら、戻れない。' },
+  { id:'core_07', label:'つながっている',      desc:'ひとりで抱えなくていい。',                          invalidates:'私はひとりで何とかしなければならない。' },
+  { id:'core_08', label:'休んでいい',          desc:'武装解除してもいい。',                              invalidates:'止まったら終わる。' },
+  { id:'core_09', label:'失敗しても大丈夫',    desc:'失敗は終わりではない。',                            invalidates:'失敗したら価値がなくなる。' },
+  { id:'core_10', label:'人生は敵ではない',    desc:'現実を脅威として見なくていい。',                    invalidates:'現実は常に私を脅かす。' },
+  { id:'core_11', label:'人生は信頼できる',    desc:'流れを信頼していい。',                              invalidates:'すべてをコントロールしなければ危険。' },
+  { id:'core_12', label:'自由である',          desc:'今ここから選び直せる。',                            invalidates:'私はもう決められた道から出られない。' },
+];
 var cur = 's-landing';
 var navHistory = [];
 
@@ -3058,18 +3143,18 @@ var LP_COPY = {
     fp2: "With short questions and breathing,\nit helps you quietly return to yourself."
   },
   ja: {
-    hero: "考えすぎた神経系を、\n数分で静かに戻す。",
-    sub:  "Noetuneは、\n情報や決断のノイズから、\n静かに自分へ戻るためのツールです。",
+    hero: "あなたの本質を\n思い出す。\n\n本質を覆う、\n古い前提を、\n静かにほどく。",
+    sub:  "Noetuneは、\nすでにある本来の感覚を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸でほどく\n2分の統合ツールです。",
     cta:  "始める",
-    section: "こんな状態のときに",
+    section: "例えば、こんな感覚を思い出したいときに",
     items: [
-      "・ChatGPTで整理しても、頭が止まらない",
-      "・Notionは整っているのに、自分は整わない",
-      "・休んでも、神経のスイッチが閉じない",
-      "・仕事の後も、切り替わらない"
+      "・つながっている。",
+      "・自由である。",
+      "・大丈夫でいられる。",
+      "・十分である。"
     ],
-    fp1: "Noetuneは、\n問題を分析するアプリではありません。",
-    fp2: "短い問いと呼吸だけで、\n静かに自分へ戻ります。"
+    fp1: "Noetuneは、\n理想の自分を作るためのアプリではありません。",
+    fp2: "すでにある本質を覆っているものを、\n静かにほどくためのツールです。"
   },
   es: {
     hero: "Silencia el sistema nervioso\nque no para de pensar,\nen pocos minutos.",
@@ -3170,9 +3255,9 @@ function setLandingLang(code) {
 function startLanding() { setLang(landingLang); }
 
 var SCREEN_ORDER = [
-  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-nega-ideal','s-door',
+  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
-  's-before2','s-breath-mode',
+  's-before2',
   's-br1','s-br2','s-br3','s-br4','s-br5',
   's-after2','s-shift-note','s-result'
 ];
@@ -3496,6 +3581,204 @@ function startNegaEntry() {
   var inp = document.getElementById('in-nega-text');
   if (inp) inp.value = '';
   fwd('s-nega');
+}
+
+function startFreeV12Entry() {
+  var inp = document.getElementById('in-v12-free');
+  if (inp) inp.value = '';
+  var btn = document.getElementById('btn-v12-free-submit');
+  if (btn) btn.disabled = true;
+  fwd('s-v12-free');
+}
+
+function onV12FreeInput(val) {
+  var btn = document.getElementById('btn-v12-free-submit');
+  if (btn) btn.disabled = val.trim().length < 1;
+}
+
+function submitV12FreeEntry() {
+  var inp = document.getElementById('in-v12-free');
+  var val = inp ? inp.value.trim() : '';
+  if (val.length < 1) return;
+  D.themeKey      = 'v12_free';
+  D.theme         = val;
+  D.themePositive = val;
+  D.themeNegative = val;
+  v12Invalidates  = '';
+  themeChosen = true;
+  startSession();
+}
+
+function startCoreEntry() {
+  v12Mode = 'core';
+  coreVisibleCount = 2;
+  renderCoreThemeScreen();
+  fwd('s-theme');
+}
+
+function startSituationEntry() {
+  v12Mode = 'situation';
+  renderSituationCategoryScreen();
+  fwd('s-theme');
+}
+
+function renderSituationCategoryScreen() {
+  var corePanel      = document.getElementById('v12-core-panel');
+  var situationPanel = document.getElementById('v12-situation-panel');
+  var legacyPanel    = document.getElementById('v12-legacy-panel');
+  if (corePanel)      corePanel.style.display     = 'none';
+  if (situationPanel) situationPanel.style.display = 'block';
+  if (legacyPanel)    legacyPanel.style.display    = 'none';
+
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  clearChildren(accordion);
+
+  for (var i = 0; i < V12_SITUATION_CATEGORIES.length; i++) {
+    accordion.appendChild(makeSituationSection(V12_SITUATION_CATEGORIES[i]));
+  }
+}
+
+function makeSituationSection(cat) {
+  var secId = 'vsit-' + cat.id;
+
+  var section = document.createElement('div');
+  section.className = 'theme-section';
+  section.id = secId;
+
+  var header = document.createElement('button');
+  header.className = 'theme-section-header';
+  header.onclick = (function(id){ return function(){ toggleSituationSection(id); }; })(secId);
+
+  var labelWrap = document.createElement('span'); labelWrap.className = 'theme-section-label-wrap';
+  var labelEl   = document.createElement('span'); labelEl.className = 'theme-section-label'; labelEl.textContent = cat.label;
+  var descEl    = document.createElement('span'); descEl.className  = 'theme-section-desc';  descEl.textContent  = cat.desc;
+  labelWrap.appendChild(labelEl); labelWrap.appendChild(descEl);
+
+  var toggle = document.createElement('span'); toggle.className = 'theme-section-toggle'; toggle.textContent = '＋';
+
+  header.appendChild(labelWrap); header.appendChild(toggle);
+
+  var body = document.createElement('div');
+  body.className = 'theme-section-body';
+
+  var themes = V12_SITUATION_THEMES[cat.id];
+  if (themes && themes.length > 0) {
+    var grid = document.createElement('div');
+    grid.className = 'theme-grid';
+    grid.style.marginTop    = '.5rem';
+    grid.style.marginBottom = '.8rem';
+    for (var j = 0; j < themes.length; j++) {
+      grid.appendChild(makeSituationThemeBtn(themes[j]));
+    }
+    body.appendChild(grid);
+  } else {
+    var placeholder = document.createElement('div');
+    placeholder.className = 'theme-section-desc';
+    placeholder.style.padding = '.6rem 0 1rem';
+    placeholder.textContent = '準備中';
+    body.appendChild(placeholder);
+  }
+
+  section.appendChild(header);
+  section.appendChild(body);
+  return section;
+}
+
+function toggleSituationSection(sectionId) {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  var sections = accordion.querySelectorAll('.theme-section');
+  for (var i = 0; i < sections.length; i++) {
+    var sec = sections[i];
+    var tog = sec.querySelector('.theme-section-toggle');
+    if (sec.id === sectionId) {
+      var nowOpen = sec.classList.toggle('open');
+      if (tog) tog.textContent = nowOpen ? '－' : '＋';
+    } else {
+      sec.classList.remove('open');
+      if (tog) tog.textContent = '＋';
+    }
+  }
+}
+
+function makeSituationThemeBtn(theme) {
+  var b = document.createElement('button');
+  b.className = 'theme-btn' + (D.themeKey === theme.id && themeChosen ? ' selected' : '');
+  b.style.width = '100%';
+  b.style.marginBottom = '.6rem';
+  var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = theme.label;
+  var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = theme.desc;
+  b.appendChild(ls); b.appendChild(ds);
+  b.dataset.themeKey = theme.id;
+  b.onclick = (function(t){ return function(){ selectSituationTheme(t); }; })(theme);
+  return b;
+}
+
+function selectSituationTheme(theme) {
+  D.themeKey      = theme.id;
+  D.theme         = theme.label;
+  D.themePositive = theme.label;
+  D.themeNegative = theme.invalidates;
+  v12Invalidates  = theme.invalidates;
+  themeChosen = true;
+  document.querySelectorAll('#v12-situation-accordion .theme-btn').forEach(function(b){
+    b.classList.toggle('selected', b.dataset.themeKey === theme.id);
+  });
+  updateThemeCTA();
+}
+
+function clearChildren(el) {
+  while (el.firstChild) el.removeChild(el.firstChild);
+}
+
+function renderCoreThemeScreen() {
+  var corePanel   = document.getElementById('v12-core-panel');
+  var legacyPanel = document.getElementById('v12-legacy-panel');
+  if (!corePanel || !legacyPanel) return;
+  corePanel.style.display   = 'block';
+  legacyPanel.style.display = 'none';
+  var grid = document.getElementById('v12-core-grid');
+  if (!grid) return;
+  grid.className = 'theme-grid';
+  clearChildren(grid);
+  var visible = Math.min(coreVisibleCount, V12_CORE_THEMES.length);
+  for (var i = 0; i < visible; i++) {
+    grid.appendChild(makeCoreBtn(V12_CORE_THEMES[i]));
+  }
+  var moreBtn = document.getElementById('btn-see-more-core');
+  if (moreBtn) {
+    moreBtn.style.display = coreVisibleCount < V12_CORE_THEMES.length ? '' : 'none';
+  }
+}
+
+function makeCoreBtn(theme) {
+  var b = document.createElement('button');
+  b.className = 'theme-btn' + (D.themeKey === theme.id && themeChosen ? ' selected' : '');
+  var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = theme.label;
+  var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = theme.desc;
+  b.appendChild(ls); b.appendChild(ds);
+  b.dataset.themeKey = theme.id;
+  b.onclick = (function(t){ return function(){ selectCoreTheme(t); }; })(theme);
+  return b;
+}
+
+function selectCoreTheme(theme) {
+  D.themeKey      = theme.id;
+  D.theme         = theme.label;
+  D.themePositive = theme.label;
+  D.themeNegative = theme.invalidates;
+  v12Invalidates  = theme.invalidates;
+  themeChosen = true;
+  document.querySelectorAll('#v12-core-grid .theme-btn').forEach(function(b){
+    b.classList.toggle('selected', b.dataset.themeKey === theme.id);
+  });
+  updateThemeCTA();
+}
+
+function seeMoreCoreThemes() {
+  coreVisibleCount = Math.min(coreVisibleCount + 2, V12_CORE_THEMES.length);
+  renderCoreThemeScreen();
 }
 
 function onNegaInput(val) {
@@ -4098,17 +4381,7 @@ function submitIdeal() {
 
 function skipMeasurementBefore() {
   D.breathEaseBefore = null;
-  if (D.entryMode === 'ideal' && D.issue) {
-    setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
-  } else {
-    setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
-  }
-  setEl('t-breath-mode-title', T('breath_mode_title'));
-  setEl('btn-breath-soft', T('breath_mode_soft_label'));
-  setEl('btn-breath-deep', T('breath_mode_deep_label'));
-  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
-  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
-  fwd('s-breath-mode');
+  startUnifiedBreathFlow();
 }
 
 function skipMeasurementAfter() {
@@ -4118,17 +4391,21 @@ function skipMeasurementAfter() {
 
 function submitBefore2() {
   D.breathEaseBefore = getSliderVal('b2');
+  startUnifiedBreathFlow();
+}
+
+function startUnifiedBreathFlow() {
   if (D.entryMode === 'ideal' && D.issue) {
     setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
   } else {
     setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
   }
-  setEl('t-breath-mode-title', T('breath_mode_title'));
-  setEl('btn-breath-soft', T('breath_mode_soft_label'));
-  setEl('btn-breath-deep', T('breath_mode_deep_label'));
-  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
-  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
-  fwd('s-breath-mode');
+  setEl('lbl-br3-main', T('breath_3_deep_text'));
+  setEl('lbl-br4-main', T('breath_4_deep_text'));
+  setEl('lbl-br5-main', T('breath_5_deep_text'));
+  D.breathMode = 'deep';
+  resetBreathScreens();
+  fwd('s-br3');
 }
 
 function resetBreathScreens() {
@@ -4140,19 +4417,6 @@ function resetBreathScreens() {
   });
 }
 
-function selectBreathMode(mode) {
-  D.breathMode = mode;
-  if (mode === 'deep') {
-    setEl('lbl-br3-main', T('breath_3_deep_text'));
-    setEl('lbl-br4-main', T('breath_4_deep_text'));
-    setEl('lbl-br5-main', T('breath_5_deep_text'));
-  } else {
-    setEl('lbl-br3-main', T('breath_3_soft_text'));
-    setEl('lbl-br4-main', T('breath_4_soft_text'));
-  }
-  resetBreathScreens();
-  fwd('s-br3');
-}
 
 function submitAfter2() {
   D.breathEaseAfter = getSliderVal('a2');
@@ -4386,12 +4650,22 @@ function enterIdealFirst() {
 function repeatSameTheme() {
   _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
-  var savedKey = D.themeKey; var savedTheme = D.theme;
-  var savedPositive = D.themePositive; var savedNegative = D.themeNegative;
+  var savedKey      = D.themeKey;
+  var savedTheme    = D.theme    || D.themePositive || D.doorSentence || '';
+  var savedPositive = D.themePositive || D.theme || '';
+  var savedNegative = D.themeNegative || v12Invalidates || D.theme || '';
+  if (!savedTheme && savedPositive) savedTheme = savedPositive;
+  if (!savedTheme) { fwd('s-entry-choice'); return; }
+  var savedV12Mode      = v12Mode;
+  var savedV12Inv       = v12Invalidates;
+  var savedV12SitCat    = v12SituationCategory;
+  var savedV12SitLabel  = v12SituationLabel;
   D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
         issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
         entryMode: isNega ? 'nega' : null, doorKey: null, doorSentence:'',
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
+  v12Mode = savedV12Mode; v12Invalidates = savedV12Inv;
+  v12SituationCategory = savedV12SitCat; v12SituationLabel = savedV12SitLabel;
   navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
   ['b1','b2','a1','a2'].forEach(resetSlider);
   if (isNega) {
@@ -4408,9 +4682,10 @@ function chooseNewTheme() {
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
+  v12Mode = ''; v12Invalidates = ''; v12SituationCategory = ''; v12SituationLabel = '';
+  coreVisibleCount = 2;
   ['b1','b2','a1','a2'].forEach(resetSlider);
-  renderThemeScreen();
-  fwd('s-theme');
+  fwd('s-entry-choice');
 }
 
 function showScreenDirect(id) {
