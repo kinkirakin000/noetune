@@ -222,6 +222,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .lp-lang-btn.selected{color:#6B9080;}
 .lp-lang-btn:active{color:#6B9080;}
 .lp-hero-title{font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:400;line-height:2;letter-spacing:.06em;color:#1A1A1A;text-align:center;white-space:pre-line;margin:3.5rem 0 1.6rem;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-hero-title{font-size:1.18rem;line-height:2.1;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{font-size:.76rem;line-height:1.9;letter-spacing:.08em;color:#A8A8A2;}
 .lp-hero-sub{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#77736E;white-space:pre-line;text-align:center;margin-bottom:2.4rem;}
 .btn-lp-start{display:inline-block;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.12em;border:none;padding:14px 52px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
 .btn-lp-start:active{opacity:.8;}
@@ -321,6 +323,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .lp-hero-title{color:#F5EFE6}
 .lp-hero-sub{color:#8E8981}
 .lp-item-list li{color:#F5EFE6}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{color:#8E8981;}
 .lp-section,.lp-footer{border-top-color:rgba(245,239,230,.1)}
 .btn-lp-start{background:#8FB8A4}
 .lp-lang-btn{color:#3A3836}
@@ -913,10 +916,10 @@ var copy = {
     door_c_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n今の反応から離れ、\n本来の状態へ戻るための\nセルフチューニングです。',
-    about_p2:'なりたい感覚がわかる時は、\nその状態から。\n\nモヤモヤや違和感がある時は、\n今の反応から。\n\nどちらからでも始められます。',
-    about_p3:'Noetuneは、\n悩みを深掘りするものではありません。\n\n反応を入口にして、\n自然な自分で選べる状態へ\n少しずつ戻っていきます。',
-    about_p4:'',
+    about_p1:'Noetuneは、\n理想の自分を作るためのアプリではありません。',
+    about_p2:'すでにある本質を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸で静かにほどくための\n2分の統合ツールです。',
+    about_p3:'何かを足すのではなく、\n覆っているものをほどく。\n\n変わるためではなく、\n本来の感覚を思い出す。',
+    about_p4:'あらゆる状況の土台となる本質から。\n\n人類に共通して繰り返し起こるシーンから。\n\n今、個人的に気になるトピックから。\n\nどれからでも始められます。',
     about_safety_note:'Noetuneは、\n医療・診断・緊急支援を目的としたものではありません。\n\n強い危機感がある場合や、\n自分だけでは安全を保てないと感じる場合は、\n地域の医療機関や専門家へ相談してください。',
     pricing_title:'Professional',
     pricing_p1:'必要な時に、\n何度でも戻る。\n\n仕事の前。\n仕事の後。\n決める時。\n切り替えたい時。\n\n自分の状態が、\n仕事の質になる人のために。',
@@ -3123,18 +3126,18 @@ var LP_COPY = {
     fp2: "With short questions and breathing,\nit helps you quietly return to yourself."
   },
   ja: {
-    hero: "考えすぎた神経系を、\n数分で静かに戻す。",
-    sub:  "Noetuneは、\n情報や決断のノイズから、\n静かに自分へ戻るためのツールです。",
+    hero: "あなたの本質を\n思い出す。\n\nそれを覆い、\n見えなくしている古い前提を、\n静かにほどく。",
+    sub:  "Noetuneは、\nすでにある本来の感覚を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸でほどく\n2分の統合ツールです。",
     cta:  "始める",
-    section: "こんな状態のときに",
+    section: "例えば、こんな感覚を思い出したいときに",
     items: [
-      "・ChatGPTで整理しても、頭が止まらない",
-      "・Notionは整っているのに、自分は整わない",
-      "・休んでも、神経のスイッチが閉じない",
-      "・仕事の後も、切り替わらない"
+      "・つながっている。",
+      "・自由である。",
+      "・大丈夫でいられる。",
+      "・十分である。"
     ],
-    fp1: "Noetuneは、\n問題を分析するアプリではありません。",
-    fp2: "短い問いと呼吸だけで、\n静かに自分へ戻ります。"
+    fp1: "Noetuneは、\n理想の自分を作るためのアプリではありません。",
+    fp2: "すでにある本質を覆っているものを、\n静かにほどくためのツールです。"
   },
   es: {
     hero: "Silencia el sistema nervioso\nque no para de pensar,\nen pocos minutos.",
