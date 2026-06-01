@@ -644,7 +644,7 @@ it helps you quietly return to yourself.</p>
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマでもう一度</button>
-  <div class="result-hint" id="t-repeat-hint">今日感じたことを、もう少し見てみましょう</div>
+  <div class="result-hint" id="t-repeat-hint">同じ感覚を、もう少し静かに見てみます。</div>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別のテーマを選ぶ</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">スタート画面に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
@@ -930,12 +930,12 @@ var copy = {
     lock_cta:'Professionalを始める',
     lock_note:'必要な時に、何度でも戻る。',
     trial_remaining:'Trial {used} / 5　あと{remaining}回、Noetuneを体験できます。',
-    repeat_same_theme:'同じテーマでもう一度',
-    repeat_same_theme_hint:'答えが自然に出なくなるまで、\n同じテーマを何度か見つめるのもおすすめです。',
-    choose_new_theme:'別のテーマを選ぶ',
-    back_to_start:'スタート画面に戻る',
+    repeat_same_theme:'同じ感覚をもう一度ほどく',
+    repeat_same_theme_hint:'同じ感覚を、もう少し静かに見てみます。',
+    choose_new_theme:'別の入口からほどく',
+    back_to_start:'最初に戻る',
     change_language:'言語を変える',
-    result_pricing_note:'Noetuneを続けるには →',
+    result_pricing_note:'必要な時に、何度でも戻る →',
     next_button:'次へ', not_measurable_button:'数値化不可', skip_measurement:'計測をスキップする',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'Session Shift',
@@ -4630,12 +4630,22 @@ function enterIdealFirst() {
 function repeatSameTheme() {
   _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
-  var savedKey = D.themeKey; var savedTheme = D.theme;
-  var savedPositive = D.themePositive; var savedNegative = D.themeNegative;
+  var savedKey      = D.themeKey;
+  var savedTheme    = D.theme    || D.themePositive || D.doorSentence || '';
+  var savedPositive = D.themePositive || D.theme || '';
+  var savedNegative = D.themeNegative || v12Invalidates || D.theme || '';
+  if (!savedTheme && savedPositive) savedTheme = savedPositive;
+  if (!savedTheme) { fwd('s-entry-choice'); return; }
+  var savedV12Mode      = v12Mode;
+  var savedV12Inv       = v12Invalidates;
+  var savedV12SitCat    = v12SituationCategory;
+  var savedV12SitLabel  = v12SituationLabel;
   D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
         issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
         entryMode: isNega ? 'nega' : null, doorKey: null, doorSentence:'',
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
+  v12Mode = savedV12Mode; v12Invalidates = savedV12Inv;
+  v12SituationCategory = savedV12SitCat; v12SituationLabel = savedV12SitLabel;
   navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
   ['b1','b2','a1','a2'].forEach(resetSlider);
   if (isNega) {
@@ -4652,9 +4662,10 @@ function chooseNewTheme() {
         breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
+  v12Mode = ''; v12Invalidates = ''; v12SituationCategory = ''; v12SituationLabel = '';
+  coreVisibleCount = 2;
   ['b1','b2','a1','a2'].forEach(resetSlider);
-  renderThemeScreen();
-  fwd('s-theme');
+  fwd('s-entry-choice');
 }
 
 function showScreenDirect(id) {
