@@ -441,7 +441,15 @@ it helps you quietly return to yourself.</p>
       <div id="v12-core-grid"></div>
       <button class="btn-see-more" id="btn-see-more-core" onclick="seeMoreCoreThemes()" style="display:none">さらにCoreを見る</button>
     </div>
-    <!-- Legacy panel (shown when v12Mode !== 'core') -->
+    <!-- V12 Situation panel (shown only when v12Mode === 'situation') -->
+    <div id="v12-situation-panel" style="display:none">
+      <div id="s-theme-top">
+        <div class="theme-screen-title">状況からほどく</div>
+        <div class="theme-screen-sub">今反応しているテーマから、古い規律をほどきます。</div>
+      </div>
+      <div id="v12-situation-accordion"></div>
+    </div>
+    <!-- Legacy panel (shown when v12Mode !== 'core' and !== 'situation') -->
     <div id="v12-legacy-panel">
     <div id="s-theme-top">
       <div class="theme-screen-title">今、戻りたい状態を選んでください。</div>
@@ -3056,6 +3064,25 @@ var negaFreeText = '';
 var v12Mode = '';
 var v12Invalidates = '';
 var coreVisibleCount = 3;
+var v12SituationCategory = '';
+var v12SituationLabel = '';
+
+var V12_SITUATION_CATEGORIES = [
+  { id:'health',       label:'健康・生存',   desc:'身体・安全・生きることへの反応をほどく。' },
+  { id:'money',        label:'お金・豊かさ', desc:'受け取ること、持つこと、増えることへの反応をほどく。' },
+  { id:'relationship', label:'人間関係',     desc:'相手の感情や期待を背負う前提をほどく。' },
+  { id:'work',         label:'仕事・使命',   desc:'正解探しや役割への反応をほどく。' },
+  { id:'time',         label:'時間・未来',   desc:'遅れている感覚や未来不安をほどく。' },
+  { id:'emotion',      label:'こころ・感情', desc:'感情を危険視する前提をほどく。' },
+];
+
+var V12_SITUATION_THEMES = {
+  money: [
+    { id:'sit_money_01', label:'豊かさは続いていい',   desc:'良い状態が一瞬で終わる前提から離れる。',                     invalidates:'良い状態は長く続かない。' },
+    { id:'sit_money_02', label:'豊かさは保持できる',   desc:'受け取ったものを、安心して持っていていい。',                 invalidates:'持っていると奪われる。' },
+    { id:'sit_money_03', label:'豊かさは創出できる',   desc:'豊かさは外側から奪うものではなく、生み出せるもの。',         invalidates:'豊かさは限られていて、誰かから取らなければ得られない。' },
+  ],
+};
 
 var V12_CORE_THEMES = [
   { id:'core_01', label:'大丈夫でいられる',   desc:'反応が起きても、私は崩れなくていい。',               invalidates:'何かが起きたら、私は崩れてしまう。',         free:true },
@@ -3541,11 +3568,114 @@ function startCoreEntry() {
 
 function startSituationEntry() {
   v12Mode = 'situation';
-  var corePanel = document.getElementById('v12-core-panel');
-  var legacyPanel = document.getElementById('v12-legacy-panel');
-  if (corePanel) corePanel.style.display = 'none';
-  if (legacyPanel) legacyPanel.style.display = 'block';
+  renderSituationCategoryScreen();
   fwd('s-theme');
+}
+
+function renderSituationCategoryScreen() {
+  var corePanel      = document.getElementById('v12-core-panel');
+  var situationPanel = document.getElementById('v12-situation-panel');
+  var legacyPanel    = document.getElementById('v12-legacy-panel');
+  if (corePanel)      corePanel.style.display     = 'none';
+  if (situationPanel) situationPanel.style.display = 'block';
+  if (legacyPanel)    legacyPanel.style.display    = 'none';
+
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  clearChildren(accordion);
+
+  for (var i = 0; i < V12_SITUATION_CATEGORIES.length; i++) {
+    accordion.appendChild(makeSituationSection(V12_SITUATION_CATEGORIES[i]));
+  }
+}
+
+function makeSituationSection(cat) {
+  var secId = 'vsit-' + cat.id;
+
+  var section = document.createElement('div');
+  section.className = 'theme-section';
+  section.id = secId;
+
+  var header = document.createElement('button');
+  header.className = 'theme-section-header';
+  header.onclick = (function(id){ return function(){ toggleSituationSection(id); }; })(secId);
+
+  var labelWrap = document.createElement('span'); labelWrap.className = 'theme-section-label-wrap';
+  var labelEl   = document.createElement('span'); labelEl.className = 'theme-section-label'; labelEl.textContent = cat.label;
+  var descEl    = document.createElement('span'); descEl.className  = 'theme-section-desc';  descEl.textContent  = cat.desc;
+  labelWrap.appendChild(labelEl); labelWrap.appendChild(descEl);
+
+  var toggle = document.createElement('span'); toggle.className = 'theme-section-toggle'; toggle.textContent = '＋';
+
+  header.appendChild(labelWrap); header.appendChild(toggle);
+
+  var body = document.createElement('div');
+  body.className = 'theme-section-body';
+
+  var themes = V12_SITUATION_THEMES[cat.id];
+  if (themes && themes.length > 0) {
+    var grid = document.createElement('div');
+    grid.className = 'theme-grid';
+    grid.style.marginTop    = '.5rem';
+    grid.style.marginBottom = '.8rem';
+    for (var j = 0; j < themes.length; j++) {
+      grid.appendChild(makeSituationThemeBtn(themes[j]));
+    }
+    body.appendChild(grid);
+  } else {
+    var placeholder = document.createElement('div');
+    placeholder.className = 'theme-section-desc';
+    placeholder.style.padding = '.6rem 0 1rem';
+    placeholder.textContent = '準備中';
+    body.appendChild(placeholder);
+  }
+
+  section.appendChild(header);
+  section.appendChild(body);
+  return section;
+}
+
+function toggleSituationSection(sectionId) {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  var sections = accordion.querySelectorAll('.theme-section');
+  for (var i = 0; i < sections.length; i++) {
+    var sec = sections[i];
+    var tog = sec.querySelector('.theme-section-toggle');
+    if (sec.id === sectionId) {
+      var nowOpen = sec.classList.toggle('open');
+      if (tog) tog.textContent = nowOpen ? '－' : '＋';
+    } else {
+      sec.classList.remove('open');
+      if (tog) tog.textContent = '＋';
+    }
+  }
+}
+
+function makeSituationThemeBtn(theme) {
+  var b = document.createElement('button');
+  b.className = 'theme-btn' + (D.themeKey === theme.id && themeChosen ? ' selected' : '');
+  b.style.width = '100%';
+  b.style.marginBottom = '.6rem';
+  var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = theme.label;
+  var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = theme.desc;
+  b.appendChild(ls); b.appendChild(ds);
+  b.dataset.themeKey = theme.id;
+  b.onclick = (function(t){ return function(){ selectSituationTheme(t); }; })(theme);
+  return b;
+}
+
+function selectSituationTheme(theme) {
+  D.themeKey      = theme.id;
+  D.theme         = theme.label;
+  D.themePositive = theme.label;
+  D.themeNegative = theme.invalidates;
+  v12Invalidates  = theme.invalidates;
+  themeChosen = true;
+  document.querySelectorAll('#v12-situation-accordion .theme-btn').forEach(function(b){
+    b.classList.toggle('selected', b.dataset.themeKey === theme.id);
+  });
+  updateThemeCTA();
 }
 
 function clearChildren(el) {
