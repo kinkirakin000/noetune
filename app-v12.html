@@ -3654,6 +3654,7 @@ function startPositiveEntry() {
 }
 
 function startNegaEntry() {
+  if (!requireSessionAccess()) return;
   negaFreeText = '';
   D.entryMode = 'nega';
   var inp = document.getElementById('in-nega-text');
@@ -3662,6 +3663,7 @@ function startNegaEntry() {
 }
 
 function startFreeV12Entry() {
+  if (!requireSessionAccess()) return;
   var inp = document.getElementById('in-v12-free');
   if (inp) inp.value = '';
   var btn = document.getElementById('btn-v12-free-submit');
@@ -3688,6 +3690,7 @@ function submitV12FreeEntry() {
 }
 
 function startCoreEntry() {
+  if (!requireSessionAccess()) return;
   v12Mode = 'core';
   coreVisibleCount = 2;
   renderCoreThemeScreen();
@@ -3695,6 +3698,7 @@ function startCoreEntry() {
 }
 
 function startSituationEntry() {
+  if (!requireSessionAccess()) return;
   v12Mode = 'situation';
   renderSituationCategoryScreen();
   fwd('s-theme');
@@ -4747,6 +4751,7 @@ function startIdealFromSelection() {
 }
 
 function enterIdealFirst() {
+  if (!requireSessionAccess()) return;
   D.ideal = '';
   setIdealScreenMode('ideal');
   var inp = document.getElementById('in-ideal');
