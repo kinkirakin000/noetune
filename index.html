@@ -662,6 +662,7 @@ it helps you quietly return to yourself.</p>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別の入口からほどく</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
+  <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none">ログアウト</button>
   <div class="result-upgrade-block" onclick="fwd('s-pricing')">
     <div class="result-upgrade-body">必要な時に、<br>何度でも戻れる場所。</div>
     <div class="result-upgrade-plan">Professional</div>
@@ -684,6 +685,7 @@ it helps you quietly return to yourself.</p>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="btn-pricing-return" id="btn-portal" onclick="openCustomerPortal()" style="display:none;margin-top:.8rem"></button>
       <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
+      <button class="btn-pricing-return" id="btn-logout-pricing" onclick="logoutUser()" style="display:none;margin-top:.6rem">ログアウト</button>
     </div>
     <div class="pricing-return-wrap">
       <button class="btn-pricing-return" onclick="repeatSameTheme()">同じ感覚をもう一度ほどく</button>
@@ -702,6 +704,7 @@ it helps you quietly return to yourself.</p>
     <button class="btn pricing-cta" id="btn-lock-cta" onclick="pricingCtaClick()"></button>
     <div class="pricing-note" id="t-lock-note"></div>
     <button class="btn-pricing-return" id="btn-login-lock" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
+    <button class="btn-pricing-return" id="btn-logout-lock" onclick="logoutUser()" style="display:none;margin-top:.6rem">ログアウト</button>
   </div>
 </div>
 
@@ -806,11 +809,36 @@ function isUnlimited() {
   return false;
 }
 
+function isTrialExhausted() {
+  if (!currentProfile || isUnlimited()) return false;
+  var used  = Number(currentProfile.trial_used_count || 0);
+  var limit = Number(currentProfile.trial_limit || 0);
+  return limit > 0 && used >= limit;
+}
+
+function enforceTrialLock() {
+  if (!isTrialExhausted()) return false;
+  trackEvent('trial_limit_reached', { source: 'profile' });
+  if (cur !== 's-lock') fwd('s-lock');
+  return true;
+}
+
+function requireSessionAccess(source) {
+  if (!currentUser) {
+    trackEvent('login_required', { source: source || 'session_start', lang: lang });
+    openAuthModal();
+    return false;
+  }
+  if (enforceTrialLock()) return false;
+  return true;
+}
+
 /* ── Auth state ──────────────────────────────────────────────────────────── */
 var currentUser    = null;
 var currentProfile = null;
 var supabaseClient = null;
 var _posthog       = null;
+var _checkoutSuccessPending = false;
 
 function isLoggedIn() { return !!currentUser; }
 
@@ -822,9 +850,55 @@ function fetchProfile() {
       if (!token) return;
       return fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
         .then(function(r) { return r.ok ? r.json() : null; })
-        .then(function(data) { if (data && data.loggedIn) { currentProfile = data.profile; updatePortalButton(); updatePricingCTA(); } });
+        .then(function(data) {
+          if (data && data.loggedIn) {
+            currentProfile = data.profile;
+            updatePortalButton();
+            updatePricingCTA();
+            if (!_checkoutSuccessPending) enforceTrialLock();
+          }
+        });
     })
     .catch(function() {});
+}
+
+function refreshProfileAfterCheckout() {
+  if (!supabaseClient || !currentUser) return;
+  var started = Date.now();
+  var maxMs = 8000;
+
+  function poll() {
+    supabaseClient.auth.getSession()
+      .then(function(result) {
+        var token = result.data && result.data.session ? result.data.session.access_token : null;
+        if (!token) return null;
+        return fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+          .then(function(r) { return r.ok ? r.json() : null; });
+      })
+      .then(function(data) {
+        if (data && data.loggedIn) {
+          currentProfile = data.profile;
+          updatePortalButton();
+          updatePricingCTA();
+          if (isUnlimited()) { _checkoutSuccessPending = false; return; }
+        }
+        if (Date.now() - started < maxMs) {
+          setTimeout(poll, 1000);
+        } else {
+          _checkoutSuccessPending = false;
+          enforceTrialLock();
+        }
+      })
+      .catch(function() {
+        if (Date.now() - started < maxMs) {
+          setTimeout(poll, 1000);
+        } else {
+          _checkoutSuccessPending = false;
+        }
+      });
+  }
+
+  poll();
 }
 
 function updatePricingCTA() {
@@ -860,6 +934,7 @@ function initSupabase() {
             currentUser    = session ? session.user : null;
             currentProfile = null;
             if (currentUser) { fetchProfile(); if (event === 'SIGNED_IN') closeAuthModal(); }
+            if (currentUser && _checkoutSuccessPending) refreshProfileAfterCheckout();
             updateLoginButton();
           });
           supabaseClient.auth.getSession()
@@ -867,6 +942,7 @@ function initSupabase() {
               if (result.data && result.data.session) {
                 currentUser = result.data.session.user;
                 fetchProfile();
+                if (_checkoutSuccessPending) refreshProfileAfterCheckout();
               }
               updateLoginButton();
             })
@@ -900,7 +976,9 @@ function initPostHog(cfg) {
             if (params.get('checkout') === 'success') {
               // Only fire once — remove the param from history so refreshes don't re-trigger.
               trackEvent('subscription_active', { source: 'checkout_success', lang: lang });
+              _checkoutSuccessPending = true;
               history.replaceState(null, '', window.location.pathname);
+              refreshProfileAfterCheckout();
             }
           } catch(e) {}
         }
@@ -3796,6 +3874,7 @@ function submitNegaEntry() {
   if (inp) negaFreeText = inp.value;
   var theme = negaFreeText.trim();
   if (theme.length < 1) return;
+  if (!requireSessionAccess('nega_session')) return;
   D.theme = theme;
   D.themeNegative = theme;
   D.themePositive = '';
@@ -3825,6 +3904,7 @@ function submitNegaIdeal() {
   var inp = document.getElementById('in-nega-ideal');
   var val = inp ? inp.value.trim() : '';
   if (!val) return;
+  if (!requireSessionAccess('nega_ideal_session')) return;
   var neg = negaFreeText.trim() || getAutoNegative(val);
   D.themeKey = null; D.theme = val; D.themePositive = val; D.ideal = val;
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
@@ -3838,6 +3918,7 @@ function submitNegaIdeal() {
 }
 
 function skipNegaIdeal() {
+  if (!requireSessionAccess('nega_ideal_session')) return;
   var neg = negaFreeText.trim() || getAutoNegative('落ち着き');
   D.themeKey = null; D.theme = '落ち着き'; D.themePositive = '落ち着き'; D.ideal = '落ち着き';
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
@@ -3905,14 +3986,40 @@ function submitAuthEmail() {
   });
 }
 
+function logoutUser() {
+  function finishLogout() {
+    currentUser = null;
+    currentProfile = null;
+    _checkoutSuccessPending = false;
+    closeAuthModal();
+    updatePortalButton();
+    updatePricingCTA();
+    updateLoginButton();
+    if (typeof showScreenDirect === 'function') showScreenDirect('s-open');
+  }
+
+  trackEvent('logout_clicked', { lang: lang });
+  if (!supabaseClient || !supabaseClient.auth) { finishLogout(); return; }
+  supabaseClient.auth.signOut()
+    .then(function() { finishLogout(); })
+    .catch(function() { finishLogout(); });
+}
+
 function updateLoginButton() {
   var show = !!(supabaseClient && !currentUser);
+  var showLogout = !!currentUser;
   var label = lang === 'ja' ? 'メールでログイン' : 'Log in with email';
   ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.style.display = show ? '' : 'none';
     btn.textContent = label;
+  });
+  ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.style.display = showLogout ? '' : 'none';
+    btn.textContent = 'ログアウト';
   });
   if (show) {
     var soonMsg = document.getElementById('t-pricing-soon');
@@ -4253,6 +4360,7 @@ function enterV9Step2(reaction) {
 
 function startSession() {
   if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
+  if (!requireSessionAccess('start_session')) return;
   if (D.themeKey && D.themeKey.indexOf('pro_') === 0 && !isUnlimited()) {
     trackEvent('pro_theme_paywall', { themeKey: D.themeKey, lang: lang });
     fwd('s-pricing');
@@ -4362,6 +4470,7 @@ function submitIdeal() {
   var v = inp ? inp.value.trim() : '';
   if (v) D.ideal = v;
   if (!D.ideal) return;
+  if (D.entryMode === 'ideal' && !requireSessionAccess('ideal_session')) return;
   trackEvent('ideal_submitted', { lang: lang });
   if (D.entryMode === 'ideal') {
     setEl('t-issue-title', T('ideal_blocker_title', {ideal: D.ideal}));
@@ -4648,6 +4757,7 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
+  if (!requireSessionAccess('repeat_same_theme')) return;
   _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
   var savedKey      = D.themeKey;
