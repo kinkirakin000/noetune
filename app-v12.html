@@ -3124,6 +3124,7 @@ var v12SituationLabel = '';
 var V12_SITUATION_CATEGORIES = [
   { id:'health',       label:'健康・生存',   desc:'身体・安全・生きることへの反応をほどく。' },
   { id:'money',        label:'お金・豊かさ', desc:'受け取ること、持つこと、増えることへの反応をほどく。' },
+  { id:'value_exchange', label:'価値交換',   desc:'価値を価格にし、提示し、受け取ることからほどく。' },
   { id:'relationship', label:'人間関係',     desc:'相手の感情や期待を背負う前提をほどく。' },
   { id:'work',         label:'仕事・使命',   desc:'正解探しや役割への反応をほどく。' },
   { id:'creation',     label:'創造する',     desc:'固定された現実や不足の前提をほどき、創る力へ戻る。' },
@@ -3136,6 +3137,20 @@ var V12_SITUATION_THEMES = {
     { id:'sit_money_01', label:'豊かさは続いていい',   desc:'良い状態が一瞬で終わる前提から離れる。',                     invalidates:'良い状態は長く続かない。' },
     { id:'sit_money_02', label:'豊かさは保持できる',   desc:'受け取ったものを、安心して持っていていい。',                 invalidates:'持っていると奪われる。' },
     { id:'sit_money_03', label:'豊かさは創出できる',   desc:'豊かさは外側から奪うものではなく、生み出せるもの。',         invalidates:'豊かさは限られていて、誰かから取らなければ得られない。' },
+  ],
+  value_exchange: [
+    { id:'sit_value_exchange_01', label:'価値に価格をつける',       desc:'提供する価値を、価格として形にする。',           invalidates:'価値は価格にしてはいけない。' },
+    { id:'sit_value_exchange_02', label:'価格を伝える',             desc:'価格を静かに、明確に提示する。',                 invalidates:'価格を伝えると、価値交換は壊れる。' },
+    { id:'sit_value_exchange_03', label:'請求する',                 desc:'提供した価値に対して、請求を成立させる。',       invalidates:'請求することは迷惑をかけることだ。' },
+    { id:'sit_value_exchange_04', label:'支払いを受け取る',         desc:'成立した交換として、支払いを受け取る。',         invalidates:'支払いを受け取ると、関係が重くなる。' },
+    { id:'sit_value_exchange_05', label:'無料と有料を分ける',       desc:'提供範囲を分け、交換の境界を明確にする。',       invalidates:'無料と有料を分けることは冷たい。' },
+    { id:'sit_value_exchange_06', label:'価値を商品にする',         desc:'届ける価値を、選べる形に整える。',               invalidates:'価値を商品にすると、本質が失われる。' },
+    { id:'sit_value_exchange_07', label:'価格を変える',             desc:'提供内容や状況に合わせて、価格を更新する。',     invalidates:'一度決めた価格は変えてはいけない。' },
+    { id:'sit_value_exchange_08', label:'価格交渉する',             desc:'交換条件を、対話として扱う。',                   invalidates:'価格交渉は対立である。' },
+    { id:'sit_value_exchange_09', label:'断られることを受け入れる', desc:'提示した後の反応を、交換の一部として受け取る。', invalidates:'断られたら、提示してはいけなかったということだ。' },
+    { id:'sit_value_exchange_10', label:'断ることを受け入れる',     desc:'合わない条件を、静かに選び直す。',               invalidates:'断ることは交換を壊すことだ。' },
+    { id:'sit_value_exchange_11', label:'継続して受け取る',         desc:'一度きりではなく、継続する交換を受け取る。',     invalidates:'継続して受け取ることは負担を生む。' },
+    { id:'sit_value_exchange_12', label:'解約を受け入れる',         desc:'終わる選択も、交換の流れとして受け入れる。',     invalidates:'解約されたら、交換全体が失敗だったということだ。' },
   ],
   health: [
     { id:'sit_health_01', label:'身体は信頼できる',           desc:'身体を敵ではなく、共に生きる場所として感じる。',                   invalidates:'身体は私を裏切る。' },
