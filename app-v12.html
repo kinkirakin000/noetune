@@ -4276,6 +4276,7 @@ function showDoorScreen() {
   setEl('door-q-c', T('door_c_question_template', {pos: qPos, neg: neg}));
   setEl('door-rq-b', T('door_b_question_template', {pos: qPos, neg: neg}));
   setEl('door-rq-c', T('door_c_question_template', {pos: qPos, neg: neg}));
+  resetDoorAnswerInputPosition();
   var sharedInp = document.getElementById('door-answer-input');
   if (sharedInp) {
     sharedInp.value = '';
@@ -4305,17 +4306,33 @@ function showDoorScreen() {
 
 var _selectedDoorCard = null;
 
+function resetDoorAnswerInputPosition() {
+  var inp = document.getElementById('door-answer-input');
+  var btn = document.getElementById('btn-no-answer');
+  if (inp && btn && btn.parentNode) btn.parentNode.insertBefore(inp, btn);
+}
+
+function moveDoorAnswerInputUnder(target) {
+  var inp = document.getElementById('door-answer-input');
+  if (inp && target && target.parentNode) target.insertAdjacentElement('afterend', inp);
+  return inp;
+}
+
 function selectDoorCard(door) {
   _selectedDoorCard = door;
   trackEvent('door_selected', { door: door, lang: lang });
+  var selectedCard = null;
   ['A','B','C'].forEach(function(d) {
     var card = document.getElementById('door-card-' + d.toLowerCase());
     if (card) {
-      if (d === door) card.classList.add('selected');
+      if (d === door) {
+        card.classList.add('selected');
+        selectedCard = card;
+      }
       else card.classList.remove('selected');
     }
   });
-  var inp = document.getElementById('door-answer-input');
+  var inp = moveDoorAnswerInputUnder(selectedCard);
   if (inp) { inp.disabled = false; inp.focus(); }
   var btn = document.getElementById('btn-door-next');
   if (btn) btn.disabled = !inp || !inp.value.trim();
@@ -4324,14 +4341,18 @@ function selectDoorCard(door) {
 function selectDoorRadio(door) {
   _selectedDoorCard = door;
   trackEvent('door_selected', { door: door, lang: lang });
+  var selectedOption = null;
   ['B','C'].forEach(function(d) {
     var opt = document.getElementById('door-radio-' + d.toLowerCase());
     if (opt) {
-      if (d === door) opt.classList.add('selected');
+      if (d === door) {
+        opt.classList.add('selected');
+        selectedOption = opt;
+      }
       else opt.classList.remove('selected');
     }
   });
-  var inp = document.getElementById('door-answer-input');
+  var inp = moveDoorAnswerInputUnder(selectedOption);
   if (inp) {
     inp.style.display = '';
     inp.disabled = false;
@@ -4367,6 +4388,7 @@ function updateDoorCTA() {
 function goNoAnswer() {
   var inp = document.getElementById('door-answer-input');
   if (inp) { inp.value = ''; inp.disabled = true; inp.style.display = lang === 'ja' ? 'none' : ''; }
+  resetDoorAnswerInputPosition();
   ['a','b','c'].forEach(function(d) {
     var card = document.getElementById('door-card-' + d);
     if (card) card.classList.remove('selected');
