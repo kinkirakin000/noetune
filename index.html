@@ -1039,6 +1039,7 @@ var copy = {
     pricing_p2:'',
     pricing_price:'月額980円',
     pricing_cta:'Professionalを始める',
+    portal_manage:'サブスクリプションを管理する',
     pricing_note:'いつでも必要な時に、\nこの場所へ戻れます。',
     pricing_soon:'準備中です',
     lock_title:'必要な時に、\nまた戻れるように。',
@@ -1156,6 +1157,7 @@ var copy = {
     pricing_p1:'Noetune is free\nfor the first month.\n\nAfter that,\nyou can continue\nwith a paid plan.',
     pricing_p2:'This is a small\nself-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.\n\nSafety.\nSpace.\nBeing here now.\nBeing yourself.\n\nBy observing reactions\nto those states,\nyou gradually return\nto a state that is not fixed.',
     pricing_cta:'Start with 1 month free',
+    portal_manage:'Manage subscription',
     pricing_soon:'Coming soon',
     repeat_same_theme:'Repeat this theme',
     repeat_same_theme_hint:'It can help to stay with\nthe same theme several times,\nuntil no answer comes naturally.',
@@ -1260,6 +1262,7 @@ var copy = {
     pricing_p1:'Noetune 第一個月\n可以免費使用。\n\n之後，\n可以透過付費方案\n繼續使用。',
     pricing_p2:'這是一個小小的\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。\n\n安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過觀察自己\n對這些狀態的反應，\n你會一點一點回到\n不被固定的狀態。',
     pricing_cta:'免費開始第一個月',
+    portal_manage:'管理訂閱',
     pricing_soon:'準備中',
     repeat_same_theme:'用同一個主題再一次',
     repeat_same_theme_hint:'可以用同一個主題\n多看幾次，\n直到答案自然不再出現。',
@@ -1356,6 +1359,7 @@ var copy = {
     pricing_p1:'Noetune es gratis\ndurante el primer mes.\n\nDespués,\npuedes continuar\ncon un plan de pago.',
     pricing_p2:'Esta es una pequeña\npráctica de autosintonización\nque empieza con estados\nque las personas felices llevan dentro,\ny te ayuda a sintonizar la reacción\nque surge en este momento.\n\nSeguridad.\nEspacio.\nEstar aquí y ahora.\nSer tú mismo.\n\nAl observar tus reacciones\na esos estados,\nvuelves gradualmente\na un estado que no está fijo.',
     pricing_cta:'Empezar con 1 mes gratis',
+    portal_manage:'Gestionar suscripción',
     pricing_soon:'Próximamente',
     repeat_same_theme:'Repetir este tema',
     repeat_same_theme_hint:'Puede ayudar quedarte\ncon el mismo tema varias veces,\nhasta que no aparezca ninguna respuesta de forma natural.',
@@ -1456,6 +1460,7 @@ var copy = {
     pricing_p1:'Noetune ist im ersten Monat\nkostenlos nutzbar.\n\nDanach kannst du\nmit einem kostenpflichtigen Plan fortfahren.',
     pricing_p2:'Dies ist eine kleine Praxis\nder Selbst-Einstimmung.\nSie beginnt mit Zuständen,\ndie glückliche Menschen in sich tragen,\nund hilft dir,\ndie Reaktion zu stimmen,\ndie in diesem Moment entsteht.\n\nSicherheit.\nRaum.\nHier und jetzt sein.\nDu selbst sein.\n\nIndem du deine Reaktionen\nauf diese Zustände beobachtest,\nkehrst du allmählich zu einem Zustand zurück,\nder nicht festgelegt ist.',
     pricing_cta:'Mit 1 Monat kostenlos beginnen',
+    portal_manage:'Abonnement verwalten',
     pricing_soon:'Bald verfügbar',
     repeat_same_theme:'Dieses Thema wiederholen',
     repeat_same_theme_hint:'Es kann helfen,\nmehrmals beim selben Thema zu bleiben,\nbis keine Antwort mehr natürlich erscheint.',
@@ -1556,6 +1561,7 @@ var copy = {
     pricing_p1:'Noetune é gratuito\nno primeiro mês.\n\nDepois disso,\nvocê pode continuar\ncom um plano pago.',
     pricing_p2:'Esta é uma pequena\nprática de autossintonização\nque começa com estados\nque pessoas felizes carregam,\ne ajuda você a sintonizar a reação\nque surge neste momento.\n\nSegurança.\nEspaço.\nEstar aqui agora.\nSer você mesmo.\n\nAo observar suas reações\na esses estados,\nvocê volta gradualmente\na um estado que não está fixo.',
     pricing_cta:'Começar com 1 mês grátis',
+    portal_manage:'Gerenciar assinatura',
     pricing_soon:'Em breve',
     repeat_same_theme:'Repetir este tema',
     repeat_same_theme_hint:'Pode ajudar permanecer\ncom o mesmo tema algumas vezes,\naté que nenhuma resposta apareça naturalmente.',
@@ -1656,6 +1662,7 @@ var copy = {
     pricing_p1:'Noetune est gratuit\npendant le premier mois.\n\nEnsuite,\ntu peux continuer\navec une formule payante.',
     pricing_p2:'C’est une petite pratique\nd’auto-accordage\nqui commence par des états\nque les personnes heureuses portent en elles,\net t’aide à accorder la réaction\nqui apparaît en ce moment.\n\nSécurité.\nEspace.\nÊtre ici maintenant.\nÊtre soi-même.\n\nEn observant tes réactions\nà ces états,\ntu reviens progressivement\nà un état qui n’est pas fixé.',
     pricing_cta:'Commencer avec 1 mois gratuit',
+    portal_manage:'Gérer l’abonnement',
     pricing_soon:'Bientôt disponible',
     next_button:'Suivant',
     not_measurable_button:'Non mesurable', skip_measurement:'Ignorer la mesure',
@@ -1822,6 +1829,7 @@ function applyLang() {
   var bb = document.getElementById('btn-back');        if (bb) bb.setAttribute('aria-label', T('back_button'));
   renderThemeScreen();
   renderIdealScreen();
+  updatePortalButton();
 }
 
 function setLang(l) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); trackEvent('language_selected', { lang: l }); fwd('s-open'); }
@@ -3369,6 +3377,7 @@ function setLandingLang(code) {
   document.querySelectorAll('.lp-lang-btn').forEach(function(b) {
     b.classList.toggle('selected', b.dataset.lp === code);
   });
+  updatePortalButton();
 }
 
 function startLanding() { setLang(landingLang); }
@@ -4139,6 +4148,11 @@ function getPortalButtons() {
     .filter(function(btn) { return !!btn; });
 }
 
+function getPortalManageLabel(btn) {
+  var code = btn && btn.id === 'btn-portal-landing' ? landingLang : lang;
+  return (copy[code] && copy[code].portal_manage) || (copy.en && copy.en.portal_manage) || 'Manage subscription';
+}
+
 function updatePortalButton() {
   var buttons = getPortalButtons();
   if (!buttons.length) return;
@@ -4146,7 +4160,7 @@ function updatePortalButton() {
   buttons.forEach(function(btn) {
     btn.style.display = isPlus ? '' : 'none';
     btn.disabled = false;
-    if (isPlus) btn.textContent = lang === 'ja' ? 'サブスクリプションを管理する' : 'Manage subscription';
+    if (isPlus) btn.textContent = getPortalManageLabel(btn);
   });
   if (isPlus) {
     if (!updatePortalButton._plusTracked) {
