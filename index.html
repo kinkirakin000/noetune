@@ -389,6 +389,7 @@ and mental noise back to yourself.</div>
       <p id="lp-footer-p1">Noetune is not an app for analyzing your problems.</p>
       <p id="lp-footer-p2">With short questions and breathing,
 it helps you quietly return to yourself.</p>
+      <button class="btn-about-link" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none;margin:1rem auto 0">サブスクリプションを管理する</button>
     </div>
   </div>
 </div>
@@ -4133,7 +4134,7 @@ function openCustomerPortal() {
 }
 
 function getPortalButtons() {
-  return ['btn-portal', 'btn-portal-home', 'btn-portal-result']
+  return ['btn-portal', 'btn-portal-home', 'btn-portal-result', 'btn-portal-landing']
     .map(function(id) { return document.getElementById(id); })
     .filter(function(btn) { return !!btn; });
 }
