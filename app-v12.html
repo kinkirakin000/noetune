@@ -160,7 +160,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 #auth-modal{position:fixed;top:0;right:0;bottom:0;left:0;background:rgba(26,26,26,.52);z-index:9000;display:none;align-items:center;justify-content:center}
 #auth-modal.open{display:flex}
 .auth-box{background:#FAFAF7;border-radius:16px;padding:2rem 1.6rem 1.6rem;width:min(300px,88vw);text-align:center;position:relative;box-shadow:0 12px 40px rgba(0,0,0,.14)}
-.auth-box-title{font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:500;letter-spacing:.1em;color:#1A1A1A;margin-bottom:1.4rem}
+.auth-box-title{font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:500;letter-spacing:.1em;color:#1A1A1A;margin-bottom:.9rem}
+.auth-box-body{font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;line-height:1.9;letter-spacing:.05em;color:#6F6F68;margin-bottom:1.2rem;white-space:pre-line}
 .auth-box-input{width:100%;padding:12px 14px;border:1px solid #D8D8D4;border-radius:10px;font-size:.84rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em;background:#fff;color:#1A1A1A;outline:none;box-sizing:border-box;margin-bottom:.9rem;-webkit-appearance:none}
 .auth-box-input:focus{border-color:#6B9080}
 .auth-box-btn{width:100%;padding:13px;background:#1A1A1A;color:#fff;border:none;border-radius:10px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.1em;cursor:pointer;transition:opacity .2s}
@@ -3979,11 +3980,17 @@ function openAuthModal() {
   var msg   = document.getElementById('auth-modal-msg');
   var btn   = document.getElementById('auth-submit-btn');
   var title = document.getElementById('auth-modal-title');
+  var body  = document.getElementById('auth-modal-body');
   if (!modal) return;
   if (msg)   msg.textContent = '';
   if (inp)   { inp.value = ''; inp.disabled = false; }
-  if (title) title.textContent = lang === 'ja' ? 'ログイン'  : 'Log in';
-  if (btn)   { btn.disabled = false; btn.textContent = lang === 'ja' ? 'リンクを送る' : 'Send link'; }
+  if (title) title.textContent = lang === 'ja' ? '無料体験を始める'  : 'Log in';
+  if (body) {
+    body.textContent = lang === 'ja'
+      ? '5回の無料体験を記録するために、\nメールアドレスでログインしてください。\n\nパスワードは不要です。\nメールに届くリンクから始められます。'
+      : '';
+  }
+  if (btn)   { btn.disabled = false; btn.textContent = lang === 'ja' ? 'ログインリンクを送る' : 'Send link'; }
   if (inp)   { inp.placeholder = lang === 'ja' ? 'メールアドレス' : 'Email address'; }
   modal.classList.add('open');
   setTimeout(function() { if (inp) inp.focus(); }, 80);
@@ -4014,16 +4021,16 @@ function submitAuthEmail() {
   .then(function(result) {
     if (result.error) {
       if (msg) msg.textContent = isJa ? '送信できませんでした。もう一度お試しください。' : 'Could not send. Please try again.';
-      if (btn) { btn.disabled = false; btn.textContent = isJa ? 'リンクを送る' : 'Send link'; }
+      if (btn) { btn.disabled = false; btn.textContent = isJa ? 'ログインリンクを送る' : 'Send link'; }
     } else {
-      if (msg) msg.textContent = isJa ? 'ログインリンクをメールで送りました。\nメールを確認してください。' : 'Check your email for the login link.';
+      if (msg) msg.textContent = isJa ? 'メールを送りました。\n届いたリンクを開いてください。' : 'Check your email for the login link.';
       if (inp) inp.disabled = true;
       if (btn) { btn.disabled = true; btn.textContent = isJa ? '送信済み' : 'Sent'; }
     }
   })
   .catch(function() {
     if (msg) msg.textContent = isJa ? '送信できませんでした。' : 'Could not send.';
-    if (btn) { btn.disabled = false; btn.textContent = isJa ? 'リンクを送る' : 'Send link'; }
+    if (btn) { btn.disabled = false; btn.textContent = isJa ? 'ログインリンクを送る' : 'Send link'; }
   });
 }
 
@@ -4993,11 +5000,16 @@ initSupabase();
 <div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-box">
     <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
-    <div class="auth-box-title" id="auth-modal-title">ログイン</div>
+    <div class="auth-box-title" id="auth-modal-title">無料体験を始める</div>
+    <div class="auth-box-body" id="auth-modal-body">5回の無料体験を記録するために、
+メールアドレスでログインしてください。
+
+パスワードは不要です。
+メールに届くリンクから始められます。</div>
     <input class="auth-box-input" type="email" id="auth-email-input"
       placeholder="メールアドレス" autocomplete="email" inputmode="email"
       onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
-    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()">リンクを送る</button>
+    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()">ログインリンクを送る</button>
     <div class="auth-box-msg" id="auth-modal-msg"></div>
   </div>
 </div>
