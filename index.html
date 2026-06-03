@@ -551,6 +551,20 @@ it helps you quietly return to yourself.</p>
   <button class="btn-ghost" id="skip-b2" onclick="skipMeasurementBefore()">計測をスキップする</button>
 </div>
 
+<!-- ── BREATH MODE ── -->
+<div class="screen" id="s-breath-mode">
+  <div id="s-entry-inner">
+    <div class="entry-title" id="t-breath-mode-title">呼吸の進め方を選んでください。</div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-breath-soft" onclick="selectBreathMode('soft')" style="white-space:pre-line"></button>
+      <div class="entry-choice-desc" id="t-breath-soft-desc"></div>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-breath-deep" onclick="selectBreathMode('deep')" style="white-space:pre-line"></button>
+      <div class="entry-choice-desc" id="t-breath-deep-desc"></div>
+    </div>
+  </div>
+</div>
 
 <!-- ── BREATH 1: Ideal Experience ── -->
 <div class="screen" id="s-br1">
@@ -1006,9 +1020,9 @@ var copy = {
     door_title:'答えやすい問いを選んでください。',
     door_answer_placeholder:'状態を入力…',
     door_next_button:'この答えで進む',
-    door_a_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
-    door_b_question_template:'「{pos}」\n\nそうでない私たちは\n\nどんな状態？',
-    door_c_question_template:'「{pos}」\n\nそうである私たちは\n\nどんな状態？',
+    door_a_question_template:'「{pos}」\n\nそう感じる私たちは\n\nどんな状態？',
+    door_b_question_template:'「{pos}」\n\nそう感じない私たちは\n\nどんな状態？',
+    door_c_question_template:'「{pos}」\n\nそう感じる私たちは\n\nどんな状態？',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
     about_p1:'Noetuneは、\n理想の自分を作るためのアプリではありません。',
@@ -1057,9 +1071,17 @@ var copy = {
     breath_2_text:'その時の呼吸の余裕',
     breath_3_text:'その感覚を愛する。',
     breath_4_text:'その感覚を含めたあらゆるすべて。',
-    breath_3_deep_text:'その感覚に対する私の感覚',
-    breath_4_deep_text:'その感覚を含むあらゆる全て',
-    breath_5_deep_text:'その感覚が存在しない状態。',
+    breath_mode_title:'呼吸の進め方を選んでください。',
+    breath_mode_soft_label:'やさしく整える',
+    breath_mode_soft_desc:'今の感覚を、短い呼吸で静かにほどきます。',
+    breath_mode_deep_label:'深く整える',
+    breath_mode_deep_desc:'抵抗や反応の奥まで、少し深く見ていきます。',
+    breath_3_soft_text:'その感覚に対する私の感覚',
+    breath_4_soft_text:'その感覚を含むあらゆる全て',
+    breath_5_soft_text:'その感覚が存在しない状態。',
+    breath_3_deep_text:'その感覚に対する抵抗',
+    breath_4_deep_text:'その抵抗以外の全て',
+    breath_5_deep_text:'その抵抗が存在しない状態。',
     ideal_title:'「{issue}」\n\nその反応が存在しないとき、\nどんな感情・状態・感覚が残る？',
     ideal_unified_title:'「{theme}」\n\nそうである私たちにとって\n\n理想状態は？',
     before2_title:'「{ideal}」\n\nそのときの、\n\n呼吸の余裕度は？',
@@ -3350,7 +3372,7 @@ function startLanding() { setLang(landingLang); }
 var SCREEN_ORDER = [
   's-lang','s-open','s-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
-  's-before2',
+  's-before2','s-breath-mode',
   's-br1','s-br2','s-br3','s-br4','s-br5',
   's-after2','s-shift-note','s-result'
 ];
@@ -4528,12 +4550,12 @@ function startUnifiedBreathFlow() {
   } else {
     setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
   }
-  setEl('lbl-br3-main', T('breath_3_deep_text'));
-  setEl('lbl-br4-main', T('breath_4_deep_text'));
-  setEl('lbl-br5-main', T('breath_5_deep_text'));
-  D.breathMode = 'deep';
-  resetBreathScreens();
-  fwd('s-br3');
+  setEl('t-breath-mode-title', T('breath_mode_title'));
+  setEl('btn-breath-soft', T('breath_mode_soft_label'));
+  setEl('btn-breath-deep', T('breath_mode_deep_label'));
+  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
+  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
+  fwd('s-breath-mode');
 }
 
 function resetBreathScreens() {
@@ -4543,6 +4565,21 @@ function resetBreathScreens() {
     if (c) { c.textContent = ''; c.className = 'breath-circle pulse'; }
     var h = document.getElementById('hint-' + k); if (h) h.style.display = '';
   });
+}
+
+function selectBreathMode(mode) {
+  D.breathMode = mode;
+  if (mode === 'deep') {
+    setEl('lbl-br3-main', T('breath_3_deep_text'));
+    setEl('lbl-br4-main', T('breath_4_deep_text'));
+    setEl('lbl-br5-main', T('breath_5_deep_text'));
+  } else {
+    setEl('lbl-br3-main', T('breath_3_soft_text'));
+    setEl('lbl-br4-main', T('breath_4_soft_text'));
+    setEl('lbl-br5-main', T('breath_5_soft_text'));
+  }
+  resetBreathScreens();
+  fwd('s-br3');
 }
 
 
@@ -4647,7 +4684,7 @@ function afterBreath(t) {
   trackEvent('breath_completed', { step: t, lang: lang });
   var next;
   if (t === 'br4') {
-    next = D.breathMode === 'deep' ? 's-br5' : 's-after2';
+    next = (D.breathMode === 'soft' || D.breathMode === 'deep') ? 's-br5' : 's-after2';
   } else {
     next = BREATH_NEXT[t];
   }
