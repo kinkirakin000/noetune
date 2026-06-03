@@ -413,6 +413,7 @@ it helps you quietly return to yourself.</p>
   <div class="intro-sub" id="intro-sub-open">— for when the body closes —</div>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
+  <button class="btn-about-link" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
 </div>
 
 <!-- ── ENTRY CHOICE ── -->
@@ -677,6 +678,7 @@ it helps you quietly return to yourself.</p>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別の入口からほどく</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
+  <button class="btn-secondary-result" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
   <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none">ログアウト</button>
   <div class="result-upgrade-block" onclick="fwd('s-pricing')">
     <div class="result-upgrade-body">必要な時に、<br>何度でも戻れる場所。</div>
@@ -4111,9 +4113,9 @@ function pricingCtaClick() {
 }
 
 function openCustomerPortal() {
-  var btn = document.getElementById('btn-portal');
+  var buttons = getPortalButtons();
   if (!supabaseClient || !currentUser) return;
-  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  buttons.forEach(function(btn) { btn.disabled = true; btn.textContent = '…'; });
   supabaseClient.auth.getSession()
     .then(function(result) {
       var token = result.data && result.data.session ? result.data.session.access_token : null;
@@ -4130,15 +4132,26 @@ function openCustomerPortal() {
     .catch(function() { updatePortalButton(); });
 }
 
+function getPortalButtons() {
+  return ['btn-portal', 'btn-portal-home', 'btn-portal-result']
+    .map(function(id) { return document.getElementById(id); })
+    .filter(function(btn) { return !!btn; });
+}
+
 function updatePortalButton() {
-  var btn = document.getElementById('btn-portal');
-  if (!btn) return;
-  var isPlus = currentProfile && currentProfile.plan_status === 'plus';
-  btn.style.display = isPlus ? '' : 'none';
-  btn.disabled = false;
+  var buttons = getPortalButtons();
+  if (!buttons.length) return;
+  var isPlus = isUnlimited();
+  buttons.forEach(function(btn) {
+    btn.style.display = isPlus ? '' : 'none';
+    btn.disabled = false;
+    if (isPlus) btn.textContent = lang === 'ja' ? 'サブスクリプションを管理する' : 'Manage subscription';
+  });
   if (isPlus) {
-    btn.textContent = lang === 'ja' ? 'サブスクリプションを管理する' : 'Manage subscription';
-    if (!btn._plusTracked) { btn._plusTracked = true; trackEvent('subscription_active', { source: 'profile' }); }
+    if (!updatePortalButton._plusTracked) {
+      updatePortalButton._plusTracked = true;
+      trackEvent('subscription_active', { source: 'profile' });
+    }
   }
 }
 
