@@ -243,8 +243,8 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .lp-footer{border-top:1px solid #E8E8E2;padding:2.8rem 0 4.5rem;margin-top:.5rem;text-align:center;}
 .lp-footer p{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#A8A8A2;white-space:pre-line;}
 .lp-footer p+p{margin-top:1.2rem;}
-.btn-lp-portal{display:inline-block;margin:1.8rem auto 0;padding:9px 22px;background:transparent;border:1px solid #6B9080;border-radius:999px;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:400;letter-spacing:.08em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,opacity .2s;}
-.btn-lp-portal:active{background:rgba(107,144,128,.08);opacity:.85;}
+.portal-outline-btn{display:inline-block;margin:1.2rem auto 0;padding:9px 22px;background:transparent;border:1px solid #6B9080;border-radius:999px;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:400;letter-spacing:.08em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,opacity .2s;}
+.portal-outline-btn:active{background:rgba(107,144,128,.08);opacity:.85;}
 /* ── DARK MODE ── */
 :root{--bg:#FAFAF7;--text:#1A1A1A;--muted:#A8A8A2;--soft:#77736E;--border:#E8E8E2;--card-bg:#FAFAF7;--primary:#6B9080;--input-line:#D4DDD8}
 @media(prefers-color-scheme:dark){
@@ -391,7 +391,7 @@ and mental noise back to yourself.</div>
       <p id="lp-footer-p1">Noetune is not an app for analyzing your problems.</p>
       <p id="lp-footer-p2">With short questions and breathing,
 it helps you quietly return to yourself.</p>
-      <button class="btn-lp-portal" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+      <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
     </div>
   </div>
 </div>
@@ -416,7 +416,7 @@ it helps you quietly return to yourself.</p>
   <div class="intro-sub" id="intro-sub-open">— for when the body closes —</div>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
-  <button class="btn-about-link" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+  <button class="portal-outline-btn" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
 </div>
 
 <!-- ── ENTRY CHOICE ── -->
@@ -681,7 +681,7 @@ it helps you quietly return to yourself.</p>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別の入口からほどく</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
-  <button class="btn-secondary-result" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+  <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
   <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none">ログアウト</button>
   <div class="result-upgrade-block" onclick="fwd('s-pricing')">
     <div class="result-upgrade-body">必要な時に、<br>何度でも戻れる場所。</div>
@@ -703,7 +703,7 @@ it helps you quietly return to yourself.</p>
       <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()">Professionalを始める</button>
       <div class="pricing-note" id="t-pricing-note"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
-      <button class="btn-pricing-return" id="btn-portal" onclick="openCustomerPortal()" style="display:none;margin-top:.8rem"></button>
+      <button class="portal-outline-btn" id="btn-portal" onclick="openCustomerPortal()" style="display:none"></button>
       <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
       <button class="btn-pricing-return" id="btn-logout-pricing" onclick="logoutUser()" style="display:none;margin-top:.6rem">ログアウト</button>
     </div>
