@@ -702,6 +702,7 @@ it helps you quietly return to yourself.</p>
     <div style="text-align:center">
       <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()">Professionalを始める</button>
       <div class="pricing-note" id="t-pricing-note"></div>
+      <div class="pricing-note" id="t-guest-records-note" style="display:none"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="portal-outline-btn" id="btn-portal" onclick="openCustomerPortal()" style="display:none"></button>
       <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
@@ -1043,6 +1044,7 @@ var copy = {
     pricing_cta:'Professionalを始める',
     portal_manage:'サブスクリプションを管理する',
     pricing_note:'いつでも必要な時に、\nこの場所へ戻れます。',
+    guest_records_note:'ゲスト利用中の記録は、この端末内に保存されます。\n別の端末で使う、または記録を安全に残すにはログインしてください。',
     pricing_soon:'準備中です',
     lock_title:'必要な時に、\nまた戻れるように。',
     lock_body:'あなたはもう、\nNoetuneが何をするか知っています。\n\nProfessionalでは、\n必要な時に何度でも\nこの場所へ戻れます。',
@@ -1160,6 +1162,7 @@ var copy = {
     pricing_p2:'This is a small\nself-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.\n\nSafety.\nSpace.\nBeing here now.\nBeing yourself.\n\nBy observing reactions\nto those states,\nyou gradually return\nto a state that is not fixed.',
     pricing_cta:'Start with 1 month free',
     portal_manage:'Manage subscription',
+    guest_records_note:'Guest records are saved only on this device.\nLog in if you want to use Noetune on another device or keep your records safely.',
     pricing_soon:'Coming soon',
     repeat_same_theme:'Repeat this theme',
     repeat_same_theme_hint:'It can help to stay with\nthe same theme several times,\nuntil no answer comes naturally.',
@@ -1770,6 +1773,7 @@ function applyLang() {
   setEl('t-pricing-price',  T('pricing_price'));
   setEl('btn-pricing-cta',  T('pricing_cta'));
   setEl('t-pricing-note',   T('pricing_note'));
+  setEl('t-guest-records-note', T('guest_records_note'));
   setEl('t-pricing-soon',   T('pricing_soon'));
   setEl('t-lock-title',     T('lock_title'));
   setEl('t-lock-body',      T('lock_body'));
@@ -3706,7 +3710,6 @@ function startPositiveEntry() {
 }
 
 function startNegaEntry() {
-  if (!requireSessionAccess()) return;
   negaFreeText = '';
   D.entryMode = 'nega';
   var inp = document.getElementById('in-nega-text');
@@ -3715,7 +3718,6 @@ function startNegaEntry() {
 }
 
 function startFreeV12Entry() {
-  if (!requireSessionAccess()) return;
   var inp = document.getElementById('in-v12-free');
   if (inp) inp.value = '';
   var btn = document.getElementById('btn-v12-free-submit');
@@ -3742,7 +3744,6 @@ function submitV12FreeEntry() {
 }
 
 function startCoreEntry() {
-  if (!requireSessionAccess()) return;
   v12Mode = 'core';
   coreVisibleCount = 2;
   renderCoreThemeScreen();
@@ -3750,7 +3751,6 @@ function startCoreEntry() {
 }
 
 function startSituationEntry() {
-  if (!requireSessionAccess()) return;
   v12Mode = 'situation';
   renderSituationCategoryScreen();
   fwd('s-theme');
@@ -3930,7 +3930,6 @@ function submitNegaEntry() {
   if (inp) negaFreeText = inp.value;
   var theme = negaFreeText.trim();
   if (theme.length < 1) return;
-  if (!requireSessionAccess('nega_session')) return;
   D.theme = theme;
   D.themeNegative = theme;
   D.themePositive = '';
@@ -3960,7 +3959,6 @@ function submitNegaIdeal() {
   var inp = document.getElementById('in-nega-ideal');
   var val = inp ? inp.value.trim() : '';
   if (!val) return;
-  if (!requireSessionAccess('nega_ideal_session')) return;
   var neg = negaFreeText.trim() || getAutoNegative(val);
   D.themeKey = null; D.theme = val; D.themePositive = val; D.ideal = val;
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
@@ -3974,7 +3972,6 @@ function submitNegaIdeal() {
 }
 
 function skipNegaIdeal() {
-  if (!requireSessionAccess('nega_ideal_session')) return;
   var neg = negaFreeText.trim() || getAutoNegative('落ち着き');
   D.themeKey = null; D.theme = '落ち着き'; D.themePositive = '落ち着き'; D.ideal = '落ち着き';
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
@@ -3993,26 +3990,53 @@ function openAuthModal() {
   var inp   = document.getElementById('auth-email-input');
   var msg   = document.getElementById('auth-modal-msg');
   var btn   = document.getElementById('auth-submit-btn');
+  var googleBtn = document.getElementById('auth-google-btn');
   var title = document.getElementById('auth-modal-title');
   var body  = document.getElementById('auth-modal-body');
   if (!modal) return;
   if (msg)   msg.textContent = '';
-  if (inp)   { inp.value = ''; inp.disabled = false; }
-  if (title) title.textContent = lang === 'ja' ? '無料体験を始める'  : 'Log in';
+  if (inp)   { inp.value = ''; inp.disabled = false; inp.style.display = 'none'; }
+  if (title) title.textContent = lang === 'ja' ? 'ログイン'  : 'Log in';
   if (body) {
     body.textContent = lang === 'ja'
-      ? '5回の無料体験を記録するために、\nメールアドレスでログインしてください。\n\nパスワードは不要です。\nメールに届くリンクから始められます。'
-      : '';
+      ? 'Plusを安全に保存するためにログインします。\nGoogleで続けても、Noetuneの内容がGoogleに共有されることはありません。'
+      : 'Log in to safely save your Plus access.\nYour Noetune content will not be shared with Google.';
   }
-  if (btn)   { btn.disabled = false; btn.textContent = lang === 'ja' ? 'ログインリンクを送る' : 'Send link'; }
+  if (googleBtn) { googleBtn.style.display = ''; googleBtn.disabled = false; googleBtn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
+  if (btn)   { btn.style.display = 'none'; btn.disabled = false; }
   if (inp)   { inp.placeholder = lang === 'ja' ? 'メールアドレス' : 'Email address'; }
   modal.classList.add('open');
-  setTimeout(function() { if (inp) inp.focus(); }, 80);
+  setTimeout(function() { if (googleBtn) googleBtn.focus(); }, 80);
 }
 
 function closeAuthModal() {
   var modal = document.getElementById('auth-modal');
   if (modal) modal.classList.remove('open');
+}
+
+function loginWithGoogle() {
+  if (!supabaseClient || !supabaseClient.auth) return;
+  var msg = document.getElementById('auth-modal-msg');
+  var btn = document.getElementById('auth-google-btn');
+  if (msg) msg.textContent = '';
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  if (typeof trackEvent === 'function') trackEvent('google_login_started', { lang: lang });
+  supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin + window.location.pathname
+    }
+  })
+  .then(function(result) {
+    if (result.error) {
+      if (msg) msg.textContent = lang === 'ja' ? 'ログインできませんでした。もう一度お試しください。' : 'Could not log in. Please try again.';
+      if (btn) { btn.disabled = false; btn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
+    }
+  })
+  .catch(function() {
+    if (msg) msg.textContent = lang === 'ja' ? 'ログインできませんでした。' : 'Could not log in.';
+    if (btn) { btn.disabled = false; btn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
+  });
 }
 
 function submitAuthEmail() {
@@ -4035,7 +4059,7 @@ function submitAuthEmail() {
   .then(function(result) {
     if (result.error) {
       if (msg) msg.textContent = isJa ? '送信できませんでした。もう一度お試しください。' : 'Could not send. Please try again.';
-      if (btn) { btn.disabled = false; btn.textContent = isJa ? 'ログインリンクを送る' : 'Send link'; }
+      if (btn) { btn.disabled = false; btn.textContent = isJa ? 'メール認証を使う' : 'Use email login'; }
     } else {
       if (msg) msg.textContent = isJa ? 'メールを送りました。\n届いたリンクを開いてください。' : 'Check your email for the login link.';
       if (inp) inp.disabled = true;
@@ -4044,7 +4068,7 @@ function submitAuthEmail() {
   })
   .catch(function() {
     if (msg) msg.textContent = isJa ? '送信できませんでした。' : 'Could not send.';
-    if (btn) { btn.disabled = false; btn.textContent = isJa ? 'ログインリンクを送る' : 'Send link'; }
+    if (btn) { btn.disabled = false; btn.textContent = isJa ? 'メール認証を使う' : 'Use email login'; }
   });
 }
 
@@ -4070,7 +4094,7 @@ function logoutUser() {
 function updateLoginButton() {
   var show = !!(supabaseClient && !currentUser);
   var showLogout = !!currentUser;
-  var label = lang === 'ja' ? 'メールでログイン' : 'Log in with email';
+  var label = lang === 'ja' ? 'Googleでログイン' : 'Continue with Google';
   ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
@@ -4087,6 +4111,8 @@ function updateLoginButton() {
     var soonMsg = document.getElementById('t-pricing-soon');
     if (soonMsg) soonMsg.style.display = 'none';
   }
+  var guestNote = document.getElementById('t-guest-records-note');
+  if (guestNote) guestNote.style.display = show ? '' : 'none';
   updatePricingCTA();
 }
 
@@ -4460,7 +4486,6 @@ function enterV9Step2(reaction) {
 
 function startSession() {
   if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
-  if (!requireSessionAccess('start_session')) return;
   if (D.themeKey && D.themeKey.indexOf('pro_') === 0 && !isUnlimited()) {
     trackEvent('pro_theme_paywall', { themeKey: D.themeKey, lang: lang });
     fwd('s-pricing');
@@ -4570,7 +4595,6 @@ function submitIdeal() {
   var v = inp ? inp.value.trim() : '';
   if (v) D.ideal = v;
   if (!D.ideal) return;
-  if (D.entryMode === 'ideal' && !requireSessionAccess('ideal_session')) return;
   trackEvent('ideal_submitted', { lang: lang });
   if (D.entryMode === 'ideal') {
     setEl('t-issue-title', T('ideal_blocker_title', {ideal: D.ideal}));
@@ -4862,7 +4886,6 @@ function startIdealFromSelection() {
 }
 
 function enterIdealFirst() {
-  if (!requireSessionAccess()) return;
   D.ideal = '';
   setIdealScreenMode('ideal');
   var inp = document.getElementById('in-ideal');
@@ -4873,7 +4896,6 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
-  if (!requireSessionAccess('repeat_same_theme')) return;
   _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
   var savedKey      = D.themeKey;
@@ -5030,16 +5052,14 @@ initSupabase();
 <div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-box">
     <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
-    <div class="auth-box-title" id="auth-modal-title">無料体験を始める</div>
-    <div class="auth-box-body" id="auth-modal-body">5回の無料体験を記録するために、
-メールアドレスでログインしてください。
-
-パスワードは不要です。
-メールに届くリンクから始められます。</div>
+    <div class="auth-box-title" id="auth-modal-title">ログイン</div>
+    <div class="auth-box-body" id="auth-modal-body">Plusを安全に保存するためにログインします。
+Googleで続けても、Noetuneの内容がGoogleに共有されることはありません。</div>
+    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()">Googleで続ける</button>
     <input class="auth-box-input" type="email" id="auth-email-input"
-      placeholder="メールアドレス" autocomplete="email" inputmode="email"
+      placeholder="メールアドレス" autocomplete="email" inputmode="email" style="display:none"
       onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
-    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()">ログインリンクを送る</button>
+    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()" style="display:none">メール認証を使う</button>
     <div class="auth-box-msg" id="auth-modal-msg"></div>
   </div>
 </div>
