@@ -4242,13 +4242,21 @@ function consumeTrialOnResult() {
 function updateTrialRemainingDisplay(data) {
   var el = document.getElementById('t-trial-remaining');
   if (!el) return;
-  var remaining = data.remaining != null ? data.remaining : 0;
-  if (remaining > 0) {
-    el.textContent = T('trial_remaining', { used: data.trialUsedCount, remaining: remaining });
+  el.style.display = 'none';
+  if (!data || !currentProfile || isUnlimited()) return;
+  if (data.remaining == null) return;
+  var remaining = Number(data.remaining);
+  if (!isFinite(remaining)) return;
+  if (remaining > 1) return;
+  if (remaining === 1) {
+    el.textContent = lang === 'ja' ? '無料体験はあと1回です。' : '1 free session left.';
     el.style.display = '';
-  } else {
-    el.style.display = 'none';
+    return;
   }
+  el.textContent = lang === 'ja'
+    ? '無料体験は完了しました。\n必要な時に何度でも戻るには、Professionalへ。'
+    : 'Your free sessions are complete.\nContinue with Professional when you want to return anytime.';
+  el.style.display = '';
 }
 
 /*
