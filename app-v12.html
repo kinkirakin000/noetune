@@ -392,6 +392,7 @@ and mental noise back to yourself.</div>
       <p id="lp-footer-p2">With short questions and breathing,
 it helps you quietly return to yourself.</p>
       <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+      <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none">Plusを復元</button>
       <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none">ログアウト</button>
     </div>
   </div>
@@ -418,6 +419,7 @@ it helps you quietly return to yourself.</p>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
   <button class="portal-outline-btn" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+  <button class="portal-outline-btn" id="btn-login-home" onclick="openAuthModal()" style="display:none">Plusを復元</button>
   <button class="portal-outline-btn" id="btn-logout-home" onclick="logoutUser()" style="display:none">ログアウト</button>
 </div>
 
@@ -1838,6 +1840,7 @@ function applyLang() {
   renderThemeScreen();
   renderIdealScreen();
   updatePortalButton();
+  updateLoginButton();
 }
 
 function setLang(l) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); trackEvent('language_selected', { lang: l }); fwd('s-open'); }
@@ -4097,11 +4100,18 @@ function updateLoginButton() {
   var show = !!(supabaseClient && !currentUser);
   var showLogout = !!currentUser;
   var label = lang === 'ja' ? 'Googleでログイン' : 'Continue with Google';
+  var restoreLabel = lang === 'ja' ? 'Plusを復元' : 'Restore Plus';
   ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.style.display = show ? '' : 'none';
     btn.textContent = label;
+  });
+  ['btn-login-landing', 'btn-login-home'].forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (!btn) return;
+    btn.style.display = show ? '' : 'none';
+    btn.textContent = restoreLabel;
   });
   var logoutLabel = lang === 'ja' ? 'ログアウト' : 'Log out';
   ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result', 'btn-logout-landing', 'btn-logout-home'].forEach(function(id) {
