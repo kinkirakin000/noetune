@@ -392,6 +392,7 @@ and mental noise back to yourself.</div>
       <p id="lp-footer-p2">With short questions and breathing,
 it helps you quietly return to yourself.</p>
       <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+      <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none">ログアウト</button>
     </div>
   </div>
 </div>
@@ -417,6 +418,7 @@ it helps you quietly return to yourself.</p>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
   <button class="portal-outline-btn" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
+  <button class="portal-outline-btn" id="btn-logout-home" onclick="logoutUser()" style="display:none">ログアウト</button>
 </div>
 
 <!-- ── ENTRY CHOICE ── -->
@@ -4101,11 +4103,12 @@ function updateLoginButton() {
     btn.style.display = show ? '' : 'none';
     btn.textContent = label;
   });
-  ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result'].forEach(function(id) {
+  var logoutLabel = lang === 'ja' ? 'ログアウト' : 'Log out';
+  ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result', 'btn-logout-landing', 'btn-logout-home'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.style.display = showLogout ? '' : 'none';
-    btn.textContent = 'ログアウト';
+    btn.textContent = logoutLabel;
   });
   if (show) {
     var soonMsg = document.getElementById('t-pricing-soon');
