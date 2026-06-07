@@ -848,6 +848,14 @@ function enforceTrialLock() {
   return true;
 }
 
+function requireActiveAccess() {
+  if (!isUnlimited() && isTrialExhausted()) {
+    fwd('s-lock');
+    return true;
+  }
+  return false;
+}
+
 function requireSessionAccess(source) {
   if (!currentUser) {
     trackEvent('login_required', { source: source || 'session_start', lang: lang });
@@ -4025,6 +4033,7 @@ function onNegaIdealInput(val) {
 }
 
 function submitNegaIdeal() {
+  if (requireActiveAccess()) return;
   var inp = document.getElementById('in-nega-ideal');
   var val = inp ? inp.value.trim() : '';
   if (!val) return;
@@ -4041,6 +4050,7 @@ function submitNegaIdeal() {
 }
 
 function skipNegaIdeal() {
+  if (requireActiveAccess()) return;
   var neg = negaFreeText.trim() || getAutoNegative('落ち着き');
   D.themeKey = null; D.theme = '落ち着き'; D.themePositive = '落ち着き'; D.ideal = '落ち着き';
   D.themeNegative = neg; D.issue = neg; D.entryMode = 'nega';
@@ -4407,6 +4417,7 @@ function ensureCurrentTheme() {
 var _doorSentences = {A:'', B:'', C:''};
 
 function showDoorScreen() {
+  if (requireActiveAccess()) return;
   var pos = D.themePositive || D.theme;
   var neg = D.themeNegative;
   // qPos: raw theme name without the がある/がない suffix, used only for the
@@ -4570,6 +4581,7 @@ function enterV9Step2(reaction) {
 }
 
 function startSession() {
+  if (requireActiveAccess()) return;
   if (!ensureCurrentTheme()) { updateThemeCTA(); return; }
   if (D.themeKey && D.themeKey.indexOf('pro_') === 0 && !isUnlimited()) {
     trackEvent('pro_theme_paywall', { themeKey: D.themeKey, lang: lang });
@@ -4677,6 +4689,7 @@ function _enterIdeal(issue) {
 }
 
 function submitIdeal() {
+  if (requireActiveAccess()) return;
   var inp = document.getElementById('in-ideal');
   var v = inp ? inp.value.trim() : '';
   if (v) D.ideal = v;
@@ -4780,6 +4793,7 @@ function fmtResult(v) {
 }
 
 function showResult() {
+  if (requireActiveAccess()) return;
   trackEvent('v7_complete');
   trackEvent('result_viewed', { lang: lang, has_door: !!D.doorKey });
   var useWesternQuotes = ['en','es','de','pt-BR','fr'].indexOf(lang) >= 0;
@@ -4969,10 +4983,12 @@ function updateIdealCTA() {
 }
 
 function startIdealFromSelection() {
+  if (requireActiveAccess()) return;
   submitIdeal();
 }
 
 function enterIdealFirst() {
+  if (requireActiveAccess()) return;
   D.ideal = '';
   setIdealScreenMode('ideal');
   var inp = document.getElementById('in-ideal');
@@ -4983,6 +4999,7 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
+  if (requireActiveAccess()) return;
   if (requireLoginAfterGuestFirstSession('repeatSameTheme')) return;
   _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
