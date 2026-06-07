@@ -147,6 +147,19 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .theme-section-desc{font-size:.7rem;color:#A8A8A2;letter-spacing:.04em;margin-top:.25rem;font-weight:300;line-height:1.45}
 .theme-section-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .35s ease}
 .theme-section.open .theme-section-body{max-height:2000px;opacity:1}
+.situation-list{display:flex;flex-direction:column;margin:.35rem 0 .9rem}
+.situation-row{font-family:'Noto Serif JP',serif;width:100%;display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:transparent;border:none;border-bottom:1px solid #EDEDE7;padding:.72rem 0;color:#555550;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.situation-row:active{color:#6B9080}
+.situation-row-label{font-size:.78rem;letter-spacing:.07em;line-height:1.5}
+.situation-row-status{flex-shrink:0;font-size:.62rem;letter-spacing:.05em;color:#A8A8A2}
+.situation-subgroup{border-bottom:1px solid #EDEDE7}
+.situation-subgroup-header{font-family:'Noto Serif JP',serif;width:100%;display:flex;align-items:center;justify-content:space-between;background:transparent;border:none;padding:.82rem 0;color:#1A1A1A;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.situation-subgroup-title{font-size:.8rem;letter-spacing:.08em}
+.situation-subgroup-toggle{font-size:.72rem;color:#A8A8A2}
+.situation-subgroup-body{display:none;padding:0 0 .4rem .6rem}
+.situation-subgroup.open .situation-subgroup-body{display:block}
+.situation-coming-soon{font-family:'Noto Serif JP',serif;display:none;margin:.35rem 0 1rem;padding:.7rem .8rem;border:1px solid #EDEDE7;border-radius:8px;color:#77736E;font-size:.72rem;letter-spacing:.05em;line-height:1.7;background:rgba(255,255,255,.35);white-space:pre-line}
+.situation-coming-soon.show{display:block}
 #s-theme-top{margin-bottom:1.4rem;text-align:center}
 .theme-screen-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;color:#1A1A1A;letter-spacing:.06em;margin-bottom:.45rem}
 .theme-screen-sub{font-family:'Noto Serif JP',serif;font-size:.74rem;color:#A8A8A2;letter-spacing:.04em;line-height:1.75}
@@ -332,6 +345,13 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .theme-section-header:active{color:#8FB8A4}
 .theme-section-toggle{color:#5A5855}
 .theme-section-desc{color:#5A5855}
+.situation-row{color:#B8B2A8;border-bottom-color:rgba(245,239,230,.1)}
+.situation-row:active{color:#8FB8A4}
+.situation-row-status{color:#5A5855}
+.situation-subgroup{border-bottom-color:rgba(245,239,230,.1)}
+.situation-subgroup-header{color:#F5EFE6}
+.situation-subgroup-toggle{color:#5A5855}
+.situation-coming-soon{color:#8E8981;border-color:rgba(245,239,230,.12);background:rgba(245,239,230,.03)}
 .theme-screen-title{color:#F5EFE6}
 .theme-screen-sub,.entry-subtitle{color:#5A5855}
 .lp-hero-title{color:#F5EFE6}
@@ -3853,7 +3873,9 @@ function makeSituationSection(cat) {
 
   var themes = V12_SITUATION_THEMES[cat.id];
   if (cat.children && cat.children.length > 0) {
-    body.appendChild(makeSituationBoxGroup(cat.children));
+    var notice = makeSituationComingSoonNotice();
+    body.appendChild(notice);
+    body.appendChild(makeSituationBoxGroup(cat.children, notice));
   } else if (themes && themes.length > 0) {
     var grid = document.createElement('div');
     grid.className = 'theme-grid';
@@ -3876,48 +3898,85 @@ function makeSituationSection(cat) {
   return section;
 }
 
-function makeSituationBoxGroup(items) {
+function makeSituationComingSoonNotice() {
+  var notice = document.createElement('div');
+  notice.className = 'situation-coming-soon';
+  notice.textContent = 'この入口は準備中です\nComing soon';
+  return notice;
+}
+
+function showSituationComingSoon(notice, label) {
+  if (!notice) return;
+  notice.textContent = label + '\nこの入口は準備中です\nComing soon';
+  notice.classList.add('show');
+}
+
+function makeSituationBoxGroup(items, notice) {
   var wrap = document.createElement('div');
-  wrap.style.marginTop = '.5rem';
-  wrap.style.marginBottom = '.8rem';
+  wrap.className = 'situation-list';
 
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
     if (item.children && item.children.length > 0) {
-      var group = document.createElement('div');
-      group.style.marginTop = i === 0 ? '.2rem' : '.9rem';
-
-      var heading = document.createElement('div');
-      heading.className = 'theme-section-label';
-      heading.textContent = item.label;
-      group.appendChild(heading);
-      group.appendChild(makeSituationBoxGroup(item.children));
-      wrap.appendChild(group);
+      wrap.appendChild(makeSituationSubgroup(item, notice));
     } else {
-      wrap.appendChild(makeComingSoonBox(item));
+      wrap.appendChild(makeSituationComingSoonRow(item, notice));
     }
   }
   return wrap;
 }
 
-function makeComingSoonBox(item) {
+function makeSituationSubgroup(item, notice) {
+  var group = document.createElement('div');
+  group.className = 'situation-subgroup';
+
+  var header = document.createElement('button');
+  header.type = 'button';
+  header.className = 'situation-subgroup-header';
+
+  var title = document.createElement('span');
+  title.className = 'situation-subgroup-title';
+  title.textContent = item.label;
+
+  var toggle = document.createElement('span');
+  toggle.className = 'situation-subgroup-toggle';
+  toggle.textContent = '＋';
+
+  header.appendChild(title);
+  header.appendChild(toggle);
+
+  var body = document.createElement('div');
+  body.className = 'situation-subgroup-body';
+  body.appendChild(makeSituationBoxGroup(item.children || [], notice));
+
+  header.onclick = function() {
+    var open = group.classList.toggle('open');
+    toggle.textContent = open ? '－' : '＋';
+  };
+
+  group.appendChild(header);
+  group.appendChild(body);
+  return group;
+}
+
+function makeSituationComingSoonRow(item, notice) {
   var b = document.createElement('button');
-  b.className = 'theme-btn';
+  b.className = 'situation-row';
   b.type = 'button';
-  b.disabled = true;
-  b.style.width = '100%';
-  b.style.marginBottom = '.6rem';
 
   var ls = document.createElement('span');
-  ls.className = 'theme-btn-label';
+  ls.className = 'situation-row-label';
   ls.textContent = item.label;
 
   var ds = document.createElement('span');
-  ds.className = 'theme-btn-desc';
+  ds.className = 'situation-row-status';
   ds.textContent = 'Coming soon';
 
   b.appendChild(ls);
   b.appendChild(ds);
+  b.onclick = function() {
+    showSituationComingSoon(notice, item.label);
+  };
   return b;
 }
 
