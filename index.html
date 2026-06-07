@@ -858,6 +858,33 @@ function requireSessionAccess(source) {
   return true;
 }
 
+function hasCompletedGuestFirstSession() {
+  try { return localStorage.getItem('first_session_completed') === 'true'; }
+  catch(e) { return false; }
+}
+
+function markGuestFirstSessionCompleted() {
+  if (currentUser) return;
+  try { localStorage.setItem('first_session_completed', 'true'); } catch(e) {}
+  trackEvent('first_session_completed', { lang: lang });
+}
+
+function requireLoginAfterGuestFirstSession(source) {
+  if (currentUser || !hasCompletedGuestFirstSession()) return false;
+  trackEvent('login_required', { source: source || 'guest_second_session', lang: lang });
+  openAuthModal();
+  return true;
+}
+
+function hasClaimedGuestFirstSession() {
+  try { return localStorage.getItem('guest_first_session_claimed') === 'true'; }
+  catch(e) { return false; }
+}
+
+function markGuestFirstSessionClaimed() {
+  try { localStorage.setItem('guest_first_session_claimed', 'true'); } catch(e) {}
+}
+
 /* ── Auth state ──────────────────────────────────────────────────────────── */
 var currentUser    = null;
 var currentProfile = null;
@@ -866,6 +893,32 @@ var _posthog       = null;
 var _checkoutSuccessPending = false;
 
 function isLoggedIn() { return !!currentUser; }
+
+function claimGuestFirstSessionIfNeeded() {
+  if (!supabaseClient || !currentUser) return Promise.resolve(false);
+  if (!hasCompletedGuestFirstSession() || hasClaimedGuestFirstSession()) return Promise.resolve(false);
+  return supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) return null;
+      return fetch('/api/claim-guest-first-session', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+      }).then(function(r) { return r.ok ? r.json() : null; });
+    })
+    .then(function(data) {
+      var shouldMarkClaimed = data && data.loggedIn &&
+        (data.claimed || data.skipped === 'plus' || data.skipped === 'already_counted');
+      if (shouldMarkClaimed) {
+        markGuestFirstSessionClaimed();
+        if (data.profile) currentProfile = data.profile;
+        trackEvent('guest_first_session_claimed', { claimed: !!data.claimed, skipped: data.skipped || '' });
+        return true;
+      }
+      return false;
+    })
+    .catch(function() { return false; });
+}
 
 function fetchProfile() {
   if (!supabaseClient || !currentUser) return;
@@ -958,18 +1011,29 @@ function initSupabase() {
           supabaseClient.auth.onAuthStateChange(function(event, session) {
             currentUser    = session ? session.user : null;
             currentProfile = null;
-            if (currentUser) { fetchProfile(); if (event === 'SIGNED_IN') closeAuthModal(); }
-            if (currentUser && _checkoutSuccessPending) refreshProfileAfterCheckout();
-            updateLoginButton();
+            if (currentUser) {
+              claimGuestFirstSessionIfNeeded().then(function() {
+                fetchProfile();
+                if (event === 'SIGNED_IN') closeAuthModal();
+                if (_checkoutSuccessPending) refreshProfileAfterCheckout();
+                updateLoginButton();
+              });
+            } else {
+              updateLoginButton();
+            }
           });
           supabaseClient.auth.getSession()
             .then(function(result) {
               if (result.data && result.data.session) {
                 currentUser = result.data.session.user;
-                fetchProfile();
-                if (_checkoutSuccessPending) refreshProfileAfterCheckout();
+                claimGuestFirstSessionIfNeeded().then(function() {
+                  fetchProfile();
+                  if (_checkoutSuccessPending) refreshProfileAfterCheckout();
+                  updateLoginButton();
+                });
+              } else {
+                updateLoginButton();
               }
-              updateLoginButton();
             })
             .catch(function() {});
         } catch(e) {}
@@ -4512,6 +4576,7 @@ function startSession() {
     fwd('s-pricing');
     return;
   }
+  if (requireLoginAfterGuestFirstSession('startSession')) return;
   trackEvent('v9_start');
   if (!D.themeKey) trackEvent('custom_theme_entered', { source: 'custom', lang: lang });
   showDoorScreen();
@@ -4755,6 +4820,7 @@ function showResult() {
     }
   }
   fwd('s-result');
+  markGuestFirstSessionCompleted();
   consumeTrialOnResult();
 }
 
@@ -4917,6 +4983,7 @@ function enterIdealFirst() {
 }
 
 function repeatSameTheme() {
+  if (requireLoginAfterGuestFirstSession('repeatSameTheme')) return;
   _trialConsumedThisSession = false;
   var isNega = D.entryMode === 'nega';
   var savedKey      = D.themeKey;
