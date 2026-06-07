@@ -3239,84 +3239,62 @@ var v12SituationCategory = '';
 var v12SituationLabel = '';
 
 var V12_SITUATION_CATEGORIES = [
-  { id:'health',       label:'健康・生存',   desc:'身体・安全・生きることへの反応をほどく。' },
-  { id:'money',        label:'お金・豊かさ', desc:'受け取ること、持つこと、増えることへの反応をほどく。' },
-  { id:'value_exchange', label:'価値交換',   desc:'価値を価格にし、提示し、受け取ることからほどく。' },
-  { id:'relationship', label:'人間関係',     desc:'相手の感情や期待を背負う前提をほどく。' },
-  { id:'work',         label:'仕事・使命',   desc:'正解探しや役割への反応をほどく。' },
-  { id:'creation',     label:'創造する',     desc:'固定された現実や不足の前提をほどき、創る力へ戻る。' },
-  { id:'time',         label:'時間・未来',   desc:'遅れている感覚や未来不安をほどく。' },
-  { id:'emotion',      label:'こころ・感情', desc:'感情を危険視する前提をほどく。' },
+  { id:'modern_reactions', label:'現代の反応', desc:'今の生活で起きやすい反応の箱です。', children:[
+    { id:'ai_relationship', label:'AIとの関わり' },
+    { id:'sns_information', label:'SNS・情報との関わり' },
+    { id:'after_work_emotion', label:'仕事後の感情' },
+    { id:'after_meeting_people', label:'人と会った後の感情' },
+    { id:'after_decision', label:'決断・選択後の感情' },
+    { id:'boundary_no', label:'境界線・断れない' },
+    { id:'rest_guilt', label:'休む罪悪感' },
+    { id:'procrastination_restart', label:'先延ばし・再起動' },
+    { id:'night_rumination', label:'夜の反芻' },
+  ] },
+  { id:'life_reactions', label:'人生の反応', desc:'人生の領域ごとの反応の箱です。', children:[
+    { id:'body', label:'身体', children:[
+      { id:'health', label:'健康' },
+      { id:'body_awareness', label:'身体認識・感覚' },
+      { id:'eating', label:'食べる' },
+      { id:'sleeping', label:'寝る' },
+      { id:'sex', label:'セックス' },
+    ] },
+    { id:'economy', label:'経済', children:[
+      { id:'money', label:'お金' },
+      { id:'abundance', label:'豊かさ' },
+      { id:'value_exchange', label:'価値交換' },
+    ] },
+    { id:'relationships', label:'人間関係', children:[
+      { id:'child', label:'子' },
+      { id:'mother', label:'母' },
+      { id:'father', label:'父' },
+      { id:'partner', label:'伴侶' },
+      { id:'romance', label:'ロマンス' },
+      { id:'friends', label:'友人' },
+      { id:'neighbors', label:'隣人関係' },
+      { id:'society', label:'社会' },
+    ] },
+    { id:'life_direction', label:'どう生きるか', children:[
+      { id:'work', label:'仕事' },
+      { id:'mission_life', label:'使命・生き方' },
+      { id:'creation', label:'創造する' },
+    ] },
+    { id:'existence', label:'存在', children:[
+      { id:'death_life', label:'死生観' },
+    ] },
+    { id:'time', label:'時間', children:[
+      { id:'time_relationship', label:'時間との関係' },
+      { id:'past', label:'過去' },
+      { id:'future', label:'未来' },
+    ] },
+    { id:'inner_state', label:'内的状態', children:[
+      { id:'thought', label:'思考' },
+      { id:'emotion', label:'感情' },
+      { id:'intuition_sixth_sense', label:'直感・第六感' },
+    ] },
+  ] },
 ];
 
-var V12_SITUATION_THEMES = {
-  money: [
-    { id:'sit_money_01', label:'豊かさは続いていい',   desc:'良い状態が一瞬で終わる前提から離れる。',                     invalidates:'良い状態は長く続かない。' },
-    { id:'sit_money_02', label:'豊かさは保持できる',   desc:'受け取ったものを、安心して持っていていい。',                 invalidates:'持っていると奪われる。' },
-    { id:'sit_money_03', label:'豊かさは創出できる',   desc:'豊かさは外側から奪うものではなく、生み出せるもの。',         invalidates:'豊かさは限られていて、誰かから取らなければ得られない。' },
-  ],
-  value_exchange: [
-    { id:'sit_value_exchange_01', label:'価値に価格をつける',       desc:'提供する価値を、価格として形にする。',           invalidates:'価値は価格にしてはいけない。' },
-    { id:'sit_value_exchange_02', label:'価格を伝える',             desc:'価格を静かに、明確に提示する。',                 invalidates:'価格を伝えると、価値交換は壊れる。' },
-    { id:'sit_value_exchange_03', label:'請求する',                 desc:'提供した価値に対して、請求を成立させる。',       invalidates:'請求することは迷惑をかけることだ。' },
-    { id:'sit_value_exchange_04', label:'支払いを受け取る',         desc:'成立した交換として、支払いを受け取る。',         invalidates:'支払いを受け取ると、関係が重くなる。' },
-    { id:'sit_value_exchange_05', label:'無料と有料を分ける',       desc:'提供範囲を分け、交換の境界を明確にする。',       invalidates:'無料と有料を分けることは冷たい。' },
-    { id:'sit_value_exchange_06', label:'価値を商品にする',         desc:'届ける価値を、選べる形に整える。',               invalidates:'価値を商品にすると、本質が失われる。' },
-    { id:'sit_value_exchange_07', label:'価格を変える',             desc:'提供内容や状況に合わせて、価格を更新する。',     invalidates:'一度決めた価格は変えてはいけない。' },
-    { id:'sit_value_exchange_08', label:'価格交渉する',             desc:'交換条件を、対話として扱う。',                   invalidates:'価格交渉は対立である。' },
-    { id:'sit_value_exchange_09', label:'断られることを受け入れる', desc:'提示した後の反応を、交換の一部として受け取る。', invalidates:'断られたら、提示してはいけなかったということだ。' },
-    { id:'sit_value_exchange_10', label:'断ることを受け入れる',     desc:'合わない条件を、静かに選び直す。',               invalidates:'断ることは交換を壊すことだ。' },
-    { id:'sit_value_exchange_11', label:'継続して受け取る',         desc:'一度きりではなく、継続する交換を受け取る。',     invalidates:'継続して受け取ることは負担を生む。' },
-    { id:'sit_value_exchange_12', label:'解約を受け入れる',         desc:'終わる選択も、交換の流れとして受け入れる。',     invalidates:'解約されたら、交換全体が失敗だったということだ。' },
-  ],
-  health: [
-    { id:'sit_health_01', label:'身体は信頼できる',           desc:'身体を敵ではなく、共に生きる場所として感じる。',                   invalidates:'身体は私を裏切る。' },
-    { id:'sit_health_02', label:'身体は自己調整する',         desc:'身体が自然にバランスへ戻ろうとする力を思い出す。',               invalidates:'私は身体を完全にコントロールしなければならない。' },
-    { id:'sit_health_03', label:'身体感覚は内なる知恵である', desc:'違和感や感覚を、敵ではなく情報として受け取る。',                   invalidates:'身体感覚は邪魔なものだ。' },
-    { id:'sit_health_04', label:'休息は回復である',           desc:'休むことを、停滞ではなく回復として受け取る。',                   invalidates:'休むことは遅れることだ。' },
-    { id:'sit_health_05', label:'快は回復を助ける',           desc:'心地よさを、身体が戻るための力として感じる。',                   invalidates:'快や心地よさは後回しにすべきものだ。' },
-    { id:'sit_health_06', label:'限界は境界である',           desc:'身体の限界を、失敗ではなく大切な境界として尊重する。',           invalidates:'限界を感じることは弱さだ。' },
-  ],
-  relationship: [
-    { id:'sit_rel_01', label:'私と相手は別々でいい',       desc:'相手の感情や課題を、自分のものにしなくていい。',         invalidates:'相手の感情は私が背負わなければならない。' },
-    { id:'sit_rel_02', label:'本当の自分で関わっていい',   desc:'演じず、本音や弱さを持ったまま関わる。',                 invalidates:'本当の自分を見せると関係は壊れる。' },
-    { id:'sit_rel_03', label:'関係は管理しなくていい',     desc:'好かれるために、反応を操作しなくていい。',               invalidates:'関係は常に管理しなければならない。' },
-    { id:'sit_rel_04', label:'親密さと自由は両立する',     desc:'近づいても、自分を失わなくていい。',                     invalidates:'親密になると自由を失う。' },
-    { id:'sit_rel_05', label:'心は読まなくていい',         desc:'相手の内側を読み続ける反応から離れる。',                 invalidates:'相手の気持ちを読まなければ危険だ。' },
-    { id:'sit_rel_06', label:'関係は修復できる',           desc:'一度揺れても、関係は終わりではない。',                   invalidates:'関係が乱れたら終わりだ。' },
-  ],
-  work: [
-    { id:'sit_work_01', label:'人生に唯一の正解はない',     desc:'正解を探し続ける反応から離れる。',                       invalidates:'正しい道を選ばなければ人生は失敗する。' },
-    { id:'sit_work_02', label:'道は歩きながら創られる',     desc:'行動しながら、方向は見えてくる。',                       invalidates:'進む前に完全な道が見えていなければならない。' },
-    { id:'sit_work_03', label:'不確実なまま進んでいい',     desc:'完全に分からなくても、一歩進める。',                     invalidates:'確信がなければ動いてはいけない。' },
-    { id:'sit_work_04', label:'失敗はデータである',         desc:'失敗を価値の否定ではなく、情報として受け取る。',         invalidates:'失敗したら終わりだ。' },
-    { id:'sit_work_05', label:'仕事は私そのものではない',   desc:'仕事の結果と自分の存在価値を切り離す。',                 invalidates:'仕事の結果が私の価値を決める。' },
-    { id:'sit_work_06', label:'今ここから選び直せる',       desc:'過去の選択に縛られず、今ここから戻る。',                 invalidates:'もう選び直せない。' },
-  ],
-  creation: [
-    { id:'sit_creation_01', label:'世界は変えられる',     desc:'固定された現実ではなく、少しずつ形を変えられる。',         invalidates:'現実は固定されていて、私は変えられない。' },
-    { id:'sit_creation_02', label:'私は価値がある',       desc:'結果や評価とは別に、私の価値は消えない。',                 invalidates:'結果や評価がなければ、私には価値がない。' },
-    { id:'sit_creation_03', label:'失敗はヒント',         desc:'うまくいかないことは、次の道を教えてくれる。',             invalidates:'失敗は終わりであり、避けなければならない。' },
-    { id:'sit_creation_04', label:'足りないから工夫できる', desc:'不足は止まる理由ではなく、創る入口になる。',             invalidates:'足りないなら、始められない。' },
-    { id:'sit_creation_05', label:'人生は私が書く',       desc:'正解を探すより、自分の物語を生きる。',                     invalidates:'人生には外側に決められた正解がある。' },
-  ],
-  time: [
-    { id:'sit_time_01', label:'今この瞬間は完全',               desc:'未来で完成しなくても、今は欠けていない。',             invalidates:'未来で何かを達成しなければ、今は不完全だ。' },
-    { id:'sit_time_02', label:'私はちょうど良いタイミング',     desc:'遅れているという反応から離れる。',                     invalidates:'私は遅れている。' },
-    { id:'sit_time_03', label:'未来は自然に開いていく',         desc:'未来を脅威ではなく、開いていくものとして感じる。',     invalidates:'未来は管理しなければ危険だ。' },
-    { id:'sit_time_04', label:'すべての瞬間に価値がある',       desc:'待つ時間や止まる時間にも価値を見出す。',               invalidates:'成果が出ない時間は無駄だ。' },
-    { id:'sit_time_05', label:'時間は私の味方',                 desc:'時間を敵ではなく、展開の場として感じる。',             invalidates:'時間は私を追い詰める。' },
-    { id:'sit_time_06', label:'私には私のリズムがある',         desc:'他人の速度ではなく、自分のリズムに戻る。',             invalidates:'他人より遅い私は間違っている。' },
-  ],
-  emotion: [
-    { id:'sit_emo_01', label:'感情は安全である',       desc:'感情を感じても、壊れない。',                                   invalidates:'感情を感じると危険だ。' },
-    { id:'sit_emo_02', label:'感情は情報である',       desc:'ネガティブ感情も、今の状態を教えてくれる。',                   invalidates:'ネガティブ感情は消すべきものだ。' },
-    { id:'sit_emo_03', label:'私は戻れる',             desc:'感情に飲まれても、また戻れる。',                               invalidates:'感情に飲まれたら戻れない。' },
-    { id:'sit_emo_04', label:'感情は流れる',           desc:'感情を固定されたものではなく、流れるものとして感じる。',       invalidates:'この感情はずっと続く。' },
-    { id:'sit_emo_05', label:'私の感覚は信頼できる',   desc:'自分の感じていることを、敵ではなく手がかりとして扱う。',       invalidates:'私の感覚は間違っている。' },
-    { id:'sit_emo_06', label:'感情と私は別である',     desc:'感情があっても、それが私の全部ではない。',                     invalidates:'この感情が私そのものだ。' },
-  ],
-};
+var V12_SITUATION_THEMES = {};
 
 var V12_CORE_THEMES = [
   { id:'core_01', label:'決めつけなくていい',       desc:'自分を決めつけなくていい。',                     invalidates:'条件・結果・状態・反応・比較・不足・過去未来・正しさによって、自分を固定していた前提。', free:true },
@@ -3874,7 +3852,9 @@ function makeSituationSection(cat) {
   body.className = 'theme-section-body';
 
   var themes = V12_SITUATION_THEMES[cat.id];
-  if (themes && themes.length > 0) {
+  if (cat.children && cat.children.length > 0) {
+    body.appendChild(makeSituationBoxGroup(cat.children));
+  } else if (themes && themes.length > 0) {
     var grid = document.createElement('div');
     grid.className = 'theme-grid';
     grid.style.marginTop    = '.5rem';
@@ -3894,6 +3874,51 @@ function makeSituationSection(cat) {
   section.appendChild(header);
   section.appendChild(body);
   return section;
+}
+
+function makeSituationBoxGroup(items) {
+  var wrap = document.createElement('div');
+  wrap.style.marginTop = '.5rem';
+  wrap.style.marginBottom = '.8rem';
+
+  for (var i = 0; i < items.length; i++) {
+    var item = items[i];
+    if (item.children && item.children.length > 0) {
+      var group = document.createElement('div');
+      group.style.marginTop = i === 0 ? '.2rem' : '.9rem';
+
+      var heading = document.createElement('div');
+      heading.className = 'theme-section-label';
+      heading.textContent = item.label;
+      group.appendChild(heading);
+      group.appendChild(makeSituationBoxGroup(item.children));
+      wrap.appendChild(group);
+    } else {
+      wrap.appendChild(makeComingSoonBox(item));
+    }
+  }
+  return wrap;
+}
+
+function makeComingSoonBox(item) {
+  var b = document.createElement('button');
+  b.className = 'theme-btn';
+  b.type = 'button';
+  b.disabled = true;
+  b.style.width = '100%';
+  b.style.marginBottom = '.6rem';
+
+  var ls = document.createElement('span');
+  ls.className = 'theme-btn-label';
+  ls.textContent = item.label;
+
+  var ds = document.createElement('span');
+  ds.className = 'theme-btn-desc';
+  ds.textContent = 'Coming soon';
+
+  b.appendChild(ls);
+  b.appendChild(ds);
+  return b;
 }
 
 function toggleSituationSection(sectionId) {
