@@ -392,7 +392,7 @@ and mental noise back to yourself.</div>
       <p id="lp-footer-p2">With short questions and breathing,
 it helps you quietly return to yourself.</p>
       <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
-      <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none">Plusを復元</button>
+      <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
       <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none">ログアウト</button>
     </div>
   </div>
@@ -419,7 +419,7 @@ it helps you quietly return to yourself.</p>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
   <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
   <button class="portal-outline-btn" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
-  <button class="portal-outline-btn" id="btn-login-home" onclick="openAuthModal()" style="display:none">Plusを復元</button>
+  <button class="portal-outline-btn" id="btn-login-home" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
   <button class="portal-outline-btn" id="btn-logout-home" onclick="logoutUser()" style="display:none">ログアウト</button>
 </div>
 
@@ -4078,8 +4078,8 @@ function openAuthModal() {
   if (title) title.textContent = lang === 'ja' ? 'ログイン'  : 'Log in';
   if (body) {
     body.textContent = lang === 'ja'
-      ? 'Plusを安全に保存するためにログインします。\nGoogleで続けても、Noetuneの内容がGoogleに共有されることはありません。'
-      : 'Log in to safely save your Plus access.\nYour Noetune content will not be shared with Google.';
+      ? 'Professionalを安全に保存するためにログインします。\nGoogleで続けても、Noetuneの内容がGoogleに共有されることはありません。'
+      : 'Log in to safely save your Professional access.\nYour Noetune content will not be shared with Google.';
   }
   if (googleBtn) { googleBtn.style.display = ''; googleBtn.disabled = false; googleBtn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
   if (btn)   { btn.style.display = 'none'; btn.disabled = false; }
@@ -4174,7 +4174,7 @@ function updateLoginButton() {
   var show = !!(supabaseClient && !currentUser);
   var showLogout = !!currentUser;
   var label = lang === 'ja' ? 'Googleでログイン' : 'Continue with Google';
-  var restoreLabel = lang === 'ja' ? 'Plusを復元' : 'Restore Plus';
+  var restoreLabel = lang === 'ja' ? 'Professionalを復元' : 'Restore Professional';
   ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
@@ -5158,7 +5158,7 @@ initSupabase();
   <div class="auth-box">
     <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
     <div class="auth-box-title" id="auth-modal-title">ログイン</div>
-    <div class="auth-box-body" id="auth-modal-body">Plusを安全に保存するためにログインします。
+    <div class="auth-box-body" id="auth-modal-body">Professionalを安全に保存するためにログインします。
 Googleで続けても、Noetuneの内容がGoogleに共有されることはありません。</div>
     <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()">Googleで続ける</button>
     <input class="auth-box-input" type="email" id="auth-email-input"
