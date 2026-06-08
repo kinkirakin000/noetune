@@ -414,6 +414,7 @@ and mental noise back to yourself.</div>
       <p id="lp-footer-p1">Noetune is not an app for analyzing your problems.</p>
       <p id="lp-footer-p2">With short questions and breathing,
 it helps you quietly return to yourself.</p>
+      <button class="btn-pricing-return" id="btn-lp-pricing-link" onclick="fwd('s-pricing')" style="display:none">無料版・有料版について</button>
       <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
       <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
       <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none">ログアウト</button>
@@ -1135,7 +1136,7 @@ var copy = {
     about_p4:'Noetuneは、\n問題を分析するアプリではありません。\n\n今の意識状態を、\n一度リセットするための道具です。',
     about_safety_note:'医療行為ではありません。\n強い苦痛や緊急の状態がある場合は、\n専門家や身近な人に相談してください。',
     pricing_title:'Professional',
-    pricing_p1:'必要な時に、\n何度でも戻れる場所。\n\n・自由入力\n・すべての入口\n・履歴',
+    pricing_p1:'無料\n5回まで使えます。\n\nProfessional\n月額980円。\n無制限利用。\nサブスクはいつでも停止できます。',
     pricing_p2:'',
     pricing_price:'月額980円',
     pricing_cta:'Professionalを始める',
@@ -3354,7 +3355,7 @@ var LP_COPY = {
   ja: {
     hero: "反応パターンを、\n2分で切り替える。",
     sub:  "選ぶ。\n答える。\n呼吸する。\n\nNoetuneは、\n今の意識状態をリセットするWebアプリです。",
-    cta:  "無料で試す",
+    cta:  "始める",
     section: "毎日のあらゆるシーンで\n反応をリセット：",
     items: [
       "・考えすぎが止まらない",
@@ -3368,8 +3369,9 @@ var LP_COPY = {
       "・言わなきゃよかった",
       "・私はこのままでいいのだろうか"
     ],
-    fp1: "無料\n5回まで使えます。",
-    fp2: "Professional\n月額980円。\n無制限利用。\nサブスクはいつでも停止できます。"
+    fp1: "",
+    fp2: "",
+    pricingLink: "無料版・有料版について"
   },
   es: {
     hero: "Silencia el sistema nervioso\nque no para de pensar,\nen pocos minutos.",
@@ -3462,6 +3464,15 @@ function setLandingLang(code) {
   }
   setEl('lp-footer-p1', c.fp1);
   setEl('lp-footer-p2', c.fp2);
+  var footerP1 = document.getElementById('lp-footer-p1');
+  var footerP2 = document.getElementById('lp-footer-p2');
+  var pricingLink = document.getElementById('btn-lp-pricing-link');
+  if (footerP1) footerP1.style.display = c.fp1 ? '' : 'none';
+  if (footerP2) footerP2.style.display = c.fp2 ? '' : 'none';
+  if (pricingLink) {
+    pricingLink.textContent = c.pricingLink || '';
+    pricingLink.style.display = c.pricingLink ? 'block' : 'none';
+  }
   document.querySelectorAll('.lp-lang-btn').forEach(function(b) {
     b.classList.toggle('selected', b.dataset.lp === code);
   });
