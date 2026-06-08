@@ -178,6 +178,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .auth-box-input{width:100%;padding:12px 14px;border:1px solid #D8D8D4;border-radius:10px;font-size:.84rem;font-family:'Noto Serif JP',serif;letter-spacing:.04em;background:#fff;color:#1A1A1A;outline:none;box-sizing:border-box;margin-bottom:.9rem;-webkit-appearance:none}
 .auth-box-input:focus{border-color:#6B9080}
 .auth-box-btn{width:100%;padding:13px;background:#1A1A1A;color:#fff;border:none;border-radius:10px;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.1em;cursor:pointer;transition:opacity .2s}
+#auth-google-btn{min-height:48px;display:flex;align-items:center;justify-content:center;gap:.65rem;background:#fff;color:#1A1A1A;border:1px solid #D8D8D4;border-radius:12px;letter-spacing:.04em;font-weight:400;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.auth-google-g{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border:1px solid #DADCE0;border-radius:50%;font-family:Arial,sans-serif;font-size:.82rem;font-weight:700;color:#4285F4;line-height:1;letter-spacing:0;background:#fff;flex-shrink:0}
+.auth-google-text{line-height:1.2}
 .auth-box-btn:disabled{opacity:.35;cursor:default}
 .auth-box-msg{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#6B9080;letter-spacing:.05em;line-height:1.9;margin-top:1rem;white-space:pre-line;min-height:1.2em}
 .auth-box-close{position:absolute;top:.7rem;right:.9rem;background:none;border:none;color:#C0C0BA;font-size:1rem;cursor:pointer;line-height:1;padding:4px 6px}
@@ -1126,11 +1129,11 @@ var copy = {
     door_c_question_template:'「{pos}」\n\nこれと調和している私たちは\n\nどんな状態？',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n理想の自分を作るためのアプリではありません。',
-    about_p2:'すでにある本質を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸で静かにほどくための\n2分の統合ツールです。',
-    about_p3:'何かを足すのではなく、\n覆っているものをほどく。\n\n変わるためではなく、\n本来の感覚を思い出す。',
-    about_p4:'あらゆる状況の土台となる本質から。\n\n人類に共通して繰り返し起こるシーンから。\n\n今、個人的に気になるトピックから。\n\nどれからでも始められます。',
-    about_safety_note:'Noetuneは、\n医療・診断・緊急支援を目的としたものではありません。\n\n強い危機感がある場合や、\n自分だけでは安全を保てないと感じる場合は、\n地域の医療機関や専門家へ相談してください。',
+    about_p1:'Noetuneは、\n反応パターンを2分で切り替えるためのWebアプリです。',
+    about_p2:'今の状態を選び、\n短い問いに答え、\n呼吸します。',
+    about_p3:'考えすぎている時、\nSNSを見た後に重い時、\n人と会って疲れた時、\n決められない時などに使えます。',
+    about_p4:'Noetuneは、\n問題を分析するアプリではありません。\n\n今の意識状態を、\n一度リセットするための道具です。',
+    about_safety_note:'医療行為ではありません。\n強い苦痛や緊急の状態がある場合は、\n専門家や身近な人に相談してください。',
     pricing_title:'Professional',
     pricing_p1:'必要な時に、\n何度でも戻れる場所。\n\n・自由入力\n・すべての入口\n・履歴',
     pricing_p2:'',
@@ -3349,18 +3352,24 @@ var LP_COPY = {
     fp2: "With short questions and breathing,\nit helps you quietly return to yourself."
   },
   ja: {
-    hero: "あなたの本質を\n思い出す。\n\n本質を覆う、\n古い前提を、\n静かにほどく。",
-    sub:  "Noetuneは、\nすでにある本来の感覚を覆っている\n古い価値観・思い込み・無意識の規律を、\n短い問いと呼吸でほどく\n2分の統合ツールです。",
-    cta:  "始める",
-    section: "例えば、こんな感覚を思い出したいときに",
+    hero: "反応パターンを、\n2分で切り替える。",
+    sub:  "選ぶ。\n答える。\n呼吸する。\n\nNoetuneは、\n今の意識状態をリセットするWebアプリです。",
+    cta:  "無料で試す",
+    section: "毎日のあらゆるシーンで\n反応をリセット：",
     items: [
-      "・つながっている。",
-      "・自由である。",
-      "・大丈夫でいられる。",
-      "・十分である。"
+      "・考えすぎが止まらない",
+      "・SNSを見た後に重い",
+      "・AIに頼りすぎている気がする",
+      "・人と会って疲れた",
+      "・決められない",
+      "・パートナーと口論になった",
+      "・夜にぐるぐる考える",
+      "・不安が押しよせる",
+      "・言わなきゃよかった",
+      "・私はこのままでいいのだろうか"
     ],
-    fp1: "Noetuneは、\n理想の自分を作るためのアプリではありません。",
-    fp2: "すでにある本質を覆っているものを、\n静かにほどくためのツールです。"
+    fp1: "無料\n5回まで使えます。",
+    fp2: "Professional\n月額980円。\n無制限利用。\nサブスクはいつでも停止できます。"
   },
   es: {
     hero: "Silencia el sistema nervioso\nque no para de pensar,\nen pocos minutos.",
@@ -4146,6 +4155,12 @@ function skipNegaIdeal() {
 
 /* ── Auth modal ──────────────────────────────────────────────────────────── */
 
+function setGoogleAuthButtonLabel(btn) {
+  if (!btn) return;
+  var label = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google';
+  btn.innerHTML = '<span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">' + label + '</span>';
+}
+
 function openAuthModal() {
   var modal = document.getElementById('auth-modal');
   var inp   = document.getElementById('auth-email-input');
@@ -4160,10 +4175,10 @@ function openAuthModal() {
   if (title) title.textContent = lang === 'ja' ? 'ログイン'  : 'Log in';
   if (body) {
     body.textContent = lang === 'ja'
-      ? 'Professionalを安全に保存するためにログインします。\nGoogleで続けても、Noetuneの内容がGoogleに共有されることはありません。'
+      ? '次回も使えるようにするため、\nGoogleでログインします。'
       : 'Log in to safely save your Professional access.\nYour Noetune content will not be shared with Google.';
   }
-  if (googleBtn) { googleBtn.style.display = ''; googleBtn.disabled = false; googleBtn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
+  if (googleBtn) { googleBtn.style.display = ''; googleBtn.disabled = false; setGoogleAuthButtonLabel(googleBtn); }
   if (btn)   { btn.style.display = 'none'; btn.disabled = false; }
   if (inp)   { inp.placeholder = lang === 'ja' ? 'メールアドレス' : 'Email address'; }
   modal.classList.add('open');
@@ -4191,12 +4206,12 @@ function loginWithGoogle() {
   .then(function(result) {
     if (result.error) {
       if (msg) msg.textContent = lang === 'ja' ? 'ログインできませんでした。もう一度お試しください。' : 'Could not log in. Please try again.';
-      if (btn) { btn.disabled = false; btn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
+      if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
     }
   })
   .catch(function() {
     if (msg) msg.textContent = lang === 'ja' ? 'ログインできませんでした。' : 'Could not log in.';
-    if (btn) { btn.disabled = false; btn.textContent = lang === 'ja' ? 'Googleで続ける' : 'Continue with Google'; }
+    if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
   });
 }
 
@@ -5246,9 +5261,9 @@ initSupabase();
   <div class="auth-box">
     <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
     <div class="auth-box-title" id="auth-modal-title">ログイン</div>
-    <div class="auth-box-body" id="auth-modal-body">Professionalを安全に保存するためにログインします。
-Googleで続けても、Noetuneの内容がGoogleに共有されることはありません。</div>
-    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()">Googleで続ける</button>
+    <div class="auth-box-body" id="auth-modal-body">次回も使えるようにするため、
+Googleでログインします。</div>
+    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"><span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">Googleで続ける</span></button>
     <input class="auth-box-input" type="email" id="auth-email-input"
       placeholder="メールアドレス" autocomplete="email" inputmode="email" style="display:none"
       onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
