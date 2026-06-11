@@ -150,8 +150,12 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .situation-list{display:flex;flex-direction:column;margin:.35rem 0 .9rem}
 .situation-row{font-family:'Noto Serif JP',serif;width:100%;display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:transparent;border:none;border-bottom:1px solid #EDEDE7;padding:.72rem 0;color:#555550;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .situation-row:active{color:#6B9080}
+.situation-row-copy{display:flex;flex-direction:column;gap:.14rem}
 .situation-row-label{font-size:.78rem;letter-spacing:.07em;line-height:1.5}
+.situation-row-desc{font-size:.66rem;letter-spacing:.04em;line-height:1.45;color:#A8A8A2}
 .situation-row-status{flex-shrink:0;font-size:.62rem;letter-spacing:.05em;color:#A8A8A2}
+.situation-list-heading{font-family:'Noto Serif JP',serif;font-size:.68rem;letter-spacing:.12em;color:#A8A8A2;margin:1rem 0 .25rem}
+.situation-list-heading:first-child{margin-top:.2rem}
 .situation-subgroup{border-bottom:1px solid #EDEDE7}
 .situation-subgroup-header{font-family:'Noto Serif JP',serif;width:100%;display:flex;align-items:center;justify-content:space-between;background:transparent;border:none;padding:.82rem 0;color:#1A1A1A;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .situation-subgroup-title{font-size:.8rem;letter-spacing:.08em}
@@ -350,7 +354,9 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .theme-section-desc{color:#5A5855}
 .situation-row{color:#B8B2A8;border-bottom-color:rgba(245,239,230,.1)}
 .situation-row:active{color:#8FB8A4}
+.situation-row-desc{color:#5A5855}
 .situation-row-status{color:#5A5855}
+.situation-list-heading{color:#5A5855}
 .situation-subgroup{border-bottom-color:rgba(245,239,230,.1)}
 .situation-subgroup-header{color:#F5EFE6}
 .situation-subgroup-toggle{color:#5A5855}
@@ -397,9 +403,10 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 in a few minutes.</div>
     <div class="lp-hero-sub" id="lp-hero-sub">Noetune is a quiet self-tuning tool
 for returning from information, decisions,
-and mental noise back to yourself.</div>
+    and mental noise back to yourself.</div>
     <div style="text-align:center">
       <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()">Start</button>
+      <button class="btn-about-link" id="btn-lp-about-link" onclick="fwd('s-about')" style="display:none;margin-left:auto;margin-right:auto">Noetuneとは</button>
     </div>
     <div class="lp-section">
       <div class="lp-section-title" id="lp-section-title">When your mind will not settle</div>
@@ -1130,10 +1137,10 @@ var copy = {
     door_c_question_template:'「{pos}」\n\nこれと調和している私たちは\n\nどんな状態？',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n反応パターンを2分で切り替えるためのWebアプリです。',
+    about_p1:'Noetuneは、\n状況に対する反応パターンを\n2分で切り替えるための\nWebアプリです。',
     about_p2:'今の状態を選び、\n短い問いに答え、\n呼吸します。',
-    about_p3:'考えすぎている時、\nSNSを見た後に重い時、\n人と会って疲れた時、\n決められない時などに使えます。',
-    about_p4:'Noetuneは、\n問題を分析するアプリではありません。\n\n今の意識状態を、\n一度リセットするための道具です。',
+    about_p3:'考えすぎている時、\nSNSを見た後に重い時、\n人と会って疲れた時、\n迷っている時などに使えます。',
+    about_p4:'Noetuneは、\n問題を分析するアプリではありません。\nあなたに何かを教えるアプリでもありません。\n\n今の反応から少し離れるための道具です。',
     about_safety_note:'医療行為ではありません。\n強い苦痛や緊急の状態がある場合は、\n専門家や身近な人に相談してください。',
     pricing_title:'Professional',
     pricing_p1:'無料\n5回まで使えます。\n\nProfessional\n月額980円。\n無制限利用。\nサブスクはいつでも停止できます。',
@@ -3261,16 +3268,18 @@ var v12SituationCategory = '';
 var v12SituationLabel = '';
 
 var V12_SITUATION_CATEGORIES = [
-  { id:'modern_reactions', label:'現代の反応', desc:'今の生活で起きやすい反応の箱です。', children:[
-    { id:'ai_relationship', label:'AIとの関わり' },
-    { id:'sns_information', label:'SNS・情報との関わり' },
-    { id:'after_work_emotion', label:'仕事後の感情' },
-    { id:'after_meeting_people', label:'人と会った後の感情' },
-    { id:'after_decision', label:'決断・選択後の感情' },
-    { id:'boundary_no', label:'境界線・断れない' },
-    { id:'rest_guilt', label:'休む罪悪感' },
-    { id:'procrastination_restart', label:'先延ばし・再起動' },
-    { id:'night_rumination', label:'夜の反芻' },
+  { id:'modern_reactions', label:'今の反応', desc:'今、近いものを選んでください。', children:[
+    { type:'heading', label:'よくある反応' },
+    { id:'night_rumination', label:'夜の反芻', desc:'夜に考え続けた後' },
+    { id:'after_work_emotion', label:'仕事後', desc:'仕事が終わった後' },
+    { id:'after_meeting_people', label:'人と会った後', desc:'会った後、気持ちが残った時' },
+    { id:'sns_information', label:'SNS・情報', desc:'スマホを見た後' },
+    { id:'boundary_no', label:'境界線', desc:'断れなかった後' },
+    { id:'rest_guilt', label:'休む', desc:'休もうとした後' },
+    { type:'heading', label:'もっと見る' },
+    { id:'after_decision', label:'決断・選択後', desc:'決めた後' },
+    { id:'procrastination_restart', label:'中断からの再開', desc:'途中で止まった後' },
+    { id:'ai_relationship', label:'AIとの関わり', desc:'AIを使った後' },
   ] },
   { id:'life_reactions', label:'人生の反応', desc:'人生の領域ごとの反応の箱です。', children:[
     { id:'body', label:'身体', children:[
@@ -3371,6 +3380,7 @@ var LP_COPY = {
     ],
     fp1: "",
     fp2: "",
+    aboutLink: "Noetuneとは",
     pricingLink: "無料版・有料版について"
   },
   es: {
@@ -3466,9 +3476,14 @@ function setLandingLang(code) {
   setEl('lp-footer-p2', c.fp2);
   var footerP1 = document.getElementById('lp-footer-p1');
   var footerP2 = document.getElementById('lp-footer-p2');
+  var aboutLink = document.getElementById('btn-lp-about-link');
   var pricingLink = document.getElementById('btn-lp-pricing-link');
   if (footerP1) footerP1.style.display = c.fp1 ? '' : 'none';
   if (footerP2) footerP2.style.display = c.fp2 ? '' : 'none';
+  if (aboutLink) {
+    aboutLink.textContent = c.aboutLink || '';
+    aboutLink.style.display = c.aboutLink ? 'block' : 'none';
+  }
   if (pricingLink) {
     pricingLink.textContent = c.pricingLink || '';
     pricingLink.style.display = c.pricingLink ? 'block' : 'none';
@@ -3935,13 +3950,22 @@ function makeSituationBoxGroup(items, notice) {
 
   for (var i = 0; i < items.length; i++) {
     var item = items[i];
-    if (item.children && item.children.length > 0) {
+    if (item.type === 'heading') {
+      wrap.appendChild(makeSituationListHeading(item));
+    } else if (item.children && item.children.length > 0) {
       wrap.appendChild(makeSituationSubgroup(item, notice));
     } else {
       wrap.appendChild(makeSituationComingSoonRow(item, notice));
     }
   }
   return wrap;
+}
+
+function makeSituationListHeading(item) {
+  var heading = document.createElement('div');
+  heading.className = 'situation-list-heading';
+  heading.textContent = item.label;
+  return heading;
 }
 
 function makeSituationSubgroup(item, notice) {
@@ -3982,15 +4006,26 @@ function makeSituationComingSoonRow(item, notice) {
   b.className = 'situation-row';
   b.type = 'button';
 
+  var copy = document.createElement('span');
+  copy.className = 'situation-row-copy';
+
   var ls = document.createElement('span');
   ls.className = 'situation-row-label';
   ls.textContent = item.label;
+  copy.appendChild(ls);
+
+  if (item.desc) {
+    var sub = document.createElement('span');
+    sub.className = 'situation-row-desc';
+    sub.textContent = item.desc;
+    copy.appendChild(sub);
+  }
 
   var ds = document.createElement('span');
   ds.className = 'situation-row-status';
   ds.textContent = 'Coming soon';
 
-  b.appendChild(ls);
+  b.appendChild(copy);
   b.appendChild(ds);
   b.onclick = function() {
     showSituationComingSoon(notice, item.label);
