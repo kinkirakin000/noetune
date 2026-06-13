@@ -509,7 +509,7 @@ it helps you quietly return to yourself.</p>
     <div id="v12-core-panel" style="display:none">
       <div id="s-theme-top">
         <div class="theme-screen-title">土台からほどく</div>
-        <div class="theme-screen-sub">あらゆる反応に共通する、古い前提を静かにほどきます。</div>
+        <div class="theme-screen-sub">人生と自然に付き合える。良い時も悪い時も、人生そのものを敵にしない。</div>
       </div>
       <div id="v12-core-grid"></div>
       <button class="btn-see-more" id="btn-see-more-core" onclick="seeMoreCoreThemes()" style="display:none">さらに土台を見る</button>
@@ -1944,7 +1944,7 @@ function applyLang() {
   updateLoginButton();
 }
 
-function setLang(l) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); trackEvent('language_selected', { lang: l }); fwd('s-open'); }
+function setLang(l, nextScreen) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); trackEvent('language_selected', { lang: l }); fwd(nextScreen || 's-landing'); }
 
 var D = {
   theme:'', themeKey:null,
@@ -3328,18 +3328,27 @@ var V12_SITUATION_CATEGORIES = [
 var V12_SITUATION_THEMES = {};
 
 var V12_CORE_THEMES = [
-  { id:'core_01', label:'決めつけなくていい',       desc:'自分を決めつけなくていい。',                     invalidates:'条件・結果・状態・反応・比較・不足・過去未来・正しさによって、自分を固定していた前提。', free:true },
-  { id:'core_02', label:'自分の反応から自由',       desc:'反応は、あなたそのものではない。',                 invalidates:'感じた反応が、そのまま自分自身を決めるという前提。' },
-  { id:'core_03', label:'他者の反応は判決でない',   desc:'相手の反応は、あなたを決めない。',                 invalidates:'他者の言葉や態度が、自分への最終判決であるという前提。' },
-  { id:'core_04', label:'状況は単なるメッセージ',   desc:'起きたことは、自分を知るきっかけ。',               invalidates:'起きた状況が、自分を裁くために現れているという前提。' },
-  { id:'core_05', label:'比べなくていい',           desc:'誰かと自分を比べなくていい。',                     invalidates:'誰かとの比較によって、自分の価値や位置が決まるという前提。' },
-  { id:'core_06', label:'追わなくていい',           desc:'理想や答えを、今すぐ追わなくていい。',             invalidates:'理想や答えを今すぐ追いかけなければならないという前提。' },
-  { id:'core_07', label:'自分をゆるめていい',       desc:'自分の正しさを守らなくていい。',                   invalidates:'自分のイメージや正しさを守らなければ、自分が崩れてしまうという前提。' },
-  { id:'core_08', label:'自分を直さなくていい',     desc:'こんな自分もある。',                               invalidates:'今の感情や状態は、すぐに直さなければならないという前提。' },
-  { id:'core_09', label:'今動ける',                 desc:'条件が揃う前でも、今ここから始められる。',         invalidates:'条件がすべて揃わなければ、動き出せないという前提。' },
-  { id:'core_10', label:'意味はあとでついてくる',   desc:'意味は、動いた後についてくる。',                   invalidates:'意味が先にわからなければ、動いてはいけないという前提。' },
-  { id:'core_11', label:'未知を歩ける',             desc:'先へ進むのに答えは不要。',                         invalidates:'答えが出ていなければ、未知のまま進んではいけないという前提。' },
-  { id:'core_12', label:'わからなくていい',         desc:'答えを出そうとしなくていい。',                     invalidates:'答えを出し、意味を理解しなければ、安心して存在できないという前提。' },
+  { id:'core_01', label:'今の自分を認められる',           desc:'できている部分も、できていない部分も認められる。',       invalidates:'できている部分も、できていない部分も認められないという前提。', free:true },
+  { id:'core_02', label:'自分を責めない',                 desc:'失敗しても、自分への攻撃を続けない。',                   invalidates:'失敗したら、自分への攻撃を続けなければならないという前提。' },
+  { id:'core_03', label:'どんな感情も感じていい',         desc:'嫌な感情も無理に消そうとしない。',                       invalidates:'嫌な感情は、無理に消さなければならないという前提。' },
+  { id:'core_04', label:'考えを事実にしない',             desc:'頭に浮かんだことを全部信じない。',                       invalidates:'頭に浮かんだことは、全部信じなければならないという前提。' },
+  { id:'core_05', label:'正解に執着しない',               desc:'一つの正解を探し続けなくていい。',                       invalidates:'一つの正解を探し続けなければならないという前提。' },
+  { id:'core_06', label:'人と比べない',                   desc:'他人を基準に自分を測らない。',                           invalidates:'他人を基準に、自分を測らなければならないという前提。' },
+  { id:'core_07', label:'一人でも大丈夫',                 desc:'一人の時間も安心して過ごせる。',                         invalidates:'一人の時間は安心して過ごせないという前提。' },
+  { id:'core_08', label:'助けを受け取れる',               desc:'必要な時に頼れる。',                                     invalidates:'必要な時でも頼ってはいけないという前提。' },
+  { id:'core_09', label:'好奇心で動ける',                 desc:'「やらなきゃ」より「やってみたい」で動ける。',             invalidates:'「やらなきゃ」でなければ動けないという前提。' },
+  { id:'core_10', label:'失敗を材料にする',               desc:'うまくいかなかった経験を活かせる。',                     invalidates:'うまくいかなかった経験は、失敗のまま終わるという前提。' },
+  { id:'core_11', label:'やめることを選べる',             desc:'続けるだけでなく、やめる判断もできる。',                 invalidates:'続けることだけが正しく、やめてはいけないという前提。' },
+  { id:'core_12', label:'未知を楽しめる',                 desc:'わからないことにも興味を持てる。',                       invalidates:'わからないことは、怖がらなければならないという前提。' },
+  { id:'core_13', label:'過去で今を決めない',             desc:'昔の経験だけで自分を決めない。',                         invalidates:'昔の経験だけで、今の自分が決まるという前提。' },
+  { id:'core_14', label:'未来を怖がりすぎない',           desc:'起きていないことで苦しまない。',                         invalidates:'まだ起きていないことで苦しまなければならないという前提。' },
+  { id:'core_15', label:'何とかなる感覚がある',           desc:'予想外のことにも対応できると思える。',                   invalidates:'予想外のことには対応できないという前提。' },
+  { id:'core_16', label:'体を大切にできる',               desc:'体の状態に気づける。',                                   invalidates:'体の状態に気づかなくてもいいという前提。' },
+  { id:'core_17', label:'休むことに罪悪感がない',         desc:'休息を必要な時間だと思える。',                           invalidates:'休むことには罪悪感を持たなければならないという前提。' },
+  { id:'core_18', label:'小さな幸せに気づける',           desc:'特別なことがなくても満足できる。',                       invalidates:'特別なことがなければ満足できないという前提。' },
+  { id:'core_19', label:'人生を味わえる',                 desc:'人生を体験として楽しめる。',                             invalidates:'人生は楽しむものではなく、こなすものだという前提。' },
+  { id:'core_20', label:'自分を笑える',                   desc:'失敗や間違いを重くしすぎない。',                         invalidates:'失敗や間違いは、重く受け止めなければならないという前提。' },
+  { id:'core_21', label:'死を人生の一部として見られる',   desc:'終わりがあることを自然に受け止められる。',               invalidates:'終わりがあることを、自然に受け止めてはいけないという前提。' },
 ];
 var cur = 's-landing';
 var navHistory = [];
@@ -3494,7 +3503,7 @@ function setLandingLang(code) {
   updatePortalButton();
 }
 
-function startLanding() { setLang(landingLang); }
+function startLanding() { setLang(landingLang, 's-entry-choice'); }
 
 var SCREEN_ORDER = [
   's-lang','s-open','s-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
@@ -4303,7 +4312,7 @@ function logoutUser() {
     updatePortalButton();
     updatePricingCTA();
     updateLoginButton();
-    if (typeof showScreenDirect === 'function') showScreenDirect('s-open');
+    if (typeof showScreenDirect === 'function') showScreenDirect('s-landing');
   }
 
   trackEvent('logout_clicked', { lang: lang });
@@ -5215,7 +5224,7 @@ function backToStart() {
   themeVisibleCount = 3;
   ['b1','b2','a1','a2'].forEach(resetSlider);
   renderThemeScreen();
-  showScreenDirect('s-open');
+  showScreenDirect('s-landing');
 }
 
 function changeLanguageFromResult() {
