@@ -8,15 +8,15 @@
 <meta name="theme-color" content="#FAFAF7">
 <meta name="theme-color" content="#151412" media="(prefers-color-scheme:dark)">
 <title>Noetune</title>
-<meta name="description" content="Tune your next moment through short questions and breathing.">
+<meta name="description" content="Remember your natural self through real-life experiences.">
 <meta property="og:title" content="Noetune">
-<meta property="og:description" content="Tune your next moment through short questions and breathing.">
+<meta property="og:description" content="Remember your natural self through real-life experiences.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://noetune.com">
 <meta property="og:site_name" content="Noetune">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Noetune">
-<meta name="twitter:description" content="Tune your next moment through short questions and breathing.">
+<meta name="twitter:description" content="Remember your natural self through real-life experiences.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -252,6 +252,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .lp-lang-btn:active{color:#6B9080;}
 .lp-hero-title{font-family:'Noto Serif JP',serif;font-size:1.35rem;font-weight:400;line-height:2;letter-spacing:.06em;color:#1A1A1A;text-align:center;white-space:pre-line;margin:3.5rem 0 1.6rem;}
 .lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-hero-title{font-size:1.18rem;line-height:2.1;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-section{max-width:260px;margin-left:auto;margin-right:auto;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-section-title{text-align:left;}
+.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list{max-width:260px;margin:0 auto;padding:0;text-align:left;align-items:stretch;}
 .lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{font-size:.76rem;line-height:1.9;letter-spacing:.08em;color:#A8A8A2;}
 .lp-hero-sub{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#77736E;white-space:pre-line;text-align:center;margin-bottom:2.4rem;}
 .btn-lp-start{display:inline-block;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.12em;border:none;padding:14px 52px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
@@ -399,28 +402,34 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
       <button class="lp-lang-btn"          data-lp="ja"    onclick="setLandingLang('ja')">日</button>
       <button class="lp-lang-btn"          data-lp="zh-TW" onclick="setLandingLang('zh-TW')">繁</button>
     </div>
-    <div class="lp-hero-title" id="lp-hero-title">Quiet the overthinking nervous system
-in a few minutes.</div>
-    <div class="lp-hero-sub" id="lp-hero-sub">Noetune is a quiet self-tuning tool
-for returning from information, decisions,
-    and mental noise back to yourself.</div>
+    <div class="lp-hero-title" id="lp-hero-title">When you notice your true self,
+things get lighter.</div>
+    <div class="lp-hero-sub" id="lp-hero-sub">Choose.
+Answer.
+Notice.
+
+Noetune is an app for remembering your natural self
+through real-life experiences.</div>
     <div style="text-align:center">
       <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()">Start</button>
-      <button class="btn-about-link" id="btn-lp-about-link" onclick="fwd('s-about')" style="display:none;margin-left:auto;margin-right:auto">Noetuneとは</button>
+      <button class="btn-about-link" id="btn-lp-about-link" onclick="setLang(landingLang, 's-about')" style="display:none;margin-left:auto;margin-right:auto">Noetuneとは</button>
     </div>
     <div class="lp-section">
-      <div class="lp-section-title" id="lp-section-title">When your mind will not settle</div>
+      <div class="lp-section-title" id="lp-section-title">When to use it</div>
       <ul class="lp-item-list" id="lp-item-list">
-        <li>・ChatGPT helps you organize your thoughts, but your mind still will not stop.</li>
-        <li>・Notion is organized, but you are not.</li>
-        <li>・Even after resting, your nervous system does not switch off.</li>
-        <li>・After work, you still cannot fully transition back.</li>
+        <li>・When money brings up a reaction</li>
+        <li>・When a relationship stays on your mind</li>
+        <li>・When work feels heavy</li>
+        <li>・When the future feels uncertain</li>
+        <li>・When you blame yourself</li>
+        <li>・When you do not know what is happening inside</li>
       </ul>
     </div>
     <div class="lp-footer">
       <p id="lp-footer-p1">Noetune is not an app for analyzing your problems.</p>
-      <p id="lp-footer-p2">With short questions and breathing,
-it helps you quietly return to yourself.</p>
+      <p id="lp-footer-p2">Through short questions,
+it helps you know yourself
+through what is happening now.</p>
       <button class="btn-pricing-return" id="btn-lp-pricing-link" onclick="fwd('s-pricing')" style="display:none">無料版・有料版について</button>
       <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
       <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
@@ -582,9 +591,9 @@ it helps you quietly return to yourself.</p>
 <div class="screen" id="s-v13-nonideal">
   <div id="s-ideal-inner">
     <div class="theme-top-copy" id="v13-nonideal-theme"></div>
-    <div class="screen-title">それについて、非理想の内面状態は？<br>（スキップ可）</div>
+    <div class="screen-title">そうでない状態とは？</div>
     <input type="text" class="custom-theme-input" id="in-v13-nonideal"
-      placeholder="例：焦り / 重さ / 抵抗 / ざわつき"
+      placeholder="例：不安 / 抵抗 / 閉じている / 迷っている"
       autocomplete="off" maxlength="60"
       oninput="onV13NonIdealInput(this.value)">
     <button class="btn" id="btn-v13-nonideal-next" onclick="submitV13NonIdeal()" disabled style="margin-top:1.2rem">次へ</button>
@@ -596,13 +605,26 @@ it helps you quietly return to yourself.</p>
 <div class="screen" id="s-v13-ideal">
   <div id="s-ideal-inner">
     <div class="theme-top-copy" id="v13-ideal-theme"></div>
-    <div class="screen-title">それについて、理想の内面状態は？</div>
+    <div class="screen-title">それに無縁の人の体験は？</div>
     <input type="text" class="custom-theme-input" id="in-v13-ideal"
-      placeholder="例：静けさ / 余裕 / 安心 / 軽さ"
+      placeholder="例：安心 / 信頼 / 自由 / 自分をわかっている"
       autocomplete="off" maxlength="60"
       oninput="onV13IdealInput(this.value)">
     <button class="btn" id="btn-v13-ideal-next" onclick="submitV13Ideal()" disabled style="margin-top:1.2rem">次へ</button>
     <button class="btn-ghost" onclick="skipV13Ideal()" style="margin-top:.5rem">回答を思いつかない</button>
+  </div>
+</div>
+
+<!-- ── V13 LOOP: End confirmation ── -->
+<div class="screen" id="s-v13-end-confirm">
+  <div id="s-entry-inner">
+    <div class="entry-title">ここで終えますか？</div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" onclick="finishV13Loop()">ここで終える</button>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-v13-continue-initial" onclick="continueV13Loop()">最初のテーマから始める</button>
+    </div>
   </div>
 </div>
 
@@ -1165,10 +1187,10 @@ var copy = {
     door_c_question_template:'「{pos}」\n\nこれと調和している私たちは\n\nどんな状態？',
     about_link:'Noetuneとは',
     about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n状況に対する反応パターンを\n2分で切り替えるための\nWebアプリです。',
-    about_p2:'今の状態を選び、\n短い問いに答え、\n呼吸します。',
-    about_p3:'考えすぎている時、\nSNSを見た後に重い時、\n人と会って疲れた時、\n迷っている時などに使えます。',
-    about_p4:'Noetuneは、\n問題を分析するアプリではありません。\nあなたに何かを教えるアプリでもありません。\n\n今の反応から少し離れるための道具です。',
+    about_p1:'Noetuneは、\n現実の体験を入口に、\n自然な自分を思い出すアプリです。',
+    about_p2:'テーマを選び、\n短い問いに答え、\n自分の中で、\n自然に気づき始めます。',
+    about_p3:'お金のこと、\n人間関係、\n仕事、\n未来への不安、\n自分への違和感などが\n入口です。',
+    about_p4:'Noetuneは、\n問題を分析するアプリではありません。\nあなたに答えを教えるアプリでもありません。\n\n今起きていることを通して、\n自分を知るための道具です。',
     about_safety_note:'医療行為ではありません。\n強い苦痛や緊急の状態がある場合は、\n専門家や身近な人に相談してください。',
     pricing_title:'Professional',
     pricing_p1:'無料\n5回まで使えます。\n\nProfessional\n月額980円。\n無制限利用。\nサブスクはいつでも停止できます。',
@@ -1285,11 +1307,11 @@ var copy = {
     congrats_back_to_start:'Return to start',
     about_link:'What is Noetune?',
     about_title:'What is Noetune?',
-    about_p1:'Noetune is\na self-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.',
-    about_p2:'Safety.\nSpace.\nBeing here now.\nBeing yourself.\n\nThrough short questions\nand breathing,\nyou observe how your body and mind\nreact to those states.',
-    about_p3:'Noetune is not for forcing yourself\nto become positive.\n\nAnd it is not for rejecting\nwhat feels negative.',
-    about_p4:'It is a practice\nfor observing reactions\nand gradually returning\nto a state that is not fixed.',
-    about_safety_note:'Noetune is not intended\nfor medical care, diagnosis,\nor emergency support.\n\nIf you feel in immediate danger,\nor feel unable to keep yourself safe,\nplease contact local emergency services,\na medical professional,\nor someone you trust.',
+    about_p1:'Noetune is an app for remembering your natural self\nthrough real-life experiences.',
+    about_p2:'You choose a theme,\nanswer short questions,\nand begin to notice something\nfrom within yourself.',
+    about_p3:'Money,\nrelationships,\nwork,\nanxiety about the future,\nand a sense that something feels off\ncan all become entrances.',
+    about_p4:'Noetune is not an app that analyzes your problems.\nIt is not an app that gives you answers.\n\nIt is a tool for knowing yourself\nthrough what is happening now.',
+    about_safety_note:'Noetune is not medical care.\nIf you are in strong distress or an urgent situation,\nplease reach out to a professional or someone close to you.',
     pricing_title:'Continue Noetune',
     pricing_p1:'Noetune is free\nfor the first month.\n\nAfter that,\nyou can continue\nwith a paid plan.',
     pricing_p2:'This is a small\nself-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.\n\nSafety.\nSpace.\nBeing here now.\nBeing yourself.\n\nBy observing reactions\nto those states,\nyou gradually return\nto a state that is not fixed.',
@@ -1389,13 +1411,13 @@ var copy = {
     congrats_body:'在這個主題裡，\n現在沒有反應浮現。\n\n這也許代表，\n此刻這個主題\n已經安靜下來了。\n\n如果需要，\n可以選擇別的主題。',
     congrats_choose_new_theme:'選擇別的主題',
     congrats_back_to_start:'回到開始畫面',
-    about_link:'什麼是 Noetune？',
-    about_title:'什麼是 Noetune？',
-    about_p1:'Noetune 是一種\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。',
-    about_p2:'安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過簡短的問題\n和呼吸，\n你會觀察身體與思緒\n對這些狀態有什麼反應。',
-    about_p3:'Noetune 不是為了\n勉強自己變正向。\n\n也不是為了否定\n那些感覺負面的部分。',
-    about_p4:'它是一個練習。\n觀察反應，\n並慢慢回到\n不被固定的狀態。',
-    about_safety_note:'Noetune 不是醫療、診斷\n或緊急支援工具。\n\n如果你感到強烈危機，\n或覺得自己無法維持安全，\n請聯繫當地醫療機構、\n專業人員，\n或你信任的人。',
+    about_link:'Noetune是什麼',
+    about_title:'Noetune是什麼',
+    about_p1:'Noetune是一個\n以現實中的體驗為入口，\n讓你想起自然的自己的應用程式。',
+    about_p2:'你選擇一個主題，\n回答幾個簡短的問題，\n然後在自己的內在，\n自然開始察覺。',
+    about_p3:'金錢的事、\n人際關係、\n工作、\n對未來的不安、\n對自己的違和感，\n都可以成為入口。',
+    about_p4:'Noetune不是分析問題的應用程式。\n也不是替你給出答案的應用程式。\n\n它是一個透過正在發生的事，\n認識自己的工具。',
+    about_safety_note:'這不是醫療行為。\n如果你正處在強烈痛苦或緊急狀態中，\n請尋求專業人士或身邊可信任的人協助。',
     pricing_title:'繼續使用 Noetune',
     pricing_p1:'Noetune 第一個月\n可以免費使用。\n\n之後，\n可以透過付費方案\n繼續使用。',
     pricing_p2:'這是一個小小的\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。\n\n安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過觀察自己\n對這些狀態的反應，\n你會一點一點回到\n不被固定的狀態。',
@@ -1983,11 +2005,15 @@ var D = {
   doorKey: null, doorSentence:'',
   breathEaseBefore:null, breathEaseAfter:null,
   breathMode: null,
-  v13LoopPairs: [],
+  v13InitialTheme: '',
+  v13OriginalTheme: '',
+  v13CurrentTheme: '',
+  v13History: [],
   v13CurrentNonIdeal: '',
-  v13CurrentIdeal: '',
-  v13LastSkippedNonIdeal: false,
-  v13LastSkippedIdeal: false
+  v13StepNumber: 1,
+  v13BeforeNaturalness: null,
+  v13AfterNaturalness: null,
+  v13PendingScreen: ''
 };
 
 var THEMES = {
@@ -3302,86 +3328,196 @@ var v12SituationLabel = '';
 
 var V12_SITUATION_CATEGORIES = [
   { id:'modern_reactions', label:'今の反応', desc:'今、近いものを選んでください。', children:[
-    { type:'heading', label:'よくある反応' },
     { id:'night_rumination', label:'夜の反芻', desc:'夜に考え続けた後' },
-    { id:'after_work_emotion', label:'仕事後', desc:'仕事が終わった後' },
     { id:'after_meeting_people', label:'人と会った後', desc:'会った後、気持ちが残った時' },
-    { id:'sns_information', label:'SNS・情報', desc:'スマホを見た後' },
+    { id:'after_work_emotion', label:'仕事後', desc:'仕事が終わった後' },
+    { id:'sns_information', label:'SNS・情報との関わり', desc:'スマホを見た後' },
+    { id:'after_decision', label:'決断・選択後', desc:'決めた後' },
     { id:'boundary_no', label:'境界線', desc:'断れなかった後' },
     { id:'rest_guilt', label:'休む', desc:'休もうとした後' },
-    { type:'heading', label:'もっと見る' },
-    { id:'after_decision', label:'決断・選択後', desc:'決めた後' },
     { id:'procrastination_restart', label:'中断からの再開', desc:'途中で止まった後' },
     { id:'ai_relationship', label:'AIとの関わり', desc:'AIを使った後' },
+    { id:'too_fast_world', label:'速すぎる世界', desc:'変化や速度に追われた時' },
   ] },
   { id:'life_reactions', label:'人生の反応', desc:'人生の領域ごとの反応の箱です。', children:[
-    { id:'body', label:'身体', children:[
-      { id:'health', label:'健康' },
-      { id:'body_awareness', label:'身体認識・感覚' },
-      { id:'eating', label:'食べる' },
-      { id:'sleeping', label:'寝る' },
-      { id:'sex', label:'セックス' },
-    ] },
-    { id:'economy', label:'経済', children:[
-      { id:'money', label:'お金' },
-      { id:'abundance', label:'豊かさ' },
-      { id:'value_exchange', label:'価値交換' },
-    ] },
-    { id:'relationships', label:'人間関係', children:[
-      { id:'child', label:'子' },
-      { id:'mother', label:'母' },
-      { id:'father', label:'父' },
-      { id:'partner', label:'伴侶' },
-      { id:'romance', label:'ロマンス' },
-      { id:'friends', label:'友人' },
-      { id:'neighbors', label:'隣人関係' },
-      { id:'society', label:'社会' },
-    ] },
-    { id:'life_direction', label:'どう生きるか', children:[
-      { id:'work', label:'仕事' },
-      { id:'mission_life', label:'使命・生き方' },
-      { id:'creation', label:'創造する' },
-    ] },
-    { id:'existence', label:'存在', children:[
-      { id:'death_life', label:'死生観' },
-    ] },
-    { id:'time', label:'時間', children:[
-      { id:'time_relationship', label:'時間との関係' },
-      { id:'past', label:'過去' },
-      { id:'future', label:'未来' },
-    ] },
-    { id:'inner_state', label:'内的状態', children:[
-      { id:'thought', label:'思考' },
-      { id:'emotion', label:'感情' },
-      { id:'intuition_sixth_sense', label:'直感・第六感' },
-    ] },
+    { id:'body', label:'身体' },
+    { id:'economy', label:'経済' },
+    { id:'relationships', label:'人間関係' },
+    { id:'life_direction', label:'どう生きるか' },
+    { id:'time', label:'時間' },
+    { id:'inner_state', label:'内的状態' },
+    { id:'living_land_nature', label:'暮らし・土地・自然' },
+    { id:'society_world', label:'社会・世界' },
+    { id:'spirituality_inheritance', label:'精神性・継承' },
   ] },
 ];
 
 var V12_SITUATION_THEMES = {};
 
+var beliefCategories = [
+  { id:1, title:'今ここに戻る', items:['今ここにいる','今に戻れる','今をそのまま見られる','過去や未来の考えと距離を取れる','今この瞬間から選び直せる','目の前の現実をそのまま見られる','日常の動作を今への入口にできる'] },
+  { id:2, title:'自分の中に気づける', items:['自分の中に気づける','今の自分を観察できる','反応する前の小さな動きに気づける','思考・感情・身体感覚を見られる','内側で何が起きているかを見られる','気づきから次の選択が生まれる'] },
+  { id:3, title:'心の落ち着きに戻れる', items:['心の落ち着きを知っている','静かな時間にいられる','落ち着きとつながっている','生活の中で落ち着きに戻れる','外側が動いていても、内側を見られる','落ち着いた自分で行動できる'] },
+  { id:4, title:'反応と自分を分けて見られる', items:['思考をひとつの動きとして見られる','感情をひとつの反応として見られる','身体の状態を今の情報として見られる','反応を自分全体と分けて見られる','自己イメージを一つの見方として扱える','役割・名前・過去・評価を情報として見られる','反応が起きる条件を見られる'] },
+  { id:5, title:'無理していない自分でいる', items:['無理していない自分でいる','自分の本音を大切にする','自然体でいられる','今の自分を全体として見られる','自分の可能性を感じられる','自分の感覚を信頼できる','変わろうとする前に、本当の自分に戻れる'] },
+  { id:6, title:'変化と関われる', items:['変化を受け入れられる','物事は変わっていくと知っている','すべてを変化の途中として見られる','変化を新しい可能性として見る','言葉や考えを道具として使える','理解することで落ち着ける'] },
+  { id:7, title:'自分の大事な方向に進む', items:['自分の大事な方向を感じている','外側の成功を自分の一面として見られる','生きていることを大切に感じられる','人生の目的を、自分を知る入口として扱える','本当に大事なものを見分けられる'] },
+  { id:8, title:'自由に選べる', items:['自分で選べる感覚がある','今この瞬間から選び直せる','信念を見直せる','条件は変化していく','思考・注目・焦点・気分・状態を選べる','他人や社会との距離を選べる'] },
+  { id:9, title:'必要な距離を取れる', items:['必要な距離を取れる','結果との距離を取れる','必要な分だけ関われる','正しさを一つの見方として扱える','相手や関係の自由を認める','一つの考えから移動できる','流れに合わせて関われる'] },
+  { id:10, title:'かたよりすぎない', items:['かたよりすぎない','極端に寄りすぎず選べる','快さと厳しさのバランスを見られる','今の自分に合うバランスを選べる','感情に流されず、何を大切にしたいかをわかる','状況に合わせて無理なく調整できる'] },
+  { id:11, title:'人生を信頼している', items:['人生を信頼している','生命の流れを信頼している','人生や世界と関係を結べる','必要なものが現れる流れを感じられる','道は進みながら見えてくる','まだ決まっていないことを受け入れられる','未来は開いている','反応は変化していくと知っている'] },
+  { id:12, title:'現実から学べる', items:['現実から学べる','現実を情報として受け取れる','現実をフィードバックとして見られる','外側の出来事から内側の反応を見られる','状況の中に次の可能性を見る','起きたことをメッセージとして扱える','起きていることをまず認められる'] },
+  { id:13, title:'反応の仕組みを理解している', items:['反応の仕組みを理解している','強い反応も観察できる','なぜその反応が起きたのか考えられる','反応が大きくなるきっかけに気づける','反応を物語として広げすぎずに見られる','感情に飲み込まれず落ち着いて見られる'] },
+  { id:14, title:'変化の中でも先を見られる', items:['変化の中でも先を信頼できる','難しい時期にも自分の中心に立てる','取り組みの時間として受け取れる','一つの区切りを、流れの一部として見られる','これから整っていく可能性を信じられる','区切りを次の始まりとして見られる'] },
+  { id:15, title:'人生づくりに参加している', items:['人生づくりに参加している','人生を創る側に立てる','未来は創っていけると知っている','どうしたいかを持って生きる','自分のビジョンを持つ','表現することを喜べる','困ったことも次に活かせる'] },
+  { id:16, title:'願いを持てる', items:['願いを持てる','欲しいものを素直に求められる','願いを自然なものとして見られる','願いが進む方向を教えてくれる','心が動くことをヒントにできる','叶う前から今の満たされ感を見つけられる'] },
+  { id:17, title:'学んだことを生活で使う', items:['学んだことを生活で使う','知識を日常の選択に入れられる','日常の選択に知恵を使える','気づいたことを普段の行動に活かせる','毎日の生活で試せる'] },
+  { id:18, title:'感情をヒントにできる', items:['感情をヒントにできる','感情と自然に関われる','感情を自分を知る入口にできる','感情との距離を取れる','感情を通じて本音に気づける','強い感覚を内側からのサインとして見られる'] },
+  { id:19, title:'遊び心と軽さがある', items:['遊び心がある','重く扱いすぎずに見られる','現実を軽やかに扱える','試しながら進める','不思議を楽しめる','何もしない時間も大切にできる'] },
+  { id:20, title:'やさしさと思いやりを持つ', items:['愛を自然に表現する','愛を自分の中の自然な状態として感じる','愛を与え、受け取れる','やさしい思いやりを持って関われる','感情的になっても相手を大切にできる','すべての存在の幸せを願える','存在そのものを肯定している'] },
+  { id:21, title:'もう一度向き合える', items:['関係を修復できる','行き違いの後も関係に戻れる','もう一度向き合える','関係を整える方向を選べる','和解を選べる','まっすぐな心に戻れる'] },
+  { id:22, title:'相手をその人として見られる', items:['相手を色眼鏡なしで見られる','相手の自由を尊重する','相手の選択を認める','関係の中にも自由を置ける','自然な自分で関われる','違いがあっても関われる','共感と思いやりが自然に出る'] },
+  { id:23, title:'人の役に立つ', items:['偉くなるより、役に立つことを大切にする','自分だけを中心にせず、人に関われる','支えを必要とする人に関われる','立場の小さな人も大切にする','みんなにとってよいことのために働ける','行いで愛を示す'] },
+  { id:24, title:'受け取っていい', items:['受け取っていい','豊かさ・愛・助けを受け取れる','与えることも受け取ることも自然','自分に届くものを受け取れる','自分だけで抱え込まずに関われる','信頼によって心が落ち着く'] },
+  { id:25, title:'一人でも満たされている', items:['一人でも満たされている','一人の時間を安心して過ごせる','一人の時間を自分に戻る時間にできる','誰かがそばにいなくても安心していられる','今あるもので満たされる感覚を持てる','一人の時間の中に落ち着きがある'] },
+  { id:26, title:'必要なものはめぐってくる', items:['必要なものはめぐってくる','お金や資源の流れを信頼している','今ある豊かさや支えに気づける','足りないものより、あるものを見られる','受け取っているものを活かせる','持っているものを土台にできる','欲しいものを欲しいと言える'] },
+  { id:27, title:'すべての生命とつながっている', items:['すべての生命とつながっている','自然全体とつながっている','命の流れを感じている','自分も命の流れの一部として見られる','世界はいろいろなつながりでできていると感じられる','自然を共に生きる相手として見られる','すべての生き物への敬意がある'] },
+  { id:28, title:'身体と命を尊重する', items:['身体を尊重している','身体を今への入口にできる','命への感謝がある','生きる喜びを感じている','命の誕生を祝福する','命を大切なものとして見る','身体の感覚も実践に入れられる'] },
+  { id:29, title:'家・土地・暮らしを育てる', items:['家を愛の場として育てている','住む場所を大切にしている','植物と共に暮らしている','日常を大切にする','暮らしを創造として楽しむ','地域に根ざしている','シンプルに生きている'] },
+  { id:30, title:'子ども・家族・世代を信頼する', items:['子どもを尊重している','子どもの可能性を信じている','祖先を尊重する','世代を超えた視点で考える','次世代を信頼する','生き方で伝える','愛を受け渡す'] },
+  { id:31, title:'記憶と受け渡しを生きる', items:['受けつがれてきたものを活かす','受けつがれてきた知恵や経験を学びとして受け取る','次の世代へつないでいく','歴史や人々の記憶を大切にする','自分も受け渡しの流れの一人として生きる'] },
+  { id:32, title:'よい心と行動を育てる', items:['よい心と行動を育てる','小さな善を大切にする','言葉と行動を整える','約束や誠実さを大切にする','その場の気分だけで決めずに選べる','時間をかけて続けられる'] },
+  { id:33, title:'毎日の中で自分に戻れる', items:['毎日の中で自分に戻れる','忙しい時でも自分の気持ちや状態に気づける','仕事・家族・社会の役割の中で自分に戻れる','現実の中で今を大切にできる'] },
+  { id:34, title:'世界と共同体に関われる', items:['他者と協力できる','協力を選べる','地域に根ざしている','社会全体のことも考えられる','周りの意見から自立している','大きな変化を学びのきっかけとして見られる'] },
+  { id:35, title:'公平さと思いやりを大切にする', items:['困っている人や守りを必要とする人に心を向けられる','公平さと思いやりの両方を大切にできる','日々の実践を通して公正な判断を育てる','世界との関係を開いておける'] },
+  { id:36, title:'生活や約束を整える', items:['約束を守る','言葉を誠実に使う','清潔である','生活を整える','日常行為まで整える','みんなが安心できる流れを大切にする'] },
+  { id:37, title:'本当だと思うことを行動で示す', items:['大切なことを落ち着いて言葉にできる','必要な言葉を選んで伝えられる','偉い人や世間の声とも距離を取れる','内側の理解を大切にする','自分の見たことを言葉にできる','本当だと思うことを行動で示せる'] },
+  { id:38, title:'自分より大きな軸を持つ', items:['自分より大きな軸を持つ','自分より大きなものを中心にできる','日々の中で中心に戻れる','祈りや静かな時間で日々を整える','生活の中心に戻る時間を持つ','大切にしたいものへの敬意がある','生活全体を、大切なものに応える時間として生きる'] }
+];
+
+var situationGroups = [
+  { title:'夜の反芻', group:'今の反応', categoryIds:[1,2,3,4,9,11,12,13,18] },
+  { title:'人と会った後', group:'今の反応', categoryIds:[20,21,22,25] },
+  { title:'仕事後', group:'今の反応', categoryIds:[9,10,12,15,19,33] },
+  { title:'SNS・情報との関わり', group:'今の反応', categoryIds:[4,8,9,12,13,19,34] },
+  { title:'AIとの関わり', group:'今の反応', categoryIds:[8,12,15,17,19,37] },
+  { title:'決断・選択後', group:'今の反応', categoryIds:[8,9,11,12,14,15] },
+  { title:'境界線', group:'今の反応', categoryIds:[9,20,21,22,25] },
+  { title:'休む', group:'今の反応', categoryIds:[1,3,10,18,19,28,33] },
+  { title:'中断からの再開', group:'今の反応', categoryIds:[6,8,14,15,19] },
+  { title:'速すぎる世界', group:'今の反応', categoryIds:[1,3,8,10,11,19,33] },
+  { title:'身体', group:'人生の反応', categoryIds:[13,18,28,33] },
+  { title:'経済', group:'人生の反応', categoryIds:[11,12,13,15,16,23,24,26,27,32,36] },
+  { title:'人間関係', group:'人生の反応', categoryIds:[16,18,20,21,22,23,24,25,28,30,31,34] },
+  { title:'どう生きるか', group:'人生の反応', categoryIds:[7,15,16,17,19,23,32,37,38] },
+  { title:'時間', group:'人生の反応', categoryIds:[1,6,11,13,14,15,16,21,31] },
+  { title:'内的状態', group:'人生の反応', categoryIds:[1,2,3,4,5,7,8,9,10,13,18,19,21,38] },
+  { title:'暮らし・土地・自然', group:'人生の反応', categoryIds:[11,27,28,29,31,33,34,35,36,38] },
+  { title:'社会・世界', group:'人生の反応', categoryIds:[3,6,8,10,11,12,14,20,21,22,23,32,34,35,36,37] },
+  { title:'精神性・継承', group:'人生の反応', categoryIds:[1,2,3,7,17,21,23,25,27,30,31,32,34,36,37,38] }
+];
+
+var V13_SITUATION_FLOW = [
+  { key:'modern', label:'今の反応', middles:[
+    { key:'common', label:'よくある反応', leaves:['夜の反芻','人と会った後','仕事後','SNS・情報との関わり','決断・選択後','境界線'] },
+    { key:'more', label:'もっと見る', leaves:['休む','中断からの再開','AIとの関わり','速すぎる世界'] }
+  ] },
+  { key:'life', label:'人生の反応', middles:[
+    { key:'body', label:'身体', leaves:['健康','身体認識','食べる','寝る','セックス'] },
+    { key:'economy', label:'経済', leaves:['お金','豊かさ','価値交換'] },
+    { key:'relationships', label:'人間関係', leaves:['母','父','子','伴侶','ロマンス','友人','隣人関係','社会'] },
+    { key:'life_direction', label:'どう生きるか', leaves:['仕事','使命・生き方','創造する','死生観'] },
+    { key:'time', label:'時間', leaves:['過去','未来','時間との関係'] },
+    { key:'inner_state', label:'内的状態', leaves:['思考','感情','直感・第六感'] },
+    { key:'living_land_nature', label:'暮らし・土地・自然', leaves:['家・暮らし','自然とのつながり','植物・動物との関係','土地との関係'] },
+    { key:'society_world', label:'社会・世界', leaves:['世界との関係','公平さと思いやり','協力','変化する社会','平和'] },
+    { key:'spirituality_inheritance', label:'精神性・継承', leaves:['自分より大きな軸','祈り・静かな時間','伝統・教えとの関係','記憶と受け渡し','祖先から受け取るもの','次世代へ渡すもの'] }
+  ] }
+];
+
+var situationLeafCategoryIds = {
+  "夜の反芻": [1,2,3,4,9,11,12,13,18],
+  "人と会った後": [20,21,22,25],
+  "仕事後": [9,10,12,15,19,33],
+  "SNS・情報との関わり": [4,8,9,12,13,19,34],
+  "決断・選択後": [8,9,11,12,14,15],
+  "境界線": [9,20,21,22,25],
+
+  "休む": [1,3,10,18,19,28,33],
+  "中断からの再開": [6,8,14,15,19],
+  "AIとの関わり": [8,12,15,17,19,37],
+  "速すぎる世界": [1,3,8,10,11,19,33],
+
+  "健康": [13,18,28,33],
+  "身体認識": [1,2,18,28],
+  "食べる": [24,26,28,32],
+  "寝る": [1,3,9,18,28],
+  "セックス": [20,22,24,28],
+
+  "お金": [11,12,13,24,26,32,36],
+  "豊かさ": [16,24,25,26,27],
+  "価値交換": [15,23,24,26,32,36],
+
+  "母": [20,21,22,25,30,31],
+  "父": [20,21,22,25,30,31],
+  "子": [20,22,23,30,31],
+  "伴侶": [20,21,22,24,25,28],
+  "ロマンス": [16,18,20,22,24,25,28],
+  "友人": [20,21,22,23,25,34],
+  "隣人関係": [20,22,23,34,35,36],
+  "社会": [23,32,34,35,36,37],
+
+  "仕事": [7,15,17,23,32,37],
+  "使命・生き方": [7,15,16,23,37,38],
+  "創造する": [15,16,19,37],
+  "死生観": [6,11,14,27,28,38],
+
+  "過去": [6,13,21,31],
+  "未来": [11,14,15,16],
+  "時間との関係": [1,6,11,14],
+
+  "思考": [1,2,3,4,8,9,13],
+  "感情": [2,4,10,13,18,19,21],
+  "直感・第六感": [2,3,5,7,38],
+
+  "家・暮らし": [29,33,36],
+  "自然とのつながり": [27,29,38],
+  "植物・動物との関係": [27,28,29,35],
+  "土地との関係": [11,27,29,31,34],
+
+  "世界との関係": [8,11,12,14,33,34,35],
+  "公平さと思いやり": [20,23,32,34,35,36],
+  "協力": [20,22,23,34,35],
+  "変化する社会": [6,8,10,11,14,34,37],
+  "平和": [3,20,21,22,34,35],
+
+  "自分より大きな軸": [3,7,11,27,31,38],
+  "祈り・静かな時間": [1,2,3,7,17,38],
+  "伝統・教えとの関係": [17,31,32,36,38],
+  "記憶と受け渡し": [30,31,34,37,38],
+  "祖先から受け取るもの": [21,25,30,31,38],
+  "次世代へ渡すもの": [23,30,31,34,37,38]
+};
+
+var situationThemeVisibleCount = 2;
+var currentSituationThemeItems = [];
+var currentSituationSmallTitle = '';
+var currentSituationMajorKey = '';
+var currentSituationMiddleKey = '';
+
 var V12_CORE_THEMES = [
-  { id:'core_01', label:'今の自分を認められる',           desc:'できている部分も、できていない部分も認められる。',       invalidates:'できている部分も、できていない部分も認められないという前提。', free:true },
-  { id:'core_02', label:'自分を責めない',                 desc:'失敗しても、自分への攻撃を続けない。',                   invalidates:'失敗したら、自分への攻撃を続けなければならないという前提。' },
-  { id:'core_03', label:'どんな感情も感じていい',         desc:'嫌な感情も無理に消そうとしない。',                       invalidates:'嫌な感情は、無理に消さなければならないという前提。' },
-  { id:'core_04', label:'考えを事実にしない',             desc:'頭に浮かんだことを全部信じない。',                       invalidates:'頭に浮かんだことは、全部信じなければならないという前提。' },
-  { id:'core_05', label:'正解に執着しない',               desc:'一つの正解を探し続けなくていい。',                       invalidates:'一つの正解を探し続けなければならないという前提。' },
-  { id:'core_06', label:'人と比べない',                   desc:'他人を基準に自分を測らない。',                           invalidates:'他人を基準に、自分を測らなければならないという前提。' },
-  { id:'core_07', label:'一人でも大丈夫',                 desc:'一人の時間も安心して過ごせる。',                         invalidates:'一人の時間は安心して過ごせないという前提。' },
-  { id:'core_08', label:'助けを受け取れる',               desc:'必要な時に頼れる。',                                     invalidates:'必要な時でも頼ってはいけないという前提。' },
-  { id:'core_09', label:'好奇心で動ける',                 desc:'「やらなきゃ」より「やってみたい」で動ける。',             invalidates:'「やらなきゃ」でなければ動けないという前提。' },
-  { id:'core_10', label:'失敗を材料にする',               desc:'うまくいかなかった経験を活かせる。',                     invalidates:'うまくいかなかった経験は、失敗のまま終わるという前提。' },
-  { id:'core_11', label:'やめることを選べる',             desc:'続けるだけでなく、やめる判断もできる。',                 invalidates:'続けることだけが正しく、やめてはいけないという前提。' },
-  { id:'core_12', label:'未知を楽しめる',                 desc:'わからないことにも興味を持てる。',                       invalidates:'わからないことは、怖がらなければならないという前提。' },
-  { id:'core_13', label:'過去で今を決めない',             desc:'昔の経験だけで自分を決めない。',                         invalidates:'昔の経験だけで、今の自分が決まるという前提。' },
-  { id:'core_14', label:'未来を怖がりすぎない',           desc:'起きていないことで苦しまない。',                         invalidates:'まだ起きていないことで苦しまなければならないという前提。' },
-  { id:'core_15', label:'何とかなる感覚がある',           desc:'予想外のことにも対応できると思える。',                   invalidates:'予想外のことには対応できないという前提。' },
-  { id:'core_16', label:'体を大切にできる',               desc:'体の状態に気づける。',                                   invalidates:'体の状態に気づかなくてもいいという前提。' },
-  { id:'core_17', label:'休むことに罪悪感がない',         desc:'休息を必要な時間だと思える。',                           invalidates:'休むことには罪悪感を持たなければならないという前提。' },
-  { id:'core_18', label:'小さな幸せに気づける',           desc:'特別なことがなくても満足できる。',                       invalidates:'特別なことがなければ満足できないという前提。' },
-  { id:'core_19', label:'人生を味わえる',                 desc:'人生を体験として楽しめる。',                             invalidates:'人生は楽しむものではなく、こなすものだという前提。' },
-  { id:'core_20', label:'自分を笑える',                   desc:'失敗や間違いを重くしすぎない。',                         invalidates:'失敗や間違いは、重く受け止めなければならないという前提。' },
-  { id:'core_21', label:'死を人生の一部として見られる',   desc:'終わりがあることを自然に受け止められる。',               invalidates:'終わりがあることを、自然に受け止めてはいけないという前提。' },
+  { id:'core_01', label:'今に在る',                     desc:'過去や未来に住まず、今この瞬間に戻れる。',                     invalidates:'過去や未来に住み、今この瞬間に戻れないという前提。', free:true },
+  { id:'core_02', label:'自分の反応に気づいている',     desc:'思考・感情・身体感覚を観察できる。',                           invalidates:'思考・感情・身体感覚を観察できないという前提。' },
+  { id:'core_03', label:'本来の自分を生きる',           desc:'役割や評価ではなく、本当の自分に戻れる。',                       invalidates:'役割や評価でなければ、自分として存在できないという前提。' },
+  { id:'core_04', label:'自由に選べる',                 desc:'今この瞬間から、別の在り方を選べる。',                           invalidates:'今この瞬間から、別の在り方を選べないという前提。' },
+  { id:'core_05', label:'手放せる',                     desc:'結果や正しさにしがみつかない。',                                 invalidates:'結果や正しさにしがみつかなければならないという前提。' },
+  { id:'core_06', label:'人生を信頼している',           desc:'人生を敵にせず、流れの中で進める。',                             invalidates:'人生を敵にしなければ進めないという前提。' },
+  { id:'core_07', label:'現実は先生',                   desc:'起きたことを通して、手放していい信念に気づける。',               invalidates:'起きたことは自分を裁くためにあるという前提。' },
+  { id:'core_08', label:'感情は味方',                   desc:'感情を敵にせず、自分を知る手がかりにできる。',                   invalidates:'感情は敵であり、消さなければならないという前提。' },
+  { id:'core_09', label:'受け取っていい',               desc:'助け・愛・豊かさを拒まず受け取れる。',                           invalidates:'助け・愛・豊かさを拒まなければならないという前提。' },
+  { id:'core_10', label:'愛と慈しみを生きる',           desc:'自分にも他者にも、やさしさを向けられる。',                       invalidates:'自分や他者に、やさしさを向けてはいけないという前提。' },
+  { id:'core_11', label:'豊かさは流れている',           desc:'お金や豊かさを、止まったものではなく流れとして見られる。',       invalidates:'お金や豊かさは止まったものであり、流れないという前提。' },
+  { id:'core_12', label:'現実の中で目覚めている',       desc:'役割を果たしながら、本当の自分を生きる。',                       invalidates:'役割を果たすほど、本当の自分から離れるという前提。' },
 ];
 var cur = 's-landing';
 var navHistory = [];
@@ -3390,38 +3526,38 @@ var navHistory = [];
 var landingLang = 'en';
 var LP_COPY = {
   en: {
-    hero: "Quiet the overthinking nervous system\nin a few minutes.",
-    sub:  "Noetune is a quiet self-tuning tool\nfor returning from information, decisions,\nand mental noise back to yourself.",
+    hero: "When you notice your true self,\nthings get lighter.",
+    sub:  "Choose.\nAnswer.\nNotice.\n\nNoetune is an app for remembering your natural self\nthrough real-life experiences.",
     cta:  "Start",
-    section: "When your mind will not settle",
+    section: "When to use it",
     items: [
-      "・ChatGPT helps you organize your thoughts, but your mind still will not stop.",
-      "・Notion is organized, but you are not.",
-      "・Even after resting, your nervous system does not switch off.",
-      "・After work, you still cannot fully transition back."
+      "・When money brings up a reaction",
+      "・When a relationship stays on your mind",
+      "・When work feels heavy",
+      "・When the future feels uncertain",
+      "・When you blame yourself",
+      "・When you do not know what is happening inside"
     ],
     fp1: "Noetune is not an app for analyzing your problems.",
-    fp2: "With short questions and breathing,\nit helps you quietly return to yourself."
+    fp2: "Through short questions,\nit helps you know yourself\nthrough what is happening now.",
+    aboutLink: "About Noetune",
+    pricingLink: "Free and Professional plans"
   },
   ja: {
-    hero: "反応パターンを、\n2分で切り替える。",
-    sub:  "選ぶ。\n答える。\n呼吸する。\n\nNoetuneは、\n今の意識状態をリセットするWebアプリです。",
+    hero: "本当の自分に気づくと、\n楽になる。",
+    sub:  "選ぶ。\n答える。\n気づく。\n\nNoetuneは、\n現実の体験を入口に、\n自然な自分を思い出すアプリです。",
     cta:  "始める",
-    section: "毎日のあらゆるシーンで\n反応をリセット：",
+    section: "こんな時に",
     items: [
-      "・考えすぎが止まらない",
-      "・SNSを見た後に重い",
-      "・AIに頼りすぎている気がする",
-      "・人と会って疲れた",
-      "・決められない",
-      "・パートナーと口論になった",
-      "・夜にぐるぐる考える",
-      "・不安が押しよせる",
-      "・言わなきゃよかった",
-      "・私はこのままでいいのだろうか"
+      "・お金のことで反応している",
+      "・人間関係で引っかかっている",
+      "・仕事のことで重くなる",
+      "・未来が不安になる",
+      "・自分を責めてしまう",
+      "・何が起きているのかわからない"
     ],
-    fp1: "",
-    fp2: "",
+    fp1: "Noetuneは、\n問題を分析するアプリではありません。",
+    fp2: "短い問いを通して、\n今起きていることから\n自分を知っていくアプリです。",
     aboutLink: "Noetuneとは",
     pricingLink: "無料版・有料版について"
   },
@@ -3482,18 +3618,22 @@ var LP_COPY = {
     fp2: "Avec de courtes questions et la respiration,\nelle t’aide à revenir silencieusement à toi-même."
   },
   'zh-TW': {
-    hero: "讓過度思考的神經系統，\n在幾分鐘內靜下來。",
-    sub:  "Noetune 是一款安靜的自我調頻工具，\n幫助你從資訊、決策和心理噪音中，\n靜靜地回到自己。",
+    hero: "當你看見真正的自己，\n就會輕鬆一些。",
+    sub:  "選擇。\n回答。\n覺察。\n\nNoetune 是一個透過現實中的體驗，\n幫助你想起自然自己的 App。",
     cta:  "開始",
-    section: "當你的思緒無法平靜時",
+    section: "什麼時候可以使用",
     items: [
-      "・ChatGPT 幫你整理想法，但腦袋還是停不下來。",
-      "・Notion 井然有序，但你不是。",
-      "・就算休息了，神經系統還是無法關閉。",
-      "・下班後，還是無法真正切換狀態。"
+      "・為了金錢而起反應時",
+      "・在人際關係中卡住時",
+      "・工作讓自己變得沉重時",
+      "・對未來感到不安時",
+      "・一直責怪自己時",
+      "・不知道自己到底發生了什麼時"
     ],
-    fp1: "Noetune 不是用來分析你的問題的應用程式。",
-    fp2: "透過簡短的問答與呼吸，\n幫助你靜靜地回到自己。"
+    fp1: "Noetune 不是分析問題的 App。",
+    fp2: "透過簡短的問題，\n幫助你從正在發生的事情裡，\n慢慢認識自己。",
+    aboutLink: "Noetune是什麼",
+    pricingLink: "免費版與 Professional 版"
   }
 };
 
@@ -3541,7 +3681,7 @@ function startLanding() { setLang(landingLang, 's-entry-choice'); }
 var SCREEN_ORDER = [
   's-lang','s-open','s-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
-  's-v13-nonideal','s-v13-ideal',
+  's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
   's-before2','s-breath-mode',
   's-br1','s-br2','s-br3','s-br4','s-br5',
   's-after2','s-shift-note','s-result'
@@ -3903,6 +4043,8 @@ function startCoreEntry() {
 
 function startSituationEntry() {
   v12Mode = 'situation';
+  themeChosen = false;
+  updateThemeCTA();
   renderSituationCategoryScreen();
   fwd('s-theme');
 }
@@ -3919,59 +4061,7 @@ function renderSituationCategoryScreen() {
   if (!accordion) return;
   clearChildren(accordion);
 
-  for (var i = 0; i < V12_SITUATION_CATEGORIES.length; i++) {
-    accordion.appendChild(makeSituationSection(V12_SITUATION_CATEGORIES[i]));
-  }
-}
-
-function makeSituationSection(cat) {
-  var secId = 'vsit-' + cat.id;
-
-  var section = document.createElement('div');
-  section.className = 'theme-section';
-  section.id = secId;
-
-  var header = document.createElement('button');
-  header.className = 'theme-section-header';
-  header.onclick = (function(id){ return function(){ toggleSituationSection(id); }; })(secId);
-
-  var labelWrap = document.createElement('span'); labelWrap.className = 'theme-section-label-wrap';
-  var labelEl   = document.createElement('span'); labelEl.className = 'theme-section-label'; labelEl.textContent = cat.label;
-  var descEl    = document.createElement('span'); descEl.className  = 'theme-section-desc';  descEl.textContent  = cat.desc;
-  labelWrap.appendChild(labelEl); labelWrap.appendChild(descEl);
-
-  var toggle = document.createElement('span'); toggle.className = 'theme-section-toggle'; toggle.textContent = '＋';
-
-  header.appendChild(labelWrap); header.appendChild(toggle);
-
-  var body = document.createElement('div');
-  body.className = 'theme-section-body';
-
-  var themes = V12_SITUATION_THEMES[cat.id];
-  if (cat.children && cat.children.length > 0) {
-    var notice = makeSituationComingSoonNotice();
-    body.appendChild(notice);
-    body.appendChild(makeSituationBoxGroup(cat.children, notice));
-  } else if (themes && themes.length > 0) {
-    var grid = document.createElement('div');
-    grid.className = 'theme-grid';
-    grid.style.marginTop    = '.5rem';
-    grid.style.marginBottom = '.8rem';
-    for (var j = 0; j < themes.length; j++) {
-      grid.appendChild(makeSituationThemeBtn(themes[j]));
-    }
-    body.appendChild(grid);
-  } else {
-    var placeholder = document.createElement('div');
-    placeholder.className = 'theme-section-desc';
-    placeholder.style.padding = '.6rem 0 1rem';
-    placeholder.textContent = '準備中';
-    body.appendChild(placeholder);
-  }
-
-  section.appendChild(header);
-  section.appendChild(body);
-  return section;
+  renderSituationMajorScreen();
 }
 
 function makeSituationComingSoonNotice() {
@@ -3985,6 +4075,251 @@ function showSituationComingSoon(notice, label) {
   if (!notice) return;
   notice.textContent = label + '\nこの入口は準備中です\nComing soon';
   notice.classList.add('show');
+}
+
+function getBeliefCategoryById(id) {
+  for (var i = 0; i < beliefCategories.length; i++) {
+    if (beliefCategories[i].id === id) return beliefCategories[i];
+  }
+  return null;
+}
+
+function getSituationGroupByTitle(title) {
+  for (var i = 0; i < situationGroups.length; i++) {
+    if (situationGroups[i].title === title) return situationGroups[i];
+  }
+  return null;
+}
+
+function getSituationMajor(majorKey) {
+  for (var i = 0; i < V13_SITUATION_FLOW.length; i++) {
+    if (V13_SITUATION_FLOW[i].key === majorKey) return V13_SITUATION_FLOW[i];
+  }
+  return null;
+}
+
+function getSituationMiddle(majorKey, middleKey) {
+  var major = getSituationMajor(majorKey);
+  var middles = major && major.middles ? major.middles : [];
+  for (var i = 0; i < middles.length; i++) {
+    if (middles[i].key === middleKey || middles[i].label === middleKey) return middles[i];
+  }
+  return null;
+}
+
+function appendSituationHeader(container, title, desc) {
+  var header = document.createElement('div');
+  header.className = 'theme-section-desc';
+  header.style.padding = '.2rem 0 1rem';
+  header.style.whiteSpace = 'pre-line';
+  header.textContent = title + (desc ? '\n' + desc : '');
+  container.appendChild(header);
+}
+
+function makeSituationNavRow(label, desc, onClick, status) {
+  var b = document.createElement('button');
+  b.className = 'situation-row';
+  b.type = 'button';
+
+  var copy = document.createElement('span');
+  copy.className = 'situation-row-copy';
+
+  var ls = document.createElement('span');
+  ls.className = 'situation-row-label';
+  ls.textContent = label;
+  copy.appendChild(ls);
+
+  if (desc) {
+    var sub = document.createElement('span');
+    sub.className = 'situation-row-desc';
+    sub.textContent = desc;
+    copy.appendChild(sub);
+  }
+
+  var ds = document.createElement('span');
+  ds.className = 'situation-row-status';
+  ds.textContent = status || '選ぶ';
+
+  b.appendChild(copy);
+  b.appendChild(ds);
+  b.onclick = onClick;
+  return b;
+}
+
+function appendSituationBack(container, label, onClick) {
+  var back = document.createElement('button');
+  back.type = 'button';
+  back.className = 'btn-see-more';
+  back.textContent = label;
+  back.onclick = onClick;
+  container.appendChild(back);
+}
+
+function renderSituationMajorScreen() {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  clearChildren(accordion);
+
+  appendSituationHeader(accordion, '状況からほどく', '大カテゴリを選んでください。');
+
+  var wrap = document.createElement('div');
+  wrap.className = 'situation-list';
+  for (var i = 0; i < V13_SITUATION_FLOW.length; i++) {
+    var major = V13_SITUATION_FLOW[i];
+    wrap.appendChild(makeSituationNavRow(major.label, '', (function(key) {
+      return function() { renderSituationMiddleScreen(key); };
+    })(major.key)));
+  }
+  accordion.appendChild(wrap);
+}
+
+function renderSituationMiddleScreen(majorKey) {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  clearChildren(accordion);
+  var major = getSituationMajor(majorKey);
+  if (!major) { renderSituationMajorScreen(); return; }
+
+  appendSituationHeader(accordion, major.label, '中カテゴリを選んでください。');
+
+  var wrap = document.createElement('div');
+  wrap.className = 'situation-list';
+  for (var i = 0; i < major.middles.length; i++) {
+    var middle = major.middles[i];
+    wrap.appendChild(makeSituationNavRow(middle.label, '', (function(mKey) {
+      return function() { renderSituationSmallScreen(majorKey, mKey); };
+    })(middle.key)));
+  }
+  accordion.appendChild(wrap);
+  appendSituationBack(accordion, '大カテゴリに戻る', renderSituationMajorScreen);
+}
+
+function renderSituationSmallScreen(majorKey, middleKey) {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  clearChildren(accordion);
+  var major = getSituationMajor(majorKey);
+  var middle = getSituationMiddle(majorKey, middleKey);
+  if (!major || !middle) { renderSituationMiddleScreen(majorKey); return; }
+
+  appendSituationHeader(accordion, major.label + ' ＞ ' + middle.label, '小カテゴリを選んでください。');
+
+  var wrap = document.createElement('div');
+  wrap.className = 'situation-list';
+  for (var i = 0; i < middle.leaves.length; i++) {
+    var leaf = middle.leaves[i];
+    wrap.appendChild(makeSituationNavRow(leaf, '', (function(title) {
+      return function() { renderSituationThemeScreen(title, majorKey, middleKey); };
+    })(leaf)));
+  }
+  accordion.appendChild(wrap);
+  appendSituationBack(accordion, '中カテゴリに戻る', function() { renderSituationMiddleScreen(majorKey); });
+}
+
+function renderSituationThemeScreen(smallTitle, majorKey, middleKey) {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  situationThemeVisibleCount = 2;
+  currentSituationThemeItems = [];
+  currentSituationSmallTitle = smallTitle || '';
+  currentSituationMajorKey = majorKey || '';
+  currentSituationMiddleKey = middleKey || '';
+  var ids = situationLeafCategoryIds[smallTitle] || [];
+
+  for (var i = 0; i < ids.length; i++) {
+    var category = getBeliefCategoryById(ids[i]);
+    if (!category) continue;
+    var items = getThemeItems(category);
+    for (var j = 0; j < items.length; j++) {
+      currentSituationThemeItems.push({
+        text: items[j],
+        category: category,
+        categoryTitle: category.title,
+        smallTitle: smallTitle
+      });
+    }
+  }
+
+  renderSituationThemeItems();
+}
+
+function renderSituationThemeItems() {
+  var accordion = document.getElementById('v12-situation-accordion');
+  if (!accordion) return;
+  clearChildren(accordion);
+
+  appendSituationHeader(accordion, currentSituationSmallTitle, 'テーマを選んでください。');
+  if (currentSituationThemeItems.length < 1) {
+    var empty = document.createElement('div');
+    empty.className = 'theme-section-desc';
+    empty.style.padding = '.6rem 0 1rem';
+    empty.textContent = '準備中';
+    accordion.appendChild(empty);
+    appendSituationBack(accordion, '小カテゴリに戻る', function() { renderSituationSmallScreen(currentSituationMajorKey, currentSituationMiddleKey); });
+    return;
+  }
+
+  var grid = document.createElement('div');
+  grid.className = 'theme-grid';
+  grid.style.marginTop = '.35rem';
+  grid.style.marginBottom = '.8rem';
+  var visibleItems = currentSituationThemeItems.slice(0, situationThemeVisibleCount);
+  for (var i = 0; i < visibleItems.length; i++) {
+    var item = visibleItems[i];
+    grid.appendChild(makeV13BeliefThemeBtn(item.text, item.category, item.smallTitle));
+  }
+  accordion.appendChild(grid);
+
+  if (situationThemeVisibleCount < currentSituationThemeItems.length) {
+    var more = document.createElement('button');
+    more.type = 'button';
+    more.className = 'btn-see-more';
+    more.textContent = 'さらに見る';
+    more.onclick = seeMoreSituationThemes;
+    accordion.appendChild(more);
+  }
+
+  appendSituationBack(accordion, '小カテゴリに戻る', function() { renderSituationSmallScreen(currentSituationMajorKey, currentSituationMiddleKey); });
+}
+
+function seeMoreSituationThemes() {
+  situationThemeVisibleCount += 2;
+  renderSituationThemeItems();
+}
+
+function getThemeItems(category) {
+  if (!category) return [];
+  var items = category.items || [];
+  return items.indexOf(category.title) >= 0 ? items : [category.title].concat(items);
+}
+
+function makeV13BeliefThemeBtn(label, category, smallTitle) {
+  var b = document.createElement('button');
+  b.className = 'theme-btn';
+  b.style.width = '100%';
+  b.style.marginBottom = '.6rem';
+  var ls = document.createElement('span');
+  ls.className = 'theme-btn-label';
+  ls.textContent = label;
+  var ds = document.createElement('span');
+  ds.className = 'theme-btn-desc';
+  ds.textContent = category.title;
+  b.appendChild(ls);
+  b.appendChild(ds);
+  b.onclick = function() { selectV13BeliefTheme(label, category, smallTitle); };
+  return b;
+}
+
+function selectV13BeliefTheme(label, category, smallTitle) {
+  D.themeKey = 'belief_' + category.id;
+  D.theme = label;
+  D.themePositive = label;
+  D.themeNegative = label;
+  v12Invalidates = '';
+  v12SituationCategory = smallTitle || '';
+  v12SituationLabel = label;
+  themeChosen = true;
+  startSession();
 }
 
 function makeSituationBoxGroup(items, notice) {
@@ -4066,12 +4401,12 @@ function makeSituationComingSoonRow(item, notice) {
 
   var ds = document.createElement('span');
   ds.className = 'situation-row-status';
-  ds.textContent = 'Coming soon';
+  ds.textContent = '選ぶ';
 
   b.appendChild(copy);
   b.appendChild(ds);
   b.onclick = function() {
-    showSituationComingSoon(notice, item.label);
+    renderSituationThemeScreen(item.label, '', '');
   };
   return b;
 }
@@ -4777,17 +5112,21 @@ function getV13ThemeLabel() {
 }
 
 function setV13MeasurementTitles() {
-  var title = '「' + getV13ThemeLabel() + '」\n\nそのときの、\n\n呼吸の余裕度は？';
+  var title = '「' + (D.v13OriginalTheme || getV13ThemeLabel()) + '」\n\nそのとき、\n\n呼吸の自然度は？';
   setEl('t-b2', title);
   setEl('t-a2', title);
 }
 
 function resetV13LoopState() {
-  D.v13LoopPairs = [];
+  if (!D.v13InitialTheme) D.v13InitialTheme = getV13ThemeLabel();
+  D.v13OriginalTheme = getV13ThemeLabel();
+  D.v13CurrentTheme = D.v13OriginalTheme;
+  D.v13History = [];
   D.v13CurrentNonIdeal = '';
-  D.v13CurrentIdeal = '';
-  D.v13LastSkippedNonIdeal = false;
-  D.v13LastSkippedIdeal = false;
+  D.v13StepNumber = 1;
+  D.v13BeforeNaturalness = null;
+  D.v13AfterNaturalness = null;
+  D.v13PendingScreen = '';
 }
 
 function startV13BeforeMeasurement() {
@@ -4798,6 +5137,10 @@ function startV13BeforeMeasurement() {
   D.idealAnswer = '';
   D.issue = getV13ThemeLabel();
   D.ideal = '';
+  D.v13InitialTheme = '';
+  D.shiftNote = '';
+  D.breathEaseBefore = null;
+  D.breathEaseAfter = null;
   resetV13LoopState();
   setV13MeasurementTitles();
   ['b2','a2'].forEach(resetSlider);
@@ -4937,22 +5280,25 @@ function submitIdeal() {
 
 function skipMeasurementBefore() {
   D.breathEaseBefore = null;
+  D.v13BeforeNaturalness = null;
   showV13NonIdeal();
 }
 
 function skipMeasurementAfter() {
   D.breathEaseAfter = null;
-  goToShiftNote();
+  D.v13AfterNaturalness = null;
+  showResult();
 }
 
 function submitBefore2() {
   D.breathEaseBefore = getSliderVal('b2');
+  D.v13BeforeNaturalness = D.breathEaseBefore;
   showV13NonIdeal();
 }
 
 function showV13NonIdeal() {
   if (requireActiveAccess()) return;
-  setEl('v13-nonideal-theme', '「' + getV13ThemeLabel() + '」');
+  setEl('v13-nonideal-theme', '「' + (D.v13CurrentTheme || getV13ThemeLabel()) + '」');
   var inp = document.getElementById('in-v13-nonideal');
   if (inp) inp.value = '';
   var btn = document.getElementById('btn-v13-nonideal-next');
@@ -4962,7 +5308,7 @@ function showV13NonIdeal() {
 
 function showV13Ideal() {
   if (requireActiveAccess()) return;
-  setEl('v13-ideal-theme', '「' + getV13ThemeLabel() + '」');
+  setEl('v13-ideal-theme', '「' + (D.v13CurrentNonIdeal || 'そうでない状態') + '」');
   var inp = document.getElementById('in-v13-ideal');
   if (inp) inp.value = '';
   var btn = document.getElementById('btn-v13-ideal-next');
@@ -4985,53 +5331,62 @@ function submitV13NonIdeal() {
   var value = inp ? inp.value.trim() : '';
   if (!value) return;
   D.v13CurrentNonIdeal = value;
-  D.v13LastSkippedNonIdeal = false;
   showV13Ideal();
 }
 
 function skipV13NonIdeal() {
-  D.v13CurrentNonIdeal = '';
-  D.v13LastSkippedNonIdeal = true;
-  showV13Ideal();
+  D.v13PendingScreen = 's-v13-nonideal';
+  updateV13EndConfirmLabel();
+  fwd('s-v13-end-confirm');
 }
 
 function submitV13Ideal() {
   var inp = document.getElementById('in-v13-ideal');
   var value = inp ? inp.value.trim() : '';
   if (!value) return;
-  D.v13CurrentIdeal = value;
-  D.v13LastSkippedIdeal = false;
-  D.v13LoopPairs.push({ nonIdeal: D.v13CurrentNonIdeal || '', ideal: value });
+  D.v13History.push({
+    step: D.v13StepNumber,
+    theme: D.v13CurrentTheme || getV13ThemeLabel(),
+    nonIdeal: D.v13CurrentNonIdeal || '',
+    ideal: value
+  });
+  D.v13StepNumber += 1;
+  D.v13CurrentTheme = value;
   D.ideal = value;
   D.idealAnswer = value;
   D.v13CurrentNonIdeal = '';
-  D.v13CurrentIdeal = '';
-  D.v13LastSkippedNonIdeal = false;
   showV13NonIdeal();
 }
 
 function skipV13Ideal() {
-  D.v13LastSkippedIdeal = true;
-  if (D.v13LastSkippedNonIdeal) {
-    finishV13Loop();
-    return;
-  }
-  D.v13LoopPairs.push({ nonIdeal: D.v13CurrentNonIdeal || '', ideal: '' });
+  D.v13PendingScreen = 's-v13-ideal';
+  updateV13EndConfirmLabel();
+  fwd('s-v13-end-confirm');
+}
+
+function updateV13EndConfirmLabel() {
+  var btn = document.getElementById('btn-v13-continue-initial');
+  if (!btn) return;
+  var initial = D.v13InitialTheme || D.v13OriginalTheme || getV13ThemeLabel();
+  btn.textContent = '最初のテーマ「' + initial + '」から始める';
+}
+
+function continueV13Loop() {
+  D.v13CurrentTheme = D.v13InitialTheme || D.v13OriginalTheme || getV13ThemeLabel();
   D.v13CurrentNonIdeal = '';
-  D.v13CurrentIdeal = '';
+  D.v13PendingScreen = '';
   showV13NonIdeal();
 }
 
 function finishV13Loop() {
-  var fallback = getV13ThemeLabel();
-  var lastIdeal = '';
-  for (var i = D.v13LoopPairs.length - 1; i >= 0; i--) {
-    if (D.v13LoopPairs[i].ideal) { lastIdeal = D.v13LoopPairs[i].ideal; break; }
-  }
-  D.ideal = lastIdeal || fallback;
+  var fallback = D.v13CurrentTheme || D.v13OriginalTheme || getV13ThemeLabel();
+  D.ideal = fallback;
   D.idealAnswer = D.ideal;
-  D.issue = fallback;
-  startUnifiedBreathFlow();
+  D.issue = D.v13OriginalTheme || fallback;
+  D.v13PendingScreen = '';
+  setV13MeasurementTitles();
+  resetSlider('a2');
+  fwd('s-after2');
 }
 
 function startUnifiedBreathFlow() {
@@ -5076,7 +5431,8 @@ function selectBreathMode(mode) {
 
 function submitAfter2() {
   D.breathEaseAfter = getSliderVal('a2');
-  goToShiftNote();
+  D.v13AfterNaturalness = D.breathEaseAfter;
+  showResult();
 }
 
 function goToShiftNote() {
@@ -5101,6 +5457,28 @@ function fmtResult(v) {
   return v != null ? String(v) : '—';
 }
 
+function getV13LastIdeal() {
+  for (var i = D.v13History.length - 1; i >= 0; i--) {
+    if (D.v13History[i].ideal) return D.v13History[i].ideal;
+  }
+  return D.v13CurrentTheme || D.v13OriginalTheme || getV13ThemeLabel();
+}
+
+function formatV13History() {
+  var ideals = D.v13History
+    .map(function(item) { return item.ideal || ''; })
+    .filter(function(ideal) { return !!ideal; });
+  var lines = ['テーマ：', '「' + (D.v13OriginalTheme || getV13ThemeLabel()) + '」', '', 'あなたの本質：'];
+  if (ideals.length) {
+    ideals.forEach(function(ideal) {
+      lines.push('・' + ideal);
+    });
+  } else {
+    lines.push('・まだ言葉になっていません');
+  }
+  return lines.join('\n');
+}
+
 function showResult() {
   if (requireActiveAccess()) return;
   trackEvent('v7_complete');
@@ -5114,15 +5492,18 @@ function showResult() {
   var towardWrap = document.querySelector('.sc-toward-wrap');
   var downArrow = fromWrap ? fromWrap.querySelector('.sc-down-arrow') : null;
   if (D.entryMode === 'v13') {
+    setEl('t-result-poem', '');
     if (fromLabel) fromLabel.style.display = 'none';
     if (fromWrap && fromVal) {
       fromVal.style.whiteSpace = 'pre-line';
-      fromVal.textContent = qo + getV13ThemeLabel() + qc + '\n\nそのときの、\n\n呼吸の余裕度は？';
+      fromVal.textContent = formatV13History();
       fromWrap.style.display = '';
     }
     if (downArrow) downArrow.style.display = 'none';
     if (towardWrap) towardWrap.style.display = 'none';
+    setEl('lbl-breath-ease', '呼吸の自然度');
   } else if (D.doorKey) {
+    setEl('lbl-breath-ease', T('result_label_breath_ease'));
     if (fromLabel) { fromLabel.textContent = T('result_label_from'); fromLabel.style.display = ''; }
     if (downArrow) downArrow.style.display = '';
     if (towardWrap) towardWrap.style.display = '';
@@ -5133,6 +5514,7 @@ function showResult() {
       fromWrap.style.display = '';
     }
   } else {
+    setEl('lbl-breath-ease', T('result_label_breath_ease'));
     if (fromLabel) { fromLabel.textContent = T('result_label_from'); fromLabel.style.display = ''; }
     if (downArrow) downArrow.style.display = '';
     if (towardWrap) towardWrap.style.display = '';
@@ -5474,6 +5856,7 @@ function showSaveError() {
 }
 
 document.addEventListener('keydown', function(e){ if (e.key === 'Enter') e.preventDefault(); });
+setLandingLang(landingLang);
 applyLang();
 updateProgress();
 initSupabase();
