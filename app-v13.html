@@ -6016,8 +6016,13 @@ function updateV13EndConfirmLabel() {
 
 function continueV13Loop() {
   D.v13CurrentTheme = D.v13InitialTheme || D.v13OriginalTheme || getV13ThemeLabel();
-  D.v13CurrentNonIdeal = '';
   D.v13PendingScreen = '';
+  if (D.freeInputType === 'topic') {
+    D.v13CurrentNonIdeal = D.freeInputValue || D.themeNegative || D.v13CurrentTheme;
+    showV13Ideal();
+    return;
+  }
+  D.v13CurrentNonIdeal = '';
   showV13NonIdeal();
 }
 
