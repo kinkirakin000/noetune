@@ -815,10 +815,8 @@ through what is happening now.</p>
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <button class="btn" id="btn-repeat-theme" onclick="returnToCurrentWishThemeSection()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマをさらに見る</button>
-  <div class="result-hint" id="t-repeat-hint">同じ感覚を、もう少し静かに見てみます。</div>
+  <button class="btn" id="btn-repeat-theme" onclick="backToStart()" style="background:#1A1A1A;margin-top:2.5rem">新しいテーマで始める</button>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()" style="display:none">別の入口からほどく</button>
-  <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
   <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()" style="display:none">言語を変える</button>
   <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
   <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none">ログアウト</button>
@@ -1302,6 +1300,7 @@ var copy = {
     trial_remaining:'あと{remaining}回体験できます',
     repeat_same_theme:'同じ感覚をもう一度ほどく',
     result_more_in_theme:'同じテーマをさらに見る',
+    resultNewThemeButton:'新しいテーマで始める',
     repeat_same_theme_hint:'同じ感覚を、もう少し静かに見てみます。',
     choose_new_theme:'別の入口からほどく',
     back_to_start:'最初に戻る',
@@ -2103,10 +2102,8 @@ function applyLang() {
   setEl('btn-shift-note',        T('shift_note_button'));
   setEl('btn-skip-shift-note',   T('shift_note_skip'));
   setEl('lbl-shift-note-label',  T('result_shift_note_label'));
-  setEl('btn-repeat-theme',    T('result_more_in_theme'));
-  setEl('t-repeat-hint',       T('repeat_same_theme_hint'));
+  setEl('btn-repeat-theme',    lang === 'ja' ? T('resultNewThemeButton') : T('result_more_in_theme'));
   setEl('btn-new-theme',       T('choose_new_theme'));
-  setEl('btn-back-start',      T('back_to_start'));
   setEl('btn-change-language', T('change_language'));
   setEl('t-result-pricing',    T('result_pricing_note'));
   var resultFeatures = document.getElementById('result-professional-features');
@@ -6120,7 +6117,7 @@ function getSelectedWishLabel() {
 }
 
 function updateResultRepeatLabel() {
-  setEl('btn-repeat-theme', T('result_more_in_theme'));
+  setEl('btn-repeat-theme', lang === 'ja' ? T('resultNewThemeButton') : T('result_more_in_theme'));
 }
 
 function formatV13History() {
