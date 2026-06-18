@@ -25,6 +25,8 @@
 html,body{height:100%;overflow:hidden}
 body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;background:#FAFAF7;color:#1A1A1A}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3.5rem 1.8rem 2.5rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen-scroll{justify-content:flex-start;align-items:center;overflow-y:auto;padding-top:calc(4.8rem + env(safe-area-inset-top));padding-bottom:calc(5.5rem + env(safe-area-inset-bottom))}
+.screen-scroll>*{flex-shrink:0}
 .screen.active{opacity:1;transform:translateY(0);pointer-events:all}
 .screen.exit{opacity:0;transform:translateY(-12px)}
 .progress-bar{position:fixed;top:0;left:0;height:2px;background:#6B9080;width:0;transition:width .6s cubic-bezier(.4,0,.2,1);z-index:100;opacity:.7}
@@ -101,7 +103,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .result-pricing-note:active{color:#6B9080}
 .result-upgrade-block{margin-top:2.2rem;padding:1.2rem 1.4rem 1.3rem;border:1px solid rgba(107,144,128,.28);border-radius:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s}
 .result-upgrade-block:active{opacity:.7}
-.result-upgrade-body{font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;line-height:2;letter-spacing:.05em;color:#77736E;text-align:center;margin-bottom:.9rem}
+.result-upgrade-body{font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;line-height:2;letter-spacing:.05em;color:#77736E;text-align:center;margin-bottom:.9rem;white-space:pre-line}
 .result-upgrade-plan{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:400;letter-spacing:.18em;color:#6B9080;text-align:center;margin-bottom:.65rem}
 .result-upgrade-features{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;line-height:1.85;letter-spacing:.04em;color:#A8A8A2;text-align:center;margin-bottom:.8rem}
 .result-upgrade-price{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:400;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin-bottom:.7rem}
@@ -201,6 +203,15 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .entry-choice-desc{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.05em;line-height:1.9;margin-top:.6rem;white-space:pre-line;padding:0 2px}
 #s-about{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
 #s-pricing{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
+.pricing-inner{max-width:320px}
+.pricing-lead{text-align:center}
+.pricing-plan-card{width:100%;box-sizing:border-box;border:1px solid #E8E8E2;border-radius:14px;padding:1rem 1.1rem;margin:1rem 0;background:rgba(255,255,255,.28)}
+.pricing-plan-label{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.14em;margin-bottom:.45rem}
+.pricing-plan-title{font-family:'Noto Serif JP',serif;font-size:.88rem;color:#1A1A1A;letter-spacing:.04em;line-height:1.8;margin-bottom:.4rem}
+.pricing-plan-description{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#77736E;letter-spacing:.04em;line-height:1.9;white-space:pre-line}
+.pricing-feature-list{list-style:none;margin:.55rem 0 0;padding:0}
+.pricing-feature-list li{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#77736E;letter-spacing:.04em;line-height:1.9}
+.pricing-feature-list li::before{content:'・'}
 .pricing-cta{margin-top:2rem;margin-bottom:0}
 .pricing-soon{color:#A8A8A2;font-size:.8rem;letter-spacing:.06em;text-align:center;margin-top:1.6rem;font-family:'Noto Serif JP',serif}
 .pricing-price{font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin:1.6rem 0 .4rem}
@@ -318,6 +329,9 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .result-upgrade-block{border-color:rgba(143,184,164,.2)}
 .result-upgrade-price{color:#F5EFE6}
 .result-upgrade-body{color:#8E8981}
+.pricing-plan-card{background:rgba(245,239,230,.03);border-color:rgba(245,239,230,.14)}
+.pricing-plan-title{color:#F5EFE6}
+.pricing-plan-description,.pricing-feature-list li{color:#B8B2A8}
 .custom-theme-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
 .custom-theme-input:focus{border-bottom-color:#8FB8A4}
 .custom-theme-input::placeholder{color:#4A4845}
@@ -406,8 +420,8 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
       <button class="lp-lang-btn"          data-lp="ja"    onclick="setLandingLang('ja')">日</button>
       <button class="lp-lang-btn"          data-lp="zh-TW" onclick="setLandingLang('zh-TW')">繁</button>
     </div>
-    <div class="lp-hero-title" id="lp-hero-title">When you notice your true self,
-things get lighter.</div>
+    <div class="lp-hero-title" id="lp-hero-title">Each time you remember who you are,
+life becomes a little lighter.</div>
     <div class="lp-hero-sub" id="lp-hero-sub">Choose.
 Answer.
 Notice.
@@ -416,7 +430,7 @@ Noetune is an app for remembering your natural self
 through real-life experiences.</div>
     <div style="text-align:center">
       <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()">Start</button>
-      <button class="btn-about-link" id="btn-lp-about-link" onclick="setLang(landingLang, 's-about')" style="display:none;margin-left:auto;margin-right:auto">Noetuneとは</button>
+      <button class="btn-about-link" id="btn-lp-about-link" onclick="setLang(landingLang, 's-about')" style="display:none;margin-left:auto;margin-right:auto"></button>
     </div>
     <div class="lp-section">
       <div class="lp-section-title" id="lp-section-title">When to use it</div>
@@ -461,7 +475,7 @@ through what is happening now.</p>
   <div class="intro-title">Noetune</div>
   <div class="intro-sub" id="intro-sub-open">— for when the body closes —</div>
   <button class="btn" id="btn-start" onclick="startApp()">始める</button>
-  <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')">Noetuneとは</button>
+  <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')"></button>
   <button class="portal-outline-btn" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
   <button class="portal-outline-btn" id="btn-login-home" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
   <button class="portal-outline-btn" id="btn-logout-home" onclick="logoutUser()" style="display:none">ログアウト</button>
@@ -470,7 +484,7 @@ through what is happening now.</p>
 <!-- ── ENTRY CHOICE ── -->
 <div class="screen" id="s-entry-choice">
   <div id="s-entry-inner">
-    <div class="entry-title">今いちばん気になる分野を選ぶ。</div>
+    <div class="entry-title"></div>
     <div id="wish-accordion"></div>
   </div>
 </div>
@@ -492,7 +506,7 @@ through what is happening now.</p>
 <!-- ── ABOUT ── -->
 <div class="screen" id="s-about">
   <div class="about-inner">
-    <div class="about-title" id="t-about-title">Noetuneとは</div>
+    <div class="about-title" id="t-about-title"></div>
     <div class="about-para" id="t-about-p1"></div>
     <div class="about-para" id="t-about-p2"></div>
     <div class="about-para" id="t-about-p3"></div>
@@ -708,7 +722,7 @@ through what is happening now.</p>
 </div>
 
 <!-- ── RESULT ── -->
-<div class="screen" id="s-result">
+<div class="screen screen-scroll" id="s-result">
   <div class="sc-card" id="result-card">
     <div class="sc-card-header">
       <div class="sc-card-title">Noetune</div>
@@ -753,16 +767,16 @@ through what is happening now.</p>
   </div>
   <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じ感覚をもう一度ほどく</button>
   <div class="result-hint" id="t-repeat-hint">同じ感覚を、もう少し静かに見てみます。</div>
-  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()">別の入口からほどく</button>
+  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()" style="display:none">別の入口からほどく</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
-  <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()">言語を変える</button>
+  <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()" style="display:none">言語を変える</button>
   <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
   <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none">ログアウト</button>
   <div class="result-upgrade-block" onclick="fwd('s-pricing')">
-    <div class="result-upgrade-body">必要な時に、<br>何度でも戻れる場所。</div>
-    <div class="result-upgrade-plan">Professional</div>
-    <div class="result-upgrade-features">・自由入力<br>・すべての入口<br>・履歴</div>
-    <div class="result-upgrade-price">月額980円</div>
+    <div class="result-upgrade-body" id="result-professional-lead">必要なときに、<br>静かに自分へ戻る場所。</div>
+    <div class="result-upgrade-plan" id="result-professional-title">Professional</div>
+    <div class="result-upgrade-features" id="result-professional-features">・すべてのテーマ<br>・無制限に使える<br>・いつでも解約できる</div>
+    <div class="result-upgrade-price" id="result-professional-price">月額980円</div>
     <div class="result-upgrade-cta" id="t-result-pricing">Professionalを見る</div>
   </div>
   <div class="pricing-note" id="t-trial-remaining" style="display:none"></div>
@@ -770,13 +784,25 @@ through what is happening now.</p>
 
 <!-- ── PRICING ── -->
 <div class="screen" id="s-pricing">
-  <div class="about-inner">
-    <div class="about-title" id="t-pricing-title">Professional</div>
-    <div class="about-para" id="t-pricing-p1"></div>
+  <div class="about-inner pricing-inner">
+    <div class="about-title" id="t-pricing-title"></div>
+    <div class="about-para pricing-lead" id="t-pricing-p1"></div>
+    <div class="pricing-plan-card" id="pricing-free-card">
+      <div class="pricing-plan-label" id="t-pricing-free-label"></div>
+      <div class="pricing-plan-title" id="t-pricing-free-title"></div>
+      <div class="pricing-plan-description" id="t-pricing-free-description"></div>
+    </div>
+    <div class="pricing-plan-card" id="pricing-professional-card">
+      <div class="pricing-plan-label" id="t-pricing-professional-label"></div>
+      <div class="pricing-plan-title" id="t-pricing-professional-title"></div>
+      <ul class="pricing-feature-list" id="t-pricing-features"></ul>
+    </div>
     <div class="pricing-price" id="t-pricing-price"></div>
+    <div class="pricing-note" id="t-pricing-note"></div>
     <div style="text-align:center">
-      <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()">Professionalを始める</button>
-      <div class="pricing-note" id="t-pricing-note"></div>
+      <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()"></button>
+      <div class="pricing-note" id="t-pricing-cancel-note"></div>
+      <div class="pricing-note" id="t-pricing-subscription-note"></div>
       <div class="pricing-note" id="t-guest-records-note" style="display:none"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="portal-outline-btn" id="btn-portal" onclick="openCustomerPortal()" style="display:none"></button>
@@ -1175,25 +1201,33 @@ var copy = {
     door_a_question_template:'「{pos}」\n\nこれと調和している私たちは\n\nどんな状態？',
     door_b_question_template:'「{pos}」\n\nこれと調和してない私たちは\n\nどんな状態？',
     door_c_question_template:'「{pos}」\n\nこれと調和している私たちは\n\nどんな状態？',
-    about_link:'Noetuneとは',
-    about_title:'Noetuneとは',
-    about_p1:'Noetuneは、\n現実の体験を入口に、\n自然な自分を思い出すアプリです。',
-    about_p2:'テーマを選び、\n短い問いに答え、\n自分の中で、\n自然に気づき始めます。',
-    about_p3:'お金のこと、\n人間関係、\n仕事、\n未来への不安、\n自分への違和感などが\n入口です。',
-    about_p4:'Noetuneは、\n問題を分析するアプリではありません。\nあなたに答えを教えるアプリでもありません。\n\n今起きていることを通して、\n自分を知るための道具です。',
-    about_safety_note:'医療行為ではありません。\n強い苦痛や緊急の状態がある場合は、\n専門家や身近な人に相談してください。',
-    pricing_title:'Professional',
-    pricing_p1:'無料\n5回まで使えます。\n\nProfessional\n月額980円。\n無制限利用。\nサブスクはいつでも停止できます。',
+    about_link:'',
+    about_title:'',
+    about_p1:'',
+    about_p2:'',
+    about_p3:'',
+    about_p4:'',
+    about_safety_note:'',
+    pricing_title:'また、戻ってこられる場所',
+    pricing_p1:'最初の1回でも、Noetuneをひと通り体験できます。\nProfessionalでは、必要なときに、どのテーマにも戻れます。',
     pricing_p2:'',
+    pricing_free_label:'無料体験',
+    pricing_free_title:'1つのテーマを最後まで',
+    pricing_free_description:'1つの理想状態を選び、もう答えが出なくなるところまで、ゆっくり見つめます。',
+    pricing_professional_label:'Professional',
+    pricing_professional_title:'必要なときに、どのテーマにも戻れます。',
+    pricing_features:['すべてのテーマが使える','無制限に使える','いつでも解約できる'],
     pricing_price:'月額980円',
-    pricing_cta:'Professionalを始める',
+    pricing_cta:'Professionalで続ける',
     portal_manage:'サブスクリプションを管理する',
-    pricing_note:'いつでも必要な時に、\nこの場所へ戻れます。',
+    pricing_note:'必要なときに、静かに自分へ戻る場所。',
+    pricing_cancel_note:'いつでも解約できます。',
+    pricing_subscription_note:'サブスクリプションは毎月自動更新され、アカウント設定からいつでも管理・解約できます。',
     guest_records_note:'ゲスト利用中の記録は、この端末内に保存されます。\n別の端末で使う、または記録を安全に残すにはログインしてください。',
     pricing_soon:'準備中です',
-    lock_title:'必要な時に、\nまた戻れるように。',
-    lock_body:'あなたはもう、\nNoetuneが何をするか知っています。\n\nProfessionalでは、\n必要な時に何度でも\nこの場所へ戻れます。',
-    lock_cta:'Professionalを始める',
+    lock_title:'また、戻ってこられる場所',
+    lock_body:'最初の1回でも、Noetuneをひと通り体験できます。\nProfessionalでは、必要なときに、どのテーマにも戻れます。',
+    lock_cta:'Professionalで続ける',
     lock_note:'月額980円',
     trial_remaining:'あと{remaining}回体験できます',
     repeat_same_theme:'同じ感覚をもう一度ほどく',
@@ -1202,6 +1236,7 @@ var copy = {
     back_to_start:'最初に戻る',
     change_language:'言語を変える',
     result_pricing_note:'Professionalを見る',
+    result_upgrade_body:'必要なときに、\n静かに自分へ戻る場所。',
     next_button:'次へ', not_measurable_button:'数値化不可', skip_measurement:'計測をスキップする',
     feel_prompt:'感じてください。', breathe_start_hint:'軽く息を吐いてから、タップ',
     session_result_header:'ほどけた記録',
@@ -1900,6 +1935,18 @@ function T(key, vars) {
   return s;
 }
 
+function renderPricingFeatures() {
+  var el = document.getElementById('t-pricing-features');
+  if (!el) return;
+  var features = lang === 'ja' ? copy.ja.pricing_features : [];
+  el.innerHTML = '';
+  features.forEach(function(text) {
+    var li = document.createElement('li');
+    li.textContent = text;
+    el.appendChild(li);
+  });
+}
+
 function applyLang() {
   document.documentElement.lang = lang;
   setEl('btn-start',      T('start_button'));
@@ -1915,9 +1962,25 @@ function applyLang() {
   setEl('t-about-safety',   T('about_safety_note'));
   setEl('t-pricing-title',  T('pricing_title'));
   setEl('t-pricing-p1',     T('pricing_p1'));
+  setEl('t-pricing-free-label', lang === 'ja' ? copy.ja.pricing_free_label : '');
+  setEl('t-pricing-free-title', lang === 'ja' ? copy.ja.pricing_free_title : '');
+  setEl('t-pricing-free-description', lang === 'ja' ? copy.ja.pricing_free_description : '');
+  setEl('t-pricing-professional-label', lang === 'ja' ? copy.ja.pricing_professional_label : '');
+  setEl('t-pricing-professional-title', lang === 'ja' ? copy.ja.pricing_professional_title : '');
+  ['pricing-free-card', 'pricing-professional-card'].forEach(function(id) {
+    var card = document.getElementById(id);
+    if (card) card.style.display = lang === 'ja' ? '' : 'none';
+  });
+  renderPricingFeatures();
   setEl('t-pricing-price',  T('pricing_price'));
   setEl('btn-pricing-cta',  T('pricing_cta'));
   setEl('t-pricing-note',   T('pricing_note'));
+  setEl('t-pricing-cancel-note', lang === 'ja' ? copy.ja.pricing_cancel_note : '');
+  setEl('t-pricing-subscription-note', lang === 'ja' ? copy.ja.pricing_subscription_note : '');
+  ['t-pricing-cancel-note', 't-pricing-subscription-note'].forEach(function(id) {
+    var note = document.getElementById(id);
+    if (note) note.style.display = lang === 'ja' ? '' : 'none';
+  });
   setEl('t-guest-records-note', T('guest_records_note'));
   setEl('t-pricing-soon',   T('pricing_soon'));
   setEl('t-lock-title',     T('lock_title'));
@@ -1949,6 +2012,8 @@ function applyLang() {
   setEl('btn-back-start',      T('back_to_start'));
   setEl('btn-change-language', T('change_language'));
   setEl('t-result-pricing',    T('result_pricing_note'));
+  var resultFeatures = document.getElementById('result-professional-features');
+  if (resultFeatures) resultFeatures.style.display = lang === 'ja' ? '' : 'none';
   ['br1','br2','br3','br4','br5'].forEach(function(k){
     setEl('lbl-feel-' + k, T('feel_prompt'));
     setEl('hint-' + k, T('breathe_start_hint'));
@@ -1982,9 +2047,10 @@ function applyLang() {
   renderIdealScreen();
   updatePortalButton();
   updateLoginButton();
+  if (currentLocale) applyLocale();
 }
 
-function setLang(l, nextScreen) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); trackEvent('language_selected', { lang: l }); fwd(nextScreen || 's-landing'); }
+function setLang(l, nextScreen) { lang = l; try { localStorage.setItem('ntn_lang', l); } catch(e) {} applyLang(); loadLocale(l); trackEvent('language_selected', { lang: l }); fwd(nextScreen || 's-landing'); }
 
 var D = {
   theme:'', themeKey:null,
@@ -2006,236 +2072,107 @@ var D = {
   v13PendingScreen: ''
 };
 
-var V13_WISH_CATEGORIES = [
-  { id:'foundation', label:'からだと安心（存在の土台）', wishes:[
-    { id:'life', label:'命を謳歌したい' },
-    { id:'safety', label:'安心したい' },
-    { id:'rest', label:'休みたい' },
-    { id:'health', label:'健康でいたい' }
-  ] },
-  { id:'relationship_dignity', label:'人とのつながり（関係と尊厳）', wishes:[
-    { id:'love', label:'愛したい・愛されたい' },
-    { id:'connection', label:'つながりたい' },
-    { id:'recognition', label:'認められたい' },
-    { id:'value', label:'価値を感じたい' }
-  ] },
-  { id:'freedom_power', label:'自分で選ぶ力（自由と力）', wishes:[
-    { id:'freedom', label:'自由でいたい' },
-    { id:'ability', label:'できると感じたい' },
-    { id:'growth', label:'成長したい' },
-    { id:'adventure', label:'冒険したい' }
-  ] },
-  { id:'joy_abundance', label:'楽しむ・満たされる（喜びと豊かさ）', wishes:[
-    { id:'play', label:'遊びたい' },
-    { id:'joy', label:'喜びを生きたい' },
-    { id:'abundance', label:'豊かさを生きたい' },
-    { id:'beauty', label:'美を味わいたい' }
-  ] },
-  { id:'creation_contribution', label:'作る・届ける（創造と貢献）', wishes:[
-    { id:'creation', label:'作りたい' },
-    { id:'giving', label:'与えたい' },
-    { id:'integrity', label:'まっすぐ生きたい' },
-    { id:'peace', label:'穏やかでいたい' }
-  ] },
-  { id:'recognition_transcendence', label:'知る・深める（認識と超越）', wishes:[
-    { id:'knowing', label:'知りたい' },
-    { id:'meaning', label:'意味を生きたい' },
-    { id:'transcendence', label:'超越したい' },
-    { id:'legacy', label:'残したい' }
-  ] }
-];
+var currentLocale = null;
+var fallbackLocale = null;
+var currentLang = 'ja';
+var wishThemeVisibleCounts = {};
 
-function makeWishThemes(values) {
-  var themes = [];
-  for (var i = 0; i < values.length; i += 2) {
-    themes.push({ label: values[i], desc: values[i + 1] || '' });
-  }
-  return themes;
+function normalizeWishGroups(groups) {
+  return (groups || []).map(function(group) {
+    group.id = group.key;
+    group.wishes = (group.wishes || []).map(function(wish) {
+      wish.id = wish.key;
+      wish.themes = wish.themes || [];
+      return wish;
+    });
+    return group;
+  });
 }
 
-var WISH_THEMES = {
-  foundation: {
-    life: makeWishThemes([
-      '身体で生きる','身体の感覚で命を感じる','五感を味わう','見る・聞く・食べる・触れるを楽しむ',
-      '生きる実感','今、生きている手触りがある','今を味わう','今この瞬間をちゃんと受け取る',
-      '喜びを受ける','楽しい・うれしいを素直に感じる','快を許す','心地よさや欲望を悪者にしない',
-      '命が流れる','生命力が身体の中を巡っている','動きを楽しむ','動くこと、行動することを楽しむ',
-      '遊び心を持つ','試す・笑う・工夫する','創って表す','内側にあるものを形にする',
-      '夢中になる','好きなことに深く入る','小さく冒険','日常で新しい体験をする',
-      '変化を楽しむ','変わることを命の流れとして見る','終わりを受ける','死や別れを命の一部として見る',
-      '感情を感じる','気持ちを命の動きとして感じる','本音で関わる','取り繕いすぎず人とつながる',
-      '境界線を持つ','自分の喜びと命を守る','自分を信じる','自分の感覚と直感を信頼する',
-      '自然とつながる','自然の中で命を感じる','人生に参加','見ているだけでなく、自分で体験する'
-    ]),
-    safety: makeWishThemes([
-      'ここにいていい','存在していい感覚がある','そのままの自分','弱さも含めて自分を受け入れる',
-      '自分を信じる','自分には対応する力がある','身体がゆるむ','身体の緊張がほどける',
-      '今に根を張る','今ここに足場を持つ','自分で整える','自分を落ち着かせる方法がある',
-      '守られている','一人で全部背負わなくていい','支えを受ける','助けを受け取れる',
-      '一人でも安心','自分の内側に拠り所がある','安心できる人','ホッとする関係がある',
-      '自分を守る','自分の安全を守れる','境界線を持つ','ちょうどいい距離を持つ',
-      '感情も安全','気持ちを安全に感じられる','不安もサイン','不安を確認のサインにする',
-      '失敗しても戻る','失敗しても自分は壊れない','未知でも大丈夫','わからなくても進める',
-      '流れにまかす','コントロールできないことを手放す','もう十分','今あるものに満ち足りる',
-      '生活を整える','毎日のリズムで安心を育てる','安心から動く','落ち着きを土台に行動する'
-    ]),
-    rest: makeWishThemes([
-      '休みを許す','今は休んでいいと思える。','休みはメンテナンス','休むことは、自分を整えること。',
-      '疲れをサインにする','疲れたら、「休もう」の合図だとわかる。','身体を休める','体の「休みたい」に気づける。',
-      '力を抜く','体に入った力を、少し抜ける。','重力に委ねる','体を支えに預けて、楽になれる。',
-      '深く眠る','眠ることを大事にできる。','呼吸をゆるめる','息をゆっくり吐いて、落ち着ける。',
-      '何もしないを味わう','何もしない時間を味わえる。','空白を確保する','予定を空ける時間を作れる。',
-      '刺激を減らす','スマホや音、人の多さから少し離れられる。','静けさに戻る','静かな時間を大事にできる。',
-      '自分を満たす','自分の体に必要なものを与えられる。','自然に戻る','自然に触れると、自分が整っていく。',
-      '自分のリズム','自分のペースで休める。','回復を待つ','元気が戻るまで、ちゃんと待てる。',
-      '人に任せる','全部自分でやらず、人に頼める。','休むためにノー','休むために、無理なことにはノーと言える。',
-      '共に休む','一緒にいても、何もしないで休める。','また動き出す','休んだら、自然にまた動き出せる。'
-    ]),
-    health: makeWishThemes([
-      '身体は味方','身体を敵にせず信頼する','身体は相棒','身体と一生付き合う','体の声を聞く','疲れ・空腹・違和感に気づく',
-      '呼吸を整える','呼吸と姿勢で身体を整える','巡りをよくする','血流・代謝・感情を巡らせる','よく動く','動くことを心地よく行う',
-      'よく眠る','睡眠で回復する','よく食べる','栄養と楽しみを大切にする','休んで回復','休息を健康の一部にする','無理をしない','限界を尊重する',
-      '不調はサイン','不調を見直しの合図にする','身体を手入れ','定期的に身体をケアする','ストレスを流す','感情や負荷をため込まない',
-      '自然と暮らす','自然のリズムと合わせる','生活リズム','毎日の流れを整える','身体を比べない','他人の身体と比較しすぎない','変化と付き合う','年齢や体調変化に合わせる',
-      '揺れても整う','完璧でなくても戻って整う','環境で整う','人や場所で健康を育てる','健康から動く','健康を土台に人生を楽しむ'
-    ])
-  },
-  relationship_dignity: {
-    love: makeWishThemes([
-      '愛されていい','自分は大切にされていい','自分を愛する','自分を雑に扱わない','愛は循環','愛は与え受け取る中で広がる','愛を受け取る','優しさや好意を受け取る',
-      '愛を伝える','大切な気持ちを表す','大切にする','相手を一人の存在として扱う','心を開く','少しずつ人を信じる','弱さを見せる','完璧でない自分も見せられる',
-      '本音で関わる','正直な気持ちでつながる','よく聴く','相手を決めつけずに聴く','身体で感じる','愛を温かさや触れ合いで感じる','境界線を持つ','愛の中でもNOを持つ',
-      '対等な関係','どちらかだけが我慢しない','自由を尊重','相手を縛らない','違いを尊重','違いを関係の敵にしない','拒絶を恐れない','離れても自分の価値は消えない',
-      '傷を修復する','すれ違いを整え直す','一人も愛','一人の時間も自分を大切にする','愛の形は色々','恋愛以外の愛も大切にする','世界に愛を見る','世界の中に優しさを見つける'
-    ]),
-    connection: makeWishThemes([
-      'つながれる自分','自分も人とつながれる','一人も大丈夫','孤独と孤立を分けられる','心を開く','少しずつ人を信じる','本音を見せる','弱さや本音を出せる',
-      '自分から関わる','待つだけでなく声をかける','相手に関心','相手を知ろうとする','よく聴く','相手の話をちゃんと聴く','身体で同調','表情や呼吸でつながる',
-      '感謝を伝える','ありがとうや承認を伝える','一緒に体験','共有した時間で深まる','開きながら守る','境界線を持って関わる','違いは豊かさ','違いを関係の敵にしない',
-      '頼り頼られる','助け合える関係を持つ','与え受け取る','つながりを循環させる','すれ違いを直す','誤解や衝突を整え直す','ゆるく深く','浅い関係も深い関係も大切にする',
-      'つながり色々','多様な関係を持つ','離れてもつながる','会えなくても関係を感じる','自然とつながる','自然や土地との関係を感じる','世界は網','世界は影響し合っている'
-    ]),
-    recognition: makeWishThemes([
-      '価値がある','自分には存在価値がある','存在を認める','ここにいる自分を認める','自分を認める','自分で自分を見てあげる','認められたいでいい','承認欲求を恥じない',
-      '評価に依存しない','評価を全部にしない','称賛を受け取る','褒めや感謝を受け取る','達成感を味わう','できた喜びを受け取る','努力を見る','自分の過程を認める',
-      '成果を語る','自分の成果や強みを話す','声を届ける','自分の意見を伝える','自分を表す','自分の内側を形にする','批判は情報','指摘を情報として扱う',
-      '意見を求める','成長のために声を聞く','比較から戻る','比べても自分に戻る','認められなくても','承認がなくても自分を失わない','見てくれる場','自分を認める場を選ぶ',
-      '人を認める','人の価値も見られる','認め合う','互いの良さを見つけ合う','唯一無二の自分','自分だけの価値を持つ','価値を使う','自分の良さを世界で使う'
-    ]),
-    value: makeWishThemes([
-      '在るだけで価値','何かできなくても、自分には価値があると思える。','価値に気づく','大事なものに気づける。','自分の価値','自分にも大事な価値があると感じられる。','人の価値を見る','人のいいところや大事さに気づける。',
-      '比較せずに見る','比べなくても、価値を見つけられる。','弱さも価値にする','弱さや失敗も、自分の一部として見られる。','小さな価値を見る','小さなことにも「いいな」と思える。','一瞬を大切にする','今この時間が、二度と戻らないと感じられる。',
-      '経験を価値にする','うまくいったことも失敗も、次に活かせる。','努力を認める','結果だけでなく、がんばった過程も見られる。','違いを価値にする','違う考えや個性を、面白いと思える。','身体で価値を感じる','本当に大事なものを、体でも感じられる。',
-      '時間を大切にする','時間を大事に使える。','ものを大切にする','ものを雑にせず、大切に使える。','関係の価値を見る','人とのつながりを大事に感じられる。','自分の価値を使う','自分にある力を、人のために使える。',
-      '価値を作る','人の役に立つものや場を作れる。','価値を受け取る','人からのよいものを受け取れる。','価値を分け合う','よいものを、人と分け合える。','価値を育てる','大事なものを、時間をかけて育てられる。'
-    ])
-  },
-  freedom_power: {
-    freedom: makeWishThemes([
-      '人生は自分のもの','自分の人生の主導権を持つ','自分で決める','自分の意思で選ぶ','感覚を信じる','自分の違和感や納得を聞く','価値観で決める','自分の大切なもので選ぶ','責任を引き受ける','選んだ結果から学ぶ',
-      'NOと言う','合わないことを断る','YESと言う','やりたいことを選ぶ','境界線を持つ','自分の時間や心を守る','期待を背負わない','人の期待だけで決めない','流されなくていい','同調圧力に飲まれない',
-      '枠を疑っていい','常識やルールを問い直す','型の外を選ぶ','自分らしい道を選ぶ','自分のリズム','自分のペースで生きる','身体が軽い','身体が自由に動ける','正解なしで進む','わからなくても一歩進む',
-      'やめていい','合わないことを手放す','始めていい','新しいことを始める','制限でも選ぶ','条件の中でできる一歩を選ぶ','相手も自由','相手の選択も尊重する','自分が主人公','自分の人生を自分で描く'
-    ]),
-    ability: makeWishThemes([
-      '自分には力がある','自分にもできることがある','能力は育つ','練習や経験で伸びる','今できる一歩','まず一つ行動を見つける','小さく始める','完璧を待たず少し始める','目標を分ける','大きなことを小さくする',
-      '挑戦を楽しむ','難しいことにも前向きに向かう','集中して取り組む','夢中で課題に入る','試して学ぶ','やってみて学ぶ','失敗は情報','失敗を次のヒントにする','進歩を振り返る','成長を記録して見る',
-      '小さな成功','少しできたことを認める','自分のペース','人と比べず成長する','得意を活かす','強みを現実に使う','苦手を工夫','苦手でもやり方を変える','助けを求める','必要な時に人に聞く',
-      '道具を使う','知識やツールで力を広げる','意見を活かす','フィードバックで良くする','できることに集中','変えられる部分に力を使う','完璧前に出す','未完成でも出して育てる','能力と価値は別','できない時も価値は下がらない'
-    ]),
-    growth: makeWishThemes([
-      'のびしろを喜ぶ','まだできないことを、これから伸びる場所として見られる。','ゼロから学ぶ','知らないことを恥にせず、素直に聞いて学べる。','少し高い壁へ','今の自分には少し難しいことにも進める。','自分を更新する','古い考え方や習慣に縛られず、新しい自分へ進める。',
-      'ヒントとして聴く','人からの言葉を、次の改善に活かせる。','日常から学ぶ','ふだんの生活の中にも、学べることを見つけられる。','一流から学ぶ','すごい人や本物に触れて、自分の可能性を広げられる。','身体で覚える','考えるだけでなく、やりながら身につけられる。',
-      '視点を広げる','自分だけでなく、全体や未来から考えられる。','学びを分ける','自分が学んだことを、人の役にも立てられる。','比べず伸びる','人と比べすぎず、自分の変化を見られる。','停滞も育ち','伸びない時期も、成長の一部として扱える。','経験を知恵に','起きたことから、大事な学びを受け取れる。','深く育つ','能力だけでなく、心の広さも育っていく。'
-    ]),
-    adventure: makeWishThemes([
-      '未知へ一歩','初めてのことにも、少しだけ進んでみられる。','好奇心を信じる','気になる、知りたい、試したい感覚を大切にできる。','怖さを力に','ドキドキを、準備や集中の力に変えられる。','外へ踏み出す','慣れた場所ややり方の外にも進める。',
-      '身体で探検','歩く、見る、触れる、試すことで世界を知れる。','五感を開く','音、匂い、景色、空気をよく感じられる。','日常に冒険を','毎日の中で、小さく新しいことを試せる。','柔軟に進む','予定が変わっても、別の進み方を見つけられる。',
-      'ピンチを楽しむ','困ったことも、工夫する場面として向き合える。','準備して進む','勢いだけでなく、必要な準備をして挑戦できる。','違いから学ぶ','自分と違う人や文化からも学べる。','仲間と冒険','一人でも、仲間とも、新しいことに進める。',
-      '一人を楽しむ','一人だからこそ、自由に動ける。','戻って進む','疲れたら戻り、整えてまた進める。','経験を物語に','体験したことを、自分の学びや表現に変えられる。','自分の道を作る','決められた道だけでなく、自分の道も作れる。'
-    ])
-  },
-  joy_abundance: {
-    play: makeWishThemes([
-      '楽しんでいい','楽しむことを、生活の自然な一部にできる。','面白さを選ぶ','うまく見せるより、面白い方を選べる。','目的なく楽しむ','役に立つかどうかだけで決めなくていい。','夢中になる','時間を忘れるくらい、今の遊びに入り込める。','遊び心を持つ','いつものことも、少し面白くできる。',
-      '小さく試す','まず少しやってみて、あとで変えられる。','失敗を笑いに','うまくいかないことも、笑って次に活かせる。','ルールで遊ぶ','ルールや制限を、工夫のきっかけにできる。','ゲーム化する','めんどうなことも、自分でゲームにできる。','遊びを発明','自分で新しい遊び方を考えられる。',
-      '身体で遊ぶ','声、動き、手触り、リズムで楽しめる。','五感で楽しむ','音、色、味、手触りを楽しめる。','作って遊ぶ','絵、音、言葉、料理、ものづくりを楽しめる。','場をゆるめる','重い空気を、少し軽くできる。','人と遊ぶ','一緒に楽しむことで、人と近づける。',
-      '違いを楽しむ','違う人がいるから、もっと面白くなる。','一人で遊ぶ','一人でも、面白いことを見つけられる。','安心して遊ぶ','自分も相手も大切にしながら楽しめる。','日常を遊び場に','いつもの生活にも、遊びを入れられる。','遊びから学ぶ','遊びながら、自然に学びや発見が生まれる。'
-    ]),
-    joy: makeWishThemes([
-      '喜びを許す','嬉しい、楽しい、心地いいを素直に感じていい。','内側から湧く','何かを手に入れなくても、心の中から明るさが出てくる。','小さな幸せ','日常の中の小さな「うれしい」に気づける。','今を味わう','目の前の体験を急がず、深く味わえる。','五感で喜ぶ','音、色、匂い、味、手触りを喜びとして受け取れる。',
-      '身体で喜ぶ','食べる、眠る、動く、休む、笑うことを味わえる。','心で選ぶ','心や身体が明るくなる方を選べる。','喜びを表す','嬉しい時に、笑う、言う、祝うなどで表現できる。','日常を祝う','小さな達成や嬉しい出来事を、その場で喜べる。','途中で喜ぶ','結果が出る前でも、進んでいる途中を喜べる。',
-      '自分を喜ばせる','自分の心や身体が明るくなるものを選べる。','喜びを分ける','自分の喜びを、人との間にも広げられる。','人の喜びを祝う','相手の幸せを、自分の不足にせず祝える。','人の良さを見る','相手の魅力や努力に気づき、伝えられる。','感謝が湧く','今あるものや支えられているものに気づける。',
-      '美しさを見る','自然、音、言葉、表情、作品の中に美しさを見つけられる。','感情を味わう','いろんな感情を、命の深さとして受け止められる。','違う喜びを認める','楽しいことは、人によって違うとわかっている。','喜びを創る','自分から、小さな喜びや明るい空気を作れる。','喜びを力に','嬉しい気持ちを、次の行動や創造につなげられる。'
-    ]),
-    abundance: makeWishThemes([
-      '受け取れる','助け、好意、機会、お金、愛情を素直に受け取れる。','今ある豊かさ','不足だけでなく、すでにある恵みに気づける。','十分を感じる','今の満ちている部分を身体で感じられる。','感謝が湧く','今あるものや支えに、自然とありがたさを感じられる。','安心して持つ','必要なものを持つことを悪いことにしなくていい。',
-      '必要を選ぶ','自分の生活や未来を支えるものを選べる。','質を味わう','値段より、自分にとって本当にいいものを大事にできる。','時間に余白','余白、休息、集中、味わう時間を持てる。','お金を道具に','お金を、暮らしや願いを支える道具として使える。','豊かさを整える','お金、物、時間、空間、関係を整えられる。',
-      '豊かさを使う','持っているものを、自分や人や未来のために使える。','豊かさを巡らせる','受け取ったものを、自分だけで止めずに回せる。','自分を贈る','自分にできることを、人や世界に届けられる。','価値を生む','自分の工夫や行動で豊かさを生み出せる。','頼れる','一人で抱え込まず、必要な時に助けを求められる。',
-      '与えすぎない','分かち合いながらも、自分の限界を守れる。','人の豊かさを祝う','人の成功や幸せを、自分の不足にせず祝える。','関係で豊かに','人と関わることで、お互いに豊かになれる。','自然の恵み','水、空気、土、光、食べ物、季節の豊かさを感じられる。','未来へ育てる','今あるものを、学びや習慣として未来へ育てられる。'
-    ]),
-    beauty: makeWishThemes([
-      '美に気づく','日常の中にある小さな美しさを見つけられる。','立ち止まる','美しいものに気づいた時に、少し足を止められる。','五感で味わう','色、音、香り、味、手触りを通して美を受け取れる。','畏敬を感じる','すごい景色や音楽に、胸がじーんとする。','自然の美','空、光、風、水、植物、季節の変化に美を見つけられる。',
-      '日常の美','食事、部屋、道具、服、言葉の中に美を見つけられる。','不完全の美','欠け、古さ、途中、揺らぎ、時間の跡にも美を感じられる。','儚さを味わう','一瞬だからこその美しさを感じられる。','静けさを味わう','余白、沈黙、間、少なさの中にある美を受け取れる。','身体で美を感じる','美に触れた時の胸、目、呼吸、皮膚の反応を感じられる。',
-      '感覚を澄ます','ぼーっと流さず、世界をよく感じられる。','人の美を見る','外見だけでなく、仕草や言葉や優しさにも美を見つけられる。','自分の美意識','人の評価だけでなく、自分の「美しい」を大切にできる。','違う美を認める','人によって美しいと感じるものが違うことを尊重できる。','空間を整える','部屋、食卓、道具、光、音を整えて心地よい場を作れる。',
-      '美を作る','料理、言葉、絵、音、服、場づくりで美を表現できる。','美を分ける','美しいものを、人と一緒に味わい共有できる。','消費せず味わう','すぐ撮る、買う、評価する前に、まず深く受け取れる。','美で心を整える','美に触れることで、心や身体が静まり整っていく。','美を守る','自然、人、物、文化、場の美しさを大切にできる。'
-    ])
-  },
-  creation_contribution: {
-    creation: makeWishThemes([
-      '作りたいが湧く','内側から「何か作りたい」が自然に出てくる。','作り始める','完璧を待たず、小さく始められる。','思いを形に','頭の中の感覚やアイデアを、見える形にできる。','手で感じて作る','手や体を使って、作りながら感じられる。','小さく試す','いきなり完成を狙わず、まず試せる。',
-      'すべてを素材に','ふつうの物や出来事も、作る材料にできる。','制約を工夫に','条件が少なくても、工夫して作れる。','過程を楽しむ','完成品だけでなく、作っている途中も楽しめる。','失敗から直す','うまくいかなくても、直してよくできる。','没頭して作る','作っていると、時間を忘れる。',
-      '作る時間を守る','作る時間をちゃんと大事にできる。','感覚を信じる','自分の「これがいい」を信じられる。','必要を見つける','「これがあったらいいな」に気づける。','役立つ形に','アイデアを、人が使える形にできる。','道具を整える','作るための道具や場所を整えられる。',
-      '完成させる','途中で終わらせず、一回完成まで持っていける。','世に出す','作ったものを、人に見せたり届けたりできる。','反応から育てる','反応を見て、もっとよくできる。','人と作る','一人だけでなく、誰かと一緒に作れる。','次へつなげる','作った経験を、次に活かせる。'
-    ]),
-    giving: makeWishThemes([
-      '与えたいが湧く','誰かのために、何かしたい気持ちが自然に出てくる。','満ちて与える','自分も大事にしながら、人に分けられる。','与える喜び','あげること、助けることが自然にうれしい。','差し出せるもの','自分にも渡せるものがあるとわかっている。','必要を感じ取る','相手に今何が必要かを見られる。',
-      '相手に合わせる','相手に合う渡し方を選べる。','小さく手渡す','小さな親切も、大事にできる。','心を向ける','相手の話をちゃんと聴ける。','知恵を分ける','自分が知っていることを、人の役に立つ形で教えられる。','力を貸す','困っている人に、実際に手を貸せる。',
-      '喜びを分ける','自分の明るさを、周りにも分けられる。','場を温める','その場の空気を少しよくできる。','機会を渡す','人が挑戦できるチャンスを作れる。','相手の力を引き出す','相手が自分でできるように助けられる。','受け取りやすく','相手が受け取りやすい形で渡せる。',
-      '渡した後は手放す','渡したあとは、相手に任せられる。','自分も守る','人にあげすぎて、自分を空っぽにしない。','相手の自由を守る','受け取るかどうかは、相手に任せられる。','受け取れる','自分も人から助けや好意を受け取れる。','与え合いを育てる','自分も相手も元気になる関係を作れる。'
-    ]),
-    integrity: makeWishThemes([
-      '良心に聞く','心の中の「これは違うかも」を大事にできる。','事実を確かめる','聞いただけで決めつけず、確かめられる。','身体で感じる','心や体のモヤモヤを、大事なサインとして見られる。','誠実に話す','嘘でごまかさず、ちゃんと話せる。','知らないと言える','知らないことを、知らないと言える。',
-      '言葉と行動を合わせる','口だけじゃなく、行動も合わせられる。','誰も見なくても誠実','誰も見ていなくても、ちゃんとできる。','公平に扱う','好きな人だけを特別扱いしすぎない。','責任を持つ','自分がしたことの影響を見られる。','間違いを認める','間違えたら、認めて直せる。',
-      '自分を見直す','自分が間違っていたかも、と考え直せる。','正しさを武器にしない','正しさで人を攻撃しない。','やさしく伝える','正しいことでも、言い方を大事にできる。','違う正しさを認める','人によって「正しい」が違うこともあるとわかっている。','対話で深める','違う意見でも、話し合って考えられる。',
-      '境界線を引く','おかしいことには、線を引ける。','弱い立場を守る','言い返せない人のことも考えられる。','勇気を持つ','言いにくいことでも、必要なら言える。','長い目で選ぶ','今だけよければいい、で選ばない。','正しさを育てる','学びながら、もっとよい正しさに近づける。'
-    ]),
-    peace: makeWishThemes([
-      '深い安心感','いろいろあっても、心の奥では「なんとかなる」と思える。','呼吸に戻る','落ち着きたい時、まず息を整えられる。','身体をゆるめる','体の力みに気づいて、少し力を抜ける。','今に留まる','今やっていることに戻れる。','感情と距離を取る','イライラしても、「今イライラしてるな」と気づける。',
-      '反応に間を置く','すぐ反応せず、一呼吸おける。','静かな軸を持つ','周りに振り回されすぎず、自分に戻れる。','流れにまかせる','どうにもできないことは、少し手放せる。','巻き込まれない','相手が怒っていても、自分まで飲まれすぎない。','やさしく話す','言うべきことを、きつくなりすぎず伝えられる。',
-      'ただ聴く','すぐアドバイスせず、ちゃんと聴ける。','静かに線を引く','穏やかでも、嫌なことには線を引ける。','争いを大きくしない','ケンカを大きくしない選び方ができる。','あるがままに見る','思い通りじゃなくても、今の状態を見られる。','日常を整える','生活のまわりを少しずつ整えられる。',
-      '余白を持つ','予定や気持ちに、少し余裕を作れる。','自然に戻る','自然に触れて、落ち着きを取り戻せる。','小さく味わう','小さな心地よさを感じられる。','場を落ち着かせる','自分が落ち着くことで、場も少し落ち着く。','また戻れる','乱れても、また落ち着きに戻れる。'
-    ])
-  },
-  recognition_transcendence: {
-    knowing: makeWishThemes([
-      '未知にワクワク','知らないことがあると、「おもしろそう」と思える。','知りたいが湧く','もっと知りたい気持ちが自然に出てくる。','問いを持つ','ただ覚えるだけでなく、「なぜ？」と考えられる。','わからないを大切に','わからないことを「これから知れる」と思える。','知らないと言える','知らないことを、知らないと言える。',
-      '観察する','よく見てから考えられる。','よく聴く','人の話をちゃんと聴ける。','質問できる','わからないことを質問できる。','調べて確かめる','聞いただけで決めず、ちゃんと調べられる。','体験して知る','聞くだけでなく、やってみてわかる。',
-      '身体で知る','体の感覚でも、いろいろわかる。','違いから学ぶ','自分と違う人からも学べる。','背景を見る','起きたことの裏にある理由も考えられる。','そもそもを考える','「そもそも何？」まで考えられる。','つながりを見る','一つのことが、他のこととどう関係するか見られる。',
-      '考えを更新する','新しいことを知ったら、考えを変えられる。','知恵にする','知ったことを、実際の生活に使える。','人と学ぶ','人と一緒に学べる。','伝えて深める','人に話すと、自分ももっとわかる。','問いを育てる','すぐ答えが出なくても、考え続けられる。'
-    ]),
-    meaning: makeWishThemes([
-      '意味を感じる','これは大切だ、と感じられる。','大切なものを知る','自分にとって大事なことがわかってくる。','価値で選ぶ','得かどうかだけでなく、大事にしたいことで選べる。','身体で納得する','体でも「これだ」と感じられる。','時間を大切に使う','時間を何に使うかを大事にできる。',
-      '自分の物語を見る','今までの経験が、自分の物語になっていく。','経験を知恵にする','つらかったことからも、何かを学べる。','日常に意味を見る','普通の毎日の中にも意味を見つけられる。','今を大切にする','今できることを大事にできる。','小さく行動する','全部わからなくても、まず一歩動ける。',
-      '役割を生きる','今の自分にできる役割を大事にできる。','人とつながる','人とのつながりに意味を感じられる。','深く話す','大事なことを、ちゃんと話せる。','誰かに役立つ','自分の力を、誰かのために使える。','作って残す','自分の思いや経験を、形にして残せる。',
-      '受け継ぎ渡す','もらった大切なものを、次の人へ渡せる。','限りある今を見る','時間には限りがあるから、今を大事にできる。','人の意味を尊重する','人それぞれ、大事な意味があるとわかっている。','問いを持ち続ける','人生の意味を、考え続けられる。','意味を育てる','意味は、少しずつ育てていける。'
-    ]),
-    transcendence: makeWishThemes([
-      '反応の外にいる','イラッとしても、すぐそのまま動かなくていい。','自分だけの外にいる','自分だけじゃなく、みんなのことも考えられる。','役割の外にいる','立場や肩書きだけが、自分の全部ではない。','思い込みの外にいる','決めつけずに、別の見方もできる。','見えてない可能性を開く','今できないことだけで、自分を決めない。',
-      '広く見る','目先だけじゃなく、広い目で見られる。','内なる静けさに戻る','騒がしくても、自分の静かな場所に戻れる。','今ここに意識がある','今ここにしっかりいられる。','執着をゆるめる','こだわりすぎず、少し手放せる。','流れに委ねる','できることをしたら、あとは流れに任せられる。',
-      '畏敬を感じる','自然や命の大きさに「すごい」と感じられる。','全体とつながる','自分は一人だけで生きているわけじゃないと感じられる。','自然と調和する','自然に触れると、自分が整っていく。','身体で広がりを感じる','頭だけでなく、体でもわかる。','没頭して自分が消える','夢中になって、自分のことを忘れる時間がある。',
-      '白黒の外にいる','白黒だけで決めず、もっと広く見られる。','時間の限りを受け入れる','時間に限りがあるから、今を大事にできる。','表面を越えてつながる','相手の奥にある本当の気持ちを大切にできる。','分かち合う','自分にあるものを、人と分け合える。','気づきを日常に活かす','気づいたことを、毎日の行動に活かせる。'
-    ]),
-    legacy: makeWishThemes([
-      '引き継いだものに気づく','自分も誰かから大切なものを受け取ってきたとわかる。','次へ残したいと感じる','大事なものを、次の人にも残したいと思える。','残すものを選ぶ','何を残したいか、自分で選べる。','生きた証を残す','自分が生きたことを、何かの形にできる。','経験を記録する','自分がやってわかったことを、記録に残せる。',
-      '知恵を残す','自分が学んだことを、使いやすく残せる。','見えないものを残す','物だけでなく、大切な考え方や思いも残せる。','作品を残す','自分の思いや感覚を、作品にできる。','技術を残す','自分のやり方やコツを、人に教えられる。','言葉で残す','大事な気持ちや考えを、言葉にして残せる。',
-      '心に残す','人の心に、あたたかいものを残せる。','場を残す','人が集まれる場所や仕組みを作れる。','自然の中に残す','自然や土地に、次の人のための手入れを残せる。','次の人を育てる','自分だけで終わらず、次にできる人を育てられる。','未来を見て選ぶ','今だけじゃなく、あとにどう残るかも考えられる。',
-      '丁寧に長く残す','長く残るように、丁寧に作れる。','受け継ぎ渡す','もらった大切なものを、自分の形で次へ渡せる。','変化に任せる','残したものが、あとで変わっても大丈夫と思える。','名前より中身を残す','有名になるより、役に立つものを残せる。','命をつなぐ','自分の命が、未来へつながっていくと感じられる。'
-    ])
+async function loadLocale(localeLang) {
+  var targetLang = localeLang || 'ja';
+  try {
+    if (!fallbackLocale) {
+      var fallbackRes = await fetch('./locales/ja.json');
+      if (!fallbackRes.ok) throw new Error('Japanese locale not found');
+      fallbackLocale = await fallbackRes.json();
+      fallbackLocale.wishGroups = normalizeWishGroups(fallbackLocale.wishGroups);
+    }
+    if (targetLang === 'ja') {
+      currentLocale = fallbackLocale;
+    } else {
+      try {
+        var res = await fetch('./locales/' + targetLang + '.json');
+        if (!res.ok) throw new Error('locale not found');
+        currentLocale = await res.json();
+        currentLocale.wishGroups = normalizeWishGroups(currentLocale.wishGroups);
+      } catch (e) {
+        currentLocale = fallbackLocale;
+      }
+    }
+    currentLang = targetLang;
+    applyLocale();
+  } catch (e) {
+    console.error('[locale] Failed to load locale:', e.message);
   }
-};
+}
 
-var wishThemeVisibleCounts = {};
+function getByPath(obj, path) {
+  return path.split('.').reduce(function(acc, key) {
+    return acc && acc[key] !== undefined ? acc[key] : undefined;
+  }, obj);
+}
+
+function getText(path, fallback) {
+  var value = getByPath(currentLocale, path);
+  if (value !== undefined && value !== null && value !== '') return value;
+  var fallbackValue = getByPath(fallbackLocale, path);
+  if (fallbackValue !== undefined && fallbackValue !== null && fallbackValue !== '') return fallbackValue;
+  return fallback || '';
+}
+
+function getWishGroups() {
+  return currentLocale && currentLocale.wishGroups ? currentLocale.wishGroups : [];
+}
+
+function findWishGroup(groupKey) {
+  var groups = getWishGroups();
+  for (var i = 0; i < groups.length; i++) if (groups[i].key === groupKey) return groups[i];
+  return null;
+}
+
+function findWish(groupKey, wishKey) {
+  var group = findWishGroup(groupKey);
+  if (!group || !group.wishes) return null;
+  for (var i = 0; i < group.wishes.length; i++) if (group.wishes[i].key === wishKey) return group.wishes[i];
+  return null;
+}
+
+function applyLocale() {
+  setEl('t-about-title', getText('about.title'));
+  setEl('t-about-p1', getText('about.p1'));
+  setEl('t-about-p2', getText('about.p2'));
+  setEl('t-about-p3', getText('about.p3'));
+  setEl('t-about-p4', getText('about.p4'));
+  setEl('t-about-safety', getText('about.safety'));
+  setEl('btn-about-link', getText('ui.aboutLink', T('about_link')));
+  setEl('btn-lp-about-link', getText('ui.aboutLink', T('about_link')));
+  if (lang === 'ja') {
+    setEl('result-professional-lead', copy.ja.result_upgrade_body);
+    setEl('result-professional-title', copy.ja.pricing_professional_label);
+    setEl('result-professional-price', copy.ja.pricing_price);
+    setEl('t-result-pricing', copy.ja.result_pricing_note);
+  } else {
+    setEl('result-professional-lead', getText('ui.professionalLead', 'Use Noetune whenever you need it.'));
+    setEl('result-professional-title', getText('ui.professionalTitle', 'Professional'));
+    setEl('result-professional-price', getText('ui.professionalPrice', 'Monthly plan'));
+    setEl('t-result-pricing', getText('ui.professionalCta', T('result_pricing_note')));
+  }
+  updateResultRepeatLabel();
+  var entryTitle = document.querySelector('#s-entry-choice .entry-title');
+  if (entryTitle) entryTitle.textContent = getText('ui.wishEntryTitle', '');
+  renderWishAccordion();
+}
 
 var THEMES = {
   ja: {
@@ -3747,7 +3684,7 @@ var navHistory = [];
 var landingLang = 'en';
 var LP_COPY = {
   en: {
-    hero: "When you notice your true self,\nthings get lighter.",
+    hero: "Each time you remember who you are,\nlife becomes a little lighter.",
     sub:  "Choose.\nAnswer.\nNotice.\n\nNoetune is an app for remembering your natural self\nthrough real-life experiences.",
     cta:  "Start",
     section: "When to use it",
@@ -3765,7 +3702,7 @@ var LP_COPY = {
     pricingLink: "Free and Professional plans"
   },
   ja: {
-    hero: "本当の自分に気づくと、\n楽になる。",
+    hero: "本来の自分を思い出すたびに、\n人生は少し軽くなる。",
     sub:  "選ぶ。\n答える。\n気づく。\n\nNoetuneは、\n現実の体験を入口に、\n自然な自分を思い出すアプリです。",
     cta:  "始める",
     section: "こんな時に",
@@ -3839,7 +3776,7 @@ var LP_COPY = {
     fp2: "Avec de courtes questions et la respiration,\nelle t’aide à revenir silencieusement à toi-même."
   },
   'zh-TW': {
-    hero: "當你看見真正的自己，\n就會輕鬆一些。",
+    hero: "每一次想起原本的自己，\n人生就會變得輕一點。",
     sub:  "選擇。\n回答。\n覺察。\n\nNoetune 是一個透過現實中的體驗，\n幫助你想起自然自己的 App。",
     cta:  "開始",
     section: "什麼時候可以使用",
@@ -3860,6 +3797,7 @@ var LP_COPY = {
 
 function setLandingLang(code) {
   landingLang = code;
+  loadLocale(code);
   var c = LP_COPY[code] || LP_COPY['en'];
   setEl('lp-hero-title', c.hero);
   setEl('lp-hero-sub',   c.sub);
@@ -4070,8 +4008,9 @@ function renderWishAccordion() {
   if (!wrap) return;
   clearChildren(wrap);
   wishThemeVisibleCounts = {};
-  for (var i = 0; i < V13_WISH_CATEGORIES.length; i++) {
-    var cat = V13_WISH_CATEGORIES[i];
+  var wishGroups = getWishGroups();
+  for (var i = 0; i < wishGroups.length; i++) {
+    var cat = wishGroups[i];
     var section = document.createElement('div');
     section.className = 'theme-section wish-category';
     section.id = 'wish-cat-' + cat.id;
@@ -4153,7 +4092,7 @@ function makeWishSection(category, wish) {
   var more = document.createElement('button');
   more.className = 'btn-see-more';
   more.id = 'wish-theme-more-' + category.id + '-' + wish.id;
-  more.textContent = 'さらに見る';
+  more.textContent = getText('ui.seeMore', 'さらに見る');
   more.onclick = (function(categoryId, wishId) {
     return function() { seeMoreWishThemes(categoryId, wishId); };
   })(category.id, wish.id);
@@ -4210,9 +4149,10 @@ function renderWishThemeItems(category, wish) {
 function seeMoreWishThemes(categoryId, wishId) {
   var category = null;
   var wish = null;
-  for (var i = 0; i < V13_WISH_CATEGORIES.length; i++) {
-    if (V13_WISH_CATEGORIES[i].id !== categoryId) continue;
-    category = V13_WISH_CATEGORIES[i];
+  var wishGroups = getWishGroups();
+  for (var i = 0; i < wishGroups.length; i++) {
+    if (wishGroups[i].key !== categoryId) continue;
+    category = wishGroups[i];
     for (var j = 0; j < category.wishes.length; j++) {
       if (category.wishes[j].id === wishId) { wish = category.wishes[j]; break; }
     }
@@ -4246,9 +4186,10 @@ function toggleWishThemeSection(sectionId) {
     wishThemeVisibleCounts[categoryId + ':' + wishId] = 2;
     var category = null;
     var wish = null;
-    for (var c = 0; c < V13_WISH_CATEGORIES.length; c++) {
-      if (V13_WISH_CATEGORIES[c].id !== categoryId) continue;
-      category = V13_WISH_CATEGORIES[c];
+    var wishGroups = getWishGroups();
+    for (var c = 0; c < wishGroups.length; c++) {
+      if (wishGroups[c].key !== categoryId) continue;
+      category = wishGroups[c];
       for (var w = 0; w < category.wishes.length; w++) {
         if (category.wishes[w].id === wishId) { wish = category.wishes[w]; break; }
       }
@@ -4259,20 +4200,24 @@ function toggleWishThemeSection(sectionId) {
 }
 
 function getWishThemes(categoryId, wishId) {
-  return (WISH_THEMES[categoryId] && WISH_THEMES[categoryId][wishId]) || [];
+  var wish = findWish(categoryId, wishId);
+  return wish && wish.themes ? wish.themes : [];
 }
 
 function selectWishTheme(category, wish, theme, index) {
   var themeLabel = typeof theme === 'string' ? theme : (theme && theme.label);
   if (!category || !wish || !themeLabel) return;
-  var themeKey = theme && theme.id ? theme.id : 'wish_' + category.id + '_' + wish.id + '_' + (index + 1);
+  var groupKey = category.key || category.id;
+  var wishKey = wish.key || wish.id;
+  var themeKey = theme && theme.key ? theme.key : 'wish_' + groupKey + '_' + wishKey + '_' + (index + 1);
   D.themeKey      = themeKey;
   D.theme         = themeLabel;
   D.themePositive = themeLabel;
   D.themeNegative = theme.negative || '';
   D.themeMeaning  = theme.desc || '';
-  D.selectedWishGroup = category.id;
-  D.selectedWish = wish.id;
+  D.selectedWishGroup = groupKey;
+  D.selectedWish = wishKey;
+  D.selectedWishTheme = theme && theme.key ? theme.key : '';
   D.v13InitialTheme = '';
   v12Invalidates  = D.themeNegative;
   themeChosen = true;
@@ -5258,7 +5203,7 @@ function updateLoginButton() {
     if (soonMsg) soonMsg.style.display = 'none';
   }
   var guestNote = document.getElementById('t-guest-records-note');
-  if (guestNote) guestNote.style.display = show ? '' : 'none';
+  if (guestNote) guestNote.style.display = show && lang !== 'ja' ? '' : 'none';
   updatePricingCTA();
 }
 
@@ -6002,6 +5947,18 @@ function getV13LastIdeal() {
   return D.v13CurrentTheme || D.v13OriginalTheme || getV13ThemeLabel();
 }
 
+function getSelectedWishLabel() {
+  var groupKey = D.selectedWishGroup;
+  var wishKey = D.selectedWish;
+  var wish = groupKey && wishKey ? findWish(groupKey, wishKey) : null;
+  return wish && wish.label ? wish.label : (D.theme || 'このテーマ');
+}
+
+function updateResultRepeatLabel() {
+  var template = getText('ui.resultRepeatWish', '「{wish}」について、もう一度');
+  setEl('btn-repeat-theme', template.replace('{wish}', getSelectedWishLabel()));
+}
+
 function formatV13History() {
   var ideals = D.v13History
     .map(function(item) { return item.ideal || ''; })
@@ -6012,7 +5969,7 @@ function formatV13History() {
       lines.push('・' + ideal);
     });
   } else {
-    lines.push('・まだ言葉になっていません');
+    lines.push('・' + getText('ui.resultUnanswered', '未回答'));
   }
   return lines.join('\n');
 }
@@ -6080,6 +6037,7 @@ function showResult() {
       noteWrap.style.display = 'none';
     }
   }
+  updateResultRepeatLabel();
   fwd('s-result');
   markGuestFirstSessionCompleted();
   consumeTrialOnResult();
@@ -6260,10 +6218,14 @@ function repeatSameTheme() {
   var savedV12Inv       = v12Invalidates;
   var savedV12SitCat    = v12SituationCategory;
   var savedV12SitLabel  = v12SituationLabel;
+  var savedWishGroup    = D.selectedWishGroup || '';
+  var savedWish         = D.selectedWish || '';
+  var savedWishTheme    = D.selectedWishTheme || '';
   D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
         issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
         entryMode: isNega ? 'nega' : null, doorKey: null, doorSentence:'',
-        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
+        breathEaseBefore:null, breathEaseAfter:null, breathMode:null,
+        selectedWishGroup:savedWishGroup, selectedWish:savedWish, selectedWishTheme:savedWishTheme };
   v12Mode = savedV12Mode; v12Invalidates = savedV12Inv;
   v12SituationCategory = savedV12SitCat; v12SituationLabel = savedV12SitLabel;
   navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
