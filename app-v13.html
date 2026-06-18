@@ -481,6 +481,56 @@ through what is happening now.</p>
   <button class="portal-outline-btn" id="btn-logout-home" onclick="logoutUser()" style="display:none">ログアウト</button>
 </div>
 
+<!-- ── ENTRY METHOD ── -->
+<div class="screen" id="s-entry-method">
+  <div id="s-entry-inner">
+    <div class="entry-title" id="t-entry-method-title"></div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-entry-method-theme" onclick="chooseEntryMethod('theme')"></button>
+      <div class="entry-choice-desc" id="t-entry-method-theme-desc"></div>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-entry-method-free" onclick="chooseEntryMethod('free')"></button>
+      <div class="entry-choice-desc" id="t-entry-method-free-desc"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FREE INPUT TYPE ── -->
+<div class="screen" id="s-free-type-choice">
+  <div id="s-entry-inner">
+    <div class="entry-title" id="t-free-type-title"></div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-free-type-ideal" onclick="openFreeInput('ideal')"></button>
+      <div class="entry-choice-desc" id="t-free-type-ideal-desc"></div>
+      <div class="entry-choice-desc" id="t-free-type-ideal-example"></div>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-free-type-topic" onclick="openFreeInput('topic')"></button>
+      <div class="entry-choice-desc" id="t-free-type-topic-desc"></div>
+      <div class="entry-choice-desc" id="t-free-type-topic-example"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FREE IDEAL INPUT ── -->
+<div class="screen" id="s-free-ideal-input">
+  <div class="screen-title" id="t-free-ideal-input-title"></div>
+  <input type="text" class="text-input" id="in-free-ideal" autocomplete="off" maxlength="60"
+    oninput="onFreeEntryInput('ideal', this.value)">
+  <button class="btn" id="btn-free-ideal-start" onclick="submitFreeEntry('ideal')" disabled></button>
+  <button class="btn-ghost" id="btn-free-ideal-skip" onclick="submitFreeEntry('ideal', true)"></button>
+</div>
+
+<!-- ── FREE TOPIC INPUT ── -->
+<div class="screen" id="s-free-topic-input">
+  <div class="screen-title" id="t-free-topic-input-title"></div>
+  <input type="text" class="text-input" id="in-free-topic" autocomplete="off" maxlength="60"
+    oninput="onFreeEntryInput('topic', this.value)">
+  <button class="btn" id="btn-free-topic-start" onclick="submitFreeEntry('topic')" disabled></button>
+  <button class="btn-ghost" id="btn-free-topic-skip" onclick="submitFreeEntry('topic', true)"></button>
+</div>
+
 <!-- ── ENTRY CHOICE ── -->
 <div class="screen" id="s-entry-choice">
   <div id="s-entry-inner">
@@ -595,7 +645,7 @@ through what is happening now.</p>
 <div class="screen" id="s-v13-nonideal">
   <div id="s-ideal-inner">
     <div class="theme-top-copy" id="v13-nonideal-theme"></div>
-    <div class="screen-title">そうでない状態とは？</div>
+    <div class="screen-title" id="t-v13-nonideal-question">そうでない状態とは？</div>
     <input type="text" class="custom-theme-input" id="in-v13-nonideal"
       placeholder="例：不安 / 抵抗 / 閉じている / 迷っている"
       autocomplete="off" maxlength="60"
@@ -609,7 +659,7 @@ through what is happening now.</p>
 <div class="screen" id="s-v13-ideal">
   <div id="s-ideal-inner">
     <div class="theme-top-copy" id="v13-ideal-theme"></div>
-    <div class="screen-title">それに無縁の人の体験は？</div>
+    <div class="screen-title" id="t-v13-ideal-question">それに無縁の人の体験は？</div>
     <input type="text" class="custom-theme-input" id="in-v13-ideal"
       placeholder="例：安心 / 信頼 / 自由 / 自分をわかっている"
       autocomplete="off" maxlength="60"
@@ -765,7 +815,7 @@ through what is happening now.</p>
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <button class="btn" id="btn-repeat-theme" onclick="repeatSameTheme()" style="background:#1A1A1A;margin-top:2.5rem">同じ感覚をもう一度ほどく</button>
+  <button class="btn" id="btn-repeat-theme" onclick="returnToCurrentWishThemeSection()" style="background:#1A1A1A;margin-top:2.5rem">同じテーマをさらに見る</button>
   <div class="result-hint" id="t-repeat-hint">同じ感覚を、もう少し静かに見てみます。</div>
   <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()" style="display:none">別の入口からほどく</button>
   <button class="btn-secondary-result" id="btn-back-start" onclick="backToStart()">最初に戻る</button>
@@ -1189,6 +1239,26 @@ function trackEvent(name, props) {
 var copy = {
   ja: {
     back_button:'戻る', start_button:'始める',
+    entryMethodTitle:'どちらから始めますか？',
+    entryMethodThemeTitle:'テーマから選ぶ',
+    entryMethodThemeDesc:'用意されたテーマから、今気になるものを選びます。',
+    entryMethodFreeTitle:'自由に入力する',
+    entryMethodFreeDesc:'自分の言葉で、今のテーマを書きます。',
+    freeTypeTitle:'答えやすい方を選んでください。',
+    freeTypeIdealTitle:'理想の状態を書く',
+    freeTypeIdealDesc:'「〜したい」ではなく、すでにそうである状態として書いてください。',
+    freeTypeIdealExample:'例：\n安心している\n自由に選べている\n身体がゆるんでいる',
+    freeTypeTopicTitle:'課題・テーマを書く',
+    freeTypeTopicDesc:'今気になっていることを、そのまま書いてください。',
+    freeTypeTopicExample:'例：\nお金のこと\n人間関係\n将来への不安\n身体の緊張',
+    freeIdealInputTitle:'理想の状態を書いてください。',
+    freeIdealInputPlaceholder:'例：安心している',
+    freeTopicInputTitle:'課題・テーマを書いてください。',
+    freeTopicInputPlaceholder:'例：お金のこと',
+    freeInputStartButton:'この内容で始める',
+    freeInputSkip:'ことばにならない',
+    v13NonIdealQuestion:'そうでない状態とは？',
+    v13IdealQuestion:'それに無縁の人の体験は？',
     theme_top_copy:'今の感覚で、\n幸せな人にあるものを\nひとつ選んでください。\n\nまたは、自由に入力してください。',
     category_section_label:'カテゴリから選ぶ',
     custom_input_placeholder:'自由に入力…',
@@ -1231,6 +1301,7 @@ var copy = {
     lock_note:'月額980円',
     trial_remaining:'あと{remaining}回体験できます',
     repeat_same_theme:'同じ感覚をもう一度ほどく',
+    result_more_in_theme:'同じテーマをさらに見る',
     repeat_same_theme_hint:'同じ感覚を、もう少し静かに見てみます。',
     choose_new_theme:'別の入口からほどく',
     back_to_start:'最初に戻る',
@@ -1345,6 +1416,7 @@ var copy = {
     guest_records_note:'Guest records are saved only on this device.\nLog in if you want to use Noetune on another device or keep your records safely.',
     pricing_soon:'Coming soon',
     repeat_same_theme:'Repeat this theme',
+    result_more_in_theme:'See more in this theme',
     repeat_same_theme_hint:'It can help to stay with\nthe same theme several times,\nuntil no answer comes naturally.',
     choose_new_theme:'Choose another theme',
     back_to_start:'Return to start',
@@ -1450,6 +1522,7 @@ var copy = {
     portal_manage:'管理訂閱',
     pricing_soon:'準備中',
     repeat_same_theme:'用同一個主題再一次',
+    result_more_in_theme:'查看更多同一主題',
     repeat_same_theme_hint:'可以用同一個主題\n多看幾次，\n直到答案自然不再出現。',
     choose_new_theme:'選擇別的主題',
     back_to_start:'回到開始畫面',
@@ -1950,6 +2023,30 @@ function renderPricingFeatures() {
 function applyLang() {
   document.documentElement.lang = lang;
   setEl('btn-start',      T('start_button'));
+  setEl('t-entry-method-title', T('entryMethodTitle'));
+  setEl('btn-entry-method-theme', T('entryMethodThemeTitle'));
+  setEl('t-entry-method-theme-desc', T('entryMethodThemeDesc'));
+  setEl('btn-entry-method-free', T('entryMethodFreeTitle'));
+  setEl('t-entry-method-free-desc', T('entryMethodFreeDesc'));
+  setEl('t-free-type-title', T('freeTypeTitle'));
+  setEl('btn-free-type-ideal', T('freeTypeIdealTitle'));
+  setEl('t-free-type-ideal-desc', T('freeTypeIdealDesc'));
+  setEl('t-free-type-ideal-example', T('freeTypeIdealExample'));
+  setEl('btn-free-type-topic', T('freeTypeTopicTitle'));
+  setEl('t-free-type-topic-desc', T('freeTypeTopicDesc'));
+  setEl('t-free-type-topic-example', T('freeTypeTopicExample'));
+  setEl('t-free-ideal-input-title', T('freeIdealInputTitle'));
+  setEl('t-free-topic-input-title', T('freeTopicInputTitle'));
+  setEl('btn-free-ideal-start', T('freeInputStartButton'));
+  setEl('btn-free-topic-start', T('freeInputStartButton'));
+  setEl('btn-free-ideal-skip', T('freeInputSkip'));
+  setEl('btn-free-topic-skip', T('freeInputSkip'));
+  setEl('t-v13-nonideal-question', T('v13NonIdealQuestion'));
+  setEl('t-v13-ideal-question', T('v13IdealQuestion'));
+  var freeIdealInput = document.getElementById('in-free-ideal');
+  if (freeIdealInput) freeIdealInput.placeholder = T('freeIdealInputPlaceholder');
+  var freeTopicInput = document.getElementById('in-free-topic');
+  if (freeTopicInput) freeTopicInput.placeholder = T('freeTopicInputPlaceholder');
   setEl('btn-about-link',  T('about_link'));
   setEl('btn-see-more',    T('see_more_themes'));
   setEl('btn-theme-cta',  T('theme_cta_button'));
@@ -2006,7 +2103,7 @@ function applyLang() {
   setEl('btn-shift-note',        T('shift_note_button'));
   setEl('btn-skip-shift-note',   T('shift_note_skip'));
   setEl('lbl-shift-note-label',  T('result_shift_note_label'));
-  setEl('btn-repeat-theme',    T('repeat_same_theme'));
+  setEl('btn-repeat-theme',    T('result_more_in_theme'));
   setEl('t-repeat-hint',       T('repeat_same_theme_hint'));
   setEl('btn-new-theme',       T('choose_new_theme'));
   setEl('btn-back-start',      T('back_to_start'));
@@ -2055,6 +2152,7 @@ function setLang(l, nextScreen) { lang = l; try { localStorage.setItem('ntn_lang
 var D = {
   theme:'', themeKey:null,
   themePositive:'', themeNegative:'',
+  freeInputType:'', freeInputValue:'', freeInputNextStep:'',
   issue:'', ideal:'', shiftNote:'',
   reactionAnswer:'', idealAnswer:'',
   entryMode: null,
@@ -3835,10 +3933,11 @@ function setLandingLang(code) {
   updatePortalButton();
 }
 
-function startLanding() { renderWishAccordion(); setLang(landingLang, 's-entry-choice'); }
+function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-lang','s-open','s-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
+  's-lang','s-open','s-entry-method','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
   's-before2','s-breath-mode',
@@ -3985,9 +4084,12 @@ function getThemeDescByLabel(label) {
   return '';
 }
 
-function startApp() {
+function prepareEntryFlow() {
   themeVisibleCount = 3;
   negaFreeText = '';
+  D.freeInputType = '';
+  D.freeInputValue = '';
+  D.freeInputNextStep = '';
   var lastKey = null;
   try { lastKey = localStorage.getItem('ntn_last_theme_key'); } catch(e) { lastKey = null; }
   var allIds = getAllThemeIds();
@@ -4000,7 +4102,55 @@ function startApp() {
     themeChosen = false;
   }
   renderWishAccordion();
-  fwd('s-entry-choice');
+}
+
+function startApp() {
+  prepareEntryFlow();
+  fwd('s-entry-method');
+}
+
+function chooseEntryMethod(method) {
+  if (method === 'theme') {
+    renderWishAccordion();
+    fwd('s-entry-choice');
+    return;
+  }
+  if (method === 'free') fwd('s-free-type-choice');
+}
+
+function openFreeInput(type) {
+  if (type !== 'ideal' && type !== 'topic') return;
+  var input = document.getElementById(type === 'ideal' ? 'in-free-ideal' : 'in-free-topic');
+  var button = document.getElementById(type === 'ideal' ? 'btn-free-ideal-start' : 'btn-free-topic-start');
+  if (input) input.value = '';
+  if (button) button.disabled = true;
+  fwd(type === 'ideal' ? 's-free-ideal-input' : 's-free-topic-input');
+}
+
+function onFreeEntryInput(type, value) {
+  var button = document.getElementById(type === 'ideal' ? 'btn-free-ideal-start' : 'btn-free-topic-start');
+  if (button) button.disabled = !value.trim();
+}
+
+function submitFreeEntry(type, useFallback) {
+  if (type !== 'ideal' && type !== 'topic') return;
+  var input = document.getElementById(type === 'ideal' ? 'in-free-ideal' : 'in-free-topic');
+  var value = useFallback ? T('freeInputSkip') : (input ? input.value.trim() : '');
+  if (!value) return;
+  D.theme = value;
+  D.themeKey = null;
+  D.themePositive = value;
+  D.themeNegative = type === 'topic' ? value : '';
+  D.themeMeaning = '';
+  D.freeInputType = type;
+  D.freeInputValue = value;
+  D.freeInputNextStep = type === 'topic' ? 'ideal' : 'nonideal';
+  D.selectedWishGroup = '';
+  D.selectedWish = '';
+  D.selectedWishTheme = '';
+  themeChosen = true;
+  trackEvent('free_entry_submitted', { type: type, skipped: !!useFallback, lang: lang });
+  startSession();
 }
 
 function renderWishAccordion() {
@@ -5613,13 +5763,14 @@ function resetV13LoopState() {
 }
 
 function startV13BeforeMeasurement() {
+  var freeIdeal = D.freeInputType === 'ideal' ? D.freeInputValue : '';
   D.entryMode = 'v13';
   D.doorKey = null;
   D.doorSentence = '';
   D.reactionAnswer = '';
   D.idealAnswer = '';
   D.issue = getV13ThemeLabel();
-  D.ideal = '';
+  D.ideal = freeIdeal;
   D.v13InitialTheme = '';
   D.shiftNote = '';
   D.breathEaseBefore = null;
@@ -5764,7 +5915,7 @@ function submitIdeal() {
 function skipMeasurementBefore() {
   D.breathEaseBefore = null;
   D.v13BeforeNaturalness = null;
-  showV13NonIdeal();
+  continueAfterV13BeforeMeasurement();
 }
 
 function skipMeasurementAfter() {
@@ -5776,6 +5927,15 @@ function skipMeasurementAfter() {
 function submitBefore2() {
   D.breathEaseBefore = getSliderVal('b2');
   D.v13BeforeNaturalness = D.breathEaseBefore;
+  continueAfterV13BeforeMeasurement();
+}
+
+function continueAfterV13BeforeMeasurement() {
+  if (D.freeInputNextStep === 'ideal') {
+    D.v13CurrentNonIdeal = D.freeInputValue || D.themeNegative || getV13ThemeLabel();
+    showV13Ideal();
+    return;
+  }
   showV13NonIdeal();
 }
 
@@ -5955,8 +6115,7 @@ function getSelectedWishLabel() {
 }
 
 function updateResultRepeatLabel() {
-  var template = getText('ui.resultRepeatWish', '「{wish}」について、もう一度');
-  setEl('btn-repeat-theme', template.replace('{wish}', getSelectedWishLabel()));
+  setEl('btn-repeat-theme', T('result_more_in_theme'));
 }
 
 function formatV13History() {
@@ -6235,6 +6394,18 @@ function repeatSameTheme() {
   } else {
     startV13BeforeMeasurement();
   }
+}
+
+function returnToCurrentWishThemeSection() {
+  var groupKey = D.selectedWishGroup || '';
+  var wishKey = D.selectedWish || '';
+  var wish = groupKey && wishKey ? findWish(groupKey, wishKey) : null;
+  renderWishAccordion();
+  if (wish) {
+    toggleWishCategory(groupKey);
+    toggleWishThemeSection('wish-' + groupKey + '-' + wishKey);
+  }
+  fwd('s-entry-choice');
 }
 
 function chooseNewTheme() {
