@@ -835,35 +835,16 @@ through what is happening now.</p>
 <!-- ── PRICING ── -->
 <div class="screen" id="s-pricing">
   <div class="about-inner pricing-inner">
-    <div class="about-title" id="t-pricing-title"></div>
-    <div class="about-para pricing-lead" id="t-pricing-p1"></div>
-    <div class="pricing-plan-card" id="pricing-free-card">
-      <div class="pricing-plan-label" id="t-pricing-free-label"></div>
-      <div class="pricing-plan-title" id="t-pricing-free-title"></div>
-      <div class="pricing-plan-description" id="t-pricing-free-description"></div>
-    </div>
-    <div class="pricing-plan-card" id="pricing-professional-card">
-      <div class="pricing-plan-label" id="t-pricing-professional-label"></div>
-      <div class="pricing-plan-title" id="t-pricing-professional-title"></div>
-      <ul class="pricing-feature-list" id="t-pricing-features"></ul>
-    </div>
-    <div class="pricing-price" id="t-pricing-price"></div>
-    <div class="pricing-note" id="t-pricing-note"></div>
+    <div class="about-title" id="t-professional-plan-title"></div>
+    <div class="about-para pricing-lead" id="t-professional-plan-trial"></div>
+    <div class="about-para pricing-lead" id="t-professional-plan-access"></div>
     <div style="text-align:center">
       <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()"></button>
-      <div class="pricing-note" id="t-pricing-cancel-note"></div>
-      <div class="pricing-note" id="t-pricing-subscription-note"></div>
       <div class="pricing-note" id="t-guest-records-note" style="display:none"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="portal-outline-btn" id="btn-portal" onclick="openCustomerPortal()" style="display:none"></button>
       <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
       <button class="btn-pricing-return" id="btn-logout-pricing" onclick="logoutUser()" style="display:none;margin-top:.6rem">ログアウト</button>
-    </div>
-    <div class="pricing-return-wrap">
-      <button class="btn-pricing-return" onclick="repeatSameTheme()">同じ感覚をもう一度ほどく</button>
-      <button class="btn-pricing-return" onclick="chooseNewTheme()">別の入口からほどく</button>
-      <button class="btn-pricing-return" onclick="backToStart()">最初に戻る</button>
-      <button class="btn-pricing-return" onclick="changeLanguageFromResult()">言語を変える</button>
     </div>
   </div>
 </div>
@@ -1137,12 +1118,12 @@ function updatePricingCTA() {
   var soonMsg = document.getElementById('t-pricing-soon');
   var plusLabel = T('professionalSessionCta');
   [
-    { id: 'btn-pricing-cta', key: 'pricing_cta' },
-    { id: 'btn-lock-cta',    key: 'lock_cta'    }
+    { id: 'btn-pricing-cta', path: 'ui.professionalPlanCta' },
+    { id: 'btn-lock-cta',    path: 'ui.lock_cta' }
   ].forEach(function(item) {
     var btn = document.getElementById(item.id);
     if (!btn) return;
-    btn.textContent = isPlus ? plusLabel : T(item.key);
+    btn.textContent = isPlus ? plusLabel : t(item.path);
   });
   if (isPlus && soonMsg) soonMsg.style.display = 'none';
 }
@@ -1307,8 +1288,9 @@ function renderStaticTexts() {
   setEl('t-about-p3',     getText('about.p3'));
   setEl('t-about-p4',     getText('about.p4'));
   setEl('t-about-safety', getText('about.safety'));
-  setEl('t-pricing-title',  T('pricing_title'));
-  setEl('t-pricing-p1',     T('pricing_p1'));
+  setEl('t-professional-plan-title', t('ui.professionalPlanTitle'));
+  setEl('t-professional-plan-trial', t('ui.professionalPlanTrialUsed'));
+  setEl('t-professional-plan-access', t('ui.professionalPlanAccess'));
   setEl('t-pricing-free-label', T('pricing_free_label'));
   setEl('t-pricing-free-title', T('pricing_free_title'));
   setEl('t-pricing-free-description', T('pricing_free_description'));
@@ -1320,7 +1302,7 @@ function renderStaticTexts() {
   });
   renderPricingFeatures();
   setEl('t-pricing-price',  T('pricing_price'));
-  setEl('btn-pricing-cta',  T('pricing_cta'));
+  setEl('btn-pricing-cta', t('ui.professionalPlanCta'));
   setEl('t-pricing-note',   T('pricing_note'));
   setEl('t-pricing-cancel-note', T('pricing_cancel_note'));
   setEl('t-pricing-subscription-note', T('pricing_subscription_note'));
@@ -4507,11 +4489,11 @@ function updateLoginButton() {
 function pricingCtaClick() {
   var isLock = cur === 's-lock';
   var activeBtn = document.getElementById(isLock ? 'btn-lock-cta' : 'btn-pricing-cta');
-  var activeBtnKey = isLock ? 'lock_cta' : 'pricing_cta';
+  var activeBtnPath = isLock ? 'ui.lock_cta' : 'ui.professionalPlanCta';
   var soonMsg = document.getElementById('t-pricing-soon');
 
   function showFallback() {
-    if (activeBtn) { activeBtn.disabled = false; activeBtn.textContent = T(activeBtnKey); }
+    if (activeBtn) { activeBtn.disabled = false; activeBtn.textContent = t(activeBtnPath); }
     if (soonMsg) soonMsg.style.display = 'block';
   }
 
