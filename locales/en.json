@@ -1,0 +1,2737 @@
+{
+  "lang": "en",
+  "ui": {
+    "back_button": "Back",
+    "start_button": "Start",
+    "entryMethodTitle": "How would you like to begin?",
+    "entryMethodThemeTitle": "Choose from themes",
+    "entryMethodThemeDesc": "Choose what feels relevant now from prepared themes.",
+    "entryMethodFreeTitle": "Start with your own words",
+    "entryMethodFreeDesc": "Write your current theme in your own words.",
+    "freeTypeTitle": "Choose whichever feels easier to answer.",
+    "freeTypeIdealTitle": "Write your ideal state",
+    "freeTypeIdealDesc": "Instead of writing “I want to…”, write it as if it is already true.",
+    "freeTypeIdealExample": "Examples:\nI feel safe\nI can choose freely\nMy body is relaxed",
+    "freeTypeTopicTitle": "Write what is weighing on your mind",
+    "freeTypeTopicDesc": "Write what is weighing on your mind just as it is.",
+    "freeTypeTopicExample": "Examples:\nMoney keeps running through my mind\nA relationship is bothering me\nThinking about the future feels heavy\nThe tension in my body will not let go",
+    "freeIdealInputTitle": "Write your ideal state.",
+    "freeIdealInputPlaceholder": "Example: I feel safe",
+    "freeTopicInputTitle": "Write what is weighing on your mind.",
+    "freeTopicInputPlaceholder": "Example: Money keeps running through my mind",
+    "freeInputStartButton": "Begin with this",
+    "freeInputSkip": "I cannot put it into words",
+    "v13NonIdealQuestion": "What is the opposite state?\nWhat gets in the way of it?",
+    "v13IdealQuestion": "What is the experience of someone free from it?\nWhat is the experience of someone without it?",
+    "theme_top_copy": "Choose one state\nthat happy people carry.\n\nOr enter your own.",
+    "category_section_label": "Choose by category",
+    "custom_input_placeholder": "Enter freely…",
+    "theme_cta_button": "Start with this theme",
+    "app_sub": "— tune your next moment —",
+    "see_more_themes": "Show more",
+    "door_title": "Choose the question\nthat feels easiest to answer.",
+    "door_answer_placeholder": "Enter a state…",
+    "door_next_button": "Continue with this answer",
+    "door_a_question_template": "\"{neg}\"\n\nA person who is feeling this.\n\nWhat state are they in?",
+    "door_b_question_template": "\"{pos}\"\n\nA person who isn't feeling this.\n\nWhat state are they in?",
+    "door_c_question_template": "\"{pos}\"\n\nA person who is feeling this.\n\nWhat state are they in?",
+    "pricing_title": "Continue Noetune",
+    "pricing_p1": "Noetune is free\nfor the first month.\n\nAfter that,\nyou can continue\nwith a paid plan.",
+    "pricing_p2": "This is a small\nself-tuning practice\nthat begins with states\nhappy people carry,\nand helps you tune the reaction\narising in this moment.\n\nSafety.\nSpace.\nBeing here now.\nBeing yourself.\n\nBy observing reactions\nto those states,\nyou gradually return\nto a state that is not fixed.",
+    "pricing_free_label": "Free experience",
+    "pricing_free_title": "Complete one theme",
+    "pricing_free_description": "Choose one ideal state and stay with it gently until no more answers arise.",
+    "pricing_professional_label": "Professional",
+    "pricing_professional_title": "Return to any theme whenever you need.",
+    "pricing_features": [
+      "Access every theme",
+      "Unlimited use",
+      "Cancel anytime"
+    ],
+    "pricing_price": "$9.99/month",
+    "pricing_cta": "Start with 1 month free",
+    "portal_manage": "Manage subscription",
+    "pricing_note": "Free for 5 sessions.\nAfter that, continue with Professional.",
+    "pricing_cancel_note": "Cancel anytime.",
+    "pricing_subscription_note": "Your subscription renews monthly and can be managed or canceled anytime in your account settings.",
+    "guest_records_note": "Guest records are saved only on this device.\nLog in if you want to use Noetune on another device or keep your records safely.",
+    "pricing_soon": "Coming soon",
+    "lock_title": "Your trial is complete.",
+    "lock_body": "Whenever you want to return to yourself,\nNoetune is here.\n\nWould you like a place\nto come back to, whenever you need?",
+    "lock_cta": "Start Professional",
+    "lock_note": "Return whenever you need.",
+    "trial_remaining": "Trial {used} / 5 — {remaining} left.",
+    "repeat_same_theme": "Repeat this theme",
+    "result_more_in_theme": "See more in this theme",
+    "resultNewThemeButton": "Begin with a new theme",
+    "repeat_same_theme_hint": "It can help to stay with\nthe same theme several times,\nuntil no answer comes naturally.",
+    "choose_new_theme": "Choose another theme",
+    "back_to_start": "Return to start",
+    "change_language": "Change language",
+    "result_pricing_note": "Continue Noetune →",
+    "result_upgrade_body": "A quiet place to return to yourself\nwhenever you need it.",
+    "next_button": "Next",
+    "not_measurable_button": "Not measurable",
+    "skip_measurement": "Skip measurement",
+    "feel_prompt": "Feel.",
+    "breathe_start_hint": "Exhale softly, then tap",
+    "session_result_header": "Session Shift",
+    "result_label_next_moment": "Ideal Experience",
+    "result_label_breath_ease": "Breathing Space",
+    "result_poem": "Honor the shift\nin this moment.",
+    "result_label_from": "From",
+    "result_label_toward": "Toward",
+    "result_shift_section": "Shift",
+    "result_nc_helper": "How likely this experience feels\nin the next moment",
+    "result_be_helper": "The space in your breathing",
+    "result_nm_display": "Not fixed",
+    "result_meaning": "Not fixed =\nnot held by numbers,\nfree to shift.",
+    "breath_in": "Inhale",
+    "breath_out": "Exhale",
+    "issue_placeholder": "Enter the issue…",
+    "issue_skip": "Nothing comes up",
+    "ideal_placeholder": "Enter the remaining state…",
+    "ideal_skip": "Skip",
+    "ideal_top_copy": "Write the experience\nyou want to feel next,\nor begin from one below.",
+    "see_more_ideals": "Show more ideal experiences",
+    "ideal_cta_button": "Next",
+    "breath_2_text": "The space in your breathing",
+    "breath_3_text": "Love that feeling.",
+    "breath_4_text": "Everything that includes that feeling.",
+    "breath_mode_title": "Choose how you would like to breathe.",
+    "breath_mode_soft_label": "Gently settle",
+    "breath_mode_soft_desc": "Gently unwind what you feel now with a short breathing practice.",
+    "breath_mode_deep_label": "Go a little deeper",
+    "breath_mode_deep_desc": "Look a little deeper beneath the resistance or reaction.",
+    "breath_3_soft_text": "How I feel about that feeling",
+    "breath_4_soft_text": "Everything that includes that feeling",
+    "breath_5_soft_text": "A state where that feeling is absent",
+    "breath_3_deep_text": "My feeling toward that feeling",
+    "breath_4_deep_text": "Everything that includes that feeling",
+    "breath_5_deep_text": "The state where that feeling\nis no longer there.",
+    "ideal_title": "\"{issue}\"\n\nWhen that reaction is not there,\nwhat ideal state remains?",
+    "ideal_unified_title": "\"{theme}\"\n\nFor someone who has this,\nwhat is their ideal state?",
+    "before2_title": "\"{ideal}\"\n\nIn that state,\nhow much space is there\nin your breathing?",
+    "after2_title": "\"{ideal}\"\n\nIn that state,\nhow much space is there\nin your breathing?",
+    "breath_1_text": "\"{ideal}\"",
+    "ideal_blocker_title": "What is blocking\n\"{ideal}\"?",
+    "ideal_blocker_placeholder": "Enter what is blocking it…",
+    "ideal_before1_title": "\"{ideal}\"\n\nIn the next moment,\nhow likely is that state?",
+    "ideal_before2_title": "\"{issue}\"\n\nIn that state,\nhow much space is there\nin your breathing?",
+    "ideal_after1_title": "\"{ideal}\"\n\nIn the next moment,\nhow likely is that state?",
+    "ideal_after2_title": "\"{issue}\"\n\nIn that state,\nhow much space is there\nin your breathing?",
+    "ideal_breath_1_text": "\"{issue}\"",
+    "save_image_button": "Save as image",
+    "save_image_creating": "Creating image…",
+    "save_image_fallback_note": "If saving does not work,\nlong-press the image\nor take a screenshot.",
+    "save_image_error": "Could not save the image.\nPlease take a screenshot.",
+    "save_image_preview_note": "Long-press to save the image.",
+    "shift_note_title": "If you describe this feeling\nin one phrase?",
+    "shift_note_placeholder": "Example: a little softer / quietly returned",
+    "shift_note_button": "See result",
+    "shift_note_skip": "Skip",
+    "no_answer_button": "No answer comes",
+    "congrats_title": "Congratulations",
+    "congrats_body": "No reaction is coming up\nfor this theme right now.\n\nThat may be a sign\nthat this theme is quiet\nin this moment.\n\nIf needed,\nchoose another theme.",
+    "congrats_choose_new_theme": "Choose another theme",
+    "congrats_back_to_start": "Return to start",
+    "result_shift_note_label": "Current Feeling",
+    "door_a_template": "Someone who is feeling \"{neg}\"",
+    "door_b_template": "Someone who isn't feeling \"{pos}\"",
+    "door_c_template": "Someone who is feeling \"{pos}\"",
+    "step1_question": "What state are they in?",
+    "step2_question": "When that reaction is absent, what ideal state remains?",
+    "step1_placeholder": "Type the reaction…",
+    "step2_placeholder": "What state remains…",
+    "nega_ideal_title": "For someone without this,\nwhat would the ideal state be?",
+    "nega_ideal_placeholder": "Enter the ideal state…",
+    "step1_skip_default": "quietly reacting",
+    "step2_skip_default": "quietly returning",
+    "wishEntryTitle": "Choose the area that feels most alive right now.",
+    "seeMore": "See more",
+    "aboutLink": "About Noetune",
+    "resultUnanswered": "Unanswered",
+    "resultRepeatWish": "Begin with a new theme",
+    "professionalLead": "A quiet place to return to yourself\nwhenever you need it.",
+    "professionalTitle": "Professional",
+    "professionalPrice": "$9.99/month",
+    "professionalCta": "View Professional",
+    "landingHero": "Each time you remember who you are,\nlife becomes a little lighter.",
+    "landingSub": "Choose.\nAnswer.\nNotice.\n\nNoetune is an app for remembering your natural self\nthrough real-life experiences.",
+    "landingStart": "Start",
+    "landingSection": "When to use it",
+    "landingItems": [
+      "・When money brings up a reaction",
+      "・When a relationship stays on your mind",
+      "・When work feels heavy",
+      "・When the future feels uncertain",
+      "・When you blame yourself",
+      "・When you do not know what is happening inside"
+    ],
+    "landingFooter1": "Noetune is not an app for analyzing your problems.",
+    "landingFooter2": "Through short questions,\nit helps you know yourself\nthrough what is happening now.",
+    "landingAboutLink": "About Noetune",
+    "landingPricingLink": "Free and Professional plans",
+    "professionalSessionCta": "Start Professional session",
+    "authGoogleContinue": "Continue with Google",
+    "authTitle": "Log in",
+    "authBody": "Log in with Google so you can use Noetune again next time.",
+    "authEmailPlaceholder": "Email address",
+    "authErrorRetry": "Could not log in. Please try again.",
+    "authError": "Could not log in.",
+    "authInvalidEmail": "Please enter a valid email.",
+    "authSendErrorRetry": "Could not send. Please try again.",
+    "authEmailButton": "Use email login",
+    "authEmailSentMessage": "Check your email for the login link.",
+    "authSent": "Sent",
+    "authSendError": "Could not send.",
+    "authGoogleLogin": "Continue with Google",
+    "authRestoreProfessional": "Restore Professional",
+    "authLogout": "Log out",
+    "trialOneLeft": "1 free session left.",
+    "trialComplete": "Your free trial is complete.\nUpgrade to Professional to return whenever you need.",
+    "v13EndTitle": "Would you like to finish here?",
+    "v13FinishButton": "Finish here",
+    "v13ContinueInitial": "Begin again with “{theme}”"
+  },
+  "about": {
+    "title": "About Noetune",
+    "p1": "Noetune is an app that begins with\nthe life theme that feels most alive right now,\nand helps you remember your natural self.",
+    "p2": "Body and safety,\nconnection with others,\nthe power to choose for yourself,\nenjoyment,\ncreation,\nand understanding.\n\nFrom these areas,\nyou choose the wish that feels closest to you now,\nand answer a few short questions.",
+    "p3": "Noetune is not an app\nthat analyzes your problems.\nIt is not an app\nthat gives you the answer.",
+    "p4": "It is a tool for noticing,\nthrough what is happening now,\nthe felt sense that has already been inside you.",
+    "safety": "This is not medical care.\nIf you are in an urgent situation,\nplease reach out to a professional or someone you trust."
+  },
+  "wishGroups": [
+    {
+      "key": "foundation",
+      "label": "Body and Safety",
+      "wishes": [
+        {
+          "key": "life",
+          "label": "Fully Experience Life",
+          "themes": [
+            {
+              "key": "life_01",
+              "label": "Live Through the Body",
+              "desc": "Feel life through your body"
+            },
+            {
+              "key": "life_02",
+              "label": "Savor the Senses",
+              "desc": "Enjoy seeing, hearing, tasting, and touching"
+            },
+            {
+              "key": "life_03",
+              "label": "Feel Fully Alive",
+              "desc": "Feel the texture of being alive now"
+            },
+            {
+              "key": "life_04",
+              "label": "Savor This Moment",
+              "desc": "Receive this moment as it is"
+            },
+            {
+              "key": "life_05",
+              "label": "Receive Joy",
+              "desc": "Let yourself feel joy and delight"
+            },
+            {
+              "key": "life_06",
+              "label": "Allow Pleasure",
+              "desc": "Let comfort and desire be natural"
+            },
+            {
+              "key": "life_07",
+              "label": "Life Flows Through Me",
+              "desc": "Feel vitality moving through your body"
+            },
+            {
+              "key": "life_08",
+              "label": "Enjoy Movement",
+              "desc": "Enjoy moving and taking action"
+            },
+            {
+              "key": "life_09",
+              "label": "Bring Playfulness",
+              "desc": "Try, laugh, and create small experiments"
+            },
+            {
+              "key": "life_10",
+              "label": "Create and Express",
+              "desc": "Give shape to what is inside you"
+            },
+            {
+              "key": "life_11",
+              "label": "Become Absorbed",
+              "desc": "Enter deeply into what you love"
+            },
+            {
+              "key": "life_12",
+              "label": "Small Adventures",
+              "desc": "Try something new in everyday life"
+            },
+            {
+              "key": "life_13",
+              "label": "Enjoy Change",
+              "desc": "See change as part of life’s flow"
+            },
+            {
+              "key": "life_14",
+              "label": "Receive Endings",
+              "desc": "See endings and goodbyes as part of life"
+            },
+            {
+              "key": "life_15",
+              "label": "Feel Emotions",
+              "desc": "Feel emotions as movements of life"
+            },
+            {
+              "key": "life_16",
+              "label": "Relate Honestly",
+              "desc": "Connect without over-polishing yourself"
+            },
+            {
+              "key": "life_17",
+              "label": "Have Boundaries",
+              "desc": "Protect your joy and your life"
+            },
+            {
+              "key": "life_18",
+              "label": "Trust Yourself",
+              "desc": "Trust your senses and intuition"
+            },
+            {
+              "key": "life_19",
+              "label": "Connect with Nature",
+              "desc": "Feel life through the natural world"
+            },
+            {
+              "key": "life_20",
+              "label": "Take Part in Life",
+              "desc": "Experience life instead of only watching it"
+            }
+          ]
+        },
+        {
+          "key": "safety",
+          "label": "Feel Safe and Grounded",
+          "themes": [
+            {
+              "key": "safety_01",
+              "label": "I Belong Here",
+              "desc": "Feel that it is okay to exist here"
+            },
+            {
+              "key": "safety_02",
+              "label": "Be as You Are",
+              "desc": "Accept yourself, including your vulnerable parts"
+            },
+            {
+              "key": "safety_03",
+              "label": "Trust Yourself",
+              "desc": "Feel that you have the strength to respond"
+            },
+            {
+              "key": "safety_04",
+              "label": "Relax the Body",
+              "desc": "Let physical tension soften"
+            },
+            {
+              "key": "safety_05",
+              "label": "Root in the Present",
+              "desc": "Find solid ground in the here and now"
+            },
+            {
+              "key": "safety_06",
+              "label": "Regulate Yourself",
+              "desc": "Know how to help yourself settle"
+            },
+            {
+              "key": "safety_07",
+              "label": "Feel Supported",
+              "desc": "You do not have to carry everything alone"
+            },
+            {
+              "key": "safety_08",
+              "label": "Receive Support",
+              "desc": "Let yourself receive help"
+            },
+            {
+              "key": "safety_09",
+              "label": "Safe on Your Own",
+              "desc": "Find a place to lean on within yourself"
+            },
+            {
+              "key": "safety_10",
+              "label": "Safe People",
+              "desc": "Have relationships where you can exhale"
+            },
+            {
+              "key": "safety_11",
+              "label": "Protect Yourself",
+              "desc": "Protect your own safety"
+            },
+            {
+              "key": "safety_12",
+              "label": "Have Boundaries",
+              "desc": "Keep a distance that feels right"
+            },
+            {
+              "key": "safety_13",
+              "label": "Emotions Are Safe",
+              "desc": "Feel your emotions safely"
+            },
+            {
+              "key": "safety_14",
+              "label": "Anxiety as a Signal",
+              "desc": "Use anxiety as a signal to check in"
+            },
+            {
+              "key": "safety_15",
+              "label": "Return After Mistakes",
+              "desc": "A mistake does not break who you are"
+            },
+            {
+              "key": "safety_16",
+              "label": "Okay with the Unknown",
+              "desc": "Move forward even when you do not know"
+            },
+            {
+              "key": "safety_17",
+              "label": "Let the Flow Carry You",
+              "desc": "Release what you cannot control"
+            },
+            {
+              "key": "safety_18",
+              "label": "Already Enough",
+              "desc": "Feel fulfilled by what is already here"
+            },
+            {
+              "key": "safety_19",
+              "label": "Create Daily Stability",
+              "desc": "Grow safety through daily rhythm"
+            },
+            {
+              "key": "safety_20",
+              "label": "Move from Safety",
+              "desc": "Act from a settled place"
+            }
+          ]
+        },
+        {
+          "key": "rest",
+          "label": "Rest and Recover",
+          "themes": [
+            {
+              "key": "rest_01",
+              "label": "Allow Rest",
+              "desc": "Feel that it is okay to rest now"
+            },
+            {
+              "key": "rest_02",
+              "label": "Rest Is Maintenance",
+              "desc": "Resting is a way of caring for yourself"
+            },
+            {
+              "key": "rest_03",
+              "label": "Fatigue as a Signal",
+              "desc": "Let tiredness tell you it is time to rest"
+            },
+            {
+              "key": "rest_04",
+              "label": "Rest the Body",
+              "desc": "Notice when your body wants rest"
+            },
+            {
+              "key": "rest_05",
+              "label": "Let Go of Effort",
+              "desc": "Let some of the effort in your body soften"
+            },
+            {
+              "key": "rest_06",
+              "label": "Rest into Gravity",
+              "desc": "Let your body be held and become easier"
+            },
+            {
+              "key": "rest_07",
+              "label": "Sleep Deeply",
+              "desc": "Value sleep as something important"
+            },
+            {
+              "key": "rest_08",
+              "label": "Soften the Breath",
+              "desc": "Exhale slowly and settle"
+            },
+            {
+              "key": "rest_09",
+              "label": "Enjoy Doing Nothing",
+              "desc": "Let yourself taste time without doing"
+            },
+            {
+              "key": "rest_10",
+              "label": "Make Empty Space",
+              "desc": "Create time with nothing scheduled"
+            },
+            {
+              "key": "rest_11",
+              "label": "Reduce Stimulation",
+              "desc": "Step away from screens, noise, and crowds"
+            },
+            {
+              "key": "rest_12",
+              "label": "Return to Quiet",
+              "desc": "Value quiet time"
+            },
+            {
+              "key": "rest_13",
+              "label": "Nourish Yourself",
+              "desc": "Give your body what it needs"
+            },
+            {
+              "key": "rest_14",
+              "label": "Return to Nature",
+              "desc": "Let nature help you settle"
+            },
+            {
+              "key": "rest_15",
+              "label": "Your Own Rhythm",
+              "desc": "Rest at your own pace"
+            },
+            {
+              "key": "rest_16",
+              "label": "Allow Recovery",
+              "desc": "Wait until your energy naturally returns"
+            },
+            {
+              "key": "rest_17",
+              "label": "Let Others Help",
+              "desc": "You do not have to do everything yourself"
+            },
+            {
+              "key": "rest_18",
+              "label": "Say No for Rest",
+              "desc": "Say no to what is too much"
+            },
+            {
+              "key": "rest_19",
+              "label": "Rest Together",
+              "desc": "Rest with someone without needing to do anything"
+            },
+            {
+              "key": "rest_20",
+              "label": "Move Again Naturally",
+              "desc": "After resting, movement returns on its own"
+            }
+          ]
+        },
+        {
+          "key": "health",
+          "label": "Feel Healthy and Well",
+          "themes": [
+            {
+              "key": "health_01",
+              "label": "The Body Is an Ally",
+              "desc": "Trust your body instead of fighting it"
+            },
+            {
+              "key": "health_02",
+              "label": "The Body Is a Partner",
+              "desc": "Live with your body for a lifetime"
+            },
+            {
+              "key": "health_03",
+              "label": "Listen to the Body",
+              "desc": "Notice fatigue, hunger, and discomfort"
+            },
+            {
+              "key": "health_04",
+              "label": "Settle the Breath",
+              "desc": "Support your body through breath and posture"
+            },
+            {
+              "key": "health_05",
+              "label": "Let Things Flow",
+              "desc": "Let circulation, metabolism, and emotions move"
+            },
+            {
+              "key": "health_06",
+              "label": "Move Well",
+              "desc": "Let movement feel good"
+            },
+            {
+              "key": "health_07",
+              "label": "Sleep Well",
+              "desc": "Recover through sleep"
+            },
+            {
+              "key": "health_08",
+              "label": "Eat Well",
+              "desc": "Care for both nourishment and enjoyment"
+            },
+            {
+              "key": "health_09",
+              "label": "Recover Through Rest",
+              "desc": "Make rest part of health"
+            },
+            {
+              "key": "health_10",
+              "label": "Do Not Push Too Hard",
+              "desc": "Respect your limits"
+            },
+            {
+              "key": "health_11",
+              "label": "Symptoms as Signals",
+              "desc": "Let discomfort become a sign to review"
+            },
+            {
+              "key": "health_12",
+              "label": "Care for the Body",
+              "desc": "Tend to your body regularly"
+            },
+            {
+              "key": "health_13",
+              "label": "Let Stress Move Through",
+              "desc": "Do not store emotions and pressure inside"
+            },
+            {
+              "key": "health_14",
+              "label": "Live with Nature",
+              "desc": "Align with natural rhythms"
+            },
+            {
+              "key": "health_15",
+              "label": "Daily Rhythm",
+              "desc": "Bring rhythm to everyday life"
+            },
+            {
+              "key": "health_16",
+              "label": "Do Not Compare Bodies",
+              "desc": "Do not over-compare your body with others"
+            },
+            {
+              "key": "health_17",
+              "label": "Adapt to Change",
+              "desc": "Adjust to age and changes in condition"
+            },
+            {
+              "key": "health_18",
+              "label": "Return to Balance",
+              "desc": "You can come back into balance without being perfect"
+            },
+            {
+              "key": "health_19",
+              "label": "Heal Through Environment",
+              "desc": "Let people and places support your wellbeing"
+            },
+            {
+              "key": "health_20",
+              "label": "Move from Health",
+              "desc": "Let health become the ground for enjoying life"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "relationship_dignity",
+      "label": "Relationship and Belonging",
+      "wishes": [
+        {
+          "key": "love",
+          "label": "Love and Be Loved",
+          "themes": [
+            {
+              "key": "love_01",
+              "label": "Worthy of Love",
+              "desc": "You are allowed to be cared for"
+            },
+            {
+              "key": "love_02",
+              "label": "Love Yourself",
+              "desc": "Do not treat yourself carelessly"
+            },
+            {
+              "key": "love_03",
+              "label": "Love Flows",
+              "desc": "Love grows as it is given and received"
+            },
+            {
+              "key": "love_04",
+              "label": "Receive Love",
+              "desc": "Let kindness and affection in"
+            },
+            {
+              "key": "love_05",
+              "label": "Express Love",
+              "desc": "Show what matters to your heart"
+            },
+            {
+              "key": "love_06",
+              "label": "Care Deeply",
+              "desc": "Treat the other person as a whole being"
+            },
+            {
+              "key": "love_07",
+              "label": "Open Your Heart",
+              "desc": "Trust people little by little"
+            },
+            {
+              "key": "love_08",
+              "label": "Show Vulnerability",
+              "desc": "Let yourself be seen without being perfect"
+            },
+            {
+              "key": "love_09",
+              "label": "Relate Honestly",
+              "desc": "Connect through your honest feelings"
+            },
+            {
+              "key": "love_10",
+              "label": "Listen Well",
+              "desc": "Listen without deciding who someone is"
+            },
+            {
+              "key": "love_11",
+              "label": "Feel Love in the Body",
+              "desc": "Feel love as warmth and contact"
+            },
+            {
+              "key": "love_12",
+              "label": "Have Boundaries",
+              "desc": "Keep your no inside love"
+            },
+            {
+              "key": "love_13",
+              "label": "Equal Relationship",
+              "desc": "Neither person has to endure everything alone"
+            },
+            {
+              "key": "love_14",
+              "label": "Honor Freedom",
+              "desc": "Do not hold the other person too tightly"
+            },
+            {
+              "key": "love_15",
+              "label": "Honor Differences",
+              "desc": "Do not make differences the enemy of love"
+            },
+            {
+              "key": "love_16",
+              "label": "Do Not Fear Rejection",
+              "desc": "Your value remains even if someone steps away"
+            },
+            {
+              "key": "love_17",
+              "label": "Repair the Hurt",
+              "desc": "Restore what has become misaligned"
+            },
+            {
+              "key": "love_18",
+              "label": "Alone Is Love Too",
+              "desc": "Care for yourself in solitude as well"
+            },
+            {
+              "key": "love_19",
+              "label": "Many Forms of Love",
+              "desc": "Value love beyond romance"
+            },
+            {
+              "key": "love_20",
+              "label": "See Love in the World",
+              "desc": "Notice kindness in the world around you"
+            }
+          ]
+        },
+        {
+          "key": "connection",
+          "label": "Feel Connected",
+          "themes": [
+            {
+              "key": "connection_01",
+              "label": "Able to Connect",
+              "desc": "You can connect with other people"
+            },
+            {
+              "key": "connection_02",
+              "label": "Okay Alone",
+              "desc": "Know the difference between solitude and isolation"
+            },
+            {
+              "key": "connection_03",
+              "label": "Open Your Heart",
+              "desc": "Trust people little by little"
+            },
+            {
+              "key": "connection_04",
+              "label": "Show Your Truth",
+              "desc": "Let your vulnerability and honesty be seen"
+            },
+            {
+              "key": "connection_05",
+              "label": "Reach Out First",
+              "desc": "Do not only wait; let yourself make contact"
+            },
+            {
+              "key": "connection_06",
+              "label": "Be Interested",
+              "desc": "Want to know the other person"
+            },
+            {
+              "key": "connection_07",
+              "label": "Listen Well",
+              "desc": "Really listen to what someone is saying"
+            },
+            {
+              "key": "connection_08",
+              "label": "Attune Through the Body",
+              "desc": "Connect through expression and breath"
+            },
+            {
+              "key": "connection_09",
+              "label": "Express Thanks",
+              "desc": "Share gratitude and recognition"
+            },
+            {
+              "key": "connection_10",
+              "label": "Share Experiences",
+              "desc": "Grow closer through time spent together"
+            },
+            {
+              "key": "connection_11",
+              "label": "Open and Protect",
+              "desc": "Connect while keeping healthy boundaries"
+            },
+            {
+              "key": "connection_12",
+              "label": "Difference Enriches",
+              "desc": "Do not make difference the enemy of connection"
+            },
+            {
+              "key": "connection_13",
+              "label": "Rely and Be Relied On",
+              "desc": "Have relationships where help can move both ways"
+            },
+            {
+              "key": "connection_14",
+              "label": "Give and Receive",
+              "desc": "Let connection circulate"
+            },
+            {
+              "key": "connection_15",
+              "label": "Repair Misunderstandings",
+              "desc": "Restore what has become confused or tense"
+            },
+            {
+              "key": "connection_16",
+              "label": "Light and Deep",
+              "desc": "Value both casual and deep relationships"
+            },
+            {
+              "key": "connection_17",
+              "label": "Many Kinds of Connection",
+              "desc": "Allow different kinds of relationships"
+            },
+            {
+              "key": "connection_18",
+              "label": "Connected Even Apart",
+              "desc": "Feel the relationship even when you cannot meet"
+            },
+            {
+              "key": "connection_19",
+              "label": "Connect with Nature",
+              "desc": "Feel your relationship with nature and place"
+            },
+            {
+              "key": "connection_20",
+              "label": "A Web of Life",
+              "desc": "See the world as something that affects and supports itself"
+            }
+          ]
+        },
+        {
+          "key": "recognition",
+          "label": "Feel Recognized",
+          "themes": [
+            {
+              "key": "recognition_01",
+              "label": "I Have Value",
+              "desc": "Feel that your existence has value"
+            },
+            {
+              "key": "recognition_02",
+              "label": "Acknowledge Your Being",
+              "desc": "Recognize yourself for being here"
+            },
+            {
+              "key": "recognition_03",
+              "label": "Recognize Yourself",
+              "desc": "See yourself with your own eyes"
+            },
+            {
+              "key": "recognition_04",
+              "label": "It Is Okay to Want Recognition",
+              "desc": "Do not shame the wish to be seen"
+            },
+            {
+              "key": "recognition_05",
+              "label": "Not Dependent on Approval",
+              "desc": "Do not make evaluation everything"
+            },
+            {
+              "key": "recognition_06",
+              "label": "Receive Praise",
+              "desc": "Let compliments and thanks in"
+            },
+            {
+              "key": "recognition_07",
+              "label": "Enjoy Achievement",
+              "desc": "Receive the joy of what you have done"
+            },
+            {
+              "key": "recognition_08",
+              "label": "See Your Effort",
+              "desc": "Acknowledge the path you have taken"
+            },
+            {
+              "key": "recognition_09",
+              "label": "Speak of Your Work",
+              "desc": "Talk about your strengths and what you have created"
+            },
+            {
+              "key": "recognition_10",
+              "label": "Let Your Voice Reach",
+              "desc": "Share your opinion"
+            },
+            {
+              "key": "recognition_11",
+              "label": "Express Yourself",
+              "desc": "Give form to what is inside you"
+            },
+            {
+              "key": "recognition_12",
+              "label": "Criticism as Information",
+              "desc": "Treat feedback as information"
+            },
+            {
+              "key": "recognition_13",
+              "label": "Ask for Perspective",
+              "desc": "Listen in order to grow"
+            },
+            {
+              "key": "recognition_14",
+              "label": "Return from Comparison",
+              "desc": "Come back to yourself after comparing"
+            },
+            {
+              "key": "recognition_15",
+              "label": "Even Without Recognition",
+              "desc": "Do not lose yourself without approval"
+            },
+            {
+              "key": "recognition_16",
+              "label": "Choose Places That See You",
+              "desc": "Choose spaces where you can be recognized"
+            },
+            {
+              "key": "recognition_17",
+              "label": "Recognize Others",
+              "desc": "See the value in others too"
+            },
+            {
+              "key": "recognition_18",
+              "label": "Recognize Each Other",
+              "desc": "Find the good in one another"
+            },
+            {
+              "key": "recognition_19",
+              "label": "One of a Kind",
+              "desc": "Carry the value only you have"
+            },
+            {
+              "key": "recognition_20",
+              "label": "Use Your Value",
+              "desc": "Let your strengths serve the world"
+            }
+          ]
+        },
+        {
+          "key": "value",
+          "label": "Feel Value",
+          "themes": [
+            {
+              "key": "value_01",
+              "label": "Value Just by Being",
+              "desc": "Feel valuable even without doing anything"
+            },
+            {
+              "key": "value_02",
+              "label": "Notice What Matters",
+              "desc": "Notice what is truly important"
+            },
+            {
+              "key": "value_03",
+              "label": "Your Own Value",
+              "desc": "Feel that you carry something important"
+            },
+            {
+              "key": "value_04",
+              "label": "See Value in Others",
+              "desc": "Notice what is good and important in others"
+            },
+            {
+              "key": "value_05",
+              "label": "See Without Comparing",
+              "desc": "Find value without comparison"
+            },
+            {
+              "key": "value_06",
+              "label": "Let Weakness Have Value",
+              "desc": "See weakness and failure as part of yourself"
+            },
+            {
+              "key": "value_07",
+              "label": "See Small Value",
+              "desc": "Notice goodness in small things"
+            },
+            {
+              "key": "value_08",
+              "label": "Value This Moment",
+              "desc": "Feel that this time will not return"
+            },
+            {
+              "key": "value_09",
+              "label": "Turn Experience into Value",
+              "desc": "Let success and failure support what comes next"
+            },
+            {
+              "key": "value_10",
+              "label": "Recognize Effort",
+              "desc": "See the process, not only the result"
+            },
+            {
+              "key": "value_11",
+              "label": "Value Difference",
+              "desc": "Find different thoughts and qualities interesting"
+            },
+            {
+              "key": "value_12",
+              "label": "Feel Value in the Body",
+              "desc": "Feel what matters through your body too"
+            },
+            {
+              "key": "value_13",
+              "label": "Value Time",
+              "desc": "Use time with care"
+            },
+            {
+              "key": "value_14",
+              "label": "Care for Things",
+              "desc": "Use objects with care instead of treating them roughly"
+            },
+            {
+              "key": "value_15",
+              "label": "Value Relationships",
+              "desc": "Feel the importance of human connection"
+            },
+            {
+              "key": "value_16",
+              "label": "Use Your Value",
+              "desc": "Use what you have for others"
+            },
+            {
+              "key": "value_17",
+              "label": "Create Value",
+              "desc": "Create something or a place that helps people"
+            },
+            {
+              "key": "value_18",
+              "label": "Receive Value",
+              "desc": "Receive good things from others"
+            },
+            {
+              "key": "value_19",
+              "label": "Share Value",
+              "desc": "Share what is good with others"
+            },
+            {
+              "key": "value_20",
+              "label": "Grow Value",
+              "desc": "Grow what matters over time"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "freedom_power",
+      "label": "Freedom and Inner Power",
+      "wishes": [
+        {
+          "key": "freedom",
+          "label": "Live Freely",
+          "themes": [
+            {
+              "key": "freedom_01",
+              "label": "My Life Is Mine",
+              "desc": "Hold the direction of your own life"
+            },
+            {
+              "key": "freedom_02",
+              "label": "Choose for Yourself",
+              "desc": "Choose from your own will"
+            },
+            {
+              "key": "freedom_03",
+              "label": "Trust Your Senses",
+              "desc": "Listen to what feels right or off"
+            },
+            {
+              "key": "freedom_04",
+              "label": "Choose by Your Values",
+              "desc": "Choose from what truly matters to you"
+            },
+            {
+              "key": "freedom_05",
+              "label": "Take Responsibility",
+              "desc": "Learn from the results of your choices"
+            },
+            {
+              "key": "freedom_06",
+              "label": "Say No",
+              "desc": "Decline what does not fit"
+            },
+            {
+              "key": "freedom_07",
+              "label": "Say Yes",
+              "desc": "Choose what you want to do"
+            },
+            {
+              "key": "freedom_08",
+              "label": "Have Boundaries",
+              "desc": "Protect your time and your heart"
+            },
+            {
+              "key": "freedom_09",
+              "label": "Do Not Carry Expectations",
+              "desc": "Do not decide only from what others expect"
+            },
+            {
+              "key": "freedom_10",
+              "label": "No Need to Be Swept Along",
+              "desc": "Do not be swallowed by pressure to conform"
+            },
+            {
+              "key": "freedom_11",
+              "label": "Question the Frame",
+              "desc": "Reconsider what is called normal or required"
+            },
+            {
+              "key": "freedom_12",
+              "label": "Choose Beyond the Mold",
+              "desc": "Choose a path that feels true to you"
+            },
+            {
+              "key": "freedom_13",
+              "label": "Your Own Rhythm",
+              "desc": "Live at your own pace"
+            },
+            {
+              "key": "freedom_14",
+              "label": "A Light Body",
+              "desc": "Let your body move freely"
+            },
+            {
+              "key": "freedom_15",
+              "label": "Move Without the Right Answer",
+              "desc": "Take one step even without certainty"
+            },
+            {
+              "key": "freedom_16",
+              "label": "You Can Stop",
+              "desc": "Let go of what no longer fits"
+            },
+            {
+              "key": "freedom_17",
+              "label": "You Can Begin",
+              "desc": "Start something new"
+            },
+            {
+              "key": "freedom_18",
+              "label": "Choose Within Limits",
+              "desc": "Find one possible step within the conditions you have"
+            },
+            {
+              "key": "freedom_19",
+              "label": "Others Are Free Too",
+              "desc": "Respect the choices of others"
+            },
+            {
+              "key": "freedom_20",
+              "label": "Be the Main Character",
+              "desc": "Draw your own life from within"
+            }
+          ]
+        },
+        {
+          "key": "ability",
+          "label": "Feel Capable",
+          "themes": [
+            {
+              "key": "ability_01",
+              "label": "I Have Power",
+              "desc": "There are things you can do"
+            },
+            {
+              "key": "ability_02",
+              "label": "Ability Can Grow",
+              "desc": "Practice and experience help you grow"
+            },
+            {
+              "key": "ability_03",
+              "label": "One Step I Can Take",
+              "desc": "Find one action available now"
+            },
+            {
+              "key": "ability_04",
+              "label": "Start Small",
+              "desc": "Begin a little before waiting for perfection"
+            },
+            {
+              "key": "ability_05",
+              "label": "Break Down the Goal",
+              "desc": "Make something big into smaller steps"
+            },
+            {
+              "key": "ability_06",
+              "label": "Enjoy the Challenge",
+              "desc": "Meet difficult things with openness"
+            },
+            {
+              "key": "ability_07",
+              "label": "Focus Deeply",
+              "desc": "Enter into the task with attention"
+            },
+            {
+              "key": "ability_08",
+              "label": "Try and Learn",
+              "desc": "Learn by doing"
+            },
+            {
+              "key": "ability_09",
+              "label": "Failure as Information",
+              "desc": "Let mistakes become clues for what comes next"
+            },
+            {
+              "key": "ability_10",
+              "label": "Look Back at Progress",
+              "desc": "Notice and record your growth"
+            },
+            {
+              "key": "ability_11",
+              "label": "Small Successes",
+              "desc": "Acknowledge what you were able to do"
+            },
+            {
+              "key": "ability_12",
+              "label": "Your Own Pace",
+              "desc": "Grow without comparing yourself to others"
+            },
+            {
+              "key": "ability_13",
+              "label": "Use Your Strengths",
+              "desc": "Bring your strengths into real life"
+            },
+            {
+              "key": "ability_14",
+              "label": "Work With What Is Hard",
+              "desc": "Change the approach when something is difficult"
+            },
+            {
+              "key": "ability_15",
+              "label": "Ask for Help",
+              "desc": "Ask someone when you need support"
+            },
+            {
+              "key": "ability_16",
+              "label": "Use Tools",
+              "desc": "Expand your power with knowledge and tools"
+            },
+            {
+              "key": "ability_17",
+              "label": "Use Feedback",
+              "desc": "Let feedback help you improve"
+            },
+            {
+              "key": "ability_18",
+              "label": "Focus on What You Can Do",
+              "desc": "Use your energy where change is possible"
+            },
+            {
+              "key": "ability_19",
+              "label": "Release Before Perfect",
+              "desc": "Let something unfinished go out and grow"
+            },
+            {
+              "key": "ability_20",
+              "label": "Ability and Worth Are Separate",
+              "desc": "Your value does not fall when you cannot do something"
+            }
+          ]
+        },
+        {
+          "key": "growth",
+          "label": "Grow",
+          "themes": [
+            {
+              "key": "growth_01",
+              "label": "Welcome Room to Grow",
+              "desc": "See what you cannot do yet as a place to grow"
+            },
+            {
+              "key": "growth_02",
+              "label": "Learn from Zero",
+              "desc": "Ask and learn without shame"
+            },
+            {
+              "key": "growth_03",
+              "label": "Meet a Slightly Higher Wall",
+              "desc": "Move toward something a little difficult for who you are now"
+            },
+            {
+              "key": "growth_04",
+              "label": "Renew Yourself",
+              "desc": "Move into a new version of yourself without being bound by old habits"
+            },
+            {
+              "key": "growth_05",
+              "label": "Listen for Hints",
+              "desc": "Use others’ words for your next improvement"
+            },
+            {
+              "key": "growth_06",
+              "label": "Learn from Daily Life",
+              "desc": "Find things to learn in ordinary life"
+            },
+            {
+              "key": "growth_07",
+              "label": "Learn from Excellence",
+              "desc": "Let great people and true quality expand your possibility"
+            },
+            {
+              "key": "growth_08",
+              "label": "Learn Through the Body",
+              "desc": "Learn by doing, not only by thinking"
+            },
+            {
+              "key": "growth_09",
+              "label": "Widen Your View",
+              "desc": "Think from the whole and from the future too"
+            },
+            {
+              "key": "growth_10",
+              "label": "Share What You Learn",
+              "desc": "Let what you learn become useful to others"
+            },
+            {
+              "key": "growth_11",
+              "label": "Grow Without Comparing",
+              "desc": "Notice your own change without over-comparing"
+            },
+            {
+              "key": "growth_12",
+              "label": "Stagnation Also Grows You",
+              "desc": "Treat seasons without progress as part of growth"
+            },
+            {
+              "key": "growth_13",
+              "label": "Turn Experience into Wisdom",
+              "desc": "Receive what matters from what happened"
+            },
+            {
+              "key": "growth_14",
+              "label": "Grow Deeply",
+              "desc": "Grow not only in ability, but in the width of your heart"
+            }
+          ]
+        },
+        {
+          "key": "adventure",
+          "label": "Adventure",
+          "themes": [
+            {
+              "key": "adventure_01",
+              "label": "Step into the Unknown",
+              "desc": "Move a little toward something new"
+            },
+            {
+              "key": "adventure_02",
+              "label": "Trust Curiosity",
+              "desc": "Value the feeling of wanting to know, try, and explore"
+            },
+            {
+              "key": "adventure_03",
+              "label": "Turn Fear into Power",
+              "desc": "Let nervousness become preparation and focus"
+            },
+            {
+              "key": "adventure_04",
+              "label": "Step Outside",
+              "desc": "Move beyond familiar places and familiar ways"
+            },
+            {
+              "key": "adventure_05",
+              "label": "Explore Through the Body",
+              "desc": "Know the world by walking, seeing, touching, and trying"
+            },
+            {
+              "key": "adventure_06",
+              "label": "Open the Senses",
+              "desc": "Notice sound, scent, scenery, and air"
+            },
+            {
+              "key": "adventure_07",
+              "label": "Adventure in Daily Life",
+              "desc": "Try small new things in everyday life"
+            },
+            {
+              "key": "adventure_08",
+              "label": "Move Flexibly",
+              "desc": "Find another way when plans change"
+            },
+            {
+              "key": "adventure_09",
+              "label": "Enjoy the Challenge",
+              "desc": "Meet trouble as a place to be creative"
+            },
+            {
+              "key": "adventure_10",
+              "label": "Prepare and Go",
+              "desc": "Challenge yourself with the preparation you need"
+            },
+            {
+              "key": "adventure_11",
+              "label": "Learn from Difference",
+              "desc": "Learn from people and cultures unlike your own"
+            },
+            {
+              "key": "adventure_12",
+              "label": "Adventure Together",
+              "desc": "Move into something new alone or with others"
+            },
+            {
+              "key": "adventure_13",
+              "label": "Enjoy Being Alone",
+              "desc": "Move freely because you are on your own"
+            },
+            {
+              "key": "adventure_14",
+              "label": "Return and Continue",
+              "desc": "Come back when tired, settle, and move again"
+            },
+            {
+              "key": "adventure_15",
+              "label": "Turn Experience into Story",
+              "desc": "Turn what you experience into learning and expression"
+            },
+            {
+              "key": "adventure_16",
+              "label": "Create Your Own Path",
+              "desc": "Make your own way, not only the path already given"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "joy_abundance",
+      "label": "Joy and Abundance",
+      "wishes": [
+        {
+          "key": "play",
+          "label": "Play",
+          "themes": [
+            {
+              "key": "play_01",
+              "label": "Allowed to Enjoy",
+              "desc": "Let enjoyment become a natural part of life"
+            },
+            {
+              "key": "play_02",
+              "label": "Choose What Is Interesting",
+              "desc": "Choose what feels interesting over looking impressive"
+            },
+            {
+              "key": "play_03",
+              "label": "Enjoy Without Purpose",
+              "desc": "You do not have to decide only by usefulness"
+            },
+            {
+              "key": "play_04",
+              "label": "Become Absorbed",
+              "desc": "Enter the play of this moment enough to forget time"
+            },
+            {
+              "key": "play_05",
+              "label": "Bring Playfulness",
+              "desc": "Make ordinary things a little more interesting"
+            },
+            {
+              "key": "play_06",
+              "label": "Try Small",
+              "desc": "Try a little first, and change it later"
+            },
+            {
+              "key": "play_07",
+              "label": "Laugh at Mistakes",
+              "desc": "Let what does not work become something to laugh with and learn from"
+            },
+            {
+              "key": "play_08",
+              "label": "Play with Rules",
+              "desc": "Use rules and limits as invitations to be creative"
+            },
+            {
+              "key": "play_09",
+              "label": "Make It a Game",
+              "desc": "Turn something tedious into your own game"
+            },
+            {
+              "key": "play_10",
+              "label": "Invent Play",
+              "desc": "Create new ways to play"
+            },
+            {
+              "key": "play_11",
+              "label": "Play Through the Body",
+              "desc": "Enjoy voice, movement, texture, and rhythm"
+            },
+            {
+              "key": "play_12",
+              "label": "Enjoy Through the Senses",
+              "desc": "Enjoy sound, color, taste, and touch"
+            },
+            {
+              "key": "play_13",
+              "label": "Play by Making",
+              "desc": "Enjoy drawing, sound, words, cooking, and making things"
+            },
+            {
+              "key": "play_14",
+              "label": "Lighten the Room",
+              "desc": "Make a heavy atmosphere a little lighter"
+            },
+            {
+              "key": "play_15",
+              "label": "Play with Others",
+              "desc": "Grow closer by enjoying something together"
+            },
+            {
+              "key": "play_16",
+              "label": "Enjoy Difference",
+              "desc": "Difference makes things more interesting"
+            },
+            {
+              "key": "play_17",
+              "label": "Play Alone",
+              "desc": "Find something interesting even on your own"
+            },
+            {
+              "key": "play_18",
+              "label": "Play Safely",
+              "desc": "Enjoy while caring for yourself and others"
+            },
+            {
+              "key": "play_19",
+              "label": "Make Daily Life a Playground",
+              "desc": "Bring play into ordinary life"
+            },
+            {
+              "key": "play_20",
+              "label": "Learn Through Play",
+              "desc": "Let discovery and learning arise naturally through play"
+            }
+          ]
+        },
+        {
+          "key": "joy",
+          "label": "Live Joy",
+          "themes": [
+            {
+              "key": "joy_01",
+              "label": "Allow Joy",
+              "desc": "Let yourself feel glad, happy, and comfortable"
+            },
+            {
+              "key": "joy_02",
+              "label": "Joy from Within",
+              "desc": "Let brightness arise from within without needing to gain something first"
+            },
+            {
+              "key": "joy_03",
+              "label": "Small Happiness",
+              "desc": "Notice small moments of happiness in daily life"
+            },
+            {
+              "key": "joy_04",
+              "label": "Savor the Present",
+              "desc": "Taste what is in front of you slowly and deeply"
+            },
+            {
+              "key": "joy_05",
+              "label": "Joy Through the Senses",
+              "desc": "Receive sound, color, scent, taste, and touch as joy"
+            },
+            {
+              "key": "joy_06",
+              "label": "Joy Through the Body",
+              "desc": "Enjoy eating, sleeping, moving, resting, and laughing"
+            },
+            {
+              "key": "joy_07",
+              "label": "Choose with the Heart",
+              "desc": "Choose what makes your heart and body brighter"
+            },
+            {
+              "key": "joy_08",
+              "label": "Express Joy",
+              "desc": "Laugh, speak, celebrate, or show joy when it arises"
+            },
+            {
+              "key": "joy_09",
+              "label": "Celebrate Daily Life",
+              "desc": "Celebrate small progress and happy moments as they happen"
+            },
+            {
+              "key": "joy_10",
+              "label": "Enjoy the Process",
+              "desc": "Enjoy being on the way, even before the result arrives"
+            },
+            {
+              "key": "joy_11",
+              "label": "Delight Yourself",
+              "desc": "Choose what brightens your mind and body"
+            },
+            {
+              "key": "joy_12",
+              "label": "Share Joy",
+              "desc": "Let your joy spread between you and others"
+            },
+            {
+              "key": "joy_13",
+              "label": "Celebrate Others’ Joy",
+              "desc": "Celebrate another person’s happiness without making it your lack"
+            },
+            {
+              "key": "joy_14",
+              "label": "See the Good in People",
+              "desc": "Notice and express another person’s charm and effort"
+            },
+            {
+              "key": "joy_15",
+              "label": "Gratitude Arises",
+              "desc": "Notice what you already have and what supports you"
+            },
+            {
+              "key": "joy_16",
+              "label": "See Beauty",
+              "desc": "Find beauty in nature, sound, words, expressions, and art"
+            },
+            {
+              "key": "joy_17",
+              "label": "Taste Emotions",
+              "desc": "Receive many emotions as the depth of life"
+            },
+            {
+              "key": "joy_18",
+              "label": "Honor Different Joys",
+              "desc": "Understand that enjoyment is different for each person"
+            },
+            {
+              "key": "joy_19",
+              "label": "Create Joy",
+              "desc": "Create small joy and a brighter atmosphere yourself"
+            },
+            {
+              "key": "joy_20",
+              "label": "Turn Joy into Energy",
+              "desc": "Let joy lead into your next action or creation"
+            }
+          ]
+        },
+        {
+          "key": "abundance",
+          "label": "Live Abundance",
+          "themes": [
+            {
+              "key": "abundance_01",
+              "label": "Able to Receive",
+              "desc": "Receive help, kindness, opportunities, money, and love"
+            },
+            {
+              "key": "abundance_02",
+              "label": "Abundance Already Here",
+              "desc": "Notice the blessings already present, not only what is missing"
+            },
+            {
+              "key": "abundance_03",
+              "label": "Feel Enough",
+              "desc": "Feel the fullness that is already here in your body"
+            },
+            {
+              "key": "abundance_04",
+              "label": "Gratitude Arises",
+              "desc": "Naturally feel thankful for what is here and what supports you"
+            },
+            {
+              "key": "abundance_05",
+              "label": "Hold Without Guilt",
+              "desc": "Let it be okay to have what you need"
+            },
+            {
+              "key": "abundance_06",
+              "label": "Choose What Supports You",
+              "desc": "Choose what supports your life and future"
+            },
+            {
+              "key": "abundance_07",
+              "label": "Savor Quality",
+              "desc": "Care for what is truly good for you beyond the price"
+            },
+            {
+              "key": "abundance_08",
+              "label": "Room in Time",
+              "desc": "Have space for rest, focus, and savoring"
+            },
+            {
+              "key": "abundance_09",
+              "label": "Money as a Tool",
+              "desc": "Use money as a tool that supports life and desire"
+            },
+            {
+              "key": "abundance_10",
+              "label": "Organize Abundance",
+              "desc": "Bring order to money, things, time, space, and relationships"
+            },
+            {
+              "key": "abundance_11",
+              "label": "Use What You Have",
+              "desc": "Use what you have for yourself, others, and the future"
+            },
+            {
+              "key": "abundance_12",
+              "label": "Let Abundance Circulate",
+              "desc": "Let what you receive move beyond yourself"
+            },
+            {
+              "key": "abundance_13",
+              "label": "Offer Yourself",
+              "desc": "Bring what you can do to people and the world"
+            },
+            {
+              "key": "abundance_14",
+              "label": "Create Value",
+              "desc": "Create abundance through your actions and care"
+            },
+            {
+              "key": "abundance_15",
+              "label": "Able to Rely",
+              "desc": "Ask for help instead of carrying everything alone"
+            },
+            {
+              "key": "abundance_16",
+              "label": "Do Not Overgive",
+              "desc": "Share while respecting your own limits"
+            },
+            {
+              "key": "abundance_17",
+              "label": "Celebrate Others’ Abundance",
+              "desc": "Celebrate another person’s success and happiness without making it your lack"
+            },
+            {
+              "key": "abundance_18",
+              "label": "Abundant Through Relationship",
+              "desc": "Let relationships enrich both people"
+            },
+            {
+              "key": "abundance_19",
+              "label": "Nature’s Gifts",
+              "desc": "Feel the abundance of water, air, soil, light, food, and seasons"
+            },
+            {
+              "key": "abundance_20",
+              "label": "Grow It for the Future",
+              "desc": "Grow what you have into learning and habits for the future"
+            }
+          ]
+        },
+        {
+          "key": "beauty",
+          "label": "Savor Beauty",
+          "themes": [
+            {
+              "key": "beauty_01",
+              "label": "Notice Beauty",
+              "desc": "Find small beauty in everyday life"
+            },
+            {
+              "key": "beauty_02",
+              "label": "Pause for Beauty",
+              "desc": "Stop for a moment when beauty appears"
+            },
+            {
+              "key": "beauty_03",
+              "label": "Savor with the Senses",
+              "desc": "Receive beauty through color, sound, scent, taste, and touch"
+            },
+            {
+              "key": "beauty_04",
+              "label": "Feel Awe",
+              "desc": "Let great scenery or music move your chest"
+            },
+            {
+              "key": "beauty_05",
+              "label": "Beauty in Nature",
+              "desc": "Find beauty in sky, light, wind, water, plants, and seasons"
+            },
+            {
+              "key": "beauty_06",
+              "label": "Beauty in Daily Life",
+              "desc": "Find beauty in meals, rooms, tools, clothes, and words"
+            },
+            {
+              "key": "beauty_07",
+              "label": "Beauty in Imperfection",
+              "desc": "Feel beauty in cracks, age, process, wavering, and traces of time"
+            },
+            {
+              "key": "beauty_08",
+              "label": "Savor Fleetingness",
+              "desc": "Feel the beauty that exists because it will not last"
+            },
+            {
+              "key": "beauty_09",
+              "label": "Savor Quiet",
+              "desc": "Receive beauty in space, silence, pauses, and simplicity"
+            },
+            {
+              "key": "beauty_10",
+              "label": "Feel Beauty in the Body",
+              "desc": "Notice how your chest, eyes, breath, and skin respond to beauty"
+            },
+            {
+              "key": "beauty_11",
+              "label": "Clarify the Senses",
+              "desc": "Feel the world more clearly instead of letting it pass by"
+            },
+            {
+              "key": "beauty_12",
+              "label": "See Beauty in People",
+              "desc": "Find beauty not only in appearance, but in gestures, words, and kindness"
+            },
+            {
+              "key": "beauty_13",
+              "label": "Your Own Sense of Beauty",
+              "desc": "Care for what feels beautiful to you beyond other people’s opinions"
+            },
+            {
+              "key": "beauty_14",
+              "label": "Honor Different Beauty",
+              "desc": "Respect that beauty feels different to each person"
+            },
+            {
+              "key": "beauty_15",
+              "label": "Arrange the Space",
+              "desc": "Create a pleasant place through room, table, tools, light, and sound"
+            },
+            {
+              "key": "beauty_16",
+              "label": "Create Beauty",
+              "desc": "Express beauty through cooking, words, images, sound, clothing, or space"
+            },
+            {
+              "key": "beauty_17",
+              "label": "Share Beauty",
+              "desc": "Savor and share beautiful things with others"
+            },
+            {
+              "key": "beauty_18",
+              "label": "Savor Before Consuming",
+              "desc": "Receive deeply before photographing, buying, or judging"
+            },
+            {
+              "key": "beauty_19",
+              "label": "Settle Through Beauty",
+              "desc": "Let beauty quiet and organize your mind and body"
+            },
+            {
+              "key": "beauty_20",
+              "label": "Protect Beauty",
+              "desc": "Care for the beauty of nature, people, things, culture, and place"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "creation_contribution",
+      "label": "Creation and Contribution",
+      "wishes": [
+        {
+          "key": "creation",
+          "label": "Create",
+          "themes": [
+            {
+              "key": "creation_01",
+              "label": "The Wish to Create Arises",
+              "desc": "A natural wish to make something comes from within"
+            },
+            {
+              "key": "creation_02",
+              "label": "Begin Creating",
+              "desc": "Start small without waiting for perfection"
+            },
+            {
+              "key": "creation_03",
+              "label": "Give Shape to What You Feel",
+              "desc": "Turn inner sensations and ideas into visible form"
+            },
+            {
+              "key": "creation_04",
+              "label": "Create Through the Hands",
+              "desc": "Use your hands and body to feel while creating"
+            },
+            {
+              "key": "creation_05",
+              "label": "Try Small",
+              "desc": "Try first instead of aiming for completion right away"
+            },
+            {
+              "key": "creation_06",
+              "label": "Everything Becomes Material",
+              "desc": "Let ordinary things and events become material for creating"
+            },
+            {
+              "key": "creation_07",
+              "label": "Turn Limits into Ingenuity",
+              "desc": "Create with care, even when conditions are limited"
+            },
+            {
+              "key": "creation_08",
+              "label": "Enjoy the Process",
+              "desc": "Enjoy not only the finished work, but the act of making"
+            },
+            {
+              "key": "creation_09",
+              "label": "Repair Through Mistakes",
+              "desc": "When something does not work, adjust and make it better"
+            },
+            {
+              "key": "creation_10",
+              "label": "Create in Deep Focus",
+              "desc": "Forget time while making something"
+            },
+            {
+              "key": "creation_11",
+              "label": "Protect Time to Create",
+              "desc": "Care for the time you need to make things"
+            },
+            {
+              "key": "creation_12",
+              "label": "Trust Your Sense",
+              "desc": "Trust your own feeling of what works"
+            },
+            {
+              "key": "creation_13",
+              "label": "Notice What Is Needed",
+              "desc": "Notice what would be helpful if it existed"
+            },
+            {
+              "key": "creation_14",
+              "label": "Make It Useful",
+              "desc": "Turn an idea into a form people can use"
+            },
+            {
+              "key": "creation_15",
+              "label": "Prepare the Tools",
+              "desc": "Arrange the tools and space you need to create"
+            },
+            {
+              "key": "creation_16",
+              "label": "Complete One Version",
+              "desc": "Bring something to completion instead of stopping halfway"
+            },
+            {
+              "key": "creation_17",
+              "label": "Put It Into the World",
+              "desc": "Let others see or receive what you have made"
+            },
+            {
+              "key": "creation_18",
+              "label": "Grow Through Response",
+              "desc": "Use response from others to make it better"
+            },
+            {
+              "key": "creation_19",
+              "label": "Create with Others",
+              "desc": "Make things not only alone, but together"
+            },
+            {
+              "key": "creation_20",
+              "label": "Carry It Forward",
+              "desc": "Use the experience of creating for what comes next"
+            }
+          ]
+        },
+        {
+          "key": "giving",
+          "label": "Give",
+          "themes": [
+            {
+              "key": "giving_01",
+              "label": "The Wish to Give Arises",
+              "desc": "A natural wish to do something for someone comes from within"
+            },
+            {
+              "key": "giving_02",
+              "label": "Give from Fullness",
+              "desc": "Share with others while also caring for yourself"
+            },
+            {
+              "key": "giving_03",
+              "label": "The Joy of Giving",
+              "desc": "Let giving and helping feel naturally joyful"
+            },
+            {
+              "key": "giving_04",
+              "label": "Something to Offer",
+              "desc": "Know that you have something you can give"
+            },
+            {
+              "key": "giving_05",
+              "label": "Sense What Is Needed",
+              "desc": "Notice what someone may need right now"
+            },
+            {
+              "key": "giving_06",
+              "label": "Match the Other Person",
+              "desc": "Choose a way of giving that fits the other person"
+            },
+            {
+              "key": "giving_07",
+              "label": "Offer Small Kindness",
+              "desc": "Care for even small acts of kindness"
+            },
+            {
+              "key": "giving_08",
+              "label": "Turn Your Heart Toward Them",
+              "desc": "Listen carefully to the other person"
+            },
+            {
+              "key": "giving_09",
+              "label": "Share Wisdom",
+              "desc": "Offer what you know in a way that helps others"
+            },
+            {
+              "key": "giving_10",
+              "label": "Lend Your Strength",
+              "desc": "Actually help someone who needs support"
+            },
+            {
+              "key": "giving_11",
+              "label": "Share Joy",
+              "desc": "Let your brightness spread to those around you"
+            },
+            {
+              "key": "giving_12",
+              "label": "Warm the Space",
+              "desc": "Make the atmosphere a little better"
+            },
+            {
+              "key": "giving_13",
+              "label": "Offer Opportunity",
+              "desc": "Create chances for others to try"
+            },
+            {
+              "key": "giving_14",
+              "label": "Draw Out Their Strength",
+              "desc": "Help someone become able to do it themselves"
+            },
+            {
+              "key": "giving_15",
+              "label": "Make It Easy to Receive",
+              "desc": "Offer in a form the other person can receive"
+            },
+            {
+              "key": "giving_16",
+              "label": "Release After Giving",
+              "desc": "After offering something, let the other person have it"
+            },
+            {
+              "key": "giving_17",
+              "label": "Protect Yourself Too",
+              "desc": "Do not empty yourself by giving too much"
+            },
+            {
+              "key": "giving_18",
+              "label": "Protect Their Freedom",
+              "desc": "Let the other person decide whether to receive it"
+            },
+            {
+              "key": "giving_19",
+              "label": "Able to Receive",
+              "desc": "Let yourself receive help and kindness from others too"
+            },
+            {
+              "key": "giving_20",
+              "label": "Grow Mutual Giving",
+              "desc": "Create relationships where both people become more alive"
+            }
+          ]
+        },
+        {
+          "key": "integrity",
+          "label": "Live with Integrity",
+          "themes": [
+            {
+              "key": "integrity_01",
+              "label": "Listen to Your Conscience",
+              "desc": "Care for the inner sense that something may not be right"
+            },
+            {
+              "key": "integrity_02",
+              "label": "Check the Facts",
+              "desc": "Do not decide only from what you have heard; confirm what is true"
+            },
+            {
+              "key": "integrity_03",
+              "label": "Feel It in the Body",
+              "desc": "Treat uneasiness in your mind or body as an important signal"
+            },
+            {
+              "key": "integrity_04",
+              "label": "Speak Honestly",
+              "desc": "Speak clearly without covering things with lies"
+            },
+            {
+              "key": "integrity_05",
+              "label": "Say I Don’t Know",
+              "desc": "Be able to say when you do not know"
+            },
+            {
+              "key": "integrity_06",
+              "label": "Align Words and Actions",
+              "desc": "Let your actions match your words"
+            },
+            {
+              "key": "integrity_07",
+              "label": "Honest When No One Sees",
+              "desc": "Do what is right even when no one is watching"
+            },
+            {
+              "key": "integrity_08",
+              "label": "Treat Fairly",
+              "desc": "Do not overly favor only the people you like"
+            },
+            {
+              "key": "integrity_09",
+              "label": "Take Responsibility",
+              "desc": "See the impact of what you have done"
+            },
+            {
+              "key": "integrity_10",
+              "label": "Admit Mistakes",
+              "desc": "When you are wrong, acknowledge it and repair it"
+            },
+            {
+              "key": "integrity_11",
+              "label": "Reconsider Yourself",
+              "desc": "Be willing to wonder whether you may have been mistaken"
+            },
+            {
+              "key": "integrity_12",
+              "label": "Do Not Weaponize Rightness",
+              "desc": "Do not use being right to attack others"
+            },
+            {
+              "key": "integrity_13",
+              "label": "Speak with Kindness",
+              "desc": "Care about how you say even what is true"
+            },
+            {
+              "key": "integrity_14",
+              "label": "Allow Different Rights",
+              "desc": "Understand that what feels right may differ by person"
+            },
+            {
+              "key": "integrity_15",
+              "label": "Deepen Through Dialogue",
+              "desc": "Think together even when opinions differ"
+            },
+            {
+              "key": "integrity_16",
+              "label": "Draw a Line",
+              "desc": "Set a boundary when something is not okay"
+            },
+            {
+              "key": "integrity_17",
+              "label": "Protect the Vulnerable",
+              "desc": "Consider those who cannot speak back easily"
+            },
+            {
+              "key": "integrity_18",
+              "label": "Have Courage",
+              "desc": "Say what needs to be said, even when it is difficult"
+            },
+            {
+              "key": "integrity_19",
+              "label": "Choose for the Long View",
+              "desc": "Do not choose only what feels convenient right now"
+            },
+            {
+              "key": "integrity_20",
+              "label": "Grow Your Sense of Rightness",
+              "desc": "Keep learning toward a better sense of what is right"
+            }
+          ]
+        },
+        {
+          "key": "peace",
+          "label": "Stay Peaceful",
+          "themes": [
+            {
+              "key": "peace_01",
+              "label": "Deep Sense of Safety",
+              "desc": "Even when many things happen, feel deep down that you can find your way"
+            },
+            {
+              "key": "peace_02",
+              "label": "Return to the Breath",
+              "desc": "When you want to settle, begin by steadying your breath"
+            },
+            {
+              "key": "peace_03",
+              "label": "Relax the Body",
+              "desc": "Notice tension in the body and soften a little"
+            },
+            {
+              "key": "peace_04",
+              "label": "Stay with the Present",
+              "desc": "Return to what you are doing now"
+            },
+            {
+              "key": "peace_05",
+              "label": "Create Space from Emotion",
+              "desc": "Notice, even when irritated, that irritation is here"
+            },
+            {
+              "key": "peace_06",
+              "label": "Pause Before Reacting",
+              "desc": "Take one breath before responding"
+            },
+            {
+              "key": "peace_07",
+              "label": "Hold a Quiet Center",
+              "desc": "Return to yourself without being swept away by what is around you"
+            },
+            {
+              "key": "peace_08",
+              "label": "Let the Flow Carry It",
+              "desc": "Loosen your grip on what you cannot change"
+            },
+            {
+              "key": "peace_09",
+              "label": "Do Not Get Pulled In",
+              "desc": "Even when someone is angry, do not get swallowed by it too"
+            },
+            {
+              "key": "peace_10",
+              "label": "Speak Gently",
+              "desc": "Say what needs to be said without becoming harsh"
+            },
+            {
+              "key": "peace_11",
+              "label": "Just Listen",
+              "desc": "Listen fully without immediately giving advice"
+            },
+            {
+              "key": "peace_12",
+              "label": "Draw a Quiet Line",
+              "desc": "Stay gentle while still setting a boundary"
+            },
+            {
+              "key": "peace_13",
+              "label": "Do Not Grow the Conflict",
+              "desc": "Choose in a way that does not make a fight larger"
+            },
+            {
+              "key": "peace_14",
+              "label": "See What Is Here",
+              "desc": "Look at the current state, even when it is not what you wanted"
+            },
+            {
+              "key": "peace_15",
+              "label": "Tend to Daily Life",
+              "desc": "Gradually bring order to what surrounds your life"
+            },
+            {
+              "key": "peace_16",
+              "label": "Keep Some Space",
+              "desc": "Create a little room in your schedule and feelings"
+            },
+            {
+              "key": "peace_17",
+              "label": "Return to Nature",
+              "desc": "Touch nature and recover calm"
+            },
+            {
+              "key": "peace_18",
+              "label": "Savor Small Comfort",
+              "desc": "Feel small moments of ease"
+            },
+            {
+              "key": "peace_19",
+              "label": "Calm the Space",
+              "desc": "As you settle, the space around you settles a little too"
+            },
+            {
+              "key": "peace_20",
+              "label": "You Can Return Again",
+              "desc": "Even after becoming unsettled, you can return to calm again"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "recognition_transcendence",
+      "label": "Understanding and Transcendence",
+      "wishes": [
+        {
+          "key": "knowing",
+          "label": "Understand More Deeply",
+          "themes": [
+            {
+              "key": "knowing_01",
+              "label": "Excited by the Unknown",
+              "desc": "Feel that not knowing something can be interesting"
+            },
+            {
+              "key": "knowing_02",
+              "label": "The Wish to Know Arises",
+              "desc": "A natural wish to know more comes from within"
+            },
+            {
+              "key": "knowing_03",
+              "label": "Hold Questions",
+              "desc": "Not only memorize, but wonder why"
+            },
+            {
+              "key": "knowing_04",
+              "label": "Value Not Knowing",
+              "desc": "See what you do not understand as something you can come to know"
+            },
+            {
+              "key": "knowing_05",
+              "label": "Say I Don’t Know",
+              "desc": "Be able to say when you do not know"
+            },
+            {
+              "key": "knowing_06",
+              "label": "Observe First",
+              "desc": "Look carefully before thinking"
+            },
+            {
+              "key": "knowing_07",
+              "label": "Listen Well",
+              "desc": "Listen carefully to what people say"
+            },
+            {
+              "key": "knowing_08",
+              "label": "Ask Questions",
+              "desc": "Ask about what you do not understand"
+            },
+            {
+              "key": "knowing_09",
+              "label": "Research and Confirm",
+              "desc": "Do not decide only from what you hear; look into it"
+            },
+            {
+              "key": "knowing_10",
+              "label": "Know Through Experience",
+              "desc": "Understand by trying, not only by hearing"
+            },
+            {
+              "key": "knowing_11",
+              "label": "Know Through the Body",
+              "desc": "Let the body’s senses also help you know"
+            },
+            {
+              "key": "knowing_12",
+              "label": "Learn from Difference",
+              "desc": "Learn from people unlike yourself"
+            },
+            {
+              "key": "knowing_13",
+              "label": "See the Background",
+              "desc": "Consider the reasons behind what happened"
+            },
+            {
+              "key": "knowing_14",
+              "label": "Ask What It Really Is",
+              "desc": "Think all the way back to the root question"
+            },
+            {
+              "key": "knowing_15",
+              "label": "See Connections",
+              "desc": "See how one thing relates to another"
+            },
+            {
+              "key": "knowing_16",
+              "label": "Update Your Thinking",
+              "desc": "Let new understanding change how you think"
+            },
+            {
+              "key": "knowing_17",
+              "label": "Turn Knowledge into Wisdom",
+              "desc": "Use what you know in real life"
+            },
+            {
+              "key": "knowing_18",
+              "label": "Learn with Others",
+              "desc": "Learn together with other people"
+            },
+            {
+              "key": "knowing_19",
+              "label": "Deepen by Sharing",
+              "desc": "Understand more by speaking it to someone else"
+            },
+            {
+              "key": "knowing_20",
+              "label": "Grow the Question",
+              "desc": "Keep thinking even when the answer does not come quickly"
+            }
+          ]
+        },
+        {
+          "key": "meaning",
+          "label": "Live with Meaning",
+          "themes": [
+            {
+              "key": "meaning_01",
+              "label": "Feel Meaning",
+              "desc": "Feel that something truly matters"
+            },
+            {
+              "key": "meaning_02",
+              "label": "Know What Matters",
+              "desc": "Come to understand what is important to you"
+            },
+            {
+              "key": "meaning_03",
+              "label": "Choose by Meaning",
+              "desc": "Choose not only by benefit, but by what you want to honor"
+            },
+            {
+              "key": "meaning_04",
+              "label": "Know It in the Body",
+              "desc": "Feel in your body that this is it"
+            },
+            {
+              "key": "meaning_05",
+              "label": "Use Time with Care",
+              "desc": "Care about what you give your time to"
+            },
+            {
+              "key": "meaning_06",
+              "label": "See Your Story",
+              "desc": "Let your experiences become part of your story"
+            },
+            {
+              "key": "meaning_07",
+              "label": "Turn Experience into Wisdom",
+              "desc": "Learn something even from what was painful"
+            },
+            {
+              "key": "meaning_08",
+              "label": "Find Meaning in Daily Life",
+              "desc": "Find meaning in ordinary days"
+            },
+            {
+              "key": "meaning_09",
+              "label": "Care for the Present",
+              "desc": "Value what you can do now"
+            },
+            {
+              "key": "meaning_10",
+              "label": "Take a Small Step",
+              "desc": "Move one step even without knowing everything"
+            },
+            {
+              "key": "meaning_11",
+              "label": "Live Your Role",
+              "desc": "Value the role you can play now"
+            },
+            {
+              "key": "meaning_12",
+              "label": "Connect with People",
+              "desc": "Feel meaning in human connection"
+            },
+            {
+              "key": "meaning_13",
+              "label": "Speak Deeply",
+              "desc": "Talk properly about what matters"
+            },
+            {
+              "key": "meaning_14",
+              "label": "Be Useful to Someone",
+              "desc": "Use your strength for someone else"
+            },
+            {
+              "key": "meaning_15",
+              "label": "Create and Leave Something",
+              "desc": "Give form to your thoughts and experiences"
+            },
+            {
+              "key": "meaning_16",
+              "label": "Receive and Pass On",
+              "desc": "Pass what you have received to someone next"
+            },
+            {
+              "key": "meaning_17",
+              "label": "See the Limits of Time",
+              "desc": "Value now because time is limited"
+            },
+            {
+              "key": "meaning_18",
+              "label": "Honor Others’ Meaning",
+              "desc": "Understand that each person has what matters to them"
+            },
+            {
+              "key": "meaning_19",
+              "label": "Keep Holding the Question",
+              "desc": "Keep thinking about the meaning of life"
+            },
+            {
+              "key": "meaning_20",
+              "label": "Grow Meaning",
+              "desc": "Let meaning grow little by little"
+            }
+          ]
+        },
+        {
+          "key": "transcendence",
+          "label": "Transcend the Usual Self",
+          "themes": [
+            {
+              "key": "transcendence_01",
+              "label": "Outside the Reaction",
+              "desc": "Even when irritated, you do not have to move from it right away"
+            },
+            {
+              "key": "transcendence_02",
+              "label": "Beyond Only Yourself",
+              "desc": "Think not only of yourself, but of everyone involved"
+            },
+            {
+              "key": "transcendence_03",
+              "label": "Beyond the Role",
+              "desc": "Your role or title is not all of who you are"
+            },
+            {
+              "key": "transcendence_04",
+              "label": "Beyond Assumptions",
+              "desc": "Look from another angle instead of deciding too quickly"
+            },
+            {
+              "key": "transcendence_05",
+              "label": "Open Unseen Possibility",
+              "desc": "Do not define yourself only by what you cannot do now"
+            },
+            {
+              "key": "transcendence_06",
+              "label": "See Widely",
+              "desc": "Look beyond what is immediately in front of you"
+            },
+            {
+              "key": "transcendence_07",
+              "label": "Return to Inner Quiet",
+              "desc": "Return to the quiet place inside you, even when things are noisy"
+            },
+            {
+              "key": "transcendence_08",
+              "label": "Awake Here and Now",
+              "desc": "Be fully here in this moment"
+            },
+            {
+              "key": "transcendence_09",
+              "label": "Loosen Attachment",
+              "desc": "Hold a little less tightly"
+            },
+            {
+              "key": "transcendence_10",
+              "label": "Entrust to the Flow",
+              "desc": "Do what you can, then let the rest move"
+            },
+            {
+              "key": "transcendence_11",
+              "label": "Feel Awe",
+              "desc": "Feel the vastness of nature and life"
+            },
+            {
+              "key": "transcendence_12",
+              "label": "Connected to the Whole",
+              "desc": "Feel that you are not living alone"
+            },
+            {
+              "key": "transcendence_13",
+              "label": "In Harmony with Nature",
+              "desc": "Let nature help you come back into balance"
+            },
+            {
+              "key": "transcendence_14",
+              "label": "Feel Spaciousness in the Body",
+              "desc": "Know through the body, not only through the mind"
+            },
+            {
+              "key": "transcendence_15",
+              "label": "Lose Yourself in Flow",
+              "desc": "Be so absorbed that you forget yourself for a while"
+            },
+            {
+              "key": "transcendence_16",
+              "label": "Beyond Black and White",
+              "desc": "See more widely than only right or wrong"
+            },
+            {
+              "key": "transcendence_17",
+              "label": "Accept the Limits of Time",
+              "desc": "Value now because time is limited"
+            },
+            {
+              "key": "transcendence_18",
+              "label": "Connect Beyond the Surface",
+              "desc": "Care for the deeper feelings beneath the surface"
+            },
+            {
+              "key": "transcendence_19",
+              "label": "Share What You Have",
+              "desc": "Share what is within you with others"
+            },
+            {
+              "key": "transcendence_20",
+              "label": "Bring Insight into Daily Life",
+              "desc": "Let what you notice shape your everyday actions"
+            }
+          ]
+        },
+        {
+          "key": "legacy",
+          "label": "Leave Something Behind",
+          "themes": [
+            {
+              "key": "legacy_01",
+              "label": "Notice What You Inherited",
+              "desc": "Recognize that you have received something important from others"
+            },
+            {
+              "key": "legacy_02",
+              "label": "Want to Leave It Forward",
+              "desc": "Feel that what matters should remain for those who come next"
+            },
+            {
+              "key": "legacy_03",
+              "label": "Choose What to Leave",
+              "desc": "Choose for yourself what you want to leave behind"
+            },
+            {
+              "key": "legacy_04",
+              "label": "Leave Proof of Living",
+              "desc": "Give form to the fact that you lived"
+            },
+            {
+              "key": "legacy_05",
+              "label": "Record Experience",
+              "desc": "Leave a record of what you learned by doing"
+            },
+            {
+              "key": "legacy_06",
+              "label": "Leave Wisdom",
+              "desc": "Leave what you learned in a form others can use"
+            },
+            {
+              "key": "legacy_07",
+              "label": "Leave the Invisible",
+              "desc": "Leave not only things, but thoughts and feelings that matter"
+            },
+            {
+              "key": "legacy_08",
+              "label": "Leave a Work",
+              "desc": "Turn your thoughts and sensations into a work"
+            },
+            {
+              "key": "legacy_09",
+              "label": "Pass on Skills",
+              "desc": "Teach your ways and practical know-how to others"
+            },
+            {
+              "key": "legacy_10",
+              "label": "Leave Words",
+              "desc": "Put important feelings and thoughts into words"
+            },
+            {
+              "key": "legacy_11",
+              "label": "Remain in the Heart",
+              "desc": "Leave something warm in another person’s heart"
+            },
+            {
+              "key": "legacy_12",
+              "label": "Leave a Place",
+              "desc": "Create a place or system where people can gather"
+            },
+            {
+              "key": "legacy_13",
+              "label": "Leave Care in Nature",
+              "desc": "Care for nature and land for those who come next"
+            },
+            {
+              "key": "legacy_14",
+              "label": "Grow the Next Person",
+              "desc": "Help someone else become able to continue"
+            },
+            {
+              "key": "legacy_15",
+              "label": "Choose with the Future in Mind",
+              "desc": "Consider not only now, but what will remain later"
+            },
+            {
+              "key": "legacy_16",
+              "label": "Make It Last with Care",
+              "desc": "Create carefully so it can remain for a long time"
+            },
+            {
+              "key": "legacy_17",
+              "label": "Receive and Pass On",
+              "desc": "Pass what you received into the future in your own form"
+            },
+            {
+              "key": "legacy_18",
+              "label": "Allow It to Change",
+              "desc": "Feel okay even if what you leave changes later"
+            },
+            {
+              "key": "legacy_19",
+              "label": "Leave Substance Over Name",
+              "desc": "Leave something useful rather than chasing fame"
+            },
+            {
+              "key": "legacy_20",
+              "label": "Carry Life Forward",
+              "desc": "Feel your life continuing into the future"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

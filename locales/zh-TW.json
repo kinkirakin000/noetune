@@ -1,0 +1,2737 @@
+{
+  "lang": "zh-TW",
+  "ui": {
+    "back_button": "返回",
+    "start_button": "開始",
+    "entryMethodTitle": "你想從哪裡開始？",
+    "entryMethodThemeTitle": "從主題中選擇",
+    "entryMethodThemeDesc": "從準備好的主題中，選擇現在在意的方向。",
+    "entryMethodFreeTitle": "自由輸入",
+    "entryMethodFreeDesc": "用自己的話，寫下現在的主題。",
+    "freeTypeTitle": "選擇比較容易回答的方式。",
+    "freeTypeIdealTitle": "寫下理想狀態",
+    "freeTypeIdealDesc": "不要寫「想要～」，請寫成已經是那樣的狀態。",
+    "freeTypeIdealExample": "例：\n安心著\n自由地選擇著\n身體放鬆著",
+    "freeTypeTopicTitle": "寫下現在心裡卡住的事",
+    "freeTypeTopicDesc": "請把現在心裡卡住的事，照原樣寫下來。",
+    "freeTypeTopicExample": "例：\n錢的事一直在腦中打轉\n人際關係讓我在意\n想到未來就覺得沉重\n身體的緊繃放不掉",
+    "freeIdealInputTitle": "請寫下理想狀態。",
+    "freeIdealInputPlaceholder": "例：安心著",
+    "freeTopicInputTitle": "請寫下現在心裡卡住的事。",
+    "freeTopicInputPlaceholder": "例：錢的事一直在腦中打轉",
+    "freeInputStartButton": "用這個內容開始",
+    "freeInputSkip": "還說不成文字",
+    "v13NonIdealQuestion": "不是那樣的狀態是什麼？\n是什麼阻礙了它？",
+    "v13IdealQuestion": "與它無關的人，是什麼樣的體驗？\n沒有它的人，是什麼樣的體驗？",
+    "theme_top_copy": "請依照現在的感覺，\n選一個幸福的人身上\n會有的狀態。\n\n或是自由輸入。",
+    "category_section_label": "依分類選擇",
+    "custom_input_placeholder": "自由輸入…",
+    "theme_cta_button": "用這個主題開始",
+    "app_sub": "— 調頻下一個瞬間 —",
+    "see_more_themes": "查看更多",
+    "door_title": "請選一個\n比較容易回答的問題。",
+    "door_answer_placeholder": "輸入狀態…",
+    "door_next_button": "用這個答案繼續",
+    "door_a_question_template": "「{neg}」\n\n正在感受到這種感覺的人\n\n是什麼狀態？",
+    "door_b_question_template": "「{pos}」\n\n沒有感受到這種感覺的人\n\n是什麼狀態？",
+    "door_c_question_template": "「{pos}」\n\n正在感受到這種感覺的人\n\n是什麼狀態？",
+    "pricing_title": "繼續使用 Noetune",
+    "pricing_p1": "Noetune 第一個月\n可以免費使用。\n\n之後，\n可以透過付費方案\n繼續使用。",
+    "pricing_p2": "這是一個小小的\n自我調頻練習。\n它從幸福的人身上\n會有的狀態開始，\n幫助你調整\n此刻浮現的反應。\n\n安心。\n餘裕。\n在此時此刻。\n能夠做自己。\n\n透過觀察自己\n對這些狀態的反應，\n你會一點一點回到\n不被固定的狀態。",
+    "pricing_free_label": "免費體驗",
+    "pricing_free_title": "完整體驗一個主題",
+    "pricing_free_description": "選擇一個理想狀態，慢慢看著它，直到不再浮現新的回答。",
+    "pricing_professional_label": "Professional",
+    "pricing_professional_title": "需要時，可以回到任何主題。",
+    "pricing_features": [
+      "使用所有主題",
+      "不限次數使用",
+      "隨時可以取消"
+    ],
+    "pricing_price": "每月 NT$290",
+    "pricing_cta": "免費開始第一個月",
+    "portal_manage": "管理訂閱",
+    "pricing_note": "需要時，安靜地回到自己的地方。",
+    "pricing_cancel_note": "隨時可以取消。",
+    "pricing_subscription_note": "訂閱將每月自動續訂，並可隨時在帳號設定中管理或取消。",
+    "guest_records_note": "訪客使用期間的紀錄會儲存在這台裝置中。\n若要在其他裝置使用或安全保留紀錄，請先登入。",
+    "pricing_soon": "準備中",
+    "lock_title": "一個可以再次回來的地方",
+    "lock_body": "第一次也能完整體驗 Noetune。\n使用 Professional，便能在需要時回到任何主題。",
+    "lock_cta": "使用 Professional 繼續",
+    "lock_note": "每月 NT$290",
+    "trial_remaining": "還可以體驗 {remaining} 次",
+    "repeat_same_theme": "用同一個主題再一次",
+    "result_more_in_theme": "查看更多同一主題",
+    "resultNewThemeButton": "用新的主題開始",
+    "repeat_same_theme_hint": "可以用同一個主題\n多看幾次，\n直到答案自然不再出現。",
+    "choose_new_theme": "選擇別的主題",
+    "back_to_start": "回到開始畫面",
+    "change_language": "切換語言",
+    "result_pricing_note": "繼續使用 Noetune →",
+    "result_upgrade_body": "需要時，\n安靜地回到自己的地方。",
+    "next_button": "下一步",
+    "not_measurable_button": "無法數值化",
+    "skip_measurement": "跳過測量",
+    "feel_prompt": "感受。",
+    "breathe_start_hint": "輕輕吐氣後，點一下",
+    "session_result_header": "Session Shift",
+    "result_label_next_moment": "理想體驗",
+    "result_label_breath_ease": "呼吸的餘裕",
+    "result_poem": "珍惜此刻的變化。",
+    "result_label_from": "From",
+    "result_label_toward": "Toward",
+    "result_shift_section": "Shift",
+    "result_nc_helper": "下一個瞬間，\n成為這個體驗的可能性",
+    "result_be_helper": "呼吸的餘裕度",
+    "result_nm_display": "沒有被固定",
+    "result_meaning": "沒有被固定＝\n不被數字固定住，\n可以自由變化的感覺",
+    "breath_in": "吸氣",
+    "breath_out": "吐氣",
+    "issue_placeholder": "輸入問題…",
+    "issue_skip": "沒有浮現",
+    "ideal_placeholder": "輸入留下來的狀態…",
+    "ideal_skip": "跳過",
+    "ideal_top_copy": "寫下下一個瞬間\n想感受到的體驗，\n或從下方開始。",
+    "see_more_ideals": "查看更多理想體驗",
+    "ideal_cta_button": "下一步",
+    "breath_2_text": "那時候呼吸的餘裕度",
+    "breath_3_text": "愛那個感覺。",
+    "breath_4_text": "包含那個感覺的一切。",
+    "breath_mode_title": "請選擇呼吸的進行方式。",
+    "breath_mode_soft_label": "溫柔地調整",
+    "breath_mode_soft_desc": "用簡短的呼吸，慢慢鬆開現在的感受。",
+    "breath_mode_deep_label": "深入地調整",
+    "breath_mode_deep_desc": "稍微深入看見抗拒與反應的內側。",
+    "breath_3_soft_text": "我對那份感受的感覺",
+    "breath_4_soft_text": "包含那份感受的一切",
+    "breath_5_soft_text": "那份感受不存在的狀態",
+    "breath_3_deep_text": "對那個感覺的感覺",
+    "breath_4_deep_text": "包含那個感覺的一切",
+    "breath_5_deep_text": "那個感覺不存在的狀態。",
+    "ideal_title": "「{issue}」\n\n當那個反應不存在時，\n會留下什麼理想狀態？",
+    "ideal_unified_title": "「{theme}」\n\n有這個的人，\n理想狀態是？",
+    "before2_title": "「{ideal}」\n\n那時候，\n呼吸有多少餘裕？",
+    "after2_title": "「{ideal}」\n\n那時候，\n呼吸有多少餘裕？",
+    "breath_1_text": "「{ideal}」",
+    "ideal_blocker_title": "是什麼阻礙了\n「{ideal}」？",
+    "ideal_blocker_placeholder": "輸入阻礙的狀態…",
+    "ideal_before1_title": "「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？",
+    "ideal_before2_title": "「{issue}」\n\n那時候，\n呼吸有多少餘裕？",
+    "ideal_after1_title": "「{ideal}」\n\n下一個瞬間，\n成為那個狀態的可能性是？",
+    "ideal_after2_title": "「{issue}」\n\n那時候，\n呼吸有多少餘裕？",
+    "ideal_breath_1_text": "「{issue}」",
+    "save_image_button": "儲存成圖片",
+    "save_image_creating": "正在製作圖片…",
+    "save_image_fallback_note": "如果無法儲存，\n請長按圖片，\n或使用截圖保存。",
+    "save_image_error": "無法儲存圖片。\n請使用截圖保存。",
+    "save_image_preview_note": "長按即可儲存圖片。",
+    "shift_note_title": "如果用一句話\n形容現在的感覺？",
+    "shift_note_placeholder": "例：稍微鬆開了 / 安靜地回來了",
+    "shift_note_button": "查看結果",
+    "shift_note_skip": "跳過",
+    "no_answer_button": "沒有答案出現",
+    "congrats_title": "Congratulations",
+    "congrats_body": "在這個主題裡，\n現在沒有反應浮現。\n\n這也許代表，\n此刻這個主題\n已經安靜下來了。\n\n如果需要，\n可以選擇別的主題。",
+    "congrats_choose_new_theme": "選擇別的主題",
+    "congrats_back_to_start": "回到開始畫面",
+    "result_shift_note_label": "現在的感覺",
+    "door_a_template": "正在感受到「{neg}」的人",
+    "door_b_template": "沒有感受到「{pos}」的人",
+    "door_c_template": "正在感受到「{pos}」的人",
+    "step1_question": "那個人是什麼狀態？",
+    "step2_question": "當那個反應不存在時，剩下什麼樣的理想狀態？",
+    "step1_placeholder": "輸入反應…",
+    "step2_placeholder": "輸入理想狀態…",
+    "nega_ideal_title": "沒有這個的人，\n會是什麼理想狀態？",
+    "nega_ideal_placeholder": "輸入理想狀態…",
+    "step1_skip_default": "安靜地反應著",
+    "step2_skip_default": "安靜地回來了",
+    "wishEntryTitle": "選擇現在最在意的領域。",
+    "seeMore": "查看更多",
+    "aboutLink": "關於 Noetune",
+    "resultUnanswered": "尚未回答",
+    "resultRepeatWish": "用新的主題開始",
+    "professionalLead": "在需要的時候，\n安靜地回到自己的地方。",
+    "professionalTitle": "Professional",
+    "professionalPrice": "每月 NT$290",
+    "professionalCta": "查看 Professional",
+    "landingHero": "每一次想起原本的自己，\n人生就會變得輕一點。",
+    "landingSub": "選擇。\n回答。\n覺察。\n\nNoetune 是一個透過現實中的體驗，\n幫助你想起自然自己的 App。",
+    "landingStart": "開始",
+    "landingSection": "什麼時候可以使用",
+    "landingItems": [
+      "・為了金錢而起反應時",
+      "・在人際關係中卡住時",
+      "・工作讓自己變得沉重時",
+      "・對未來感到不安時",
+      "・一直責怪自己時",
+      "・不知道自己到底發生了什麼時"
+    ],
+    "landingFooter1": "Noetune 不是分析問題的 App。",
+    "landingFooter2": "透過簡短的問題，\n幫助你從正在發生的事情裡，\n慢慢認識自己。",
+    "landingAboutLink": "Noetune是什麼",
+    "landingPricingLink": "免費版與 Professional 版",
+    "professionalSessionCta": "開始 Professional 體驗",
+    "authGoogleContinue": "使用 Google 繼續",
+    "authTitle": "登入",
+    "authBody": "使用 Google 登入，方便下次繼續使用。",
+    "authEmailPlaceholder": "電子郵件地址",
+    "authErrorRetry": "無法登入，請再試一次。",
+    "authError": "無法登入。",
+    "authInvalidEmail": "請輸入有效的電子郵件地址。",
+    "authSendErrorRetry": "無法寄出，請再試一次。",
+    "authEmailButton": "使用電子郵件登入",
+    "authEmailSentMessage": "驗證信已寄出。\n請開啟信中的連結。",
+    "authSent": "已寄出",
+    "authSendError": "無法寄出。",
+    "authGoogleLogin": "使用 Google 登入",
+    "authRestoreProfessional": "恢復 Professional",
+    "authLogout": "登出",
+    "trialOneLeft": "免費體驗還剩 1 次。",
+    "trialComplete": "免費體驗已結束。\n升級 Professional，即可在需要時隨時回來。",
+    "v13EndTitle": "要在這裡結束嗎？",
+    "v13FinishButton": "在這裡結束",
+    "v13ContinueInitial": "從最初的主題「{theme}」重新開始"
+  },
+  "about": {
+    "title": "關於 Noetune",
+    "p1": "Noetune 是一個從\n現在最在意的人生主題開始，\n幫助你想起自然的自己應用程式。",
+    "p2": "身體與安心、\n人與人的連結、\n自己選擇的力量、\n享受、\n創造、\n理解。\n\n從這些之中，\n選擇此刻最接近自己的願望，\n回答幾個簡短的提問。",
+    "p3": "Noetune 不是\n分析問題的應用程式。\n也不是告訴你答案的應用程式。",
+    "p4": "它是一個工具，\n讓你透過此刻正在發生的事，\n慢慢察覺原本就在自己之中的感覺。",
+    "safety": "這不是醫療行為。\n如果你正處於緊急狀態，\n請向專業人士或身邊信任的人求助。"
+  },
+  "wishGroups": [
+    {
+      "key": "foundation",
+      "label": "身體與安心（存在的基礎）",
+      "wishes": [
+        {
+          "key": "life",
+          "label": "生命力",
+          "themes": [
+            {
+              "key": "life_01",
+              "label": "用身體活著",
+              "desc": "透過身體的感覺，感受生命"
+            },
+            {
+              "key": "life_02",
+              "label": "品味五感",
+              "desc": "享受看見、聽見、品嚐與觸摸"
+            },
+            {
+              "key": "life_03",
+              "label": "活著的實感",
+              "desc": "感受到此刻自己正在活著"
+            },
+            {
+              "key": "life_04",
+              "label": "品味當下",
+              "desc": "好好接收此刻正在發生的事"
+            },
+            {
+              "key": "life_05",
+              "label": "接收喜悅",
+              "desc": "自然感受開心與愉悅"
+            },
+            {
+              "key": "life_06",
+              "label": "允許舒服",
+              "desc": "不把舒適與渴望當成壞事"
+            },
+            {
+              "key": "life_07",
+              "label": "生命在流動",
+              "desc": "感受生命力在身體裡流動"
+            },
+            {
+              "key": "life_08",
+              "label": "享受行動",
+              "desc": "享受活動身體與採取行動"
+            },
+            {
+              "key": "life_09",
+              "label": "保有玩心",
+              "desc": "願意嘗試、笑一笑、變出新的方法"
+            },
+            {
+              "key": "life_10",
+              "label": "創造並表達",
+              "desc": "把內在的感覺化成具體形式"
+            },
+            {
+              "key": "life_11",
+              "label": "投入其中",
+              "desc": "深深進入自己喜歡的事"
+            },
+            {
+              "key": "life_12",
+              "label": "小小冒險",
+              "desc": "在日常中嘗試新的體驗"
+            },
+            {
+              "key": "life_13",
+              "label": "享受變化",
+              "desc": "把改變看成生命的流動"
+            },
+            {
+              "key": "life_14",
+              "label": "接納結束",
+              "desc": "把死亡與離別看成生命的一部分"
+            },
+            {
+              "key": "life_15",
+              "label": "感受情緒",
+              "desc": "把情緒當成生命的流動來感受"
+            },
+            {
+              "key": "life_16",
+              "label": "真誠互動",
+              "desc": "不過度包裝自己，也能與人連結"
+            },
+            {
+              "key": "life_17",
+              "label": "擁有界線",
+              "desc": "守護自己的喜悅與生命"
+            },
+            {
+              "key": "life_18",
+              "label": "信任自己",
+              "desc": "信任自己的感覺與直覺"
+            },
+            {
+              "key": "life_19",
+              "label": "與自然連結",
+              "desc": "在自然中感受生命"
+            },
+            {
+              "key": "life_20",
+              "label": "參與人生",
+              "desc": "不只是旁觀，而是親自體驗人生"
+            }
+          ]
+        },
+        {
+          "key": "safety",
+          "label": "安心",
+          "themes": [
+            {
+              "key": "safety_01",
+              "label": "我可以在這裡",
+              "desc": "感受到自己可以存在於此"
+            },
+            {
+              "key": "safety_02",
+              "label": "原本的自己",
+              "desc": "連同脆弱的部分，也能接納自己"
+            },
+            {
+              "key": "safety_03",
+              "label": "信任自己",
+              "desc": "感到自己有能力回應眼前的事"
+            },
+            {
+              "key": "safety_04",
+              "label": "身體放鬆",
+              "desc": "身體的緊繃慢慢鬆開"
+            },
+            {
+              "key": "safety_05",
+              "label": "扎根當下",
+              "desc": "在此時此地找到立足點"
+            },
+            {
+              "key": "safety_06",
+              "label": "自己調整",
+              "desc": "知道如何讓自己安定下來"
+            },
+            {
+              "key": "safety_07",
+              "label": "被支持著",
+              "desc": "不需要一個人扛下全部"
+            },
+            {
+              "key": "safety_08",
+              "label": "接受支持",
+              "desc": "能夠收下別人的幫助"
+            },
+            {
+              "key": "safety_09",
+              "label": "一個人也安心",
+              "desc": "在自己內在有可以依靠的地方"
+            },
+            {
+              "key": "safety_10",
+              "label": "安心的人",
+              "desc": "擁有讓自己鬆一口氣的關係"
+            },
+            {
+              "key": "safety_11",
+              "label": "保護自己",
+              "desc": "能夠守護自己的安全"
+            },
+            {
+              "key": "safety_12",
+              "label": "擁有界線",
+              "desc": "保有剛剛好的距離"
+            },
+            {
+              "key": "safety_13",
+              "label": "情緒也是安全的",
+              "desc": "能安全地感受自己的情緒"
+            },
+            {
+              "key": "safety_14",
+              "label": "不安也是訊號",
+              "desc": "把不安當成確認自己的訊號"
+            },
+            {
+              "key": "safety_15",
+              "label": "失敗後也能回來",
+              "desc": "即使失敗，自己也不會因此壞掉"
+            },
+            {
+              "key": "safety_16",
+              "label": "未知也沒關係",
+              "desc": "即使還不知道，也能往前走"
+            },
+            {
+              "key": "safety_17",
+              "label": "交給流動",
+              "desc": "放下無法控制的事"
+            },
+            {
+              "key": "safety_18",
+              "label": "已經足夠",
+              "desc": "感受到此刻已經擁有的滿足"
+            },
+            {
+              "key": "safety_19",
+              "label": "整理生活",
+              "desc": "用每天的節奏培養安心"
+            },
+            {
+              "key": "safety_20",
+              "label": "從安心出發",
+              "desc": "以安定作為行動的基礎"
+            }
+          ]
+        },
+        {
+          "key": "rest",
+          "label": "休息",
+          "themes": [
+            {
+              "key": "rest_01",
+              "label": "允許休息",
+              "desc": "覺得現在可以休息"
+            },
+            {
+              "key": "rest_02",
+              "label": "休息是保養",
+              "desc": "休息是在整理自己"
+            },
+            {
+              "key": "rest_03",
+              "label": "疲累是訊號",
+              "desc": "疲累時，知道那是「該休息了」的提醒"
+            },
+            {
+              "key": "rest_04",
+              "label": "讓身體休息",
+              "desc": "察覺身體想休息的聲音"
+            },
+            {
+              "key": "rest_05",
+              "label": "放鬆用力",
+              "desc": "讓身體裡的用力稍微鬆開"
+            },
+            {
+              "key": "rest_06",
+              "label": "交給重力",
+              "desc": "把身體交給支撐，變得輕鬆"
+            },
+            {
+              "key": "rest_07",
+              "label": "深深睡眠",
+              "desc": "把睡眠當成重要的事"
+            },
+            {
+              "key": "rest_08",
+              "label": "放慢呼吸",
+              "desc": "慢慢吐氣，讓自己安定"
+            },
+            {
+              "key": "rest_09",
+              "label": "品味什麼都不做",
+              "desc": "能夠享受什麼都不做的時間"
+            },
+            {
+              "key": "rest_10",
+              "label": "保留空白",
+              "desc": "為自己空出沒有安排的時間"
+            },
+            {
+              "key": "rest_11",
+              "label": "減少刺激",
+              "desc": "暫時離開手機、聲音與人群"
+            },
+            {
+              "key": "rest_12",
+              "label": "回到安靜",
+              "desc": "珍惜安靜的時間"
+            },
+            {
+              "key": "rest_13",
+              "label": "滋養自己",
+              "desc": "給身體真正需要的東西"
+            },
+            {
+              "key": "rest_14",
+              "label": "回到自然",
+              "desc": "接觸自然時，自己慢慢被整理"
+            },
+            {
+              "key": "rest_15",
+              "label": "自己的節奏",
+              "desc": "用自己的步調休息"
+            },
+            {
+              "key": "rest_16",
+              "label": "等待恢復",
+              "desc": "能等到精神自然回來"
+            },
+            {
+              "key": "rest_17",
+              "label": "交給別人",
+              "desc": "不全部自己做，也能請人幫忙"
+            },
+            {
+              "key": "rest_18",
+              "label": "為了休息說不",
+              "desc": "為了休息，能對勉強的事說不"
+            },
+            {
+              "key": "rest_19",
+              "label": "一起休息",
+              "desc": "即使在一起，也能什麼都不做地休息"
+            },
+            {
+              "key": "rest_20",
+              "label": "再次自然行動",
+              "desc": "休息之後，自然會再次動起來"
+            }
+          ]
+        },
+        {
+          "key": "health",
+          "label": "健康",
+          "themes": [
+            {
+              "key": "health_01",
+              "label": "身體是夥伴",
+              "desc": "不把身體當敵人，而是信任它"
+            },
+            {
+              "key": "health_02",
+              "label": "身體是同行者",
+              "desc": "和身體一起走一生"
+            },
+            {
+              "key": "health_03",
+              "label": "聽身體的聲音",
+              "desc": "察覺疲累、飢餓與不舒服"
+            },
+            {
+              "key": "health_04",
+              "label": "調整呼吸",
+              "desc": "透過呼吸與姿勢整理身體"
+            },
+            {
+              "key": "health_05",
+              "label": "讓流動變好",
+              "desc": "讓血液、代謝與情緒流動起來"
+            },
+            {
+              "key": "health_06",
+              "label": "好好活動",
+              "desc": "讓活動身體變得舒服"
+            },
+            {
+              "key": "health_07",
+              "label": "好好睡眠",
+              "desc": "透過睡眠恢復自己"
+            },
+            {
+              "key": "health_08",
+              "label": "好好吃飯",
+              "desc": "重視營養，也重視享受"
+            },
+            {
+              "key": "health_09",
+              "label": "休息中恢復",
+              "desc": "把休息當成健康的一部分"
+            },
+            {
+              "key": "health_10",
+              "label": "不勉強自己",
+              "desc": "尊重自己的極限"
+            },
+            {
+              "key": "health_11",
+              "label": "不適是訊號",
+              "desc": "把不適當成重新檢視的提醒"
+            },
+            {
+              "key": "health_12",
+              "label": "照顧身體",
+              "desc": "定期保養自己的身體"
+            },
+            {
+              "key": "health_13",
+              "label": "讓壓力流動",
+              "desc": "不把情緒與負荷一直累積在身體裡"
+            },
+            {
+              "key": "health_14",
+              "label": "與自然生活",
+              "desc": "配合自然的節奏"
+            },
+            {
+              "key": "health_15",
+              "label": "生活節奏",
+              "desc": "整理每天的生活流動"
+            },
+            {
+              "key": "health_16",
+              "label": "不比較身體",
+              "desc": "不過度拿自己的身體和別人比較"
+            },
+            {
+              "key": "health_17",
+              "label": "與變化相處",
+              "desc": "配合年齡與身體狀態的變化"
+            },
+            {
+              "key": "health_18",
+              "label": "搖晃後也能回穩",
+              "desc": "不完美也能再次回到平衡"
+            },
+            {
+              "key": "health_19",
+              "label": "透過環境安好",
+              "desc": "讓人與地方一起支持健康"
+            },
+            {
+              "key": "health_20",
+              "label": "從健康出發",
+              "desc": "以健康為基礎享受人生"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "relationship_dignity",
+      "label": "人際連結（關係與尊嚴）",
+      "wishes": [
+        {
+          "key": "love",
+          "label": "愛",
+          "themes": [
+            {
+              "key": "love_01",
+              "label": "值得被愛",
+              "desc": "自己可以被好好珍惜"
+            },
+            {
+              "key": "love_02",
+              "label": "愛自己",
+              "desc": "不隨便對待自己"
+            },
+            {
+              "key": "love_03",
+              "label": "愛會流動",
+              "desc": "愛在給予與接受之間擴展"
+            },
+            {
+              "key": "love_04",
+              "label": "接受愛",
+              "desc": "收下溫柔與好意"
+            },
+            {
+              "key": "love_05",
+              "label": "表達愛",
+              "desc": "把重要的心意表達出來"
+            },
+            {
+              "key": "love_06",
+              "label": "好好珍惜",
+              "desc": "把對方當成一個完整的存在來對待"
+            },
+            {
+              "key": "love_07",
+              "label": "打開心",
+              "desc": "一點一點地信任人"
+            },
+            {
+              "key": "love_08",
+              "label": "展現脆弱",
+              "desc": "不完美的自己也可以被看見"
+            },
+            {
+              "key": "love_09",
+              "label": "真誠相處",
+              "desc": "用真實的感受與人連結"
+            },
+            {
+              "key": "love_10",
+              "label": "好好聆聽",
+              "desc": "不急著定義對方，而是聽見對方"
+            },
+            {
+              "key": "love_11",
+              "label": "用身體感受愛",
+              "desc": "透過溫度與接觸感受愛"
+            },
+            {
+              "key": "love_12",
+              "label": "擁有界線",
+              "desc": "在愛裡也保有自己的不"
+            },
+            {
+              "key": "love_13",
+              "label": "平等的關係",
+              "desc": "不是只有一方一直忍耐"
+            },
+            {
+              "key": "love_14",
+              "label": "尊重自由",
+              "desc": "不把對方綁得太緊"
+            },
+            {
+              "key": "love_15",
+              "label": "尊重差異",
+              "desc": "不把差異當成關係的敵人"
+            },
+            {
+              "key": "love_16",
+              "label": "不害怕被拒絕",
+              "desc": "即使有人離開，自己的價值也不會消失"
+            },
+            {
+              "key": "love_17",
+              "label": "修復受傷",
+              "desc": "把錯過與受傷的地方重新整理"
+            },
+            {
+              "key": "love_18",
+              "label": "一個人也是愛",
+              "desc": "獨處時也好好珍惜自己"
+            },
+            {
+              "key": "love_19",
+              "label": "愛有很多形狀",
+              "desc": "也珍惜戀愛以外的愛"
+            },
+            {
+              "key": "love_20",
+              "label": "在世界看見愛",
+              "desc": "在世界裡找到溫柔"
+            }
+          ]
+        },
+        {
+          "key": "connection",
+          "label": "連結",
+          "themes": [
+            {
+              "key": "connection_01",
+              "label": "我也能連結",
+              "desc": "自己也能與人建立連結"
+            },
+            {
+              "key": "connection_02",
+              "label": "一個人也可以",
+              "desc": "分得出孤獨與孤立的不同"
+            },
+            {
+              "key": "connection_03",
+              "label": "打開心",
+              "desc": "一點一點地信任人"
+            },
+            {
+              "key": "connection_04",
+              "label": "展現真實",
+              "desc": "能讓脆弱與真心被看見"
+            },
+            {
+              "key": "connection_05",
+              "label": "主動靠近",
+              "desc": "不只是等待，也能主動開口"
+            },
+            {
+              "key": "connection_06",
+              "label": "對對方有興趣",
+              "desc": "想更認識對方"
+            },
+            {
+              "key": "connection_07",
+              "label": "好好聆聽",
+              "desc": "真正聽見對方說的話"
+            },
+            {
+              "key": "connection_08",
+              "label": "身體同頻",
+              "desc": "透過表情與呼吸感到連結"
+            },
+            {
+              "key": "connection_09",
+              "label": "表達感謝",
+              "desc": "傳達謝謝與肯定"
+            },
+            {
+              "key": "connection_10",
+              "label": "一起經驗",
+              "desc": "透過一起度過的時間加深關係"
+            },
+            {
+              "key": "connection_11",
+              "label": "打開也保護",
+              "desc": "帶著界線與人連結"
+            },
+            {
+              "key": "connection_12",
+              "label": "差異讓關係更豐富",
+              "desc": "不把差異當成連結的敵人"
+            },
+            {
+              "key": "connection_13",
+              "label": "依靠與被依靠",
+              "desc": "擁有可以互相幫忙的關係"
+            },
+            {
+              "key": "connection_14",
+              "label": "給予與接受",
+              "desc": "讓連結流動起來"
+            },
+            {
+              "key": "connection_15",
+              "label": "修復誤會",
+              "desc": "把誤解與衝突重新整理"
+            },
+            {
+              "key": "connection_16",
+              "label": "輕鬆也深刻",
+              "desc": "淺的關係與深的關係都能珍惜"
+            },
+            {
+              "key": "connection_17",
+              "label": "多種連結",
+              "desc": "擁有各種不同的關係"
+            },
+            {
+              "key": "connection_18",
+              "label": "分開也連著",
+              "desc": "即使不能見面，也能感到關係還在"
+            },
+            {
+              "key": "connection_19",
+              "label": "與自然連結",
+              "desc": "感受自己與自然、土地的關係"
+            },
+            {
+              "key": "connection_20",
+              "label": "世界是一張網",
+              "desc": "世界上的一切都彼此影響"
+            }
+          ]
+        },
+        {
+          "key": "recognition",
+          "label": "承認",
+          "themes": [
+            {
+              "key": "recognition_01",
+              "label": "我有價值",
+              "desc": "感受到自己的存在有價值"
+            },
+            {
+              "key": "recognition_02",
+              "label": "承認自己的存在",
+              "desc": "承認此刻在這裡的自己"
+            },
+            {
+              "key": "recognition_03",
+              "label": "自己看見自己",
+              "desc": "用自己的眼光看見自己"
+            },
+            {
+              "key": "recognition_04",
+              "label": "想被肯定也可以",
+              "desc": "不為想被看見的渴望感到羞愧"
+            },
+            {
+              "key": "recognition_05",
+              "label": "不依賴評價",
+              "desc": "不把評價當成全部"
+            },
+            {
+              "key": "recognition_06",
+              "label": "收下稱讚",
+              "desc": "收下讚美與感謝"
+            },
+            {
+              "key": "recognition_07",
+              "label": "品味成就感",
+              "desc": "接收完成事情的喜悅"
+            },
+            {
+              "key": "recognition_08",
+              "label": "看見自己的努力",
+              "desc": "承認自己走過的過程"
+            },
+            {
+              "key": "recognition_09",
+              "label": "說出自己的成果",
+              "desc": "談論自己的成果與長處"
+            },
+            {
+              "key": "recognition_10",
+              "label": "讓聲音被聽見",
+              "desc": "表達自己的意見"
+            },
+            {
+              "key": "recognition_11",
+              "label": "表達自己",
+              "desc": "把內在的東西化成形式"
+            },
+            {
+              "key": "recognition_12",
+              "label": "批評只是資訊",
+              "desc": "把指正當成資訊來看"
+            },
+            {
+              "key": "recognition_13",
+              "label": "聽取意見",
+              "desc": "為了成長而聽見別人的聲音"
+            },
+            {
+              "key": "recognition_14",
+              "label": "從比較中回來",
+              "desc": "即使比較了，也能回到自己"
+            },
+            {
+              "key": "recognition_15",
+              "label": "沒被肯定也在",
+              "desc": "即使沒有承認，也不失去自己"
+            },
+            {
+              "key": "recognition_16",
+              "label": "選擇看見自己的地方",
+              "desc": "選擇能承認自己的場域"
+            },
+            {
+              "key": "recognition_17",
+              "label": "看見別人",
+              "desc": "也能看見別人的價值"
+            },
+            {
+              "key": "recognition_18",
+              "label": "彼此肯定",
+              "desc": "一起發現彼此的好"
+            },
+            {
+              "key": "recognition_19",
+              "label": "獨一無二的自己",
+              "desc": "擁有只屬於自己的價值"
+            },
+            {
+              "key": "recognition_20",
+              "label": "使用自己的價值",
+              "desc": "把自己的好放到世界裡使用"
+            }
+          ]
+        },
+        {
+          "key": "value",
+          "label": "價值",
+          "themes": [
+            {
+              "key": "value_01",
+              "label": "存在本身有價值",
+              "desc": "即使什麼都做不到，也能感到自己有價值"
+            },
+            {
+              "key": "value_02",
+              "label": "察覺重要的事",
+              "desc": "能看見真正重要的東西"
+            },
+            {
+              "key": "value_03",
+              "label": "自己的價值",
+              "desc": "感受到自己也有重要的價值"
+            },
+            {
+              "key": "value_04",
+              "label": "看見別人的價值",
+              "desc": "看見別人的好與重要性"
+            },
+            {
+              "key": "value_05",
+              "label": "不比較也能看見",
+              "desc": "不靠比較，也能找到價值"
+            },
+            {
+              "key": "value_06",
+              "label": "弱點也有價值",
+              "desc": "把弱點與失敗也看成自己的一部分"
+            },
+            {
+              "key": "value_07",
+              "label": "看見小小的價值",
+              "desc": "對小事也能覺得很好"
+            },
+            {
+              "key": "value_08",
+              "label": "珍惜這一刻",
+              "desc": "感受到此刻不會再重來"
+            },
+            {
+              "key": "value_09",
+              "label": "把經驗化成價值",
+              "desc": "成功與失敗都能用在下一步"
+            },
+            {
+              "key": "value_10",
+              "label": "承認努力",
+              "desc": "不只看結果，也看見努力的過程"
+            },
+            {
+              "key": "value_11",
+              "label": "把差異化成價值",
+              "desc": "覺得不同的想法與個性很有意思"
+            },
+            {
+              "key": "value_12",
+              "label": "用身體感受價值",
+              "desc": "真正重要的東西，也能用身體感覺到"
+            },
+            {
+              "key": "value_13",
+              "label": "珍惜時間",
+              "desc": "好好使用時間"
+            },
+            {
+              "key": "value_14",
+              "label": "珍惜物品",
+              "desc": "不粗糙對待物品，而是好好使用"
+            },
+            {
+              "key": "value_15",
+              "label": "看見關係的價值",
+              "desc": "感受到人與人的連結很重要"
+            },
+            {
+              "key": "value_16",
+              "label": "使用自己的價值",
+              "desc": "把自己擁有的力量用在別人身上"
+            },
+            {
+              "key": "value_17",
+              "label": "創造價值",
+              "desc": "創造對人有幫助的東西或場域"
+            },
+            {
+              "key": "value_18",
+              "label": "接收價值",
+              "desc": "收下別人帶來的好東西"
+            },
+            {
+              "key": "value_19",
+              "label": "分享價值",
+              "desc": "把好的東西與人分享"
+            },
+            {
+              "key": "value_20",
+              "label": "培養價值",
+              "desc": "用時間培養重要的東西"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "freedom_power",
+      "label": "自己選擇的力量（自由與力量）",
+      "wishes": [
+        {
+          "key": "freedom",
+          "label": "自由",
+          "themes": [
+            {
+              "key": "freedom_01",
+              "label": "人生是自己的",
+              "desc": "掌握自己人生的主導權"
+            },
+            {
+              "key": "freedom_02",
+              "label": "自己決定",
+              "desc": "依照自己的意志做選擇"
+            },
+            {
+              "key": "freedom_03",
+              "label": "信任感覺",
+              "desc": "聽見自己的違和與納得"
+            },
+            {
+              "key": "freedom_04",
+              "label": "用價值觀選擇",
+              "desc": "用自己真正重視的事來選"
+            },
+            {
+              "key": "freedom_05",
+              "label": "承擔責任",
+              "desc": "從自己選擇的結果中學習"
+            },
+            {
+              "key": "freedom_06",
+              "label": "說不",
+              "desc": "拒絕不適合自己的事"
+            },
+            {
+              "key": "freedom_07",
+              "label": "說好",
+              "desc": "選擇自己想做的事"
+            },
+            {
+              "key": "freedom_08",
+              "label": "擁有界線",
+              "desc": "守護自己的時間與內心"
+            },
+            {
+              "key": "freedom_09",
+              "label": "不背負期待",
+              "desc": "不只用別人的期待來決定"
+            },
+            {
+              "key": "freedom_10",
+              "label": "不必被帶著走",
+              "desc": "不被同儕壓力吞沒"
+            },
+            {
+              "key": "freedom_11",
+              "label": "可以懷疑框架",
+              "desc": "重新看待所謂的常識與規則"
+            },
+            {
+              "key": "freedom_12",
+              "label": "選擇框架之外",
+              "desc": "選擇更像自己的路"
+            },
+            {
+              "key": "freedom_13",
+              "label": "自己的節奏",
+              "desc": "用自己的步調生活"
+            },
+            {
+              "key": "freedom_14",
+              "label": "身體很輕",
+              "desc": "身體能自由地活動"
+            },
+            {
+              "key": "freedom_15",
+              "label": "沒有正解也能走",
+              "desc": "即使還不確定，也能先走一步"
+            },
+            {
+              "key": "freedom_16",
+              "label": "可以停止",
+              "desc": "放下不再適合自己的事"
+            },
+            {
+              "key": "freedom_17",
+              "label": "可以開始",
+              "desc": "開始新的事情"
+            },
+            {
+              "key": "freedom_18",
+              "label": "在限制中選擇",
+              "desc": "在現有條件裡選出能走的一步"
+            },
+            {
+              "key": "freedom_19",
+              "label": "對方也自由",
+              "desc": "也尊重對方的選擇"
+            },
+            {
+              "key": "freedom_20",
+              "label": "自己是主角",
+              "desc": "自己描繪自己的人生"
+            }
+          ]
+        },
+        {
+          "key": "ability",
+          "label": "力量",
+          "themes": [
+            {
+              "key": "ability_01",
+              "label": "我有力量",
+              "desc": "自己也有能做到的事"
+            },
+            {
+              "key": "ability_02",
+              "label": "能力會成長",
+              "desc": "透過練習與經驗慢慢伸展"
+            },
+            {
+              "key": "ability_03",
+              "label": "現在能走的一步",
+              "desc": "找到此刻可以做的一個行動"
+            },
+            {
+              "key": "ability_04",
+              "label": "小小開始",
+              "desc": "不等完美，先開始一點點"
+            },
+            {
+              "key": "ability_05",
+              "label": "拆小目標",
+              "desc": "把大的事情拆成小步驟"
+            },
+            {
+              "key": "ability_06",
+              "label": "享受挑戰",
+              "desc": "也能正面面對有難度的事"
+            },
+            {
+              "key": "ability_07",
+              "label": "專注投入",
+              "desc": "專心進入眼前的課題"
+            },
+            {
+              "key": "ability_08",
+              "label": "嘗試並學習",
+              "desc": "透過實際去做來學習"
+            },
+            {
+              "key": "ability_09",
+              "label": "失敗是資訊",
+              "desc": "把失敗變成下一步的提示"
+            },
+            {
+              "key": "ability_10",
+              "label": "回頭看進步",
+              "desc": "記錄並看見自己的成長"
+            },
+            {
+              "key": "ability_11",
+              "label": "小小成功",
+              "desc": "承認自己做到的一點點"
+            },
+            {
+              "key": "ability_12",
+              "label": "自己的步調",
+              "desc": "不和別人比較地成長"
+            },
+            {
+              "key": "ability_13",
+              "label": "活用擅長",
+              "desc": "把自己的強項用在現實裡"
+            },
+            {
+              "key": "ability_14",
+              "label": "為不擅長找方法",
+              "desc": "即使不擅長，也能改變做法"
+            },
+            {
+              "key": "ability_15",
+              "label": "尋求幫助",
+              "desc": "需要時能向人詢問"
+            },
+            {
+              "key": "ability_16",
+              "label": "使用工具",
+              "desc": "用知識與工具擴展自己的力量"
+            },
+            {
+              "key": "ability_17",
+              "label": "活用意見",
+              "desc": "透過回饋讓自己變得更好"
+            },
+            {
+              "key": "ability_18",
+              "label": "專注能做的事",
+              "desc": "把力量用在能改變的地方"
+            },
+            {
+              "key": "ability_19",
+              "label": "完美前先拿出來",
+              "desc": "即使還沒完成，也先讓它出來並慢慢長大"
+            },
+            {
+              "key": "ability_20",
+              "label": "能力與價值不同",
+              "desc": "做不到的時候，自己的價值也不會下降"
+            }
+          ]
+        },
+        {
+          "key": "growth",
+          "label": "成長",
+          "themes": [
+            {
+              "key": "growth_01",
+              "label": "喜歡自己的伸展空間",
+              "desc": "把還做不到的事看成接下來會成長的地方"
+            },
+            {
+              "key": "growth_02",
+              "label": "從零開始學",
+              "desc": "不把不知道當成羞恥，而是坦率地學"
+            },
+            {
+              "key": "growth_03",
+              "label": "走向稍高的牆",
+              "desc": "也能前往對現在的自己稍微有難度的事"
+            },
+            {
+              "key": "growth_04",
+              "label": "更新自己",
+              "desc": "不被舊想法與習慣綁住，往新的自己前進"
+            },
+            {
+              "key": "growth_05",
+              "label": "把話聽成提示",
+              "desc": "把別人的話用在下一次改善"
+            },
+            {
+              "key": "growth_06",
+              "label": "從日常學習",
+              "desc": "在平常生活裡也找到可以學的事"
+            },
+            {
+              "key": "growth_07",
+              "label": "向一流學習",
+              "desc": "接觸厲害的人與真正好的東西，擴展自己的可能"
+            },
+            {
+              "key": "growth_08",
+              "label": "用身體記住",
+              "desc": "不只用想的，而是一邊做一邊學會"
+            },
+            {
+              "key": "growth_09",
+              "label": "拓寬視角",
+              "desc": "不只從自己，也能從整體與未來思考"
+            },
+            {
+              "key": "growth_10",
+              "label": "分享學到的事",
+              "desc": "把自己學到的事也用在別人身上"
+            },
+            {
+              "key": "growth_11",
+              "label": "不比較也成長",
+              "desc": "不過度和人比較，也能看見自己的變化"
+            },
+            {
+              "key": "growth_12",
+              "label": "停滯也是成長",
+              "desc": "把沒有進展的時期也當成成長的一部分"
+            },
+            {
+              "key": "growth_13",
+              "label": "把經驗化成智慧",
+              "desc": "從發生過的事裡接收重要的學習"
+            },
+            {
+              "key": "growth_14",
+              "label": "深深成長",
+              "desc": "不只能力，心的寬度也一起長大"
+            }
+          ]
+        },
+        {
+          "key": "adventure",
+          "label": "冒險",
+          "themes": [
+            {
+              "key": "adventure_01",
+              "label": "踏向未知一步",
+              "desc": "面對第一次的事，也能稍微往前走"
+            },
+            {
+              "key": "adventure_02",
+              "label": "信任好奇心",
+              "desc": "珍惜想知道、想試試看的感覺"
+            },
+            {
+              "key": "adventure_03",
+              "label": "把害怕化成力量",
+              "desc": "把緊張變成準備與專注的力量"
+            },
+            {
+              "key": "adventure_04",
+              "label": "走到外面去",
+              "desc": "也能走出熟悉的地方與做法"
+            },
+            {
+              "key": "adventure_05",
+              "label": "用身體探索",
+              "desc": "透過走路、觀看、觸摸與嘗試來認識世界"
+            },
+            {
+              "key": "adventure_06",
+              "label": "打開五感",
+              "desc": "好好感受聲音、氣味、景色與空氣"
+            },
+            {
+              "key": "adventure_07",
+              "label": "在日常中冒險",
+              "desc": "每天都能小小嘗試新的事"
+            },
+            {
+              "key": "adventure_08",
+              "label": "靈活前進",
+              "desc": "計畫改變時，也能找到另一種走法"
+            },
+            {
+              "key": "adventure_09",
+              "label": "享受困境",
+              "desc": "把麻煩也當成可以發揮創意的場面"
+            },
+            {
+              "key": "adventure_10",
+              "label": "準備好再前進",
+              "desc": "不只靠衝動，也做需要的準備再挑戰"
+            },
+            {
+              "key": "adventure_11",
+              "label": "從差異中學習",
+              "desc": "也能從和自己不同的人與文化中學習"
+            },
+            {
+              "key": "adventure_12",
+              "label": "和夥伴一起冒險",
+              "desc": "一個人也好，和夥伴一起也好，都能走向新的事"
+            },
+            {
+              "key": "adventure_13",
+              "label": "享受一個人",
+              "desc": "正因為是一個人，所以能自由行動"
+            },
+            {
+              "key": "adventure_14",
+              "label": "回來再前進",
+              "desc": "累了就回來，整理好後再出發"
+            },
+            {
+              "key": "adventure_15",
+              "label": "把經驗變成故事",
+              "desc": "把經歷過的事化成自己的學習與表達"
+            },
+            {
+              "key": "adventure_16",
+              "label": "走出自己的路",
+              "desc": "不只走既定的道路，也能創造自己的路"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "joy_abundance",
+      "label": "享受與滿足（喜悅與豐盛）",
+      "wishes": [
+        {
+          "key": "play",
+          "label": "遊玩",
+          "themes": [
+            {
+              "key": "play_01",
+              "label": "可以享受",
+              "desc": "讓享受成為生活自然的一部分"
+            },
+            {
+              "key": "play_02",
+              "label": "選擇有趣",
+              "desc": "比起看起來厲害，更能選擇有趣的方向"
+            },
+            {
+              "key": "play_03",
+              "label": "沒有目的也能享受",
+              "desc": "不只用有沒有用來決定"
+            },
+            {
+              "key": "play_04",
+              "label": "投入其中",
+              "desc": "投入當下的遊玩，甚至忘記時間"
+            },
+            {
+              "key": "play_05",
+              "label": "保有玩心",
+              "desc": "讓平常的事也變得有趣一點"
+            },
+            {
+              "key": "play_06",
+              "label": "小小嘗試",
+              "desc": "先試一點，之後再改也可以"
+            },
+            {
+              "key": "play_07",
+              "label": "把失敗變成笑聲",
+              "desc": "不順利的事也能笑一笑，並用在下一次"
+            },
+            {
+              "key": "play_08",
+              "label": "用規則玩",
+              "desc": "把規則與限制當成創意的入口"
+            },
+            {
+              "key": "play_09",
+              "label": "變成遊戲",
+              "desc": "把麻煩的事變成自己的遊戲"
+            },
+            {
+              "key": "play_10",
+              "label": "發明遊玩",
+              "desc": "自己創造新的玩法"
+            },
+            {
+              "key": "play_11",
+              "label": "用身體玩",
+              "desc": "透過聲音、動作、觸感與節奏來享受"
+            },
+            {
+              "key": "play_12",
+              "label": "用五感享受",
+              "desc": "享受聲音、顏色、味道與觸感"
+            },
+            {
+              "key": "play_13",
+              "label": "做東西來玩",
+              "desc": "享受畫畫、聲音、文字、料理與手作"
+            },
+            {
+              "key": "play_14",
+              "label": "讓場域放鬆",
+              "desc": "讓沉重的氣氛變得輕一點"
+            },
+            {
+              "key": "play_15",
+              "label": "和人一起玩",
+              "desc": "透過一起享受，和人靠近"
+            },
+            {
+              "key": "play_16",
+              "label": "享受差異",
+              "desc": "因為有不同的人，事情變得更有趣"
+            },
+            {
+              "key": "play_17",
+              "label": "一個人也能玩",
+              "desc": "一個人也能找到有趣的事"
+            },
+            {
+              "key": "play_18",
+              "label": "安心地玩",
+              "desc": "一邊照顧自己與對方，一邊享受"
+            },
+            {
+              "key": "play_19",
+              "label": "把日常變成遊樂場",
+              "desc": "把玩心放進平常生活裡"
+            },
+            {
+              "key": "play_20",
+              "label": "從遊玩中學習",
+              "desc": "在遊玩中自然產生發現與學習"
+            }
+          ]
+        },
+        {
+          "key": "joy",
+          "label": "喜悅",
+          "themes": [
+            {
+              "key": "joy_01",
+              "label": "允許喜悅",
+              "desc": "讓自己自然感受開心、快樂與舒服"
+            },
+            {
+              "key": "joy_02",
+              "label": "喜悅從內在湧現",
+              "desc": "不必先得到什麼，內在也能浮現明亮"
+            },
+            {
+              "key": "joy_03",
+              "label": "察覺小小幸福",
+              "desc": "在日常裡看見小小的開心"
+            },
+            {
+              "key": "joy_04",
+              "label": "品味當下",
+              "desc": "慢慢、深深地品味眼前的體驗"
+            },
+            {
+              "key": "joy_05",
+              "label": "用五感喜悅",
+              "desc": "把聲音、顏色、氣味、味道與觸感接收為喜悅"
+            },
+            {
+              "key": "joy_06",
+              "label": "用身體喜悅",
+              "desc": "享受吃、睡、動、休息與笑"
+            },
+            {
+              "key": "joy_07",
+              "label": "用心選擇",
+              "desc": "選擇讓心與身體變明亮的方向"
+            },
+            {
+              "key": "joy_08",
+              "label": "表達喜悅",
+              "desc": "喜悅出現時，能笑、說出來、慶祝或表現出來"
+            },
+            {
+              "key": "joy_09",
+              "label": "慶祝日常",
+              "desc": "當下慶祝小小進展與開心的事"
+            },
+            {
+              "key": "joy_10",
+              "label": "享受過程",
+              "desc": "結果還沒到來之前，也能享受正在前進的路"
+            },
+            {
+              "key": "joy_11",
+              "label": "讓自己開心",
+              "desc": "選擇讓自己的心與身體明亮的東西"
+            },
+            {
+              "key": "joy_12",
+              "label": "分享喜悅",
+              "desc": "讓自己的喜悅在人與人之間擴散"
+            },
+            {
+              "key": "joy_13",
+              "label": "能慶祝別人的喜悅",
+              "desc": "慶祝別人的幸福，而不把它變成自己的不足"
+            },
+            {
+              "key": "joy_14",
+              "label": "看見人的好",
+              "desc": "看見並表達對方的魅力與努力"
+            },
+            {
+              "key": "joy_15",
+              "label": "感謝自然湧現",
+              "desc": "察覺已經擁有的東西與支持自己的事物"
+            },
+            {
+              "key": "joy_16",
+              "label": "看見美",
+              "desc": "在自然、聲音、文字、表情與作品中找到美"
+            },
+            {
+              "key": "joy_17",
+              "label": "品味情緒",
+              "desc": "把各種情緒都接收為生命的深度"
+            },
+            {
+              "key": "joy_18",
+              "label": "尊重不同的喜悅",
+              "desc": "知道每個人覺得開心的事都不一樣"
+            },
+            {
+              "key": "joy_19",
+              "label": "創造喜悅",
+              "desc": "自己創造小小喜悅與明亮的氣氛"
+            },
+            {
+              "key": "joy_20",
+              "label": "把喜悅化成力量",
+              "desc": "讓喜悅連到下一個行動或創造"
+            }
+          ]
+        },
+        {
+          "key": "abundance",
+          "label": "豐盛",
+          "themes": [
+            {
+              "key": "abundance_01",
+              "label": "能夠接收",
+              "desc": "接收幫助、好意、機會、金錢與愛"
+            },
+            {
+              "key": "abundance_02",
+              "label": "感受到已經擁有的豐盛",
+              "desc": "不只看見不足，也看見已經存在的恩惠"
+            },
+            {
+              "key": "abundance_03",
+              "label": "感受到足夠",
+              "desc": "用身體感受此刻已經充足的部分"
+            },
+            {
+              "key": "abundance_04",
+              "label": "感謝自然湧現",
+              "desc": "自然感謝此刻擁有的事物與支持"
+            },
+            {
+              "key": "abundance_05",
+              "label": "安心地擁有",
+              "desc": "讓自己可以擁有需要的東西"
+            },
+            {
+              "key": "abundance_06",
+              "label": "選擇支持自己的東西",
+              "desc": "選擇支持生活與未來的事物"
+            },
+            {
+              "key": "abundance_07",
+              "label": "品味品質",
+              "desc": "比起價格，更珍惜真正適合自己的好東西"
+            },
+            {
+              "key": "abundance_08",
+              "label": "時間裡有餘裕",
+              "desc": "擁有休息、專注與品味的空間"
+            },
+            {
+              "key": "abundance_09",
+              "label": "把金錢當工具",
+              "desc": "把金錢作為支持生活與願望的工具來使用"
+            },
+            {
+              "key": "abundance_10",
+              "label": "整理豐盛",
+              "desc": "整理金錢、物品、時間、空間與關係"
+            },
+            {
+              "key": "abundance_11",
+              "label": "使用擁有的東西",
+              "desc": "把自己擁有的東西用在自己、他人與未來"
+            },
+            {
+              "key": "abundance_12",
+              "label": "讓豐盛流動",
+              "desc": "讓接收到的東西不只停在自己身上"
+            },
+            {
+              "key": "abundance_13",
+              "label": "把自己交出去",
+              "desc": "把自己能做的事帶給人與世界"
+            },
+            {
+              "key": "abundance_14",
+              "label": "創造價值",
+              "desc": "透過自己的行動與用心創造豐盛"
+            },
+            {
+              "key": "abundance_15",
+              "label": "可以依靠",
+              "desc": "不一個人全部扛住，而是能尋求幫助"
+            },
+            {
+              "key": "abundance_16",
+              "label": "不過度給予",
+              "desc": "分享的同時，也尊重自己的界線"
+            },
+            {
+              "key": "abundance_17",
+              "label": "慶祝別人的豐盛",
+              "desc": "慶祝別人的成功與幸福，而不把它變成自己的不足"
+            },
+            {
+              "key": "abundance_18",
+              "label": "在關係中變得豐盛",
+              "desc": "透過關係，讓彼此都更加豐盛"
+            },
+            {
+              "key": "abundance_19",
+              "label": "感受自然的恩惠",
+              "desc": "感受水、空氣、土、光、食物與季節的豐盛"
+            },
+            {
+              "key": "abundance_20",
+              "label": "為未來培養",
+              "desc": "把現在擁有的東西培養成未來的學習與習慣"
+            }
+          ]
+        },
+        {
+          "key": "beauty",
+          "label": "美",
+          "themes": [
+            {
+              "key": "beauty_01",
+              "label": "察覺美",
+              "desc": "在日常中找到小小的美"
+            },
+            {
+              "key": "beauty_02",
+              "label": "為美停下來",
+              "desc": "美出現時，能停一下"
+            },
+            {
+              "key": "beauty_03",
+              "label": "用五感品味",
+              "desc": "透過顏色、聲音、香氣、味道與觸感接收美"
+            },
+            {
+              "key": "beauty_04",
+              "label": "感受敬畏",
+              "desc": "讓壯闊的景色或音樂觸動胸口"
+            },
+            {
+              "key": "beauty_05",
+              "label": "感受自然的美",
+              "desc": "在天空、光、風、水、植物與季節中找到美"
+            },
+            {
+              "key": "beauty_06",
+              "label": "感受日常的美",
+              "desc": "在食物、房間、工具、衣服與文字中找到美"
+            },
+            {
+              "key": "beauty_07",
+              "label": "感受不完美的美",
+              "desc": "在裂痕、老舊、過程、搖晃與時間痕跡中感受美"
+            },
+            {
+              "key": "beauty_08",
+              "label": "品味短暫",
+              "desc": "感受正因為不會永遠存在而美麗的東西"
+            },
+            {
+              "key": "beauty_09",
+              "label": "品味安靜",
+              "desc": "接收空間、沉默、停頓與簡單之中的美"
+            },
+            {
+              "key": "beauty_10",
+              "label": "用身體感受美",
+              "desc": "注意接觸美時，胸口、眼睛、呼吸與皮膚的反應"
+            },
+            {
+              "key": "beauty_11",
+              "label": "澄清感官",
+              "desc": "更清楚地感受世界，而不是讓它流過去"
+            },
+            {
+              "key": "beauty_12",
+              "label": "看見人的美",
+              "desc": "不只看外表，也在動作、言語與溫柔中找到美"
+            },
+            {
+              "key": "beauty_13",
+              "label": "珍惜自己的美意識",
+              "desc": "不只依賴他人的評價，也珍惜自己覺得美的東西"
+            },
+            {
+              "key": "beauty_14",
+              "label": "尊重不同的美",
+              "desc": "尊重每個人感受到的美都不同"
+            },
+            {
+              "key": "beauty_15",
+              "label": "整理空間",
+              "desc": "透過房間、桌面、工具、光與聲音創造舒服的地方"
+            },
+            {
+              "key": "beauty_16",
+              "label": "創造美",
+              "desc": "用料理、文字、圖像、聲音、衣著或空間表達美"
+            },
+            {
+              "key": "beauty_17",
+              "label": "分享美",
+              "desc": "和他人一起品味並分享美好的事物"
+            },
+            {
+              "key": "beauty_18",
+              "label": "消費前先品味",
+              "desc": "在拍照、購買或評價之前，先深深接收"
+            },
+            {
+              "key": "beauty_19",
+              "label": "透過美安定",
+              "desc": "讓美使心與身體安靜並整理"
+            },
+            {
+              "key": "beauty_20",
+              "label": "守護美",
+              "desc": "珍惜自然、人、物、文化與地方的美"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "creation_contribution",
+      "label": "創造與傳遞（創造與貢獻）",
+      "wishes": [
+        {
+          "key": "creation",
+          "label": "創造",
+          "themes": [
+            {
+              "key": "creation_01",
+              "label": "想創造的心湧現",
+              "desc": "內在自然浮現想做出什麼的感覺"
+            },
+            {
+              "key": "creation_02",
+              "label": "開始創造",
+              "desc": "不等完美，先小小開始"
+            },
+            {
+              "key": "creation_03",
+              "label": "把感覺化成形",
+              "desc": "把內在感受與想法變成看得見的形式"
+            },
+            {
+              "key": "creation_04",
+              "label": "用手創造",
+              "desc": "用手與身體，一邊感受一邊創作"
+            },
+            {
+              "key": "creation_05",
+              "label": "小小嘗試",
+              "desc": "不急著完成，先試試看"
+            },
+            {
+              "key": "creation_06",
+              "label": "一切都是素材",
+              "desc": "把平凡的物品與事件也變成創作材料"
+            },
+            {
+              "key": "creation_07",
+              "label": "把限制化成巧思",
+              "desc": "即使條件有限，也能用心創造"
+            },
+            {
+              "key": "creation_08",
+              "label": "享受過程",
+              "desc": "不只享受完成品，也享受正在做的過程"
+            },
+            {
+              "key": "creation_09",
+              "label": "從錯誤中修正",
+              "desc": "做得不順時，也能調整並變得更好"
+            },
+            {
+              "key": "creation_10",
+              "label": "專注創作",
+              "desc": "做著做著，忘記時間"
+            },
+            {
+              "key": "creation_11",
+              "label": "守護創作時間",
+              "desc": "好好珍惜創作所需要的時間"
+            },
+            {
+              "key": "creation_12",
+              "label": "信任自己的感覺",
+              "desc": "相信自己覺得「這樣很好」的感覺"
+            },
+            {
+              "key": "creation_13",
+              "label": "發現需要",
+              "desc": "察覺「如果有這個就好了」"
+            },
+            {
+              "key": "creation_14",
+              "label": "做成能使用的形",
+              "desc": "把想法變成人們能使用的形式"
+            },
+            {
+              "key": "creation_15",
+              "label": "整理工具",
+              "desc": "整理創作所需要的工具與場所"
+            },
+            {
+              "key": "creation_16",
+              "label": "完成一個版本",
+              "desc": "不中途停下，而是先做到一個完成"
+            },
+            {
+              "key": "creation_17",
+              "label": "送到世界裡",
+              "desc": "把做出的東西讓人看見或收到"
+            },
+            {
+              "key": "creation_18",
+              "label": "從反應中成長",
+              "desc": "透過別人的反應，讓作品變得更好"
+            },
+            {
+              "key": "creation_19",
+              "label": "和人一起創造",
+              "desc": "不只一個人，也能和別人一起做"
+            },
+            {
+              "key": "creation_20",
+              "label": "連到下一步",
+              "desc": "把創作的經驗用在接下來的事"
+            }
+          ]
+        },
+        {
+          "key": "giving",
+          "label": "給予",
+          "themes": [
+            {
+              "key": "giving_01",
+              "label": "想給予的心湧現",
+              "desc": "自然浮現想為某人做點什麼的心情"
+            },
+            {
+              "key": "giving_02",
+              "label": "從充足中給予",
+              "desc": "也照顧自己，同時與人分享"
+            },
+            {
+              "key": "giving_03",
+              "label": "給予的喜悅",
+              "desc": "給予與幫助自然讓人感到開心"
+            },
+            {
+              "key": "giving_04",
+              "label": "我有可以給的東西",
+              "desc": "知道自己也有能交出去的東西"
+            },
+            {
+              "key": "giving_05",
+              "label": "感受對方需要",
+              "desc": "看見對方此刻可能需要什麼"
+            },
+            {
+              "key": "giving_06",
+              "label": "配合對方",
+              "desc": "選擇適合對方的給予方式"
+            },
+            {
+              "key": "giving_07",
+              "label": "小小遞出善意",
+              "desc": "小小的親切也能被珍惜"
+            },
+            {
+              "key": "giving_08",
+              "label": "把心放向對方",
+              "desc": "好好聽對方說話"
+            },
+            {
+              "key": "giving_09",
+              "label": "分享智慧",
+              "desc": "把自己知道的事，以能幫助人的方式分享"
+            },
+            {
+              "key": "giving_10",
+              "label": "借出力量",
+              "desc": "實際幫助需要支持的人"
+            },
+            {
+              "key": "giving_11",
+              "label": "分享喜悅",
+              "desc": "把自己的明亮也分給周圍的人"
+            },
+            {
+              "key": "giving_12",
+              "label": "溫暖場域",
+              "desc": "讓現場的氣氛變得好一點"
+            },
+            {
+              "key": "giving_13",
+              "label": "提供機會",
+              "desc": "創造讓別人能嘗試的機會"
+            },
+            {
+              "key": "giving_14",
+              "label": "引出對方力量",
+              "desc": "幫助對方變得能自己做到"
+            },
+            {
+              "key": "giving_15",
+              "label": "讓對方容易接收",
+              "desc": "用對方能接收的形式給予"
+            },
+            {
+              "key": "giving_16",
+              "label": "給出後放手",
+              "desc": "給出去之後，把它交給對方"
+            },
+            {
+              "key": "giving_17",
+              "label": "也保護自己",
+              "desc": "不因為給太多而耗盡自己"
+            },
+            {
+              "key": "giving_18",
+              "label": "保護對方自由",
+              "desc": "讓對方自己決定要不要接收"
+            },
+            {
+              "key": "giving_19",
+              "label": "也能接受",
+              "desc": "自己也能收下別人的幫助與善意"
+            },
+            {
+              "key": "giving_20",
+              "label": "培養互相給予",
+              "desc": "創造讓彼此更有生命力的關係"
+            }
+          ]
+        },
+        {
+          "key": "integrity",
+          "label": "正直",
+          "themes": [
+            {
+              "key": "integrity_01",
+              "label": "聽見良心",
+              "desc": "珍惜內在覺得哪裡不對的感覺"
+            },
+            {
+              "key": "integrity_02",
+              "label": "確認事實",
+              "desc": "不只憑聽說決定，而是確認真實"
+            },
+            {
+              "key": "integrity_03",
+              "label": "用身體感覺",
+              "desc": "把心裡或身體的不對勁當成重要訊號"
+            },
+            {
+              "key": "integrity_04",
+              "label": "誠實說話",
+              "desc": "不用謊言包住事情，而是清楚表達"
+            },
+            {
+              "key": "integrity_05",
+              "label": "說我不知道",
+              "desc": "不知道的時候，也能說不知道"
+            },
+            {
+              "key": "integrity_06",
+              "label": "言行一致",
+              "desc": "讓行動與說出口的話一致"
+            },
+            {
+              "key": "integrity_07",
+              "label": "沒人看見也誠實",
+              "desc": "即使沒有人看見，也做自己認為對的事"
+            },
+            {
+              "key": "integrity_08",
+              "label": "公平對待",
+              "desc": "不只偏向自己喜歡的人"
+            },
+            {
+              "key": "integrity_09",
+              "label": "承擔責任",
+              "desc": "看見自己行動帶來的影響"
+            },
+            {
+              "key": "integrity_10",
+              "label": "承認錯誤",
+              "desc": "錯了的時候，能承認並修復"
+            },
+            {
+              "key": "integrity_11",
+              "label": "重新檢視自己",
+              "desc": "願意想想自己是不是也可能錯了"
+            },
+            {
+              "key": "integrity_12",
+              "label": "不把正確當武器",
+              "desc": "不拿正確去攻擊別人"
+            },
+            {
+              "key": "integrity_13",
+              "label": "溫柔地說真話",
+              "desc": "即使是真話，也在意說法"
+            },
+            {
+              "key": "integrity_14",
+              "label": "允許不同的正確",
+              "desc": "知道每個人感到正確的事情可能不同"
+            },
+            {
+              "key": "integrity_15",
+              "label": "透過對話加深",
+              "desc": "即使意見不同，也能一起思考"
+            },
+            {
+              "key": "integrity_16",
+              "label": "劃出界線",
+              "desc": "面對不可以的事，能清楚設下界線"
+            },
+            {
+              "key": "integrity_17",
+              "label": "保護弱勢",
+              "desc": "顧及那些不容易發聲的人"
+            },
+            {
+              "key": "integrity_18",
+              "label": "擁有勇氣",
+              "desc": "即使困難，也說出需要被說出的話"
+            },
+            {
+              "key": "integrity_19",
+              "label": "為長遠選擇",
+              "desc": "不只選此刻方便的路"
+            },
+            {
+              "key": "integrity_20",
+              "label": "培養正直感",
+              "desc": "持續學習更好的判斷與正直"
+            }
+          ]
+        },
+        {
+          "key": "peace",
+          "label": "平和",
+          "themes": [
+            {
+              "key": "peace_01",
+              "label": "深層的安心",
+              "desc": "即使很多事發生，內在深處仍知道自己能找到路"
+            },
+            {
+              "key": "peace_02",
+              "label": "回到呼吸",
+              "desc": "想安定時，先從調整呼吸開始"
+            },
+            {
+              "key": "peace_03",
+              "label": "放鬆身體",
+              "desc": "察覺身體的緊繃，稍微鬆開"
+            },
+            {
+              "key": "peace_04",
+              "label": "停在當下",
+              "desc": "回到此刻正在做的事"
+            },
+            {
+              "key": "peace_05",
+              "label": "和情緒拉開空間",
+              "desc": "即使煩躁，也能察覺煩躁正在這裡"
+            },
+            {
+              "key": "peace_06",
+              "label": "反應前先停一下",
+              "desc": "回應之前，先呼吸一次"
+            },
+            {
+              "key": "peace_07",
+              "label": "守住安靜的中心",
+              "desc": "不被周圍帶走，回到自己"
+            },
+            {
+              "key": "peace_08",
+              "label": "交給流動",
+              "desc": "鬆開對無法改變之事的緊抓"
+            },
+            {
+              "key": "peace_09",
+              "label": "不被捲進去",
+              "desc": "即使別人生氣，自己也不一起被吞沒"
+            },
+            {
+              "key": "peace_10",
+              "label": "溫和地說",
+              "desc": "說需要說的話，但不變得尖銳"
+            },
+            {
+              "key": "peace_11",
+              "label": "只是聆聽",
+              "desc": "不急著給建議，而是完整聽見"
+            },
+            {
+              "key": "peace_12",
+              "label": "安靜地劃線",
+              "desc": "保持溫柔，同時設下界線"
+            },
+            {
+              "key": "peace_13",
+              "label": "不擴大衝突",
+              "desc": "選擇不讓爭執變得更大的方式"
+            },
+            {
+              "key": "peace_14",
+              "label": "看見現況",
+              "desc": "即使不是想要的樣子，也先看見現在"
+            },
+            {
+              "key": "peace_15",
+              "label": "照料日常",
+              "desc": "慢慢整理生活周圍的事"
+            },
+            {
+              "key": "peace_16",
+              "label": "保留空間",
+              "desc": "在行程與感受裡留一點餘地"
+            },
+            {
+              "key": "peace_17",
+              "label": "回到自然",
+              "desc": "接觸自然，恢復平靜"
+            },
+            {
+              "key": "peace_18",
+              "label": "品味小小舒服",
+              "desc": "感受生活中小小的放鬆"
+            },
+            {
+              "key": "peace_19",
+              "label": "讓場域安定",
+              "desc": "自己安定時，周圍也會稍微安定"
+            },
+            {
+              "key": "peace_20",
+              "label": "可以再次回來",
+              "desc": "即使亂了，也能再次回到平靜"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "recognition_transcendence",
+      "label": "知曉與深化（認識與超越）",
+      "wishes": [
+        {
+          "key": "knowing",
+          "label": "知曉",
+          "themes": [
+            {
+              "key": "knowing_01",
+              "label": "對未知感到好奇",
+              "desc": "覺得不知道的事也可以很有意思"
+            },
+            {
+              "key": "knowing_02",
+              "label": "想知道的心湧現",
+              "desc": "內在自然浮現想更了解的感覺"
+            },
+            {
+              "key": "knowing_03",
+              "label": "保有問題",
+              "desc": "不只是記住答案，也會想知道為什麼"
+            },
+            {
+              "key": "knowing_04",
+              "label": "珍惜不知道",
+              "desc": "把不懂的事看成可以慢慢理解的入口"
+            },
+            {
+              "key": "knowing_05",
+              "label": "說我不知道",
+              "desc": "不知道的時候，也能說不知道"
+            },
+            {
+              "key": "knowing_06",
+              "label": "先觀察",
+              "desc": "在思考之前，先仔細看見"
+            },
+            {
+              "key": "knowing_07",
+              "label": "好好聆聽",
+              "desc": "仔細聽人說話"
+            },
+            {
+              "key": "knowing_08",
+              "label": "提出問題",
+              "desc": "對不懂的事提出詢問"
+            },
+            {
+              "key": "knowing_09",
+              "label": "查證確認",
+              "desc": "不只聽說，而是實際確認"
+            },
+            {
+              "key": "knowing_10",
+              "label": "從經驗中知道",
+              "desc": "不只聽別人說，也透過嘗試來理解"
+            },
+            {
+              "key": "knowing_11",
+              "label": "用身體知道",
+              "desc": "讓身體的感覺也成為理解的一部分"
+            },
+            {
+              "key": "knowing_12",
+              "label": "從差異中學習",
+              "desc": "從和自己不同的人身上學習"
+            },
+            {
+              "key": "knowing_13",
+              "label": "看見背景",
+              "desc": "理解事情背後的原因"
+            },
+            {
+              "key": "knowing_14",
+              "label": "追問本質",
+              "desc": "回到最根本的問題去思考"
+            },
+            {
+              "key": "knowing_15",
+              "label": "看見連結",
+              "desc": "看見一件事和另一件事如何相關"
+            },
+            {
+              "key": "knowing_16",
+              "label": "更新想法",
+              "desc": "讓新的理解改變自己的思考方式"
+            },
+            {
+              "key": "knowing_17",
+              "label": "把知識變成智慧",
+              "desc": "把知道的事用在真實生活裡"
+            },
+            {
+              "key": "knowing_18",
+              "label": "和人一起學",
+              "desc": "與他人一起學習"
+            },
+            {
+              "key": "knowing_19",
+              "label": "分享中加深",
+              "desc": "透過說給別人聽，讓理解更深"
+            },
+            {
+              "key": "knowing_20",
+              "label": "讓問題繼續長大",
+              "desc": "即使答案不立刻出現，也繼續思考"
+            }
+          ]
+        },
+        {
+          "key": "meaning",
+          "label": "意義",
+          "themes": [
+            {
+              "key": "meaning_01",
+              "label": "感受到意義",
+              "desc": "感受到某件事真的很重要"
+            },
+            {
+              "key": "meaning_02",
+              "label": "知道重要的是什麼",
+              "desc": "慢慢理解自己真正重視的事"
+            },
+            {
+              "key": "meaning_03",
+              "label": "用意義來選擇",
+              "desc": "不只看利益，也依照想珍惜的事來選"
+            },
+            {
+              "key": "meaning_04",
+              "label": "身體知道這就是了",
+              "desc": "用身體感覺到「就是這個」"
+            },
+            {
+              "key": "meaning_05",
+              "label": "珍惜時間",
+              "desc": "在意自己把時間交給什麼"
+            },
+            {
+              "key": "meaning_06",
+              "label": "看見自己的故事",
+              "desc": "讓經驗成為自己故事的一部分"
+            },
+            {
+              "key": "meaning_07",
+              "label": "把經驗化成智慧",
+              "desc": "即使是辛苦的事，也能從中學到什麼"
+            },
+            {
+              "key": "meaning_08",
+              "label": "在日常中找到意義",
+              "desc": "在平凡的日子裡也能找到意義"
+            },
+            {
+              "key": "meaning_09",
+              "label": "珍惜現在",
+              "desc": "重視此刻自己能做的事"
+            },
+            {
+              "key": "meaning_10",
+              "label": "踏出小小一步",
+              "desc": "即使還不全懂，也先走一步"
+            },
+            {
+              "key": "meaning_11",
+              "label": "活出自己的角色",
+              "desc": "珍惜此刻自己能扮演的角色"
+            },
+            {
+              "key": "meaning_12",
+              "label": "與人連結",
+              "desc": "在人與人的連結中感受到意義"
+            },
+            {
+              "key": "meaning_13",
+              "label": "深入地說話",
+              "desc": "好好談真正重要的事"
+            },
+            {
+              "key": "meaning_14",
+              "label": "對某人有幫助",
+              "desc": "把自己的力量用在別人身上"
+            },
+            {
+              "key": "meaning_15",
+              "label": "創造並留下",
+              "desc": "把自己的想法與經驗化成形式"
+            },
+            {
+              "key": "meaning_16",
+              "label": "接受並傳下去",
+              "desc": "把自己收到的東西傳給下一個人"
+            },
+            {
+              "key": "meaning_17",
+              "label": "看見時間有限",
+              "desc": "因為時間有限，所以珍惜現在"
+            },
+            {
+              "key": "meaning_18",
+              "label": "尊重別人的意義",
+              "desc": "理解每個人都有自己重視的事"
+            },
+            {
+              "key": "meaning_19",
+              "label": "持續抱著問題",
+              "desc": "持續思考人生的意義"
+            },
+            {
+              "key": "meaning_20",
+              "label": "培養意義",
+              "desc": "讓意義一點一點長大"
+            }
+          ]
+        },
+        {
+          "key": "transcendence",
+          "label": "超越",
+          "themes": [
+            {
+              "key": "transcendence_01",
+              "label": "不立刻跟著反應走",
+              "desc": "即使煩躁，也不必馬上從煩躁行動"
+            },
+            {
+              "key": "transcendence_02",
+              "label": "不只看自己",
+              "desc": "不只想到自己，也想到所有相關的人"
+            },
+            {
+              "key": "transcendence_03",
+              "label": "超越角色",
+              "desc": "角色與頭銜不是自己的全部"
+            },
+            {
+              "key": "transcendence_04",
+              "label": "超越假設",
+              "desc": "不急著下定論，而是換個角度看"
+            },
+            {
+              "key": "transcendence_05",
+              "label": "打開看不見的可能",
+              "desc": "不只用現在做不到的事來定義自己"
+            },
+            {
+              "key": "transcendence_06",
+              "label": "看得更寬",
+              "desc": "不只看眼前，也看更大的範圍"
+            },
+            {
+              "key": "transcendence_07",
+              "label": "回到內在安靜",
+              "desc": "即使外面很吵，也能回到內在安靜的地方"
+            },
+            {
+              "key": "transcendence_08",
+              "label": "此刻清醒地在這裡",
+              "desc": "完整地在此時此刻"
+            },
+            {
+              "key": "transcendence_09",
+              "label": "鬆開執著",
+              "desc": "少一點緊抓"
+            },
+            {
+              "key": "transcendence_10",
+              "label": "交給流動",
+              "desc": "做能做的事，剩下的交給流動"
+            },
+            {
+              "key": "transcendence_11",
+              "label": "感受敬畏",
+              "desc": "感受自然與生命的廣大"
+            },
+            {
+              "key": "transcendence_12",
+              "label": "與整體相連",
+              "desc": "感受到自己不是獨自活著"
+            },
+            {
+              "key": "transcendence_13",
+              "label": "與自然和諧",
+              "desc": "讓自然幫助自己回到平衡"
+            },
+            {
+              "key": "transcendence_14",
+              "label": "身體裡有空間",
+              "desc": "不只用頭腦，也透過身體知道"
+            },
+            {
+              "key": "transcendence_15",
+              "label": "在心流中忘我",
+              "desc": "投入到暫時忘記自己的程度"
+            },
+            {
+              "key": "transcendence_16",
+              "label": "超越黑白對錯",
+              "desc": "看得比單純對錯更寬"
+            },
+            {
+              "key": "transcendence_17",
+              "label": "接受時間有限",
+              "desc": "因為時間有限，所以珍惜現在"
+            },
+            {
+              "key": "transcendence_18",
+              "label": "連到表面之下",
+              "desc": "照顧表面底下更深的感受"
+            },
+            {
+              "key": "transcendence_19",
+              "label": "分享自己擁有的",
+              "desc": "把自己內在擁有的東西與人分享"
+            },
+            {
+              "key": "transcendence_20",
+              "label": "把洞察帶回日常",
+              "desc": "讓察覺到的事影響每天的行動"
+            }
+          ]
+        },
+        {
+          "key": "legacy",
+          "label": "繼承",
+          "themes": [
+            {
+              "key": "legacy_01",
+              "label": "看見自己承接的東西",
+              "desc": "發現自己也從別人那裡收到重要的東西"
+            },
+            {
+              "key": "legacy_02",
+              "label": "想把重要的留下",
+              "desc": "覺得重要的東西也想留給後面的人"
+            },
+            {
+              "key": "legacy_03",
+              "label": "選擇要留下什麼",
+              "desc": "自己選擇想留下的東西"
+            },
+            {
+              "key": "legacy_04",
+              "label": "留下活過的證明",
+              "desc": "把自己活過這件事化成某種形式"
+            },
+            {
+              "key": "legacy_05",
+              "label": "記錄經驗",
+              "desc": "留下自己做過、學到的事"
+            },
+            {
+              "key": "legacy_06",
+              "label": "留下智慧",
+              "desc": "把學到的事留下成別人能使用的形式"
+            },
+            {
+              "key": "legacy_07",
+              "label": "留下看不見的東西",
+              "desc": "不只留下物品，也留下重要的想法與感受"
+            },
+            {
+              "key": "legacy_08",
+              "label": "留下作品",
+              "desc": "把想法與感覺化成作品"
+            },
+            {
+              "key": "legacy_09",
+              "label": "傳下技能",
+              "desc": "把自己的方法與實用知識教給別人"
+            },
+            {
+              "key": "legacy_10",
+              "label": "留下文字",
+              "desc": "把重要的感受與想法寫成文字"
+            },
+            {
+              "key": "legacy_11",
+              "label": "留在心裡",
+              "desc": "在別人的心裡留下溫暖的東西"
+            },
+            {
+              "key": "legacy_12",
+              "label": "留下場所",
+              "desc": "創造人們能聚在一起的地方或系統"
+            },
+            {
+              "key": "legacy_13",
+              "label": "把照顧留給自然",
+              "desc": "為後來的人照顧自然與土地"
+            },
+            {
+              "key": "legacy_14",
+              "label": "培養下一個人",
+              "desc": "幫助別人變得能繼續下去"
+            },
+            {
+              "key": "legacy_15",
+              "label": "為未來選擇",
+              "desc": "不只考慮現在，也考慮之後會留下什麼"
+            },
+            {
+              "key": "legacy_16",
+              "label": "用心讓它留下",
+              "desc": "細心創造，讓它能留得更久"
+            },
+            {
+              "key": "legacy_17",
+              "label": "接受並傳下去",
+              "desc": "把自己收到的東西，用自己的形式傳到未來"
+            },
+            {
+              "key": "legacy_18",
+              "label": "允許它改變",
+              "desc": "即使留下的東西之後改變，也能接受"
+            },
+            {
+              "key": "legacy_19",
+              "label": "留下實質而非名聲",
+              "desc": "比起追求名氣，更想留下真正有用的東西"
+            },
+            {
+              "key": "legacy_20",
+              "label": "讓生命往前延續",
+              "desc": "感受到自己的生命會延續到未來"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
