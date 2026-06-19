@@ -4,9 +4,30 @@
     "wishEntryTitle": "今いちばん気になる分野を選ぶ。",
     "seeMore": "さらに見る",
     "aboutLink": "Noetuneとは",
+    "entryMethodTitle": "どちらから始めますか？",
+    "entryMethodThemeTitle": "テーマから選ぶ",
+    "entryMethodThemeDesc": "用意されたテーマから、今気になるものを選びます。",
+    "entryMethodFreeTitle": "自由に入力する",
+    "entryMethodFreeDesc": "自分の言葉で、今のテーマを書きます。",
+    "freeTypeTitle": "答えやすい方を選んでください。",
+    "freeTypeIdealTitle": "理想の状態を書く",
+    "freeTypeIdealDesc": "「〜したい」ではなく、すでにそうである状態として書いてください。",
+    "freeTypeIdealExample": "例：\n安心している\n自由に選べている\n身体がゆるんでいる",
+    "freeTypeTopicTitle": "今、心に引っかかっていることを書く",
+    "freeTypeTopicDesc": "今、心に引っかかっていることを、そのまま書いてください。",
+    "freeTypeTopicExample": "例：\nお金のことが頭から離れない\n人間関係が気になる\n将来を考えると重くなる\n身体の緊張が抜けない",
+    "freeIdealInputTitle": "理想の状態を書いてください。",
+    "freeIdealInputPlaceholder": "例：安心している",
+    "freeTopicInputTitle": "今、心に引っかかっていることを書いてください。",
+    "freeTopicInputPlaceholder": "例：お金のことが頭から離れない",
+    "freeInputStartButton": "この内容で始める",
+    "freeInputSkip": "ことばにならない",
+    "v13NonIdealQuestion": "そうでない状態とは？",
+    "v13IdealQuestion": "それに無縁の人の体験は？",
     "resultUnanswered": "未回答",
-    "resultRepeatWish": "「{wish}」について、もう一度",
-    "professionalLead": "直感的に好きな時に使う。",
+    "resultRepeatWish": "新しいテーマで始める",
+    "resultNewThemeButton": "新しいテーマで始める",
+    "professionalLead": "必要なときに、\n静かに自分へ戻る場所。",
     "professionalTitle": "Professional",
     "professionalPrice": "月額980円",
     "professionalCta": "Professionalを見る"
@@ -26,7 +47,7 @@
       "wishes": [
         {
           "key": "life",
-          "label": "命を謳歌したい",
+          "label": "生命力",
           "themes": [
             {
               "key": "life_01",
@@ -132,7 +153,7 @@
         },
         {
           "key": "safety",
-          "label": "安心したい",
+          "label": "安心",
           "themes": [
             {
               "key": "safety_01",
@@ -238,7 +259,7 @@
         },
         {
           "key": "rest",
-          "label": "休みたい",
+          "label": "休息",
           "themes": [
             {
               "key": "rest_01",
@@ -344,7 +365,7 @@
         },
         {
           "key": "health",
-          "label": "健康でいたい",
+          "label": "健康",
           "themes": [
             {
               "key": "health_01",
@@ -456,7 +477,7 @@
       "wishes": [
         {
           "key": "love",
-          "label": "愛したい・愛されたい",
+          "label": "愛",
           "themes": [
             {
               "key": "love_01",
@@ -562,7 +583,7 @@
         },
         {
           "key": "connection",
-          "label": "つながりたい",
+          "label": "つながり",
           "themes": [
             {
               "key": "connection_01",
@@ -668,7 +689,7 @@
         },
         {
           "key": "recognition",
-          "label": "認められたい",
+          "label": "承認",
           "themes": [
             {
               "key": "recognition_01",
@@ -774,7 +795,7 @@
         },
         {
           "key": "value",
-          "label": "価値を感じたい",
+          "label": "価値",
           "themes": [
             {
               "key": "value_01",
@@ -886,7 +907,7 @@
       "wishes": [
         {
           "key": "freedom",
-          "label": "自由でいたい",
+          "label": "自由",
           "themes": [
             {
               "key": "freedom_01",
@@ -992,7 +1013,7 @@
         },
         {
           "key": "ability",
-          "label": "できると感じたい",
+          "label": "力",
           "themes": [
             {
               "key": "ability_01",
@@ -1098,7 +1119,7 @@
         },
         {
           "key": "growth",
-          "label": "成長したい",
+          "label": "成長",
           "themes": [
             {
               "key": "growth_01",
@@ -1174,7 +1195,7 @@
         },
         {
           "key": "adventure",
-          "label": "冒険したい",
+          "label": "冒険",
           "themes": [
             {
               "key": "adventure_01",
@@ -1266,7 +1287,7 @@
       "wishes": [
         {
           "key": "play",
-          "label": "遊びたい",
+          "label": "遊び",
           "themes": [
             {
               "key": "play_01",
@@ -1372,7 +1393,7 @@
         },
         {
           "key": "joy",
-          "label": "喜びを生きたい",
+          "label": "喜び",
           "themes": [
             {
               "key": "joy_01",
@@ -1478,7 +1499,7 @@
         },
         {
           "key": "abundance",
-          "label": "豊かさを生きたい",
+          "label": "豊かさ",
           "themes": [
             {
               "key": "abundance_01",
@@ -1584,7 +1605,7 @@
         },
         {
           "key": "beauty",
-          "label": "美を味わいたい",
+          "label": "美",
           "themes": [
             {
               "key": "beauty_01",
@@ -1696,7 +1717,7 @@
       "wishes": [
         {
           "key": "creation",
-          "label": "作りたい",
+          "label": "創造",
           "themes": [
             {
               "key": "creation_01",
@@ -1802,7 +1823,7 @@
         },
         {
           "key": "giving",
-          "label": "与えたい",
+          "label": "与えること",
           "themes": [
             {
               "key": "giving_01",
@@ -1908,7 +1929,7 @@
         },
         {
           "key": "integrity",
-          "label": "まっすぐ生きたい",
+          "label": "正直さ",
           "themes": [
             {
               "key": "integrity_01",
@@ -2014,7 +2035,7 @@
         },
         {
           "key": "peace",
-          "label": "穏やかでいたい",
+          "label": "穏やかさ",
           "themes": [
             {
               "key": "peace_01",
@@ -2126,7 +2147,7 @@
       "wishes": [
         {
           "key": "knowing",
-          "label": "知りたい",
+          "label": "知ること",
           "themes": [
             {
               "key": "knowing_01",
@@ -2232,7 +2253,7 @@
         },
         {
           "key": "meaning",
-          "label": "意味を生きたい",
+          "label": "意味",
           "themes": [
             {
               "key": "meaning_01",
@@ -2338,7 +2359,7 @@
         },
         {
           "key": "transcendence",
-          "label": "超越したい",
+          "label": "超越",
           "themes": [
             {
               "key": "transcendence_01",
@@ -2444,7 +2465,7 @@
         },
         {
           "key": "legacy",
-          "label": "残したい",
+          "label": "継承",
           "themes": [
             {
               "key": "legacy_01",
