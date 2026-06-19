@@ -621,7 +621,7 @@ through what is happening now.</p>
 <div class="screen" id="s-issue">
   <div class="screen-title" id="t-issue-title"></div>
   <input type="text" class="text-input" id="in-issue" placeholder="問題を入力…" autocomplete="off" oninput="onInput('issue')">
-  <button class="btn" id="btn-issue" onclick="submitIssue()" disabled>次へ</button>
+  <button class="btn" id="btn-issue" onclick="submitIssue()" disabled></button>
   <button class="btn-ghost" id="btn-issue-skip" onclick="skipIssue()">出てこない</button>
 </div>
 
@@ -631,13 +631,13 @@ through what is happening now.</p>
     <div class="screen-title" id="t-ideal"></div>
     <div class="theme-top-copy" id="ideal-top-copy"></div>
     <input type="text" class="custom-theme-input" id="in-ideal"
-      placeholder="今、感じてみたいことを…" autocomplete="off" maxlength="40"
+      autocomplete="off" maxlength="40"
       oninput="onCustomIdeal(this.value)">
     <div class="theme-grid" id="fixed-ideal-grid"></div>
-    <button class="btn-see-more" id="btn-see-more-ideals" onclick="seeMoreIdeals()">さらに理想体験を見る</button>
+    <button class="btn-see-more" id="btn-see-more-ideals" onclick="seeMoreIdeals()"></button>
     <div id="ideal-groups-wrap"></div>
-    <button class="btn" id="btn-ideal-inline-next" onclick="submitIdeal()" disabled style="margin-top:1.2rem;display:none">次へ</button>
-    <button class="btn-ghost" id="btn-ideal-skip" onclick="skipIdeal()" style="margin-top:.5rem">ことばにならない</button>
+    <button class="btn" id="btn-ideal-inline-next" onclick="submitIdeal()" disabled style="margin-top:1.2rem;display:none"></button>
+    <button class="btn-ghost" id="btn-ideal-skip" onclick="skipIdeal()" style="margin-top:.5rem"></button>
   </div>
 </div>
 
@@ -645,14 +645,12 @@ through what is happening now.</p>
 <div class="screen" id="s-v13-nonideal">
   <div id="s-ideal-inner">
     <div class="theme-top-copy" id="v13-nonideal-theme"></div>
-    <div class="screen-title" id="t-v13-nonideal-question">そうでない状態とは？
-それを邪魔する状態とは？</div>
+    <div class="screen-title" id="t-v13-nonideal-question"></div>
     <input type="text" class="custom-theme-input" id="in-v13-nonideal"
-      placeholder="例：不安 / 抵抗 / 閉じている / 迷っている"
       autocomplete="off" maxlength="60"
       oninput="onV13NonIdealInput(this.value)">
-    <button class="btn" id="btn-v13-nonideal-next" onclick="submitV13NonIdeal()" disabled style="margin-top:1.2rem">次へ</button>
-    <button class="btn-ghost" id="btn-v13-nonideal-skip" onclick="skipV13NonIdeal()" style="margin-top:.5rem">回答を思いつかない</button>
+    <button class="btn" id="btn-v13-nonideal-next" onclick="submitV13NonIdeal()" disabled style="margin-top:1.2rem"></button>
+    <button class="btn-ghost" id="btn-v13-nonideal-skip" onclick="skipV13NonIdeal()" style="margin-top:.5rem"></button>
   </div>
 </div>
 
@@ -660,26 +658,24 @@ through what is happening now.</p>
 <div class="screen" id="s-v13-ideal">
   <div id="s-ideal-inner">
     <div class="theme-top-copy" id="v13-ideal-theme"></div>
-    <div class="screen-title" id="t-v13-ideal-question">それに無縁の人の体験は？
-それがない人の体験は？</div>
+    <div class="screen-title" id="t-v13-ideal-question"></div>
     <input type="text" class="custom-theme-input" id="in-v13-ideal"
-      placeholder="例：安心 / 信頼 / 自由 / 自分をわかっている"
       autocomplete="off" maxlength="60"
       oninput="onV13IdealInput(this.value)">
-    <button class="btn" id="btn-v13-ideal-next" onclick="submitV13Ideal()" disabled style="margin-top:1.2rem">次へ</button>
-    <button class="btn-ghost" id="btn-v13-ideal-skip" onclick="skipV13Ideal()" style="margin-top:.5rem">回答を思いつかない</button>
+    <button class="btn" id="btn-v13-ideal-next" onclick="submitV13Ideal()" disabled style="margin-top:1.2rem"></button>
+    <button class="btn-ghost" id="btn-v13-ideal-skip" onclick="skipV13Ideal()" style="margin-top:.5rem"></button>
   </div>
 </div>
 
 <!-- ── V13 LOOP: End confirmation ── -->
 <div class="screen" id="s-v13-end-confirm">
   <div id="s-entry-inner">
-    <div class="entry-title" id="t-v13-end-title">ここで終えますか？</div>
+    <div class="entry-title" id="t-v13-end-title"></div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-v13-finish" onclick="finishV13Loop()">ここで終える</button>
+      <button class="entry-choice-btn" id="btn-v13-finish" onclick="finishV13Loop()"></button>
     </div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-v13-continue-initial" onclick="continueV13Loop()">最初のテーマから始める</button>
+      <button class="entry-choice-btn" id="btn-v13-continue-initial" onclick="continueV13Loop()"></button>
     </div>
   </div>
 </div>
@@ -692,15 +688,15 @@ through what is happening now.</p>
     <input type="range" min="0" max="100" step="1" value="50" id="sl-b2" oninput="onSlider('b2',this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
-  <button class="btn-nm" id="nm-b2" onclick="selectNM('b2')">数値化不可</button>
-  <button class="btn" id="next-b2" onclick="submitBefore2()" disabled>次へ</button>
-  <button class="btn-ghost" id="skip-b2" onclick="skipMeasurementBefore()">計測をスキップする</button>
+  <button class="btn-nm" id="nm-b2" onclick="selectNM('b2')"></button>
+  <button class="btn" id="next-b2" onclick="submitBefore2()" disabled></button>
+  <button class="btn-ghost" id="skip-b2" onclick="skipMeasurementBefore()"></button>
 </div>
 
 <!-- ── BREATH MODE ── -->
 <div class="screen" id="s-breath-mode">
   <div id="s-entry-inner">
-    <div class="entry-title" id="t-breath-mode-title">呼吸の進め方を選んでください。</div>
+    <div class="entry-title" id="t-breath-mode-title"></div>
     <div class="entry-choice">
       <button class="entry-choice-btn" id="btn-breath-soft" onclick="selectBreathMode('soft')" style="white-space:pre-line"></button>
       <div class="entry-choice-desc" id="t-breath-soft-desc"></div>
@@ -714,41 +710,41 @@ through what is happening now.</p>
 
 <!-- ── BREATH 1: Ideal Experience ── -->
 <div class="screen" id="s-br1">
-  <div class="breath-sub" id="lbl-feel-br1">感じてください。</div>
+  <div class="breath-sub" id="lbl-feel-br1"></div>
   <div class="breath-main" id="br1-main"></div>
-  <div id="hint-br1" class="breath-hint">呼吸を始める</div>
+  <div id="hint-br1" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-br1" onclick="startBreath('br1')"></div>
 </div>
 
 <!-- ── BREATH 2: Spaciousness ── -->
 <div class="screen" id="s-br2">
-  <div class="breath-sub" id="lbl-feel-br2">感じてください。</div>
-  <div class="breath-main" id="lbl-br2-main">その時の呼吸の余裕</div>
-  <div id="hint-br2" class="breath-hint">呼吸を始める</div>
+  <div class="breath-sub" id="lbl-feel-br2"></div>
+  <div class="breath-main" id="lbl-br2-main"></div>
+  <div id="hint-br2" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-br2" onclick="startBreath('br2')"></div>
 </div>
 
 <!-- ── BREATH 3: Feeling toward the feeling ── -->
 <div class="screen" id="s-br3">
-  <div class="breath-sub" id="lbl-feel-br3">感じてください。</div>
-  <div class="breath-main" id="lbl-br3-main">その感覚に対する私の感覚</div>
-  <div id="hint-br3" class="breath-hint">呼吸を始める</div>
+  <div class="breath-sub" id="lbl-feel-br3"></div>
+  <div class="breath-main" id="lbl-br3-main"></div>
+  <div id="hint-br3" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-br3" onclick="startBreath('br3')"></div>
 </div>
 
 <!-- ── BREATH 4: Everything including the feeling ── -->
 <div class="screen" id="s-br4">
-  <div class="breath-sub" id="lbl-feel-br4">感じてください。</div>
-  <div class="breath-main" id="lbl-br4-main">その感覚を含むあらゆる全て</div>
-  <div id="hint-br4" class="breath-hint">呼吸を始める</div>
+  <div class="breath-sub" id="lbl-feel-br4"></div>
+  <div class="breath-main" id="lbl-br4-main"></div>
+  <div id="hint-br4" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-br4" onclick="startBreath('br4')"></div>
 </div>
 
 <!-- ── BREATH 5: Deep mode only ── -->
 <div class="screen" id="s-br5">
-  <div class="breath-sub" id="lbl-feel-br5">感じてください。</div>
-  <div class="breath-main" id="lbl-br5-main">その感覚が存在しない状態。</div>
-  <div id="hint-br5" class="breath-hint">呼吸を始める</div>
+  <div class="breath-sub" id="lbl-feel-br5"></div>
+  <div class="breath-main" id="lbl-br5-main"></div>
+  <div id="hint-br5" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-br5" onclick="startBreath('br5')"></div>
 </div>
 
@@ -760,17 +756,17 @@ through what is happening now.</p>
     <input type="range" min="0" max="100" step="1" value="50" id="sl-a2" oninput="onSlider('a2',this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
-  <button class="btn-nm" id="nm-a2" onclick="selectNM('a2')">数値化不可</button>
-  <button class="btn" id="next-a2" onclick="submitAfter2()" disabled>次へ</button>
-  <button class="btn-ghost" id="skip-a2" onclick="skipMeasurementAfter()">計測をスキップする</button>
+  <button class="btn-nm" id="nm-a2" onclick="selectNM('a2')"></button>
+  <button class="btn" id="next-a2" onclick="submitAfter2()" disabled></button>
+  <button class="btn-ghost" id="skip-a2" onclick="skipMeasurementAfter()"></button>
 </div>
 
 <!-- ── SHIFT NOTE ── -->
 <div class="screen" id="s-shift-note">
-  <div class="screen-title" id="t-shift-note-title">今の感覚を、ひとことで表すなら？<br>（任意）</div>
-  <input type="text" class="text-input" id="in-shift-note" placeholder="例：少しほどけた / 静かに戻った" autocomplete="off" maxlength="60">
-  <button class="btn" id="btn-shift-note" onclick="submitShiftNote()" style="margin-top:1.6rem">結果を見る</button>
-  <button class="btn-ghost" id="btn-skip-shift-note" onclick="skipShiftNote()">スキップ</button>
+  <div class="screen-title" id="t-shift-note-title"></div>
+  <input type="text" class="text-input" id="in-shift-note" autocomplete="off" maxlength="60">
+  <button class="btn" id="btn-shift-note" onclick="submitShiftNote()" style="margin-top:1.6rem"></button>
+  <button class="btn-ghost" id="btn-skip-shift-note" onclick="skipShiftNote()"></button>
 </div>
 
 <!-- ── RESULT ── -->
@@ -778,23 +774,23 @@ through what is happening now.</p>
   <div class="sc-card" id="result-card">
     <div class="sc-card-header">
       <div class="sc-card-title">Noetune</div>
-      <div class="sc-card-badge" id="lbl-session-header">ほどけた記録</div>
+      <div class="sc-card-badge" id="lbl-session-header"></div>
     </div>
     <div class="sc-card-poem" id="t-result-poem"></div>
     <div class="sc-from-wrap" id="sc-from-wrap">
-      <div class="sc-section-label" id="lbl-result-from">ほどく前</div>
+      <div class="sc-section-label" id="lbl-result-from"></div>
       <div class="sc-from-value" id="t-result-from"></div>
       <div class="sc-down-arrow">↓</div>
     </div>
     <div class="sc-toward-wrap">
-      <div class="sc-section-label" id="lbl-result-toward">戻った先</div>
+      <div class="sc-section-label" id="lbl-result-toward"></div>
       <div class="sc-toward-value" id="t-result-sub"></div>
     </div>
     <div class="sc-shift-section">
-      <div class="sc-shift-header" id="lbl-shift-section">変化</div>
+      <div class="sc-shift-header" id="lbl-shift-section"></div>
       <div class="sc-shift-row sc-shift-row-last">
         <div class="sc-shift-row-left">
-          <div class="sc-shift-label" id="lbl-breath-ease">呼吸の変化</div>
+          <div class="sc-shift-label" id="lbl-breath-ease"></div>
           <div class="sc-shift-helper" id="lbl-be-helper"></div>
         </div>
         <div class="sc-shift-values">
@@ -805,29 +801,29 @@ through what is happening now.</p>
       </div>
     </div>
     <div class="sc-note-wrap" id="sc-note-wrap" style="display:none">
-      <div class="sc-section-label" id="lbl-shift-note-label">今、残っている感覚</div>
+      <div class="sc-section-label" id="lbl-shift-note-label"></div>
       <div class="sc-note-value" id="t-shift-note-display"></div>
     </div>
     <div class="sc-meaning" id="t-result-meaning" style="display:none"></div>
     <div class="sc-card-footer">noetune.com</div>
   </div>
-  <button class="btn-save-image" id="btn-save-image" onclick="saveResultCard()">画像として保存</button>
+  <button class="btn-save-image" id="btn-save-image" onclick="saveResultCard()"></button>
   <div class="save-fallback-note" id="t-save-fallback-note" style="display:none"></div>
   <div class="save-preview-wrap" id="save-preview-wrap" style="display:none">
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <button class="btn" id="btn-repeat-theme" onclick="backToStart()" style="background:#1A1A1A;margin-top:2.5rem">新しいテーマで始める</button>
-  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()" style="display:none">別の入口からほどく</button>
-  <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()" style="display:none">言語を変える</button>
-  <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
-  <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none">ログアウト</button>
+  <button class="btn" id="btn-repeat-theme" onclick="backToStart()" style="background:#1A1A1A;margin-top:2.5rem"></button>
+  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()" style="display:none"></button>
+  <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()" style="display:none"></button>
+  <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none"></button>
+  <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none"></button>
   <div class="result-upgrade-block" onclick="fwd('s-pricing')">
-    <div class="result-upgrade-body" id="result-professional-lead">必要なときに、<br>静かに自分へ戻る場所。</div>
-    <div class="result-upgrade-plan" id="result-professional-title">Professional</div>
-    <div class="result-upgrade-features" id="result-professional-features">・すべてのテーマ<br>・無制限に使える<br>・いつでも解約できる</div>
-    <div class="result-upgrade-price" id="result-professional-price">月額980円</div>
-    <div class="result-upgrade-cta" id="t-result-pricing">Professionalを見る</div>
+    <div class="result-upgrade-body" id="result-professional-lead"></div>
+    <div class="result-upgrade-plan" id="result-professional-title"></div>
+    <div class="result-upgrade-features" id="result-professional-features"></div>
+    <div class="result-upgrade-price" id="result-professional-price"></div>
+    <div class="result-upgrade-cta" id="t-result-pricing"></div>
   </div>
   <div class="pricing-note" id="t-trial-remaining" style="display:none"></div>
 </div>
@@ -844,7 +840,7 @@ through what is happening now.</p>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
       <button class="portal-outline-btn" id="btn-portal" onclick="openCustomerPortal()" style="display:none"></button>
       <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
-      <button class="btn-pricing-return" id="btn-logout-pricing" onclick="logoutUser()" style="display:none;margin-top:.6rem">ログアウト</button>
+      <button class="btn-pricing-return" id="btn-logout-pricing" onclick="logoutUser()" style="display:none;margin-top:.6rem"></button>
     </div>
   </div>
 </div>
@@ -857,14 +853,14 @@ through what is happening now.</p>
     <button class="btn pricing-cta" id="btn-lock-cta" onclick="pricingCtaClick()"></button>
     <div class="pricing-note" id="t-lock-note"></div>
     <button class="btn-pricing-return" id="btn-login-lock" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
-    <button class="btn-pricing-return" id="btn-logout-lock" onclick="logoutUser()" style="display:none;margin-top:.6rem">ログアウト</button>
+    <button class="btn-pricing-return" id="btn-logout-lock" onclick="logoutUser()" style="display:none;margin-top:.6rem"></button>
   </div>
 </div>
 
 <!-- ── DOOR ── -->
 <div class="screen" id="s-door" style="overflow-y:auto;padding:3.5rem 1.4rem 6rem">
   <div style="width:100%;max-width:340px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch">
-    <div class="entry-title" id="t-door-title">答えやすい問いを選んでください。</div>
+    <div class="entry-title" id="t-door-title"></div>
     <div id="door-cards-wrap" style="display:flex;flex-direction:column;gap:.75rem">
       <div class="door-card" id="door-card-a" onclick="selectDoorCard('A')">
         <div class="door-card-question" id="door-q-a"></div>
@@ -888,7 +884,7 @@ through what is happening now.</p>
     </div>
     <input type="text" class="door-card-input" id="door-answer-input" autocomplete="off" oninput="onDoorAnswerInput(this.value)" disabled style="margin-top:1rem">
     <div id="door-cta-wrap">
-      <button class="btn" id="btn-door-next" onclick="submitDoorAnswer()" disabled>この答えで進む</button>
+      <button class="btn" id="btn-door-next" onclick="submitDoorAnswer()" disabled></button>
     </div>
     <button class="btn-ghost" id="btn-no-answer" onclick="goNoAnswer()"></button>
   </div>
@@ -926,7 +922,7 @@ through what is happening now.</p>
   <input type="text" class="text-input" id="in-nega-ideal"
     placeholder="理想状態を入力…" autocomplete="off" maxlength="40"
     oninput="onNegaIdealInput(this.value)">
-  <button class="btn" id="btn-nega-ideal-next" onclick="submitNegaIdeal()" disabled>次へ</button>
+  <button class="btn" id="btn-nega-ideal-next" onclick="submitNegaIdeal()" disabled></button>
   <button class="btn-ghost" onclick="skipNegaIdeal()">スキップ</button>
 </div>
 
@@ -938,7 +934,7 @@ through what is happening now.</p>
 
 <!-- ── IDEAL FIXED CTA ── -->
 <div id="ideal-cta-fixed">
-  <button class="btn" id="btn-ideal-cta" onclick="startIdealFromSelection()">次へ</button>
+  <button class="btn" id="btn-ideal-cta" onclick="startIdealFromSelection()"></button>
 </div>
 
 <script>
@@ -1220,7 +1216,11 @@ function trackEvent(name, props) {
 var lang = (function() { try { return localStorage.getItem('ntn_lang') || 'en'; } catch(e) { return 'en'; } })();
 
 function T(key, vars) {
-  var s = getText('ui.' + key, key);
+  return t('ui.' + key, key, vars);
+}
+
+function interpolateLocaleText(value, vars) {
+  var s = value;
   if (vars) {
     s = s.split('{theme}').join(vars.theme || '');
     s = s.split('{issue}').join(vars.issue || '');
@@ -1242,6 +1242,18 @@ function renderPricingFeatures() {
     var li = document.createElement('li');
     li.textContent = text;
     el.appendChild(li);
+  });
+}
+
+function renderResultProfessionalFeatures() {
+  var el = document.getElementById('result-professional-features');
+  if (!el) return;
+  var features = t('ui.resultProfessionalFeatures', []);
+  el.innerHTML = '';
+  features.forEach(function(text) {
+    var line = document.createElement('div');
+    line.textContent = text;
+    el.appendChild(line);
   });
 }
 
@@ -1274,6 +1286,10 @@ function renderStaticTexts() {
   setEl('btn-v13-ideal-skip', T('no_answer_button'));
   setEl('t-v13-end-title', T('v13EndTitle'));
   setEl('btn-v13-finish', T('v13FinishButton'));
+  var v13NonIdealInput = document.getElementById('in-v13-nonideal');
+  if (v13NonIdealInput) v13NonIdealInput.setAttribute('placeholder', t('ui.v13NonIdealPlaceholder'));
+  var v13IdealInput = document.getElementById('in-v13-ideal');
+  if (v13IdealInput) v13IdealInput.setAttribute('placeholder', t('ui.v13IdealPlaceholder'));
   var freeIdealInput = document.getElementById('in-free-ideal');
   if (freeIdealInput) freeIdealInput.placeholder = T('freeIdealInputPlaceholder');
   var freeTopicInput = document.getElementById('in-free-topic');
@@ -1341,6 +1357,7 @@ function renderStaticTexts() {
   setEl('t-result-pricing',    T('result_pricing_note'));
   var resultFeatures = document.getElementById('result-professional-features');
   if (resultFeatures) resultFeatures.style.display = '';
+  renderResultProfessionalFeatures();
   ['br1','br2','br3','br4','br5'].forEach(function(k){
     setEl('lbl-feel-' + k, T('feel_prompt'));
     setEl('hint-' + k, T('breathe_start_hint'));
@@ -1365,10 +1382,12 @@ function renderStaticTexts() {
   setEl('skip-b2', T('skip_measurement'));
   setEl('skip-a2', T('skip_measurement'));
   setEl('btn-issue', T('next_button'));
+  setEl('btn-nega-ideal-next', T('next_button'));
   setEl('btn-ideal', T('next_button'));
   var pi = document.getElementById('in-issue');        if (pi) pi.placeholder = T('issue_placeholder');
   var ii = document.getElementById('in-ideal');        if (ii) ii.placeholder = T('ideal_placeholder');
   var ci = document.getElementById('in-custom-theme'); if (ci) ci.placeholder = T('custom_input_placeholder');
+  var si = document.getElementById('in-shift-note');   if (si) si.setAttribute('placeholder', t('ui.shift_note_placeholder'));
   var bb = document.getElementById('btn-back');        if (bb) bb.setAttribute('aria-label', T('back_button'));
   renderThemeScreen();
   renderIdealScreen();
@@ -1473,7 +1492,7 @@ function getText(path, fallback) {
 }
 
 function t(path, fallback) {
-  return getText(path, fallback);
+  return interpolateLocaleText(getText(path, fallback), arguments[2]);
 }
 
 function getWishGroups() {
@@ -1506,6 +1525,7 @@ function applyLocale() {
   setEl('result-professional-title', getText('ui.professionalTitle', T('pricing_professional_label')));
   setEl('result-professional-price', getText('ui.professionalPrice', T('pricing_price')));
   setEl('t-result-pricing', getText('ui.professionalCta', T('result_pricing_note')));
+  renderResultProfessionalFeatures();
   updateResultRepeatLabel();
   var entryTitle = document.querySelector('#s-entry-choice .entry-title');
   if (entryTitle) entryTitle.textContent = getText('ui.wishEntryTitle', '');
@@ -4867,11 +4887,13 @@ function enterV9Step2(reaction) {
 }
 
 function getV13ThemeLabel() {
-  return D.theme || D.themePositive || '選択したテーマ';
+  return D.theme || D.themePositive || t('ui.selectedThemeFallback');
 }
 
 function setV13MeasurementTitles() {
-  var title = '「' + (D.v13OriginalTheme || getV13ThemeLabel()) + '」\n\nそのとき、\n\n呼吸の自然度は？';
+  var title = t('ui.v13MeasurementQuestion', '', {
+    theme: D.v13OriginalTheme || getV13ThemeLabel()
+  });
   setEl('t-b2', title);
   setEl('t-a2', title);
 }
@@ -5067,7 +5089,9 @@ function continueAfterV13BeforeMeasurement() {
 
 function showV13NonIdeal() {
   if (requireActiveAccess()) return;
-  setEl('v13-nonideal-theme', '「' + (D.v13CurrentTheme || getV13ThemeLabel()) + '」');
+  setEl('v13-nonideal-theme', t('ui.themeQuoteTemplate', '', {
+    theme: D.v13CurrentTheme || getV13ThemeLabel()
+  }));
   var inp = document.getElementById('in-v13-nonideal');
   if (inp) inp.value = '';
   var btn = document.getElementById('btn-v13-nonideal-next');
@@ -5077,7 +5101,9 @@ function showV13NonIdeal() {
 
 function showV13Ideal() {
   if (requireActiveAccess()) return;
-  setEl('v13-ideal-theme', '「' + (D.v13CurrentNonIdeal || 'そうでない状態') + '」');
+  setEl('v13-ideal-theme', t('ui.themeQuoteTemplate', '', {
+    theme: D.v13CurrentNonIdeal || t('ui.v13NonIdealFallback')
+  }));
   var inp = document.getElementById('in-v13-ideal');
   if (inp) inp.value = '';
   var btn = document.getElementById('btn-v13-ideal-next');
@@ -5242,7 +5268,7 @@ function getSelectedWishLabel() {
   var groupKey = D.selectedWishGroup;
   var wishKey = D.selectedWish;
   var wish = groupKey && wishKey ? findWish(groupKey, wishKey) : null;
-  return wish && wish.label ? wish.label : (D.theme || 'このテーマ');
+  return wish && wish.label ? wish.label : (D.theme || t('ui.selectedWishFallback'));
 }
 
 function updateResultRepeatLabel() {
@@ -5253,13 +5279,18 @@ function formatV13History() {
   var ideals = D.v13History
     .map(function(item) { return item.ideal || ''; })
     .filter(function(ideal) { return !!ideal; });
-  var lines = ['テーマ：', '「' + (D.v13OriginalTheme || getV13ThemeLabel()) + '」', '', 'あなたの本質：'];
+  var lines = [
+    t('ui.resultThemeLabel'),
+    t('ui.themeQuoteTemplate', '', { theme: D.v13OriginalTheme || getV13ThemeLabel() }),
+    '',
+    t('ui.resultEssenceLabel')
+  ];
   if (ideals.length) {
     ideals.forEach(function(ideal) {
       lines.push('・' + ideal);
     });
   } else {
-    lines.push('・' + getText('ui.resultUnanswered', '未回答'));
+    lines.push('・' + t('ui.resultUnanswered'));
   }
   return lines.join('\n');
 }
@@ -5286,7 +5317,7 @@ function showResult() {
     }
     if (downArrow) downArrow.style.display = 'none';
     if (towardWrap) towardWrap.style.display = 'none';
-    setEl('lbl-breath-ease', '呼吸の自然度');
+    setEl('lbl-breath-ease', t('ui.resultBreathNaturalness'));
   } else if (D.doorKey) {
     setEl('lbl-breath-ease', T('result_label_breath_ease'));
     if (fromLabel) { fromLabel.textContent = T('result_label_from'); fromLabel.style.display = ''; }
