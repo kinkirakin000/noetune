@@ -814,8 +814,6 @@ through what is happening now.</p>
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <button class="btn" id="btn-repeat-theme" onclick="backToStart()" style="background:#1A1A1A;margin-top:2.5rem"></button>
-  <button class="btn-secondary-result" id="btn-new-theme" onclick="chooseNewTheme()" style="display:none"></button>
-  <button class="btn-secondary-result" id="btn-change-language" onclick="changeLanguageFromResult()" style="display:none"></button>
   <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none"></button>
   <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none"></button>
   <div class="result-upgrade-block" onclick="fwd('s-pricing')">
@@ -1352,8 +1350,6 @@ function renderStaticTexts() {
   setEl('btn-skip-shift-note',   T('shift_note_skip'));
   setEl('lbl-shift-note-label',  T('result_shift_note_label'));
   setEl('btn-repeat-theme',    T('resultNewThemeButton'));
-  setEl('btn-new-theme',       T('choose_new_theme'));
-  setEl('btn-change-language', T('change_language'));
   setEl('t-result-pricing',    T('result_pricing_note'));
   var resultFeatures = document.getElementById('result-professional-features');
   if (resultFeatures) resultFeatures.style.display = '';
