@@ -37,14 +37,17 @@ body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;backg
 .theme-mode-btn{position:static;min-width:58px;height:32px;padding:0 10px;border:1px solid rgba(107,144,128,.28);border-radius:18px;background:rgba(250,250,247,.82);color:#77736E;font-family:'Noto Serif JP',serif;font-size:.65rem;letter-spacing:.04em;cursor:pointer;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(8px);transition:background .2s,color .2s,border-color .2s}
 .theme-mode-btn:active{color:#6B9080;border-color:#6B9080}
 .settings-cluster{position:fixed;top:calc(1rem + env(safe-area-inset-top));right:1rem;z-index:210;display:flex;align-items:center;gap:6px}
-.language-control{position:relative}
-.language-chip{height:30px;min-width:92px;padding:0 11px;border:1px solid rgba(109,185,183,.32);border-radius:18px;background:linear-gradient(120deg,rgba(255,255,255,.62),rgba(221,244,242,.44),rgba(235,225,249,.48));box-shadow:0 6px 20px rgba(90,145,150,.1),inset 0 1px 0 rgba(255,255,255,.72),0 0 14px rgba(135,214,209,.1);color:#657674;font-family:'Noto Serif JP',serif;font-size:.65rem;letter-spacing:.04em;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.language-control,.account-control{position:relative}
+.language-chip,.account-chip{height:30px;min-width:82px;padding:0 10px;border:1px solid rgba(109,185,183,.32);border-radius:18px;background:linear-gradient(120deg,rgba(255,255,255,.62),rgba(221,244,242,.44),rgba(235,225,249,.48));box-shadow:0 6px 20px rgba(90,145,150,.1),inset 0 1px 0 rgba(255,255,255,.72),0 0 14px rgba(135,214,209,.1);color:#657674;font-family:'Noto Serif JP',serif;font-size:.63rem;letter-spacing:.03em;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.account-chip{min-width:70px}
 .language-chip-arrow{display:inline-block;margin-left:4px;font-size:.58rem;transition:transform .2s}
-.language-chip[aria-expanded="true"] .language-chip-arrow{transform:rotate(180deg)}
-.language-menu{position:absolute;top:calc(100% + 7px);right:0;width:132px;padding:6px;border:1px solid rgba(109,185,183,.25);border-radius:16px;background:rgba(248,252,251,.86);box-shadow:0 14px 34px rgba(67,108,120,.13),inset 0 1px 0 rgba(255,255,255,.8);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
-.language-menu[hidden]{display:none}
-.language-menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:11px;background:transparent;color:#50605e;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.04em;text-align:left;cursor:pointer}
-.language-menu button:active,.language-menu button.selected{background:linear-gradient(120deg,rgba(190,230,224,.42),rgba(224,214,243,.34));color:#315753}
+.language-chip[aria-expanded="true"] .language-chip-arrow,.account-chip[aria-expanded="true"] .language-chip-arrow{transform:rotate(180deg)}
+.language-menu,.account-menu{position:absolute;top:calc(100% + 7px);right:0;width:140px;padding:6px;border:1px solid rgba(109,185,183,.25);border-radius:16px;background:rgba(248,252,251,.9);box-shadow:0 14px 34px rgba(67,108,120,.13),inset 0 1px 0 rgba(255,255,255,.8);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.account-menu{width:164px}
+.language-menu[hidden],.account-menu[hidden],.account-menu button[hidden]{display:none}
+.language-menu button,.account-menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:11px;background:transparent;color:#50605e;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.04em;text-align:left;cursor:pointer}
+.language-menu button:active,.language-menu button.selected,.account-menu button:active{background:linear-gradient(120deg,rgba(190,230,224,.42),rgba(224,214,243,.34));color:#315753}
+.account-menu-separator{height:1px;margin:4px 8px;background:rgba(109,185,183,.16)}
 .lang-select-wrap{display:flex;flex-direction:column;gap:1rem;margin-top:2.2rem;width:100%;max-width:220px;align-items:center}
 .lang-btn{font-family:'Noto Serif JP',serif;width:100%;padding:13px 0;background:transparent;color:#1A1A1A;border:1.5px solid rgba(200,200,195,.45);border-radius:30px;font-size:.95rem;letter-spacing:.1em;cursor:pointer;transition:background .2s,border-color .2s}
 .lang-btn:active{background:rgba(107,144,128,.1);border-color:#6B9080}
@@ -526,10 +529,11 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 .theme-btn,.ideal-btn{background:linear-gradient(145deg,rgba(98,194,184,.055),rgba(116,91,151,.04));box-shadow:inset 0 1px 0 rgba(219,255,249,.07),0 12px 28px rgba(0,0,0,.1)}
 .theme-btn.selected,.ideal-btn.selected{background:linear-gradient(135deg,rgba(67,158,145,.19),rgba(113,82,153,.15));border-color:rgba(105,213,203,.42);box-shadow:inset 0 1px 0 rgba(220,255,249,.1),0 0 0 3px rgba(87,204,195,.035),0 14px 32px rgba(0,0,0,.13)}
 .theme-mode-btn{color:#d7e7e3;background:linear-gradient(120deg,rgba(27,49,52,.68),rgba(27,64,61,.58),rgba(47,38,62,.62));border-color:rgba(105,204,196,.24);box-shadow:inset 0 1px 0 rgba(218,255,249,.08),0 0 0 1px rgba(209,255,249,.025),0 10px 28px rgba(0,0,0,.18)}
-.language-chip{color:#d7e7e3;background:linear-gradient(120deg,rgba(27,49,52,.68),rgba(27,64,61,.58),rgba(47,38,62,.62));border-color:rgba(105,204,196,.24);box-shadow:inset 0 1px 0 rgba(218,255,249,.08),0 0 0 1px rgba(209,255,249,.025),0 10px 28px rgba(0,0,0,.18)}
-.language-menu{background:rgba(13,23,28,.9);border-color:rgba(105,204,196,.2);box-shadow:0 16px 38px rgba(0,0,0,.28),inset 0 1px 0 rgba(218,255,249,.05)}
-.language-menu button{color:#afc0bd}
-.language-menu button:active,.language-menu button.selected{background:linear-gradient(120deg,rgba(64,145,135,.22),rgba(105,76,143,.2));color:#e4f2ef}
+.language-chip,.account-chip{color:#d7e7e3;background:linear-gradient(120deg,rgba(27,49,52,.68),rgba(27,64,61,.58),rgba(47,38,62,.62));border-color:rgba(105,204,196,.24);box-shadow:inset 0 1px 0 rgba(218,255,249,.08),0 0 0 1px rgba(209,255,249,.025),0 10px 28px rgba(0,0,0,.18)}
+.language-menu,.account-menu{background:rgba(13,23,28,.92);border-color:rgba(105,204,196,.2);box-shadow:0 16px 38px rgba(0,0,0,.28),inset 0 1px 0 rgba(218,255,249,.05)}
+.language-menu button,.account-menu button{color:#afc0bd}
+.language-menu button:active,.language-menu button.selected,.account-menu button:active{background:linear-gradient(120deg,rgba(64,145,135,.22),rgba(105,76,143,.2));color:#e4f2ef}
+.account-menu-separator{background:rgba(105,204,196,.13)}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TH1504X2CK',{send_page_view:true});</script>
@@ -552,6 +556,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </svg>
 </button>
 <div class="settings-cluster">
+  <button class="theme-mode-btn" id="btn-theme-mode" type="button" onclick="cycleThemeMode()" aria-label=""></button>
   <div class="language-control">
     <button class="language-chip" id="btn-language-chip" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLanguageMenu()"><span id="current-language-name">English</span><span class="language-chip-arrow" aria-hidden="true">▾</span></button>
     <div class="language-menu" id="language-menu" hidden>
@@ -560,7 +565,17 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <button type="button" data-language="zh-TW" onclick="selectInterfaceLanguage('zh-TW')">繁體中文</button>
     </div>
   </div>
-  <button class="theme-mode-btn" id="btn-theme-mode" type="button" onclick="cycleThemeMode()" aria-label=""></button>
+  <div class="account-control">
+    <button class="account-chip" id="btn-account-chip" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleAccountMenu()"><span id="account-chip-label"></span><span class="language-chip-arrow" aria-hidden="true">▾</span></button>
+    <div class="account-menu" id="account-menu" hidden>
+      <button type="button" id="account-login" onclick="openAccountAuth(false)"></button>
+      <button type="button" id="account-signup" onclick="openAccountAuth(true)"></button>
+      <button type="button" id="account-professional" onclick="closeAccountMenu();fwd('s-pricing')" hidden></button>
+      <button type="button" id="account-manage" onclick="closeAccountMenu();openCustomerPortal()" hidden></button>
+      <div class="account-menu-separator" id="account-menu-separator" hidden></div>
+      <button type="button" id="account-logout" onclick="closeAccountMenu();logoutUser()" hidden></button>
+    </div>
+  </div>
 </div>
 <div class="progress-bar" id="progress"></div>
 
@@ -588,9 +603,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <p id="lp-footer-p1"></p>
       <p id="lp-footer-p2"></p>
       <button class="btn-pricing-return" id="btn-lp-pricing-link" onclick="fwd('s-pricing')" style="display:none"></button>
-      <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none"></button>
-      <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none"></button>
-      <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none"></button>
     </div>
   </div>
 </div>
@@ -928,9 +940,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <button class="btn" id="btn-repeat-theme" onclick="backToStart()" style="background:#1A1A1A;margin-top:2.5rem"></button>
-  <button class="portal-outline-btn" id="btn-portal-result" onclick="openCustomerPortal()" style="display:none"></button>
-  <button class="btn-secondary-result" id="btn-logout-result" onclick="logoutUser()" style="display:none"></button>
-  <div class="result-upgrade-block" onclick="fwd('s-pricing')">
+  <div class="result-upgrade-block" id="result-upgrade-block" onclick="fwd('s-pricing')">
     <div class="result-upgrade-body" id="result-professional-lead"></div>
     <div class="result-upgrade-plan" id="result-professional-title"></div>
     <div class="result-upgrade-features" id="result-professional-features"></div>
@@ -949,9 +959,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()"></button>
       <div class="pricing-note" id="t-guest-records-note" style="display:none"></div>
       <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
-      <button class="portal-outline-btn" id="btn-portal" onclick="openCustomerPortal()" style="display:none"></button>
-      <button class="btn-pricing-return" id="btn-login-pricing" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
-      <button class="btn-pricing-return" id="btn-logout-pricing" onclick="logoutUser()" style="display:none;margin-top:.6rem"></button>
     </div>
   </div>
 </div>
@@ -963,8 +970,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="about-para"  id="t-lock-body"></div>
     <button class="btn pricing-cta" id="btn-lock-cta" onclick="pricingCtaClick()"></button>
     <div class="pricing-note" id="t-lock-note"></div>
-    <button class="btn-pricing-return" id="btn-login-lock" onclick="openAuthModal()" style="display:none;margin-top:.6rem"></button>
-    <button class="btn-pricing-return" id="btn-logout-lock" onclick="logoutUser()" style="display:none;margin-top:.6rem"></button>
   </div>
 </div>
 
@@ -1362,9 +1367,56 @@ function toggleLanguageMenu() {
   var menu = document.getElementById('language-menu');
   var chip = document.getElementById('btn-language-chip');
   if (!menu || !chip) return;
+  closeAccountMenu();
   var willOpen = menu.hidden;
   menu.hidden = !willOpen;
   chip.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+}
+
+function toggleAccountMenu() {
+  var menu = document.getElementById('account-menu');
+  var chip = document.getElementById('btn-account-chip');
+  if (!menu || !chip) return;
+  closeLanguageMenu();
+  var willOpen = menu.hidden;
+  menu.hidden = !willOpen;
+  chip.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+}
+
+function closeAccountMenu() {
+  var menu = document.getElementById('account-menu');
+  var chip = document.getElementById('btn-account-chip');
+  if (menu) menu.hidden = true;
+  if (chip) chip.setAttribute('aria-expanded', 'false');
+}
+
+function getAccountUIState() {
+  if (!currentUser) return 'guest';
+  return isUnlimited() ? 'plus' : 'free';
+}
+
+function updateAccountActions() {
+  var state = getAccountUIState();
+  var login = document.getElementById('account-login');
+  var signup = document.getElementById('account-signup');
+  var professional = document.getElementById('account-professional');
+  var manage = document.getElementById('account-manage');
+  var logout = document.getElementById('account-logout');
+  var separator = document.getElementById('account-menu-separator');
+  if (login) login.hidden = state !== 'guest';
+  if (signup) signup.hidden = state !== 'guest';
+  if (professional) professional.hidden = state !== 'free';
+  if (manage) manage.hidden = state !== 'plus';
+  if (logout) logout.hidden = state === 'guest';
+  if (separator) separator.hidden = state === 'guest';
+  var upgrade = document.getElementById('result-upgrade-block');
+  if (upgrade) upgrade.style.display = state === 'plus' ? 'none' : '';
+}
+
+function openAccountAuth(signup) {
+  closeAccountMenu();
+  openAuthModal();
+  if (signup) setEl('auth-modal-title', T('signup'));
 }
 
 function closeLanguageMenu() {
@@ -1422,6 +1474,13 @@ function renderStaticTexts() {
   document.documentElement.lang = lang;
   applyThemeMode();
   updateLanguageControl();
+  setEl('account-chip-label', T('account'));
+  setEl('account-login', T('login'));
+  setEl('account-signup', T('signup'));
+  setEl('account-professional', T('professional'));
+  setEl('account-manage', T('manageSubscription'));
+  setEl('account-logout', T('logout'));
+  updateAccountActions();
   setEl('t-entry-method-title', T('entryMethodTitle'));
   setEl('btn-entry-method-theme', T('entryMethodThemeTitle'));
   setEl('t-entry-method-theme-desc', T('entryMethodThemeDesc'));
@@ -4482,34 +4541,13 @@ function logoutUser() {
 
 function updateLoginButton() {
   var show = !!(supabaseClient && !currentUser);
-  var showLogout = !!currentUser;
-  var label = T('authGoogleLogin');
-  var restoreLabel = T('authRestoreProfessional');
-  ['btn-login-pricing', 'btn-login-lock'].forEach(function(id) {
-    var btn = document.getElementById(id);
-    if (!btn) return;
-    btn.style.display = show ? '' : 'none';
-    btn.textContent = label;
-  });
-  ['btn-login-landing'].forEach(function(id) {
-    var btn = document.getElementById(id);
-    if (!btn) return;
-    btn.style.display = show ? '' : 'none';
-    btn.textContent = restoreLabel;
-  });
-  var logoutLabel = T('authLogout');
-  ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result', 'btn-logout-landing'].forEach(function(id) {
-    var btn = document.getElementById(id);
-    if (!btn) return;
-    btn.style.display = showLogout ? '' : 'none';
-    btn.textContent = logoutLabel;
-  });
   if (show) {
     var soonMsg = document.getElementById('t-pricing-soon');
     if (soonMsg) soonMsg.style.display = 'none';
   }
   var guestNote = document.getElementById('t-guest-records-note');
   if (guestNote) guestNote.style.display = show && lang !== 'ja' ? '' : 'none';
+  updateAccountActions();
   updatePricingCTA();
 }
 
@@ -4568,7 +4606,7 @@ function openCustomerPortal() {
 }
 
 function getPortalButtons() {
-  return ['btn-portal', 'btn-portal-result', 'btn-portal-landing']
+  return ['account-manage']
     .map(function(id) { return document.getElementById(id); })
     .filter(function(btn) { return !!btn; });
 }
@@ -4582,10 +4620,11 @@ function updatePortalButton() {
   if (!buttons.length) return;
   var isPlus = isUnlimited();
   buttons.forEach(function(btn) {
-    btn.style.display = isPlus ? '' : 'none';
+    btn.hidden = !isPlus;
     btn.disabled = false;
-    if (isPlus) btn.textContent = getPortalManageLabel(btn);
+    if (isPlus) btn.textContent = T('manageSubscription');
   });
+  updateAccountActions();
   if (isPlus) {
     if (!updatePortalButton._plusTracked) {
       updatePortalButton._plusTracked = true;

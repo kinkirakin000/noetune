@@ -165,7 +165,15 @@
     "appearanceLabel": "顯示模式",
     "themeModeAuto": "自動",
     "themeModeLight": "淺色",
-    "themeModeDark": "深色"
+    "themeModeDark": "深色",
+    "login": "登入",
+    "signup": "註冊",
+    "manageSubscription": "管理訂閱",
+    "logout": "登出",
+    "professional": "Professional",
+    "appearance": "顯示",
+    "language": "語言",
+    "account": "帳戶"
   },
   "about": {
     "title": "關於 Noetune",

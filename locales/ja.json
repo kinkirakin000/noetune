@@ -165,7 +165,15 @@
     "appearanceLabel": "表示モード",
     "themeModeAuto": "自動",
     "themeModeLight": "ライト",
-    "themeModeDark": "ダーク"
+    "themeModeDark": "ダーク",
+    "login": "ログイン",
+    "signup": "サインアップ",
+    "manageSubscription": "サブスク管理",
+    "logout": "ログアウト",
+    "professional": "Professional",
+    "appearance": "表示",
+    "language": "言語",
+    "account": "アカウント"
   },
   "about": {
     "title": "Noetuneとは",

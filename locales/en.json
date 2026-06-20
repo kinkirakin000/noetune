@@ -165,7 +165,15 @@
     "appearanceLabel": "Appearance",
     "themeModeAuto": "Auto",
     "themeModeLight": "Light",
-    "themeModeDark": "Dark"
+    "themeModeDark": "Dark",
+    "login": "Log in",
+    "signup": "Sign up",
+    "manageSubscription": "Manage subscription",
+    "logout": "Log out",
+    "professional": "Professional",
+    "appearance": "Appearance",
+    "language": "Language",
+    "account": "Account"
   },
   "about": {
     "title": "About Noetune",
