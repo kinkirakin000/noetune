@@ -146,7 +146,7 @@
     "authGoogleContinue": "Continue with Google",
     "authTitle": "Log in",
     "authClose": "Close",
-    "authBody": "Log in with Google so you can use Noetune again next time.",
+    "authBody": "Log in with Google to save your results.",
     "authEmailPlaceholder": "Email address",
     "authErrorRetry": "Could not log in. Please try again.",
     "authError": "Could not log in.",
@@ -173,7 +173,12 @@
     "professional": "Professional",
     "appearance": "Appearance",
     "language": "Language",
-    "account": "Account"
+    "account": "Account",
+    "saveResultButton": "Save this result",
+    "saveResultLogin": "Log in to save this result",
+    "saveResultSaved": "Saved",
+    "saveResultSaving": "Saving…",
+    "saveResultError": "Could not save"
   },
   "about": {
     "title": "About Noetune",

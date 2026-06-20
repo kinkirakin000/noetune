@@ -108,6 +108,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-save-image:active{background:#F2F7F5}
 .btn-save-image:disabled{opacity:.6;cursor:default}
 .save-fallback-note{font-family:'Noto Serif JP',serif;font-size:.65rem;color:#A8A8A2;letter-spacing:.04em;text-align:center;margin-top:.5rem;line-height:1.65;max-width:280px}
+.save-result-status{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#6B9080;letter-spacing:.06em;text-align:center;min-height:1.3em;margin-top:.5rem}
+.save-result-toast{position:fixed;left:50%;bottom:calc(1.5rem + env(safe-area-inset-bottom));z-index:10000;transform:translate(-50%,12px);padding:10px 18px;border:1px solid rgba(109,185,183,.3);border-radius:999px;background:rgba(248,252,251,.9);color:#315753;font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.06em;box-shadow:0 12px 34px rgba(67,108,120,.14);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s}
+.save-result-toast.show{opacity:1;transform:translate(-50%,0)}
 .save-preview-wrap{margin-top:1rem;text-align:center;max-width:320px;width:100%}
 .save-preview-wrap img{max-width:100%;border-radius:10px;border:1px solid #E8E8E2}
 .result-hint{font-family:'Noto Serif JP',serif;font-size:.78rem;color:#666660;letter-spacing:.04em;line-height:1.75;text-align:center;margin-top:.75rem;margin-bottom:.6rem;max-width:300px}
@@ -527,6 +530,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 .language-menu button,.account-menu button{color:#afc0bd}
 .language-menu button:active,.language-menu button.selected,.account-menu button:active{background:linear-gradient(120deg,rgba(64,145,135,.22),rgba(105,76,143,.2));color:#e4f2ef}
 .account-menu-separator{background:rgba(105,204,196,.13)}
+.save-result-toast{background:rgba(13,23,28,.92);color:#d7e7e3;border-color:rgba(105,204,196,.22);box-shadow:0 14px 38px rgba(0,0,0,.3)}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TH1504X2CK',{send_page_view:true});</script>
@@ -567,6 +571,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
 </div>
 <div class="progress-bar" id="progress"></div>
+<div class="save-result-toast" id="save-result-toast" role="status" aria-live="polite"></div>
 
 <!-- ── LANG ── -->
 <!-- ── LANDING ── -->
@@ -924,6 +929,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
   <button class="btn-save-image" id="btn-save-image" onclick="saveResultCard()"></button>
   <div class="save-fallback-note" id="t-save-fallback-note" style="display:none"></div>
+  <button class="btn-save-image" id="btn-save-result" onclick="saveCurrentResult()"></button>
+  <div class="save-result-status" id="save-result-status" role="status" aria-live="polite"></div>
   <div class="save-preview-wrap" id="save-preview-wrap" style="display:none">
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
@@ -1117,6 +1124,9 @@ var currentProfile = null;
 var supabaseClient = null;
 var _posthog       = null;
 var _checkoutSuccessPending = false;
+var _resultSaveState = 'idle';
+var _resultSaveInFlight = false;
+var _saveResultToastTimer = null;
 
 function claimGuestFirstSessionIfNeeded() {
   if (!supabaseClient || !currentUser) return Promise.resolve(false);
@@ -1236,6 +1246,7 @@ function initSupabase() {
             currentUser    = session ? session.user : null;
             currentProfile = null;
             if (currentUser) {
+              savePendingResultIfNeeded();
               claimGuestFirstSessionIfNeeded().then(function() {
                 fetchProfile();
                 if (event === 'SIGNED_IN') closeAuthModal();
@@ -1250,6 +1261,7 @@ function initSupabase() {
             .then(function(result) {
               if (result.data && result.data.session) {
                 currentUser = result.data.session.user;
+                savePendingResultIfNeeded();
                 claimGuestFirstSessionIfNeeded().then(function() {
                   fetchProfile();
                   if (_checkoutSuccessPending) refreshProfileAfterCheckout();
@@ -1536,6 +1548,7 @@ function renderStaticTexts() {
   setEl('lbl-breath-ease',     T('result_label_breath_ease'));
   setEl('lbl-be-helper',       T('result_be_helper'));
   setEl('btn-save-image',        T('save_image_button'));
+  renderResultSaveUI();
   setEl('t-save-preview-note',   T('save_image_preview_note'));
   setEl('t-shift-note-title',    T('shift_note_title'));
   setEl('btn-shift-note',        T('shift_note_button'));
@@ -5339,6 +5352,7 @@ function showResult() {
     }
   }
   updateResultRepeatLabel();
+  resetResultSaveUI();
   fwd('s-result');
   markGuestFirstSessionCompleted();
   consumeTrialOnResult();
@@ -5532,6 +5546,171 @@ function backToStart() {
   ['b1','b2','a1','a2'].forEach(resetSlider);
   renderThemeScreen();
   showScreenDirect('s-landing');
+}
+
+function createResultClientRef() {
+  try {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+  } catch(e) {}
+  return 'result-' + Date.now() + '-' + Math.random().toString(36).slice(2, 12);
+}
+
+function resultText(id) {
+  var el = document.getElementById(id);
+  return el ? (el.textContent || '').trim() : '';
+}
+
+function buildCurrentResultPayload() {
+  var card = document.getElementById('result-card');
+  var history = (D.v13History || []).map(function(item) {
+    return {
+      step: item.step,
+      theme: item.theme || '',
+      nonIdeal: item.nonIdeal || '',
+      ideal: item.ideal || ''
+    };
+  });
+  return {
+    clientRef: createResultClientRef(),
+    selectedThemeKey: D.themeKey || D.selectedWishTheme || null,
+    wishGroupKey: D.selectedWishGroup || null,
+    wishKey: D.selectedWish || null,
+    wishThemeKey: D.selectedWishTheme || null,
+    themeLabel: D.v13OriginalTheme || D.themePositive || D.theme || D.ideal || '',
+    userAnswers: {
+      entryMode: D.entryMode || null,
+      freeInputType: D.freeInputType || null,
+      freeInputValue: D.freeInputValue || null,
+      issue: D.issue || '',
+      ideal: D.ideal || '',
+      themeNegative: D.themeNegative || '',
+      reactionAnswer: D.reactionAnswer || '',
+      idealAnswer: D.idealAnswer || '',
+      doorKey: D.doorKey || null,
+      doorSentence: D.doorSentence || '',
+      v13History: history,
+      shiftNote: D.shiftNote || ''
+    },
+    beforeScore: D.breathEaseBefore == null ? null : String(D.breathEaseBefore),
+    afterScore: D.breathEaseAfter == null ? null : String(D.breathEaseAfter),
+    resultSummary: card ? (card.innerText || card.textContent || '').trim() : '',
+    resultCardData: {
+      theme: resultText('t-result-from'),
+      essence: resultText('t-result-sub'),
+      beforeScore: resultText('r-be-b'),
+      afterScore: resultText('r-be-a'),
+      shiftNote: resultText('t-shift-note-display'),
+      meaning: resultText('t-result-meaning')
+    },
+    language: lang
+  };
+}
+
+function getPendingResult() {
+  try {
+    var raw = sessionStorage.getItem('noetunePendingResult');
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function setPendingResult(payload) {
+  try { sessionStorage.setItem('noetunePendingResult', JSON.stringify(payload)); } catch(e) {}
+}
+
+function clearPendingResult() {
+  try { sessionStorage.removeItem('noetunePendingResult'); } catch(e) {}
+}
+
+function renderResultSaveUI() {
+  var button = document.getElementById('btn-save-result');
+  var status = document.getElementById('save-result-status');
+  if (!button || !status) return;
+  var buttonKey = _resultSaveState === 'login' ? 'saveResultLogin'
+    : _resultSaveState === 'saved' ? 'saveResultSaved' : 'saveResultButton';
+  var statusKey = _resultSaveState === 'saving' ? 'saveResultSaving'
+    : _resultSaveState === 'saved' ? 'saveResultSaved'
+    : _resultSaveState === 'login' ? 'saveResultLogin'
+    : _resultSaveState === 'error' ? 'saveResultError' : '';
+  button.textContent = T(buttonKey);
+  button.disabled = _resultSaveState === 'saving' || _resultSaveState === 'saved';
+  status.textContent = statusKey ? T(statusKey) : '';
+}
+
+function setResultSaveState(state) {
+  _resultSaveState = state;
+  renderResultSaveUI();
+}
+
+function resetResultSaveUI() {
+  _resultSaveInFlight = false;
+  setResultSaveState('idle');
+}
+
+function showResultSaveToast(message) {
+  var toast = document.getElementById('save-result-toast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('show');
+  if (_saveResultToastTimer) clearTimeout(_saveResultToastTimer);
+  _saveResultToastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3200);
+}
+
+function openResultSaveAuth(payload) {
+  setPendingResult(payload);
+  setResultSaveState('login');
+  openAuthModal();
+  setEl('auth-modal-title', T('saveResultLogin'));
+  setEl('auth-modal-body', T('saveResultLogin'));
+}
+
+function saveCurrentResult() {
+  if (_resultSaveInFlight || _resultSaveState === 'saved') return;
+  var payload = buildCurrentResultPayload();
+  if (!currentUser) {
+    openResultSaveAuth(payload);
+    return;
+  }
+  requestResultSave(payload, false);
+}
+
+function savePendingResultIfNeeded() {
+  if (!currentUser || _resultSaveInFlight) return;
+  var payload = getPendingResult();
+  if (payload) requestResultSave(payload, true);
+}
+
+function requestResultSave(payload, fromPendingLogin) {
+  if (_resultSaveInFlight || !supabaseClient || !currentUser) return;
+  _resultSaveInFlight = true;
+  setResultSaveState('saving');
+  supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) throw new Error('missing session');
+      return fetch('/api/save-result', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    })
+    .then(function(response) {
+      if (!response.ok) throw new Error('save failed');
+      return response.json();
+    })
+    .then(function(data) {
+      if (!data || !data.saved) throw new Error('save failed');
+      clearPendingResult();
+      setResultSaveState('saved');
+      showResultSaveToast(T('saveResultSaved'));
+      trackEvent('result_saved', { lang: payload.language, after_login: !!fromPendingLogin });
+    })
+    .catch(function() {
+      setResultSaveState('error');
+      if (fromPendingLogin) showResultSaveToast(T('saveResultError'));
+    })
+    .finally(function() {
+      _resultSaveInFlight = false;
+    });
 }
 
 function saveResultCard() {

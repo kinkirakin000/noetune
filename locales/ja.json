@@ -146,7 +146,7 @@
     "authGoogleContinue": "Googleで続ける",
     "authTitle": "ログイン",
     "authClose": "閉じる",
-    "authBody": "次回も使えるようにするため、\nGoogleでログインします。",
+    "authBody": "自分の結果を保存するため、\nGoogleでログインします。",
     "authEmailPlaceholder": "メールアドレス",
     "authErrorRetry": "ログインできませんでした。もう一度お試しください。",
     "authError": "ログインできませんでした。",
@@ -173,7 +173,12 @@
     "professional": "Professional",
     "appearance": "表示",
     "language": "言語",
-    "account": "アカウント"
+    "account": "アカウント",
+    "saveResultButton": "この結果を保存する",
+    "saveResultLogin": "ログインして結果を保存する",
+    "saveResultSaved": "保存しました",
+    "saveResultSaving": "保存中…",
+    "saveResultError": "保存できませんでした"
   },
   "about": {
     "title": "Noetuneとは",

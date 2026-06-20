@@ -146,7 +146,7 @@
     "authGoogleContinue": "使用 Google 繼續",
     "authTitle": "登入",
     "authClose": "關閉",
-    "authBody": "使用 Google 登入，方便下次繼續使用。",
+    "authBody": "使用 Google 登入，儲存你的結果。",
     "authEmailPlaceholder": "電子郵件地址",
     "authErrorRetry": "無法登入，請再試一次。",
     "authError": "無法登入。",
@@ -173,7 +173,12 @@
     "professional": "Professional",
     "appearance": "顯示",
     "language": "語言",
-    "account": "帳戶"
+    "account": "帳戶",
+    "saveResultButton": "儲存這個結果",
+    "saveResultLogin": "登入以儲存結果",
+    "saveResultSaved": "已儲存",
+    "saveResultSaving": "儲存中…",
+    "saveResultError": "無法儲存"
   },
   "about": {
     "title": "關於 Noetune",
