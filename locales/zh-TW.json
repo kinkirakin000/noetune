@@ -161,7 +161,11 @@
     "authLogout": "登出",
     "v13EndTitle": "要在這裡結束嗎？",
     "v13FinishButton": "在這裡結束",
-    "v13ContinueInitial": "從最初的主題「{theme}」重新開始"
+    "v13ContinueInitial": "從最初的主題「{theme}」重新開始",
+    "appearanceLabel": "顯示模式",
+    "themeModeAuto": "自動",
+    "themeModeLight": "淺色",
+    "themeModeDark": "深色"
   },
   "about": {
     "title": "關於 Noetune",

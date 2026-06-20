@@ -161,7 +161,11 @@
     "authLogout": "ログアウト",
     "v13EndTitle": "ここで終えますか？",
     "v13FinishButton": "ここで終える",
-    "v13ContinueInitial": "最初のテーマ「{theme}」から始める"
+    "v13ContinueInitial": "最初のテーマ「{theme}」から始める",
+    "appearanceLabel": "表示モード",
+    "themeModeAuto": "自動",
+    "themeModeLight": "ライト",
+    "themeModeDark": "ダーク"
   },
   "about": {
     "title": "Noetuneとは",

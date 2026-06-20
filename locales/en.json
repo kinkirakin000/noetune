@@ -161,7 +161,11 @@
     "authLogout": "Log out",
     "v13EndTitle": "Would you like to finish here?",
     "v13FinishButton": "Finish here",
-    "v13ContinueInitial": "Begin again with “{theme}”"
+    "v13ContinueInitial": "Begin again with “{theme}”",
+    "appearanceLabel": "Appearance",
+    "themeModeAuto": "Auto",
+    "themeModeLight": "Light",
+    "themeModeDark": "Dark"
   },
   "about": {
     "title": "About Noetune",
