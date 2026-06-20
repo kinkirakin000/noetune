@@ -399,7 +399,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 </head>
 <body>
 
-<button class="btn-back" id="btn-back" onclick="goBack()" aria-label="戻る">
+<button class="btn-back" id="btn-back" onclick="goBack()" aria-label="">
   <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
     <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
@@ -413,72 +413,28 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
     <div class="lp-logo">NOETUNE</div>
     <div class="lp-lang-select">
       <button class="lp-lang-btn selected" data-lp="en"    onclick="setLandingLang('en')">EN</button>
-      <button class="lp-lang-btn"          data-lp="es"    onclick="setLandingLang('es')"    style="display:none">ES</button>
-      <button class="lp-lang-btn"          data-lp="de"    onclick="setLandingLang('de')"    style="display:none">DE</button>
-      <button class="lp-lang-btn"          data-lp="pt-BR" onclick="setLandingLang('pt-BR')" style="display:none">PT</button>
-      <button class="lp-lang-btn"          data-lp="fr"    onclick="setLandingLang('fr')"    style="display:none">FR</button>
       <button class="lp-lang-btn"          data-lp="ja"    onclick="setLandingLang('ja')">日</button>
       <button class="lp-lang-btn"          data-lp="zh-TW" onclick="setLandingLang('zh-TW')">繁</button>
     </div>
-    <div class="lp-hero-title" id="lp-hero-title">Each time you remember who you are,
-life becomes a little lighter.</div>
-    <div class="lp-hero-sub" id="lp-hero-sub">Choose.
-Answer.
-Notice.
-
-Noetune is an app for remembering your natural self
-through real-life experiences.</div>
+    <div class="lp-hero-title" id="lp-hero-title"></div>
+    <div class="lp-hero-sub" id="lp-hero-sub"></div>
     <div style="text-align:center">
-      <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()">Start</button>
+      <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()"></button>
       <button class="btn-about-link" id="btn-lp-about-link" onclick="setLang(landingLang, 's-about')" style="display:none;margin-left:auto;margin-right:auto"></button>
     </div>
     <div class="lp-section">
-      <div class="lp-section-title" id="lp-section-title">When to use it</div>
-      <ul class="lp-item-list" id="lp-item-list">
-        <li>・When money brings up a reaction</li>
-        <li>・When a relationship stays on your mind</li>
-        <li>・When work feels heavy</li>
-        <li>・When the future feels uncertain</li>
-        <li>・When you blame yourself</li>
-        <li>・When you do not know what is happening inside</li>
-      </ul>
+      <div class="lp-section-title" id="lp-section-title"></div>
+      <ul class="lp-item-list" id="lp-item-list"></ul>
     </div>
     <div class="lp-footer">
-      <p id="lp-footer-p1">Noetune is not an app for analyzing your problems.</p>
-      <p id="lp-footer-p2">Through short questions,
-it helps you know yourself
-through what is happening now.</p>
-      <button class="btn-pricing-return" id="btn-lp-pricing-link" onclick="fwd('s-pricing')" style="display:none">無料版・有料版について</button>
-      <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
-      <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
-      <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none">ログアウト</button>
+      <p id="lp-footer-p1"></p>
+      <p id="lp-footer-p2"></p>
+      <button class="btn-pricing-return" id="btn-lp-pricing-link" onclick="fwd('s-pricing')" style="display:none"></button>
+      <button class="portal-outline-btn" id="btn-portal-landing" onclick="openCustomerPortal()" style="display:none"></button>
+      <button class="portal-outline-btn" id="btn-login-landing" onclick="openAuthModal()" style="display:none"></button>
+      <button class="portal-outline-btn" id="btn-logout-landing" onclick="logoutUser()" style="display:none"></button>
     </div>
   </div>
-</div>
-
-<div class="screen" id="s-lang">
-  <div class="intro-title">Noetune</div>
-  <div class="intro-sub">— tune your next moment —</div>
-  <div class="lang-select-wrap">
-    <button class="lang-btn" onclick="setLang('en')">English</button>
-    <button class="lang-btn" onclick="setLang('es')"    style="display:none">Español</button>
-    <button class="lang-btn" onclick="setLang('de')"    style="display:none">Deutsch</button>
-    <button class="lang-btn" onclick="setLang('pt-BR')" style="display:none">Português</button>
-    <button class="lang-btn" onclick="setLang('fr')"    style="display:none">Français</button>
-    <button class="lang-btn" onclick="setLang('ja')">日本語</button>
-    <button class="lang-btn" onclick="setLang('zh-TW')">繁體中文</button>
-  </div>
-</div>
-
-<!-- ── OPEN ── -->
-<div class="screen" id="s-open">
-  <div class="intro-title">Noetune</div>
-  <div class="intro-sub" id="intro-sub-open">— for when the body closes —</div>
-  <button class="btn" id="btn-start" onclick="startApp()">始める</button>
-  <button class="btn-about-link" id="btn-about-link" onclick="fwd('s-about')"></button>
-  <button class="portal-outline-btn" id="btn-portal-home" onclick="openCustomerPortal()" style="display:none">サブスクリプションを管理する</button>
-  <button class="portal-outline-btn" id="btn-login-home" onclick="openAuthModal()" style="display:none">Professionalを復元</button>
-  <button class="portal-outline-btn" id="btn-logout-home" onclick="logoutUser()" style="display:none">ログアウト</button>
 </div>
 
 <!-- ── ENTRY METHOD ── -->
@@ -823,7 +779,6 @@ through what is happening now.</p>
     <div class="result-upgrade-price" id="result-professional-price"></div>
     <div class="result-upgrade-cta" id="t-result-pricing"></div>
   </div>
-  <div class="pricing-note" id="t-trial-remaining" style="display:none"></div>
 </div>
 
 <!-- ── PRICING ── -->
@@ -927,7 +882,7 @@ through what is happening now.</p>
 
 <!-- ── THEME FIXED CTA ── -->
 <div id="theme-cta-wrap">
-  <button class="btn" id="btn-theme-cta" onclick="startSession()">このテーマで始める</button>
+  <button class="btn" id="btn-theme-cta" onclick="startSession()"></button>
 </div>
 
 <!-- ── IDEAL FIXED CTA ── -->
@@ -954,11 +909,12 @@ function isUnlimited() {
   return false;
 }
 
+var FREE_THEME_LIMIT = 1;
+
 function isTrialExhausted() {
   if (!currentProfile || isUnlimited()) return false;
-  var used  = Number(currentProfile.trial_used_count || 0);
-  var limit = Number(currentProfile.trial_limit || 0);
-  return limit > 0 && used >= limit;
+  var used = Number(currentProfile.trial_used_count || 0);
+  return used >= FREE_THEME_LIMIT;
 }
 
 function enforceTrialLock() {
@@ -974,16 +930,6 @@ function requireActiveAccess() {
     return true;
   }
   return false;
-}
-
-function requireSessionAccess(source) {
-  if (!currentUser) {
-    trackEvent('login_required', { source: source || 'session_start', lang: lang });
-    openAuthModal();
-    return false;
-  }
-  if (enforceTrialLock()) return false;
-  return true;
 }
 
 function hasCompletedGuestFirstSession() {
@@ -1019,8 +965,6 @@ var currentProfile = null;
 var supabaseClient = null;
 var _posthog       = null;
 var _checkoutSuccessPending = false;
-
-function isLoggedIn() { return !!currentUser; }
 
 function claimGuestFirstSessionIfNeeded() {
   if (!supabaseClient || !currentUser) return Promise.resolve(false);
@@ -1231,18 +1175,6 @@ function interpolateLocaleText(value, vars) {
   return s;
 }
 
-function renderPricingFeatures() {
-  var el = document.getElementById('t-pricing-features');
-  if (!el) return;
-  var features = getText('ui.pricing_features', []);
-  el.innerHTML = '';
-  features.forEach(function(text) {
-    var li = document.createElement('li');
-    li.textContent = text;
-    el.appendChild(li);
-  });
-}
-
 function renderResultProfessionalFeatures() {
   var el = document.getElementById('result-professional-features');
   if (!el) return;
@@ -1257,7 +1189,6 @@ function renderResultProfessionalFeatures() {
 
 function renderStaticTexts() {
   document.documentElement.lang = lang;
-  setEl('btn-start',      T('start_button'));
   setEl('t-entry-method-title', T('entryMethodTitle'));
   setEl('btn-entry-method-theme', T('entryMethodThemeTitle'));
   setEl('t-entry-method-theme-desc', T('entryMethodThemeDesc'));
@@ -1292,10 +1223,8 @@ function renderStaticTexts() {
   if (freeIdealInput) freeIdealInput.placeholder = T('freeIdealInputPlaceholder');
   var freeTopicInput = document.getElementById('in-free-topic');
   if (freeTopicInput) freeTopicInput.placeholder = T('freeTopicInputPlaceholder');
-  setEl('btn-about-link',  getText('ui.aboutLink'));
   setEl('btn-see-more',    T('see_more_themes'));
   setEl('btn-theme-cta',  T('theme_cta_button'));
-  setEl('intro-sub-open', T('app_sub'));
   setEl('t-about-title',  getText('about.title'));
   setEl('t-about-p1',     getText('about.p1'));
   setEl('t-about-p2',     getText('about.p2'));
@@ -1305,25 +1234,7 @@ function renderStaticTexts() {
   setEl('t-professional-plan-title', t('ui.professionalPlanTitle'));
   setEl('t-professional-plan-trial', t('ui.professionalPlanTrialUsed'));
   setEl('t-professional-plan-access', t('ui.professionalPlanAccess'));
-  setEl('t-pricing-free-label', T('pricing_free_label'));
-  setEl('t-pricing-free-title', T('pricing_free_title'));
-  setEl('t-pricing-free-description', T('pricing_free_description'));
-  setEl('t-pricing-professional-label', T('pricing_professional_label'));
-  setEl('t-pricing-professional-title', T('pricing_professional_title'));
-  ['pricing-free-card', 'pricing-professional-card'].forEach(function(id) {
-    var card = document.getElementById(id);
-    if (card) card.style.display = '';
-  });
-  renderPricingFeatures();
-  setEl('t-pricing-price',  T('pricing_price'));
   setEl('btn-pricing-cta', t('ui.professionalPlanCta'));
-  setEl('t-pricing-note',   T('pricing_note'));
-  setEl('t-pricing-cancel-note', T('pricing_cancel_note'));
-  setEl('t-pricing-subscription-note', T('pricing_subscription_note'));
-  ['t-pricing-cancel-note', 't-pricing-subscription-note'].forEach(function(id) {
-    var note = document.getElementById(id);
-    if (note) note.style.display = '';
-  });
   setEl('t-guest-records-note', T('guest_records_note'));
   setEl('t-pricing-soon',   T('pricing_soon'));
   setEl('t-lock-title',     T('lock_title'));
@@ -1350,7 +1261,6 @@ function renderStaticTexts() {
   setEl('btn-skip-shift-note',   T('shift_note_skip'));
   setEl('lbl-shift-note-label',  T('result_shift_note_label'));
   setEl('btn-repeat-theme',    T('resultNewThemeButton'));
-  setEl('t-result-pricing',    T('result_pricing_note'));
   var resultFeatures = document.getElementById('result-professional-features');
   if (resultFeatures) resultFeatures.style.display = '';
   renderResultProfessionalFeatures();
@@ -1385,6 +1295,8 @@ function renderStaticTexts() {
   var ci = document.getElementById('in-custom-theme'); if (ci) ci.placeholder = T('custom_input_placeholder');
   var si = document.getElementById('in-shift-note');   if (si) si.setAttribute('placeholder', t('ui.shift_note_placeholder'));
   var bb = document.getElementById('btn-back');        if (bb) bb.setAttribute('aria-label', T('back_button'));
+  var ac = document.getElementById('btn-auth-close');  if (ac) ac.setAttribute('aria-label', t('ui.authClose'));
+  setEl('auth-submit-btn', t('ui.authEmailButton'));
   renderThemeScreen();
   renderIdealScreen();
   updatePortalButton();
@@ -1515,12 +1427,11 @@ function applyLocale() {
   setEl('t-about-p3', getText('about.p3'));
   setEl('t-about-p4', getText('about.p4'));
   setEl('t-about-safety', getText('about.safety'));
-  setEl('btn-about-link', getText('ui.aboutLink'));
   setEl('btn-lp-about-link', getText('ui.landingAboutLink', getText('ui.aboutLink')));
-  setEl('result-professional-lead', getText('ui.professionalLead', T('result_upgrade_body')));
-  setEl('result-professional-title', getText('ui.professionalTitle', T('pricing_professional_label')));
-  setEl('result-professional-price', getText('ui.professionalPrice', T('pricing_price')));
-  setEl('t-result-pricing', getText('ui.professionalCta', T('result_pricing_note')));
+  setEl('result-professional-lead', getText('ui.professionalLead'));
+  setEl('result-professional-title', getText('ui.professionalTitle'));
+  setEl('result-professional-price', getText('ui.professionalPrice'));
+  setEl('t-result-pricing', getText('ui.professionalCta'));
   renderResultProfessionalFeatures();
   updateResultRepeatLabel();
   var entryTitle = document.querySelector('#s-entry-choice .entry-title');
@@ -3084,7 +2995,7 @@ async function setLandingLang(code) {
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-lang','s-open','s-entry-method','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
@@ -3250,11 +3161,6 @@ function prepareEntryFlow() {
     themeChosen = false;
   }
   renderWishAccordion();
-}
-
-function startApp() {
-  prepareEntryFlow();
-  fwd('s-entry-method');
 }
 
 function chooseEntryMethod(method) {
@@ -3673,29 +3579,6 @@ function toggleThemeSection(sectionId) {
   if (tog) tog.textContent = isOpen ? '－' : '＋';
 }
 
-function startPositiveEntry() {
-  negaFreeText = '';
-  D.entryMode = 'posi';
-  renderThemeScreen();
-  fwd('s-theme');
-}
-
-function startNegaEntry() {
-  negaFreeText = '';
-  D.entryMode = 'nega';
-  var inp = document.getElementById('in-nega-text');
-  if (inp) inp.value = '';
-  fwd('s-nega');
-}
-
-function startFreeV12Entry() {
-  var inp = document.getElementById('in-v12-free');
-  if (inp) inp.value = '';
-  var btn = document.getElementById('btn-v12-free-submit');
-  if (btn) btn.disabled = true;
-  fwd('s-v12-free');
-}
-
 function onV12FreeInput(val) {
   var btn = document.getElementById('btn-v12-free-submit');
   if (btn) btn.disabled = val.trim().length < 1;
@@ -3714,59 +3597,9 @@ function submitV12FreeEntry() {
   startSession();
 }
 
-function startCoreEntry() {
-  v12Mode = 'core';
-  coreVisibleCount = 2;
-  renderCoreThemeScreen();
-  fwd('s-theme');
-}
-
-function startSituationEntry() {
-  v12Mode = 'situation';
-  themeChosen = false;
-  updateThemeCTA();
-  renderSituationCategoryScreen();
-  fwd('s-theme');
-}
-
-function renderSituationCategoryScreen() {
-  var corePanel      = document.getElementById('v12-core-panel');
-  var situationPanel = document.getElementById('v12-situation-panel');
-  var legacyPanel    = document.getElementById('v12-legacy-panel');
-  if (corePanel)      corePanel.style.display     = 'none';
-  if (situationPanel) situationPanel.style.display = 'block';
-  if (legacyPanel)    legacyPanel.style.display    = 'none';
-
-  var accordion = document.getElementById('v12-situation-accordion');
-  if (!accordion) return;
-  clearChildren(accordion);
-
-  renderSituationMajorScreen();
-}
-
-function makeSituationComingSoonNotice() {
-  var notice = document.createElement('div');
-  notice.className = 'situation-coming-soon';
-  notice.textContent = 'この入口は準備中です\nComing soon';
-  return notice;
-}
-
-function showSituationComingSoon(notice, label) {
-  if (!notice) return;
-  notice.textContent = label + '\nこの入口は準備中です\nComing soon';
-  notice.classList.add('show');
-}
-
 function getBeliefCategoryById(id) {
   for (var i = 0; i < beliefCategories.length; i++) {
     if (beliefCategories[i].id === id) return beliefCategories[i];
-  }
-  return null;
-}
-
-function getSituationGroupByTitle(title) {
-  for (var i = 0; i < situationGroups.length; i++) {
-    if (situationGroups[i].title === title) return situationGroups[i];
   }
   return null;
 }
@@ -4190,49 +4023,6 @@ function makeSituationComingSoonRow(item, notice) {
   return b;
 }
 
-function toggleSituationSection(sectionId) {
-  var accordion = document.getElementById('v12-situation-accordion');
-  if (!accordion) return;
-  var sections = accordion.querySelectorAll('.theme-section');
-  for (var i = 0; i < sections.length; i++) {
-    var sec = sections[i];
-    var tog = sec.querySelector('.theme-section-toggle');
-    if (sec.id === sectionId) {
-      var nowOpen = sec.classList.toggle('open');
-      if (tog) tog.textContent = nowOpen ? '－' : '＋';
-    } else {
-      sec.classList.remove('open');
-      if (tog) tog.textContent = '＋';
-    }
-  }
-}
-
-function makeSituationThemeBtn(theme) {
-  var b = document.createElement('button');
-  b.className = 'theme-btn' + (D.themeKey === theme.id && themeChosen ? ' selected' : '');
-  b.style.width = '100%';
-  b.style.marginBottom = '.6rem';
-  var ls = document.createElement('span'); ls.className = 'theme-btn-label'; ls.textContent = theme.label;
-  var ds = document.createElement('span'); ds.className = 'theme-btn-desc';  ds.textContent = theme.desc;
-  b.appendChild(ls); b.appendChild(ds);
-  b.dataset.themeKey = theme.id;
-  b.onclick = (function(t){ return function(){ selectSituationTheme(t); }; })(theme);
-  return b;
-}
-
-function selectSituationTheme(theme) {
-  D.themeKey      = theme.id;
-  D.theme         = theme.label;
-  D.themePositive = theme.label;
-  D.themeNegative = theme.invalidates;
-  v12Invalidates  = theme.invalidates;
-  themeChosen = true;
-  document.querySelectorAll('#v12-situation-accordion .theme-btn').forEach(function(b){
-    b.classList.toggle('selected', b.dataset.themeKey === theme.id);
-  });
-  updateThemeCTA();
-}
-
 function clearChildren(el) {
   while (el.firstChild) el.removeChild(el.firstChild);
 }
@@ -4308,19 +4098,6 @@ function submitNegaEntry() {
   D.themePositive = '';
   D.themeKey = null;
   showDoorScreen();
-}
-
-function showNegaIdeal() {
-  var quote = negaFreeText.trim();
-  var qEl = document.getElementById('nega-ideal-quote');
-  if (qEl) qEl.textContent = '';
-  var titleEl = document.getElementById('nega-ideal-title');
-  if (titleEl) titleEl.textContent = T('ideal_unified_title', {theme: quote});
-  var inp = document.getElementById('in-nega-ideal');
-  if (inp) { inp.value = ''; inp.placeholder = T('nega_ideal_placeholder'); }
-  var btn = document.getElementById('btn-nega-ideal-next');
-  if (btn) btn.disabled = true;
-  fwd('s-nega-ideal');
 }
 
 function onNegaIdealInput(val) {
@@ -4480,14 +4257,14 @@ function updateLoginButton() {
     btn.style.display = show ? '' : 'none';
     btn.textContent = label;
   });
-  ['btn-login-landing', 'btn-login-home'].forEach(function(id) {
+  ['btn-login-landing'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.style.display = show ? '' : 'none';
     btn.textContent = restoreLabel;
   });
   var logoutLabel = T('authLogout');
-  ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result', 'btn-logout-landing', 'btn-logout-home'].forEach(function(id) {
+  ['btn-logout-pricing', 'btn-logout-lock', 'btn-logout-result', 'btn-logout-landing'].forEach(function(id) {
     var btn = document.getElementById(id);
     if (!btn) return;
     btn.style.display = showLogout ? '' : 'none';
@@ -4557,7 +4334,7 @@ function openCustomerPortal() {
 }
 
 function getPortalButtons() {
-  return ['btn-portal', 'btn-portal-home', 'btn-portal-result', 'btn-portal-landing']
+  return ['btn-portal', 'btn-portal-result', 'btn-portal-landing']
     .map(function(id) { return document.getElementById(id); })
     .filter(function(btn) { return !!btn; });
 }
@@ -4603,37 +4380,17 @@ function consumeTrialOnResult() {
     .then(function(data) {
       if (!data) return;
       if (data.locked) { trackEvent('trial_limit_reached', {}); fwd('s-lock'); return; }
-      if (data.allowed && !data.unlimited && data.remaining != null) {
-        trackEvent('trial_consumed', { remaining: data.remaining });
-        updateTrialRemainingDisplay(data);
+      if (data.allowed && !data.unlimited) {
+        if (currentProfile) {
+          currentProfile.trial_used_count = data.trialUsedCount != null
+            ? Number(data.trialUsedCount)
+            : FREE_THEME_LIMIT;
+        }
+        trackEvent('trial_consumed', { used: currentProfile ? currentProfile.trial_used_count : FREE_THEME_LIMIT });
       }
     })
     .catch(function() {});
 }
-
-function updateTrialRemainingDisplay(data) {
-  var el = document.getElementById('t-trial-remaining');
-  if (!el) return;
-  el.style.display = 'none';
-  if (!data || !currentProfile || isUnlimited()) return;
-  if (data.remaining == null) return;
-  var remaining = Number(data.remaining);
-  if (!isFinite(remaining)) return;
-  if (remaining > 1) return;
-  if (remaining === 1) {
-    el.textContent = T('trialOneLeft');
-    el.style.display = '';
-    return;
-  }
-  el.textContent = T('trialComplete');
-  el.style.display = '';
-}
-
-/*
- * Session-start gate (future commit):
- * Check profile on app open and redirect to s-lock before flow begins
- * if trial_used_count >= trial_limit and plan_status !== 'plus'.
- */
 
 function selectTheme(key, label) {
   D.themeKey = key; D.theme = label;
@@ -5185,21 +4942,6 @@ function finishV13Loop() {
   fwd('s-after2');
 }
 
-function startUnifiedBreathFlow() {
-  if (D.entryMode === 'v13' && !D.ideal) D.ideal = getV13ThemeLabel();
-  if (D.entryMode === 'ideal' && D.issue) {
-    setEl('br1-main', T('ideal_breath_1_text', {issue: D.issue}));
-  } else {
-    setEl('br1-main', T('breath_1_text', {ideal: D.ideal}));
-  }
-  setEl('t-breath-mode-title', T('breath_mode_title'));
-  setEl('btn-breath-soft', T('breath_mode_soft_label'));
-  setEl('btn-breath-deep', T('breath_mode_deep_label'));
-  setEl('t-breath-soft-desc', T('breath_mode_soft_desc'));
-  setEl('t-breath-deep-desc', T('breath_mode_deep_desc'));
-  fwd('s-breath-mode');
-}
-
 function resetBreathScreens() {
   breathing = false; breathCount = 0;
   ['br1','br2','br3','br4','br5'].forEach(function(k) {
@@ -5231,12 +4973,6 @@ function submitAfter2() {
   showResult();
 }
 
-function goToShiftNote() {
-  var inp = document.getElementById('in-shift-note');
-  if (inp) { inp.value = ''; inp.placeholder = T('shift_note_placeholder'); }
-  fwd('s-shift-note');
-}
-
 function submitShiftNote() {
   var inp = document.getElementById('in-shift-note');
   D.shiftNote = inp ? inp.value.trim() : '';
@@ -5251,20 +4987,6 @@ function skipShiftNote() {
 function fmtResult(v) {
   if (v === 'NM') return T('result_nm_display');
   return v != null ? String(v) : '—';
-}
-
-function getV13LastIdeal() {
-  for (var i = D.v13History.length - 1; i >= 0; i--) {
-    if (D.v13History[i].ideal) return D.v13History[i].ideal;
-  }
-  return D.v13CurrentTheme || D.v13OriginalTheme || getV13ThemeLabel();
-}
-
-function getSelectedWishLabel() {
-  var groupKey = D.selectedWishGroup;
-  var wishKey = D.selectedWish;
-  var wish = groupKey && wishKey ? findWish(groupKey, wishKey) : null;
-  return wish && wish.label ? wish.label : (D.theme || t('ui.selectedWishFallback'));
 }
 
 function updateResultRepeatLabel() {
@@ -5509,63 +5231,6 @@ function startIdealFromSelection() {
   submitIdeal();
 }
 
-function enterIdealFirst() {
-  if (requireActiveAccess()) return;
-  D.ideal = '';
-  setIdealScreenMode('ideal');
-  var inp = document.getElementById('in-ideal');
-  if (inp) { inp.value = ''; inp.placeholder = T('ideal_placeholder'); }
-  renderIdealScreen();
-  updateIdealCTA();
-  fwd('s-ideal');
-}
-
-function repeatSameTheme() {
-  if (requireActiveAccess()) return;
-  if (requireLoginAfterGuestFirstSession('repeatSameTheme')) return;
-  _trialConsumedThisSession = false;
-  var isNega = D.entryMode === 'nega';
-  var savedKey      = D.themeKey;
-  var savedTheme    = D.theme    || D.themePositive || D.doorSentence || '';
-  var savedPositive = D.themePositive || D.theme || '';
-  var savedNegative = D.themeNegative || v12Invalidates || D.theme || '';
-  if (!savedTheme && savedPositive) savedTheme = savedPositive;
-  if (!savedTheme) { fwd('s-entry-choice'); return; }
-  var savedV12Mode      = v12Mode;
-  var savedV12Inv       = v12Invalidates;
-  var savedV12SitCat    = v12SituationCategory;
-  var savedV12SitLabel  = v12SituationLabel;
-  var savedWishGroup    = D.selectedWishGroup || '';
-  var savedWish         = D.selectedWish || '';
-  var savedWishTheme    = D.selectedWishTheme || '';
-  D = { theme: savedTheme, themeKey: savedKey, themePositive: savedPositive, themeNegative: savedNegative,
-        issue:'', ideal:'', shiftNote:'', reactionAnswer:'', idealAnswer:'',
-        entryMode: isNega ? 'nega' : null, doorKey: null, doorSentence:'',
-        breathEaseBefore:null, breathEaseAfter:null, breathMode:null,
-        selectedWishGroup:savedWishGroup, selectedWish:savedWish, selectedWishTheme:savedWishTheme };
-  v12Mode = savedV12Mode; v12Invalidates = savedV12Inv;
-  v12SituationCategory = savedV12SitCat; v12SituationLabel = savedV12SitLabel;
-  navHistory = []; themeChosen = true; breathing = false; breathCount = 0;
-  ['b1','b2','a1','a2'].forEach(resetSlider);
-  if (isNega) {
-    showNegaIdeal();
-  } else {
-    startV13BeforeMeasurement();
-  }
-}
-
-function returnToCurrentWishThemeSection() {
-  var groupKey = D.selectedWishGroup || '';
-  var wishKey = D.selectedWish || '';
-  var wish = groupKey && wishKey ? findWish(groupKey, wishKey) : null;
-  renderWishAccordion();
-  if (wish) {
-    toggleWishCategory(groupKey);
-    toggleWishThemeSection('wish-' + groupKey + '-' + wishKey);
-  }
-  fwd('s-entry-choice');
-}
-
 function chooseNewTheme() {
   _trialConsumedThisSession = false;
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
@@ -5605,19 +5270,6 @@ function backToStart() {
   ['b1','b2','a1','a2'].forEach(resetSlider);
   renderThemeScreen();
   showScreenDirect('s-landing');
-}
-
-function changeLanguageFromResult() {
-  _trialConsumedThisSession = false;
-  D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
-        reactionAnswer:'', idealAnswer:'',
-        entryMode:null, doorKey:null, doorSentence:'',
-        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
-  navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
-  themeVisibleCount = 3;
-  ['b1','b2','a1','a2'].forEach(resetSlider);
-  resetBreathScreens();
-  showScreenDirect('s-lang');
 }
 
 function saveResultCard() {
@@ -5697,15 +5349,14 @@ initializeApp();
 <!-- ── AUTH MODAL ── -->
 <div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
   <div class="auth-box">
-    <button class="auth-box-close" onclick="closeAuthModal()" aria-label="閉じる">✕</button>
-    <div class="auth-box-title" id="auth-modal-title">ログイン</div>
-    <div class="auth-box-body" id="auth-modal-body">次回も使えるようにするため、
-Googleでログインします。</div>
-    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"><span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">Googleで続ける</span></button>
+    <button class="auth-box-close" id="btn-auth-close" onclick="closeAuthModal()" aria-label="">✕</button>
+    <div class="auth-box-title" id="auth-modal-title"></div>
+    <div class="auth-box-body" id="auth-modal-body"></div>
+    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"></button>
     <input class="auth-box-input" type="email" id="auth-email-input"
-      placeholder="メールアドレス" autocomplete="email" inputmode="email" style="display:none"
+      autocomplete="email" inputmode="email" style="display:none"
       onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
-    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()" style="display:none">メール認証を使う</button>
+    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()" style="display:none"></button>
     <div class="auth-box-msg" id="auth-modal-msg"></div>
   </div>
 </div>
