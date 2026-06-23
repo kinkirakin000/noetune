@@ -587,6 +587,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="lp-hero-sub" id="lp-hero-sub"></div>
     <div style="text-align:center">
       <button class="btn-lp-start" id="btn-lp-start" onclick="startLanding()"></button>
+      <button class="btn-about-link" id="btn-resume-progress" onclick="resumeSavedProgress()" style="display:none;margin:1rem auto 0"></button>
       <button class="btn-about-link" id="btn-lp-about-link" onclick="setLang(landingLang, 's-about')" style="display:none;margin-left:auto;margin-right:auto"></button>
     </div>
     <div class="lp-section">
@@ -796,6 +797,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     </div>
     <div class="entry-choice">
       <button class="entry-choice-btn" id="btn-v13-continue-initial" onclick="continueV13Loop()"></button>
+    </div>
+    <div class="entry-choice">
+      <button class="entry-choice-btn" id="btn-save-progress" onclick="saveCurrentProgress()"></button>
+      <div class="save-result-status" id="save-progress-status" role="status" aria-live="polite"></div>
     </div>
   </div>
 </div>
@@ -1077,6 +1082,7 @@ function isTrialExhausted() {
 }
 
 function enforceTrialLock() {
+  if (_savedProgress) return false;
   if (!isTrialExhausted()) return false;
   trackEvent('trial_limit_reached', { source: 'profile' });
   if (cur !== 's-lock') fwd('s-lock');
@@ -1084,6 +1090,7 @@ function enforceTrialLock() {
 }
 
 function requireActiveAccess() {
+  if (_savedProgressResumeActive) return false;
   if (!isUnlimited() && isTrialExhausted()) {
     fwd('s-lock');
     return true;
@@ -1105,7 +1112,7 @@ function markGuestFirstSessionCompleted() {
 function requireLoginAfterGuestFirstSession(source) {
   if (currentUser || !hasCompletedGuestFirstSession()) return false;
   trackEvent('login_required', { source: source || 'guest_second_session', lang: lang });
-  openAuthModal();
+  fwd('s-lock');
   return true;
 }
 
@@ -1127,6 +1134,11 @@ var _checkoutSuccessPending = false;
 var _resultSaveState = 'idle';
 var _resultSaveInFlight = false;
 var _saveResultToastTimer = null;
+var _progressSaveState = 'idle';
+var _progressSaveInFlight = false;
+var _progressSavePromise = null;
+var _savedProgress = null;
+var _savedProgressResumeActive = false;
 
 function claimGuestFirstSessionIfNeeded() {
   if (!supabaseClient || !currentUser) return Promise.resolve(false);
@@ -1247,7 +1259,7 @@ function initSupabase() {
             currentProfile = null;
             if (currentUser) {
               savePendingResultIfNeeded();
-              claimGuestFirstSessionIfNeeded().then(function() {
+              savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
                 fetchProfile();
                 if (event === 'SIGNED_IN') closeAuthModal();
                 if (_checkoutSuccessPending) refreshProfileAfterCheckout();
@@ -1262,12 +1274,14 @@ function initSupabase() {
               if (result.data && result.data.session) {
                 currentUser = result.data.session.user;
                 savePendingResultIfNeeded();
-                claimGuestFirstSessionIfNeeded().then(function() {
+                savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
                   fetchProfile();
                   if (_checkoutSuccessPending) refreshProfileAfterCheckout();
                   updateLoginButton();
                 });
               } else {
+                _savedProgress = null;
+                renderResumeProgressUI();
                 updateLoginButton();
               }
             })
@@ -1508,6 +1522,8 @@ function renderStaticTexts() {
   setEl('btn-v13-ideal-skip', T('no_answer_button'));
   setEl('t-v13-end-title', T('v13EndTitle'));
   setEl('btn-v13-finish', T('v13FinishButton'));
+  renderProgressSaveUI();
+  renderResumeProgressUI();
   var v13NonIdealInput = document.getElementById('in-v13-nonideal');
   if (v13NonIdealInput) v13NonIdealInput.setAttribute('placeholder', t('ui.v13NonIdealPlaceholder'));
   var v13IdealInput = document.getElementById('in-v13-ideal');
@@ -3439,6 +3455,7 @@ function getThemeDescByLabel(label) {
 }
 
 function prepareEntryFlow() {
+  _savedProgressResumeActive = false;
   themeVisibleCount = 3;
   negaFreeText = '';
   D.freeInputType = '';
@@ -4939,6 +4956,8 @@ function resetV13LoopState() {
 }
 
 function startV13BeforeMeasurement() {
+  if (!_savedProgressResumeActive && _savedProgress) clearSavedProgress();
+  _savedProgressResumeActive = false;
   var freeIdeal = D.freeInputType === 'ideal' ? D.freeInputValue : '';
   D.entryMode = 'v13';
   D.doorKey = null;
@@ -5159,6 +5178,7 @@ function submitV13NonIdeal() {
 
 function skipV13NonIdeal() {
   D.v13PendingScreen = 's-v13-nonideal';
+  setProgressSaveState('idle');
   updateV13EndConfirmLabel();
   fwd('s-v13-end-confirm');
 }
@@ -5183,6 +5203,7 @@ function submitV13Ideal() {
 
 function skipV13Ideal() {
   D.v13PendingScreen = 's-v13-ideal';
+  setProgressSaveState('idle');
   updateV13EndConfirmLabel();
   fwd('s-v13-end-confirm');
 }
@@ -5192,6 +5213,198 @@ function updateV13EndConfirmLabel() {
   if (!btn) return;
   var initial = D.v13InitialTheme || D.v13OriginalTheme || getV13ThemeLabel();
   btn.textContent = T('v13ContinueInitial', { theme: initial });
+}
+
+function renderProgressSaveUI() {
+  var button = document.getElementById('btn-save-progress');
+  var status = document.getElementById('save-progress-status');
+  if (!button || !status) return;
+  var buttonKey = _progressSaveState === 'saved' ? 'saveProgressSaved' : 'saveProgressButton';
+  var statusKey = _progressSaveState === 'saving' ? 'saveProgressSaving'
+    : _progressSaveState === 'saved' ? 'saveProgressSaved'
+    : _progressSaveState === 'error' ? 'saveProgressError' : '';
+  button.textContent = T(buttonKey);
+  button.disabled = _progressSaveState === 'saving' || _progressSaveState === 'saved';
+  status.textContent = statusKey ? T(statusKey) : '';
+}
+
+function setProgressSaveState(state) {
+  _progressSaveState = state;
+  renderProgressSaveUI();
+}
+
+function renderResumeProgressUI() {
+  var button = document.getElementById('btn-resume-progress');
+  if (!button) return;
+  button.textContent = T('resumeSavedTheme');
+  button.style.display = _savedProgress ? 'block' : 'none';
+}
+
+var PROGRESS_STATE_KEYS = [
+    'theme','themeKey','themePositive','themeNegative','freeInputType','freeInputValue','freeInputNextStep',
+    'issue','ideal','shiftNote','reactionAnswer','idealAnswer','entryMode','doorKey','doorSentence',
+    'breathEaseBefore','breathEaseAfter','breathMode','selectedWishGroup','selectedWish','selectedWishTheme',
+    'v13InitialTheme','v13OriginalTheme','v13CurrentTheme','v13History','v13CurrentNonIdeal','v13StepNumber',
+    'v13BeforeNaturalness','v13AfterNaturalness','v13PendingScreen'
+  ];
+
+function progressStateSnapshot() {
+  var state = {};
+  PROGRESS_STATE_KEYS.forEach(function(key) { state[key] = D[key] === undefined ? null : D[key]; });
+  return state;
+}
+
+function buildCurrentProgressPayload() {
+  var history = Array.isArray(D.v13History) ? D.v13History : [];
+  return {
+    themeKey: D.themeKey || D.selectedWishTheme || null,
+    wishKey: D.selectedWish || null,
+    wishGroupKey: D.selectedWishGroup || null,
+    wishThemeKey: D.selectedWishTheme || null,
+    themeLabel: D.v13OriginalTheme || D.themePositive || D.theme || '',
+    currentStep: D.v13PendingScreen || 's-v13-nonideal',
+    nonidealAnswers: history.map(function(item) { return item.nonIdeal || ''; }).filter(Boolean)
+      .concat(D.v13CurrentNonIdeal ? [D.v13CurrentNonIdeal] : []),
+    idealAnswers: history.map(function(item) { return item.ideal || ''; }).filter(Boolean),
+    beforeScore: D.breathEaseBefore == null ? null : String(D.breathEaseBefore),
+    currentScore: D.v13AfterNaturalness == null ? null : String(D.v13AfterNaturalness),
+    language: lang,
+    progressData: progressStateSnapshot()
+  };
+}
+
+function getPendingProgress() {
+  try {
+    var raw = sessionStorage.getItem('noetunePendingProgress');
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+function setPendingProgress(payload) {
+  try { sessionStorage.setItem('noetunePendingProgress', JSON.stringify(payload)); } catch(e) {}
+}
+
+function clearPendingProgress() {
+  try { sessionStorage.removeItem('noetunePendingProgress'); } catch(e) {}
+}
+
+function openProgressSaveAuth(payload) {
+  setPendingProgress(payload);
+  openAuthModal();
+  setEl('auth-modal-title', T('saveProgressLoginTitle'));
+  setEl('auth-modal-body', T('saveProgressLoginBody'));
+}
+
+function saveCurrentProgress() {
+  if (_progressSaveInFlight || _progressSaveState === 'saved') return;
+  var payload = buildCurrentProgressPayload();
+  if (!currentUser) {
+    openProgressSaveAuth(payload);
+    return;
+  }
+  requestProgressSave(payload, false);
+}
+
+function savePendingProgressIfNeeded() {
+  var payload = getPendingProgress();
+  if (_progressSaveInFlight) return _progressSavePromise || Promise.resolve(false);
+  if (!currentUser || !payload) return Promise.resolve(false);
+  return requestProgressSave(payload, true);
+}
+
+function requestProgressSave(payload, fromPendingLogin) {
+  if (_progressSaveInFlight) return _progressSavePromise || Promise.resolve(false);
+  if (!supabaseClient || !currentUser) return Promise.resolve(false);
+  _progressSaveInFlight = true;
+  setProgressSaveState('saving');
+  _progressSavePromise = supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) throw new Error('missing session');
+      return fetch('/api/save-progress', {
+        method: 'POST',
+        headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+    })
+    .then(function(response) {
+      if (!response.ok) throw new Error('save failed');
+      return response.json();
+    })
+    .then(function(data) {
+      if (!data || !data.saved || !data.progress) throw new Error('save failed');
+      clearPendingProgress();
+      _savedProgress = data.progress;
+      setProgressSaveState('saved');
+      renderResumeProgressUI();
+      showResultSaveToast(T('saveProgressSaved'));
+      trackEvent('progress_saved', { lang: payload.language, after_login: !!fromPendingLogin });
+      return true;
+    })
+    .catch(function() {
+      setProgressSaveState('error');
+      if (fromPendingLogin) showResultSaveToast(T('saveProgressError'));
+      return false;
+    })
+    .finally(function() {
+      _progressSaveInFlight = false;
+      _progressSavePromise = null;
+    });
+  return _progressSavePromise;
+}
+
+function loadSavedProgress() {
+  if (_progressSaveInFlight) {
+    return (_progressSavePromise || Promise.resolve(false)).then(loadSavedProgress);
+  }
+  if (!supabaseClient || !currentUser) return Promise.resolve(false);
+  return supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) return null;
+      return fetch('/api/save-progress', { headers: { 'Authorization': 'Bearer ' + token } });
+    })
+    .then(function(response) { return response && response.ok ? response.json() : null; })
+    .then(function(data) {
+      _savedProgress = data && data.progress ? data.progress : null;
+      renderResumeProgressUI();
+      return !!_savedProgress;
+    })
+    .catch(function() { return false; });
+}
+
+function resumeSavedProgress() {
+  if (!_savedProgress || !_savedProgress.progressData) return;
+  var savedState = _savedProgress.progressData;
+  PROGRESS_STATE_KEYS.forEach(function(key) {
+    if (savedState[key] !== undefined && savedState[key] !== null) D[key] = savedState[key];
+  });
+  _savedProgressResumeActive = true;
+  themeChosen = true;
+  setV13MeasurementTitles();
+  var step = _savedProgress.currentStep || D.v13PendingScreen;
+  if (step === 's-v13-ideal') showV13Ideal();
+  else showV13NonIdeal();
+  trackEvent('progress_resumed', { lang: lang, themeKey: D.themeKey || D.selectedWishTheme || '' });
+}
+
+function clearSavedProgress() {
+  var hadProgress = !!_savedProgress;
+  _savedProgress = null;
+  _savedProgressResumeActive = false;
+  renderResumeProgressUI();
+  if (!hadProgress || !supabaseClient || !currentUser) return Promise.resolve(false);
+  return supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) return null;
+      return fetch('/api/save-progress', {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+    })
+    .then(function(response) { return !!(response && response.ok); })
+    .catch(function() { return false; });
 }
 
 function continueV13Loop() {
@@ -5353,6 +5566,8 @@ function showResult() {
   }
   updateResultRepeatLabel();
   resetResultSaveUI();
+  clearPendingProgress();
+  clearSavedProgress();
   fwd('s-result');
   markGuestFirstSessionCompleted();
   consumeTrialOnResult();
@@ -5508,6 +5723,7 @@ function startIdealFromSelection() {
 }
 
 function chooseNewTheme() {
+  _savedProgressResumeActive = false;
   _trialConsumedThisSession = false;
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'', entryMode:null, doorKey:null, doorSentence:'',
@@ -5536,6 +5752,7 @@ function showScreenDirect(id) {
 }
 
 function backToStart() {
+  _savedProgressResumeActive = false;
   _trialConsumedThisSession = false;
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'',
