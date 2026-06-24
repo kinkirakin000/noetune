@@ -55,5 +55,26 @@ function submitAuthEmail() {
   });
 }
 
+function fetchProfile() {
+  if (!supabaseClient || !currentUser) return;
+  supabaseClient.auth.getSession()
+    .then(function(result) {
+      var token = result.data && result.data.session ? result.data.session.access_token : null;
+      if (!token) return;
+      return fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+        .then(function(r) { return r.ok ? r.json() : null; })
+        .then(function(data) {
+          if (data && data.loggedIn) {
+            currentProfile = data.profile;
+            updatePortalButton();
+            updatePricingCTA();
+            if (!_checkoutSuccessPending) enforceTrialLock();
+          }
+        });
+    })
+    .catch(function() {});
+}
+
 window.loginWithGoogle = loginWithGoogle;
 window.submitAuthEmail = submitAuthEmail;
+window.fetchProfile = fetchProfile;
