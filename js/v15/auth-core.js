@@ -1,3 +1,28 @@
+function loginWithGoogle() {
+  if (!supabaseClient || !supabaseClient.auth) return;
+  var msg = document.getElementById('auth-modal-msg');
+  var btn = document.getElementById('auth-google-btn');
+  if (msg) msg.textContent = '';
+  if (btn) { btn.disabled = true; btn.textContent = '…'; }
+  if (typeof trackEvent === 'function') trackEvent('google_login_started', { lang: lang });
+  supabaseClient.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: window.location.origin + window.location.pathname
+    }
+  })
+  .then(function(result) {
+    if (result.error) {
+      if (msg) msg.textContent = T('authErrorRetry');
+      if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
+    }
+  })
+  .catch(function() {
+    if (msg) msg.textContent = T('authError');
+    if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
+  });
+}
+
 function submitAuthEmail() {
   if (!supabaseClient) return;
   var inp   = document.getElementById('auth-email-input');
@@ -30,4 +55,5 @@ function submitAuthEmail() {
   });
 }
 
+window.loginWithGoogle = loginWithGoogle;
 window.submitAuthEmail = submitAuthEmail;
