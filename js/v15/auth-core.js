@@ -75,6 +75,46 @@ function fetchProfile() {
     .catch(function() {});
 }
 
+function refreshProfileAfterCheckout() {
+  if (!supabaseClient || !currentUser) return;
+  var started = Date.now();
+  var maxMs = 8000;
+
+  function poll() {
+    supabaseClient.auth.getSession()
+      .then(function(result) {
+        var token = result.data && result.data.session ? result.data.session.access_token : null;
+        if (!token) return null;
+        return fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } })
+          .then(function(r) { return r.ok ? r.json() : null; });
+      })
+      .then(function(data) {
+        if (data && data.loggedIn) {
+          currentProfile = data.profile;
+          updatePortalButton();
+          updatePricingCTA();
+          if (isUnlimited()) { _checkoutSuccessPending = false; return; }
+        }
+        if (Date.now() - started < maxMs) {
+          setTimeout(poll, 1000);
+        } else {
+          _checkoutSuccessPending = false;
+          enforceTrialLock();
+        }
+      })
+      .catch(function() {
+        if (Date.now() - started < maxMs) {
+          setTimeout(poll, 1000);
+        } else {
+          _checkoutSuccessPending = false;
+        }
+      });
+  }
+
+  poll();
+}
+
 window.loginWithGoogle = loginWithGoogle;
 window.submitAuthEmail = submitAuthEmail;
 window.fetchProfile = fetchProfile;
+window.refreshProfileAfterCheckout = refreshProfileAfterCheckout;
