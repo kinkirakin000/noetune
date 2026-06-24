@@ -3902,25 +3902,6 @@ function setGoogleAuthButtonLabel(btn) {
   btn.innerHTML = '<span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">' + label + '</span>';
 }
 
-function logoutUser() {
-  function finishLogout() {
-    currentUser = null;
-    currentProfile = null;
-    _checkoutSuccessPending = false;
-    closeAuthModal();
-    updatePortalButton();
-    updatePricingCTA();
-    updateLoginButton();
-    if (typeof showScreenDirect === 'function') showScreenDirect('s-landing');
-  }
-
-  trackEvent('logout_clicked', { lang: lang });
-  if (!supabaseClient || !supabaseClient.auth) { finishLogout(); return; }
-  supabaseClient.auth.signOut()
-    .then(function() { finishLogout(); })
-    .catch(function() { finishLogout(); });
-}
-
 function pricingCtaClick() {
   var isLock = cur === 's-lock';
   var activeBtn = document.getElementById(isLock ? 'btn-lock-cta' : 'btn-pricing-cta');

@@ -114,7 +114,27 @@ function refreshProfileAfterCheckout() {
   poll();
 }
 
+function logoutUser() {
+  function finishLogout() {
+    currentUser = null;
+    currentProfile = null;
+    _checkoutSuccessPending = false;
+    closeAuthModal();
+    updatePortalButton();
+    updatePricingCTA();
+    updateLoginButton();
+    if (typeof showScreenDirect === 'function') showScreenDirect('s-landing');
+  }
+
+  trackEvent('logout_clicked', { lang: lang });
+  if (!supabaseClient || !supabaseClient.auth) { finishLogout(); return; }
+  supabaseClient.auth.signOut()
+    .then(function() { finishLogout(); })
+    .catch(function() { finishLogout(); });
+}
+
 window.loginWithGoogle = loginWithGoogle;
 window.submitAuthEmail = submitAuthEmail;
 window.fetchProfile = fetchProfile;
 window.refreshProfileAfterCheckout = refreshProfileAfterCheckout;
+window.logoutUser = logoutUser;
