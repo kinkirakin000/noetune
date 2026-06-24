@@ -1113,6 +1113,18 @@ function claimGuestFirstSessionIfNeeded() {
     .catch(function() { return false; });
 }
 
+function handleAuthenticatedSession(event, session) {
+  currentUser    = session ? session.user : currentUser;
+  currentProfile = null;
+  savePendingResultIfNeeded();
+  savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
+    fetchProfile();
+    if (event === 'SIGNED_IN') closeAuthModal();
+    if (_checkoutSuccessPending) refreshProfileAfterCheckout();
+    updateLoginButton();
+  });
+}
+
 function initSupabase() {
   fetch('/api/config')
     .then(function(r) { return r.ok ? r.json() : null; })
@@ -1128,30 +1140,18 @@ function initSupabase() {
         try {
           supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
           supabaseClient.auth.onAuthStateChange(function(event, session) {
-            currentUser    = session ? session.user : null;
-            currentProfile = null;
-            if (currentUser) {
-              savePendingResultIfNeeded();
-              savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
-                fetchProfile();
-                if (event === 'SIGNED_IN') closeAuthModal();
-                if (_checkoutSuccessPending) refreshProfileAfterCheckout();
-                updateLoginButton();
-              });
+            if (session && session.user) {
+              handleAuthenticatedSession(event, session);
             } else {
+              currentUser    = null;
+              currentProfile = null;
               updateLoginButton();
             }
           });
           supabaseClient.auth.getSession()
             .then(function(result) {
               if (result.data && result.data.session) {
-                currentUser = result.data.session.user;
-                savePendingResultIfNeeded();
-                savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
-                  fetchProfile();
-                  if (_checkoutSuccessPending) refreshProfileAfterCheckout();
-                  updateLoginButton();
-                });
+                handleAuthenticatedSession(null, result.data.session);
               } else {
                 _savedProgress = null;
                 renderResumeProgressUI();
