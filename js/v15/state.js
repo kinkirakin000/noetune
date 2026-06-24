@@ -3,8 +3,6 @@
  * These var declarations intentionally create window properties for existing
  * inline handlers and split scripts.
  */
-var FREE_THEME_LIMIT = 1;
-
 var currentUser    = null;
 var currentProfile = null;
 var supabaseClient = null;
@@ -81,7 +79,6 @@ var _selectedDoorCard = null;
 var breathing = false, breathCount = 0;
 
 Object.assign(window, {
-  FREE_THEME_LIMIT: FREE_THEME_LIMIT,
   currentUser: currentUser,
   currentProfile: currentProfile,
   supabaseClient: supabaseClient,
