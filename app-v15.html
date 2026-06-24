@@ -1062,6 +1062,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <script src="./js/v15/navigation.js"></script>
 <script src="./js/v15/access.js"></script>
 <script src="./js/v15/billing-ui.js"></script>
+<script src="./js/v15/auth-ui.js"></script>
 <script>
 /*
  * isUnlimited() — single gate for all trial/paywall checks.
@@ -3959,33 +3960,6 @@ function setGoogleAuthButtonLabel(btn) {
   btn.innerHTML = '<span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">' + label + '</span>';
 }
 
-function openAuthModal() {
-  var modal = document.getElementById('auth-modal');
-  var inp   = document.getElementById('auth-email-input');
-  var msg   = document.getElementById('auth-modal-msg');
-  var btn   = document.getElementById('auth-submit-btn');
-  var googleBtn = document.getElementById('auth-google-btn');
-  var title = document.getElementById('auth-modal-title');
-  var body  = document.getElementById('auth-modal-body');
-  if (!modal) return;
-  if (msg)   msg.textContent = '';
-  if (inp)   { inp.value = ''; inp.disabled = false; inp.style.display = 'none'; }
-  if (title) title.textContent = T('authTitle');
-  if (body) {
-    body.textContent = T('authBody');
-  }
-  if (googleBtn) { googleBtn.style.display = ''; googleBtn.disabled = false; setGoogleAuthButtonLabel(googleBtn); }
-  if (btn)   { btn.style.display = 'none'; btn.disabled = false; }
-  if (inp)   { inp.placeholder = T('authEmailPlaceholder'); }
-  modal.classList.add('open');
-  setTimeout(function() { if (googleBtn) googleBtn.focus(); }, 80);
-}
-
-function closeAuthModal() {
-  var modal = document.getElementById('auth-modal');
-  if (modal) modal.classList.remove('open');
-}
-
 function loginWithGoogle() {
   if (!supabaseClient || !supabaseClient.auth) return;
   var msg = document.getElementById('auth-modal-msg');
@@ -4060,18 +4034,6 @@ function logoutUser() {
   supabaseClient.auth.signOut()
     .then(function() { finishLogout(); })
     .catch(function() { finishLogout(); });
-}
-
-function updateLoginButton() {
-  var show = !!(supabaseClient && !currentUser);
-  if (show) {
-    var soonMsg = document.getElementById('t-pricing-soon');
-    if (soonMsg) soonMsg.style.display = 'none';
-  }
-  var guestNote = document.getElementById('t-guest-records-note');
-  if (guestNote) guestNote.style.display = show && lang !== 'ja' ? '' : 'none';
-  updateAccountActions();
-  updatePricingCTA();
 }
 
 function pricingCtaClick() {
