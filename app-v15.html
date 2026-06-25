@@ -1113,18 +1113,6 @@ function claimGuestFirstSessionIfNeeded() {
     .catch(function() { return false; });
 }
 
-function handleAuthenticatedSession(event, session) {
-  currentUser    = session ? session.user : currentUser;
-  currentProfile = null;
-  savePendingResultIfNeeded();
-  savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
-    fetchProfile();
-    if (event === 'SIGNED_IN') closeAuthModal();
-    if (_checkoutSuccessPending) refreshProfileAfterCheckout();
-    updateLoginButton();
-  });
-}
-
 function initSupabase() {
   fetch('/api/config')
     .then(function(r) { return r.ok ? r.json() : null; })

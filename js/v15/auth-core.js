@@ -55,6 +55,18 @@ function submitAuthEmail() {
   });
 }
 
+function handleAuthenticatedSession(event, session) {
+  currentUser    = session ? session.user : currentUser;
+  currentProfile = null;
+  savePendingResultIfNeeded();
+  savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
+    fetchProfile();
+    if (event === 'SIGNED_IN') closeAuthModal();
+    if (_checkoutSuccessPending) refreshProfileAfterCheckout();
+    updateLoginButton();
+  });
+}
+
 function fetchProfile() {
   if (!supabaseClient || !currentUser) return;
   supabaseClient.auth.getSession()
@@ -135,6 +147,7 @@ function logoutUser() {
 
 window.loginWithGoogle = loginWithGoogle;
 window.submitAuthEmail = submitAuthEmail;
+window.handleAuthenticatedSession = handleAuthenticatedSession;
 window.fetchProfile = fetchProfile;
 window.refreshProfileAfterCheckout = refreshProfileAfterCheckout;
 window.logoutUser = logoutUser;
