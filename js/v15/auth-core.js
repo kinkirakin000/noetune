@@ -67,6 +67,48 @@ function handleAuthenticatedSession(event, session) {
   });
 }
 
+function initSupabase() {
+  fetch('/api/config')
+    .then(function(r) { return r.ok ? r.json() : null; })
+    .then(function(cfg) {
+      if (!cfg) return;
+      initPostHog(cfg);
+      if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
+      var s = document.createElement('script');
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.106.2/dist/umd/supabase.min.js';
+      s.integrity = 'sha384-4Cjkyy4cE1EgIS0C+Y3xzGmJ2noQFRRU91yKAW8IxtPfVtbQXPMqadSc3sYnjwou';
+      s.crossOrigin = 'anonymous';
+      s.onload = function() {
+        try {
+          supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+          supabaseClient.auth.onAuthStateChange(function(event, session) {
+            if (session && session.user) {
+              handleAuthenticatedSession(event, session);
+            } else {
+              currentUser    = null;
+              currentProfile = null;
+              updateLoginButton();
+            }
+          });
+          supabaseClient.auth.getSession()
+            .then(function(result) {
+              if (result.data && result.data.session) {
+                handleAuthenticatedSession(null, result.data.session);
+              } else {
+                _savedProgress = null;
+                renderResumeProgressUI();
+                updateLoginButton();
+              }
+            })
+            .catch(function() {});
+        } catch(e) {}
+      };
+      s.onerror = function() {};
+      document.head.appendChild(s);
+    })
+    .catch(function() {});
+}
+
 function fetchProfile() {
   if (!supabaseClient || !currentUser) return;
   supabaseClient.auth.getSession()
@@ -148,6 +190,7 @@ function logoutUser() {
 window.loginWithGoogle = loginWithGoogle;
 window.submitAuthEmail = submitAuthEmail;
 window.handleAuthenticatedSession = handleAuthenticatedSession;
+window.initSupabase = initSupabase;
 window.fetchProfile = fetchProfile;
 window.refreshProfileAfterCheckout = refreshProfileAfterCheckout;
 window.logoutUser = logoutUser;
