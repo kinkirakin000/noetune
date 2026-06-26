@@ -252,19 +252,36 @@
     "v16LandingSections": [
       {
         "title": "Life is made of verbs.",
-        "body": "Every day, we live countless ways of doing:\n\nreacting\ncomparing\nstriving\nenduring\nloving\nworking\nresting\n\nWe live through more verbs than we can count."
+        "bodyGroups": [
+          "Every day, we live countless ways of doing:",
+          "reacting\ncomparing\nstriving\nenduring\nloving\nworking\nresting",
+          "We live through more verbs than we can count."
+        ]
       },
       {
         "title": "Every verb is neutral.",
-        "body": "A verb itself\n\nis neither good nor bad.\n\nIt is neither positive\n\nnor negative.\n\nWhat shapes your present and future\nis your relationship with the verbs you use every day.\nThat relationship can also change your relationship with the past."
+        "bodyGroups": [
+          "A verb itself\nis neither good nor bad.",
+          "It is neither positive\nnor negative.",
+          "What shapes your present and future\nis your relationship with the verbs you use every day.\nThat relationship can also change your relationship with the past."
+        ]
       },
       {
         "title": "Self-rules",
-        "body": "Through family, school, society, culture, organizations, and the era we live in,\n\nwe unconsciously acquire self-rules\n\nthat influence our lives.\n\nMany of them appear\n\nas relationships with verbs such as\n\n“I have to...”\n\nor\n\n“I should...”"
+        "bodyGroups": [
+          "Through family, school, society, culture, organizations, and the era we live in,",
+          "we unconsciously acquire self-rules\nthat influence our lives.",
+          "Many of them appear\nas relationships with verbs such as\n“I have to...”\nor\n“I should...”"
+        ]
       },
       {
         "title": "Noetune is not an app for changing people.",
-        "body": "Noetune\n\nis not an app that gives you new rules.\n\nYou do not need to force yourself to change.\n\nBy noticing your self-rules,\n\nyou remember your original relationship with verbs\n\nand return to your original self.\n\nThat is the purpose of Noetune."
+        "bodyGroups": [
+          "Noetune",
+          "is not an app that gives you new rules.\nYou do not need to force yourself to change.",
+          "By noticing your self-rules,\nyou remember your original relationship with verbs\nand return to your original self.",
+          "That is the purpose of Noetune."
+        ]
       }
     ],
     "v16LandingFinalCta": "Choose the verb you want to optimize.",
