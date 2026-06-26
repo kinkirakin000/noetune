@@ -696,6 +696,15 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
 </div>
 
+<!-- ── V16 BREATH 2 ── -->
+<div class="screen" id="s-v16-breath-2">
+  <div id="s-entry-inner">
+    <div class="entry-title">Breathe</div>
+    <div class="breath-main">Let your body breathe with the ideal state of this verb.</div>
+    <button class="btn" id="btn-v16-breath-2-next" type="button">Next</button>
+  </div>
+</div>
+
 <!-- ── FREE INPUT TYPE ── -->
 <div class="screen" id="s-free-type-choice">
   <div id="s-entry-inner">
@@ -2984,6 +2993,7 @@ function submitV16IdealInput() {
   var value = input ? input.value.trim() : '';
   if (!value) return;
   D.v16IdealInput = value;
+  fwd('s-v16-breath-2');
 }
 
 var renderStaticTextsV15 = renderStaticTexts;
@@ -2996,7 +3006,7 @@ renderStaticTexts = function() {
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
