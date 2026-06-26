@@ -267,7 +267,7 @@
     "v16StartWithVerb": "用這個動詞開始",
     "v16VerbShowMore": "顯示更多",
     "v16NegativeMeasurementQuestion": "「{verb}」\n\n那個時候，\n\n呼吸的自然程度是？",
-    "v16WorstNegativeQuestion": "「{verb}」\n\n對你來說，\n\n它是否包含哪怕一點點負面影響？\n如果有，請寫下來。",
+    "v16WorstNegativeQuestion": "「{verb}」\n\n對你來說，\n\n這是否包含哪怕一點點負面影響？\n\n如果有，請寫下來。",
     "v16WorstNegativePlaceholder": "例：沉重 / 害怕 / 有抵抗 / 失去自己",
     "v16BestIdealQuestion": "「{verb}」\n\n關於這件事，\n\n你能想像到最理想的狀態是什麼？",
     "v16BestIdealPlaceholder": "請寫下理想狀態",

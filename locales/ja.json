@@ -267,7 +267,7 @@
     "v16StartWithVerb": "この動詞で始める",
     "v16VerbShowMore": "さらに見る",
     "v16NegativeMeasurementQuestion": "「{verb}」\n\nそのとき、\n\n呼吸の自然度は？",
-    "v16WorstNegativeQuestion": "「{verb}」\n\nあなたにとって、\n\nネガティブな影響は少しでも含まれますか？\nあれば書いてください。",
+    "v16WorstNegativeQuestion": "「{verb}」\n\nこれには、あなたにとって、\n\nネガティブな影響は少しでも含まれますか？\n\nあれば書いてください。",
     "v16WorstNegativePlaceholder": "例：重い / 怖い / 抵抗がある / 自分を失う",
     "v16BestIdealQuestion": "「{verb}」\n\nこれについて、\n\n想像しうる最高の理想状態は？",
     "v16BestIdealPlaceholder": "理想状態を書いてください",

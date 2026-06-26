@@ -267,7 +267,7 @@
     "v16StartWithVerb": "Begin with this verb",
     "v16VerbShowMore": "Show more",
     "v16NegativeMeasurementQuestion": "“{verb}”\n\nAt that moment,\n\nHow natural does your breathing feel?",
-    "v16WorstNegativeQuestion": "“{verb}”\n\nFor you,\n\ndoes it include even a small negative effect?\nIf so, write it here.",
+    "v16WorstNegativeQuestion": "\"{verb}\"\n\nFor you,\n\ndoes this include even a small negative effect?\n\nIf so, write it here.",
     "v16WorstNegativePlaceholder": "Example: heavy / scary / resistant / losing myself",
     "v16BestIdealQuestion": "\"{verb}\"\n\nRegarding this,\n\nwhat is the highest ideal state you can imagine?",
     "v16BestIdealPlaceholder": "Describe the ideal state",

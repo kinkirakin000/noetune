@@ -72,6 +72,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-ghost:active{color:#6B9080}
 .breath-sub{font-family:'Noto Serif JP',serif;font-size:.86rem;font-weight:400;color:#8F8F88;text-align:center;letter-spacing:.08em;margin-bottom:.35rem}
 .breath-main{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;line-height:1.85;max-width:300px;margin-bottom:1.8rem;white-space:pre-line}
+.screen .v16-question{color:#1A1A1A;white-space:pre-line}
 .breath-hint{text-align:center;font-size:.82rem;color:#666660;letter-spacing:.08em;font-family:'Noto Serif JP',serif;pointer-events:none;margin-bottom:1.2rem}
 .breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92);font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:300;letter-spacing:.05em;transition:transform 3s cubic-bezier(.4,0,.2,1),box-shadow 3s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);user-select:none;-webkit-user-select:none;margin-bottom:1.6rem;cursor:pointer}
 .breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25);transition:transform 3s cubic-bezier(.4,0,.2,1),box-shadow 3s ease}
@@ -404,6 +405,7 @@ body{background:#151412;color:#F5EFE6}
 .btn-back:active svg path{stroke:#8FB8A4}
 .intro-title,.screen-title,.measure-problem,.breath-main,.sc-card-title,.sc-toward-value,.sc-note-value,.about-title,.sc-shift-label{color:#F5EFE6}
 .intro-sub,.sc-card-badge,.sc-card-poem,.sc-section-label,.sc-shift-header,.sc-meaning,.save-fallback-note,.result-hint,.theme-top-copy,.breath-hint,.breath-sub,.entry-title,.entry-choice-desc,.pricing-soon{color:#8E8981}
+.screen .v16-question{color:#F5EFE6}
 .lang-btn{color:#F5EFE6;border-color:rgba(245,239,230,.2)}
 .lang-btn:active{background:rgba(143,184,164,.15)}
 .text-input{color:#F5EFE6;border-bottom-color:rgba(143,184,164,.45)}
@@ -672,7 +674,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BEFORE MEASUREMENT ── -->
 <div class="screen" id="s-v16-before-measurement">
-  <div class="measure-problem" id="t-v16-before-measurement"></div>
+  <div class="measure-problem v16-question" id="t-v16-before-measurement"></div>
   <div class="score-num" id="num-v16-before"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-before" oninput="onV16BeforeSlider(this.value)">
@@ -686,7 +688,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V16 NEGATIVE INPUT ── -->
 <div class="screen" id="s-v16-negative-input">
   <div id="s-entry-inner">
-    <div class="entry-title" id="t-v16-negative-question"></div>
+    <div class="entry-title v16-question" id="t-v16-negative-question"></div>
     <input type="text" class="text-input" id="in-v16-negative" autocomplete="off" maxlength="120"
       oninput="onV16NegativeInput(this.value)">
     <button class="btn" id="btn-v16-negative-next" type="button" onclick="submitV16NegativeInput()" disabled></button>
@@ -696,8 +698,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 1 ── -->
 <div class="screen" id="s-v16-breath-1">
-  <div class="breath-sub" id="t-v16-breath-1-title"></div>
-  <div class="breath-main" id="t-v16-breath-1-body"></div>
+  <div class="breath-sub v16-question" id="t-v16-breath-1-title"></div>
+  <div class="breath-main v16-question" id="t-v16-breath-1-body"></div>
   <div id="hint-v16-breath-1" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-1" onclick="startV16Breath('1')"></div>
   <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="returnV16NegativeInput()" disabled></button>
@@ -706,7 +708,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V16 IDEAL INPUT ── -->
 <div class="screen" id="s-v16-ideal-input">
   <div id="s-entry-inner">
-    <div class="breath-main" id="t-v16-ideal-question"></div>
+    <div class="breath-main v16-question" id="t-v16-ideal-question"></div>
     <input type="text" class="text-input" id="in-v16-ideal" autocomplete="off" maxlength="120"
       oninput="onV16IdealInput(this.value)">
     <button class="btn" id="btn-v16-ideal-next" type="button" onclick="submitV16IdealInput()" disabled></button>
@@ -716,8 +718,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 2 ── -->
 <div class="screen" id="s-v16-breath-2">
-  <div class="breath-sub" id="t-v16-breath-2-title"></div>
-  <div class="breath-main" id="t-v16-breath-2-body"></div>
+  <div class="breath-sub v16-question" id="t-v16-breath-2-title"></div>
+  <div class="breath-main v16-question" id="t-v16-breath-2-body"></div>
   <div id="hint-v16-breath-2" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-2" onclick="startV16Breath('2')"></div>
   <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="returnV16IdealInput()" disabled></button>
@@ -739,7 +741,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 AFTER MEASUREMENT ── -->
 <div class="screen" id="s-v16-after-measurement">
-  <div class="measure-problem" id="t-v16-after-measurement"></div>
+  <div class="measure-problem v16-question" id="t-v16-after-measurement"></div>
   <div class="score-num" id="num-v16-after"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-after" oninput="onV16AfterSlider(this.value)">
