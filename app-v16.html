@@ -714,9 +714,21 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <button class="entry-choice-btn" id="btn-v16-go-deeper" type="button" onclick="goV16Deeper()">Go deeper</button>
     </div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-v16-no-more" type="button">No more answers</button>
+      <button class="entry-choice-btn" id="btn-v16-no-more" type="button" onclick="openV16AfterMeasurement()">No more answers</button>
     </div>
   </div>
+</div>
+
+<!-- ── V16 AFTER MEASUREMENT ── -->
+<div class="screen" id="s-v16-after-measurement">
+  <div class="entry-title">Measure Again</div>
+  <div class="measure-problem">Now, how negative does this verb feel in your body?</div>
+  <div class="score-num" id="num-v16-after"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-after" oninput="onV16AfterSlider(this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" id="next-v16-after" type="button" onclick="submitV16AfterMeasurement()" disabled>Next</button>
 </div>
 
 <!-- ── FREE INPUT TYPE ── -->
@@ -3014,6 +3026,30 @@ function openV16LoopChoice() {
   fwd('s-v16-loop-choice');
 }
 
+function openV16AfterMeasurement() {
+  var slider = document.getElementById('sl-v16-after');
+  var num = document.getElementById('num-v16-after');
+  var next = document.getElementById('next-v16-after');
+  if (slider) slider.value = '50';
+  if (num) { num.textContent = ''; num.className = 'score-num'; }
+  if (next) next.disabled = true;
+  D.v16NegativeAfter = null;
+  fwd('s-v16-after-measurement');
+}
+
+function onV16AfterSlider(value) {
+  D.v16NegativeAfter = Number(value);
+  var num = document.getElementById('num-v16-after');
+  var next = document.getElementById('next-v16-after');
+  if (num) { num.textContent = value; num.className = 'score-num shown'; }
+  if (next) next.disabled = false;
+}
+
+function submitV16AfterMeasurement() {
+  var slider = document.getElementById('sl-v16-after');
+  if (slider) D.v16NegativeAfter = Number(slider.value);
+}
+
 function goV16Deeper() {
   var input = document.getElementById('in-v16-negative');
   var next = document.getElementById('btn-v16-negative-next');
@@ -3034,7 +3070,7 @@ renderStaticTexts = function() {
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-v16-after-measurement','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
