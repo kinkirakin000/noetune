@@ -67,6 +67,105 @@
       "live",
       "die"
     ],
+    "v16BasicVerbCategories": [
+      {
+        "id": "birth",
+        "title": "🌱 Begins at birth",
+        "verbs": [
+          { "id": "be", "label": "Be" },
+          { "id": "live", "label": "Live" },
+          { "id": "breathe", "label": "Breathe" },
+          { "id": "feel", "label": "Feel" },
+          { "id": "touch", "label": "Touch" },
+          { "id": "receive", "label": "Receive" },
+          { "id": "cry", "label": "Cry" },
+          { "id": "sleep", "label": "Sleep" },
+          { "id": "wake", "label": "Wake" },
+          { "id": "rest", "label": "Rest" },
+          { "id": "drink", "label": "Drink" },
+          { "id": "eat", "label": "Eat" }
+        ]
+      },
+      {
+        "id": "sensing_world",
+        "title": "🌍 Begins sensing the world",
+        "verbs": [
+          { "id": "listen", "label": "Listen" },
+          { "id": "see", "label": "See" },
+          { "id": "smell", "label": "Smell" },
+          { "id": "taste", "label": "Taste" },
+          { "id": "notice", "label": "Notice" },
+          { "id": "need", "label": "Need" },
+          { "id": "want", "label": "Want" }
+        ]
+      },
+      {
+        "id": "body_movement",
+        "title": "🧍 The body begins to move",
+        "verbs": [
+          { "id": "move", "label": "Move" },
+          { "id": "sit", "label": "Sit" },
+          { "id": "stand", "label": "Stand" },
+          { "id": "walk", "label": "Walk" },
+          { "id": "play", "label": "Play" },
+          { "id": "laugh", "label": "Laugh" }
+        ]
+      },
+      {
+        "id": "relationship",
+        "title": "🤝 Begins relating to others",
+        "verbs": [
+          { "id": "connect", "label": "Connect" },
+          { "id": "trust", "label": "Trust" },
+          { "id": "love", "label": "Love" },
+          { "id": "care", "label": "Care" },
+          { "id": "ask", "label": "Ask" },
+          { "id": "give", "label": "Give" },
+          { "id": "share", "label": "Share" },
+          { "id": "speak", "label": "Speak" }
+        ]
+      },
+      {
+        "id": "inner_world",
+        "title": "🧠 The inner world expands",
+        "verbs": [
+          { "id": "think", "label": "Think" },
+          { "id": "know", "label": "Know" },
+          { "id": "understand", "label": "Understand" },
+          { "id": "wonder", "label": "Wonder" },
+          { "id": "imagine", "label": "Imagine" },
+          { "id": "explore", "label": "Explore" },
+          { "id": "choose", "label": "Choose" },
+          { "id": "act", "label": "Act" }
+        ]
+      },
+      {
+        "id": "expression_creation",
+        "title": "🎨 Expression and creation open",
+        "verbs": [
+          { "id": "sing", "label": "Sing" },
+          { "id": "dance", "label": "Dance" },
+          { "id": "enjoy", "label": "Enjoy" },
+          { "id": "create", "label": "Create" },
+          { "id": "grow", "label": "Grow" }
+        ]
+      },
+      {
+        "id": "life_flow",
+        "title": "🌀 Living the flow of life",
+        "verbs": [
+          { "id": "begin", "label": "Begin" },
+          { "id": "continue", "label": "Continue" },
+          { "id": "wait", "label": "Wait" },
+          { "id": "stay", "label": "Stay" },
+          { "id": "leave", "label": "Leave" },
+          { "id": "return", "label": "Return" },
+          { "id": "stop", "label": "Stop" },
+          { "id": "change", "label": "Change" },
+          { "id": "end", "label": "End" }
+        ]
+      }
+    ],
     "v16LifeDecisionVerbs": [
       "react",
       "compare",
@@ -112,6 +211,7 @@
     ],
     "v16FreeVerbPlaceholder": "Example: love",
     "v16StartWithVerb": "Begin with this verb",
+    "v16VerbShowMore": "Show more",
     "v16NegativeMeasurementQuestion": "How negative does “like me, {verb}” feel?",
     "v16WorstNegativeQuestion": "“Like me, {verb}”\n\nWhat is the worst negative side you can imagine?",
     "v16WorstNegativePlaceholder": "Example: heavy / scary / resistant / losing myself",

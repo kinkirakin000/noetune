@@ -67,6 +67,105 @@
       "活著",
       "死亡"
     ],
+    "v16BasicVerbCategories": [
+      {
+        "id": "birth",
+        "title": "🌱 從出生那一刻開始",
+        "verbs": [
+          { "id": "be", "label": "存在" },
+          { "id": "live", "label": "活著" },
+          { "id": "breathe", "label": "呼吸" },
+          { "id": "feel", "label": "感覺" },
+          { "id": "touch", "label": "觸碰" },
+          { "id": "receive", "label": "接收" },
+          { "id": "cry", "label": "哭" },
+          { "id": "sleep", "label": "睡覺" },
+          { "id": "wake", "label": "醒來" },
+          { "id": "rest", "label": "休息" },
+          { "id": "drink", "label": "喝" },
+          { "id": "eat", "label": "吃" }
+        ]
+      },
+      {
+        "id": "sensing_world",
+        "title": "🌍 開始感受世界",
+        "verbs": [
+          { "id": "listen", "label": "聆聽" },
+          { "id": "see", "label": "看見" },
+          { "id": "smell", "label": "聞" },
+          { "id": "taste", "label": "品嚐" },
+          { "id": "notice", "label": "察覺" },
+          { "id": "need", "label": "需要" },
+          { "id": "want", "label": "想要" }
+        ]
+      },
+      {
+        "id": "body_movement",
+        "title": "🧍 身體開始動起來",
+        "verbs": [
+          { "id": "move", "label": "移動" },
+          { "id": "sit", "label": "坐" },
+          { "id": "stand", "label": "站" },
+          { "id": "walk", "label": "走" },
+          { "id": "play", "label": "玩" },
+          { "id": "laugh", "label": "笑" }
+        ]
+      },
+      {
+        "id": "relationship",
+        "title": "🤝 開始與人連結",
+        "verbs": [
+          { "id": "connect", "label": "連結" },
+          { "id": "trust", "label": "信任" },
+          { "id": "love", "label": "愛" },
+          { "id": "care", "label": "珍惜" },
+          { "id": "ask", "label": "詢問" },
+          { "id": "give", "label": "給予" },
+          { "id": "share", "label": "分享" },
+          { "id": "speak", "label": "說話" }
+        ]
+      },
+      {
+        "id": "inner_world",
+        "title": "🧠 內在世界開始展開",
+        "verbs": [
+          { "id": "think", "label": "思考" },
+          { "id": "know", "label": "知道" },
+          { "id": "understand", "label": "理解" },
+          { "id": "wonder", "label": "感到好奇" },
+          { "id": "imagine", "label": "想像" },
+          { "id": "explore", "label": "探索" },
+          { "id": "choose", "label": "選擇" },
+          { "id": "act", "label": "行動" }
+        ]
+      },
+      {
+        "id": "expression_creation",
+        "title": "🎨 表達與創造開始打開",
+        "verbs": [
+          { "id": "sing", "label": "唱歌" },
+          { "id": "dance", "label": "跳舞" },
+          { "id": "enjoy", "label": "享受" },
+          { "id": "create", "label": "創造" },
+          { "id": "grow", "label": "成長" }
+        ]
+      },
+      {
+        "id": "life_flow",
+        "title": "🌀 活出人生的流動",
+        "verbs": [
+          { "id": "begin", "label": "開始" },
+          { "id": "continue", "label": "繼續" },
+          { "id": "wait", "label": "等待" },
+          { "id": "stay", "label": "停留" },
+          { "id": "leave", "label": "離開" },
+          { "id": "return", "label": "回來" },
+          { "id": "stop", "label": "停止" },
+          { "id": "change", "label": "改變" },
+          { "id": "end", "label": "結束" }
+        ]
+      }
+    ],
     "v16LifeDecisionVerbs": [
       "反應",
       "比較",
@@ -112,6 +211,7 @@
     ],
     "v16FreeVerbPlaceholder": "例：愛",
     "v16StartWithVerb": "用這個動詞開始",
+    "v16VerbShowMore": "顯示更多",
     "v16NegativeMeasurementQuestion": "「像我一樣{verb}」的負面程度是？",
     "v16WorstNegativeQuestion": "「像我一樣{verb}」\n\n你能想像到最糟的負面面向是什麼？",
     "v16WorstNegativePlaceholder": "例：沉重 / 害怕 / 有抵抗 / 失去自己",

@@ -166,6 +166,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .theme-section-desc{font-size:.7rem;color:#A8A8A2;letter-spacing:.04em;margin-top:.25rem;font-weight:300;line-height:1.45}
 .theme-section-body{overflow:hidden;max-height:0;opacity:0;transition:max-height .5s ease,opacity .35s ease}
 .theme-section.open .theme-section-body{max-height:2000px;opacity:1}
+.v16-verb-accordion{width:100%;margin-top:.7rem}
+.v16-verb-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;padding:.6rem 0 .2rem}
+.v16-verb-category-age{font-size:.66rem;color:#A8A8A2;letter-spacing:.04em;margin-top:.18rem;font-weight:300;line-height:1.45}
 #wish-accordion .wish-category>.wish-category-body,#wish-accordion .wish-item>.wish-item-body{max-height:0;opacity:0}
 #wish-accordion .wish-category.wish-open>.wish-category-body{max-height:12000px;opacity:1}
 #wish-accordion .wish-item.wish-open>.wish-item-body{max-height:6000px;opacity:1}
@@ -480,7 +483,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .theme-section-header{color:#F5EFE6}
 .theme-section-header:active{color:#8FB8A4}
 .theme-section-toggle{color:#5A5855}
-.theme-section-desc{color:#5A5855}
+.theme-section-desc,.v16-verb-category-age{color:#5A5855}
 .situation-row{color:#B8B2A8;border-bottom-color:rgba(245,239,230,.1)}
 .situation-row:active{color:#8FB8A4}
 .situation-row-desc{color:#5A5855}
@@ -636,24 +639,24 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 </div>
 
 <!-- ── V16 BASIC VERBS ── -->
-<div class="screen" id="s-v16-basic-verbs">
+<div class="screen screen-scroll" id="s-v16-basic-verbs">
   <div id="s-theme-inner">
     <div id="s-theme-top">
       <div class="theme-screen-title" id="t-v16-basic-verbs-title"></div>
       <div class="theme-screen-sub" id="t-v16-basic-verbs-desc"></div>
     </div>
-    <div class="theme-grid" id="v16-basic-verbs-grid"></div>
+    <div class="v16-verb-accordion" id="v16-basic-verbs-grid"></div>
   </div>
 </div>
 
 <!-- ── V16 LIFE DECISION VERBS ── -->
-<div class="screen" id="s-v16-life-decision-verbs">
+<div class="screen screen-scroll" id="s-v16-life-decision-verbs">
   <div id="s-theme-inner">
     <div id="s-theme-top">
       <div class="theme-screen-title" id="t-v16-life-decision-verbs-title"></div>
       <div class="theme-screen-sub" id="t-v16-life-decision-verbs-desc"></div>
     </div>
-    <div class="theme-grid" id="v16-life-decision-verbs-grid"></div>
+    <div class="v16-verb-accordion" id="v16-life-decision-verbs-grid"></div>
   </div>
 </div>
 
@@ -2904,8 +2907,8 @@ function renderV16EntryTexts() {
   setEl('next-v16-before', T('next_button'));
   setEl('btn-v16-negative-next', T('next_button'));
   setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
-  renderV16VerbGrid('v16BasicVerbs', 'v16-basic-verbs-grid');
-  renderV16VerbGrid('v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid');
+  renderV16VerbAccordion('v16BasicVerbs', 'v16BasicVerbCategories', 'v16-basic-verbs-grid', 'v16BasicVerbTitle');
+  renderV16VerbAccordion('v16LifeDecisionVerbs', '', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle');
   renderV16BeforeMeasurement();
   renderV16NegativeInput();
 }
@@ -2915,28 +2918,168 @@ function getV16VerbList(key) {
   return Array.isArray(verbs) ? verbs : [];
 }
 
-function renderV16VerbGrid(listKey, gridId) {
-  var grid = document.getElementById(gridId);
-  if (!grid) return;
+var v16VerbCategoryState = {};
+
+function normalizeV16Verb(verb) {
+  if (!verb) return null;
+  if (typeof verb === 'string') return { id: verb, label: verb };
+  if (typeof verb === 'object') {
+    var label = verb.label || verb.title || verb.text || verb.id || '';
+    if (!label) return null;
+    return { id: verb.id || label, label: label };
+  }
+  return null;
+}
+
+function getV16VerbCategories(listKey, categoriesKey, titleKey) {
+  var categories = categoriesKey ? getText('ui.' + categoriesKey, []) : getText('ui.' + listKey, []);
+  if (Array.isArray(categories) && categories.length && typeof categories[0] === 'object' && Array.isArray(categories[0].verbs)) {
+    return categories;
+  }
+  var verbs = getV16VerbList(listKey).map(normalizeV16Verb).filter(Boolean);
+  return verbs.length ? [{ id: 'all', title: T(titleKey), verbs: verbs }] : [];
+}
+
+function getV16VerbCategoryTitle(category) {
+  var title = category.title || category.label || '';
+  return category.emoji && title.indexOf(category.emoji) !== 0 ? category.emoji + ' ' + title : title;
+}
+
+function getV16VerbCategoryKey(gridId, categoryId) {
+  return gridId + ':' + categoryId;
+}
+
+function makeV16VerbButton(verb) {
+  var normalized = normalizeV16Verb(verb);
+  if (!normalized) return null;
+  var button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'theme-btn';
+  button.textContent = normalized.label;
+  button.dataset.v16Verb = normalized.label;
+  button.addEventListener('click', function() { selectV16Verb(normalized.label); });
+  return button;
+}
+
+function renderV16VerbCategoryItems(gridId, category) {
+  var categoryId = category.id || category.title || 'category';
+  var key = getV16VerbCategoryKey(gridId, categoryId);
+  var grid = document.getElementById('v16-verb-grid-' + key);
+  var more = document.getElementById('v16-verb-more-' + key);
+  if (!grid || !more) return;
   clearChildren(grid);
-  getV16VerbList(listKey).forEach(function(verb) {
-    var button = document.createElement('button');
-    button.type = 'button';
-    button.className = 'theme-card';
-    button.textContent = verb;
-    button.dataset.v16Verb = verb;
-    button.addEventListener('click', function() { selectV16Verb(verb); });
-    grid.appendChild(button);
+  var verbs = Array.isArray(category.verbs) ? category.verbs : [];
+  var visible = Math.min(v16VerbCategoryState[key] || 2, verbs.length);
+  for (var i = 0; i < visible; i++) {
+    var button = makeV16VerbButton(verbs[i]);
+    if (button) grid.appendChild(button);
+  }
+  more.style.display = visible < verbs.length ? '' : 'none';
+}
+
+function seeMoreV16VerbCategory(gridId, categoryId) {
+  var categories = v16VerbCategoryState[gridId + ':categories'] || [];
+  var category = null;
+  for (var i = 0; i < categories.length; i++) {
+    if ((categories[i].id || categories[i].title || 'category') === categoryId) {
+      category = categories[i];
+      break;
+    }
+  }
+  if (!category) return;
+  var key = getV16VerbCategoryKey(gridId, categoryId);
+  v16VerbCategoryState[key] = (v16VerbCategoryState[key] || 2) + 2;
+  renderV16VerbCategoryItems(gridId, category);
+}
+
+function toggleV16VerbCategory(gridId, categoryId) {
+  var section = document.getElementById('v16-verb-cat-' + gridId + '-' + categoryId);
+  if (!section) return;
+  var isOpen = section.classList.toggle('open');
+  var toggle = section.querySelector('.theme-section-toggle');
+  if (toggle) toggle.textContent = isOpen ? '－' : '＋';
+  var key = getV16VerbCategoryKey(gridId, categoryId);
+  if (!isOpen) v16VerbCategoryState[key] = 2;
+  renderV16VerbCategoryItems(gridId, v16VerbCategoryState[gridId + ':' + categoryId + ':category']);
+}
+
+function renderV16VerbAccordion(listKey, categoriesKey, gridId, titleKey) {
+  var wrap = document.getElementById(gridId);
+  if (!wrap) return;
+  clearChildren(wrap);
+  var categories = getV16VerbCategories(listKey, categoriesKey, titleKey);
+  v16VerbCategoryState[gridId + ':categories'] = categories;
+  categories.forEach(function(category, index) {
+    var categoryId = category.id || 'category-' + index;
+    var key = getV16VerbCategoryKey(gridId, categoryId);
+    v16VerbCategoryState[key] = 2;
+    v16VerbCategoryState[gridId + ':' + categoryId + ':category'] = category;
+
+    var section = document.createElement('div');
+    section.className = 'theme-section v16-verb-category';
+    section.id = 'v16-verb-cat-' + gridId + '-' + categoryId;
+
+    var header = document.createElement('button');
+    header.type = 'button';
+    header.className = 'theme-section-header';
+    header.addEventListener('click', function() { toggleV16VerbCategory(gridId, categoryId); });
+
+    var labelWrap = document.createElement('span');
+    labelWrap.className = 'theme-section-label-wrap';
+    var label = document.createElement('span');
+    label.className = 'theme-section-label';
+    label.textContent = getV16VerbCategoryTitle(category);
+    labelWrap.appendChild(label);
+    if (category.age) {
+      var age = document.createElement('span');
+      age.className = 'v16-verb-category-age';
+      age.textContent = category.age;
+      labelWrap.appendChild(age);
+    }
+    if (category.description) {
+      var desc = document.createElement('span');
+      desc.className = 'theme-section-desc';
+      desc.textContent = category.description;
+      labelWrap.appendChild(desc);
+    }
+
+    var toggle = document.createElement('span');
+    toggle.className = 'theme-section-toggle';
+    toggle.textContent = '＋';
+    header.appendChild(labelWrap);
+    header.appendChild(toggle);
+
+    var body = document.createElement('div');
+    body.className = 'theme-section-body';
+    var grid = document.createElement('div');
+    grid.className = 'v16-verb-grid';
+    grid.id = 'v16-verb-grid-' + key;
+    body.appendChild(grid);
+    var more = document.createElement('button');
+    more.type = 'button';
+    more.className = 'btn-see-more';
+    more.id = 'v16-verb-more-' + key;
+    more.textContent = T('v16VerbShowMore');
+    more.addEventListener('click', function(e) {
+      e.stopPropagation();
+      seeMoreV16VerbCategory(gridId, categoryId);
+    });
+    body.appendChild(more);
+
+    section.appendChild(header);
+    section.appendChild(body);
+    wrap.appendChild(section);
+    renderV16VerbCategoryItems(gridId, category);
   });
 }
 
 function openV16BasicVerbs() {
-  renderV16VerbGrid('v16BasicVerbs', 'v16-basic-verbs-grid');
+  renderV16VerbAccordion('v16BasicVerbs', 'v16BasicVerbCategories', 'v16-basic-verbs-grid', 'v16BasicVerbTitle');
   fwd('s-v16-basic-verbs');
 }
 
 function openV16LifeDecisionVerbs() {
-  renderV16VerbGrid('v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid');
+  renderV16VerbAccordion('v16LifeDecisionVerbs', '', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle');
   fwd('s-v16-life-decision-verbs');
 }
 

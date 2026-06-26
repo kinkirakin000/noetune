@@ -67,6 +67,105 @@
       "生きる",
       "死ぬ"
     ],
+    "v16BasicVerbCategories": [
+      {
+        "id": "birth",
+        "title": "🌱 生まれた瞬間から始まる",
+        "verbs": [
+          { "id": "be", "label": "在る" },
+          { "id": "live", "label": "生きる" },
+          { "id": "breathe", "label": "呼吸する" },
+          { "id": "feel", "label": "感じる" },
+          { "id": "touch", "label": "触れる" },
+          { "id": "receive", "label": "受け取る" },
+          { "id": "cry", "label": "泣く" },
+          { "id": "sleep", "label": "眠る" },
+          { "id": "wake", "label": "起きる" },
+          { "id": "rest", "label": "休む" },
+          { "id": "drink", "label": "飲む" },
+          { "id": "eat", "label": "食べる" }
+        ]
+      },
+      {
+        "id": "sensing_world",
+        "title": "🌍 世界を感じはじめる",
+        "verbs": [
+          { "id": "listen", "label": "聴く" },
+          { "id": "see", "label": "見る" },
+          { "id": "smell", "label": "嗅ぐ" },
+          { "id": "taste", "label": "味わう" },
+          { "id": "notice", "label": "気づく" },
+          { "id": "need", "label": "必要とする" },
+          { "id": "want", "label": "望む" }
+        ]
+      },
+      {
+        "id": "body_movement",
+        "title": "🧍 身体が動きはじめる",
+        "verbs": [
+          { "id": "move", "label": "動く" },
+          { "id": "sit", "label": "座る" },
+          { "id": "stand", "label": "立つ" },
+          { "id": "walk", "label": "歩く" },
+          { "id": "play", "label": "遊ぶ" },
+          { "id": "laugh", "label": "笑う" }
+        ]
+      },
+      {
+        "id": "relationship",
+        "title": "🤝 人と関わりはじめる",
+        "verbs": [
+          { "id": "connect", "label": "つながる" },
+          { "id": "trust", "label": "信頼する" },
+          { "id": "love", "label": "愛する" },
+          { "id": "care", "label": "大切にする" },
+          { "id": "ask", "label": "尋ねる" },
+          { "id": "give", "label": "与える" },
+          { "id": "share", "label": "分かち合う" },
+          { "id": "speak", "label": "話す" }
+        ]
+      },
+      {
+        "id": "inner_world",
+        "title": "🧠 内側の世界が広がる",
+        "verbs": [
+          { "id": "think", "label": "考える" },
+          { "id": "know", "label": "知る" },
+          { "id": "understand", "label": "わかる" },
+          { "id": "wonder", "label": "不思議に思う" },
+          { "id": "imagine", "label": "想像する" },
+          { "id": "explore", "label": "探る" },
+          { "id": "choose", "label": "選ぶ" },
+          { "id": "act", "label": "行動する" }
+        ]
+      },
+      {
+        "id": "expression_creation",
+        "title": "🎨 表現と創造が開く",
+        "verbs": [
+          { "id": "sing", "label": "歌う" },
+          { "id": "dance", "label": "踊る" },
+          { "id": "enjoy", "label": "楽しむ" },
+          { "id": "create", "label": "創る" },
+          { "id": "grow", "label": "育つ" }
+        ]
+      },
+      {
+        "id": "life_flow",
+        "title": "🌀 人生の流れを生きる",
+        "verbs": [
+          { "id": "begin", "label": "始める" },
+          { "id": "continue", "label": "続ける" },
+          { "id": "wait", "label": "待つ" },
+          { "id": "stay", "label": "留まる" },
+          { "id": "leave", "label": "離れる" },
+          { "id": "return", "label": "戻る" },
+          { "id": "stop", "label": "止まる" },
+          { "id": "change", "label": "変わる" },
+          { "id": "end", "label": "終える" }
+        ]
+      }
+    ],
     "v16LifeDecisionVerbs": [
       "反応する",
       "比較する",
@@ -112,6 +211,7 @@
     ],
     "v16FreeVerbPlaceholder": "例：愛する",
     "v16StartWithVerb": "この動詞で始める",
+    "v16VerbShowMore": "さらに見る",
     "v16NegativeMeasurementQuestion": "「私のように{verb}」のネガティブ度は？",
     "v16WorstNegativeQuestion": "「私のように{verb}」\n\n想像しうる最低のネガティブ面は？",
     "v16WorstNegativePlaceholder": "例：重い / 怖い / 抵抗がある / 自分を失う",
