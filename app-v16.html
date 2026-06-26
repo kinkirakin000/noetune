@@ -741,6 +741,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div>After: <span id="v16-result-after"></span></div>
       <div>Difference: <span id="v16-result-difference"></span></div>
     </div>
+    <button class="btn" id="btn-v16-save-result" type="button" onclick="logV16ResultPayload()">Save Result</button>
   </div>
 </div>
 
@@ -3093,6 +3094,10 @@ function renderV16Result() {
   setEl('v16-result-before', D.v16NegativeBefore == null ? '' : String(D.v16NegativeBefore));
   setEl('v16-result-after', D.v16NegativeAfter == null ? '' : String(D.v16NegativeAfter));
   setEl('v16-result-difference', formatV16Difference(D.v16NegativeBefore, D.v16NegativeAfter));
+}
+
+function logV16ResultPayload() {
+  console.log('v16 result payload', D.v16ResultPayload || null);
 }
 
 function goV16Deeper() {
