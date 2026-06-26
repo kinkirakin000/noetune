@@ -167,57 +167,115 @@
       }
     ],
     "v16LifeDecisionVerbs": [
-      "react",
-      "compare",
-      "endure",
-      "strive",
-      "prove yourself",
-      "worry",
-      "check",
-      "adjust to others",
-      "care too much",
-      "hurry",
-      "optimize",
-      "plan",
-      "prepare",
-      "evaluate",
-      "measure",
-      "quantify",
-      "manage",
-      "analyze",
-      "search",
-      "seek the right answer",
-      "make meaning",
-      "recall",
-      "expect",
-      "perform",
-      "keep up appearances",
-      "hold back",
-      "take everything on",
-      "carry the burden",
-      "chase",
-      "achieve",
-      "make it perfect",
-      "correct",
-      "discipline yourself",
-      "keep learning",
-      "try to grow",
-      "consume",
-      "scroll",
-      "broadcast yourself",
-      "stay connected",
-      "keep updating yourself",
-      "hand it over to AI"
+      {
+        "id": "survive",
+        "emoji": "👶",
+        "title": "Survive",
+        "age": "0–3",
+        "description": "Learned in order to survive",
+        "verbs": [
+          { "id": "respond", "label": "Respond" },
+          { "id": "belong", "label": "Belong" },
+          { "id": "help", "label": "Help" },
+          { "id": "protect", "label": "Protect" }
+        ]
+      },
+      {
+        "id": "be-good",
+        "emoji": "🧒",
+        "title": "Be good",
+        "age": "3–6",
+        "description": "Learned at home, preschool, and kindergarten",
+        "verbs": [
+          { "id": "behave", "label": "Behave" },
+          { "id": "follow", "label": "Follow" },
+          { "id": "obey", "label": "Obey" },
+          { "id": "please", "label": "Please" },
+          { "id": "hide", "label": "Hide" },
+          { "id": "endure", "label": "Endure" }
+        ]
+      },
+      {
+        "id": "learn",
+        "emoji": "🎒",
+        "title": "Learn",
+        "age": "6–18",
+        "description": "Conditioned through school education",
+        "verbs": [
+          { "id": "learn", "label": "Learn" },
+          { "id": "check", "label": "Check" },
+          { "id": "prepare", "label": "Prepare" },
+          { "id": "compare", "label": "Compare" },
+          { "id": "compete", "label": "Compete" },
+          { "id": "prove", "label": "Prove" },
+          { "id": "succeed", "label": "Succeed" },
+          { "id": "hurry", "label": "Hurry" }
+        ]
+      },
+      {
+        "id": "be-recognized",
+        "emoji": "💼",
+        "title": "Be recognized",
+        "age": "18–30",
+        "description": "Expected as a member of society",
+        "verbs": [
+          { "id": "adapt", "label": "Adapt" },
+          { "id": "manage", "label": "Manage" },
+          { "id": "perform", "label": "Perform" },
+          { "id": "impress", "label": "Impress" },
+          { "id": "express", "label": "Express" },
+          { "id": "fix", "label": "Fix" }
+        ]
+      },
+      {
+        "id": "support-life",
+        "emoji": "👨‍👩‍👧",
+        "title": "Support life",
+        "age": "30+",
+        "description": "Used to maintain family, work, and society",
+        "verbs": [
+          { "id": "own", "label": "Own" },
+          { "id": "control", "label": "Control" },
+          { "id": "remember", "label": "Remember" },
+          { "id": "appreciate", "label": "Appreciate" },
+          { "id": "sacrifice", "label": "Sacrifice" }
+        ]
+      },
+      {
+        "id": "modern-society",
+        "emoji": "📱",
+        "title": "Modern society",
+        "age": "",
+        "description": "Actions intensified by modern society",
+        "verbs": [
+          { "id": "consume", "label": "Consume" },
+          { "id": "avoid", "label": "Avoid" }
+        ]
+      },
+      {
+        "id": "lifelong",
+        "emoji": "♾️",
+        "title": "Lifelong",
+        "age": "",
+        "description": "Continues throughout life",
+        "verbs": [
+          { "id": "strive", "label": "Strive" }
+        ]
+      }
     ],
     "v16FreeVerbPlaceholder": "Example: love",
     "v16StartWithVerb": "Begin with this verb",
     "v16VerbShowMore": "Show more",
-    "v16NegativeMeasurementQuestion": "How negative does “like me, {verb}” feel?",
-    "v16WorstNegativeQuestion": "“Like me, {verb}”\n\nWhat is the worst negative side you can imagine?",
+    "v16NegativeMeasurementQuestion": "“{verb}”\n\nAt that moment,\n\nHow natural does your breathing feel?",
+    "v16WorstNegativeQuestion": "“{verb}”\n\nFor you,\n\ndoes it include even a small negative effect?\nIf so, write it here.",
     "v16WorstNegativePlaceholder": "Example: heavy / scary / resistant / losing myself",
-    "v16BestIdealQuestion": "“Like me, {verb}”\n\nWhat is the highest ideal state you can imagine?",
-    "v16BestIdealPlaceholder": "Example: being natural / feeling safe / being free / love flowing",
+    "v16BestIdealQuestion": "\"{verb}\"\n\nRegarding this,\n\nwhat is the highest ideal state you can imagine?",
+    "v16BestIdealPlaceholder": "Describe the ideal state",
     "v16NoAnswerButton": "No answer comes",
+    "v16BreathStep1Title": "Breathe.",
+    "v16BreathStep1Body": "Feel\n\nthe counterbalancing energy.",
+    "v16BreathStep2Title": "Breathe.",
+    "v16BreathStep2Body": "Feel\n\neverything except that energy.",
     "v16BreathOpposingEnergy": "Feel it.\nThe energy opposing “{answer}”.\n\nBreathe.",
     "v16BreathAllExceptOpposing": "Feel it.\nEverything except that opposing energy.\n\nBreathe.",
     "v16ResultTitle": "Verb Shift",

@@ -167,57 +167,115 @@
       }
     ],
     "v16LifeDecisionVerbs": [
-      "反応する",
-      "比較する",
-      "我慢する",
-      "頑張る",
-      "証明する",
-      "心配する",
-      "確認する",
-      "合わせる",
-      "気遣う",
-      "急ぐ",
-      "最適化する",
-      "計画する",
-      "準備する",
-      "評価する",
-      "測る",
-      "数値化する",
-      "管理する",
-      "分析する",
-      "検索する",
-      "正解を求める",
-      "意味づける",
-      "回想する",
-      "期待する",
-      "演じる",
-      "取り繕う",
-      "遠慮する",
-      "抱え込む",
-      "背負う",
-      "追いかける",
-      "達成する",
-      "完璧にする",
-      "正す",
-      "律する",
-      "学び続ける",
-      "成長しようとする",
-      "消費する",
-      "スクロールする",
-      "発信する",
-      "つながり続ける",
-      "アップデートし続ける",
-      "AIに委ねる"
+      {
+        "id": "survive",
+        "emoji": "👶",
+        "title": "生きる",
+        "age": "0〜3歳",
+        "description": "生きるために身につける",
+        "verbs": [
+          { "id": "respond", "label": "反応する" },
+          { "id": "belong", "label": "所属する" },
+          { "id": "help", "label": "助ける" },
+          { "id": "protect", "label": "守る" }
+        ]
+      },
+      {
+        "id": "be-good",
+        "emoji": "🧒",
+        "title": "いい子になる",
+        "age": "3〜6歳",
+        "description": "家庭・保育園・幼稚園で教わる",
+        "verbs": [
+          { "id": "behave", "label": "振る舞う" },
+          { "id": "follow", "label": "従う" },
+          { "id": "obey", "label": "服従する" },
+          { "id": "please", "label": "喜ばせる" },
+          { "id": "hide", "label": "隠す" },
+          { "id": "endure", "label": "耐える" }
+        ]
+      },
+      {
+        "id": "learn",
+        "emoji": "🎒",
+        "title": "学ぶ",
+        "age": "6〜18歳",
+        "description": "学校教育で刷り込まれる",
+        "verbs": [
+          { "id": "learn", "label": "学ぶ" },
+          { "id": "check", "label": "確認する" },
+          { "id": "prepare", "label": "準備する" },
+          { "id": "compare", "label": "比較する" },
+          { "id": "compete", "label": "競争する" },
+          { "id": "prove", "label": "証明する" },
+          { "id": "succeed", "label": "成功する" },
+          { "id": "hurry", "label": "急ぐ" }
+        ]
+      },
+      {
+        "id": "be-recognized",
+        "emoji": "💼",
+        "title": "社会で認められる",
+        "age": "18〜30歳",
+        "description": "社会人として期待される",
+        "verbs": [
+          { "id": "adapt", "label": "適応する" },
+          { "id": "manage", "label": "管理する" },
+          { "id": "perform", "label": "遂行する" },
+          { "id": "impress", "label": "印象づける" },
+          { "id": "express", "label": "表現する" },
+          { "id": "fix", "label": "問題を解決する" }
+        ]
+      },
+      {
+        "id": "support-life",
+        "emoji": "👨‍👩‍👧",
+        "title": "人生を支える",
+        "age": "30歳〜",
+        "description": "家庭・仕事・社会を維持する",
+        "verbs": [
+          { "id": "own", "label": "所有する" },
+          { "id": "control", "label": "コントロールする" },
+          { "id": "remember", "label": "忘れない" },
+          { "id": "appreciate", "label": "感謝する" },
+          { "id": "sacrifice", "label": "犠牲になる" }
+        ]
+      },
+      {
+        "id": "modern-society",
+        "emoji": "📱",
+        "title": "現代社会",
+        "age": "",
+        "description": "現代特有に強化された行動",
+        "verbs": [
+          { "id": "consume", "label": "消費する" },
+          { "id": "avoid", "label": "避ける" }
+        ]
+      },
+      {
+        "id": "lifelong",
+        "emoji": "♾️",
+        "title": "一生続く",
+        "age": "",
+        "description": "あらゆる年代を通して続く",
+        "verbs": [
+          { "id": "strive", "label": "努力する" }
+        ]
+      }
     ],
     "v16FreeVerbPlaceholder": "例：愛する",
     "v16StartWithVerb": "この動詞で始める",
     "v16VerbShowMore": "さらに見る",
-    "v16NegativeMeasurementQuestion": "「私のように{verb}」のネガティブ度は？",
-    "v16WorstNegativeQuestion": "「私のように{verb}」\n\n想像しうる最低のネガティブ面は？",
+    "v16NegativeMeasurementQuestion": "「{verb}」\n\nそのとき、\n\n呼吸の自然度は？",
+    "v16WorstNegativeQuestion": "「{verb}」\n\nあなたにとって、\n\nネガティブな影響は少しでも含まれますか？\nあれば書いてください。",
     "v16WorstNegativePlaceholder": "例：重い / 怖い / 抵抗がある / 自分を失う",
-    "v16BestIdealQuestion": "「私のように{verb}」\n\n想像しうる最高の理想状態は？",
-    "v16BestIdealPlaceholder": "例：自然でいる / 安心している / 自由でいる / 愛が流れている",
+    "v16BestIdealQuestion": "「{verb}」\n\nこれについて、\n\n想像しうる最高の理想状態は？",
+    "v16BestIdealPlaceholder": "理想状態を書いてください",
     "v16NoAnswerButton": "回答が出ない",
+    "v16BreathStep1Title": "呼吸。",
+    "v16BreathStep1Body": "感じてください。\n\nそれと拮抗するエネルギー。",
+    "v16BreathStep2Title": "呼吸。",
+    "v16BreathStep2Body": "感じてください。\n\nそのエネルギー以外の全て。",
     "v16BreathOpposingEnergy": "感じてください。\n「{answer}」と拮抗するエネルギー。\n\n呼吸。",
     "v16BreathAllExceptOpposing": "感じてください。\nその拮抗エネルギー以外の全て。\n\n呼吸。",
     "v16ResultTitle": "動詞の変化",

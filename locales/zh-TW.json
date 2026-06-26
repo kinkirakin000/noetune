@@ -167,57 +167,115 @@
       }
     ],
     "v16LifeDecisionVerbs": [
-      "反應",
-      "比較",
-      "忍耐",
-      "努力",
-      "證明自己",
-      "擔心",
-      "確認",
-      "配合別人",
-      "顧慮別人",
-      "趕快",
-      "最佳化",
-      "計畫",
-      "準備",
-      "評價",
-      "衡量",
-      "數字化",
-      "管理",
-      "分析",
-      "搜尋",
-      "追求正解",
-      "賦予意義",
-      "回想",
-      "期待",
-      "扮演",
-      "維持表面",
-      "客氣退讓",
-      "一個人扛下",
-      "背負",
-      "追趕",
-      "達成",
-      "做到完美",
-      "糾正",
-      "自律",
-      "持續學習",
-      "試著成長",
-      "消費",
-      "滑手機",
-      "發信",
-      "持續連結",
-      "持續更新自己",
-      "交給AI"
+      {
+        "id": "survive",
+        "emoji": "👶",
+        "title": "生存",
+        "age": "0〜3歲",
+        "description": "為了生存而學會",
+        "verbs": [
+          { "id": "respond", "label": "反應" },
+          { "id": "belong", "label": "歸屬" },
+          { "id": "help", "label": "幫助" },
+          { "id": "protect", "label": "保護" }
+        ]
+      },
+      {
+        "id": "be-good",
+        "emoji": "🧒",
+        "title": "成為乖孩子",
+        "age": "3〜6歲",
+        "description": "在家庭、托兒所、幼兒園中學會",
+        "verbs": [
+          { "id": "behave", "label": "表現得體" },
+          { "id": "follow", "label": "跟隨" },
+          { "id": "obey", "label": "服從" },
+          { "id": "please", "label": "取悅" },
+          { "id": "hide", "label": "隱藏" },
+          { "id": "endure", "label": "忍耐" }
+        ]
+      },
+      {
+        "id": "learn",
+        "emoji": "🎒",
+        "title": "學習",
+        "age": "6〜18歲",
+        "description": "在學校教育中被塑造",
+        "verbs": [
+          { "id": "learn", "label": "學習" },
+          { "id": "check", "label": "確認" },
+          { "id": "prepare", "label": "準備" },
+          { "id": "compare", "label": "比較" },
+          { "id": "compete", "label": "競爭" },
+          { "id": "prove", "label": "證明" },
+          { "id": "succeed", "label": "成功" },
+          { "id": "hurry", "label": "趕快" }
+        ]
+      },
+      {
+        "id": "be-recognized",
+        "emoji": "💼",
+        "title": "被社會認可",
+        "age": "18〜30歲",
+        "description": "作為社會人被期待",
+        "verbs": [
+          { "id": "adapt", "label": "適應" },
+          { "id": "manage", "label": "管理" },
+          { "id": "perform", "label": "履行" },
+          { "id": "impress", "label": "留下好印象" },
+          { "id": "express", "label": "表達" },
+          { "id": "fix", "label": "解決問題" }
+        ]
+      },
+      {
+        "id": "support-life",
+        "emoji": "👨‍👩‍👧",
+        "title": "支撐人生",
+        "age": "30歲〜",
+        "description": "維持家庭、工作與社會",
+        "verbs": [
+          { "id": "own", "label": "擁有" },
+          { "id": "control", "label": "控制" },
+          { "id": "remember", "label": "記得" },
+          { "id": "appreciate", "label": "感謝" },
+          { "id": "sacrifice", "label": "犧牲" }
+        ]
+      },
+      {
+        "id": "modern-society",
+        "emoji": "📱",
+        "title": "現代社會",
+        "age": "",
+        "description": "現代特有且被強化的行為",
+        "verbs": [
+          { "id": "consume", "label": "消費" },
+          { "id": "avoid", "label": "避開" }
+        ]
+      },
+      {
+        "id": "lifelong",
+        "emoji": "♾️",
+        "title": "一生持續",
+        "age": "",
+        "description": "貫穿所有年齡階段",
+        "verbs": [
+          { "id": "strive", "label": "努力" }
+        ]
+      }
     ],
     "v16FreeVerbPlaceholder": "例：愛",
     "v16StartWithVerb": "用這個動詞開始",
     "v16VerbShowMore": "顯示更多",
-    "v16NegativeMeasurementQuestion": "「像我一樣{verb}」的負面程度是？",
-    "v16WorstNegativeQuestion": "「像我一樣{verb}」\n\n你能想像到最糟的負面面向是什麼？",
+    "v16NegativeMeasurementQuestion": "「{verb}」\n\n那個時候，\n\n呼吸的自然程度是？",
+    "v16WorstNegativeQuestion": "「{verb}」\n\n對你來說，\n\n它是否包含哪怕一點點負面影響？\n如果有，請寫下來。",
     "v16WorstNegativePlaceholder": "例：沉重 / 害怕 / 有抵抗 / 失去自己",
-    "v16BestIdealQuestion": "「像我一樣{verb}」\n\n你能想像到最高的理想狀態是什麼？",
-    "v16BestIdealPlaceholder": "例：很自然 / 感到安心 / 自由自在 / 愛在流動",
+    "v16BestIdealQuestion": "「{verb}」\n\n關於這件事，\n\n你能想像到最理想的狀態是什麼？",
+    "v16BestIdealPlaceholder": "請寫下理想狀態",
     "v16NoAnswerButton": "沒有答案出現",
+    "v16BreathStep1Title": "呼吸。",
+    "v16BreathStep1Body": "感受。\n\n與它相互平衡的能量。",
+    "v16BreathStep2Title": "呼吸。",
+    "v16BreathStep2Body": "感受。\n\n除了那股能量之外的一切。",
     "v16BreathOpposingEnergy": "感受它。\n與「{answer}」拮抗的能量。\n\n呼吸。",
     "v16BreathAllExceptOpposing": "感受它。\n那股拮抗能量以外的一切。\n\n呼吸。",
     "v16ResultTitle": "動詞的變化",

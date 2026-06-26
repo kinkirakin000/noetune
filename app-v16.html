@@ -678,7 +678,9 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-before" oninput="onV16BeforeSlider(this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
+  <button class="btn-nm" id="nm-v16-before" type="button" onclick="selectV16MeasurementNM('before')"></button>
   <button class="btn" id="next-v16-before" type="button" onclick="submitV16BeforeMeasurement()" disabled></button>
+  <button class="btn-ghost" id="skip-v16-before" type="button" onclick="skipV16BeforeMeasurement()"></button>
 </div>
 
 <!-- ── V16 NEGATIVE INPUT ── -->
@@ -694,33 +696,31 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 1 ── -->
 <div class="screen" id="s-v16-breath-1">
-  <div class="breath-sub">Breathe</div>
-  <div class="breath-main">Let your body breathe with the negative side of this verb.</div>
+  <div class="breath-sub" id="t-v16-breath-1-title"></div>
+  <div class="breath-main" id="t-v16-breath-1-body"></div>
   <div id="hint-v16-breath-1" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-1" onclick="startV16Breath('1')"></div>
-  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="returnV16NegativeInput()" disabled>Next</button>
+  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="returnV16NegativeInput()" disabled></button>
 </div>
 
 <!-- ── V16 IDEAL INPUT ── -->
 <div class="screen" id="s-v16-ideal-input">
   <div id="s-entry-inner">
-    <div class="entry-title">Ideal State</div>
-    <div class="breath-main">What would be the ideal state for this verb?</div>
+    <div class="breath-main" id="t-v16-ideal-question"></div>
     <input type="text" class="text-input" id="in-v16-ideal" autocomplete="off" maxlength="120"
-      placeholder="Write your ideal state..."
       oninput="onV16IdealInput(this.value)">
-    <button class="btn" id="btn-v16-ideal-next" type="button" onclick="submitV16IdealInput()" disabled>Next</button>
+    <button class="btn" id="btn-v16-ideal-next" type="button" onclick="submitV16IdealInput()" disabled></button>
     <button class="btn-ghost" id="btn-v16-ideal-no-answer" type="button" onclick="skipV16IdealAnswer()"></button>
   </div>
 </div>
 
 <!-- ── V16 BREATH 2 ── -->
 <div class="screen" id="s-v16-breath-2">
-  <div class="breath-sub">Breathe</div>
-  <div class="breath-main">Let your body breathe with the ideal state of this verb.</div>
+  <div class="breath-sub" id="t-v16-breath-2-title"></div>
+  <div class="breath-main" id="t-v16-breath-2-body"></div>
   <div id="hint-v16-breath-2" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-2" onclick="startV16Breath('2')"></div>
-  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="returnV16IdealInput()" disabled>Next</button>
+  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="returnV16IdealInput()" disabled></button>
 </div>
 
 <!-- ── V16 LOOP CHOICE ── -->
@@ -739,14 +739,15 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 AFTER MEASUREMENT ── -->
 <div class="screen" id="s-v16-after-measurement">
-  <div class="entry-title">Measure Again</div>
-  <div class="measure-problem">Now, how negative does this verb feel in your body?</div>
+  <div class="measure-problem" id="t-v16-after-measurement"></div>
   <div class="score-num" id="num-v16-after"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-after" oninput="onV16AfterSlider(this.value)">
     <div class="slider-labels"><span>0</span><span>100</span></div>
   </div>
-  <button class="btn" id="next-v16-after" type="button" onclick="submitV16AfterMeasurement()" disabled>Next</button>
+  <button class="btn-nm" id="nm-v16-after" type="button" onclick="selectV16MeasurementNM('after')"></button>
+  <button class="btn" id="next-v16-after" type="button" onclick="submitV16AfterMeasurement()" disabled></button>
+  <button class="btn-ghost" id="skip-v16-after" type="button" onclick="skipV16AfterMeasurement()"></button>
 </div>
 
 <!-- ── V16 RESULT ── -->
@@ -2908,13 +2909,26 @@ function renderV16EntryTexts() {
   setEl('t-v16-free-verb-input-title', T('v16FreeVerbTitle'));
   setEl('btn-v16-free-verb-next', T('next_button'));
   setEl('next-v16-before', T('next_button'));
+  setEl('nm-v16-before', T('not_measurable_button'));
+  setEl('skip-v16-before', T('skip_measurement'));
   setEl('btn-v16-negative-next', T('next_button'));
   setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
+  setEl('btn-v16-ideal-next', T('next_button'));
   setEl('btn-v16-ideal-no-answer', T('v16NoAnswerButton'));
+  setEl('t-v16-breath-1-title', T('v16BreathStep1Title'));
+  setEl('t-v16-breath-1-body', T('v16BreathStep1Body'));
+  setEl('btn-v16-breath-1-next', T('next_button'));
+  setEl('t-v16-breath-2-title', T('v16BreathStep2Title'));
+  setEl('t-v16-breath-2-body', T('v16BreathStep2Body'));
+  setEl('btn-v16-breath-2-next', T('next_button'));
+  setEl('next-v16-after', T('next_button'));
+  setEl('nm-v16-after', T('not_measurable_button'));
+  setEl('skip-v16-after', T('skip_measurement'));
   renderV16VerbAccordion('v16BasicVerbs', 'v16BasicVerbCategories', 'v16-basic-verbs-grid', 'v16BasicVerbTitle');
-  renderV16VerbAccordion('v16LifeDecisionVerbs', '', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle');
+  renderV16VerbAccordion('v16LifeDecisionVerbs', 'v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle', 4);
   renderV16BeforeMeasurement();
   renderV16NegativeInput();
+  renderV16IdealInput();
 }
 
 function getV16VerbList(key) {
@@ -2973,7 +2987,8 @@ function renderV16VerbCategoryItems(gridId, category) {
   if (!grid || !more) return;
   clearChildren(grid);
   var verbs = Array.isArray(category.verbs) ? category.verbs : [];
-  var visible = Math.min(v16VerbCategoryState[key] || 2, verbs.length);
+  var pageSize = v16VerbCategoryState[gridId + ':pageSize'] || 2;
+  var visible = Math.min(v16VerbCategoryState[key] || pageSize, verbs.length);
   for (var i = 0; i < visible; i++) {
     var button = makeV16VerbButton(verbs[i]);
     if (button) grid.appendChild(button);
@@ -2992,7 +3007,8 @@ function seeMoreV16VerbCategory(gridId, categoryId) {
   }
   if (!category) return;
   var key = getV16VerbCategoryKey(gridId, categoryId);
-  v16VerbCategoryState[key] = (v16VerbCategoryState[key] || 2) + 2;
+  var pageSize = v16VerbCategoryState[gridId + ':pageSize'] || 2;
+  v16VerbCategoryState[key] = (v16VerbCategoryState[key] || pageSize) + pageSize;
   renderV16VerbCategoryItems(gridId, category);
 }
 
@@ -3003,20 +3019,21 @@ function toggleV16VerbCategory(gridId, categoryId) {
   var toggle = section.querySelector('.theme-section-toggle');
   if (toggle) toggle.textContent = isOpen ? '－' : '＋';
   var key = getV16VerbCategoryKey(gridId, categoryId);
-  if (!isOpen) v16VerbCategoryState[key] = 2;
+  if (!isOpen) v16VerbCategoryState[key] = v16VerbCategoryState[gridId + ':pageSize'] || 2;
   renderV16VerbCategoryItems(gridId, v16VerbCategoryState[gridId + ':' + categoryId + ':category']);
 }
 
-function renderV16VerbAccordion(listKey, categoriesKey, gridId, titleKey) {
+function renderV16VerbAccordion(listKey, categoriesKey, gridId, titleKey, pageSize) {
   var wrap = document.getElementById(gridId);
   if (!wrap) return;
   clearChildren(wrap);
   var categories = getV16VerbCategories(listKey, categoriesKey, titleKey);
+  v16VerbCategoryState[gridId + ':pageSize'] = pageSize || 2;
   v16VerbCategoryState[gridId + ':categories'] = categories;
   categories.forEach(function(category, index) {
     var categoryId = category.id || 'category-' + index;
     var key = getV16VerbCategoryKey(gridId, categoryId);
-    v16VerbCategoryState[key] = 2;
+    v16VerbCategoryState[key] = v16VerbCategoryState[gridId + ':pageSize'];
     v16VerbCategoryState[gridId + ':' + categoryId + ':category'] = category;
 
     var section = document.createElement('div');
@@ -3083,7 +3100,7 @@ function openV16BasicVerbs() {
 }
 
 function openV16LifeDecisionVerbs() {
-  renderV16VerbAccordion('v16LifeDecisionVerbs', '', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle');
+  renderV16VerbAccordion('v16LifeDecisionVerbs', 'v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle', 4);
   fwd('s-v16-life-decision-verbs');
 }
 
@@ -3117,13 +3134,21 @@ function v16Text(key, vars) {
 }
 
 function renderV16BeforeMeasurement() {
-  setEl('t-v16-before-measurement', v16Text('v16NegativeMeasurementQuestion', { verb: D.verb || '' }));
+  var question = v16Text('v16NegativeMeasurementQuestion', { verb: D.verb || '' });
+  setEl('t-v16-before-measurement', question);
+  setEl('t-v16-after-measurement', question);
 }
 
 function renderV16NegativeInput() {
   setEl('t-v16-negative-question', v16Text('v16WorstNegativeQuestion', { verb: D.verb || '' }));
   var input = document.getElementById('in-v16-negative');
   if (input) input.placeholder = T('v16WorstNegativePlaceholder');
+}
+
+function renderV16IdealInput() {
+  setEl('t-v16-ideal-question', v16Text('v16BestIdealQuestion', { verb: D.verb || '' }));
+  var input = document.getElementById('in-v16-ideal');
+  if (input) input.placeholder = T('v16BestIdealPlaceholder');
 }
 
 function selectV16Verb(verb) {
@@ -3138,27 +3163,59 @@ function selectV16Verb(verb) {
   D.v16CurrentBreathAnswer = '';
   D.v16CurrentBreathType = '';
   D.v16ResultPayload = null;
-  var slider = document.getElementById('sl-v16-before');
-  var num = document.getElementById('num-v16-before');
-  var next = document.getElementById('next-v16-before');
-  if (slider) slider.value = '50';
-  if (num) { num.textContent = ''; num.className = 'score-num'; }
-  if (next) next.disabled = true;
+  resetV16Measurement('before');
   renderV16BeforeMeasurement();
   fwd('s-v16-before-measurement');
+}
+
+function resetV16Measurement(side) {
+  var slider = document.getElementById('sl-v16-' + side);
+  var num = document.getElementById('num-v16-' + side);
+  var nm = document.getElementById('nm-v16-' + side);
+  var next = document.getElementById('next-v16-' + side);
+  if (slider) slider.value = '50';
+  if (num) { num.textContent = ''; num.className = 'score-num'; }
+  if (nm) nm.classList.remove('selected');
+  if (next) next.disabled = true;
+}
+
+function selectV16MeasurementNM(side) {
+  var nm = document.getElementById('nm-v16-' + side);
+  var num = document.getElementById('num-v16-' + side);
+  var next = document.getElementById('next-v16-' + side);
+  if (nm) nm.classList.add('selected');
+  if (num) { num.textContent = T('not_measurable_button'); num.className = 'score-num nm'; }
+  if (next) next.disabled = false;
+}
+
+function getV16MeasurementValue(side) {
+  var nm = document.getElementById('nm-v16-' + side);
+  var slider = document.getElementById('sl-v16-' + side);
+  if (nm && nm.classList.contains('selected')) return 'NM';
+  return slider ? Number(slider.value) : null;
 }
 
 function onV16BeforeSlider(value) {
   D.v16NegativeBefore = Number(value);
   var num = document.getElementById('num-v16-before');
+  var nm = document.getElementById('nm-v16-before');
   var next = document.getElementById('next-v16-before');
+  if (nm) nm.classList.remove('selected');
   if (num) { num.textContent = value; num.className = 'score-num shown'; }
   if (next) next.disabled = false;
 }
 
 function submitV16BeforeMeasurement() {
-  var slider = document.getElementById('sl-v16-before');
-  if (slider) D.v16NegativeBefore = Number(slider.value);
+  D.v16NegativeBefore = getV16MeasurementValue('before');
+  continueV16AfterBeforeMeasurement();
+}
+
+function skipV16BeforeMeasurement() {
+  D.v16NegativeBefore = null;
+  continueV16AfterBeforeMeasurement();
+}
+
+function continueV16AfterBeforeMeasurement() {
   var input = document.getElementById('in-v16-negative');
   if (input) input.value = '';
   var next = document.getElementById('btn-v16-negative-next');
@@ -3209,6 +3266,7 @@ function skipV16NegativeAnswer() {
 
 function openV16IdealInput() {
   resetV16IdealInputField();
+  renderV16IdealInput();
   fwd('s-v16-ideal-input');
 }
 
@@ -3310,27 +3368,30 @@ function completeV16Breath(step) {
 }
 
 function openV16AfterMeasurement() {
-  var slider = document.getElementById('sl-v16-after');
-  var num = document.getElementById('num-v16-after');
-  var next = document.getElementById('next-v16-after');
-  if (slider) slider.value = '50';
-  if (num) { num.textContent = ''; num.className = 'score-num'; }
-  if (next) next.disabled = true;
+  resetV16Measurement('after');
   D.v16NegativeAfter = null;
+  renderV16BeforeMeasurement();
   fwd('s-v16-after-measurement');
 }
 
 function onV16AfterSlider(value) {
   D.v16NegativeAfter = Number(value);
   var num = document.getElementById('num-v16-after');
+  var nm = document.getElementById('nm-v16-after');
   var next = document.getElementById('next-v16-after');
+  if (nm) nm.classList.remove('selected');
   if (num) { num.textContent = value; num.className = 'score-num shown'; }
   if (next) next.disabled = false;
 }
 
 function submitV16AfterMeasurement() {
-  var slider = document.getElementById('sl-v16-after');
-  if (slider) D.v16NegativeAfter = Number(slider.value);
+  D.v16NegativeAfter = getV16MeasurementValue('after');
+  renderV16Result();
+  fwd('s-v16-result');
+}
+
+function skipV16AfterMeasurement() {
+  D.v16NegativeAfter = null;
   renderV16Result();
   fwd('s-v16-result');
 }
