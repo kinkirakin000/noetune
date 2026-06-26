@@ -759,6 +759,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div>Before <span id="v16-result-before"></span></div>
       <div>After <span id="v16-result-after"></span></div>
       <div>Change <span id="v16-result-difference"></span></div>
+      <div>Negative<div id="v16-result-negative-answers" style="white-space:pre-line"></div></div>
+      <div>Ideal<div id="v16-result-ideal-answers" style="white-space:pre-line"></div></div>
     </div>
     <button class="btn" id="btn-v16-save-result" type="button" onclick="saveV16Result()">Save Result</button>
     <div class="save-result-status" id="v16-save-result-status" role="status" aria-live="polite"></div>
@@ -3358,12 +3360,20 @@ function buildV16ResultPayload() {
 
 function renderV16Result() {
   D.v16ResultPayload = buildV16ResultPayload();
+  var negativeAnswers = D.v16ResultPayload.negativeAnswers.length
+    ? D.v16ResultPayload.negativeAnswers
+    : (D.v16ResultPayload.negativeInput ? [D.v16ResultPayload.negativeInput] : []);
+  var idealAnswers = D.v16ResultPayload.idealAnswers.length
+    ? D.v16ResultPayload.idealAnswers
+    : (D.v16ResultPayload.idealInput ? [D.v16ResultPayload.idealInput] : []);
   _resultSaveInFlight = false;
   _resultSaveState = 'idle';
   setEl('v16-result-verb', D.verb || '');
   setEl('v16-result-before', D.v16NegativeBefore == null ? '' : String(D.v16NegativeBefore));
   setEl('v16-result-after', D.v16NegativeAfter == null ? '' : String(D.v16NegativeAfter));
   setEl('v16-result-difference', formatV16Difference(D.v16NegativeBefore, D.v16NegativeAfter));
+  setEl('v16-result-negative-answers', negativeAnswers.map(function(answer) { return '・' + answer; }).join('\n'));
+  setEl('v16-result-ideal-answers', idealAnswers.map(function(answer) { return '・' + answer; }).join('\n'));
   setV16ResultSaveStatus('');
 }
 
