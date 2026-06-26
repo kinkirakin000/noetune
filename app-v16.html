@@ -3350,6 +3350,8 @@ function buildV16ResultPayload() {
     difference: formatV16Difference(D.v16NegativeBefore, D.v16NegativeAfter),
     negativeInput: D.v16NegativeInput || '',
     idealInput: D.v16IdealInput || '',
+    negativeAnswers: Array.isArray(D.v16NegativeAnswers) ? [...D.v16NegativeAnswers] : [],
+    idealAnswers: Array.isArray(D.v16IdealAnswers) ? [...D.v16IdealAnswers] : [],
     createdAt: new Date().toISOString()
   };
 }
