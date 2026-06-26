@@ -249,6 +249,7 @@
     "v16LandingSub": "An app for remembering your original relationship with verbs\nand returning to your original self.",
     "v16LandingStart": "Start",
     "v16LandingAboutTitle": "About Noetune",
+    "v16LandingReadMore": "Read more",
     "v16LandingSections": [
       {
         "title": "Life is made of verbs.",
@@ -259,19 +260,19 @@
         ]
       },
       {
-        "title": "Every verb is neutral.",
-        "bodyGroups": [
-          "A verb itself\nis neither good nor bad.",
-          "It is neither positive\nnor negative.",
-          "What shapes your present and future\nis your relationship with the verbs you use every day.\nThat relationship can also change your relationship with the past."
-        ]
-      },
-      {
         "title": "Self-rules",
         "bodyGroups": [
           "Through family, school, society, culture, organizations, and the era we live in,",
           "we unconsciously acquire self-rules\nthat influence our lives.",
           "Many of them appear\nas relationships with verbs such as\n“I have to...”\nor\n“I should...”"
+        ]
+      },
+      {
+        "title": "Every verb is neutral.",
+        "bodyGroups": [
+          "A verb itself\nis neither good nor bad.",
+          "It is neither positive\nnor negative.",
+          "What shapes your present and future\nis your relationship with the verbs you use every day.\nThat relationship can also change your relationship with the past."
         ]
       },
       {

@@ -298,6 +298,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .lp-about-title{font-size:1rem;text-align:center;color:#A8A8A2;margin-bottom:0;}
 .lp-section-body{display:flex;flex-direction:column;gap:1.05rem;font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.05;letter-spacing:.04em;color:#77736E;}
 .lp-section-body-group{margin:0;white-space:pre-line;}
+.lp-read-more-wrap{border-top:1px solid #E8E8E2;padding:2.6rem 0 0;text-align:center;}
+.btn-lp-read-more{display:inline-block;background:transparent;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:400;letter-spacing:.1em;border:1px solid #6B9080;padding:12px 34px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s,background .2s;}
+.btn-lp-read-more:active{opacity:.8;background:rgba(107,144,128,.08);}
 .lp-item-list{list-style:none;display:flex;flex-direction:column;gap:.95rem;}
 .lp-item-list li{font-family:'Noto Serif JP',serif;font-size:.84rem;font-weight:300;line-height:1.85;letter-spacing:.03em;color:#1A1A1A;padding-left:1em;text-indent:-1em;}
 .lp-footer{border-top:1px solid #E8E8E2;padding:2.8rem 0 0;margin-top:0;text-align:center;}
@@ -493,6 +496,8 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .lp-hero-sub{color:#8E8981}
 .lp-section-title{color:#F5EFE6}
 .lp-about-title,.lp-section-body,.lp-footer p{color:#8E8981}
+.lp-read-more-wrap{border-top-color:rgba(245,239,230,.1)}
+.btn-lp-read-more{color:#8FB8A4;border-color:#8FB8A4}
 .lp-item-list li{color:#F5EFE6}
 .lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{color:#8E8981;}
 .lp-section,.lp-footer{border-top-color:rgba(245,239,230,.1)}
@@ -594,13 +599,19 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       </div>
       <button class="btn-about-link" id="btn-resume-progress" onclick="resumeSavedProgress()" style="display:none;margin:1rem auto 0"></button>
     </section>
+    <div id="lp-v16-initial-sections"></div>
     <section class="lp-section">
       <h2 class="lp-section-title lp-about-title" id="lp-v16-about-title"></h2>
     </section>
-    <div id="lp-v16-sections"></div>
-    <div class="lp-footer">
-      <p id="lp-v16-final-cta"></p>
-      <button class="btn-lp-start" id="btn-v16-lp-final-start" onclick="startLanding()"></button>
+    <div class="lp-read-more-wrap" id="lp-v16-read-more-wrap">
+      <button class="btn-lp-read-more" id="btn-v16-lp-read-more" onclick="expandV16Landing()"></button>
+    </div>
+    <div id="lp-v16-more" hidden>
+      <div id="lp-v16-more-sections"></div>
+      <div class="lp-footer">
+        <p id="lp-v16-final-cta"></p>
+        <button class="btn-lp-start" id="btn-v16-lp-final-start" onclick="startLanding()"></button>
+      </div>
     </div>
   </div>
 </div>
@@ -3174,39 +3185,62 @@ renderStaticTexts = function() {
 };
 
 /* ── LANDING PAGE COPY ── */
+var v16LandingExpanded = false;
+
+function createV16LandingSection(section) {
+  var sectionEl = document.createElement('section');
+  sectionEl.className = 'lp-section';
+
+  var title = document.createElement('h2');
+  title.className = 'lp-section-title';
+  title.textContent = section.title || '';
+
+  var body = document.createElement('div');
+  body.className = 'lp-section-body';
+  var groups = Array.isArray(section.bodyGroups) ? section.bodyGroups : [section.body || ''];
+  groups.forEach(function(group) {
+    var paragraph = document.createElement('p');
+    paragraph.className = 'lp-section-body-group';
+    paragraph.textContent = group || '';
+    body.appendChild(paragraph);
+  });
+
+  sectionEl.appendChild(title);
+  sectionEl.appendChild(body);
+  return sectionEl;
+}
+
+function renderV16LandingVisibility() {
+  var more = document.getElementById('lp-v16-more');
+  var readMore = document.getElementById('lp-v16-read-more-wrap');
+  if (more) more.hidden = !v16LandingExpanded;
+  if (readMore) readMore.hidden = v16LandingExpanded;
+}
+
+function expandV16Landing() {
+  v16LandingExpanded = true;
+  renderV16LandingVisibility();
+}
+
 function renderV16LandingCopy() {
   setEl('lp-v16-hero-title', T('v16LandingHero'));
   setEl('lp-v16-hero-sub', T('v16LandingSub'));
   setEl('btn-v16-lp-start', T('v16LandingStart'));
   setEl('lp-v16-about-title', T('v16LandingAboutTitle'));
+  setEl('btn-v16-lp-read-more', T('v16LandingReadMore'));
   setEl('lp-v16-final-cta', T('v16LandingFinalCta'));
   setEl('btn-v16-lp-final-start', T('v16LandingStart'));
 
-  var sectionsWrap = document.getElementById('lp-v16-sections');
-  if (!sectionsWrap) return;
-  sectionsWrap.innerHTML = '';
-  getText('ui.v16LandingSections', []).forEach(function(section) {
-    var sectionEl = document.createElement('section');
-    sectionEl.className = 'lp-section';
-
-    var title = document.createElement('h2');
-    title.className = 'lp-section-title';
-    title.textContent = section.title || '';
-
-    var body = document.createElement('div');
-    body.className = 'lp-section-body';
-    var groups = Array.isArray(section.bodyGroups) ? section.bodyGroups : [section.body || ''];
-    groups.forEach(function(group) {
-      var paragraph = document.createElement('p');
-      paragraph.className = 'lp-section-body-group';
-      paragraph.textContent = group || '';
-      body.appendChild(paragraph);
-    });
-
-    sectionEl.appendChild(title);
-    sectionEl.appendChild(body);
-    sectionsWrap.appendChild(sectionEl);
+  var initialWrap = document.getElementById('lp-v16-initial-sections');
+  var moreWrap = document.getElementById('lp-v16-more-sections');
+  if (!initialWrap || !moreWrap) return;
+  initialWrap.innerHTML = '';
+  moreWrap.innerHTML = '';
+  getText('ui.v16LandingSections', []).forEach(function(section, index) {
+    var target = index < 2 ? initialWrap : moreWrap;
+    target.appendChild(createV16LandingSection(section));
   });
+  renderV16LandingVisibility();
 }
 
 var setLandingLangV15 = setLandingLang;
