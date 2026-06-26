@@ -742,6 +742,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div>Difference: <span id="v16-result-difference"></span></div>
     </div>
     <button class="btn" id="btn-v16-save-result" type="button" onclick="saveV16Result()">Save Result</button>
+    <div class="save-result-status" id="v16-save-result-status" role="status" aria-live="polite"></div>
   </div>
 </div>
 
@@ -3090,10 +3091,13 @@ function buildV16ResultPayload() {
 
 function renderV16Result() {
   D.v16ResultPayload = buildV16ResultPayload();
+  _resultSaveInFlight = false;
+  _resultSaveState = 'idle';
   setEl('v16-result-verb', D.verb || '');
   setEl('v16-result-before', D.v16NegativeBefore == null ? '' : String(D.v16NegativeBefore));
   setEl('v16-result-after', D.v16NegativeAfter == null ? '' : String(D.v16NegativeAfter));
   setEl('v16-result-difference', formatV16Difference(D.v16NegativeBefore, D.v16NegativeAfter));
+  setV16ResultSaveStatus('');
 }
 
 function buildV16SaveResultPayload() {
@@ -3132,7 +3136,21 @@ function saveV16Result() {
     openResultSaveAuth(savePayload);
     return;
   }
+  if (!supabaseClient) {
+    setV16ResultSaveStatus('Could not save. Please try again.');
+    return;
+  }
   requestResultSave(savePayload, false);
+}
+
+function setV16ResultSaveStatus(message) {
+  setEl('v16-save-result-status', message || '');
+}
+
+function renderV16ResultSaveStatus(state) {
+  if (state === 'saving') setV16ResultSaveStatus('Saving...');
+  else if (state === 'saved') setV16ResultSaveStatus('Saved');
+  else if (state === 'error') setV16ResultSaveStatus('Could not save. Please try again.');
 }
 
 function goV16Deeper() {
@@ -5153,6 +5171,7 @@ function renderResultSaveUI() {
 function setResultSaveState(state) {
   _resultSaveState = state;
   renderResultSaveUI();
+  renderV16ResultSaveStatus(state);
 }
 
 function resetResultSaveUI() {
