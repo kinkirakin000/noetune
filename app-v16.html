@@ -2968,6 +2968,7 @@ function selectV16Verb(verb) {
   D.v16NegativeAnswer = '';
   D.v16NegativeInput = '';
   D.v16IdealInput = '';
+  D.v16ResultPayload = null;
   var slider = document.getElementById('sl-v16-before');
   var num = document.getElementById('num-v16-before');
   var next = document.getElementById('next-v16-before');
@@ -3073,7 +3074,21 @@ function formatV16Difference(before, after) {
   return '0';
 }
 
+function buildV16ResultPayload() {
+  return {
+    version: 'v16',
+    verb: D.verb || '',
+    before: D.v16NegativeBefore == null ? null : Number(D.v16NegativeBefore),
+    after: D.v16NegativeAfter == null ? null : Number(D.v16NegativeAfter),
+    difference: formatV16Difference(D.v16NegativeBefore, D.v16NegativeAfter),
+    negativeInput: D.v16NegativeInput || '',
+    idealInput: D.v16IdealInput || '',
+    createdAt: new Date().toISOString()
+  };
+}
+
 function renderV16Result() {
+  D.v16ResultPayload = buildV16ResultPayload();
   setEl('v16-result-verb', D.verb || '');
   setEl('v16-result-before', D.v16NegativeBefore == null ? '' : String(D.v16NegativeBefore));
   setEl('v16-result-after', D.v16NegativeAfter == null ? '' : String(D.v16NegativeAfter));
