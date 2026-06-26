@@ -607,13 +607,28 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div id="s-entry-inner">
     <div class="entry-title" id="t-entry-method-title"></div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-entry-method-theme" onclick="chooseEntryMethod('theme')"></button>
-      <div class="entry-choice-desc" id="t-entry-method-theme-desc"></div>
+      <button type="button" class="entry-choice-btn" id="btn-v16-basic-verb" onclick="openV16BasicVerbs()"></button>
+      <div class="entry-choice-desc" id="t-v16-basic-verb-desc"></div>
     </div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-entry-method-free" onclick="chooseEntryMethod('free')"></button>
-      <div class="entry-choice-desc" id="t-entry-method-free-desc"></div>
+      <button type="button" class="entry-choice-btn" id="btn-v16-suffering-verb"></button>
+      <div class="entry-choice-desc" id="t-v16-suffering-verb-desc"></div>
     </div>
+    <div class="entry-choice">
+      <button type="button" class="entry-choice-btn" id="btn-v16-free-verb"></button>
+      <div class="entry-choice-desc" id="t-v16-free-verb-desc"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── V16 BASIC VERBS ── -->
+<div class="screen" id="s-v16-basic-verbs">
+  <div id="s-theme-inner">
+    <div id="s-theme-top">
+      <div class="theme-screen-title" id="t-v16-basic-verbs-title"></div>
+      <div class="theme-screen-sub" id="t-v16-basic-verbs-desc"></div>
+    </div>
+    <div class="theme-grid" id="v16-basic-verbs-grid"></div>
   </div>
 </div>
 
@@ -2742,11 +2757,55 @@ var V12_CORE_THEMES = [
   { id:'core_11', label:'豊かさは流れている',           desc:'お金や豊かさを、止まったものではなく流れとして見られる。',       invalidates:'お金や豊かさは止まったものであり、流れないという前提。' },
   { id:'core_12', label:'現実の中で目覚めている',       desc:'役割を果たしながら、本当の自分を生きる。',                       invalidates:'役割を果たすほど、本当の自分から離れるという前提。' },
 ];
+/* ── V16 ENTRY COPY ── */
+function renderV16EntryTexts() {
+  setEl('t-entry-method-title', T('v16EntryTitle'));
+  setEl('btn-v16-basic-verb', T('v16BasicVerbTitle'));
+  setEl('t-v16-basic-verb-desc', T('v16BasicVerbDesc'));
+  setEl('btn-v16-suffering-verb', T('v16SufferingVerbTitle'));
+  setEl('t-v16-suffering-verb-desc', T('v16SufferingVerbDesc'));
+  setEl('btn-v16-free-verb', T('v16FreeVerbTitle'));
+  setEl('t-v16-free-verb-desc', T('v16FreeVerbDesc'));
+  setEl('t-v16-basic-verbs-title', T('v16BasicVerbTitle'));
+  setEl('t-v16-basic-verbs-desc', T('v16BasicVerbDesc'));
+  renderV16BasicVerbs();
+}
+
+function getV16CoreVerbs() {
+  var verbs = getText('ui.v16CoreVerbs', []);
+  return Array.isArray(verbs) ? verbs : [];
+}
+
+function renderV16BasicVerbs() {
+  var grid = document.getElementById('v16-basic-verbs-grid');
+  if (!grid) return;
+  clearChildren(grid);
+  getV16CoreVerbs().forEach(function(verb) {
+    var button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'theme-card';
+    button.textContent = verb;
+    button.dataset.v16Verb = verb;
+    grid.appendChild(button);
+  });
+}
+
+function openV16BasicVerbs() {
+  renderV16BasicVerbs();
+  fwd('s-v16-basic-verbs');
+}
+
+var renderStaticTextsV15 = renderStaticTexts;
+renderStaticTexts = function() {
+  renderStaticTextsV15();
+  renderV16EntryTexts();
+};
+
 /* ── LANDING PAGE COPY ── */
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-entry-method','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-v16-basic-verbs','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
