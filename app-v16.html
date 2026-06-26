@@ -611,8 +611,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="entry-choice-desc" id="t-v16-basic-verb-desc"></div>
     </div>
     <div class="entry-choice">
-      <button type="button" class="entry-choice-btn" id="btn-v16-suffering-verb"></button>
-      <div class="entry-choice-desc" id="t-v16-suffering-verb-desc"></div>
+      <button type="button" class="entry-choice-btn" id="btn-v16-life-decision-verb" onclick="openV16LifeDecisionVerbs()"></button>
+      <div class="entry-choice-desc" id="t-v16-life-decision-verb-desc"></div>
     </div>
     <div class="entry-choice">
       <button type="button" class="entry-choice-btn" id="btn-v16-free-verb"></button>
@@ -629,6 +629,38 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="theme-screen-sub" id="t-v16-basic-verbs-desc"></div>
     </div>
     <div class="theme-grid" id="v16-basic-verbs-grid"></div>
+  </div>
+</div>
+
+<!-- ── V16 LIFE DECISION VERBS ── -->
+<div class="screen" id="s-v16-life-decision-verbs">
+  <div id="s-theme-inner">
+    <div id="s-theme-top">
+      <div class="theme-screen-title" id="t-v16-life-decision-verbs-title"></div>
+      <div class="theme-screen-sub" id="t-v16-life-decision-verbs-desc"></div>
+    </div>
+    <div class="theme-grid" id="v16-life-decision-verbs-grid"></div>
+  </div>
+</div>
+
+<!-- ── V16 BEFORE MEASUREMENT ── -->
+<div class="screen" id="s-v16-before-measurement">
+  <div class="measure-problem" id="t-v16-before-measurement"></div>
+  <div class="score-num" id="num-v16-before"></div>
+  <div class="slider-wrap">
+    <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-before" oninput="onV16BeforeSlider(this.value)">
+    <div class="slider-labels"><span>0</span><span>100</span></div>
+  </div>
+  <button class="btn" id="next-v16-before" type="button" onclick="submitV16BeforeMeasurement()" disabled></button>
+</div>
+
+<!-- ── V16 NEGATIVE INPUT ── -->
+<div class="screen" id="s-v16-negative-input">
+  <div id="s-entry-inner">
+    <div class="entry-title" id="t-v16-negative-question"></div>
+    <input type="text" class="text-input" id="in-v16-negative" autocomplete="off" maxlength="120">
+    <button class="btn" id="btn-v16-negative-next" type="button"></button>
+    <button class="btn-ghost" id="btn-v16-negative-no-answer" type="button"></button>
   </div>
 </div>
 
@@ -2762,37 +2794,98 @@ function renderV16EntryTexts() {
   setEl('t-entry-method-title', T('v16EntryTitle'));
   setEl('btn-v16-basic-verb', T('v16BasicVerbTitle'));
   setEl('t-v16-basic-verb-desc', T('v16BasicVerbDesc'));
-  setEl('btn-v16-suffering-verb', T('v16SufferingVerbTitle'));
-  setEl('t-v16-suffering-verb-desc', T('v16SufferingVerbDesc'));
+  setEl('btn-v16-life-decision-verb', T('v16LifeDecisionVerbTitle'));
+  setEl('t-v16-life-decision-verb-desc', T('v16LifeDecisionVerbDesc'));
   setEl('btn-v16-free-verb', T('v16FreeVerbTitle'));
   setEl('t-v16-free-verb-desc', T('v16FreeVerbDesc'));
   setEl('t-v16-basic-verbs-title', T('v16BasicVerbTitle'));
   setEl('t-v16-basic-verbs-desc', T('v16BasicVerbDesc'));
-  renderV16BasicVerbs();
+  setEl('t-v16-life-decision-verbs-title', T('v16LifeDecisionVerbTitle'));
+  setEl('t-v16-life-decision-verbs-desc', T('v16LifeDecisionVerbDesc'));
+  setEl('next-v16-before', T('next_button'));
+  setEl('btn-v16-negative-next', T('next_button'));
+  setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
+  renderV16VerbGrid('v16BasicVerbs', 'v16-basic-verbs-grid');
+  renderV16VerbGrid('v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid');
+  renderV16BeforeMeasurement();
+  renderV16NegativeInput();
 }
 
-function getV16CoreVerbs() {
-  var verbs = getText('ui.v16CoreVerbs', []);
+function getV16VerbList(key) {
+  var verbs = getText('ui.' + key, []);
   return Array.isArray(verbs) ? verbs : [];
 }
 
-function renderV16BasicVerbs() {
-  var grid = document.getElementById('v16-basic-verbs-grid');
+function renderV16VerbGrid(listKey, gridId) {
+  var grid = document.getElementById(gridId);
   if (!grid) return;
   clearChildren(grid);
-  getV16CoreVerbs().forEach(function(verb) {
+  getV16VerbList(listKey).forEach(function(verb) {
     var button = document.createElement('button');
     button.type = 'button';
     button.className = 'theme-card';
     button.textContent = verb;
     button.dataset.v16Verb = verb;
+    button.addEventListener('click', function() { selectV16Verb(verb); });
     grid.appendChild(button);
   });
 }
 
 function openV16BasicVerbs() {
-  renderV16BasicVerbs();
+  renderV16VerbGrid('v16BasicVerbs', 'v16-basic-verbs-grid');
   fwd('s-v16-basic-verbs');
+}
+
+function openV16LifeDecisionVerbs() {
+  renderV16VerbGrid('v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid');
+  fwd('s-v16-life-decision-verbs');
+}
+
+function v16Text(key, vars) {
+  var text = T(key);
+  if (vars && vars.verb != null) text = text.split('{verb}').join(vars.verb);
+  return text;
+}
+
+function renderV16BeforeMeasurement() {
+  setEl('t-v16-before-measurement', v16Text('v16NegativeMeasurementQuestion', { verb: D.verb || '' }));
+}
+
+function renderV16NegativeInput() {
+  setEl('t-v16-negative-question', v16Text('v16WorstNegativeQuestion', { verb: D.verb || '' }));
+  var input = document.getElementById('in-v16-negative');
+  if (input) input.placeholder = T('v16WorstNegativePlaceholder');
+}
+
+function selectV16Verb(verb) {
+  D.verb = verb;
+  D.v16NegativeBefore = null;
+  D.v16NegativeAnswer = '';
+  var slider = document.getElementById('sl-v16-before');
+  var num = document.getElementById('num-v16-before');
+  var next = document.getElementById('next-v16-before');
+  if (slider) slider.value = '50';
+  if (num) { num.textContent = ''; num.className = 'score-num'; }
+  if (next) next.disabled = true;
+  renderV16BeforeMeasurement();
+  fwd('s-v16-before-measurement');
+}
+
+function onV16BeforeSlider(value) {
+  D.v16NegativeBefore = Number(value);
+  var num = document.getElementById('num-v16-before');
+  var next = document.getElementById('next-v16-before');
+  if (num) { num.textContent = value; num.className = 'score-num shown'; }
+  if (next) next.disabled = false;
+}
+
+function submitV16BeforeMeasurement() {
+  var slider = document.getElementById('sl-v16-before');
+  if (slider) D.v16NegativeBefore = Number(slider.value);
+  var input = document.getElementById('in-v16-negative');
+  if (input) input.value = '';
+  renderV16NegativeInput();
+  fwd('s-v16-negative-input');
 }
 
 var renderStaticTextsV15 = renderStaticTexts;
@@ -2805,7 +2898,7 @@ renderStaticTexts = function() {
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-entry-method','s-v16-basic-verbs','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-before-measurement','s-v16-negative-input','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
