@@ -245,6 +245,29 @@
     "landingFooter2": "透過簡短的問題，\n幫助你從正在發生的事情裡，\n慢慢認識自己。",
     "landingAboutLink": "Noetune是什麼",
     "landingPricingLink": "免費版與 Professional 版",
+    "v16LandingHero": "把人生的動詞，\n最佳化回原本的自己。",
+    "v16LandingSub": "這是一個幫助你想起與動詞原本的關係，\n並回到原本自己的 App。",
+    "v16LandingStart": "開始",
+    "v16LandingAboutTitle": "Noetune是什麼",
+    "v16LandingSections": [
+      {
+        "title": "人生，是由動詞組成的。",
+        "body": "我們每天都活在無數個「做」之中：\n\n反應\n比較\n努力\n忍耐\n愛\n工作\n休息\n\n我們活著數也數不清的動詞。"
+      },
+      {
+        "title": "所有動詞，都是中立的。",
+        "body": "動詞本身，\n\n沒有好，\n也沒有壞。\n\n不是正向，\n\n也不是負向。\n\n決定你現在與未來的，\n是你每天使用的動詞之間的關係。\n那份關係，也會改變你與過去的關係。"
+      },
+      {
+        "title": "自我規則",
+        "body": "我們透過家庭、學校、社會、文化、組織、時代等，\n\n在無意識中，\n\n學會了會影響人生的自我規則。\n\n其中許多，\n\n會以和動詞之間的關係出現，\n\n像是\n\n「必須～」\n\n或\n\n「應該～」。"
+      },
+      {
+        "title": "Noetune 不是改變人的 App。",
+        "body": "Noetune\n\n不是給你新規則的 App。\n\n你也不需要勉強自己改變。\n\n透過覺察自我規則，\n\n想起與動詞原本的關係，\n\n回到原本的自己。\n\n這就是 Noetune 的目的。"
+      }
+    ],
+    "v16LandingFinalCta": "請選擇你想要最佳化的動詞。",
     "professionalSessionCta": "開始 Professional 體驗",
     "authGoogleContinue": "使用 Google 繼續",
     "authTitle": "登入",
