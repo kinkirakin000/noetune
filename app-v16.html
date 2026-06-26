@@ -710,6 +710,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       placeholder="Write your ideal state..."
       oninput="onV16IdealInput(this.value)">
     <button class="btn" id="btn-v16-ideal-next" type="button" onclick="submitV16IdealInput()" disabled>Next</button>
+    <button class="btn-ghost" id="btn-v16-ideal-no-answer" type="button" onclick="skipV16IdealAnswer()"></button>
   </div>
 </div>
 
@@ -719,7 +720,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="breath-main">Let your body breathe with the ideal state of this verb.</div>
   <div id="hint-v16-breath-2" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-2" onclick="startV16Breath('2')"></div>
-  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="openV16LoopChoice()" disabled>Next</button>
+  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="returnV16IdealInput()" disabled>Next</button>
 </div>
 
 <!-- ── V16 LOOP CHOICE ── -->
@@ -2907,6 +2908,7 @@ function renderV16EntryTexts() {
   setEl('next-v16-before', T('next_button'));
   setEl('btn-v16-negative-next', T('next_button'));
   setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
+  setEl('btn-v16-ideal-no-answer', T('v16NoAnswerButton'));
   renderV16VerbAccordion('v16BasicVerbs', 'v16BasicVerbCategories', 'v16-basic-verbs-grid', 'v16BasicVerbTitle');
   renderV16VerbAccordion('v16LifeDecisionVerbs', '', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle');
   renderV16BeforeMeasurement();
@@ -3204,18 +3206,20 @@ function skipV16NegativeAnswer() {
 }
 
 function openV16IdealInput() {
+  resetV16IdealInputField();
+  fwd('s-v16-ideal-input');
+}
+
+function resetV16IdealInputField() {
   var input = document.getElementById('in-v16-ideal');
   var next = document.getElementById('btn-v16-ideal-next');
   if (input) input.value = '';
   if (next) next.disabled = true;
-  D.v16IdealInput = '';
-  fwd('s-v16-ideal-input');
 }
 
 function onV16IdealInput(value) {
   var trimmed = value.trim();
   var next = document.getElementById('btn-v16-ideal-next');
-  D.v16IdealInput = trimmed;
   if (next) next.disabled = !trimmed;
 }
 
@@ -3223,9 +3227,26 @@ function submitV16IdealInput() {
   var input = document.getElementById('in-v16-ideal');
   var value = input ? input.value.trim() : '';
   if (!value) return;
+  if (!Array.isArray(D.v16IdealAnswers)) D.v16IdealAnswers = [];
+  D.v16IdealAnswers.push(value);
   D.v16IdealInput = value;
+  D.v16CurrentBreathAnswer = value;
+  D.v16CurrentBreathType = 'ideal';
+  D.v16LastNoAnswerSide = null;
   resetV16BreathScreens();
   fwd('s-v16-breath-2');
+}
+
+function returnV16IdealInput() {
+  resetV16IdealInputField();
+  fwd('s-v16-ideal-input');
+}
+
+function skipV16IdealAnswer() {
+  D.v16LastNoAnswerSide = 'ideal';
+  D.v16CurrentBreathAnswer = '';
+  D.v16CurrentBreathType = '';
+  returnV16NegativeInput();
 }
 
 function openV16LoopChoice() {
