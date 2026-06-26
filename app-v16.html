@@ -694,11 +694,11 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 1 ── -->
 <div class="screen" id="s-v16-breath-1">
-  <div id="s-entry-inner">
-    <div class="entry-title">Breathe</div>
-    <div class="breath-main">Let your body breathe with the negative side of this verb.</div>
-    <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="openV16IdealInput()">Next</button>
-  </div>
+  <div class="breath-sub">Breathe</div>
+  <div class="breath-main">Let your body breathe with the negative side of this verb.</div>
+  <div id="hint-v16-breath-1" class="breath-hint"></div>
+  <div class="breath-circle pulse" id="circle-v16-breath-1" onclick="startV16Breath('1')"></div>
+  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="openV16IdealInput()" disabled>Next</button>
 </div>
 
 <!-- ── V16 IDEAL INPUT ── -->
@@ -715,11 +715,11 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 2 ── -->
 <div class="screen" id="s-v16-breath-2">
-  <div id="s-entry-inner">
-    <div class="entry-title">Breathe</div>
-    <div class="breath-main">Let your body breathe with the ideal state of this verb.</div>
-    <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="openV16LoopChoice()">Next</button>
-  </div>
+  <div class="breath-sub">Breathe</div>
+  <div class="breath-main">Let your body breathe with the ideal state of this verb.</div>
+  <div id="hint-v16-breath-2" class="breath-hint"></div>
+  <div class="breath-circle pulse" id="circle-v16-breath-2" onclick="startV16Breath('2')"></div>
+  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="openV16LoopChoice()" disabled>Next</button>
 </div>
 
 <!-- ── V16 LOOP CHOICE ── -->
@@ -3169,6 +3169,7 @@ function submitV16NegativeInput() {
   var value = input ? input.value.trim() : '';
   if (!value) return;
   D.v16NegativeInput = value;
+  resetV16BreathScreens();
   fwd('s-v16-breath-1');
 }
 
@@ -3193,11 +3194,66 @@ function submitV16IdealInput() {
   var value = input ? input.value.trim() : '';
   if (!value) return;
   D.v16IdealInput = value;
+  resetV16BreathScreens();
   fwd('s-v16-breath-2');
 }
 
 function openV16LoopChoice() {
   fwd('s-v16-loop-choice');
+}
+
+var v16Breathing = false;
+var v16BreathCount = 0;
+
+function resetV16BreathScreens() {
+  v16Breathing = false;
+  v16BreathCount = 0;
+  ['1', '2'].forEach(function(step) {
+    var circle = document.getElementById('circle-v16-breath-' + step);
+    var hint = document.getElementById('hint-v16-breath-' + step);
+    var next = document.getElementById('btn-v16-breath-' + step + '-next');
+    if (circle) { circle.textContent = ''; circle.className = 'breath-circle pulse'; }
+    if (hint) { hint.textContent = T('breathe_start_hint'); hint.style.display = ''; }
+    if (next) next.disabled = true;
+  });
+}
+
+function startV16Breath(step) {
+  if (v16Breathing) return;
+  v16Breathing = true;
+  v16BreathCount = 0;
+  var hint = document.getElementById('hint-v16-breath-' + step);
+  var circle = document.getElementById('circle-v16-breath-' + step);
+  if (hint) hint.style.display = 'none';
+  if (!circle) { v16Breathing = false; return; }
+  circle.classList.remove('pulse');
+  setTimeout(function() { runV16BreathCycle(step, circle); }, 600);
+}
+
+function runV16BreathCycle(step, circle) {
+  if (v16BreathCount >= 1) {
+    circle.textContent = '✓';
+    circle.className = 'breath-circle';
+    setTimeout(function() { completeV16Breath(step); }, 800);
+    return;
+  }
+  circle.textContent = T('breath_in');
+  circle.className = 'breath-circle inhale';
+  setTimeout(function() {
+    circle.textContent = T('breath_out');
+    circle.className = 'breath-circle exhale';
+    setTimeout(function() {
+      v16BreathCount++;
+      runV16BreathCycle(step, circle);
+    }, 4000);
+  }, 3000);
+}
+
+function completeV16Breath(step) {
+  v16Breathing = false;
+  v16BreathCount = 0;
+  var next = document.getElementById('btn-v16-breath-' + step + '-next');
+  if (next) next.disabled = false;
 }
 
 function openV16AfterMeasurement() {
