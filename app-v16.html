@@ -688,7 +688,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <input type="text" class="text-input" id="in-v16-negative" autocomplete="off" maxlength="120"
       oninput="onV16NegativeInput(this.value)">
     <button class="btn" id="btn-v16-negative-next" type="button" onclick="submitV16NegativeInput()" disabled></button>
-    <button class="btn-ghost" id="btn-v16-negative-no-answer" type="button"></button>
+    <button class="btn-ghost" id="btn-v16-negative-no-answer" type="button" onclick="skipV16NegativeAnswer()"></button>
   </div>
 </div>
 
@@ -698,7 +698,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="breath-main">Let your body breathe with the negative side of this verb.</div>
   <div id="hint-v16-breath-1" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-1" onclick="startV16Breath('1')"></div>
-  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="openV16IdealInput()" disabled>Next</button>
+  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="returnV16NegativeInput()" disabled>Next</button>
 </div>
 
 <!-- ── V16 IDEAL INPUT ── -->
@@ -3128,6 +3128,11 @@ function selectV16Verb(verb) {
   D.v16NegativeAnswer = '';
   D.v16NegativeInput = '';
   D.v16IdealInput = '';
+  D.v16NegativeAnswers = [];
+  D.v16IdealAnswers = [];
+  D.v16LastNoAnswerSide = null;
+  D.v16CurrentBreathAnswer = '';
+  D.v16CurrentBreathType = '';
   D.v16ResultPayload = null;
   var slider = document.getElementById('sl-v16-before');
   var num = document.getElementById('num-v16-before');
@@ -3168,9 +3173,34 @@ function submitV16NegativeInput() {
   var input = document.getElementById('in-v16-negative');
   var value = input ? input.value.trim() : '';
   if (!value) return;
+  if (!Array.isArray(D.v16NegativeAnswers)) D.v16NegativeAnswers = [];
+  D.v16NegativeAnswers.push(value);
   D.v16NegativeInput = value;
+  D.v16CurrentBreathAnswer = value;
+  D.v16CurrentBreathType = 'negative';
+  D.v16LastNoAnswerSide = null;
   resetV16BreathScreens();
   fwd('s-v16-breath-1');
+}
+
+function resetV16NegativeInputField() {
+  var input = document.getElementById('in-v16-negative');
+  var next = document.getElementById('btn-v16-negative-next');
+  if (input) input.value = '';
+  if (next) next.disabled = true;
+  renderV16NegativeInput();
+}
+
+function returnV16NegativeInput() {
+  resetV16NegativeInputField();
+  fwd('s-v16-negative-input');
+}
+
+function skipV16NegativeAnswer() {
+  D.v16LastNoAnswerSide = 'negative';
+  D.v16CurrentBreathAnswer = '';
+  D.v16CurrentBreathType = '';
+  openV16IdealInput();
 }
 
 function openV16IdealInput() {
