@@ -668,9 +668,19 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <div class="screen" id="s-v16-negative-input">
   <div id="s-entry-inner">
     <div class="entry-title" id="t-v16-negative-question"></div>
-    <input type="text" class="text-input" id="in-v16-negative" autocomplete="off" maxlength="120">
-    <button class="btn" id="btn-v16-negative-next" type="button"></button>
+    <input type="text" class="text-input" id="in-v16-negative" autocomplete="off" maxlength="120"
+      oninput="onV16NegativeInput(this.value)">
+    <button class="btn" id="btn-v16-negative-next" type="button" onclick="submitV16NegativeInput()" disabled></button>
     <button class="btn-ghost" id="btn-v16-negative-no-answer" type="button"></button>
+  </div>
+</div>
+
+<!-- ── V16 BREATH 1 ── -->
+<div class="screen" id="s-v16-breath-1">
+  <div id="s-entry-inner">
+    <div class="entry-title">Breathe</div>
+    <div class="breath-main">Let your body breathe with the negative side of this verb.</div>
+    <button class="btn" id="btn-v16-breath-1-next" type="button">Next</button>
   </div>
 </div>
 
@@ -2896,6 +2906,7 @@ function selectV16Verb(verb) {
   D.verb = verb;
   D.v16NegativeBefore = null;
   D.v16NegativeAnswer = '';
+  D.v16NegativeInput = '';
   var slider = document.getElementById('sl-v16-before');
   var num = document.getElementById('num-v16-before');
   var next = document.getElementById('next-v16-before');
@@ -2919,8 +2930,24 @@ function submitV16BeforeMeasurement() {
   if (slider) D.v16NegativeBefore = Number(slider.value);
   var input = document.getElementById('in-v16-negative');
   if (input) input.value = '';
+  var next = document.getElementById('btn-v16-negative-next');
+  if (next) next.disabled = true;
+  D.v16NegativeInput = '';
   renderV16NegativeInput();
   fwd('s-v16-negative-input');
+}
+
+function onV16NegativeInput(value) {
+  var next = document.getElementById('btn-v16-negative-next');
+  if (next) next.disabled = !value.trim();
+}
+
+function submitV16NegativeInput() {
+  var input = document.getElementById('in-v16-negative');
+  var value = input ? input.value.trim() : '';
+  if (!value) return;
+  D.v16NegativeInput = value;
+  fwd('s-v16-breath-1');
 }
 
 var renderStaticTextsV15 = renderStaticTexts;
@@ -2933,7 +2960,7 @@ renderStaticTexts = function() {
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
