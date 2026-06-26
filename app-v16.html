@@ -615,7 +615,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="entry-choice-desc" id="t-v16-life-decision-verb-desc"></div>
     </div>
     <div class="entry-choice">
-      <button type="button" class="entry-choice-btn" id="btn-v16-free-verb"></button>
+      <button type="button" class="entry-choice-btn" id="btn-v16-free-verb" onclick="openV16FreeVerbInput()"></button>
       <div class="entry-choice-desc" id="t-v16-free-verb-desc"></div>
     </div>
   </div>
@@ -640,6 +640,16 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="theme-screen-sub" id="t-v16-life-decision-verbs-desc"></div>
     </div>
     <div class="theme-grid" id="v16-life-decision-verbs-grid"></div>
+  </div>
+</div>
+
+<!-- ── V16 FREE VERB INPUT ── -->
+<div class="screen" id="s-v16-free-verb-input">
+  <div id="s-entry-inner">
+    <div class="entry-title" id="t-v16-free-verb-input-title"></div>
+    <input type="text" class="text-input" id="in-v16-free-verb" autocomplete="off" maxlength="40"
+      oninput="onV16FreeVerbInput(this.value)">
+    <button class="btn" id="btn-v16-free-verb-next" type="button" onclick="submitV16FreeVerb()" disabled></button>
   </div>
 </div>
 
@@ -2802,6 +2812,8 @@ function renderV16EntryTexts() {
   setEl('t-v16-basic-verbs-desc', T('v16BasicVerbDesc'));
   setEl('t-v16-life-decision-verbs-title', T('v16LifeDecisionVerbTitle'));
   setEl('t-v16-life-decision-verbs-desc', T('v16LifeDecisionVerbDesc'));
+  setEl('t-v16-free-verb-input-title', T('v16FreeVerbTitle'));
+  setEl('btn-v16-free-verb-next', T('next_button'));
   setEl('next-v16-before', T('next_button'));
   setEl('btn-v16-negative-next', T('next_button'));
   setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
@@ -2839,6 +2851,29 @@ function openV16BasicVerbs() {
 function openV16LifeDecisionVerbs() {
   renderV16VerbGrid('v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid');
   fwd('s-v16-life-decision-verbs');
+}
+
+function openV16FreeVerbInput() {
+  var input = document.getElementById('in-v16-free-verb');
+  var next = document.getElementById('btn-v16-free-verb-next');
+  if (input) {
+    input.value = '';
+    input.placeholder = T('v16FreeVerbPlaceholder');
+  }
+  if (next) next.disabled = true;
+  fwd('s-v16-free-verb-input');
+}
+
+function onV16FreeVerbInput(value) {
+  var next = document.getElementById('btn-v16-free-verb-next');
+  if (next) next.disabled = !value.trim();
+}
+
+function submitV16FreeVerb() {
+  var input = document.getElementById('in-v16-free-verb');
+  var verb = input ? input.value.trim() : '';
+  if (!verb) return;
+  selectV16Verb(verb);
 }
 
 function v16Text(key, vars) {
@@ -2898,7 +2933,7 @@ renderStaticTexts = function() {
 function startLanding() { prepareEntryFlow(); setLang(landingLang, 's-entry-method'); }
 
 var SCREEN_ORDER = [
-  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-before-measurement','s-v16-negative-input','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
+  's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-theme','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
   's-v13-nonideal','s-v13-ideal','s-v13-end-confirm',
