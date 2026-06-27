@@ -702,7 +702,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="breath-main v16-question" id="t-v16-breath-1-body"></div>
   <div id="hint-v16-breath-1" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-1" onclick="startV16Breath('1')"></div>
-  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="returnV16NegativeInput()" disabled></button>
+  <button class="btn" id="btn-v16-breath-1-next" type="button" onclick="openV16BreathStep2()" disabled></button>
 </div>
 
 <!-- ── V16 IDEAL INPUT ── -->
@@ -722,7 +722,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="breath-main v16-question" id="t-v16-breath-2-body"></div>
   <div id="hint-v16-breath-2" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-2" onclick="startV16Breath('2')"></div>
-  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="returnV16IdealInput()" disabled></button>
+  <button class="btn" id="btn-v16-breath-2-next" type="button" onclick="completeV16BreathFlow()" disabled></button>
 </div>
 
 <!-- ── V16 LOOP CHOICE ── -->
@@ -3296,7 +3296,7 @@ function submitV16IdealInput() {
   D.v16CurrentBreathType = 'ideal';
   D.v16LastNoAnswerSide = null;
   resetV16BreathScreens();
-  fwd('s-v16-breath-2');
+  fwd('s-v16-breath-1');
 }
 
 function returnV16IdealInput() {
@@ -3313,6 +3313,18 @@ function skipV16IdealAnswer() {
 
 function openV16LoopChoice() {
   fwd('s-v16-loop-choice');
+}
+
+function openV16BreathStep2() {
+  fwd('s-v16-breath-2');
+}
+
+function completeV16BreathFlow() {
+  if (D.v16CurrentBreathType === 'ideal') {
+    returnV16IdealInput();
+    return;
+  }
+  returnV16NegativeInput();
 }
 
 var v16Breathing = false;
