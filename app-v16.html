@@ -3274,9 +3274,14 @@ function returnV16NegativeInput() {
 }
 
 function skipV16NegativeAnswer() {
+  var shouldCompleteLoop = D.v16LastNoAnswerSide === 'ideal';
   D.v16LastNoAnswerSide = 'negative';
   D.v16CurrentBreathAnswer = '';
   D.v16CurrentBreathType = '';
+  if (shouldCompleteLoop) {
+    openV16AfterMeasurement();
+    return;
+  }
   openV16IdealInput();
 }
 
@@ -3322,7 +3327,7 @@ function skipV16IdealAnswer() {
   D.v16LastNoAnswerSide = 'ideal';
   D.v16CurrentBreathAnswer = '';
   D.v16CurrentBreathType = '';
-  openV16AfterMeasurement();
+  returnV16NegativeInput();
 }
 
 function openV16LoopChoice() {
