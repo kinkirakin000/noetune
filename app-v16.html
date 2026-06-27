@@ -704,7 +704,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 1 ── -->
 <div class="screen" id="s-v16-breath-1">
-  <div class="breath-sub v16-question" id="t-v16-breath-1-title"></div>
+  <div class="breath-hint" id="t-v16-breath-1-lead"></div>
   <div class="breath-main v16-question" id="t-v16-breath-1-body"></div>
   <div id="hint-v16-breath-1" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-1" onclick="startV16Breath('1')"></div>
@@ -727,7 +727,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BREATH 2 ── -->
 <div class="screen" id="s-v16-breath-2">
-  <div class="breath-sub v16-question" id="t-v16-breath-2-title"></div>
+  <div class="breath-hint" id="t-v16-breath-2-lead"></div>
   <div class="breath-main v16-question" id="t-v16-breath-2-body"></div>
   <div id="hint-v16-breath-2" class="breath-hint"></div>
   <div class="breath-circle pulse" id="circle-v16-breath-2" onclick="startV16Breath('2')"></div>
@@ -2926,10 +2926,10 @@ function renderV16EntryTexts() {
   setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
   setEl('btn-v16-ideal-next', T('next_button'));
   setEl('btn-v16-ideal-no-answer', T('v16NoAnswerButton'));
-  setEl('t-v16-breath-1-title', T('v16BreathStep1Title'));
+  setEl('t-v16-breath-1-lead', T('feel_prompt'));
   setEl('t-v16-breath-1-body', T('v16BreathStep1Body'));
   setEl('btn-v16-breath-1-next', T('next_button'));
-  setEl('t-v16-breath-2-title', T('v16BreathStep2Title'));
+  setEl('t-v16-breath-2-lead', T('feel_prompt'));
   setEl('t-v16-breath-2-body', T('v16BreathStep2Body'));
   setEl('btn-v16-breath-2-next', T('next_button'));
   setEl('next-v16-after', T('next_button'));
