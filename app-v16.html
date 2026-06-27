@@ -699,6 +699,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       oninput="onV16NegativeInput(this.value)">
     <button class="btn" id="btn-v16-negative-next" type="button" onclick="submitV16NegativeInput()" disabled></button>
     <button class="btn-ghost" id="btn-v16-negative-no-answer" type="button" onclick="skipV16NegativeAnswer()"></button>
+    <button class="btn-ghost" id="btn-v16-negative-save-exit" type="button" onclick="openV16FreeVerbSaveExit()"></button>
   </div>
 </div>
 
@@ -722,6 +723,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       oninput="onV16IdealInput(this.value)">
     <button class="btn" id="btn-v16-ideal-next" type="button" onclick="submitV16IdealInput()" disabled></button>
     <button class="btn-ghost" id="btn-v16-ideal-no-answer" type="button" onclick="skipV16IdealAnswer()"></button>
+    <button class="btn-ghost" id="btn-v16-ideal-save-exit" type="button" onclick="openV16FreeVerbSaveExit()"></button>
   </div>
 </div>
 
@@ -776,6 +778,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     </div>
     <button class="btn" id="btn-v16-save-result" type="button" onclick="saveV16Result()">Save Result</button>
     <div class="save-result-status" id="v16-save-result-status" role="status" aria-live="polite"></div>
+    <button class="btn-ghost" id="btn-v16-result-save-exit" type="button" onclick="openV16FreeVerbSaveExit()"></button>
   </div>
 </div>
 
@@ -2924,8 +2927,10 @@ function renderV16EntryTexts() {
   setEl('skip-v16-before', T('skip_measurement'));
   setEl('btn-v16-negative-next', T('next_button'));
   setEl('btn-v16-negative-no-answer', T('v16NoAnswerButton'));
+  setEl('btn-v16-negative-save-exit', T('v16SaveAndExitButton'));
   setEl('btn-v16-ideal-next', T('next_button'));
   setEl('btn-v16-ideal-no-answer', T('v16NoAnswerButton'));
+  setEl('btn-v16-ideal-save-exit', T('v16SaveAndExitButton'));
   setEl('t-v16-breath-1-lead', T('feel_prompt'));
   setEl('t-v16-breath-1-body', T('v16BreathStep1Body'));
   setEl('btn-v16-breath-1-next', T('next_button'));
@@ -2935,6 +2940,7 @@ function renderV16EntryTexts() {
   setEl('next-v16-after', T('next_button'));
   setEl('nm-v16-after', T('not_measurable_button'));
   setEl('skip-v16-after', T('skip_measurement'));
+  setEl('btn-v16-result-save-exit', T('v16SaveAndExitButton'));
   renderV16VerbAccordion('v16BasicVerbs', 'v16BasicVerbCategories', 'v16-basic-verbs-grid', 'v16BasicVerbTitle');
   renderV16VerbAccordion('v16LifeDecisionVerbs', 'v16LifeDecisionVerbs', 'v16-life-decision-verbs-grid', 'v16LifeDecisionVerbTitle', 4);
   renderV16BeforeMeasurement();
@@ -3516,6 +3522,76 @@ function saveV16Result() {
 
 function setV16ResultSaveStatus(message) {
   setEl('v16-save-result-status', message || '');
+}
+
+function saveV16FreeVerbLocally() {
+  if (!D.verb) return false;
+  try {
+    localStorage.setItem('noetune_v16_free_verb', JSON.stringify({
+      verb: D.verb,
+      savedAt: new Date().toISOString()
+    }));
+    return true;
+  } catch(e) {
+    return false;
+  }
+}
+
+function openV16FreeVerbSaveExit() {
+  if (!D.verb) return;
+  if (currentUser) {
+    if (saveV16FreeVerbLocally()) showV16FreeVerbSaved();
+    return;
+  }
+  openAuthModal();
+  setEl('auth-modal-title', T('v16FreeVerbSaveTitle'));
+  setEl('auth-modal-body', v16Text('v16FreeVerbSaveBody', { verb: D.verb }));
+  var google = document.getElementById('auth-google-btn');
+  var skip = document.getElementById('v16-free-verb-save-skip');
+  var finish = document.getElementById('v16-free-verb-saved-finish');
+  if (google) {
+    google.textContent = T('v16FreeVerbSaveLoginButton');
+    google.onclick = saveV16FreeVerbAndLogin;
+  }
+  if (skip) { skip.textContent = T('v16FreeVerbSaveSkipButton'); skip.style.display = ''; }
+  if (finish) finish.style.display = 'none';
+}
+
+function saveV16FreeVerbAndLogin() {
+  if (!saveV16FreeVerbLocally()) return;
+  showV16FreeVerbSaved();
+  loginWithGoogle();
+}
+
+function showV16FreeVerbSaved() {
+  openAuthModal();
+  setEl('auth-modal-title', T('v16FreeVerbSavedTitle'));
+  setEl('auth-modal-body', v16Text('v16FreeVerbSavedBody', { verb: D.verb }));
+  var google = document.getElementById('auth-google-btn');
+  var skip = document.getElementById('v16-free-verb-save-skip');
+  var finish = document.getElementById('v16-free-verb-saved-finish');
+  if (google) google.style.display = 'none';
+  if (skip) skip.style.display = 'none';
+  if (finish) { finish.textContent = T('v16FreeVerbSavedButton'); finish.style.display = ''; }
+}
+
+function resetV16FreeVerbSaveModal() {
+  var google = document.getElementById('auth-google-btn');
+  var skip = document.getElementById('v16-free-verb-save-skip');
+  var finish = document.getElementById('v16-free-verb-saved-finish');
+  if (google) { google.onclick = loginWithGoogle; google.style.display = ''; }
+  if (skip) skip.style.display = 'none';
+  if (finish) finish.style.display = 'none';
+}
+
+function closeV16FreeVerbSaveModal() {
+  resetV16FreeVerbSaveModal();
+  closeAuthModal();
+}
+
+function finishV16FreeVerbSaveExit() {
+  closeV16FreeVerbSaveModal();
+  showScreenDirect('s-landing');
 }
 
 function renderV16ResultSaveStatus(state) {
@@ -5644,12 +5720,14 @@ initializeApp();
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
 
 <!-- ── AUTH MODAL ── -->
-<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
+<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeV16FreeVerbSaveModal()">
   <div class="auth-box">
-    <button class="auth-box-close" id="btn-auth-close" onclick="closeAuthModal()" aria-label="">✕</button>
+    <button class="auth-box-close" id="btn-auth-close" onclick="closeV16FreeVerbSaveModal()" aria-label="">✕</button>
     <div class="auth-box-title" id="auth-modal-title"></div>
     <div class="auth-box-body" id="auth-modal-body"></div>
     <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"></button>
+    <button class="btn-ghost" id="v16-free-verb-save-skip" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
+    <button class="auth-box-btn" id="v16-free-verb-saved-finish" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
     <input class="auth-box-input" type="email" id="auth-email-input"
       autocomplete="email" inputmode="email" style="display:none"
       onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
