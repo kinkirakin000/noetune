@@ -108,6 +108,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .sc-card-footer{font-family:'Noto Serif JP',serif;font-size:.58rem;color:#C8C8C2;letter-spacing:.12em;text-align:center;margin-top:.6rem}
 .sc-note-wrap{padding-top:.6rem;margin-top:.6rem;border-top:1px solid #EDEDE7}
 .sc-note-value{font-family:'Noto Serif JP',serif;font-size:.85rem;color:#1A1A1A;font-weight:400;letter-spacing:.03em;margin-top:.15rem;line-height:1.5}
+.v16-result-answer-list{margin:.25rem 0 0;padding-left:1.2rem}
+.v16-result-answer-list li{margin:.15rem 0}
+.v16-result-shift-values{margin-left:auto}
 .btn-save-image{font-family:'Noto Serif JP',serif;background:transparent;border:1px solid #B8C8C2;color:#6B9080;font-size:.78rem;letter-spacing:.08em;cursor:pointer;margin-top:1.2rem;padding:8px 22px;border-radius:20px;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s;display:inline-block}
 .btn-save-image:active{background:#F2F7F5}
 .btn-save-image:disabled{opacity:.6;cursor:default}
@@ -764,22 +767,48 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 </div>
 
 <!-- ── V16 RESULT ── -->
-<div class="screen" id="s-v16-result">
-  <div id="s-entry-inner">
-    <div class="entry-title">Your Result</div>
-    <div class="breath-sub">This shows how the feeling around this verb changed in your body.</div>
-    <div class="breath-main">
-      <div>Verb <span id="v16-result-verb"></span></div>
-      <div>Before <span id="v16-result-before"></span></div>
-      <div>After <span id="v16-result-after"></span></div>
-      <div>Change <span id="v16-result-difference"></span></div>
-      <div>Negative<div id="v16-result-negative-answers" style="white-space:pre-line"></div></div>
-      <div>Ideal<div id="v16-result-ideal-answers" style="white-space:pre-line"></div></div>
+<div class="screen screen-scroll" id="s-v16-result">
+  <div class="sc-card" id="v16-result-card">
+    <div class="sc-card-header">
+      <div class="sc-card-title" id="v16-result-brand"></div>
+      <div class="sc-card-badge" id="v16-result-title"></div>
     </div>
-    <button class="btn" id="btn-v16-save-result" type="button" onclick="saveV16Result()">Save Result</button>
-    <div class="save-result-status" id="v16-save-result-status" role="status" aria-live="polite"></div>
-    <button class="btn-ghost" id="btn-v16-result-save-exit" type="button" onclick="openV16FreeVerbSaveExit()"></button>
+    <div class="sc-note-wrap">
+      <div class="sc-section-label" id="v16-result-verb-label"></div>
+      <div class="sc-note-value" id="v16-result-verb"></div>
+    </div>
+    <div class="sc-from-wrap">
+      <div class="sc-section-label" id="v16-result-from-label"></div>
+      <div class="sc-from-value" id="v16-result-before"></div>
+      <div class="sc-down-arrow">↓</div>
+    </div>
+    <div class="sc-toward-wrap">
+      <div class="sc-section-label" id="v16-result-toward-label"></div>
+      <div class="sc-toward-value" id="v16-result-after"></div>
+    </div>
+    <div class="sc-shift-section">
+      <div class="sc-shift-header" id="v16-result-shift-label"></div>
+      <div class="sc-shift-row sc-shift-row-last">
+        <div class="sc-shift-values v16-result-shift-values">
+          <span class="sc-val-before" id="v16-result-shift-before"></span>
+          <span class="sc-val-arrow">→</span>
+          <span class="sc-val-after" id="v16-result-shift-after"></span>
+        </div>
+      </div>
+    </div>
+    <div class="sc-note-wrap" id="v16-result-negative-wrap">
+      <div class="sc-section-label" id="v16-result-negative-label"></div>
+      <ul class="sc-note-value v16-result-answer-list" id="v16-result-negative-answers"></ul>
+    </div>
+    <div class="sc-note-wrap" id="v16-result-ideal-wrap">
+      <div class="sc-section-label" id="v16-result-ideal-label"></div>
+      <ul class="sc-note-value v16-result-answer-list" id="v16-result-ideal-answers"></ul>
+    </div>
+    <div class="sc-card-footer" id="v16-result-footer"></div>
   </div>
+  <button class="btn" id="btn-v16-save-result" type="button" onclick="saveV16Result()"></button>
+  <div class="save-result-status" id="v16-save-result-status" role="status" aria-live="polite"></div>
+  <button class="btn-ghost" id="btn-v16-result-save-exit" type="button" onclick="openV16FreeVerbSaveExit()"></button>
 </div>
 
 <!-- ── FREE INPUT TYPE ── -->
@@ -3466,15 +3495,47 @@ function renderV16Result() {
   var idealAnswers = D.v16ResultPayload.idealAnswers.length
     ? D.v16ResultPayload.idealAnswers
     : (D.v16ResultPayload.idealInput ? [D.v16ResultPayload.idealInput] : []);
+  var before = formatV16ResultMeasurement(D.v16NegativeBefore);
+  var after = formatV16ResultMeasurement(D.v16NegativeAfter);
   _resultSaveInFlight = false;
   _resultSaveState = 'idle';
-  setEl('v16-result-verb', D.verb || '');
-  setEl('v16-result-before', D.v16NegativeBefore == null ? '' : String(D.v16NegativeBefore));
-  setEl('v16-result-after', D.v16NegativeAfter == null ? '' : String(D.v16NegativeAfter));
-  setEl('v16-result-difference', formatV16Difference(D.v16NegativeBefore, D.v16NegativeAfter));
-  setEl('v16-result-negative-answers', negativeAnswers.map(function(answer) { return '・' + answer; }).join('\n'));
-  setEl('v16-result-ideal-answers', idealAnswers.map(function(answer) { return '・' + answer; }).join('\n'));
+  setEl('v16-result-brand', T('v16ResultBrand'));
+  setEl('v16-result-title', T('v16ResultTitle'));
+  setEl('v16-result-verb-label', T('v16ResultVerbLabel'));
+  setEl('v16-result-verb', t('ui.themeQuoteTemplate', '', { theme: D.verb || '' }));
+  setEl('v16-result-from-label', T('v16ResultFromLabel'));
+  setEl('v16-result-before', before);
+  setEl('v16-result-toward-label', T('v16ResultTowardLabel'));
+  setEl('v16-result-after', after);
+  setEl('v16-result-shift-label', T('v16ResultShiftLabel'));
+  setEl('v16-result-shift-before', before);
+  setEl('v16-result-shift-after', after);
+  setEl('v16-result-negative-label', T('v16ResultNegativeAnswersLabel'));
+  setEl('v16-result-ideal-label', T('v16ResultIdealAnswersLabel'));
+  setEl('v16-result-footer', T('v16ResultFooter'));
+  setEl('btn-v16-save-result', T('saveResultButton'));
+  renderV16ResultAnswers('v16-result-negative-wrap', 'v16-result-negative-answers', negativeAnswers);
+  renderV16ResultAnswers('v16-result-ideal-wrap', 'v16-result-ideal-answers', idealAnswers);
   setV16ResultSaveStatus('');
+}
+
+function formatV16ResultMeasurement(value) {
+  if (value === 'NM') return T('not_measurable_button');
+  if (value == null || value === '') return T('v16ResultEmptyValue');
+  return String(value);
+}
+
+function renderV16ResultAnswers(wrapId, listId, answers) {
+  var wrap = document.getElementById(wrapId);
+  var list = document.getElementById(listId);
+  if (!wrap || !list) return;
+  clearChildren(list);
+  wrap.style.display = answers.length ? '' : 'none';
+  answers.forEach(function(answer) {
+    var item = document.createElement('li');
+    item.textContent = answer;
+    list.appendChild(item);
+  });
 }
 
 function buildV16SaveResultPayload() {
@@ -3514,7 +3575,7 @@ function saveV16Result() {
     return;
   }
   if (!supabaseClient) {
-    setV16ResultSaveStatus('Could not save. Please try again.');
+    setV16ResultSaveStatus(T('saveResultError'));
     return;
   }
   requestResultSave(savePayload, false);
@@ -3595,9 +3656,9 @@ function finishV16FreeVerbSaveExit() {
 }
 
 function renderV16ResultSaveStatus(state) {
-  if (state === 'saving') setV16ResultSaveStatus('Saving...');
-  else if (state === 'saved') setV16ResultSaveStatus('Saved');
-  else if (state === 'error') setV16ResultSaveStatus('Could not save. Please try again.');
+  if (state === 'saving') setV16ResultSaveStatus(T('saveResultSaving'));
+  else if (state === 'saved') setV16ResultSaveStatus(T('saveResultSaved'));
+  else if (state === 'error') setV16ResultSaveStatus(T('saveResultError'));
 }
 
 function goV16Deeper() {
