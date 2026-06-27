@@ -73,6 +73,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .breath-sub{font-family:'Noto Serif JP',serif;font-size:.86rem;font-weight:400;color:#8F8F88;text-align:center;letter-spacing:.08em;margin-bottom:.35rem}
 .breath-main{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;line-height:1.85;max-width:300px;margin-bottom:1.8rem;white-space:pre-line}
 .screen .v16-question{color:#1A1A1A;white-space:pre-line}
+.v16-input-question{width:100%;max-width:340px;margin:0 auto 2rem;color:var(--text);font-family:'Noto Serif JP',serif;font-size:clamp(22px,4.8vw,30px);font-weight:400;line-height:1.8;letter-spacing:.06em;text-align:center}
+.v16-input-question-verb{margin-bottom:1.4rem}
+.v16-input-question-copy{white-space:pre-line}
 .breath-hint{text-align:center;font-size:.82rem;color:#666660;letter-spacing:.08em;font-family:'Noto Serif JP',serif;pointer-events:none;margin-bottom:1.2rem}
 .breath-circle{width:130px;height:130px;border-radius:50%;background:radial-gradient(circle at 40% 40%,#8BB5A2,#5A8A72);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.92);font-family:'Noto Serif JP',serif;font-size:1.4rem;font-weight:300;letter-spacing:.05em;transition:transform 3s cubic-bezier(.4,0,.2,1),box-shadow 3s ease;box-shadow:0 4px 30px rgba(107,144,128,.15);user-select:none;-webkit-user-select:none;margin-bottom:1.6rem;cursor:pointer}
 .breath-circle.inhale{transform:scale(1.5);box-shadow:0 8px 50px rgba(107,144,128,.25);transition:transform 3s cubic-bezier(.4,0,.2,1),box-shadow 3s ease}
@@ -688,7 +691,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V16 NEGATIVE INPUT ── -->
 <div class="screen" id="s-v16-negative-input">
   <div id="s-entry-inner">
-    <div class="entry-title v16-question" id="t-v16-negative-question"></div>
+    <div class="v16-input-question">
+      <div class="v16-input-question-verb" id="t-v16-negative-verb"></div>
+      <div class="v16-input-question-copy" id="t-v16-negative-question"></div>
+    </div>
     <input type="text" class="text-input" id="in-v16-negative" autocomplete="off" maxlength="120"
       oninput="onV16NegativeInput(this.value)">
     <button class="btn" id="btn-v16-negative-next" type="button" onclick="submitV16NegativeInput()" disabled></button>
@@ -708,7 +714,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V16 IDEAL INPUT ── -->
 <div class="screen" id="s-v16-ideal-input">
   <div id="s-entry-inner">
-    <div class="breath-main v16-question" id="t-v16-ideal-question"></div>
+    <div class="v16-input-question">
+      <div class="v16-input-question-verb" id="t-v16-ideal-verb"></div>
+      <div class="v16-input-question-copy" id="t-v16-ideal-question"></div>
+    </div>
     <input type="text" class="text-input" id="in-v16-ideal" autocomplete="off" maxlength="120"
       oninput="onV16IdealInput(this.value)">
     <button class="btn" id="btn-v16-ideal-next" type="button" onclick="submitV16IdealInput()" disabled></button>
@@ -3142,15 +3151,20 @@ function renderV16BeforeMeasurement() {
 }
 
 function renderV16NegativeInput() {
-  setEl('t-v16-negative-question', v16Text('v16WorstNegativeQuestion', { verb: D.verb || '' }));
+  renderV16InputQuestion('negative', 'v16WorstNegativeQuestion');
   var input = document.getElementById('in-v16-negative');
   if (input) input.placeholder = T('v16WorstNegativePlaceholder');
 }
 
 function renderV16IdealInput() {
-  setEl('t-v16-ideal-question', v16Text('v16BestIdealQuestion', { verb: D.verb || '' }));
+  renderV16InputQuestion('ideal', 'v16BestIdealQuestion');
   var input = document.getElementById('in-v16-ideal');
   if (input) input.placeholder = T('v16BestIdealPlaceholder');
+}
+
+function renderV16InputQuestion(side, questionKey) {
+  setEl('t-v16-' + side + '-verb', t('ui.themeQuoteTemplate', '', { theme: D.verb || '' }));
+  setEl('t-v16-' + side + '-question', T(questionKey));
 }
 
 function selectV16Verb(verb) {
