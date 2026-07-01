@@ -1,0 +1,148 @@
+{
+  "version": "1.0",
+  "appVersion": "v17",
+  "sourceLocale": "ja",
+  "locales": {
+    "ja": {
+      "v17": {
+        "flow": {
+          "app": {
+            "title": "Noetune",
+            "back": "戻る",
+            "breathCircle": "呼吸。"
+          },
+          "landing": {
+            "logo": "NOETUNE",
+            "hero": "",
+            "subtitle": "",
+            "start": "始める",
+            "aboutTitle": "Noetuneとは",
+            "readMore": "さらに読む",
+            "sections": [],
+            "finalCta": ""
+          },
+          "common": {
+            "continue": "続ける",
+            "noAnswer": "回答が出ない"
+          },
+          "entryChoice": {
+            "title": "入口を選ぶ",
+            "freeInput": {
+              "label": "自由入力",
+              "description": "今、気になることを書く"
+            },
+            "questions": {
+              "label": "問いを選ぶ",
+              "description": "問いの中から選ぶ"
+            }
+          },
+          "freeInput": {
+            "title": "今、気になることを書く",
+            "placeholder": "今、気になることを書く",
+            "start": "このテーマで始める"
+          },
+          "step0": {
+            "title": "問いを選ぶ",
+            "subtitle": "今の人生に静かに触れる問いを、ひとつ選んでください。",
+            "searchPlaceholder": "キーワードで探す",
+            "random": "ランダム",
+            "start": "このテーマで始める",
+            "loading": "問いを読み込んでいます。",
+            "empty": "該当する問いが見つかりません。",
+            "error": "問いを読み込めませんでした。",
+            "available": "{count}件の問いを表示できます。",
+            "more": "さらに見る"
+          },
+          "step1": {
+            "quote": "計測:「{theme}」",
+            "prompt": "それに意識を向けたときの幸せ度は？\n（0−100）"
+          },
+          "step2": {
+            "prompt": "「{theme}」\n\nこれについて、\n幸せ100%の状態を感じる。\n\nなんとなく、数秒間でいい。"
+          },
+          "step3": {
+            "prompt": "「{theme}」\n\nこれについて、\nいまの状態を言葉で表現。\n\n書けるだけ書く。",
+            "placeholder": "書けるだけ書く。"
+          },
+          "step4": {
+            "quote": "計測:「{currentState}」",
+            "prompt": "それに意識を向けたときの幸せ度は？\n（0−100）"
+          },
+          "step5": {
+            "quote": "「{currentState}」",
+            "prompt": "これを他の言葉で言い表すと？",
+            "placeholder": "他の言葉で書く"
+          },
+          "step6": {
+            "breath1": {
+              "prompt": "感じてください。\n今のその感覚へ拮抗するエネルギー。\n呼吸。"
+            },
+            "breath2": {
+              "prompt": "感じてください。\nその拮抗エネルギー以外の全て。\n呼吸。"
+            }
+          },
+          "step7": {
+            "quote": "「{rewordOrCurrent}」",
+            "prompt": "それに対し、\n幸せ100%の私はどんな状態ですか。\n書けるだけ書く。",
+            "placeholder": "幸せ100%の私の状態を書く"
+          },
+          "step8": {
+            "breath1": {
+              "prompt": "感じてください。\n今のその感覚へ拮抗するエネルギー。\n呼吸。"
+            },
+            "breath2": {
+              "prompt": "感じてください。\nその拮抗エネルギー以外の全て。\n呼吸。"
+            }
+          },
+          "breath": {
+            "idle": "",
+            "inhale": "吸う",
+            "exhale": "吐く",
+            "complete": "✓"
+          },
+          "step9": {
+            "quote": "計測:「{currentState}」",
+            "prompt": "それに意識を向けたときの幸せ度は？\n（0−100）"
+          },
+          "step10": {
+            "quote": "計測:「{theme}」",
+            "prompt": "それに意識を向けたときの幸せ度は？\n（0−100）",
+            "result": "結果を見る"
+          },
+          "loop": {
+            "inner": {
+              "sequence": ["step5", "step6", "step7", "step8", "step5"],
+              "noAnswerNext": "step9"
+            },
+            "outer": {
+              "sequence": ["step2", "step3", "step4", "step5", "step6", "step7", "step8", "step5", "step9", "step2"],
+              "noAnswerNext": "step10"
+            }
+          },
+          "result": {
+            "brand": "Noetune",
+            "domain": "noetune.com",
+            "header": "JOURNEY",
+            "theme": "問い",
+            "initial": "最初",
+            "final": "最後",
+            "delta": "変化",
+            "saveImage": "画像として保存",
+            "save": "この結果を保存する",
+            "saveLogin": "ログインして結果を保存する",
+            "saving": "保存中…",
+            "saved": "保存しました",
+            "saveError": "保存できませんでした",
+            "newQuestion": "別の問いを選ぶ"
+          }
+        }
+      }
+    },
+    "en": {
+      "fallbackLocale": "ja"
+    },
+    "zh-TW": {
+      "fallbackLocale": "ja"
+    }
+  }
+}
