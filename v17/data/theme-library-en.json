@@ -1,0 +1,3329 @@
+{
+  "version": "v17",
+  "categories": [
+    {
+      "id": "self",
+      "label": "Self",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "self_problem_519f2ce2",
+              "label": "I dislike myself"
+            },
+            {
+              "id": "self_problem_f5b7349c",
+              "label": "I can’t like myself"
+            },
+            {
+              "id": "self_problem_cbebfb3f",
+              "label": "I can’t acknowledge myself"
+            },
+            {
+              "id": "self_problem_3eff6505",
+              "label": "I can’t trust myself"
+            },
+            {
+              "id": "self_problem_e0d93916",
+              "label": "I don’t understand myself"
+            },
+            {
+              "id": "self_problem_2dd0f565",
+              "label": "I have lost sight of myself"
+            },
+            {
+              "id": "self_problem_21f2ab8f",
+              "label": "I can’t live as myself"
+            },
+            {
+              "id": "self_problem_8d8387b3",
+              "label": "I hide myself"
+            },
+            {
+              "id": "self_problem_3d711555",
+              "label": "I pretend to be someone I’m not"
+            },
+            {
+              "id": "self_problem_7cfae9f5",
+              "label": "I don’t have confidence in myself"
+            },
+            {
+              "id": "self_problem_8a1562f9",
+              "label": "I can’t feel my own value"
+            },
+            {
+              "id": "self_problem_53e2f626",
+              "label": "I can’t take care of myself"
+            },
+            {
+              "id": "self_problem_4ea7da58",
+              "label": "I end up blaming myself"
+            },
+            {
+              "id": "self_problem_1b234f2b",
+              "label": "I can’t forgive myself"
+            },
+            {
+              "id": "self_problem_43d70343",
+              "label": "I can’t accept myself"
+            },
+            {
+              "id": "self_problem_dcb375bd",
+              "label": "I’m too hard on myself"
+            },
+            {
+              "id": "self_problem_e7dc2c9c",
+              "label": "I can’t be kind to myself"
+            },
+            {
+              "id": "self_problem_4083b933",
+              "label": "I put myself last"
+            },
+            {
+              "id": "self_problem_ecf72dd9",
+              "label": "I sacrifice myself"
+            },
+            {
+              "id": "self_problem_3c9bf7ff",
+              "label": "I can’t protect myself"
+            },
+            {
+              "id": "self_problem_722400e3",
+              "label": "I can’t change myself"
+            },
+            {
+              "id": "self_problem_0b9217d9",
+              "label": "I can’t control myself"
+            },
+            {
+              "id": "self_problem_2e8eebdb",
+              "label": "I lose to myself"
+            },
+            {
+              "id": "self_problem_b31e477b",
+              "label": "I feel pathetic"
+            },
+            {
+              "id": "self_problem_b268595e",
+              "label": "I feel weak"
+            },
+            {
+              "id": "self_problem_8bc2e913",
+              "label": "I get sick of myself"
+            },
+            {
+              "id": "self_problem_4910ca2c",
+              "label": "I feel ashamed of myself"
+            },
+            {
+              "id": "self_problem_7c00b2ba",
+              "label": "I feel like I’m not normal"
+            },
+            {
+              "id": "self_problem_3d393824",
+              "label": "I feel inferior"
+            },
+            {
+              "id": "self_problem_35b1adb4",
+              "label": "I compare myself with others"
+            },
+            {
+              "id": "self_problem_9a2a11ab",
+              "label": "I can’t be satisfied with myself"
+            },
+            {
+              "id": "self_problem_7e0c31db",
+              "label": "I can’t expect anything from myself"
+            },
+            {
+              "id": "self_problem_8bc59268",
+              "label": "I can’t feel a future for myself"
+            },
+            {
+              "id": "self_problem_9e1989fa",
+              "label": "I don’t know how I feel"
+            },
+            {
+              "id": "self_problem_d72e809f",
+              "label": "I don’t know my true feelings"
+            },
+            {
+              "id": "self_problem_694a664c",
+              "label": "I don’t know what I want to do"
+            },
+            {
+              "id": "self_problem_9ce83d6e",
+              "label": "I don’t know my strengths"
+            },
+            {
+              "id": "self_problem_4297a0c4",
+              "label": "I feel I have no place to belong"
+            },
+            {
+              "id": "self_problem_d70a2cdb",
+              "label": "I feel I have no talent"
+            },
+            {
+              "id": "self_problem_62e10e93",
+              "label": "I feel I have no charm"
+            },
+            {
+              "id": "self_problem_d04d894c",
+              "label": "I feel I have nothing"
+            },
+            {
+              "id": "self_problem_7e3f7daa",
+              "label": "I feel I’m not loved"
+            },
+            {
+              "id": "self_problem_b336dfbd",
+              "label": "I feel I’m not needed"
+            },
+            {
+              "id": "self_problem_b9f87678",
+              "label": "I feel I’m not recognized"
+            },
+            {
+              "id": "self_problem_86a6e564",
+              "label": "I feel I’m not understood"
+            },
+            {
+              "id": "self_problem_776b261d",
+              "label": "I feel alone"
+            },
+            {
+              "id": "self_problem_4385e3ab",
+              "label": "I feel I can’t be happy"
+            },
+            {
+              "id": "self_problem_7097bd5f",
+              "label": "I feel I can’t change"
+            },
+            {
+              "id": "self_problem_cfeb13ba",
+              "label": "I feel I can’t succeed"
+            },
+            {
+              "id": "self_problem_02cffa67",
+              "label": "I feel like I only fail"
+            },
+            {
+              "id": "self_problem_f3f58b96",
+              "label": "I feel like nothing I do works"
+            },
+            {
+              "id": "self_problem_28e41173",
+              "label": "I feel I can’t meet expectations"
+            },
+            {
+              "id": "self_problem_b2f97707",
+              "label": "I’m always lost"
+            },
+            {
+              "id": "self_problem_4d3062e6",
+              "label": "I can’t decide"
+            },
+            {
+              "id": "self_problem_78966940",
+              "label": "I can’t keep going"
+            },
+            {
+              "id": "self_problem_be4b64e4",
+              "label": "I can’t take action"
+            },
+            {
+              "id": "self_problem_b3950cc6",
+              "label": "I run away"
+            },
+            {
+              "id": "self_problem_715f6656",
+              "label": "I give up"
+            },
+            {
+              "id": "self_problem_5f604a82",
+              "label": "I try too hard"
+            },
+            {
+              "id": "self_problem_d97b8847",
+              "label": "I push myself too much"
+            },
+            {
+              "id": "self_problem_7b07862d",
+              "label": "I endure too much"
+            },
+            {
+              "id": "self_problem_761a9f5d",
+              "label": "I can’t say how I truly feel"
+            },
+            {
+              "id": "self_problem_44b29ac2",
+              "label": "I hide my true feelings"
+            },
+            {
+              "id": "self_problem_3a144f01",
+              "label": "I adjust too much to others"
+            },
+            {
+              "id": "self_problem_e4ed12d4",
+              "label": "I can’t say no"
+            },
+            {
+              "id": "self_problem_bcf07f31",
+              "label": "I can’t refuse"
+            },
+            {
+              "id": "self_problem_e42a8e70",
+              "label": "My heart can’t rest"
+            },
+            {
+              "id": "self_problem_9ca1d83e",
+              "label": "I’m always anxious"
+            },
+            {
+              "id": "self_problem_7a203f52",
+              "label": "I’m always rushed"
+            },
+            {
+              "id": "self_problem_201d58d0",
+              "label": "I’m always tired"
+            },
+            {
+              "id": "self_problem_a70d0c18",
+              "label": "I feel empty"
+            },
+            {
+              "id": "self_problem_84092b48",
+              "label": "I feel unfulfilled"
+            },
+            {
+              "id": "self_problem_7269800b",
+              "label": "I don’t know what I’m living for"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "self_ideal_fea952eb",
+              "label": "I like myself"
+            },
+            {
+              "id": "self_ideal_c6e3c6f2",
+              "label": "I trust myself"
+            },
+            {
+              "id": "self_ideal_6a3ef1bc",
+              "label": "I acknowledge myself"
+            },
+            {
+              "id": "self_ideal_26b2bd2f",
+              "label": "I live as myself"
+            },
+            {
+              "id": "self_ideal_dd1092ed",
+              "label": "I take care of myself"
+            },
+            {
+              "id": "self_ideal_a19bc47e",
+              "label": "I forgive myself"
+            },
+            {
+              "id": "self_ideal_9a73a4ca",
+              "label": "I have confidence"
+            },
+            {
+              "id": "self_ideal_cedf2d5e",
+              "label": "I’m proud of myself"
+            },
+            {
+              "id": "self_ideal_e7e83fef",
+              "label": "I’m living my own life"
+            },
+            {
+              "id": "self_ideal_dd3e2f15",
+              "label": "I live from my true feelings"
+            },
+            {
+              "id": "self_ideal_322bd573",
+              "label": "I’m satisfied with myself"
+            },
+            {
+              "id": "self_ideal_8d670088",
+              "label": "I don’t blame myself"
+            },
+            {
+              "id": "self_ideal_5d56982f",
+              "label": "I accept myself"
+            },
+            {
+              "id": "self_ideal_21da6155",
+              "label": "I feel my own value"
+            },
+            {
+              "id": "self_ideal_c3d18c0c",
+              "label": "I understand myself"
+            },
+            {
+              "id": "self_ideal_accfa594",
+              "label": "My heart is calm"
+            },
+            {
+              "id": "self_ideal_61bc1101",
+              "label": "I feel safe"
+            },
+            {
+              "id": "self_ideal_e2de0cd6",
+              "label": "I’m being natural"
+            },
+            {
+              "id": "self_ideal_1abfbaea",
+              "label": "I decide for myself"
+            },
+            {
+              "id": "self_ideal_5d1ab9cf",
+              "label": "I love myself"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "people",
+      "label": "People",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "people_problem_ef848c88",
+              "label": "I feel all alone"
+            },
+            {
+              "id": "people_problem_e45424fd",
+              "label": "I feel lonely"
+            },
+            {
+              "id": "people_problem_a7d12b7b",
+              "label": "I have no place to belong"
+            },
+            {
+              "id": "people_problem_4a7c2d1d",
+              "label": "People scare me"
+            },
+            {
+              "id": "people_problem_bcabc106",
+              "label": "I can’t trust people"
+            },
+            {
+              "id": "people_problem_fe173d62",
+              "label": "I can’t trust people"
+            },
+            {
+              "id": "people_problem_31ce373c",
+              "label": "I can’t open my heart to people"
+            },
+            {
+              "id": "people_problem_f6292e7e",
+              "label": "I can’t get closer to people"
+            },
+            {
+              "id": "people_problem_aeb7a511",
+              "label": "Talking with people is hard"
+            },
+            {
+              "id": "people_problem_cfe5eaf5",
+              "label": "I get nervous in front of people"
+            },
+            {
+              "id": "people_problem_5e2dffd8",
+              "label": "I worry about people watching me"
+            },
+            {
+              "id": "people_problem_cccfb7e6",
+              "label": "I worry what people think of me"
+            },
+            {
+              "id": "people_problem_b8de7d2f",
+              "label": "I’m afraid of being disliked"
+            },
+            {
+              "id": "people_problem_b2489a9c",
+              "label": "I’m afraid of being rejected"
+            },
+            {
+              "id": "people_problem_abb8d89c",
+              "label": "I’m afraid of being refused"
+            },
+            {
+              "id": "people_problem_cb43c9db",
+              "label": "I adjust too much to others"
+            },
+            {
+              "id": "people_problem_979a7694",
+              "label": "I read the room too much"
+            },
+            {
+              "id": "people_problem_3ddbd999",
+              "label": "I can’t say my true feelings"
+            },
+            {
+              "id": "people_problem_46995e39",
+              "label": "I can’t show myself"
+            },
+            {
+              "id": "people_problem_10eb6e63",
+              "label": "I can’t say no"
+            },
+            {
+              "id": "people_problem_8d8ea30d",
+              "label": "I can’t refuse"
+            },
+            {
+              "id": "people_problem_8c172861",
+              "label": "I can’t rely on others"
+            },
+            {
+              "id": "people_problem_00529d7c",
+              "label": "I can’t ask for help"
+            },
+            {
+              "id": "people_problem_d566b85f",
+              "label": "I can’t lean on others"
+            },
+            {
+              "id": "people_problem_ea5fa083",
+              "label": "I expect too much from people"
+            },
+            {
+              "id": "people_problem_8d874b48",
+              "label": "I become dependent on people"
+            },
+            {
+              "id": "people_problem_66cf9182",
+              "label": "I want to control people"
+            },
+            {
+              "id": "people_problem_b6a6946d",
+              "label": "I can’t forgive people"
+            },
+            {
+              "id": "people_problem_92237076",
+              "label": "I blame people"
+            },
+            {
+              "id": "people_problem_e0e7fe95",
+              "label": "I envy people"
+            },
+            {
+              "id": "people_problem_e4d83bde",
+              "label": "I get jealous of people"
+            },
+            {
+              "id": "people_problem_96ccf5c6",
+              "label": "I compare myself with people"
+            },
+            {
+              "id": "people_problem_16ca720e",
+              "label": "I look down on people"
+            },
+            {
+              "id": "people_problem_389bbf04",
+              "label": "I feel looked down on by people"
+            },
+            {
+              "id": "people_problem_df3e40aa",
+              "label": "People use me"
+            },
+            {
+              "id": "people_problem_ece6e39f",
+              "label": "People throw me off"
+            },
+            {
+              "id": "people_problem_0e3d1aeb",
+              "label": "I was hurt by someone"
+            },
+            {
+              "id": "people_problem_af238b45",
+              "label": "I hurt someone"
+            },
+            {
+              "id": "people_problem_7c402d21",
+              "label": "I end up fighting with people"
+            },
+            {
+              "id": "people_problem_8b962360",
+              "label": "I can’t understand people mutually"
+            },
+            {
+              "id": "people_problem_8f3e54f9",
+              "label": "People don’t understand me"
+            },
+            {
+              "id": "people_problem_ca9824a2",
+              "label": "I can’t understand people"
+            },
+            {
+              "id": "people_problem_6b07a3bb",
+              "label": "I avoid people"
+            },
+            {
+              "id": "people_problem_9026bc1a",
+              "label": "Being with people tires me"
+            },
+            {
+              "id": "people_problem_47a0fb79",
+              "label": "I feel lonely when I’m alone"
+            },
+            {
+              "id": "people_problem_248646cf",
+              "label": "I want people to recognize me"
+            },
+            {
+              "id": "people_problem_652134d5",
+              "label": "I want people to praise me"
+            },
+            {
+              "id": "people_problem_e50d7e62",
+              "label": "I want people to need me"
+            },
+            {
+              "id": "people_problem_70e05975",
+              "label": "I want people to love me"
+            },
+            {
+              "id": "people_problem_0c97a5ea",
+              "label": "I want people to care about me"
+            },
+            {
+              "id": "people_problem_040c4ca6",
+              "label": "I want people to accept me"
+            },
+            {
+              "id": "people_problem_5600d2a2",
+              "label": "People don’t recognize me"
+            },
+            {
+              "id": "people_problem_76c14ca4",
+              "label": "People don’t value me"
+            },
+            {
+              "id": "people_problem_e23d9e9f",
+              "label": "I was betrayed by someone"
+            },
+            {
+              "id": "people_problem_685ed9d7",
+              "label": "I betrayed someone"
+            },
+            {
+              "id": "people_problem_02696faa",
+              "label": "I feel inferior when comparing myself with others"
+            },
+            {
+              "id": "people_problem_b43dfef1",
+              "label": "Other people’s success hurts"
+            },
+            {
+              "id": "people_problem_9787b80b",
+              "label": "I can’t be happy for others’ happiness"
+            },
+            {
+              "id": "people_problem_e7eed0e1",
+              "label": "I keep meeting other people’s expectations"
+            },
+            {
+              "id": "people_problem_548ab990",
+              "label": "I don’t know the right distance with people"
+            },
+            {
+              "id": "people_problem_ac88b311",
+              "label": "I can’t set boundaries with people"
+            },
+            {
+              "id": "people_problem_ba259313",
+              "label": "I can’t build deep relationships"
+            },
+            {
+              "id": "people_problem_b4d9e879",
+              "label": "Relationships don’t last"
+            },
+            {
+              "id": "people_problem_339bbd61",
+              "label": "I can’t end relationships"
+            },
+            {
+              "id": "people_problem_41f51bf7",
+              "label": "I cling to people"
+            },
+            {
+              "id": "people_problem_365e16da",
+              "label": "I can’t let people go"
+            },
+            {
+              "id": "people_problem_45a387a6",
+              "label": "I can’t like myself around people"
+            },
+            {
+              "id": "people_problem_943f9874",
+              "label": "I’m tired of relationships"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "people_ideal_a39b736f",
+              "label": "I trust people"
+            },
+            {
+              "id": "people_ideal_88ae6639",
+              "label": "People trust me"
+            },
+            {
+              "id": "people_ideal_5418dbcc",
+              "label": "I trust people"
+            },
+            {
+              "id": "people_ideal_1ad515ba",
+              "label": "I can relate to people safely"
+            },
+            {
+              "id": "people_ideal_c89cf4e4",
+              "label": "I relate to people naturally"
+            },
+            {
+              "id": "people_ideal_b3ae3b8e",
+              "label": "I speak honestly"
+            },
+            {
+              "id": "people_ideal_8d42dd38",
+              "label": "I relate to people as myself"
+            },
+            {
+              "id": "people_ideal_3daebe63",
+              "label": "I feel safe even in front of people"
+            },
+            {
+              "id": "people_ideal_a0d83ef8",
+              "label": "I’m not worried about people watching me"
+            },
+            {
+              "id": "people_ideal_df221475",
+              "label": "I don’t compare myself with people"
+            },
+            {
+              "id": "people_ideal_6bcb8eef",
+              "label": "I’m not jealous"
+            },
+            {
+              "id": "people_ideal_57b1d304",
+              "label": "I acknowledge people"
+            },
+            {
+              "id": "people_ideal_c359ac66",
+              "label": "I respect people"
+            },
+            {
+              "id": "people_ideal_6502fab9",
+              "label": "I forgive people"
+            },
+            {
+              "id": "people_ideal_40cd37a8",
+              "label": "I accept people"
+            },
+            {
+              "id": "people_ideal_ac492b8b",
+              "label": "I care about people"
+            },
+            {
+              "id": "people_ideal_0dcedd7c",
+              "label": "I’m connected with people I love"
+            },
+            {
+              "id": "people_ideal_0cb605a3",
+              "label": "I have people I can trust"
+            },
+            {
+              "id": "people_ideal_727c2561",
+              "label": "I have a safe place to belong"
+            },
+            {
+              "id": "people_ideal_bb0228d0",
+              "label": "I feel safe even alone"
+            },
+            {
+              "id": "people_ideal_fa038c73",
+              "label": "I feel safe with people"
+            },
+            {
+              "id": "people_ideal_039c1a4f",
+              "label": "I’m not afraid of being disliked"
+            },
+            {
+              "id": "people_ideal_1fdf5dcd",
+              "label": "I don’t lose myself even if I’m rejected"
+            },
+            {
+              "id": "people_ideal_f5b6cb53",
+              "label": "I don’t over-adjust to people"
+            },
+            {
+              "id": "people_ideal_8d6c2674",
+              "label": "I express my opinion"
+            },
+            {
+              "id": "people_ideal_206b9061",
+              "label": "I refuse what I don’t want"
+            },
+            {
+              "id": "people_ideal_9c338da3",
+              "label": "I rely on others when needed"
+            },
+            {
+              "id": "people_ideal_fa86a571",
+              "label": "I help when needed"
+            },
+            {
+              "id": "people_ideal_2bc0cd9b",
+              "label": "My distance with people feels just right"
+            },
+            {
+              "id": "people_ideal_ca916cf2",
+              "label": "I’m building healthy relationships"
+            },
+            {
+              "id": "people_ideal_ba7a1fbc",
+              "label": "I laugh with people"
+            },
+            {
+              "id": "people_ideal_dcd7ff3c",
+              "label": "I enjoy time with people"
+            },
+            {
+              "id": "people_ideal_e1d1e8b1",
+              "label": "I cooperate with people"
+            },
+            {
+              "id": "people_ideal_ea07f9df",
+              "label": "I understand people mutually"
+            },
+            {
+              "id": "people_ideal_c8c8ef4e",
+              "label": "I’m building loving relationships"
+            },
+            {
+              "id": "people_ideal_b0bf5f2f",
+              "label": "I enjoy meeting people"
+            },
+            {
+              "id": "people_ideal_aecb4089",
+              "label": "I’m grateful to people"
+            },
+            {
+              "id": "people_ideal_b1363a28",
+              "label": "People are grateful to me"
+            },
+            {
+              "id": "people_ideal_e0f3dba1",
+              "label": "I grow safely with people"
+            },
+            {
+              "id": "people_ideal_448675c4",
+              "label": "I’m satisfied with my relationships"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "love",
+      "label": "Love",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "love_problem_4181bde6",
+              "label": "I can’t find a partner"
+            },
+            {
+              "id": "love_problem_f09e7deb",
+              "label": "I can’t find someone I like"
+            },
+            {
+              "id": "love_problem_2e59af23",
+              "label": "The person I like doesn’t notice me"
+            },
+            {
+              "id": "love_problem_cafd9bd3",
+              "label": "I can’t confess my feelings"
+            },
+            {
+              "id": "love_problem_bf737949",
+              "label": "I can’t express my feelings"
+            },
+            {
+              "id": "love_problem_316bec9d",
+              "label": "I can’t feel loved"
+            },
+            {
+              "id": "love_problem_2bb57b4b",
+              "label": "I can’t love"
+            },
+            {
+              "id": "love_problem_d90018d5",
+              "label": "I don’t know how to love"
+            },
+            {
+              "id": "love_problem_f560ef2b",
+              "label": "I don’t know how to be loved"
+            },
+            {
+              "id": "love_problem_2a988e13",
+              "label": "I can’t believe in love"
+            },
+            {
+              "id": "love_problem_832bd46b",
+              "label": "Love relationships don’t last"
+            },
+            {
+              "id": "love_problem_690a1015",
+              "label": "It doesn’t last"
+            },
+            {
+              "id": "love_problem_73993159",
+              "label": "I’m still carrying a breakup"
+            },
+            {
+              "id": "love_problem_4aa9cd8f",
+              "label": "There is someone I can’t forget"
+            },
+            {
+              "id": "love_problem_c82c708c",
+              "label": "I can’t forget my ex"
+            },
+            {
+              "id": "love_problem_afdfdf6c",
+              "label": "I want to get back together"
+            },
+            {
+              "id": "love_problem_dec4041d",
+              "label": "Being alone feels lonely"
+            },
+            {
+              "id": "love_problem_7db24217",
+              "label": "I’m afraid of being alone"
+            },
+            {
+              "id": "love_problem_a79d131b",
+              "label": "I hate myself without a partner"
+            },
+            {
+              "id": "love_problem_c216212d",
+              "label": "I’m anxious about whether I can marry"
+            },
+            {
+              "id": "love_problem_2bf13488",
+              "label": "I don’t want to marry"
+            },
+            {
+              "id": "love_problem_2fff2989",
+              "label": "I can’t decide to marry"
+            },
+            {
+              "id": "love_problem_f28d40e9",
+              "label": "Married life is painful"
+            },
+            {
+              "id": "love_problem_a7bc4326",
+              "label": "Things aren’t going well with my partner"
+            },
+            {
+              "id": "love_problem_d048d66c",
+              "label": "I can’t talk things through with my partner"
+            },
+            {
+              "id": "love_problem_016fa85f",
+              "label": "I can’t trust my partner"
+            },
+            {
+              "id": "love_problem_8a31088c",
+              "label": "My partner doesn’t trust me"
+            },
+            {
+              "id": "love_problem_0e2b65da",
+              "label": "I can’t tell my true feelings to my partner"
+            },
+            {
+              "id": "love_problem_036018e9",
+              "label": "I can’t lean on my partner"
+            },
+            {
+              "id": "love_problem_55536b45",
+              "label": "I can’t rely on my partner"
+            },
+            {
+              "id": "love_problem_63502fa2",
+              "label": "I expect too much from my partner"
+            },
+            {
+              "id": "love_problem_1d3a8b97",
+              "label": "I become dependent on my partner"
+            },
+            {
+              "id": "love_problem_a675e3b0",
+              "label": "I restrict my partner"
+            },
+            {
+              "id": "love_problem_59b9efcd",
+              "label": "My partner restricts me"
+            },
+            {
+              "id": "love_problem_845f7970",
+              "label": "My partner throws me off"
+            },
+            {
+              "id": "love_problem_2e7b0547",
+              "label": "I want to control my partner"
+            },
+            {
+              "id": "love_problem_7fec1071",
+              "label": "I can’t forgive my partner"
+            },
+            {
+              "id": "love_problem_fad8734e",
+              "label": "My anger toward my partner won’t disappear"
+            },
+            {
+              "id": "love_problem_2e5b02fc",
+              "label": "Frustration with my partner is building up"
+            },
+            {
+              "id": "love_problem_22f18100",
+              "label": "I hurt my partner"
+            },
+            {
+              "id": "love_problem_da37714b",
+              "label": "My partner hurt me"
+            },
+            {
+              "id": "love_problem_4e424399",
+              "label": "I can’t forgive cheating"
+            },
+            {
+              "id": "love_problem_87097d9f",
+              "label": "I’m anxious about cheating"
+            },
+            {
+              "id": "love_problem_c20fd5f4",
+              "label": "I’m afraid of being betrayed"
+            },
+            {
+              "id": "love_problem_bd948e2d",
+              "label": "I’m afraid of being abandoned"
+            },
+            {
+              "id": "love_problem_618eab2f",
+              "label": "I get jealous"
+            },
+            {
+              "id": "love_problem_6314b116",
+              "label": "I want to possess them"
+            },
+            {
+              "id": "love_problem_0136fca7",
+              "label": "I doubt the other person"
+            },
+            {
+              "id": "love_problem_09e38213",
+              "label": "I watch the other person’s mood too much"
+            },
+            {
+              "id": "love_problem_944eb62b",
+              "label": "I adjust too much to the other person"
+            },
+            {
+              "id": "love_problem_10eb6e63",
+              "label": "I can’t say no"
+            },
+            {
+              "id": "love_problem_a2cc1c1a",
+              "label": "I can’t bring up breaking up"
+            },
+            {
+              "id": "love_problem_23154cef",
+              "label": "I can’t break up"
+            },
+            {
+              "id": "love_problem_6c29110c",
+              "label": "I can’t leave"
+            },
+            {
+              "id": "love_problem_72686975",
+              "label": "I become attached"
+            },
+            {
+              "id": "love_problem_fad81fee",
+              "label": "I feel I can’t live without them"
+            },
+            {
+              "id": "love_problem_d5cd819c",
+              "label": "I’m afraid of losing them"
+            },
+            {
+              "id": "love_problem_299e055b",
+              "label": "I feel I have no charm"
+            },
+            {
+              "id": "love_problem_fe03f255",
+              "label": "I lack confidence"
+            },
+            {
+              "id": "love_problem_2314c23b",
+              "label": "I lose myself in love"
+            },
+            {
+              "id": "love_problem_a2e76f5a",
+              "label": "I’m afraid of getting hurt in love"
+            },
+            {
+              "id": "love_problem_63dacac9",
+              "label": "Love feels troublesome"
+            },
+            {
+              "id": "love_problem_f691fdc9",
+              "label": "I’m uncomfortable with the opposite sex"
+            },
+            {
+              "id": "love_problem_fb77c522",
+              "label": "I’m afraid to fall in love"
+            },
+            {
+              "id": "love_problem_9d76fdbb",
+              "label": "I’m afraid to be happy"
+            },
+            {
+              "id": "love_problem_8a04acb6",
+              "label": "I don’t feel happiness will last"
+            },
+            {
+              "id": "love_problem_d56a32cf",
+              "label": "I have given up on love"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "love_ideal_fac55e43",
+              "label": "I love"
+            },
+            {
+              "id": "love_ideal_0ca98fab",
+              "label": "I am loved"
+            },
+            {
+              "id": "love_ideal_89e003eb",
+              "label": "We love each other"
+            },
+            {
+              "id": "love_ideal_8f89debb",
+              "label": "I love with safety"
+            },
+            {
+              "id": "love_ideal_f8d550eb",
+              "label": "I feel safely loved"
+            },
+            {
+              "id": "love_ideal_cee4ee8d",
+              "label": "We trust each other"
+            },
+            {
+              "id": "love_ideal_be48f61c",
+              "label": "We support each other"
+            },
+            {
+              "id": "love_ideal_c61d13b6",
+              "label": "We respect each other"
+            },
+            {
+              "id": "love_ideal_963d14e9",
+              "label": "We care for each other"
+            },
+            {
+              "id": "love_ideal_83951182",
+              "label": "I can be myself"
+            },
+            {
+              "id": "love_ideal_b11eacbe",
+              "label": "I feel safe together"
+            },
+            {
+              "id": "love_ideal_67b164e5",
+              "label": "Being together is fun"
+            },
+            {
+              "id": "love_ideal_4bbc96c9",
+              "label": "Being together feels calm"
+            },
+            {
+              "id": "love_ideal_b3ae3b8e",
+              "label": "I speak honestly"
+            },
+            {
+              "id": "love_ideal_f9122805",
+              "label": "I express my feelings"
+            },
+            {
+              "id": "love_ideal_cd85b250",
+              "label": "We receive each other’s feelings"
+            },
+            {
+              "id": "love_ideal_0b1d6646",
+              "label": "We understand each other"
+            },
+            {
+              "id": "love_ideal_69df6a2c",
+              "label": "We accept each other"
+            },
+            {
+              "id": "love_ideal_84b04685",
+              "label": "We forgive each other"
+            },
+            {
+              "id": "love_ideal_cd2bca45",
+              "label": "We trust each other"
+            },
+            {
+              "id": "love_ideal_1902680b",
+              "label": "We both feel free"
+            },
+            {
+              "id": "love_ideal_e33acdcb",
+              "label": "We support each other"
+            },
+            {
+              "id": "love_ideal_35296254",
+              "label": "We grow together"
+            },
+            {
+              "id": "love_ideal_54467840",
+              "label": "We are grateful to each other"
+            },
+            {
+              "id": "love_ideal_cb55ce73",
+              "label": "We care for each other"
+            },
+            {
+              "id": "love_ideal_e4960dc1",
+              "label": "I’m not controlled by jealousy"
+            },
+            {
+              "id": "love_ideal_c8d30aa0",
+              "label": "I’m not controlled by anxiety"
+            },
+            {
+              "id": "love_ideal_b7ba3c1d",
+              "label": "I don’t restrict my partner"
+            },
+            {
+              "id": "love_ideal_5fa4eacc",
+              "label": "I am not restricted either"
+            },
+            {
+              "id": "love_ideal_befdf1ac",
+              "label": "I love as myself"
+            },
+            {
+              "id": "love_ideal_29192cb0",
+              "label": "My partner is also being themselves"
+            },
+            {
+              "id": "love_ideal_edd7fdb3",
+              "label": "My heart feels fulfilled"
+            },
+            {
+              "id": "love_ideal_db7acb7d",
+              "label": "I feel happiness"
+            },
+            {
+              "id": "love_ideal_8435d7b5",
+              "label": "Happiness continues"
+            },
+            {
+              "id": "love_ideal_46375f7c",
+              "label": "I’m building a safe relationship"
+            },
+            {
+              "id": "love_ideal_40a3d67a",
+              "label": "I’m building a trusting relationship"
+            },
+            {
+              "id": "love_ideal_12d730fd",
+              "label": "I’m building a healthy relationship"
+            },
+            {
+              "id": "love_ideal_4a3b37f2",
+              "label": "We laugh together from the heart"
+            },
+            {
+              "id": "love_ideal_e7920da0",
+              "label": "We walk toward the future together"
+            },
+            {
+              "id": "love_ideal_02686f38",
+              "label": "I’m satisfied with love"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "family",
+      "label": "Family",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "family_problem_91162456",
+              "label": "Family feels heavy"
+            },
+            {
+              "id": "family_problem_18ee6d38",
+              "label": "Family feels painful"
+            },
+            {
+              "id": "family_problem_de48f3fc",
+              "label": "Family is hard for me"
+            },
+            {
+              "id": "family_problem_1fafc04a",
+              "label": "I don’t fit with my family"
+            },
+            {
+              "id": "family_problem_b838a386",
+              "label": "My family tires me"
+            },
+            {
+              "id": "family_problem_ba1997a1",
+              "label": "I walk on eggshells around my family"
+            },
+            {
+              "id": "family_problem_456ee578",
+              "label": "I can’t tell my true feelings to my family"
+            },
+            {
+              "id": "family_problem_34690db2",
+              "label": "My family doesn’t understand me"
+            },
+            {
+              "id": "family_problem_b350f467",
+              "label": "I can’t understand my family"
+            },
+            {
+              "id": "family_problem_5582ea14",
+              "label": "My family rejects me"
+            },
+            {
+              "id": "family_problem_ff2a8494",
+              "label": "My family doesn’t recognize me"
+            },
+            {
+              "id": "family_problem_017251bd",
+              "label": "My family expects too much from me"
+            },
+            {
+              "id": "family_problem_f209f1c6",
+              "label": "My family’s expectations feel heavy"
+            },
+            {
+              "id": "family_problem_41dd6fa2",
+              "label": "I don’t want to disappoint my family"
+            },
+            {
+              "id": "family_problem_5902fff3",
+              "label": "I have to help my family"
+            },
+            {
+              "id": "family_problem_af1a19d1",
+              "label": "I have to protect my family"
+            },
+            {
+              "id": "family_problem_1b794695",
+              "label": "I carry my family"
+            },
+            {
+              "id": "family_problem_96521df9",
+              "label": "I can’t leave my family"
+            },
+            {
+              "id": "family_problem_c98f8298",
+              "label": "I’m bound by my family"
+            },
+            {
+              "id": "family_problem_5903fdce",
+              "label": "I’m controlled by my family"
+            },
+            {
+              "id": "family_problem_4c1cd849",
+              "label": "My family interferes with me"
+            },
+            {
+              "id": "family_problem_aef1b30f",
+              "label": "My family compares me"
+            },
+            {
+              "id": "family_problem_6690a700",
+              "label": "I can’t be myself in front of my family"
+            },
+            {
+              "id": "family_problem_450c8f2b",
+              "label": "I play the good child in front of my family"
+            },
+            {
+              "id": "family_problem_4500eed4",
+              "label": "I act strong in front of my family"
+            },
+            {
+              "id": "family_problem_4545da2d",
+              "label": "I can’t lean on my family"
+            },
+            {
+              "id": "family_problem_02488d1b",
+              "label": "I can’t rely on my family"
+            },
+            {
+              "id": "family_problem_c952610b",
+              "label": "I don’t want to rely on my family"
+            },
+            {
+              "id": "family_problem_dd17f94b",
+              "label": "I can’t trust my family"
+            },
+            {
+              "id": "family_problem_6ef7cac7",
+              "label": "I can’t forgive my family"
+            },
+            {
+              "id": "family_problem_a96a4285",
+              "label": "I feel anger toward my family"
+            },
+            {
+              "id": "family_problem_0f1f762b",
+              "label": "I feel guilt toward my family"
+            },
+            {
+              "id": "family_problem_453bfe8f",
+              "label": "I feel sorry toward my family"
+            },
+            {
+              "id": "family_problem_e8209593",
+              "label": "It hurts that I dislike my family"
+            },
+            {
+              "id": "family_problem_6a4632fe",
+              "label": "I can’t care for my family"
+            },
+            {
+              "id": "family_problem_50e86be8",
+              "label": "I want distance from my family"
+            },
+            {
+              "id": "family_problem_48c68c85",
+              "label": "I can’t take distance from my family"
+            },
+            {
+              "id": "family_problem_e7f44467",
+              "label": "Seeing my family tires me"
+            },
+            {
+              "id": "family_problem_6336eba7",
+              "label": "Talking with my family hurts"
+            },
+            {
+              "id": "family_problem_4c23323b",
+              "label": "With my family, I return to my old self"
+            },
+            {
+              "id": "family_problem_2f982c3c",
+              "label": "My parents feel heavy"
+            },
+            {
+              "id": "family_problem_8e47b745",
+              "label": "My parents scare me"
+            },
+            {
+              "id": "family_problem_e7bd45f7",
+              "label": "I want my parents to recognize me"
+            },
+            {
+              "id": "family_problem_891a0c23",
+              "label": "I want my parents to love me"
+            },
+            {
+              "id": "family_problem_4073c6db",
+              "label": "I want my parents to praise me"
+            },
+            {
+              "id": "family_problem_4c3d9d32",
+              "label": "I want my parents to understand me"
+            },
+            {
+              "id": "family_problem_960b2573",
+              "label": "I can’t rebel against my parents"
+            },
+            {
+              "id": "family_problem_65f3cac8",
+              "label": "I can’t go against my parents"
+            },
+            {
+              "id": "family_problem_2ace87b2",
+              "label": "I can’t tell my true feelings to my parents"
+            },
+            {
+              "id": "family_problem_53947854",
+              "label": "I watch my parents’ mood too much"
+            },
+            {
+              "id": "family_problem_c62ff3cc",
+              "label": "I keep meeting my parents’ expectations"
+            },
+            {
+              "id": "family_problem_81e50e1d",
+              "label": "I carry my parents’ life"
+            },
+            {
+              "id": "family_problem_707a920d",
+              "label": "I want to reassure my parents"
+            },
+            {
+              "id": "family_problem_eb87c3ba",
+              "label": "I don’t want to make my parents sad"
+            },
+            {
+              "id": "family_problem_5dbd68d5",
+              "label": "I don’t want to disappoint my parents"
+            },
+            {
+              "id": "family_problem_56eec588",
+              "label": "I can’t abandon my parents"
+            },
+            {
+              "id": "family_problem_0704df77",
+              "label": "I can’t leave my parents"
+            },
+            {
+              "id": "family_problem_bd5c4f7f",
+              "label": "I can’t forgive my parents"
+            },
+            {
+              "id": "family_problem_3d32fb53",
+              "label": "My anger toward my parents won’t disappear"
+            },
+            {
+              "id": "family_problem_bcf748ab",
+              "label": "I hold resentment toward my parents"
+            },
+            {
+              "id": "family_problem_bee42bbf",
+              "label": "I feel guilt toward my parents"
+            },
+            {
+              "id": "family_problem_0780f565",
+              "label": "I’m not being a good child to my parents"
+            },
+            {
+              "id": "family_problem_1caed5fc",
+              "label": "I worry about my parents’ old age"
+            },
+            {
+              "id": "family_problem_a588465c",
+              "label": "I’m anxious about caring for my parents"
+            },
+            {
+              "id": "family_problem_99153d33",
+              "label": "I feel sorry toward my child"
+            },
+            {
+              "id": "family_problem_59ac75d4",
+              "label": "I’m anxious about whether I can make my child happy"
+            },
+            {
+              "id": "family_problem_5d522491",
+              "label": "I’m anxious about raising my child well"
+            },
+            {
+              "id": "family_problem_d656d49c",
+              "label": "I get too angry at my child"
+            },
+            {
+              "id": "family_problem_a77bab9c",
+              "label": "I try to control my child"
+            },
+            {
+              "id": "family_problem_90834b7b",
+              "label": "I expect too much from my child"
+            },
+            {
+              "id": "family_problem_aa4e6ba5",
+              "label": "I worry about my child’s future"
+            },
+            {
+              "id": "family_problem_5376632e",
+              "label": "I’m afraid my child will dislike me"
+            },
+            {
+              "id": "family_problem_378aadff",
+              "label": "I’m afraid I can’t protect my child"
+            },
+            {
+              "id": "family_problem_332aa2a9",
+              "label": "I’m compared with my siblings"
+            },
+            {
+              "id": "family_problem_305a09ba",
+              "label": "I don’t get along with my siblings"
+            },
+            {
+              "id": "family_problem_78067164",
+              "label": "I’m jealous of my siblings"
+            },
+            {
+              "id": "family_problem_beabeb32",
+              "label": "I can’t forgive my siblings"
+            },
+            {
+              "id": "family_problem_2bd96493",
+              "label": "I blame myself for family problems"
+            },
+            {
+              "id": "family_problem_a6720ea7",
+              "label": "I try not to ruin the family mood"
+            },
+            {
+              "id": "family_problem_bc3a7960",
+              "label": "I have no place in my family"
+            },
+            {
+              "id": "family_problem_5c175538",
+              "label": "I feel lonely even with family"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "family_ideal_18f6cb86",
+              "label": "familyを愛している"
+            },
+            {
+              "id": "family_ideal_46e9d537",
+              "label": "familyに愛されている"
+            },
+            {
+              "id": "family_ideal_6bb14a49",
+              "label": "familyと安heartして過ごしている"
+            },
+            {
+              "id": "family_ideal_27eff0de",
+              "label": "familyと笑い合っている"
+            },
+            {
+              "id": "family_ideal_66db8702",
+              "label": "familyと本音で話している"
+            },
+            {
+              "id": "family_ideal_2bd803b8",
+              "label": "familyを信頼している"
+            },
+            {
+              "id": "family_ideal_43266c72",
+              "label": "familyに信頼されている"
+            },
+            {
+              "id": "family_ideal_248d9714",
+              "label": "familyを理解している"
+            },
+            {
+              "id": "family_ideal_9867e2ae",
+              "label": "familyに理解されている"
+            },
+            {
+              "id": "family_ideal_4e628ca8",
+              "label": "familyを受け入れている"
+            },
+            {
+              "id": "family_ideal_5b008f45",
+              "label": "familyに受け入れられている"
+            },
+            {
+              "id": "family_ideal_a0e8e26f",
+              "label": "familyを許している"
+            },
+            {
+              "id": "family_ideal_01ca08fb",
+              "label": "familyに許されている"
+            },
+            {
+              "id": "family_ideal_c033340a",
+              "label": "family is being valued"
+            },
+            {
+              "id": "family_ideal_5b40efb2",
+              "label": "familyに大切にされている"
+            },
+            {
+              "id": "family_ideal_a170783d",
+              "label": "familyと支え合っている"
+            },
+            {
+              "id": "family_ideal_25d39dc2",
+              "label": "familyと助け合っている"
+            },
+            {
+              "id": "family_ideal_eee51f33",
+              "label": "family is appreciated"
+            },
+            {
+              "id": "family_ideal_cfa13645",
+              "label": "familyから感謝されている"
+            },
+            {
+              "id": "family_ideal_551f4cef",
+              "label": "familyとのtimeを楽しんでいる"
+            },
+            {
+              "id": "family_ideal_fe71bb24",
+              "label": "familyとのtime feels satisfying"
+            },
+            {
+              "id": "family_ideal_01f9a027",
+              "label": "familyとheartがつながっている"
+            },
+            {
+              "id": "family_ideal_4c1e46d3",
+              "label": "familyと安heartできる距離を保っている"
+            },
+            {
+              "id": "family_ideal_bce8745b",
+              "label": "familyと自然bodyで接している"
+            },
+            {
+              "id": "family_ideal_efa48814",
+              "label": "familyの前でも自分らしくいる"
+            },
+            {
+              "id": "family_ideal_1fc32eb3",
+              "label": "familyを尊重している"
+            },
+            {
+              "id": "family_ideal_1b76b228",
+              "label": "familyに尊重されている"
+            },
+            {
+              "id": "family_ideal_6aa2421f",
+              "label": "parents is being valued"
+            },
+            {
+              "id": "family_ideal_d61bdcad",
+              "label": "parentsと安heartして話している"
+            },
+            {
+              "id": "family_ideal_fe96758c",
+              "label": "parentsを理解している"
+            },
+            {
+              "id": "family_ideal_604581be",
+              "label": "parentsに理解されている"
+            },
+            {
+              "id": "family_ideal_d44246c8",
+              "label": "childを信じている"
+            },
+            {
+              "id": "family_ideal_c966d652",
+              "label": "childに信頼されている"
+            },
+            {
+              "id": "family_ideal_0ac11ee4",
+              "label": "childの成長を喜んでいる"
+            },
+            {
+              "id": "family_ideal_81a31d47",
+              "label": "familyそれぞれが自分らしく生きている"
+            },
+            {
+              "id": "family_ideal_b75be9c3",
+              "label": "familyに安heart感 exists"
+            },
+            {
+              "id": "family_ideal_b906a24d",
+              "label": "familyと穏やかに暮らしている"
+            },
+            {
+              "id": "family_ideal_d4ba186e",
+              "label": "familyとの関係 feels satisfying"
+            },
+            {
+              "id": "family_ideal_15417c69",
+              "label": "familyと幸せを感じている"
+            },
+            {
+              "id": "family_ideal_495a3cb4",
+              "label": "familyとの絆を感じている"
+            },
+            {
+              "id": "family_ideal_5a1e8edd",
+              "label": "familyとの関係が調和している"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "work",
+      "label": "Work",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "work_problem_ec1a6d3e",
+              "label": "work feels painful"
+            },
+            {
+              "id": "work_problem_2f43b74a",
+              "label": "work is something I dislike"
+            },
+            {
+              "id": "work_problem_17da5491",
+              "label": "work is not enjoyable"
+            },
+            {
+              "id": "work_problem_b74c404f",
+              "label": "work feels meaningless"
+            },
+            {
+              "id": "work_problem_cf214a3e",
+              "label": "work feels unrewarding"
+            },
+            {
+              "id": "work_problem_dcfbfcb7",
+              "label": "work does not last"
+            },
+            {
+              "id": "work_problem_f722eb83",
+              "label": "work cannot be found"
+            },
+            {
+              "id": "work_problem_df2562a7",
+              "label": "work is not decided"
+            },
+            {
+              "id": "work_problem_8cb364ed",
+              "label": "work I want to quit"
+            },
+            {
+              "id": "work_problem_8ab903f9",
+              "label": "work I can’t quit"
+            },
+            {
+              "id": "work_problem_ffd4a949",
+              "label": "働き I don’t want to"
+            },
+            {
+              "id": "work_problem_269f56b0",
+              "label": "働き too much"
+            },
+            {
+              "id": "work_problem_16461bdb",
+              "label": "働き続けるの feels painful"
+            },
+            {
+              "id": "work_problem_cdad6a46",
+              "label": "I can’t rest"
+            },
+            {
+              "id": "work_problem_df29d6fa",
+              "label": "頑張り too much"
+            },
+            {
+              "id": "work_problem_2d2e27b8",
+              "label": "I can’t relax"
+            },
+            {
+              "id": "work_problem_fd9a8f96",
+              "label": "成果 doesn’t come"
+            },
+            {
+              "id": "work_problem_a8c3778a",
+              "label": "結果 doesn’t come"
+            },
+            {
+              "id": "work_problem_0faf7135",
+              "label": "評価 not being recognized"
+            },
+            {
+              "id": "work_problem_b1f31693",
+              "label": "About 認められない"
+            },
+            {
+              "id": "work_problem_5312a995",
+              "label": "昇給 does not happen"
+            },
+            {
+              "id": "work_problem_4bb014d2",
+              "label": "出世 I can’t"
+            },
+            {
+              "id": "work_problem_23f44359",
+              "label": "About 稼げない"
+            },
+            {
+              "id": "work_problem_8dca2fc8",
+              "label": "About 売上が伸びない"
+            },
+            {
+              "id": "work_problem_e07dbb9c",
+              "label": "About お客さんが来ない"
+            },
+            {
+              "id": "work_problem_7f200db8",
+              "label": "About お客さんが増えない"
+            },
+            {
+              "id": "work_problem_9b0cf74c",
+              "label": "集客 I can’t"
+            },
+            {
+              "id": "work_problem_6a60dd2d",
+              "label": "incomeが安定 does not happen"
+            },
+            {
+              "id": "work_problem_3e344681",
+              "label": "moneyにならない"
+            },
+            {
+              "id": "work_problem_fe03f255",
+              "label": "I lack confidence"
+            },
+            {
+              "id": "work_problem_cf05a717",
+              "label": "About 実力が足りないと感じる"
+            },
+            {
+              "id": "work_problem_7e9aaea8",
+              "label": "About 能力が足りないと感じる"
+            },
+            {
+              "id": "work_problem_a82a5a82",
+              "label": "才能 is missingと感じる"
+            },
+            {
+              "id": "work_problem_eb587c74",
+              "label": "About 向いていないと感じる"
+            },
+            {
+              "id": "work_problem_c70607a3",
+              "label": "失敗 scares me"
+            },
+            {
+              "id": "work_problem_a4ed5064",
+              "label": "挑戦 I can’t"
+            },
+            {
+              "id": "work_problem_e8d6d79b",
+              "label": "行動 I can’t"
+            },
+            {
+              "id": "work_problem_f9c11eb6",
+              "label": "About 一歩踏み出せない"
+            },
+            {
+              "id": "work_problem_01942fcb",
+              "label": "決断 I can’t"
+            },
+            {
+              "id": "work_problem_d1fd53ce",
+              "label": "About 続けられない"
+            },
+            {
+              "id": "work_problem_3f2766e2",
+              "label": "About 飽きてしまう"
+            },
+            {
+              "id": "work_problem_14e68180",
+              "label": "やる気 doesn’t come"
+            },
+            {
+              "id": "work_problem_a6933301",
+              "label": "集中 I can’t"
+            },
+            {
+              "id": "work_problem_add14d5c",
+              "label": "About 先延ばししてしまう"
+            },
+            {
+              "id": "work_problem_f8ac9fae",
+              "label": "About 完璧を求めすぎる"
+            },
+            {
+              "id": "work_problem_b5db8a6e",
+              "label": "About 自分を追い込みすぎる"
+            },
+            {
+              "id": "work_problem_7af1a645",
+              "label": "責任 feels heavy"
+            },
+            {
+              "id": "work_problem_d05e0c91",
+              "label": "About プレッシャーが大きい"
+            },
+            {
+              "id": "work_problem_f0bb6422",
+              "label": "future makes me anxious"
+            },
+            {
+              "id": "work_problem_11318c00",
+              "label": "転職する勇気 is missing"
+            },
+            {
+              "id": "work_problem_5b0021e9",
+              "label": "起業する勇気 is missing"
+            },
+            {
+              "id": "work_problem_ea8a0cbe",
+              "label": "workを任せられない"
+            },
+            {
+              "id": "work_problem_c157fa5c",
+              "label": "About 人に頼れない"
+            },
+            {
+              "id": "work_problem_8d8ea30d",
+              "label": "I can’t refuse"
+            },
+            {
+              "id": "work_problem_1b58af99",
+              "label": "workを抱え込みすぎる"
+            },
+            {
+              "id": "work_problem_ee5bd158",
+              "label": "workと生活のバランスが取れない"
+            },
+            {
+              "id": "work_problem_c4b8c5f6",
+              "label": "every dayが同じでつまらない"
+            },
+            {
+              "id": "work_problem_e983cf4e",
+              "label": "自分のやりたいworkがわからない"
+            },
+            {
+              "id": "work_problem_c85c3044",
+              "label": "what I loveをworkに I can’t"
+            },
+            {
+              "id": "work_problem_0f676851",
+              "label": "what I loveで稼げない"
+            },
+            {
+              "id": "work_problem_009698b3",
+              "label": "嫌なworkを続けている"
+            },
+            {
+              "id": "work_problem_f597ca64",
+              "label": "人間関係でwork feels painful"
+            },
+            {
+              "id": "work_problem_1a36b0a8",
+              "label": "workのストレスが大きい"
+            },
+            {
+              "id": "work_problem_81c43c83",
+              "label": "workに追われている"
+            },
+            {
+              "id": "work_problem_2870223a",
+              "label": "workばかりのlifeになっている"
+            },
+            {
+              "id": "work_problem_5368ad2a",
+              "label": "自分の価値をworkで決めてしまう"
+            },
+            {
+              "id": "work_problem_86874e39",
+              "label": "workを失うの scares me"
+            },
+            {
+              "id": "work_problem_74ce2b53",
+              "label": "workの失敗を引きずってしまう"
+            },
+            {
+              "id": "work_problem_e0ecd9d7",
+              "label": "workで自分を責めてしまう"
+            },
+            {
+              "id": "work_problem_d9e730cd",
+              "label": "workに自信が持てない"
+            },
+            {
+              "id": "work_problem_ba38fe49",
+              "label": "成功しても満た not being recognized"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "work_ideal_74894aa3",
+              "label": "workを楽しんでいる"
+            },
+            {
+              "id": "work_ideal_1cd48149",
+              "label": "About やりがいを感じている"
+            },
+            {
+              "id": "work_ideal_2b1d2f29",
+              "label": "every dayが充実している"
+            },
+            {
+              "id": "work_ideal_1bb2701a",
+              "label": "自分に合ったworkをしている"
+            },
+            {
+              "id": "work_ideal_3c15d29b",
+              "label": "好きなworkをしている"
+            },
+            {
+              "id": "work_ideal_71baae4d",
+              "label": "About 得意なことを活かしている"
+            },
+            {
+              "id": "work_ideal_61cebdfb",
+              "label": "About 自分の力を発揮している"
+            },
+            {
+              "id": "work_ideal_cf5faea5",
+              "label": "About 自分の価値を発揮している"
+            },
+            {
+              "id": "work_ideal_a637a773",
+              "label": "About 成長している"
+            },
+            {
+              "id": "work_ideal_e057b9f7",
+              "label": "About 新しいことに挑戦している"
+            },
+            {
+              "id": "work_ideal_a0074103",
+              "label": "About 行動している"
+            },
+            {
+              "id": "work_ideal_ea4b4c89",
+              "label": "About 続けている"
+            },
+            {
+              "id": "work_ideal_2c29d20d",
+              "label": "About 集中している"
+            },
+            {
+              "id": "work_ideal_1abfbaea",
+              "label": "I decide for myself"
+            },
+            {
+              "id": "work_ideal_f29e0f6f",
+              "label": "About 自信を持って働いている"
+            },
+            {
+              "id": "work_ideal_41d92a8e",
+              "label": "About 成果が出ている"
+            },
+            {
+              "id": "work_ideal_4fd15bc6",
+              "label": "About 認められている"
+            },
+            {
+              "id": "work_ideal_cf17495d",
+              "label": "About 信頼されている"
+            },
+            {
+              "id": "work_ideal_57a3efea",
+              "label": "About 必要とされている"
+            },
+            {
+              "id": "work_ideal_9877063f",
+              "label": "About 人の役に立っている"
+            },
+            {
+              "id": "work_ideal_0ac1e0dd",
+              "label": "About 喜ばれている"
+            },
+            {
+              "id": "work_ideal_19947bfd",
+              "label": "安定したincome exists"
+            },
+            {
+              "id": "work_ideal_b3818c27",
+              "label": "what I loveでincomeを得ている"
+            },
+            {
+              "id": "work_ideal_cb0fa8df",
+              "label": "About 努力が実っている"
+            },
+            {
+              "id": "work_ideal_f22a6df6",
+              "label": "About 自分のペースで働いている"
+            },
+            {
+              "id": "work_ideal_c6db07a4",
+              "label": "heartに余裕 exists"
+            },
+            {
+              "id": "work_ideal_cd23a6d2",
+              "label": "About 楽しみながら働いている"
+            },
+            {
+              "id": "work_ideal_d1584930",
+              "label": "About 仲間と協力している"
+            },
+            {
+              "id": "work_ideal_65dd7ef3",
+              "label": "安heartして働いている"
+            },
+            {
+              "id": "work_ideal_153352b5",
+              "label": "workと生活のバランスが取れている"
+            },
+            {
+              "id": "work_ideal_12a9eea7",
+              "label": "About 必要なときに休んでいる"
+            },
+            {
+              "id": "work_ideal_f70ba39b",
+              "label": "futureに希望を持っている"
+            },
+            {
+              "id": "work_ideal_0f402c6b",
+              "label": "自分のwork feels satisfying"
+            },
+            {
+              "id": "work_ideal_291b63ea",
+              "label": "About 自分の成長を実感している"
+            },
+            {
+              "id": "work_ideal_da48cb25",
+              "label": "About 自分らしく働いている"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "money",
+      "label": "Money",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "money_problem_51c3336e",
+              "label": "moneyが足りない"
+            },
+            {
+              "id": "money_problem_28c80a44",
+              "label": "money is missing"
+            },
+            {
+              "id": "money_problem_a3453aeb",
+              "label": "savingsが I can’t"
+            },
+            {
+              "id": "money_problem_73a79a7b",
+              "label": "debt exists"
+            },
+            {
+              "id": "money_problem_0c422b33",
+              "label": "paymentsが苦しい"
+            },
+            {
+              "id": "money_problem_34c2c191",
+              "label": "futureのmoney makes me anxious"
+            },
+            {
+              "id": "money_problem_bf8feab1",
+              "label": "老後のmoneyがheart配"
+            },
+            {
+              "id": "money_problem_3160b820",
+              "label": "incomeが少ない"
+            },
+            {
+              "id": "money_problem_6a60dd2d",
+              "label": "incomeが安定 does not happen"
+            },
+            {
+              "id": "money_problem_711e7cc8",
+              "label": "salaryが上がらない"
+            },
+            {
+              "id": "money_problem_1ac581d0",
+              "label": "About 思うように稼げない"
+            },
+            {
+              "id": "money_problem_a28e9255",
+              "label": "moneyを増やせない"
+            },
+            {
+              "id": "money_problem_4446c7f5",
+              "label": "moneyを失うの scares me"
+            },
+            {
+              "id": "money_problem_d061bded",
+              "label": "moneyがすぐ減る"
+            },
+            {
+              "id": "money_problem_00856510",
+              "label": "money does not last"
+            },
+            {
+              "id": "money_problem_3632f329",
+              "label": "moneyが残らない"
+            },
+            {
+              "id": "money_problem_05895132",
+              "label": "About 無駄遣いしてしまう"
+            },
+            {
+              "id": "money_problem_ffc8ea2d",
+              "label": "moneyを使いすぎる"
+            },
+            {
+              "id": "money_problem_29f9cf0c",
+              "label": "節約 does not last"
+            },
+            {
+              "id": "money_problem_372b73e9",
+              "label": "moneyの管理 is hard for me"
+            },
+            {
+              "id": "money_problem_2dec6321",
+              "label": "moneyのことがわからない"
+            },
+            {
+              "id": "money_problem_e9834fd8",
+              "label": "investing scares me"
+            },
+            {
+              "id": "money_problem_95cb9e20",
+              "label": "investingで失敗した"
+            },
+            {
+              "id": "money_problem_6e0c535b",
+              "label": "moneyで失敗した"
+            },
+            {
+              "id": "money_problem_4e27dc39",
+              "label": "moneyで苦労している"
+            },
+            {
+              "id": "money_problem_77dc019b",
+              "label": "moneyのことで疲れている"
+            },
+            {
+              "id": "money_problem_28a008af",
+              "label": "moneyのことで頭がいっぱい"
+            },
+            {
+              "id": "money_problem_bea63f7e",
+              "label": "moneyのことで眠れない"
+            },
+            {
+              "id": "money_problem_832a913c",
+              "label": "moneyに振り回される"
+            },
+            {
+              "id": "money_problem_03e7dab5",
+              "label": "moneyに縛られている"
+            },
+            {
+              "id": "money_problem_994ae457",
+              "label": "moneyに依存している"
+            },
+            {
+              "id": "money_problem_d2e00ce8",
+              "label": "moneyに執着している"
+            },
+            {
+              "id": "money_problem_b0999ffe",
+              "label": "money is missingと安heart I can’t"
+            },
+            {
+              "id": "money_problem_1ac51dc6",
+              "label": "moneyがあっても安heart I can’t"
+            },
+            {
+              "id": "money_problem_ef6c02e2",
+              "label": "moneyを受け取るの is hard for me"
+            },
+            {
+              "id": "money_problem_39bbc2e0",
+              "label": "moneyを受け取ることに罪悪感 exists"
+            },
+            {
+              "id": "money_problem_e52ab263",
+              "label": "moneyをもらうの scares me"
+            },
+            {
+              "id": "money_problem_013b55fb",
+              "label": "値段をつけるの is hard for me"
+            },
+            {
+              "id": "money_problem_8451d8a5",
+              "label": "About 高い価格を言えない"
+            },
+            {
+              "id": "money_problem_f492dba6",
+              "label": "About 安く売ってしまう"
+            },
+            {
+              "id": "money_problem_4a003763",
+              "label": "moneyを請求 I can’t"
+            },
+            {
+              "id": "money_problem_102b16ba",
+              "label": "moneyを断れない"
+            },
+            {
+              "id": "money_problem_71d13249",
+              "label": "moneyを貸してしまう"
+            },
+            {
+              "id": "money_problem_3c291925",
+              "label": "moneyを返してもらえない"
+            },
+            {
+              "id": "money_problem_d8e5a1ec",
+              "label": "人にmoneyを使いすぎる"
+            },
+            {
+              "id": "money_problem_80359a9a",
+              "label": "自分にmoneyを使えない"
+            },
+            {
+              "id": "money_problem_96dbdc3e",
+              "label": "moneyを使うことに罪悪感 exists"
+            },
+            {
+              "id": "money_problem_65ed7de7",
+              "label": "自分にはmoneyを持つ価値 is missingと感じる"
+            },
+            {
+              "id": "money_problem_1ef0c25c",
+              "label": "money持ちに引け目を感じる"
+            },
+            {
+              "id": "money_problem_0ee277c5",
+              "label": "money持ちをうらやましいと思う"
+            },
+            {
+              "id": "money_problem_aa89616c",
+              "label": "money持ちに嫉妬する"
+            },
+            {
+              "id": "money_problem_0fb2dcf4",
+              "label": "money持ちを嫌ってしまう"
+            },
+            {
+              "id": "money_problem_f6393122",
+              "label": "moneyで人と比べてしまう"
+            },
+            {
+              "id": "money_problem_51e4eb58",
+              "label": "moneyで自分の価値を決めてしまう"
+            },
+            {
+              "id": "money_problem_887f2b7d",
+              "label": "money exists人がうらやましい"
+            },
+            {
+              "id": "money_problem_913b5996",
+              "label": "moneyが原因で人間関係が苦しい"
+            },
+            {
+              "id": "money_problem_b66ce620",
+              "label": "familyとmoneyでもめる"
+            },
+            {
+              "id": "money_problem_daf0ba7d",
+              "label": "パートナーとmoneyでもめる"
+            },
+            {
+              "id": "money_problem_b17caf37",
+              "label": "parentsのmoneyがheart配"
+            },
+            {
+              "id": "money_problem_73f3eda7",
+              "label": "childのmoneyがheart配"
+            },
+            {
+              "id": "money_problem_b8796947",
+              "label": "moneyのために我慢している"
+            },
+            {
+              "id": "money_problem_7d984eaf",
+              "label": "moneyのためにwhat I loveが I can’t"
+            },
+            {
+              "id": "money_problem_2f025569",
+              "label": "moneyのために働いている"
+            },
+            {
+              "id": "money_problem_40c0489b",
+              "label": "moneyのためにwork I can’t quit"
+            },
+            {
+              "id": "money_problem_09270baa",
+              "label": "moneyのために夢をあきらめている"
+            },
+            {
+              "id": "money_problem_4b693fc9",
+              "label": "moneyの自由 is missing"
+            },
+            {
+              "id": "money_problem_3240d606",
+              "label": "moneyにlifeを支配されている"
+            },
+            {
+              "id": "money_problem_b0104160",
+              "label": "moneyがあれば幸せになれると思っている"
+            },
+            {
+              "id": "money_problem_c17ab299",
+              "label": "moneyがあっても満た not being recognized"
+            },
+            {
+              "id": "money_problem_0e71ff0a",
+              "label": "moneyに価値を感じすぎている"
+            },
+            {
+              "id": "money_problem_68db2cde",
+              "label": "moneyを信じられない"
+            },
+            {
+              "id": "money_problem_53728602",
+              "label": "moneyを信用 I can’t"
+            },
+            {
+              "id": "money_problem_054fffa1",
+              "label": "moneyの話をするの is hard for me"
+            },
+            {
+              "id": "money_problem_390237d4",
+              "label": "moneyのことを人に相談 I can’t"
+            },
+            {
+              "id": "money_problem_f79b6585",
+              "label": "moneyのことで恥を感じている"
+            },
+            {
+              "id": "money_problem_cacda8e3",
+              "label": "moneyのことで自分を責めている"
+            },
+            {
+              "id": "money_problem_55a56c30",
+              "label": "moneyに自信 is missing"
+            },
+            {
+              "id": "money_problem_686ba5c2",
+              "label": "moneyに余裕 is missing"
+            },
+            {
+              "id": "money_problem_5a18413e",
+              "label": "moneyに追われている"
+            },
+            {
+              "id": "money_problem_cd1b1583",
+              "label": "moneyで失敗するの scares me"
+            },
+            {
+              "id": "money_problem_78d59672",
+              "label": "moneyを失う自分を許せない"
+            },
+            {
+              "id": "money_problem_164ac387",
+              "label": "moneyを持ち続けられる自信 is missing"
+            },
+            {
+              "id": "money_problem_4bdd58b7",
+              "label": "moneyを増やす力 is missingと感じる"
+            },
+            {
+              "id": "money_problem_fcd62478",
+              "label": "moneyを生み出せないと感じる"
+            },
+            {
+              "id": "money_problem_049617d1",
+              "label": "moneyの不安が消えない"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "money_ideal_461b4822",
+              "label": "moneyに安heartしている"
+            },
+            {
+              "id": "money_ideal_88966166",
+              "label": "moneyに余裕 exists"
+            },
+            {
+              "id": "money_ideal_1b6b0023",
+              "label": "必要なmoney exists"
+            },
+            {
+              "id": "money_ideal_bbefe0e6",
+              "label": "money is not a problem"
+            },
+            {
+              "id": "money_ideal_8927528b",
+              "label": "安heartして受け取っている"
+            },
+            {
+              "id": "money_ideal_a872d139",
+              "label": "安heartして支払っている"
+            },
+            {
+              "id": "money_ideal_9c603fb0",
+              "label": "安heartして使っている"
+            },
+            {
+              "id": "money_ideal_0172311b",
+              "label": "money is being valued"
+            },
+            {
+              "id": "money_ideal_e0186f58",
+              "label": "money is managed well"
+            },
+            {
+              "id": "money_ideal_1f1dcaef",
+              "label": "money circulates naturally"
+            },
+            {
+              "id": "money_ideal_8be5a300",
+              "label": "income is stable"
+            },
+            {
+              "id": "money_ideal_c032a6b1",
+              "label": "About 十分に稼いでいる"
+            },
+            {
+              "id": "money_ideal_573733fa",
+              "label": "About 自分の価値を受け取っている"
+            },
+            {
+              "id": "money_ideal_5b43241f",
+              "label": "喜ばれながらincomeを得ている"
+            },
+            {
+              "id": "money_ideal_b3818c27",
+              "label": "what I loveでincomeを得ている"
+            },
+            {
+              "id": "money_ideal_8e048eac",
+              "label": "人の役に立ちながらincomeを得ている"
+            },
+            {
+              "id": "money_ideal_86613586",
+              "label": "moneyを失う不安 is missing"
+            },
+            {
+              "id": "money_ideal_40dba424",
+              "label": "futureのmoneyに安heartしている"
+            },
+            {
+              "id": "money_ideal_b6e410e9",
+              "label": "familyを支えられる余裕 exists"
+            },
+            {
+              "id": "money_ideal_2868e8cd",
+              "label": "About 自分に必要なものを選べる"
+            },
+            {
+              "id": "money_ideal_50bb46a7",
+              "label": "大切なことにmoneyを使えている"
+            },
+            {
+              "id": "money_ideal_c6fc0309",
+              "label": "About 無理なく貯めている"
+            },
+            {
+              "id": "money_ideal_440f05cc",
+              "label": "About 無理なく増やしている"
+            },
+            {
+              "id": "money_ideal_68a3fac2",
+              "label": "About 無理なく守っている"
+            },
+            {
+              "id": "money_ideal_da7aff93",
+              "label": "moneyとhealthな関係を築いている"
+            },
+            {
+              "id": "money_ideal_5cdd330d",
+              "label": "money is not controlling me"
+            },
+            {
+              "id": "money_ideal_c1c401e8",
+              "label": "money does not define my worth"
+            },
+            {
+              "id": "money_ideal_17329580",
+              "label": "money is handled freely"
+            },
+            {
+              "id": "money_ideal_ca8767b8",
+              "label": "money is appreciated"
+            },
+            {
+              "id": "money_ideal_50c4a40c",
+              "label": "moneyとの関係 feels satisfying"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "label": "Health",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "health_problem_3703de32",
+              "label": "body feels painful"
+            },
+            {
+              "id": "health_problem_c43a3e00",
+              "label": "body feels heavy"
+            },
+            {
+              "id": "health_problem_5ced3473",
+              "label": "body feels sluggish"
+            },
+            {
+              "id": "health_problem_e31e6195",
+              "label": "body力 is missing"
+            },
+            {
+              "id": "health_problem_aa81dc97",
+              "label": "About 疲れが取れない"
+            },
+            {
+              "id": "health_problem_8f7b84f1",
+              "label": "About 眠れない"
+            },
+            {
+              "id": "health_problem_f2948e96",
+              "label": "About 朝起きられない"
+            },
+            {
+              "id": "health_problem_15720dcf",
+              "label": "pain exists"
+            },
+            {
+              "id": "health_problem_98107fab",
+              "label": "illness scares me"
+            },
+            {
+              "id": "health_problem_9be34c47",
+              "label": "aging scares me"
+            },
+            {
+              "id": "health_problem_79fd82e9",
+              "label": "太るの scares me"
+            },
+            {
+              "id": "health_problem_48940ed3",
+              "label": "About 痩せられない"
+            },
+            {
+              "id": "health_problem_5464eab1",
+              "label": "食べ too much"
+            },
+            {
+              "id": "health_problem_0b6d95ed",
+              "label": "食べることを我慢 I can’t"
+            },
+            {
+              "id": "health_problem_08718823",
+              "label": "exercise does not last"
+            },
+            {
+              "id": "health_problem_ece583ff",
+              "label": "health管理が I can’t"
+            },
+            {
+              "id": "health_problem_ab9ce809",
+              "label": "自分のbody is something I dislike"
+            },
+            {
+              "id": "health_problem_d3f39013",
+              "label": "自分の見た目 is something I dislike"
+            },
+            {
+              "id": "health_problem_ff279166",
+              "label": "鏡を見るの feels painful"
+            },
+            {
+              "id": "health_problem_219bd11b",
+              "label": "人に見られるの scares me"
+            },
+            {
+              "id": "health_problem_9ce3a0f8",
+              "label": "bodyに自信 is missing"
+            },
+            {
+              "id": "health_problem_c7c379e1",
+              "label": "bodyを大切に I can’t"
+            },
+            {
+              "id": "health_problem_18a01677",
+              "label": "About 無理をしてしまう"
+            },
+            {
+              "id": "health_problem_cdad6a46",
+              "label": "I can’t rest"
+            },
+            {
+              "id": "health_problem_db498f80",
+              "label": "About 限界まで頑張ってしまう"
+            },
+            {
+              "id": "health_problem_524eae6b",
+              "label": "bodyの声を聞けない"
+            },
+            {
+              "id": "health_problem_4c90edf6",
+              "label": "About 不調を無視してしまう"
+            },
+            {
+              "id": "health_problem_2c6adfb8",
+              "label": "病院に行くの scares me"
+            },
+            {
+              "id": "health_problem_fb0bac02",
+              "label": "health診断 scares me"
+            },
+            {
+              "id": "health_problem_52f25da9",
+              "label": "futureのbody makes me anxious"
+            },
+            {
+              "id": "health_problem_9a28b168",
+              "label": "familyのhealthがheart配"
+            },
+            {
+              "id": "health_problem_c7c7570d",
+              "label": "childのhealthがheart配"
+            },
+            {
+              "id": "health_problem_16c7cbf4",
+              "label": "parentsのhealthがheart配"
+            },
+            {
+              "id": "health_problem_0f167be0",
+              "label": "illnessになる自分を責めてしまう"
+            },
+            {
+              "id": "health_problem_66fcd8fa",
+              "label": "body調が悪い自分を許せない"
+            },
+            {
+              "id": "health_problem_9391c7b1",
+              "label": "About 元気でいなければならない"
+            },
+            {
+              "id": "health_problem_f0761725",
+              "label": "About 強くいなければならない"
+            },
+            {
+              "id": "health_problem_79c55b9f",
+              "label": "迷惑をかけ I don’t want to"
+            },
+            {
+              "id": "health_problem_e2ce59b9",
+              "label": "About 弱いところを見せられない"
+            },
+            {
+              "id": "health_problem_d53fd0c9",
+              "label": "介護されるの scares me"
+            },
+            {
+              "id": "health_problem_bd197076",
+              "label": "死ぬの scares me"
+            },
+            {
+              "id": "health_problem_0565e626",
+              "label": "About 生きる力が弱っている"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "health_ideal_92b8be74",
+              "label": "body feels light"
+            },
+            {
+              "id": "health_ideal_d7f596fe",
+              "label": "body feels easy"
+            },
+            {
+              "id": "health_ideal_942ad9d2",
+              "label": "body feels energetic"
+            },
+            {
+              "id": "health_ideal_9b038826",
+              "label": "About よく眠れている"
+            },
+            {
+              "id": "health_ideal_9597ee03",
+              "label": "About 朝すっきり起きている"
+            },
+            {
+              "id": "health_ideal_b219c820",
+              "label": "About 疲れが取れている"
+            },
+            {
+              "id": "health_ideal_adf6772a",
+              "label": "breath is deep"
+            },
+            {
+              "id": "health_ideal_e1c814c7",
+              "label": "heartが落ち着いている"
+            },
+            {
+              "id": "health_ideal_1521019c",
+              "label": "bodyに安heartしている"
+            },
+            {
+              "id": "health_ideal_539a94ce",
+              "label": "bodyを信頼している"
+            },
+            {
+              "id": "health_ideal_06a4a2fd",
+              "label": "body is being valued"
+            },
+            {
+              "id": "health_ideal_54e791c5",
+              "label": "bodyの声を聞いている"
+            },
+            {
+              "id": "health_ideal_78e83f77",
+              "label": "About 無理をしていない"
+            },
+            {
+              "id": "health_ideal_12a9eea7",
+              "label": "About 必要なときに休んでいる"
+            },
+            {
+              "id": "health_ideal_ea98547f",
+              "label": "About 自分のペースで動いている"
+            },
+            {
+              "id": "health_ideal_1cc9588a",
+              "label": "mealsを楽しんでいる"
+            },
+            {
+              "id": "health_ideal_be3dfc73",
+              "label": "食べることに安heartしている"
+            },
+            {
+              "id": "health_ideal_72607b03",
+              "label": "About 気持ちよく動いている"
+            },
+            {
+              "id": "health_ideal_8febe9bd",
+              "label": "healthを楽しんでいる"
+            },
+            {
+              "id": "health_ideal_12c65e8c",
+              "label": "About 自分の見た目を受け入れている"
+            },
+            {
+              "id": "health_ideal_b695a737",
+              "label": "自分のbodyを受け入れている"
+            },
+            {
+              "id": "health_ideal_29636ab8",
+              "label": "About 年齢を受け入れている"
+            },
+            {
+              "id": "health_ideal_a019d487",
+              "label": "About 老いを恐れていない"
+            },
+            {
+              "id": "health_ideal_890fc2bb",
+              "label": "illnessを必要以上に恐れていない"
+            },
+            {
+              "id": "health_ideal_4ae92dfe",
+              "label": "body調の変化に落ち着いて対応している"
+            },
+            {
+              "id": "health_ideal_c37eeca5",
+              "label": "heartとbodyがつながっている"
+            },
+            {
+              "id": "health_ideal_f537e332",
+              "label": "heartとbodyのバランスが取れている"
+            },
+            {
+              "id": "health_ideal_408e192e",
+              "label": "About 生きる力を感じている"
+            },
+            {
+              "id": "health_ideal_213f20a8",
+              "label": "todayを気持ちよく生きている"
+            },
+            {
+              "id": "health_ideal_7137a6ec",
+              "label": "healthとの関係 feels satisfying"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "time",
+      "label": "Time",
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "Concerns",
+          "themes": [
+            {
+              "id": "time_problem_da61b38c",
+              "label": "time is missing"
+            },
+            {
+              "id": "time_problem_aa688b87",
+              "label": "About いつも忙しい"
+            },
+            {
+              "id": "time_problem_237e8162",
+              "label": "About いつも急いでいる"
+            },
+            {
+              "id": "time_problem_0fc4c2cd",
+              "label": "About いつも焦っている"
+            },
+            {
+              "id": "time_problem_70a11dc9",
+              "label": "余裕 is missing"
+            },
+            {
+              "id": "time_problem_8569735e",
+              "label": "ゆっくり I can’t"
+            },
+            {
+              "id": "time_problem_f36dbf52",
+              "label": "休むtime is missing"
+            },
+            {
+              "id": "time_problem_adb2bf06",
+              "label": "自分のtime is missing"
+            },
+            {
+              "id": "time_problem_34bcd136",
+              "label": "familyとのtime is missing"
+            },
+            {
+              "id": "time_problem_046668b3",
+              "label": "loved onesとのtime is missing"
+            },
+            {
+              "id": "time_problem_41601093",
+              "label": "what I loveをするtime is missing"
+            },
+            {
+              "id": "time_problem_ecf74051",
+              "label": "やりたいことをするtime is missing"
+            },
+            {
+              "id": "time_problem_0b60d2dd",
+              "label": "About やるべきことが多すぎる"
+            },
+            {
+              "id": "time_problem_fac73119",
+              "label": "every dayがあっという間に終わる"
+            },
+            {
+              "id": "time_problem_0df970ad",
+              "label": "About 一日を無駄にしている"
+            },
+            {
+              "id": "time_problem_ac20270a",
+              "label": "About 休日を無駄にしている"
+            },
+            {
+              "id": "time_problem_bdf65624",
+              "label": "lifeを無駄にしている"
+            },
+            {
+              "id": "time_problem_6a4d4e0a",
+              "label": "timeをうまく使えない"
+            },
+            {
+              "id": "time_problem_3726b87c",
+              "label": "About 計画通りに進まない"
+            },
+            {
+              "id": "time_problem_f99cd69c",
+              "label": "About 予定を詰めすぎる"
+            },
+            {
+              "id": "time_problem_add14d5c",
+              "label": "About 先延ばししてしまう"
+            },
+            {
+              "id": "time_problem_38db61d8",
+              "label": "About だらだらしてしまう"
+            },
+            {
+              "id": "time_problem_a6933301",
+              "label": "集中 I can’t"
+            },
+            {
+              "id": "time_problem_d1fd53ce",
+              "label": "About 続けられない"
+            },
+            {
+              "id": "time_problem_6b6eb8e3",
+              "label": "About 締め切りに追われる"
+            },
+            {
+              "id": "time_problem_ee64cbc8",
+              "label": "About いつもギリギリになる"
+            },
+            {
+              "id": "time_problem_25eecbc8",
+              "label": "About 遅れてしまう"
+            },
+            {
+              "id": "time_problem_ac25b6d2",
+              "label": "待つの is hard for me"
+            },
+            {
+              "id": "time_problem_8fbda990",
+              "label": "About 人を待たせてしまう"
+            },
+            {
+              "id": "time_problem_251b5954",
+              "label": "About 早く結果を出したい"
+            },
+            {
+              "id": "time_problem_c886110a",
+              "label": "About 早く変わりたい"
+            },
+            {
+              "id": "time_problem_a6a1a4ae",
+              "label": "About 早く成功したい"
+            },
+            {
+              "id": "time_problem_ebaa409d",
+              "label": "早く安heartしたい"
+            },
+            {
+              "id": "time_problem_2d7410cb",
+              "label": "pastを引きずっている"
+            },
+            {
+              "id": "time_problem_80ba1f29",
+              "label": "pastに戻りたい"
+            },
+            {
+              "id": "time_problem_522dc9e1",
+              "label": "pastをやり直したい"
+            },
+            {
+              "id": "time_problem_2f68a099",
+              "label": "About あの時こうすればよかった"
+            },
+            {
+              "id": "time_problem_09da6620",
+              "label": "About 今を楽しめない"
+            },
+            {
+              "id": "time_problem_14a77392",
+              "label": "今に集中 I can’t"
+            },
+            {
+              "id": "time_problem_2563134f",
+              "label": "future makes me anxious"
+            },
+            {
+              "id": "time_problem_f5ea2f96",
+              "label": "futureを考えると怖い"
+            },
+            {
+              "id": "time_problem_fe74ddda",
+              "label": "年を取るの scares me"
+            },
+            {
+              "id": "time_problem_c52f8bac",
+              "label": "About チャンスを逃した気がする"
+            },
+            {
+              "id": "time_problem_e35056cb",
+              "label": "About もう遅いと感じる"
+            },
+            {
+              "id": "time_problem_84156799",
+              "label": "About 間に合わないと感じる"
+            },
+            {
+              "id": "time_problem_1490db82",
+              "label": "About 人より遅れていると感じる"
+            },
+            {
+              "id": "time_problem_213fe1c3",
+              "label": "lifeが進んでいないと感じる"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "Ideal states",
+          "themes": [
+            {
+              "id": "time_ideal_b24d1409",
+              "label": "timeに余裕 exists"
+            },
+            {
+              "id": "time_ideal_c6db07a4",
+              "label": "heartに余裕 exists"
+            },
+            {
+              "id": "time_ideal_0993d98f",
+              "label": "About 今に集中している"
+            },
+            {
+              "id": "time_ideal_e36cab98",
+              "label": "About 今を味わっている"
+            },
+            {
+              "id": "time_ideal_6f139cd7",
+              "label": "today is being valued"
+            },
+            {
+              "id": "time_ideal_94a6d2b0",
+              "label": "every dayを丁寧に過ごしている"
+            },
+            {
+              "id": "time_ideal_55ad07ab",
+              "label": "自分のtime exists"
+            },
+            {
+              "id": "time_ideal_324e0920",
+              "label": "loved onesとのtime exists"
+            },
+            {
+              "id": "time_ideal_2b42f7d1",
+              "label": "what I loveをするtime exists"
+            },
+            {
+              "id": "time_ideal_93b0ccb1",
+              "label": "休むtime exists"
+            },
+            {
+              "id": "time_ideal_883a12d1",
+              "label": "About 必要なことを進めている"
+            },
+            {
+              "id": "time_ideal_28d7a6d6",
+              "label": "About 優先順位がはっきりしている"
+            },
+            {
+              "id": "time_ideal_f0000031",
+              "label": "About 大切なことを選んでいる"
+            },
+            {
+              "id": "time_ideal_0deab867",
+              "label": "About 先延ばしせず動いている"
+            },
+            {
+              "id": "time_ideal_05fc114f",
+              "label": "About 自分のペースで進んでいる"
+            },
+            {
+              "id": "time_ideal_41ca7620",
+              "label": "About 焦っていない"
+            },
+            {
+              "id": "time_ideal_52b8aa95",
+              "label": "About 急ぎすぎていない"
+            },
+            {
+              "id": "time_ideal_d4442189",
+              "label": "pastを手放している"
+            },
+            {
+              "id": "time_ideal_84002ad7",
+              "label": "futureを信頼している"
+            },
+            {
+              "id": "time_ideal_29636ab8",
+              "label": "About 年齢を受け入れている"
+            },
+            {
+              "id": "time_ideal_af019741",
+              "label": "About 人と比べて焦らない"
+            },
+            {
+              "id": "time_ideal_26dce58b",
+              "label": "About 間に合っていると感じている"
+            },
+            {
+              "id": "time_ideal_73a9b408",
+              "label": "lifeの流れを信頼している"
+            },
+            {
+              "id": "time_ideal_76d5b9b7",
+              "label": "timeを味方にしている"
+            },
+            {
+              "id": "time_ideal_98733f77",
+              "label": "timeとの関係 feels satisfying"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -30,13 +30,15 @@ body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;backg
 .screen.active{opacity:1;transform:translateY(0);pointer-events:all}
 .screen.exit{opacity:0;transform:translateY(-12px)}
 .progress-bar{position:fixed;top:0;left:0;height:2px;background:#6B9080;width:0;transition:width .6s cubic-bezier(.4,0,.2,1);z-index:100;opacity:.7}
-.btn-back{position:fixed;top:1rem;left:1rem;width:36px;height:36px;background:transparent;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;z-index:200}
+.btn-back{position:fixed;top:calc(1rem + env(safe-area-inset-top));left:1rem;width:40px;height:40px;background:rgba(250,250,247,.72);border:1px solid rgba(107,144,128,.12);border-radius:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:1;pointer-events:auto;transition:opacity .3s,background .2s;z-index:220;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .btn-back.visible{opacity:1;pointer-events:auto}
 .btn-back svg{display:block}
 .btn-back:active svg path{stroke:#6B9080}
+.btn-v17-skip{position:fixed;top:calc(1rem + env(safe-area-inset-top));right:1rem;z-index:220;height:40px;padding:0 16px;border:1px solid rgba(107,144,128,.12);border-radius:20px;background:rgba(250,250,247,.72);color:#77736E;font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.08em;cursor:pointer;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);transition:color .2s,border-color .2s,background .2s}
+.btn-v17-skip:active{color:#6B9080;border-color:rgba(107,144,128,.35)}
 .theme-mode-btn{position:static;min-width:58px;height:32px;padding:0 10px;border:1px solid rgba(107,144,128,.28);border-radius:18px;background:rgba(250,250,247,.82);color:#77736E;font-family:'Noto Serif JP',serif;font-size:.65rem;letter-spacing:.04em;cursor:pointer;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(8px);transition:background .2s,color .2s,border-color .2s}
 .theme-mode-btn:active{color:#6B9080;border-color:#6B9080}
-.settings-cluster{position:fixed;top:calc(1rem + env(safe-area-inset-top));right:1rem;z-index:210;display:flex;align-items:center;gap:6px}
+.settings-cluster{position:fixed;top:calc(4rem + env(safe-area-inset-top));right:1rem;z-index:210;display:flex;align-items:center;gap:6px}
 .language-control,.account-control{position:relative}
 .language-chip,.account-chip{height:30px;min-width:82px;padding:0 10px;border:1px solid rgba(109,185,183,.32);border-radius:18px;background:linear-gradient(120deg,rgba(255,255,255,.62),rgba(221,244,242,.44),rgba(235,225,249,.48));box-shadow:0 6px 20px rgba(90,145,150,.1),inset 0 1px 0 rgba(255,255,255,.72),0 0 14px rgba(135,214,209,.1);color:#657674;font-family:'Noto Serif JP',serif;font-size:.63rem;letter-spacing:.03em;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .account-chip{min-width:70px}
@@ -82,9 +84,13 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .breath-circle.exhale{transform:scale(1);transition:transform 4s cubic-bezier(.4,0,.2,1),box-shadow 4s ease}
 @keyframes ntn-pulse{0%,100%{opacity:.55}50%{opacity:1}}
 .breath-circle.pulse{animation:ntn-pulse 2.4s infinite}
-.v17-step{width:100%;max-width:360px;display:flex;flex-direction:column;align-items:center;text-align:center}
-.v17-theme-quote{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;line-height:1.9;letter-spacing:.04em;color:#1A1A1A;max-width:330px;margin-bottom:1.5rem;white-space:pre-line}
-.v17-step-copy{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2;letter-spacing:.05em;color:#77736E;max-width:310px;margin-bottom:1.5rem;white-space:pre-line}
+.v17-step{width:100%;max-width:380px;display:flex;flex-direction:column;align-items:center;text-align:center;padding:2rem 0}
+.v17-theme-quote{font-family:'Noto Serif JP',serif;font-size:clamp(1.16rem,4.7vw,1.42rem);font-weight:400;line-height:1.75;letter-spacing:.035em;color:#1A1A1A;max-width:340px;margin-bottom:2rem;white-space:pre-line;text-wrap:balance}
+.v17-step-copy{font-family:'Noto Serif JP',serif;font-size:.96rem;font-weight:300;line-height:2.05;letter-spacing:.035em;color:#625F5A;max-width:320px;margin-bottom:1.8rem;white-space:pre-line;text-wrap:balance}
+.v17-step-helper{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;line-height:1.8;letter-spacing:.05em;color:#A8A8A2;margin:.15rem 0 .8rem;white-space:pre-line}
+.v17-breath-lead{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;color:#A8A8A2;letter-spacing:.1em;margin-bottom:1.4rem}
+.v17-breath-body{font-family:'Noto Serif JP',serif;font-size:clamp(1.25rem,5vw,1.55rem);font-weight:400;color:#1A1A1A;line-height:1.8;letter-spacing:.035em;text-align:center;white-space:pre-line;margin-bottom:1.8rem;text-wrap:balance}
+.v17-breath-hint{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;color:#A8A8A2;letter-spacing:.06em;margin-bottom:1.5rem}
 .v17-writing{font-family:'Noto Serif JP',serif;font-size:.94rem;font-weight:300;line-height:1.8;width:100%;max-width:330px;min-height:132px;padding:1rem 1.1rem;border:1px solid rgba(108,181,179,.24);border-radius:18px;background:rgba(255,255,255,.23);color:#1A1A1A;outline:none;resize:vertical;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 25px rgba(75,112,124,.045)}
 .v17-writing:focus{border-color:rgba(83,191,186,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.64),0 0 0 3px rgba(108,211,205,.065),0 10px 28px rgba(75,142,148,.08)}
 .v17-writing::placeholder{color:#AAA69F}
@@ -93,6 +99,17 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-result-row:last-child{border-bottom:none}
 .v17-result-label{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#77736E;letter-spacing:.12em}
 .v17-result-value{font-family:'Noto Serif JP',serif;font-size:1.05rem;color:#6B9080;font-weight:600}
+.v17-result-happiness-label{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;line-height:1.8;letter-spacing:.04em;margin:1.1rem 0 .8rem;text-align:center}
+.v17-result-score-flow{display:flex;flex-direction:column;align-items:center;gap:.25rem;padding:.3rem 0 1rem}
+.v17-result-score-point{display:flex;align-items:baseline;justify-content:center;gap:1.2rem;min-width:150px}
+.v17-result-score-point span{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.14em}
+.v17-result-score-point strong{font-family:'Noto Serif JP',serif;font-size:1.55rem;color:#6B9080;font-weight:500}
+.v17-result-score-arrow{font-size:.8rem;color:#B8B8B0;line-height:1.2}
+.v17-result-actions{width:100%;max-width:320px;display:flex;flex-direction:column;gap:.65rem;margin-top:1.3rem;padding-bottom:2rem}
+.v17-result-action{width:100%;min-height:48px;border:1px solid rgba(107,144,128,.22);border-radius:16px;background:rgba(255,255,255,.18);color:#4F5E59;font-family:'Noto Serif JP',serif;font-size:.78rem;letter-spacing:.05em;cursor:pointer}
+.v17-result-action.primary{background:#6B9080;color:#fff;border-color:#6B9080}
+.v17-result-action:active{transform:scale(.985)}
+.v17-image-status{min-height:1.4em;margin-top:.45rem;font-family:'Noto Serif JP',serif;font-size:.65rem;color:#8F8F88;letter-spacing:.04em;text-align:center}
 .sc-card{width:100%;max-width:320px;background:#FAFAF7;border:1px solid #E8E8E2;border-radius:14px;padding:1.1rem 1.2rem .9rem;box-sizing:border-box;margin-bottom:.5rem}
 .sc-card-header{text-align:center;margin-bottom:.35rem}
 .sc-card-title{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:600;color:#1A1A1A;letter-spacing:.08em}
@@ -148,6 +165,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-nm:active{transform:scale(.97)}
 .btn-nm.selected{background:#F2F7F5;color:#6B9080;border-color:#6B9080}
 .score-num.nm{visibility:visible;font-size:1.3rem;font-weight:500;color:#6B9080;letter-spacing:.1em}
+.v17-not-a-problem{display:flex;flex-direction:column;align-items:center;gap:.2rem;line-height:1.45}
+.v17-not-a-problem-label{font-size:.8rem;letter-spacing:.08em}
+.v17-not-a-problem-hint{font-size:.62rem;font-weight:300;letter-spacing:.04em;opacity:.72}
 @media(max-height:640px){.screen{padding:2.5rem 1.4rem 1.8rem}.breath-circle{width:110px;height:110px}.intro-title{font-size:2.3rem}}
 /* theme screen */
 .theme-top-copy{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;color:#666660;text-align:center;letter-spacing:.04em;line-height:2;margin-bottom:1.2rem;white-space:pre-line;max-width:300px}
@@ -228,6 +248,31 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .hcq-question-btn:active{transform:scale(.99)}
 .hcq-empty{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#8F8F88;line-height:1.8;text-align:center;padding:1rem 0}
 .hcq-status{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#8F8F88;line-height:1.8;text-align:center;padding:1.1rem 0}
+.v17-entry-shell{width:100%;max-width:360px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:3rem}
+.v17-entry-heading{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;line-height:1.9;letter-spacing:.06em;text-align:center;color:#1A1A1A;margin-bottom:1rem}
+.v17-entry-shell .v17-writing{width:100%;max-width:none;text-align:left;margin-bottom:1rem}
+.v17-entry-shell>.btn{align-self:center;margin-top:0}
+.v17-entry-divider{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 1.8rem;color:#A8A8A2;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.12em}
+.v17-entry-divider::before,.v17-entry-divider::after{content:'';height:1px;background:#E5E5DF;flex:1}
+.v17-category-intro{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:1.9;letter-spacing:.04em;text-align:center;color:#77736E;margin-bottom:1rem}
+.v17-theme-accordion{width:100%;border-bottom:1px solid #E8E8E2}
+.v17-category{border-top:1px solid #E8E8E2}
+.v17-category-button,.v17-track-button{width:100%;border:0;background:transparent;color:#1A1A1A;font-family:'Noto Serif JP',serif;cursor:pointer;display:flex;align-items:center;justify-content:space-between;text-align:left;-webkit-tap-highlight-color:transparent}
+.v17-category-button{padding:1rem .15rem;font-size:.9rem;letter-spacing:.1em}
+.v17-track-button{padding:.85rem .4rem;font-size:.78rem;letter-spacing:.08em;color:#666660}
+.v17-accordion-mark{font-size:.85rem;color:#A8A8A2;font-weight:300}
+.v17-category-body,.v17-track-body{display:none}
+.v17-category.open>.v17-category-body,.v17-track.open>.v17-track-body{display:block}
+.v17-category-body{padding:0 .2rem .8rem}
+.v17-track{border-top:1px solid rgba(232,232,226,.72)}
+.v17-theme-list{display:flex;flex-direction:column;gap:.5rem;padding:.1rem .35rem .9rem}
+.v17-library-theme{width:100%;border:1px solid rgba(107,144,128,.25);border-radius:16px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:1.7;letter-spacing:.03em;padding:.8rem .9rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.v17-library-theme:active{border-color:#6B9080;background:rgba(107,144,128,.09)}
+.v17-theme-more{margin:0;padding:.75rem 0 1rem;font-size:.7rem}
+.v17-result-copy{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:1.9;color:#1A1A1A;letter-spacing:.03em;white-space:pre-line}
+.lp-hero-title,.lp-hero-sub,.screen-title,.measure-problem,.breath-main,.v17-entry-heading,.v17-theme-quote,.v17-step-copy,.v17-step-helper,.v17-breath-body,.v17-breath-hint{line-break:strict;text-wrap:balance}
+.v17-library-theme,.v17-result-theme,.v17-result-copy{line-break:strict;text-wrap:pretty;overflow-wrap:anywhere}
+.btn,.btn-ghost,.btn-lp-start,.btn-see-more,.v17-result-action{line-height:1.55;text-wrap:balance;white-space:normal}
 #s-nega{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
 #s-nega-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:2rem}
 #s-nega-inner>*{flex-shrink:0}
@@ -587,6 +632,18 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 .language-menu button:active,.language-menu button.selected,.account-menu button:active{background:linear-gradient(120deg,rgba(64,145,135,.22),rgba(105,76,143,.2));color:#e4f2ef}
 .account-menu-separator{background:rgba(105,204,196,.13)}
 .save-result-toast{background:rgba(13,23,28,.92);color:#d7e7e3;border-color:rgba(105,204,196,.22);box-shadow:0 14px 38px rgba(0,0,0,.3)}
+.v17-entry-heading,.v17-category-button,.v17-library-theme,.v17-result-copy{color:#F5EFE6}
+.v17-category-intro,.v17-track-button{color:#B8B2A8}
+.v17-entry-divider{color:#8E8981}
+.v17-entry-divider::before,.v17-entry-divider::after,.v17-theme-accordion,.v17-category,.v17-track{border-color:rgba(245,239,230,.1);background-color:transparent}
+.v17-entry-divider::before,.v17-entry-divider::after{background:rgba(245,239,230,.1)}
+.v17-library-theme{background:rgba(98,194,184,.055);border-color:rgba(124,204,195,.2)}
+.btn-v17-skip,.btn-back{background:rgba(13,23,28,.68);border-color:rgba(105,204,196,.18);color:#B8B2A8}
+.v17-breath-body{color:#F5EFE6}
+.v17-breath-lead,.v17-breath-hint,.v17-step-helper{color:#8E8981}
+.v17-result-happiness-label{color:#B8B2A8}
+.v17-result-action{background:rgba(98,194,184,.055);border-color:rgba(124,204,195,.2);color:#D7E7E3}
+.v17-result-action.primary{background:linear-gradient(112deg,rgba(39,73,70,.72),rgba(42,95,91,.68) 45%,rgba(67,57,91,.66));color:#E8F4F1}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TH1504X2CK',{send_page_view:true});</script>
@@ -604,14 +661,15 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
+<button class="btn-v17-skip" id="btn-v17-skip" type="button" onclick="handleV17Skip()"></button>
 <div class="settings-cluster">
   <button class="theme-mode-btn" id="btn-theme-mode" type="button" onclick="cycleThemeMode()" aria-label=""></button>
   <div class="language-control">
-    <button class="language-chip" id="btn-language-chip" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLanguageMenu()"><span id="current-language-name">English</span><span class="language-chip-arrow" aria-hidden="true">▾</span></button>
+    <button class="language-chip" id="btn-language-chip" type="button" aria-haspopup="true" aria-expanded="false" onclick="toggleLanguageMenu()"><span id="current-language-name"></span><span class="language-chip-arrow" aria-hidden="true">▾</span></button>
     <div class="language-menu" id="language-menu" hidden>
-      <button type="button" data-language="en" onclick="selectInterfaceLanguage('en')">English</button>
-      <button type="button" data-language="ja" onclick="selectInterfaceLanguage('ja')">日本語</button>
-      <button type="button" data-language="zh-TW" onclick="selectInterfaceLanguage('zh-TW')">繁體中文</button>
+      <button type="button" data-language="en" onclick="selectInterfaceLanguage('en')"></button>
+      <button type="button" data-language="ja" onclick="selectInterfaceLanguage('ja')"></button>
+      <button type="button" data-language="zh-TW" onclick="selectInterfaceLanguage('zh-TW')"></button>
     </div>
   </div>
   <div class="account-control">
@@ -660,26 +718,15 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 </div>
 
 <!-- ── V17 ENTRY CHOICE ── -->
-<div class="screen" id="s-v17-entry-choice">
-  <div id="s-v17-entry-choice-inner">
-    <div class="entry-title" id="v17-entry-choice-title"></div>
-    <div class="entry-choice">
-      <button type="button" class="entry-choice-btn" id="btn-v17-entry-free" onclick="openV17FreeInput()"></button>
-      <div class="entry-choice-desc" id="v17-entry-free-desc"></div>
-    </div>
-    <div class="entry-choice">
-      <button type="button" class="entry-choice-btn" id="btn-v17-entry-questions" onclick="openV17QuestionPicker()"></button>
-      <div class="entry-choice-desc" id="v17-entry-questions-desc"></div>
-    </div>
-  </div>
-</div>
-
-<!-- ── V17 FREE INPUT ── -->
-<div class="screen" id="s-v17-free-input">
-  <div class="v17-step">
-    <div class="entry-title" id="v17-free-input-title"></div>
+<div class="screen screen-scroll" id="s-v17-entry-choice">
+  <div class="v17-entry-shell">
+    <div class="v17-entry-heading" id="v17-free-input-title"></div>
     <textarea class="v17-writing" id="in-v17-free-theme" maxlength="600" oninput="onV17FreeInput(this.value)"></textarea>
     <button class="btn" id="btn-v17-free-start" type="button" onclick="submitV17FreeInput()" disabled></button>
+    <div class="v17-entry-divider" id="v17-entry-divider"></div>
+    <div class="v17-category-intro" id="v17-category-intro"></div>
+    <div class="v17-theme-accordion" id="v17-theme-accordion"></div>
+    <div class="hcq-status" id="v17-theme-library-status" role="status" aria-live="polite"></div>
   </div>
 </div>
 
@@ -798,13 +845,13 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V16 LOOP CHOICE ── -->
 <div class="screen" id="s-v16-loop-choice">
   <div id="s-entry-inner">
-    <div class="entry-title">Go Deeper?</div>
-    <div class="breath-main">Is there another negative side of this verb, or are you complete for now?</div>
+    <div class="entry-title"></div>
+    <div class="breath-main"></div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-v16-go-deeper" type="button" onclick="goV16Deeper()">Go deeper</button>
+      <button class="entry-choice-btn" id="btn-v16-go-deeper" type="button" onclick="goV16Deeper()"></button>
     </div>
     <div class="entry-choice">
-      <button class="entry-choice-btn" id="btn-v16-no-more" type="button" onclick="openV16AfterMeasurement()">No more answers</button>
+      <button class="entry-choice-btn" id="btn-v16-no-more" type="button" onclick="openV16AfterMeasurement()"></button>
     </div>
   </div>
 </div>
@@ -914,13 +961,13 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <div class="screen" id="s-v12-free">
   <div id="s-nega-inner">
     <div id="s-nega-top">
-      <div class="theme-screen-title">今意識が向いていることについて何を感じていますか？</div>
+      <div class="theme-screen-title"></div>
     </div>
     <input type="text" class="text-input" id="in-v12-free"
-      placeholder="例：不安 / 重い / 気になる / ざわざわする"
+      placeholder=""
       autocomplete="off" maxlength="40"
       oninput="onV12FreeInput(this.value)">
-    <button class="btn" id="btn-v12-free-submit" onclick="submitV12FreeEntry()" disabled style="margin-top:1.2rem">このテーマで始める</button>
+    <button class="btn" id="btn-v12-free-submit" onclick="submitV12FreeEntry()" disabled style="margin-top:1.2rem"></button>
   </div>
 </div>
 
@@ -942,17 +989,17 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <!-- V12 Core panel (shown only when v12Mode === 'core') -->
     <div id="v12-core-panel" style="display:none">
       <div id="s-theme-top">
-        <div class="theme-screen-title">土台からほどく</div>
-        <div class="theme-screen-sub">人生と自然に付き合える。良い時も悪い時も、人生そのものを敵にしない。</div>
+        <div class="theme-screen-title"></div>
+        <div class="theme-screen-sub"></div>
       </div>
       <div id="v12-core-grid"></div>
-      <button class="btn-see-more" id="btn-see-more-core" onclick="seeMoreCoreThemes()" style="display:none">さらに土台を見る</button>
+      <button class="btn-see-more" id="btn-see-more-core" onclick="seeMoreCoreThemes()" style="display:none"></button>
     </div>
     <!-- V12 Situation panel (shown only when v12Mode === 'situation') -->
     <div id="v12-situation-panel" style="display:none">
       <div id="s-theme-top">
-        <div class="theme-screen-title">状況からほどく</div>
-        <div class="theme-screen-sub">今反応しているテーマから、古い規律をほどきます。</div>
+        <div class="theme-screen-title"></div>
+        <div class="theme-screen-sub"></div>
       </div>
       <div id="v12-situation-accordion"></div>
     </div>
@@ -988,20 +1035,25 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-before" oninput="onSlider('v17-before',this.value)">
       <div class="slider-labels"><span>0</span><span>100</span></div>
     </div>
+    <button class="btn-nm v17-not-a-problem" id="nm-v17-before" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-before')">
+      <span class="v17-not-a-problem-label" id="nm-label-v17-before"></span>
+      <span class="v17-not-a-problem-hint" id="nm-hint-v17-before"></span>
+    </button>
     <button class="btn" id="next-v17-before" type="button" onclick="submitV17BeforeScore()" disabled></button>
   </div>
 </div>
 
 <div class="screen" id="s-v17-ideal-100">
   <div class="v17-step">
+    <div class="v17-theme-quote" id="v17-hundred-focus"></div>
     <div class="v17-step-copy" id="v17-ideal-prompt"></div>
     <button class="btn" id="next-v17-ideal" type="button" onclick="continueV17IdealState()"></button>
-    <button class="btn-ghost" id="skip-v17-ideal" type="button" onclick="finishV17OuterLoop()"></button>
   </div>
 </div>
 
 <div class="screen" id="s-v17-current-state">
   <div class="v17-step">
+    <div class="v17-theme-quote" id="v17-current-theme"></div>
     <div class="v17-step-copy" id="v17-current-prompt"></div>
     <textarea class="v17-writing" id="in-v17-current" maxlength="600" oninput="onV17WritingInput('current',this.value)"></textarea>
     <button class="btn" id="next-v17-current" type="button" onclick="submitV17CurrentState()" disabled></button>
@@ -1017,25 +1069,11 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-current-measure" oninput="onSlider('v17-current-measure',this.value)">
       <div class="slider-labels"><span>0</span><span>100</span></div>
     </div>
+    <button class="btn-nm v17-not-a-problem" id="nm-v17-current-measure" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-current-measure')">
+      <span class="v17-not-a-problem-label" id="nm-label-v17-current-measure"></span>
+      <span class="v17-not-a-problem-hint" id="nm-hint-v17-current-measure"></span>
+    </button>
     <button class="btn" id="next-v17-current-measure" type="button" onclick="submitV17CurrentStateScore()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-reword">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-reword-current"></div>
-    <div class="v17-step-copy" id="v17-reword-prompt"></div>
-    <textarea class="v17-writing" id="in-v17-reword" maxlength="600" oninput="onV17WritingInput('reword',this.value)"></textarea>
-    <button class="btn" id="next-v17-reword" type="button" onclick="submitV17Rewording()" disabled></button>
-    <button class="btn-ghost" id="skip-v17-reword" type="button" onclick="finishV17InnerLoop()"></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-breath">
-  <div class="v17-step">
-    <div class="breath-main" id="v17-breath-prompt"></div>
-    <div class="breath-circle pulse" id="circle-v17-breath" role="button" tabindex="0" onclick="startV17Breath()" onkeydown="onV17BreathKeydown(event)"></div>
-    <button class="btn" id="next-v17-breath" type="button" onclick="continueV17BreathPhase()" disabled></button>
   </div>
 </div>
 
@@ -1043,21 +1081,17 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="v17-step">
     <div class="v17-theme-quote" id="v17-ideal-state-quote"></div>
     <div class="v17-step-copy" id="v17-ideal-state-prompt"></div>
-    <textarea class="v17-writing" id="in-v17-ideal-state" maxlength="600" oninput="onV17WritingInput('ideal-state',this.value)"></textarea>
+    <textarea class="v17-writing" id="in-v17-ideal-state" maxlength="600" oninput="onV17WritingInput('idealState',this.value)"></textarea>
     <button class="btn" id="next-v17-ideal-state" type="button" onclick="submitV17IdealState()" disabled></button>
   </div>
 </div>
 
-<div class="screen" id="s-v17-remeasure">
+<div class="screen" id="s-v17-breath">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-remeasure-quote"></div>
-    <div class="v17-step-copy" id="v17-remeasure-prompt"></div>
-    <div class="score-num" id="num-v17-remeasure"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-remeasure" oninput="onSlider('v17-remeasure',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
-    </div>
-    <button class="btn" id="next-v17-remeasure" type="button" onclick="submitV17RemeasureScore()" disabled></button>
+    <div class="v17-breath-lead" id="v17-breath-lead"></div>
+    <div class="v17-breath-body" id="v17-breath-body"></div>
+    <div class="v17-breath-hint" id="v17-breath-hint"></div>
+    <div class="breath-circle pulse" id="circle-v17-breath" role="button" tabindex="0" onclick="startV17Breath()" onkeydown="onV17BreathKeydown(event)"></div>
   </div>
 </div>
 
@@ -1070,16 +1104,37 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-final" oninput="onSlider('v17-final',this.value)">
       <div class="slider-labels"><span>0</span><span>100</span></div>
     </div>
+    <button class="btn-nm v17-not-a-problem" id="nm-v17-final" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-final')">
+      <span class="v17-not-a-problem-label" id="nm-label-v17-final"></span>
+      <span class="v17-not-a-problem-hint" id="nm-hint-v17-final"></span>
+    </button>
     <button class="btn" id="next-v17-final" type="button" onclick="submitV17FinalScore()" disabled></button>
+  </div>
+</div>
+
+<div class="screen" id="s-v17-theme-final">
+  <div class="v17-step">
+    <div class="v17-theme-quote" id="v17-theme-final-quote"></div>
+    <div class="v17-step-copy" id="v17-theme-final-prompt"></div>
+    <div class="score-num" id="num-v17-theme-final"></div>
+    <div class="slider-wrap">
+      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-theme-final" oninput="onSlider('v17-theme-final',this.value)">
+      <div class="slider-labels"><span>0</span><span>100</span></div>
+    </div>
+    <button class="btn-nm v17-not-a-problem" id="nm-v17-theme-final" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-theme-final')">
+      <span class="v17-not-a-problem-label" id="nm-label-v17-theme-final"></span>
+      <span class="v17-not-a-problem-hint" id="nm-hint-v17-theme-final"></span>
+    </button>
+    <button class="btn" id="next-v17-theme-final" type="button" onclick="submitV17ThemeFinalScore()" disabled></button>
   </div>
 </div>
 
 <!-- ── ISSUE ── -->
 <div class="screen" id="s-issue">
   <div class="screen-title" id="t-issue-title"></div>
-  <input type="text" class="text-input" id="in-issue" placeholder="問題を入力…" autocomplete="off" oninput="onInput('issue')">
+  <input type="text" class="text-input" id="in-issue" placeholder="" autocomplete="off" oninput="onInput('issue')">
   <button class="btn" id="btn-issue" onclick="submitIssue()" disabled></button>
-  <button class="btn-ghost" id="btn-issue-skip" onclick="skipIssue()">出てこない</button>
+  <button class="btn-ghost" id="btn-issue-skip" onclick="skipIssue()"></button>
 </div>
 
 <!-- ── IDEAL ── -->
@@ -1233,42 +1288,41 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── RESULT ── -->
 <div class="screen screen-scroll" id="s-result">
   <div class="sc-card" id="result-card">
-    <div class="sc-card-header">
-      <div class="sc-card-title" id="v17-result-brand"></div>
-      <div class="sc-card-badge" id="lbl-session-header"></div>
-    </div>
     <div class="sc-note-wrap">
       <div class="sc-section-label" id="v17-result-theme-label"></div>
       <div class="v17-result-theme" id="t-result-from"></div>
     </div>
-    <div class="sc-shift-section" id="v17-result-scores">
-      <div class="v17-result-row">
-        <span class="v17-result-label" id="v17-result-before-label"></span>
-        <span class="v17-result-value" id="r-be-b"></span>
-      </div>
-      <div class="v17-result-row">
-        <span class="v17-result-label" id="v17-result-after-label"></span>
-        <span class="v17-result-value" id="r-be-a"></span>
-      </div>
-      <div class="v17-result-row">
-        <span class="v17-result-label" id="v17-result-delta-label"></span>
-        <span class="v17-result-value" id="v17-result-delta"></span>
-      </div>
+    <div class="sc-note-wrap">
+      <div class="sc-section-label" id="v17-result-current-label"></div>
+      <div class="v17-result-copy" id="v17-result-current"></div>
+    </div>
+    <div class="v17-result-happiness-label" id="v17-result-happiness-label"></div>
+    <div class="v17-result-score-flow" id="v17-result-scores">
+      <div class="v17-result-score-point"><span id="v17-result-before-label"></span><strong id="r-be-b"></strong></div>
+      <div class="v17-result-score-arrow">↓</div>
+      <div class="v17-result-score-point"><span id="v17-result-after-label"></span><strong id="r-be-a"></strong></div>
+    </div>
+    <div class="sc-note-wrap">
+      <div class="sc-section-label" id="v17-result-awareness-label"></div>
+      <div class="v17-result-copy" id="v17-result-awareness"></div>
     </div>
     <span id="t-result-sub" hidden></span>
     <span id="t-shift-note-display" hidden></span>
     <span id="t-result-meaning" hidden></span>
-    <div class="sc-card-footer" id="v17-result-domain"></div>
   </div>
-  <button class="btn-save-image" id="btn-save-image" onclick="saveResultCard()"></button>
-  <div class="save-fallback-note" id="t-save-fallback-note" style="display:none"></div>
-  <button class="btn-save-image" id="btn-save-result" onclick="saveCurrentResult()"></button>
-  <div class="save-result-status" id="save-result-status" role="status" aria-live="polite"></div>
+  <button class="btn-save-image" id="btn-save-image" type="button" onclick="saveV17ResultCard()"></button>
+  <div class="v17-image-status" id="v17-image-status" role="status" aria-live="polite"></div>
   <div class="save-preview-wrap" id="save-preview-wrap" style="display:none">
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <button class="btn" id="btn-repeat-theme" onclick="chooseV17NewQuestion()" style="background:#1A1A1A;margin-top:2.5rem"></button>
+  <div class="v17-result-actions">
+    <button class="v17-result-action primary" id="btn-save-result" onclick="saveCurrentResult()"></button>
+    <button class="v17-result-action" id="btn-v17-clear-again" type="button" onclick="repeatV17Clearing()"></button>
+    <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartV17Theme()"></button>
+    <button class="v17-result-action" id="btn-repeat-theme" type="button" onclick="chooseV17NewQuestion()"></button>
+  </div>
+  <div class="save-result-status" id="save-result-status" role="status" aria-live="polite"></div>
 </div>
 
 <!-- ── PRICING ── -->
@@ -1342,26 +1396,25 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <div class="screen" id="s-nega">
   <div id="s-nega-inner">
     <div id="s-nega-top">
-      <div class="theme-screen-title">今、どんな感じ？</div>
-      <div class="theme-screen-sub">一言で書いてください。</div>
+      <div class="theme-screen-title"></div>
+      <div class="theme-screen-sub"></div>
     </div>
     <input type="text" class="text-input" id="in-nega-text"
-      placeholder="例：モヤモヤ / 重い / 彼のこと / お金のこと" autocomplete="off" maxlength="40"
+      placeholder="" autocomplete="off" maxlength="40"
       oninput="onNegaInput(this.value)">
-    <button class="btn" id="btn-nega-submit" onclick="submitNegaEntry()" disabled style="margin-top:1.2rem">この反応から整える</button>
+    <button class="btn" id="btn-nega-submit" onclick="submitNegaEntry()" disabled style="margin-top:1.2rem"></button>
   </div>
 </div>
 
 <!-- ── NEGA IDEAL ── -->
 <div class="screen" id="s-nega-ideal">
   <div class="breath-sub" id="nega-ideal-quote"></div>
-  <div class="screen-title" id="nega-ideal-title" style="margin-bottom:1.5rem">が存在しない人は、
-どんな理想状態？</div>
+  <div class="screen-title" id="nega-ideal-title" style="margin-bottom:1.5rem"></div>
   <input type="text" class="text-input" id="in-nega-ideal"
-    placeholder="理想状態を入力…" autocomplete="off" maxlength="40"
+    placeholder="" autocomplete="off" maxlength="40"
     oninput="onNegaIdealInput(this.value)">
   <button class="btn" id="btn-nega-ideal-next" onclick="submitNegaIdeal()" disabled></button>
-  <button class="btn-ghost" onclick="skipNegaIdeal()">スキップ</button>
+  <button class="btn-ghost" onclick="skipNegaIdeal()"></button>
 </div>
 
 
@@ -1437,9 +1490,12 @@ function applyThemeMode() {
   }
   var button = document.getElementById('btn-theme-mode');
   if (button) {
-    var label = T('appearanceLabel');
-    button.textContent = T(themeMode === 'auto' ? 'themeModeAuto' : themeMode === 'light' ? 'themeModeLight' : 'themeModeDark');
-    button.setAttribute('aria-label', label + ': ' + button.textContent);
+    var locale = typeof getV17LocaleRoot === 'function' ? getV17LocaleRoot() : null;
+    var appearance = locale && locale.appearance ? locale.appearance : null;
+    var label = appearance ? appearance.label : '';
+    var modeLabel = appearance ? appearance[themeMode] : '';
+    button.textContent = modeLabel;
+    button.setAttribute('aria-label', label && modeLabel ? label + ': ' + modeLabel : '');
     button.title = label;
   }
 }
@@ -1450,13 +1506,13 @@ function cycleThemeMode() {
   applyThemeMode();
 }
 
-var interfaceLanguageNames = { en: 'English', ja: '日本語', 'zh-TW': '繁體中文' };
-
 function updateLanguageControl() {
   var code = lang || landingLang || 'en';
-  var name = interfaceLanguageNames[code] || interfaceLanguageNames.en;
-  setEl('current-language-name', name);
+  var locale = typeof getV17LocaleRoot === 'function' ? getV17LocaleRoot() : null;
+  var languageNames = locale && locale.languages ? locale.languages : {};
+  setEl('current-language-name', languageNames[code] || '');
   document.querySelectorAll('#language-menu [data-language]').forEach(function(button) {
+    button.textContent = languageNames[button.dataset.language] || '';
     button.classList.toggle('selected', button.dataset.language === code);
   });
 }
@@ -1514,7 +1570,14 @@ function updateAccountActions() {
 function openAccountAuth(signup) {
   closeAccountMenu();
   openAuthModal();
-  if (signup) setEl('auth-modal-title', T('signup'));
+  if (getV17LocaleRoot()) {
+    var actionCopy = v17Copy(signup ? 'flow.app.signup' : 'flow.app.login');
+    setEl('auth-modal-title', actionCopy);
+    setEl('auth-modal-body', actionCopy);
+    setGoogleAuthButtonLabel(document.getElementById('auth-google-btn'));
+  } else if (signup) {
+    setEl('auth-modal-title', T('signup'));
+  }
 }
 
 function closeLanguageMenu() {
@@ -1565,7 +1628,9 @@ function findWish(groupKey, wishKey) {
   return null;
 }
 
-var THEMES = {
+// Legacy theme data retained for older dormant screens only.
+// The v17 entry flow must read exclusively from v17/data/theme-library-*.json.
+var LEGACY_THEMES = {
   ja: {
     fixedThemes: [
       { id: 'anxiety_general',        label: '不安が強い' },
@@ -3788,6 +3853,7 @@ var renderStaticTextsV15 = renderStaticTexts;
 renderStaticTexts = function() {
   renderStaticTextsV15();
   renderV16EntryTexts();
+  renderV17StaticCopy();
 };
 
 /* ── LANDING PAGE COPY ── */
@@ -3831,7 +3897,7 @@ function expandV16Landing() {
 }
 
 function renderV16LandingCopy() {
-  if (!v17FlowCopyData) return;
+  if (!getV17LocaleRoot()) return;
   document.title = v17Copy('flow.app.title');
   setEl('v17-lp-logo', v17Copy('flow.landing.logo'));
   setEl('lp-v16-hero-title', v17Copy('flow.landing.hero'));
@@ -3856,10 +3922,13 @@ function renderV16LandingCopy() {
     target.appendChild(createV16LandingSection(section));
   });
   var aboutTitle = document.getElementById('lp-v16-about-title');
+  var aboutSection = aboutTitle && aboutTitle.parentElement ? aboutTitle.parentElement : null;
   var readMoreWrap = document.getElementById('lp-v16-read-more-wrap');
+  var finalCta = document.getElementById('lp-v16-final-cta');
   var hasMore = sections.length > 2;
-  if (aboutTitle && aboutTitle.parentElement) aboutTitle.parentElement.hidden = !sections.length;
+  if (aboutSection) aboutSection.hidden = !sections.length || !v17Copy('flow.landing.aboutTitle');
   if (readMoreWrap) readMoreWrap.hidden = !hasMore || v16LandingExpanded;
+  if (finalCta) finalCta.hidden = !v17Copy('flow.landing.finalCta');
   renderV16LandingVisibility();
 }
 
@@ -3867,20 +3936,22 @@ var setLandingLangV15 = setLandingLang;
 setLandingLang = async function(code) {
   await loadV17FlowCopy();
   await setLandingLangV15(code);
-  renderV16LandingCopy();
+  await loadV17ThemeLibrary();
+  renderV17StaticCopy();
 };
 window.setLandingLang = setLandingLang;
 
 async function startLanding() {
   prepareEntryFlow();
   await loadV17FlowCopy();
+  await loadV17ThemeLibrary();
   renderV17Screen('s-v17-entry-choice');
   await setLang(landingLang, 's-v17-entry-choice');
 }
 
 var SCREEN_ORDER = [
-  's-v17-entry-choice','s-v17-free-input','s-theme','s-v17-before','s-v17-ideal-100','s-v17-current-state','s-v17-current-measure',
-  's-v17-reword','s-v17-breath','s-v17-ideal-state','s-v17-remeasure','s-v17-final-measure','s-result',
+  's-v17-entry-choice','s-v17-before','s-v17-ideal-100','s-v17-current-state','s-v17-current-measure',
+  's-v17-ideal-state','s-v17-breath','s-v17-final-measure','s-v17-theme-final','s-result',
   's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-v16-after-measurement','s-v16-result','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
@@ -3897,9 +3968,63 @@ function onInput(key) {
 }
 
 function onSlider(key, v) {
-  var nm  = document.getElementById('nm-'   + key); if (nm)  nm.classList.remove('selected');
+  var nm  = document.getElementById('nm-'   + key);
+  if (nm) {
+    nm.classList.remove('selected');
+    nm.setAttribute('aria-pressed', 'false');
+  }
   var num = document.getElementById('num-'  + key); if (num) { num.textContent = v; num.className = 'score-num shown'; }
   var btn = document.getElementById('next-' + key); if (btn) btn.disabled = false;
+  if (D && D.v17Flow) {
+    var score = Number(v);
+    if (key === 'v17-before') {
+      D.firstThemeScore = score;
+      D.initialThemeScore = score;
+      D.v17Flow.initialThemeScore = score;
+    } else if (key === 'v17-current-measure') {
+      D.currentStateInitialScore = score;
+      D.currentStateScore = score;
+      D.v17Flow.currentStateBeforeScore = score;
+    } else if (key === 'v17-final') {
+      D.currentStateFinalScore = score;
+      D.v17Flow.currentStateAfterScore = score;
+    } else if (key === 'v17-theme-final') {
+      D.finalThemeScore = score;
+      D.v17Flow.finalThemeScore = score;
+    }
+  }
+}
+
+function selectV17NotAProblem(key) {
+  ensureV17SessionState();
+  if (!D.v17Flow) return;
+  var nm = document.getElementById('nm-' + key);
+  var num = document.getElementById('num-' + key);
+  var button = document.getElementById('next-' + key);
+  if (nm) {
+    nm.classList.add('selected');
+    nm.setAttribute('aria-pressed', 'true');
+  }
+  if (num) {
+    num.textContent = v17Copy('flow.measurement.cannotQuantify');
+    num.className = 'score-num nm';
+  }
+  if (button) button.disabled = false;
+  if (key === 'v17-before') {
+    D.firstThemeScore = V17_SCORE_NOT_A_PROBLEM;
+    D.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
+    D.v17Flow.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
+  } else if (key === 'v17-current-measure') {
+    D.currentStateInitialScore = V17_SCORE_NOT_A_PROBLEM;
+    D.currentStateScore = V17_SCORE_NOT_A_PROBLEM;
+    D.v17Flow.currentStateBeforeScore = V17_SCORE_NOT_A_PROBLEM;
+  } else if (key === 'v17-final') {
+    D.currentStateFinalScore = V17_SCORE_NOT_A_PROBLEM;
+    D.v17Flow.currentStateAfterScore = V17_SCORE_NOT_A_PROBLEM;
+  } else if (key === 'v17-theme-final') {
+    D.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
+    D.v17Flow.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
+  }
 }
 
 function selectNM(key) {
@@ -3911,13 +4036,19 @@ function selectNM(key) {
 function resetSlider(key) {
   var sl  = document.getElementById('sl-'   + key); if (sl)  sl.value = 50;
   var num = document.getElementById('num-'  + key); if (num) { num.textContent = ''; num.className = 'score-num'; }
-  var nm  = document.getElementById('nm-'   + key); if (nm)  nm.classList.remove('selected');
+  var nm  = document.getElementById('nm-'   + key);
+  if (nm) {
+    nm.classList.remove('selected');
+    nm.setAttribute('aria-pressed', 'false');
+  }
   var btn = document.getElementById('next-' + key); if (btn) btn.disabled = true;
 }
 
 function getSliderVal(key) {
   var nm = document.getElementById('nm-' + key);
-  if (nm && nm.classList.contains('selected')) return 'NM';
+  if (nm && nm.classList.contains('selected')) {
+    return String(key).indexOf('v17-') === 0 ? V17_SCORE_NOT_A_PROBLEM : 'NM';
+  }
   return parseInt(document.getElementById('sl-' + key).value, 10);
 }
 
@@ -4018,8 +4149,9 @@ function openV17FreeInput() {
   var button = document.getElementById('btn-v17-free-start');
   if (input) input.value = '';
   if (button) button.disabled = true;
-  renderV17Screen('s-v17-free-input');
-  fwd('s-v17-free-input');
+  renderV17Screen('s-v17-entry-choice');
+  if (cur !== 's-v17-entry-choice') fwd('s-v17-entry-choice');
+  setTimeout(function() { if (input) input.focus(); }, 180);
 }
 
 function onV17FreeInput(value) {
@@ -4033,6 +4165,7 @@ function submitV17FreeInput() {
   if (!value) return;
   ensureV17QuestionState();
   D.questionId = null;
+  D.themeId = null;
   D.questionTextAtTime = value;
   D.localeAtTime = lang || 'ja';
   D.freeInputTheme = value;
@@ -4055,7 +4188,11 @@ function openV17QuestionPicker() {
   D.themeNegative = '';
   themeChosen = false;
   renderThemeScreen();
-  fwd('s-theme');
+  if (cur !== 's-v17-entry-choice') fwd('s-v17-entry-choice');
+  setTimeout(function() {
+    var accordion = document.getElementById('v17-theme-accordion');
+    if (accordion) accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 180);
 }
 
 function chooseEntryMethod(method) {
@@ -4352,6 +4489,186 @@ var v17QuestionCatalogLocale = 'ja';
 var v17FlowCopyData = null;
 var v17FlowCopyPromise = null;
 var v17FlowCopyError = '';
+var v17ThemeLibraryData = null;
+var v17ThemeLibraryLocale = '';
+var v17ThemeLibraryCache = {};
+var v17ThemeLibraryPromise = null;
+var v17ThemeLibraryError = '';
+
+function getV17ThemeLibraryLocale() {
+  if (lang === 'ja' || lang === 'zh-TW') return lang;
+  return 'en';
+}
+
+function isValidV17ThemeLibrary(data) {
+  if (!data || !Array.isArray(data.categories) || data.categories.length !== 8) return false;
+  return data.categories.every(function(category) {
+    return category && category.id && category.label && Array.isArray(category.tracks)
+      && category.tracks.length === 2
+      && category.tracks.every(function(track) {
+        return track && track.id && track.label && Array.isArray(track.themes)
+          && track.themes.length > 0
+          && track.themes.every(function(theme) { return theme && theme.id && theme.label; });
+      });
+  });
+}
+
+function loadV17ThemeLibrary() {
+  var locale = getV17ThemeLibraryLocale();
+  if (v17ThemeLibraryCache[locale]) {
+    v17ThemeLibraryLocale = locale;
+    v17ThemeLibraryData = v17ThemeLibraryCache[locale];
+    v17ThemeLibraryError = '';
+    renderV17ThemeAccordion();
+    return Promise.resolve(v17ThemeLibraryData);
+  }
+  if (v17ThemeLibraryPromise && v17ThemeLibraryLocale === locale) return v17ThemeLibraryPromise;
+  v17ThemeLibraryLocale = locale;
+  v17ThemeLibraryError = '';
+  renderV17ThemeAccordion();
+  v17ThemeLibraryPromise = fetch('./v17/data/theme-library-' + locale + '.json')
+    .then(function(response) {
+      if (!response.ok) throw new Error('theme library fetch failed');
+      return response.json();
+    })
+    .then(function(data) {
+      if (!isValidV17ThemeLibrary(data)) throw new Error('invalid theme library');
+      v17ThemeLibraryCache[locale] = data;
+      if (v17ThemeLibraryLocale === locale) v17ThemeLibraryData = data;
+      return data;
+    })
+    .catch(function(error) {
+      v17ThemeLibraryError = error && error.message ? error.message : 'theme library error';
+      if (v17ThemeLibraryLocale === locale) v17ThemeLibraryData = null;
+      return null;
+    })
+    .finally(function() {
+      v17ThemeLibraryPromise = null;
+      renderV17ThemeAccordion();
+    });
+  return v17ThemeLibraryPromise;
+}
+
+var V17_THEME_PAGE_SIZE = 4;
+
+function createV17LibraryThemeButton(category, track, theme) {
+  var themeButton = document.createElement('button');
+  themeButton.type = 'button';
+  themeButton.className = 'v17-library-theme';
+  themeButton.textContent = theme.label;
+  themeButton.onclick = function() { selectV17LibraryTheme(category, track, theme); };
+  return themeButton;
+}
+
+function appendV17ThemePage(category, track, themeList, moreButton) {
+  var start = themeList.childElementCount;
+  var end = Math.min(start + V17_THEME_PAGE_SIZE, track.themes.length);
+  for (var i = start; i < end; i++) {
+    themeList.appendChild(createV17LibraryThemeButton(category, track, track.themes[i]));
+  }
+  moreButton.style.display = end < track.themes.length ? '' : 'none';
+}
+
+function renderV17ThemeAccordion() {
+  var root = document.getElementById('v17-theme-accordion');
+  var status = document.getElementById('v17-theme-library-status');
+  if (!root || !status) return;
+  clearChildren(root);
+  status.textContent = '';
+  if (v17ThemeLibraryError) {
+    status.textContent = v17Copy('flow.entry.themeError');
+    return;
+  }
+  if (!v17ThemeLibraryData || v17ThemeLibraryLocale !== getV17ThemeLibraryLocale()) {
+    status.textContent = v17Copy('flow.entry.themeLoading');
+    return;
+  }
+  v17ThemeLibraryData.categories.forEach(function(category) {
+    var categoryWrap = document.createElement('section');
+    categoryWrap.className = 'v17-category';
+    categoryWrap.dataset.categoryId = category.id;
+    var categoryButton = document.createElement('button');
+    categoryButton.type = 'button';
+    categoryButton.className = 'v17-category-button';
+    categoryButton.setAttribute('aria-expanded', 'false');
+    var categoryLabel = document.createElement('span');
+    categoryLabel.textContent = category.label;
+    var categoryMark = document.createElement('span');
+    categoryMark.className = 'v17-accordion-mark';
+    categoryMark.textContent = '＋';
+    categoryButton.appendChild(categoryLabel);
+    categoryButton.appendChild(categoryMark);
+    categoryButton.onclick = function() {
+      var open = categoryWrap.classList.toggle('open');
+      categoryButton.setAttribute('aria-expanded', String(open));
+      categoryMark.textContent = open ? '－' : '＋';
+    };
+    var categoryBody = document.createElement('div');
+    categoryBody.className = 'v17-category-body';
+    category.tracks.forEach(function(track) {
+      var trackWrap = document.createElement('div');
+      trackWrap.className = 'v17-track';
+      trackWrap.dataset.trackId = track.id;
+      var trackButton = document.createElement('button');
+      trackButton.type = 'button';
+      trackButton.className = 'v17-track-button';
+      trackButton.setAttribute('aria-expanded', 'false');
+      var trackLabel = document.createElement('span');
+      trackLabel.textContent = track.label;
+      var trackMark = document.createElement('span');
+      trackMark.className = 'v17-accordion-mark';
+      trackMark.textContent = '＋';
+      trackButton.appendChild(trackLabel);
+      trackButton.appendChild(trackMark);
+      trackButton.onclick = function() {
+        var open = trackWrap.classList.toggle('open');
+        trackButton.setAttribute('aria-expanded', String(open));
+        trackMark.textContent = open ? '－' : '＋';
+      };
+      var trackBody = document.createElement('div');
+      trackBody.className = 'v17-track-body';
+      var themeList = document.createElement('div');
+      themeList.className = 'v17-theme-list';
+      var moreButton = document.createElement('button');
+      moreButton.type = 'button';
+      moreButton.className = 'btn-see-more v17-theme-more';
+      moreButton.textContent = v17Copy('flow.entry.showMore');
+      moreButton.onclick = function() {
+        appendV17ThemePage(category, track, themeList, moreButton);
+      };
+      trackBody.appendChild(themeList);
+      trackBody.appendChild(moreButton);
+      appendV17ThemePage(category, track, themeList, moreButton);
+      trackWrap.appendChild(trackButton);
+      trackWrap.appendChild(trackBody);
+      categoryBody.appendChild(trackWrap);
+    });
+    categoryWrap.appendChild(categoryButton);
+    categoryWrap.appendChild(categoryBody);
+    root.appendChild(categoryWrap);
+  });
+}
+
+function selectV17LibraryTheme(category, track, theme) {
+  if (!theme) return;
+  ensureV17QuestionState();
+  D.questionId = null;
+  D.themeId = theme.id;
+  D.questionTextAtTime = theme.label;
+  D.localeAtTime = lang || v17ThemeLibraryLocale;
+  D.freeInputTheme = '';
+  D.themeSource = 'themeLibrary';
+  D.themeCategoryId = category ? category.id : '';
+  D.themeTrackId = track ? track.id : '';
+  D.themeKey = theme.id;
+  D.theme = theme.label;
+  D.themePositive = theme.label;
+  D.themeNegative = '';
+  D.themeMeaning = '';
+  themeChosen = true;
+  trackEvent('theme_selected', { themeKey: theme.id, lang: lang, source: 'themeLibrary' });
+  startSession();
+}
 
 function loadV17FlowCopy() {
   if (v17FlowCopyPromise) return v17FlowCopyPromise;
@@ -4362,9 +4679,9 @@ function loadV17FlowCopy() {
       return response.json();
     })
     .then(function(data) {
-      var sourceLocale = data && data.sourceLocale;
-      var sourceFlow = data && data.locales && data.locales[sourceLocale] && data.locales[sourceLocale].v17;
-      if (!sourceLocale || !sourceFlow || !sourceFlow.flow) throw new Error('invalid v17 flow copy');
+      if (!data || data.appVersion !== 'v17' || !Array.isArray(data.sequence)) {
+        throw new Error('invalid v17 flow definition');
+      }
       v17FlowCopyData = data;
       return data;
     })
@@ -4380,22 +4697,131 @@ function loadV17FlowCopy() {
   return v17FlowCopyPromise;
 }
 
-function getV17CopyRoot() {
-  if (!v17FlowCopyData || !v17FlowCopyData.locales) return null;
-  var localeRecord = v17FlowCopyData.locales[lang];
-  if (localeRecord && localeRecord.v17) return localeRecord.v17;
-  var fallbackCode = localeRecord && localeRecord.fallbackLocale
-    ? localeRecord.fallbackLocale
-    : v17FlowCopyData.sourceLocale;
-  var fallbackRecord = v17FlowCopyData.locales[fallbackCode];
-  return fallbackRecord && fallbackRecord.v17 ? fallbackRecord.v17 : null;
+function getV17LocaleRoot() {
+  if (currentLocale && currentLocale.meta && currentLocale.meta.appVersion === 'v17') return currentLocale;
+  return null;
+}
+
+function getV17Path(root, path) {
+  var value = root;
+  var parts = String(path || '').split('.');
+  for (var i = 0; value !== null && value !== undefined && i < parts.length; i++) value = value[parts[i]];
+  return value;
+}
+
+function joinV17LocaleParts(record, keys) {
+  if (!record) return undefined;
+  return keys.map(function(key) { return record[key]; })
+    .filter(function(value) { return typeof value === 'string' && value.length; })
+    .join('\n');
+}
+
+function v17LocaleQuoteTemplate(variable) {
+  return lang === 'en' ? '“{' + variable + '}”' : '「{' + variable + '}」';
+}
+
+function v17LocaleValue(path) {
+  var locale = getV17LocaleRoot();
+  if (!locale) return undefined;
+  var directMap = {
+    'flow.app.title': 'app.name',
+    'flow.app.back': 'buttons.back',
+    'flow.app.skip': 'buttons.skipThisStep',
+    'flow.app.close': 'buttons.close',
+    'flow.app.login': 'buttons.login',
+    'flow.app.signup': 'buttons.signup',
+    'flow.app.logout': 'buttons.logout',
+    'flow.app.manage': 'buttons.manage',
+    'flow.app.pricing': 'buttons.pricing',
+    'flow.landing.logo': 'lp.logo',
+    'flow.landing.hero': 'lp.hero.title',
+    'flow.landing.subtitle': 'lp.hero.body',
+    'flow.landing.start': 'lp.hero.cta',
+    'flow.entry.freeTitle': 'entry.freeInputTitle',
+    'flow.entry.freePlaceholder': 'entry.freeInputPlaceholder',
+    'flow.entry.freeStart': 'entry.freeInputStart',
+    'flow.entry.categoryIntro': 'entry.categoryTitle',
+    'flow.entry.themeLoading': 'status.loading',
+    'flow.entry.themeError': 'errors.loadFailed',
+    'flow.entry.skippedTheme': 'entry.freeInputTitle',
+    'flow.entry.showMore': 'buttons.showMore',
+    'flow.common.continue': 'buttons.continue',
+    'flow.measurement.cannotQuantify': 'buttons.cannotQuantify',
+    'flow.measurement.cannotQuantifyHint': 'buttonsHint.cannotQuantify',
+    'flow.step1.prompt': 'flow.step1.prompt',
+    'flow.step3.placeholder': 'flow.step3.placeholder',
+    'flow.step4.prompt': 'flow.step4.prompt',
+    'flow.step6.placeholder': 'flow.step6.placeholder',
+    'flow.step8.prompt': 'flow.step8.prompt',
+    'flow.step8.result': 'buttons.done',
+    'flow.finalTheme.prompt': 'flow.finalTheme.prompt',
+    'flow.finalTheme.result': 'buttons.done',
+    'flow.pro.title': 'pricing.title',
+    'flow.pro.lead': 'pricing.lead',
+    'flow.pro.value': 'pricing.body',
+    'flow.pro.cta': 'pricing.cta',
+    'flow.result.theme': 'result.selectedTheme',
+    'flow.result.currentState': 'result.currentState',
+    'flow.result.happiness': 'result.scoreSuffix',
+    'flow.result.before': 'result.before',
+    'flow.result.after': 'result.after',
+    'flow.result.awareness': 'result.awareness',
+    'flow.result.image': 'result.imageSave',
+    'flow.result.imageReady': 'result.shareStatusSaved',
+    'flow.result.imageError': 'result.shareStatusFailed',
+    'flow.result.save': 'bookmark.primaryCta',
+    'flow.result.saving': 'status.saving',
+    'flow.result.saved': 'bookmark.saved',
+    'flow.result.saveError': 'errors.unknown',
+    'flow.result.resume': 'buttons.continue',
+    'flow.result.clearAgain': 'buttons.anotherClearing',
+    'flow.result.restartTheme': 'buttons.restartTheme',
+    'flow.result.chooseTheme': 'buttons.chooseThemeAgain'
+  };
+  if (directMap[path]) return getV17Path(locale, directMap[path]);
+  if (path === 'flow.app.breathCircle') return getV17Path(locale, 'breath.step1.smallBottom');
+  if (path === 'flow.landing.sections') return [];
+  if (path === 'flow.landing.aboutTitle' || path === 'flow.landing.readMore' || path === 'flow.landing.finalCta') return '';
+  if (path === 'flow.entry.or') return '';
+  if (path === 'flow.hundred.prompt') {
+    var flowState = D && D.v17Flow;
+    var stepKey = flowState && flowState.happinessPhase === 'current' ? 'step5' : 'step2';
+    return joinV17LocaleParts(getV17Path(locale, 'flow.' + stepKey), ['lead', 'main', 'helper']);
+  }
+  if (path === 'flow.step3.prompt') return joinV17LocaleParts(getV17Path(locale, 'flow.step3'), ['lead', 'main', 'helper']);
+  if (path === 'flow.step6.prompt') return joinV17LocaleParts(getV17Path(locale, 'flow.step6'), ['lead', 'main', 'helper']);
+  if (path === 'flow.breathSteps.first.lead') return getV17Path(locale, 'breath.step1.smallTop');
+  if (path === 'flow.breathSteps.first.body') return getV17Path(locale, 'breath.step1.main');
+  if (path === 'flow.breathSteps.first.hint') return getV17Path(locale, 'breath.step1.smallBottom');
+  if (path === 'flow.breathSteps.second.lead') return getV17Path(locale, 'breath.step2.smallTop');
+  if (path === 'flow.breathSteps.second.body') return getV17Path(locale, 'breath.step2.main');
+  if (path === 'flow.breathSteps.second.hint') return getV17Path(locale, 'breath.step2.smallBottom');
+  if (path === 'flow.breath.inhale') return getV17Path(locale, 'breath.inhale');
+  if (path === 'flow.breath.exhale') return getV17Path(locale, 'breath.exhale');
+  if (path === 'flow.breath.complete') return '✓';
+  if (path === 'flow.breath.idle' || path === 'flow.result.imagePreview') return '';
+  if (path === 'not_measurable_button') return getV17Path(locale, 'buttons.cannotQuantify');
+  if (path === 'flow.result.imageCreating') return getV17Path(locale, 'status.loading');
+  if (path === 'flow.result.saveLogin') {
+    return [getV17Path(locale, 'buttons.login'), getV17Path(locale, 'bookmark.primaryCta')].filter(Boolean).join(' — ');
+  }
+  var quoteVariables = {
+    'flow.step1.quote': 'theme',
+    'flow.hundred.quote': 'text',
+    'flow.step3.quote': 'theme',
+    'flow.step4.quote': 'currentState',
+    'flow.step6.quote': 'currentState',
+    'flow.step8.quote': 'currentState',
+    'flow.finalTheme.quote': 'theme',
+    'flow.result.quote': 'text'
+  };
+  if (quoteVariables[path]) return v17LocaleQuoteTemplate(quoteVariables[path]);
+  return undefined;
 }
 
 function v17Value(path) {
-  var value = getV17CopyRoot();
-  var parts = String(path || '').split('.');
-  for (var i = 0; value && i < parts.length; i++) value = value[parts[i]];
-  return value;
+  var localeValue = v17LocaleValue(path);
+  return localeValue !== undefined && localeValue !== null ? localeValue : '';
 }
 
 function v17Copy(path) {
@@ -4429,10 +4855,13 @@ function v17ThemeText(key) {
 function ensureV17QuestionState() {
   if (!D) return;
   if (typeof D.questionId === 'undefined') D.questionId = null;
+  if (typeof D.themeId === 'undefined') D.themeId = null;
   if (typeof D.questionTextAtTime === 'undefined') D.questionTextAtTime = '';
   if (typeof D.localeAtTime === 'undefined') D.localeAtTime = '';
   if (typeof D.freeInputTheme === 'undefined') D.freeInputTheme = '';
   if (typeof D.themeSource === 'undefined') D.themeSource = '';
+  if (typeof D.themeCategoryId === 'undefined') D.themeCategoryId = '';
+  if (typeof D.themeTrackId === 'undefined') D.themeTrackId = '';
 }
 
 function ensureV17SessionState() {
@@ -4440,13 +4869,17 @@ function ensureV17SessionState() {
   if (typeof D.firstThemeScore === 'undefined') D.firstThemeScore = null;
   if (typeof D.initialThemeScore === 'undefined') D.initialThemeScore = null;
   if (typeof D.currentState === 'undefined') D.currentState = '';
-  if (typeof D.currentStateText === 'undefined') D.currentStateText = '';
+  if (typeof D.currentStateText === 'undefined') D.currentStateText = D.currentState || '';
   if (typeof D.currentStateInitialScore === 'undefined') D.currentStateInitialScore = null;
+  if (typeof D.currentStateFinalScore === 'undefined') D.currentStateFinalScore = null;
   if (typeof D.currentStateScore === 'undefined') D.currentStateScore = null;
-  if (!Array.isArray(D.rewordAnswers)) D.rewordAnswers = [];
+  if (typeof D.currentStateDraft === 'undefined') D.currentStateDraft = D.currentState || '';
   if (!Array.isArray(D.idealStateAnswers)) D.idealStateAnswers = [];
   if (!Array.isArray(D.remeasureScores)) D.remeasureScores = [];
-  if (typeof D.rewordedText === 'undefined') D.rewordedText = '';
+  if (typeof D.idealState === 'undefined') D.idealState = '';
+  if (typeof D.idealStateText === 'undefined') D.idealStateText = D.idealState || '';
+  if (typeof D.idealStateDraft === 'undefined') D.idealStateDraft = D.idealState || '';
+  if (typeof D.awareness === 'undefined') D.awareness = '';
   if (typeof D.finalThemeScore === 'undefined') D.finalThemeScore = null;
   if (typeof D.deltaScore === 'undefined') D.deltaScore = null;
   if (typeof D.remeasureScore === 'undefined') D.remeasureScore = null;
@@ -4460,11 +4893,15 @@ function resetV17SessionState() {
   D.currentState = '';
   D.currentStateText = '';
   D.currentStateInitialScore = null;
+  D.currentStateFinalScore = null;
   D.currentStateScore = null;
-  D.rewordAnswers = [];
+  D.currentStateDraft = '';
   D.idealStateAnswers = [];
   D.remeasureScores = [];
-  D.rewordedText = '';
+  D.idealState = '';
+  D.idealStateText = '';
+  D.idealStateDraft = '';
+  D.awareness = '';
   D.finalThemeScore = null;
   D.deltaScore = null;
   D.remeasureScore = null;
@@ -4474,10 +4911,13 @@ function resetV17SessionState() {
 function clearV17QuestionState() {
   ensureV17QuestionState();
   D.questionId = null;
+  D.themeId = null;
   D.questionTextAtTime = '';
   D.localeAtTime = '';
   D.freeInputTheme = '';
   D.themeSource = '';
+  D.themeCategoryId = '';
+  D.themeTrackId = '';
 }
 
 function isHCQExcludedRange(id) {
@@ -4528,10 +4968,13 @@ function getV17QuestionSnapshot() {
   if (!D.questionTextAtTime) return null;
   return {
     questionId: D.questionId || null,
+    themeId: D.themeId || null,
     questionTextAtTime: D.questionTextAtTime,
     localeAtTime: D.localeAtTime || lang || 'ja',
     freeInputTheme: D.freeInputTheme || '',
-    themeSource: D.themeSource || (D.questionId ? 'hcq' : 'freeInput')
+    themeSource: D.themeSource || (D.questionId ? 'hcq' : 'freeInput'),
+    themeCategoryId: D.themeCategoryId || '',
+    themeTrackId: D.themeTrackId || ''
   };
 }
 
@@ -4689,22 +5132,11 @@ function onHCQSearchInput(value) {
 
 function renderThemeScreen() {
   ensureV17QuestionState();
-  if (themeVisibleCount < 12) themeVisibleCount = 12;
-  setEl('hcq-theme-title', v17ThemeText('title'));
-  setEl('hcq-theme-sub', v17ThemeText('sub'));
-  var search = document.getElementById('in-hcq-search');
-  var random = document.getElementById('btn-hcq-random');
-  if (search && search.placeholder !== v17ThemeText('search')) search.placeholder = v17ThemeText('search');
-  if (search && search.value !== v17QuestionSearchValue) search.value = v17QuestionSearchValue;
-  if (random) random.textContent = v17ThemeText('random');
-  setEl('btn-theme-cta', v17Copy('flow.step0.start'));
-  syncSelectedHCQUI();
-  renderHCQList();
-  if (!v17FlowCopyPromise) loadV17FlowCopy();
-  if (!v17QuestionLoadPromise) loadV17QuestionCatalog();
-  updateThemeCTA();
   renderV17Screen('s-v17-entry-choice');
-  renderV17Screen('s-v17-free-input');
+  if (!v17FlowCopyPromise) loadV17FlowCopy();
+  if (!v17ThemeLibraryData || v17ThemeLibraryLocale !== getV17ThemeLibraryLocale()) loadV17ThemeLibrary();
+  else renderV17ThemeAccordion();
+  updateThemeCTA();
   renderCurrentV17Screen();
 }
 
@@ -5283,7 +5715,7 @@ function skipNegaIdeal() {
 
 function setGoogleAuthButtonLabel(btn) {
   if (!btn) return;
-  var label = T('authGoogleContinue');
+  var label = getV17LocaleRoot() ? v17Copy('flow.app.login') : T('authGoogleContinue');
   btn.innerHTML = '<span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">' + label + '</span>';
 }
 
@@ -5597,12 +6029,6 @@ function startSession() {
     updateThemeCTA();
     return;
   }
-  if (!v17FlowCopyData) {
-    loadV17FlowCopy().then(function(data) {
-      if (data && D.questionTextAtTime) startV17Session();
-    });
-    return;
-  }
   startV17Session();
 }
 
@@ -5610,120 +6036,193 @@ function createV17FlowState() {
   return {
     appVersion: 'v17',
     theme: D.questionTextAtTime || '',
-    themeSource: D.themeSource || (D.questionId ? 'hcq' : 'freeInput'),
+    themeSource: D.themeSource || 'freeInput',
+    themeId: D.themeId || null,
     questionId: D.questionId || null,
     questionTextAtTime: D.questionTextAtTime || '',
     localeAtTime: D.localeAtTime || lang || 'ja',
     freeInputTheme: D.freeInputTheme || '',
     currentStep: 'step1',
-    outerLoopIndex: 0,
-    innerLoopIndex: 0,
-    breathContext: null,
-    breathPhase: null,
-    firstThemeScore: null,
+    happinessPhase: 'theme',
+    breathPhase: 'first',
     initialThemeScore: null,
     currentState: '',
-    currentStateInitialScore: null,
-    rewordAnswers: [],
-    idealStateAnswers: [],
-    remeasureScores: [],
-    outerLoops: [],
+    currentStateText: '',
+    currentStateDraft: '',
+    currentStateBeforeScore: null,
+    currentStateAfterScore: null,
+    idealState: '',
+    idealStateText: '',
+    idealStateDraft: '',
+    breath: { first: false, second: false },
+    clearings: [],
     finalThemeScore: null,
-    deltaScore: null
+    resultMode: 'clearing'
   };
-}
-
-function getV17OuterLoop(createIfMissing) {
-  ensureV17SessionState();
-  var flow = D.v17Flow;
-  if (!flow) return null;
-  var index = flow.outerLoopIndex || 0;
-  if (!flow.outerLoops[index] && createIfMissing) {
-    flow.outerLoops[index] = {
-      index: index,
-      feltHundred: false,
-      currentState: '',
-      currentStateInitialScore: null,
-      innerLoops: [],
-      remeasureScore: null
-    };
-  }
-  return flow.outerLoops[index] || null;
-}
-
-function getV17InnerLoop() {
-  var outer = getV17OuterLoop(false);
-  if (!outer || !outer.innerLoops.length) return null;
-  return outer.innerLoops[outer.innerLoops.length - 1];
 }
 
 function setV17CurrentStep(step) {
   if (D.v17Flow) D.v17Flow.currentStep = step;
 }
 
+function getV17CurrentStateText() {
+  return D.currentStateText || D.currentState || '';
+}
+
+function getV17IdealStateText() {
+  return D.idealStateText || D.idealState || '';
+}
+
+function renderV17StaticCopy() {
+  if (!getV17LocaleRoot()) return;
+  applyThemeMode();
+  updateLanguageControl();
+  var accountState = getAccountUIState();
+  setEl('account-chip-label', v17Copy(accountState === 'guest' ? 'flow.app.login'
+    : accountState === 'free' ? 'flow.app.pricing' : 'flow.app.manage'));
+  setEl('account-login', v17Copy('flow.app.login'));
+  setEl('account-signup', v17Copy('flow.app.signup'));
+  setEl('account-professional', v17Copy('flow.app.pricing'));
+  setEl('account-manage', v17Copy('flow.app.manage'));
+  setEl('account-logout', v17Copy('flow.app.logout'));
+  setEl('t-professional-plan-title', v17Copy('flow.pro.title'));
+  setEl('t-professional-plan-trial', v17Copy('flow.pro.lead'));
+  setEl('t-professional-plan-access', v17Copy('flow.pro.value'));
+  setEl('btn-pricing-cta', v17Copy('flow.pro.cta'));
+  setEl('btn-resume-progress', v17Copy('flow.result.resume'));
+  setEl('btn-v17-skip', v17Copy('flow.app.skip'));
+  renderV17NotAProblemCopy();
+  var back = document.getElementById('btn-back');
+  if (back) back.setAttribute('aria-label', v17Copy('flow.app.back'));
+  var authClose = document.getElementById('btn-auth-close');
+  if (authClose) authClose.setAttribute('aria-label', v17Copy('flow.app.close'));
+  setEl('auth-submit-btn', v17Copy('flow.common.continue'));
+  renderV16LandingCopy();
+  renderCurrentV17Screen();
+}
+
+var V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
+var V17_MEASUREMENT_KEYS = ['v17-before', 'v17-current-measure', 'v17-final', 'v17-theme-final'];
+
+function renderV17NotAProblemCopy() {
+  V17_MEASUREMENT_KEYS.forEach(function(key) {
+    setEl('nm-label-' + key, v17Copy('flow.measurement.cannotQuantify'));
+    setEl('nm-hint-' + key, v17Copy('flow.measurement.cannotQuantifyHint'));
+  });
+}
+
+function formatV17Score(value) {
+  if (value === V17_SCORE_NOT_A_PROBLEM) return v17Copy('flow.measurement.cannotQuantify');
+  return value === null || value === undefined || value === '' ? '—' : String(value);
+}
+
+function restoreV17Slider(key, value) {
+  var notAProblem = document.getElementById('nm-' + key);
+  var number = document.getElementById('num-' + key);
+  var button = document.getElementById('next-' + key);
+  if (value === V17_SCORE_NOT_A_PROBLEM) {
+    if (notAProblem) {
+      notAProblem.classList.add('selected');
+      notAProblem.setAttribute('aria-pressed', 'true');
+    }
+    if (number) {
+      number.textContent = v17Copy('flow.measurement.cannotQuantify');
+      number.className = 'score-num nm';
+    }
+    if (button) button.disabled = false;
+    return;
+  }
+  if (typeof value !== 'number') {
+    resetSlider(key);
+    return;
+  }
+  var slider = document.getElementById('sl-' + key);
+  if (slider) slider.value = value;
+  if (notAProblem) {
+    notAProblem.classList.remove('selected');
+    notAProblem.setAttribute('aria-pressed', 'false');
+  }
+  if (number) {
+    number.textContent = String(value);
+    number.className = 'score-num shown';
+  }
+  if (button) button.disabled = false;
+}
+
 function renderV17Screen(screenId) {
   var flow = D.v17Flow;
-  var outer = getV17OuterLoop(false);
-  var inner = getV17InnerLoop();
-  var currentState = outer ? outer.currentState : D.currentState;
   if (screenId === 's-v17-entry-choice') {
-    setEl('v17-entry-choice-title', v17Copy('flow.entryChoice.title'));
-    setEl('btn-v17-entry-free', v17Copy('flow.entryChoice.freeInput.label'));
-    setEl('v17-entry-free-desc', v17Copy('flow.entryChoice.freeInput.description'));
-    setEl('btn-v17-entry-questions', v17Copy('flow.entryChoice.questions.label'));
-    setEl('v17-entry-questions-desc', v17Copy('flow.entryChoice.questions.description'));
-  } else if (screenId === 's-v17-free-input') {
-    setEl('v17-free-input-title', v17Copy('flow.freeInput.title'));
-    setEl('btn-v17-free-start', v17Copy('flow.freeInput.start'));
+    setEl('v17-free-input-title', v17Copy('flow.entry.freeTitle'));
+    setEl('btn-v17-free-start', v17Copy('flow.entry.freeStart'));
+    setEl('v17-entry-divider', v17Copy('flow.entry.or'));
+    setEl('v17-category-intro', v17Copy('flow.entry.categoryIntro'));
     var freeInput = document.getElementById('in-v17-free-theme');
-    if (freeInput) freeInput.placeholder = v17Copy('flow.freeInput.placeholder');
+    if (freeInput) {
+      freeInput.placeholder = v17Copy('flow.entry.freePlaceholder');
+      freeInput.value = D.themeSource === 'freeInput' ? (D.freeInputTheme || '') : '';
+    }
+    var freeStart = document.getElementById('btn-v17-free-start');
+    if (freeStart) freeStart.disabled = !freeInput || !freeInput.value.trim();
   } else if (screenId === 's-v17-before') {
     setEl('v17-before-theme', v17Format('flow.step1.quote', { theme: D.questionTextAtTime }));
     setEl('v17-before-prompt', v17Copy('flow.step1.prompt'));
     setEl('next-v17-before', v17Copy('flow.common.continue'));
+    restoreV17Slider('v17-before', D.initialThemeScore);
   } else if (screenId === 's-v17-ideal-100') {
-    setEl('v17-ideal-prompt', v17Format('flow.step2.prompt', { theme: D.questionTextAtTime, text: D.questionTextAtTime }));
+    var happinessFocus = flow && flow.happinessPhase === 'current'
+      ? getV17CurrentStateText() : D.questionTextAtTime;
+    setEl('v17-hundred-focus', v17Format('flow.hundred.quote', { text: happinessFocus }));
+    setEl('v17-ideal-prompt', v17Copy('flow.hundred.prompt'));
     setEl('next-v17-ideal', v17Copy('flow.common.continue'));
-    setEl('skip-v17-ideal', v17Copy('flow.common.noAnswer'));
   } else if (screenId === 's-v17-current-state') {
-    setEl('v17-current-prompt', v17Format('flow.step3.prompt', { theme: D.questionTextAtTime, text: D.questionTextAtTime }));
+    setEl('v17-current-theme', v17Format('flow.step3.quote', { theme: D.questionTextAtTime }));
+    setEl('v17-current-prompt', v17Copy('flow.step3.prompt'));
     setEl('next-v17-current', v17Copy('flow.common.continue'));
     var currentInput = document.getElementById('in-v17-current');
-    if (currentInput) currentInput.placeholder = v17Copy('flow.step3.placeholder');
+    if (currentInput) {
+      currentInput.placeholder = v17Copy('flow.step3.placeholder');
+      currentInput.value = D.currentStateDraft;
+    }
+    var currentButton = document.getElementById('next-v17-current');
+    if (currentButton) currentButton.disabled = !currentInput || !currentInput.value.trim();
   } else if (screenId === 's-v17-current-measure') {
-    setEl('v17-current-measure-quote', v17Format('flow.step4.quote', { currentState: currentState }));
+    setEl('v17-current-measure-quote', v17Format('flow.step4.quote', { currentState: getV17CurrentStateText() }));
     setEl('v17-current-measure-prompt', v17Copy('flow.step4.prompt'));
     setEl('next-v17-current-measure', v17Copy('flow.common.continue'));
-  } else if (screenId === 's-v17-reword') {
-    setEl('v17-reword-current', v17Format('flow.step5.quote', { currentState: currentState }));
-    setEl('v17-reword-prompt', v17Copy('flow.step5.prompt'));
-    setEl('next-v17-reword', v17Copy('flow.common.continue'));
-    setEl('skip-v17-reword', v17Copy('flow.common.noAnswer'));
-    var rewordInput = document.getElementById('in-v17-reword');
-    if (rewordInput) rewordInput.placeholder = v17Copy('flow.step5.placeholder');
-  } else if (screenId === 's-v17-breath') {
-    var breathStep = flow && flow.breathContext === 'step8' ? 'step8' : 'step6';
-    var breathPart = flow && flow.breathPhase === 'breath2' ? 'breath2' : 'breath1';
-    setEl('v17-breath-prompt', v17Copy('flow.' + breathStep + '.' + breathPart + '.prompt'));
-    setEl('next-v17-breath', v17Copy('flow.common.continue'));
-    var breathCircle = document.getElementById('circle-v17-breath');
-    if (breathCircle) breathCircle.setAttribute('aria-label', v17Copy('flow.app.breathCircle'));
-    if (breathCircle && !breathing && !v17BreathComplete) breathCircle.textContent = v17Copy('flow.breath.idle');
+    restoreV17Slider('v17-current-measure', D.currentStateInitialScore);
   } else if (screenId === 's-v17-ideal-state') {
-    var quotedState = inner && inner.reword ? inner.reword : currentState;
-    setEl('v17-ideal-state-quote', v17Format('flow.step7.quote', { rewordOrCurrent: quotedState }));
-    setEl('v17-ideal-state-prompt', v17Copy('flow.step7.prompt'));
+    setEl('v17-ideal-state-quote', v17Format('flow.step6.quote', { currentState: getV17CurrentStateText() }));
+    setEl('v17-ideal-state-prompt', v17Copy('flow.step6.prompt'));
     setEl('next-v17-ideal-state', v17Copy('flow.common.continue'));
     var idealInput = document.getElementById('in-v17-ideal-state');
-    if (idealInput) idealInput.placeholder = v17Copy('flow.step7.placeholder');
-  } else if (screenId === 's-v17-remeasure') {
-    setEl('v17-remeasure-quote', v17Format('flow.step9.quote', { currentState: currentState }));
-    setEl('v17-remeasure-prompt', v17Copy('flow.step9.prompt'));
-    setEl('next-v17-remeasure', v17Copy('flow.common.continue'));
+    if (idealInput) {
+      idealInput.placeholder = v17Copy('flow.step6.placeholder');
+      idealInput.value = D.idealStateDraft;
+    }
+    var idealButton = document.getElementById('next-v17-ideal-state');
+    if (idealButton) idealButton.disabled = !idealInput || !idealInput.value.trim();
+  } else if (screenId === 's-v17-breath') {
+    var breathPart = flow && flow.breathPhase === 'second' ? 'second' : 'first';
+    setEl('v17-breath-lead', v17Copy('flow.breathSteps.' + breathPart + '.lead'));
+    setEl('v17-breath-body', v17Copy('flow.breathSteps.' + breathPart + '.body'));
+    setEl('v17-breath-hint', v17Copy('flow.breathSteps.' + breathPart + '.hint'));
+    var breathCircle = document.getElementById('circle-v17-breath');
+    if (breathCircle) breathCircle.setAttribute('aria-label', v17Copy('flow.app.breathCircle'));
+    if (breathCircle && !v17BreathComplete) {
+      breathCircle.textContent = v17Copy(
+        breathCircle.classList.contains('exhale') ? 'flow.breath.exhale' : 'flow.breath.inhale'
+      );
+    }
   } else if (screenId === 's-v17-final-measure') {
-    setEl('v17-final-quote', v17Format('flow.step10.quote', { theme: D.questionTextAtTime }));
-    setEl('v17-final-prompt', v17Copy('flow.step10.prompt'));
-    setEl('next-v17-final', v17Copy('flow.step10.result'));
+    setEl('v17-final-quote', v17Format('flow.step8.quote', { currentState: getV17CurrentStateText() }));
+    setEl('v17-final-prompt', v17Copy('flow.step8.prompt'));
+    setEl('next-v17-final', v17Copy('flow.step8.result'));
+    restoreV17Slider('v17-final', D.currentStateFinalScore);
+  } else if (screenId === 's-v17-theme-final') {
+    setEl('v17-theme-final-quote', v17Format('flow.finalTheme.quote', { theme: D.questionTextAtTime }));
+    setEl('v17-theme-final-prompt', v17Copy('flow.finalTheme.prompt'));
+    setEl('next-v17-theme-final', v17Copy('flow.finalTheme.result'));
+    restoreV17Slider('v17-theme-final', D.finalThemeScore);
   } else if (screenId === 's-result') {
     renderV17Result();
   }
@@ -5738,7 +6237,7 @@ function startV17Session() {
   resetV17SessionState();
   _savedProgressResumeActive = false;
   D.entryMode = 'v17';
-  D.themeKey = D.questionId;
+  D.themeKey = D.themeId || D.questionId || null;
   D.theme = D.questionTextAtTime;
   D.themePositive = D.questionTextAtTime;
   D.themeNegative = '';
@@ -5754,133 +6253,119 @@ function startV17Session() {
   D.v17Flow = createV17FlowState();
   resetSlider('v17-before');
   resetSlider('v17-current-measure');
-  resetSlider('v17-remeasure');
   resetSlider('v17-final');
+  resetSlider('v17-theme-final');
   renderV17Screen('s-v17-before');
-  trackEvent('v17_session_started', { questionId: D.questionId, locale: D.localeAtTime });
+  trackEvent('v17_session_started', { themeId: D.themeId, questionId: D.questionId, locale: D.localeAtTime });
   fwd('s-v17-before');
 }
 
 function submitV17BeforeScore() {
   ensureV17SessionState();
-  D.firstThemeScore = getSliderVal('v17-before');
-  D.initialThemeScore = D.firstThemeScore;
-  D.breathEaseBefore = D.firstThemeScore;
-  D.v17Flow.firstThemeScore = D.firstThemeScore;
-  D.v17Flow.initialThemeScore = D.firstThemeScore;
-  openV17FeelHundred();
+  var value = arguments.length ? arguments[0] : getSliderVal('v17-before');
+  D.firstThemeScore = value;
+  D.initialThemeScore = value;
+  D.v17Flow.initialThemeScore = value;
+  openV17FeelHundred('theme');
 }
 
-function openV17FeelHundred() {
-  setV17CurrentStep('step2');
+function openV17FeelHundred(phase) {
+  if (D.v17Flow) D.v17Flow.happinessPhase = phase || D.v17Flow.happinessPhase || 'theme';
+  setV17CurrentStep(D.v17Flow && D.v17Flow.happinessPhase === 'current' ? 'step5' : 'step2');
   renderV17Screen('s-v17-ideal-100');
   fwd('s-v17-ideal-100');
 }
 
 function continueV17IdealState() {
-  var outer = getV17OuterLoop(true);
-  outer.feltHundred = true;
-  D.currentState = '';
-  D.currentStateText = '';
-  D.currentStateInitialScore = null;
-  D.currentStateScore = null;
-  D.rewordedText = '';
-  D.remeasureScore = null;
-  D.issue = '';
-  D.ideal = '';
-  D.shiftNote = '';
+  var phase = D.v17Flow ? D.v17Flow.happinessPhase : 'theme';
+  if (phase === 'current') {
+    openV17IdealState();
+    return;
+  }
+  openV17CurrentState();
+}
+
+function openV17CurrentState() {
   setV17CurrentStep('step3');
-  var input = document.getElementById('in-v17-current');
-  var button = document.getElementById('next-v17-current');
-  if (input) {
-    input.value = '';
-  }
-  if (button) {
-    button.disabled = true;
-  }
   renderV17Screen('s-v17-current-state');
   fwd('s-v17-current-state');
 }
 
 function onV17WritingInput(step, value) {
-  var buttonId = step === 'reword' ? 'next-v17-reword'
-    : step === 'ideal-state' ? 'next-v17-ideal-state' : 'next-v17-current';
+  var text = String(value || '');
+  if (step === 'idealState') {
+    D.idealStateDraft = text;
+    if (D.v17Flow) D.v17Flow.idealStateDraft = text;
+  } else {
+    D.currentStateDraft = text;
+    if (D.v17Flow) D.v17Flow.currentStateDraft = text;
+  }
+  var buttonId = step === 'idealState' ? 'next-v17-ideal-state' : 'next-v17-current';
   var button = document.getElementById(buttonId);
-  if (button) button.disabled = !String(value || '').trim();
+  if (button) button.disabled = !text.trim();
 }
 
 function submitV17CurrentState() {
   var input = document.getElementById('in-v17-current');
   var value = input ? input.value.trim() : '';
   if (!value) return;
-  var outer = getV17OuterLoop(true);
-  outer.currentState = value;
   D.currentState = value;
   D.currentStateText = value;
+  D.currentStateDraft = value;
   D.v17Flow.currentState = value;
+  D.v17Flow.currentStateText = value;
+  D.v17Flow.currentStateDraft = value;
   D.issue = value;
   setV17CurrentStep('step4');
-  resetSlider('v17-current-measure');
   renderV17Screen('s-v17-current-measure');
   fwd('s-v17-current-measure');
 }
 
 function submitV17CurrentStateScore() {
   ensureV17SessionState();
-  var outer = getV17OuterLoop(true);
-  D.currentStateInitialScore = getSliderVal('v17-current-measure');
-  D.currentStateScore = D.currentStateInitialScore;
-  outer.currentStateInitialScore = D.currentStateInitialScore;
-  D.v17Flow.currentStateInitialScore = D.currentStateInitialScore;
-  openV17Rewording();
+  var value = arguments.length ? arguments[0] : getSliderVal('v17-current-measure');
+  D.currentStateInitialScore = value;
+  D.currentStateScore = value;
+  D.breathEaseBefore = value;
+  D.v17Flow.currentStateBeforeScore = value;
+  openV17FeelHundred('current');
 }
 
-function openV17Rewording() {
-  setV17CurrentStep('step5');
-  var input = document.getElementById('in-v17-reword');
-  var button = document.getElementById('next-v17-reword');
-  if (input) {
-    input.value = '';
-  }
-  if (button) {
-    button.disabled = true;
-  }
-  renderV17Screen('s-v17-reword');
-  fwd('s-v17-reword');
+function openV17IdealState() {
+  setV17CurrentStep('step6');
+  renderV17Screen('s-v17-ideal-state');
+  fwd('s-v17-ideal-state');
 }
 
-function submitV17Rewording() {
-  var input = document.getElementById('in-v17-reword');
+function submitV17IdealState() {
+  var input = document.getElementById('in-v17-ideal-state');
   var value = input ? input.value.trim() : '';
   if (!value) return;
-  var outer = getV17OuterLoop(true);
-  var cycle = {
-    index: outer.innerLoops.length,
-    reword: value,
-    firstBreath: { breath1: false, breath2: false },
-    idealState: '',
-    secondBreath: { breath1: false, breath2: false }
-  };
-  outer.innerLoops.push(cycle);
-  D.v17Flow.innerLoopIndex = cycle.index;
-  D.v17Flow.rewordAnswers.push(value);
-  D.rewordAnswers.push(value);
-  D.rewordedText = value;
+  D.idealState = value;
+  D.idealStateText = value;
+  D.idealStateDraft = value;
+  D.awareness = value;
+  D.ideal = value;
+  D.idealAnswer = value;
   D.shiftNote = value;
-  openV17Breath('step6');
+  if (D.idealStateAnswers[D.idealStateAnswers.length - 1] !== value) D.idealStateAnswers.push(value);
+  D.v17Flow.idealState = value;
+  D.v17Flow.idealStateText = value;
+  D.v17Flow.idealStateDraft = value;
+  openV17Breath();
 }
 
-function finishV17InnerLoop() {
-  setV17CurrentStep('step9');
-  resetSlider('v17-remeasure');
-  renderV17Screen('s-v17-remeasure');
-  fwd('s-v17-remeasure');
+function skipV17IdealState() {
+  openV17Breath();
 }
 
-function openV17Breath(context) {
-  D.v17Flow.breathContext = context;
-  D.v17Flow.breathPhase = 'breath1';
-  setV17CurrentStep(context + '.breath1');
+function openV17Breath() {
+  if (D.v17Flow.breath.first && D.v17Flow.breath.second) {
+    openV17FinalMeasurement();
+    return;
+  }
+  D.v17Flow.breathPhase = D.v17Flow.breath.first && !D.v17Flow.breath.second ? 'second' : 'first';
+  setV17CurrentStep('step7.' + D.v17Flow.breathPhase);
   resetV17BreathScreen();
   renderV17Screen('s-v17-breath');
   fwd('s-v17-breath');
@@ -5888,18 +6373,39 @@ function openV17Breath(context) {
 
 var v17BreathRunId = 0;
 var v17BreathComplete = false;
+var V17_BREATH_LEAD_MS = 600;
+var V17_BREATH_INHALE_MS = 3000;
+var V17_BREATH_EXHALE_MS = 4000;
 
 function resetV17BreathScreen() {
-  v17BreathRunId += 1;
+  var runId = ++v17BreathRunId;
   breathing = false;
   v17BreathComplete = false;
   var circle = document.getElementById('circle-v17-breath');
-  var next = document.getElementById('next-v17-breath');
   if (circle) {
-    circle.textContent = v17Copy('flow.breath.idle');
+    circle.textContent = v17Copy('flow.breath.inhale');
     circle.className = 'breath-circle pulse';
   }
-  if (next) next.disabled = true;
+  setTimeout(function() {
+    runV17BreathCycle(runId);
+  }, V17_BREATH_LEAD_MS);
+}
+
+function runV17BreathCycle(runId) {
+  if (runId !== v17BreathRunId || v17BreathComplete || cur !== 's-v17-breath') return;
+  var circle = document.getElementById('circle-v17-breath');
+  if (!circle) return;
+  breathing = true;
+  circle.textContent = v17Copy('flow.breath.inhale');
+  circle.className = 'breath-circle inhale';
+  setTimeout(function() {
+    if (runId !== v17BreathRunId || v17BreathComplete || cur !== 's-v17-breath') return;
+    circle.textContent = v17Copy('flow.breath.exhale');
+    circle.className = 'breath-circle exhale';
+    setTimeout(function() {
+      runV17BreathCycle(runId);
+    }, V17_BREATH_EXHALE_MS);
+  }, V17_BREATH_INHALE_MS);
 }
 
 function onV17BreathKeydown(event) {
@@ -5910,145 +6416,141 @@ function onV17BreathKeydown(event) {
 }
 
 function startV17Breath() {
-  if (breathing || v17BreathComplete || cur !== 's-v17-breath') return;
-  breathing = true;
-  var runId = ++v17BreathRunId;
-  var circle = document.getElementById('circle-v17-breath');
-  if (!circle) {
-    breathing = false;
-    return;
-  }
-  circle.classList.remove('pulse');
-  setTimeout(function() {
-    if (runId !== v17BreathRunId || cur !== 's-v17-breath') return;
-    circle.textContent = v17Copy('flow.breath.inhale');
-    circle.className = 'breath-circle inhale';
-    setTimeout(function() {
-      if (runId !== v17BreathRunId || cur !== 's-v17-breath') return;
-      circle.textContent = v17Copy('flow.breath.exhale');
-      circle.className = 'breath-circle exhale';
-      setTimeout(function() {
-        if (runId !== v17BreathRunId || cur !== 's-v17-breath') return;
-        breathing = false;
-        v17BreathComplete = true;
-        circle.textContent = v17Copy('flow.breath.complete');
-        circle.className = 'breath-circle';
-        var next = document.getElementById('next-v17-breath');
-        if (next) next.disabled = false;
-      }, 4000);
-    }, 3000);
-  }, 500);
+  if (v17BreathComplete || cur !== 's-v17-breath') return;
+  v17BreathComplete = true;
+  v17BreathRunId += 1;
+  breathing = false;
+  continueV17BreathPhase();
 }
 
 function continueV17BreathPhase() {
-  if (!v17BreathComplete) return;
   var flow = D.v17Flow;
-  var inner = getV17InnerLoop();
-  if (!flow || !inner) return;
-  var breathRecord = flow.breathContext === 'step8' ? inner.secondBreath : inner.firstBreath;
-  breathRecord[flow.breathPhase] = true;
-  if (flow.breathPhase === 'breath1') {
-    flow.breathPhase = 'breath2';
-    setV17CurrentStep(flow.breathContext + '.breath2');
+  if (!flow) return;
+  v17BreathRunId += 1;
+  breathing = false;
+  flow.breath[flow.breathPhase] = true;
+  if (flow.breathPhase === 'first') {
+    flow.breathPhase = 'second';
+    setV17CurrentStep('step7.second');
     resetV17BreathScreen();
     renderV17Screen('s-v17-breath');
     return;
   }
-  if (flow.breathContext === 'step6') {
-    openV17IdealState();
-  } else {
-    openV17Rewording();
-  }
+  openV17FinalMeasurement();
 }
 
-function openV17IdealState() {
-  setV17CurrentStep('step7');
-  var input = document.getElementById('in-v17-ideal-state');
-  var button = document.getElementById('next-v17-ideal-state');
-  if (input) input.value = '';
-  if (button) button.disabled = true;
-  renderV17Screen('s-v17-ideal-state');
-  fwd('s-v17-ideal-state');
-}
-
-function submitV17IdealState() {
-  var input = document.getElementById('in-v17-ideal-state');
-  var value = input ? input.value.trim() : '';
-  if (!value) return;
-  var inner = getV17InnerLoop();
-  if (!inner) return;
-  inner.idealState = value;
-  D.v17Flow.idealStateAnswers.push(value);
-  D.idealStateAnswers.push(value);
-  D.ideal = value;
-  D.idealAnswer = value;
-  openV17Breath('step8');
-}
-
-function submitV17RemeasureScore() {
-  var outer = getV17OuterLoop(false);
-  if (!outer) return;
-  outer.remeasureScore = getSliderVal('v17-remeasure');
-  D.remeasureScore = outer.remeasureScore;
-  D.v17Flow.remeasureScores.push(outer.remeasureScore);
-  D.remeasureScores.push(outer.remeasureScore);
-  D.v17Flow.outerLoopIndex += 1;
-  D.v17Flow.innerLoopIndex = 0;
-  openV17FeelHundred();
-}
-
-function finishV17OuterLoop() {
-  setV17CurrentStep('step10');
-  resetSlider('v17-final');
+function openV17FinalMeasurement() {
+  setV17CurrentStep('step8');
+  if (typeof D.currentStateFinalScore !== 'number') resetSlider('v17-final');
   renderV17Screen('s-v17-final-measure');
   fwd('s-v17-final-measure');
 }
 
 function submitV17FinalScore() {
-  D.finalThemeScore = getSliderVal('v17-final');
-  D.breathEaseAfter = D.finalThemeScore;
-  D.deltaScore = D.finalThemeScore - D.firstThemeScore;
-  D.v17Flow.finalThemeScore = D.finalThemeScore;
-  D.v17Flow.deltaScore = D.deltaScore;
-  D.v17Flow.currentStep = 'result';
+  var value = arguments.length ? arguments[0] : getSliderVal('v17-final');
+  D.currentStateFinalScore = value;
+  D.currentStateScore = value;
+  D.breathEaseAfter = value;
+  D.deltaScore = typeof value === 'number' && typeof D.currentStateInitialScore === 'number'
+    ? value - D.currentStateInitialScore : null;
+  D.v17Flow.currentStateAfterScore = value;
+  D.v17Flow.resultMode = 'clearing';
+  D.v17Flow.clearings.push({
+    index: D.v17Flow.clearings.length,
+    currentState: getV17CurrentStateText(),
+    currentStateText: getV17CurrentStateText(),
+    beforeScore: D.currentStateInitialScore,
+    afterScore: value,
+    idealState: getV17IdealStateText(),
+    idealStateText: getV17IdealStateText()
+  });
+  D.v17Flow.currentStep = 'step9';
   showV17Result();
 }
 
-function formatV17Delta(value) {
-  var number = Number(value || 0);
-  return number > 0 ? '+' + number : String(number);
+function openV17ThemeFinalMeasurement() {
+  setV17CurrentStep('finalTheme');
+  resetSlider('v17-theme-final');
+  renderV17Screen('s-v17-theme-final');
+  fwd('s-v17-theme-final');
+}
+
+function submitV17ThemeFinalScore() {
+  var value = arguments.length ? arguments[0] : getSliderVal('v17-theme-final');
+  D.finalThemeScore = value;
+  D.v17Flow.finalThemeScore = value;
+  D.v17Flow.resultMode = 'themeFinal';
+  D.v17Flow.currentStep = 'step9';
+  showV17Result();
 }
 
 function renderV17Result() {
-  setEl('v17-result-brand', v17Copy('flow.result.brand'));
-  setEl('v17-result-domain', v17Copy('flow.result.domain'));
-  setEl('lbl-session-header', v17Copy('flow.result.header'));
+  var flow = D.v17Flow || {};
+  var currentStateText = getV17CurrentStateText();
+  var idealStateText = getV17IdealStateText();
+  var themeOnlyResult = flow.resultMode === 'themeFinal' && !currentStateText;
+  var beforeScore = themeOnlyResult ? D.initialThemeScore : D.currentStateInitialScore;
+  var afterScore = themeOnlyResult ? D.finalThemeScore : D.currentStateFinalScore;
   setEl('v17-result-theme-label', v17Copy('flow.result.theme'));
-  setEl('t-result-from', D.questionTextAtTime);
-  setEl('t-result-sub', D.rewordedText);
-  setEl('t-shift-note-display', D.rewordedText);
-  setEl('v17-result-before-label', v17Copy('flow.result.initial'));
-  setEl('v17-result-after-label', v17Copy('flow.result.final'));
-  setEl('v17-result-delta-label', v17Copy('flow.result.delta'));
-  setEl('r-be-b', String(D.initialThemeScore));
-  setEl('r-be-a', String(D.finalThemeScore));
-  setEl('v17-result-delta', formatV17Delta(D.deltaScore));
-  setEl('btn-save-image', v17Copy('flow.result.saveImage'));
-  setEl('btn-repeat-theme', v17Copy('flow.result.newQuestion'));
+  setEl('t-result-from', v17Format('flow.result.quote', { text: D.questionTextAtTime }));
+  setEl('v17-result-current-label', v17Copy('flow.result.currentState'));
+  setEl('v17-result-current', currentStateText ? v17Format('flow.result.quote', { text: currentStateText }) : '—');
+  setEl('v17-result-happiness-label', v17Copy('flow.result.happiness'));
+  setEl('v17-result-awareness-label', v17Copy('flow.result.awareness'));
+  setEl('v17-result-awareness', idealStateText ? v17Format('flow.result.quote', { text: idealStateText }) : '—');
+  setEl('t-result-sub', currentStateText);
+  setEl('t-shift-note-display', idealStateText);
+  setEl('v17-result-before-label', v17Copy('flow.result.before'));
+  setEl('v17-result-after-label', v17Copy('flow.result.after'));
+  setEl('r-be-b', formatV17Score(beforeScore));
+  setEl('r-be-a', formatV17Score(afterScore));
+  setEl('btn-save-image', v17Copy('flow.result.image'));
+  setEl('t-save-preview-note', v17Copy('flow.result.imagePreview'));
+  setEl('btn-v17-clear-again', v17Copy('flow.result.clearAgain'));
+  setEl('btn-v17-restart-theme', v17Copy('flow.result.restartTheme'));
+  setEl('btn-repeat-theme', v17Copy('flow.result.chooseTheme'));
+  renderResultSaveUI();
 }
 
 function showV17Result() {
   ensureV17SessionState();
   renderV17Result();
+  var imageStatus = document.getElementById('v17-image-status');
+  var previewWrap = document.getElementById('save-preview-wrap');
+  var previewImage = document.getElementById('save-preview-img');
+  if (imageStatus) imageStatus.textContent = '';
+  if (previewWrap) previewWrap.style.display = 'none';
+  if (previewImage) previewImage.removeAttribute('src');
   resetResultSaveUI();
   clearPendingProgress();
   trackEvent('v17_session_completed', {
     questionId: D.questionId,
-    before: D.initialThemeScore,
-    after: D.finalThemeScore,
+    before: D.currentStateInitialScore,
+    after: D.currentStateFinalScore,
     delta: D.deltaScore
   });
   fwd('s-result');
+}
+
+function repeatV17Clearing() {
+  if (!getV17CurrentStateText()) {
+    restartV17Theme();
+    return;
+  }
+  D.currentStateInitialScore = D.currentStateFinalScore;
+  D.currentStateScore = D.currentStateInitialScore;
+  D.breathEaseBefore = D.currentStateInitialScore;
+  D.breathEaseAfter = null;
+  D.currentStateFinalScore = null;
+  D.v17Flow.currentStateBeforeScore = D.currentStateInitialScore;
+  D.v17Flow.currentStateAfterScore = null;
+  D.v17Flow.breath = { first: false, second: false };
+  openV17FeelHundred('current');
+}
+
+function restartV17Theme() {
+  D.v17Flow.breath = { first: false, second: false };
+  openV17FeelHundred('theme');
 }
 
 function chooseV17NewQuestion() {
@@ -6066,11 +6568,132 @@ function chooseV17NewQuestion() {
   themeChosen = false;
   themeVisibleCount = 12;
   v17QuestionSearchValue = '';
-  var search = document.getElementById('in-hcq-search');
-  if (search) search.value = '';
+  var freeInput = document.getElementById('in-v17-free-theme');
+  var freeButton = document.getElementById('btn-v17-free-start');
+  if (freeInput) freeInput.value = '';
+  if (freeButton) freeButton.disabled = true;
   renderThemeScreen();
-  showScreenDirect('s-theme');
+  showScreenDirect('s-v17-entry-choice');
 }
+
+function skipV17ThemeSelection() {
+  ensureV17QuestionState();
+  var fallbackTheme = v17Copy('flow.entry.skippedTheme');
+  D.questionId = null;
+  D.themeId = null;
+  D.questionTextAtTime = fallbackTheme;
+  D.localeAtTime = lang || 'ja';
+  D.freeInputTheme = '';
+  D.themeSource = 'skipped';
+  D.themeKey = null;
+  D.theme = fallbackTheme;
+  D.themePositive = fallbackTheme;
+  D.themeNegative = '';
+  themeChosen = true;
+  startSession();
+}
+
+function getV17SkipScore(value) {
+  return (typeof value === 'number' || value === V17_SCORE_NOT_A_PROBLEM) ? value : null;
+}
+
+function skipV17ResultChoice() {
+  renderThemeScreen();
+  showScreenDirect('s-v17-entry-choice');
+}
+
+function handleV17Skip() {
+  if (cur === 's-landing') { startLanding(); return; }
+  if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
+  if (cur === 's-v17-before') { submitV17BeforeScore(getV17SkipScore(D.initialThemeScore)); return; }
+  if (cur === 's-v17-ideal-100') { continueV17IdealState(); return; }
+  if (cur === 's-v17-current-state') { openV17ThemeFinalMeasurement(); return; }
+  if (cur === 's-v17-current-measure') { submitV17CurrentStateScore(getV17SkipScore(D.currentStateInitialScore)); return; }
+  if (cur === 's-v17-ideal-state') { skipV17IdealState(); return; }
+  if (cur === 's-v17-breath') { continueV17BreathPhase(); return; }
+  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.currentStateFinalScore)); return; }
+  if (cur === 's-v17-theme-final') { submitV17ThemeFinalScore(getV17SkipScore(D.finalThemeScore)); return; }
+  if (cur === 's-result') { skipV17ResultChoice(); return; }
+  showScreenDirect('s-v17-entry-choice');
+}
+
+function saveV17ResultCard() {
+  var card = document.getElementById('result-card');
+  var button = document.getElementById('btn-save-image');
+  var status = document.getElementById('v17-image-status');
+  if (!card || typeof html2canvas !== 'function') {
+    if (status) status.textContent = v17Copy('flow.result.imageError');
+    return;
+  }
+  if (button) {
+    button.disabled = true;
+    button.textContent = v17Copy('flow.result.imageCreating');
+  }
+  if (status) status.textContent = '';
+  var capture = function() {
+    var cardWidth = Math.max(card.getBoundingClientRect().width, 1);
+    var scale = Math.max(3, 1080 / cardWidth);
+    html2canvas(card, {
+      scale: scale,
+      backgroundColor: getComputedStyle(card).backgroundColor || '#FAFAF7',
+      useCORS: true,
+      logging: false
+    }).then(function(canvas) {
+      var dataUrl = canvas.toDataURL('image/png');
+      var previewWrap = document.getElementById('save-preview-wrap');
+      var preview = document.getElementById('save-preview-img');
+      if (previewWrap && preview) {
+        preview.src = dataUrl;
+        previewWrap.style.display = '';
+      }
+      canvas.toBlob(function(blob) {
+        if (!blob) {
+          if (status) status.textContent = v17Copy('flow.result.imageError');
+          return;
+        }
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.href = url;
+        link.download = 'noetune-v17-result.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(function() { URL.revokeObjectURL(url); }, 1600);
+        if (status) status.textContent = v17Copy('flow.result.imageReady');
+      }, 'image/png', 1);
+    }).catch(function() {
+      if (status) status.textContent = v17Copy('flow.result.imageError');
+    }).finally(function() {
+      if (button) {
+        button.disabled = false;
+        button.textContent = v17Copy('flow.result.image');
+      }
+    });
+  };
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(capture);
+  else capture();
+}
+
+var v17BaseGoBack = goBack;
+goBack = function() {
+  if (cur === 's-v17-breath') resetV17BreathScreen();
+  if (navHistory.length) {
+    v17BaseGoBack();
+    setTimeout(function() {
+      if (cur === 's-v17-breath') resetV17BreathScreen();
+      renderCurrentV17Screen();
+    }, 150);
+    return;
+  }
+  if (cur !== 's-landing') showScreenDirect('s-landing');
+};
+
+updateBackBtn = function() {
+  var button = document.getElementById('btn-back');
+  if (button) button.classList.add('visible');
+};
+window.goBack = goBack;
+window.updateBackBtn = updateBackBtn;
 
 function submitIssue() {
   var v = document.getElementById('in-issue').value.trim();
@@ -6480,9 +7103,9 @@ function breathCycle(t, c) {
     c.textContent = '✓'; c.className = 'breath-circle';
     setTimeout(function(){ afterBreath(t); }, 800); return;
   }
-  c.textContent = T('breath_in'); c.className = 'breath-circle inhale';
+  c.textContent = v17Copy('flow.breath.inhale'); c.className = 'breath-circle inhale';
   setTimeout(function(){
-    c.textContent = T('breath_out'); c.className = 'breath-circle exhale';
+    c.textContent = v17Copy('flow.breath.exhale'); c.className = 'breath-circle exhale';
     setTimeout(function(){ breathCount++; breathCycle(t, c); }, 4000);
   }, 3000);
 }
@@ -6708,12 +7331,15 @@ function applyV17QuestionSnapshotToPayload(payload) {
   var flowSnapshot = D.v17Flow ? JSON.parse(JSON.stringify(D.v17Flow)) : null;
   payload.appVersion = 'v17';
   payload.questionId = snapshot.questionId;
+  payload.themeId = snapshot.themeId;
   payload.questionTextAtTime = snapshot.questionTextAtTime;
   payload.localeAtTime = snapshot.localeAtTime;
   payload.freeInputTheme = snapshot.freeInputTheme;
   payload.themeSource = snapshot.themeSource;
-  if (!payload.themeKey) payload.themeKey = snapshot.questionId;
-  if (!payload.selectedThemeKey) payload.selectedThemeKey = snapshot.questionId;
+  payload.themeCategoryId = snapshot.themeCategoryId;
+  payload.themeTrackId = snapshot.themeTrackId;
+  if (!payload.themeKey) payload.themeKey = snapshot.themeId || snapshot.questionId;
+  if (!payload.selectedThemeKey) payload.selectedThemeKey = snapshot.themeId || snapshot.questionId;
   payload.themeLabel = snapshot.questionTextAtTime;
   payload.language = payload.language || lang;
   if (payload.progressData && typeof payload.progressData === 'object') {
@@ -6728,7 +7354,10 @@ function applyV17QuestionSnapshotToPayload(payload) {
     payload.resultCardData.hcqSnapshot = snapshot;
     payload.resultCardData.initialThemeScore = D.initialThemeScore;
     payload.resultCardData.finalThemeScore = D.finalThemeScore;
-    payload.resultCardData.deltaScore = D.deltaScore;
+    payload.resultCardData.currentState = D.currentState;
+    payload.resultCardData.currentStateBeforeScore = D.currentStateInitialScore;
+    payload.resultCardData.currentStateAfterScore = D.currentStateFinalScore;
+    payload.resultCardData.idealState = D.idealState;
   }
   return payload;
 }
@@ -6756,12 +7385,15 @@ function wrapV17SavePayloadBuilders() {
       if (snapshot) {
         ensureV17QuestionState();
         D.questionId = snapshot.questionId || null;
+        D.themeId = snapshot.themeId || null;
         D.questionTextAtTime = snapshot.questionTextAtTime || '';
         D.localeAtTime = snapshot.localeAtTime || lang || 'ja';
         D.freeInputTheme = snapshot.freeInputTheme || '';
         D.themeSource = snapshot.themeSource || (D.questionId ? 'hcq' : 'freeInput');
+        D.themeCategoryId = snapshot.themeCategoryId || '';
+        D.themeTrackId = snapshot.themeTrackId || '';
         if (D.questionTextAtTime) {
-          D.themeKey = D.questionId;
+          D.themeKey = D.themeId || D.questionId;
           D.theme = D.questionTextAtTime;
           D.themePositive = D.questionTextAtTime;
           D.themeNegative = '';
@@ -6782,7 +7414,7 @@ async function initializeApp() {
   wrapV17SavePayloadBuilders();
   applyThemeMode();
   await loadV17FlowCopy();
-  loadV17QuestionCatalog();
+  loadV17ThemeLibrary();
   await setLandingLang(landingLang);
   updateProgress();
   initSupabase();

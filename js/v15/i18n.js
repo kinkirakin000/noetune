@@ -13,7 +13,8 @@ async function selectInterfaceLanguage(code) {
 }
 
 function T(key, vars) {
-  return t('ui.' + key, key, vars);
+  var isV17Locale = currentLocale && currentLocale.meta && currentLocale.meta.appVersion === 'v17';
+  return t('ui.' + key, isV17Locale ? '' : key, vars);
 }
 
 function renderStaticTexts() {
@@ -175,10 +176,17 @@ async function loadLocale(localeLang) {
         currentLocale = await res.json();
         currentLocale.wishGroups = normalizeWishGroups(currentLocale.wishGroups);
       } catch (e) {
-        currentLocale = fallbackLocale;
+        currentLocale = null;
+        currentLang = targetLang;
+        lang = targetLang;
+        document.documentElement.lang = targetLang;
+        console.error('[locale] Failed to load requested locale:', targetLang);
+        return null;
       }
     }
-    currentLang = currentLocale.lang || 'ja';
+    currentLang = currentLocale.lang
+      || (currentLocale.meta && currentLocale.meta.locale)
+      || 'ja';
     lang = currentLang;
     document.documentElement.lang = currentLang;
     return currentLocale;
@@ -191,6 +199,7 @@ async function loadLocale(localeLang) {
 function getText(path, fallback) {
   var value = getByPath(currentLocale, path);
   if (value !== undefined && value !== null && value !== '') return value;
+  if (currentLocale && currentLocale.meta && currentLocale.meta.appVersion === 'v17') return fallback || '';
   var fallbackValue = getByPath(fallbackLocale, path);
   if (fallbackValue !== undefined && fallbackValue !== null && fallbackValue !== '') return fallbackValue;
   return fallback || '';

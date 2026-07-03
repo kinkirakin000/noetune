@@ -1,3047 +1,3496 @@
 {
-  "lang": "zh-TW",
-  "ui": {
-    "back_button": "返回",
-    "entryMethodTitle": "你想從哪裡開始？",
-    "entryMethodThemeTitle": "從主題中選擇",
-    "entryMethodThemeDesc": "從準備好的主題中，選擇現在在意的方向。",
-    "entryMethodFreeTitle": "自由輸入",
-    "entryMethodFreeDesc": "用自己的話，寫下現在的主題。",
-    "freeTypeTitle": "選擇比較容易回答的方式。",
-    "freeTypeIdealTitle": "寫下理想狀態",
-    "freeTypeIdealDesc": "不要寫「想要～」，請寫成已經是那樣的狀態。",
-    "freeTypeIdealExample": "例：\n安心著\n自由地選擇著\n身體放鬆著",
-    "freeTypeTopicTitle": "寫下現在心裡卡住的事",
-    "freeTypeTopicDesc": "請把現在心裡卡住的事，照原樣寫下來。",
-    "freeTypeTopicExample": "例：\n錢的事一直在腦中打轉\n人際關係讓我在意\n想到未來就覺得沉重\n身體的緊繃放不掉",
-    "freeIdealInputTitle": "請寫下理想狀態。",
-    "freeIdealInputPlaceholder": "例：安心著",
-    "freeTopicInputTitle": "請寫下現在心裡卡住的事。",
-    "freeTopicInputPlaceholder": "例：錢的事一直在腦中打轉",
-    "freeInputStartButton": "用這個內容開始",
-    "freeInputSkip": "還說不成文字",
-    "v16EntryTitle": "你想讓自己做哪一種行為時，回到最自然的狀態？",
-    "v16BasicVerbTitle": "每天使用的基本動詞",
-    "v16BasicVerbDesc": "呼吸、吃飯、睡覺等，日常生活中會使用的動詞。",
-    "v16SufferingVerbTitle": "看起來很正常，卻讓你變沉重的動詞",
-    "v16SufferingVerbDesc": "那些你平常、認真、出於好意在做的事，也許正在讓你的呼吸變得沉重。",
-    "v16LifeDecisionVerbTitle": "影響人生方向的動詞",
-    "v16LifeDecisionVerbDesc": "選擇、努力、忍耐、比較等，容易影響人生方向的動詞。",
-    "v16FreeVerbTitle": "自由輸入",
-    "v16FreeVerbDesc": "請輸入你想要最佳化的動詞。",
-    "v16BasicVerbs": [
-      "呼吸",
-      "吃",
-      "睡覺",
-      "感受",
-      "看",
-      "聽",
-      "思考",
-      "學習",
-      "相信",
-      "選擇",
-      "決定",
-      "愛",
-      "接收",
-      "給予",
-      "依靠",
-      "保護",
-      "說話",
-      "表達",
-      "創造",
-      "工作",
-      "賺錢",
-      "玩",
-      "養育",
-      "連結",
-      "原諒",
-      "感謝",
-      "挑戰",
-      "持續",
-      "開始",
-      "結束",
-      "放手",
-      "臣服",
-      "前進",
-      "回來",
-      "活著",
-      "死亡"
-    ],
-    "v16BasicVerbCategories": [
-      {
-        "id": "birth",
-        "title": "🌱 從出生那一刻開始",
-        "verbs": [
-          { "id": "be", "label": "存在" },
-          { "id": "live", "label": "活著" },
-          { "id": "breathe", "label": "呼吸" },
-          { "id": "feel", "label": "感覺" },
-          { "id": "touch", "label": "觸碰" },
-          { "id": "receive", "label": "接收" },
-          { "id": "cry", "label": "哭" },
-          { "id": "sleep", "label": "睡覺" },
-          { "id": "wake", "label": "醒來" },
-          { "id": "rest", "label": "休息" },
-          { "id": "drink", "label": "喝" },
-          { "id": "eat", "label": "吃" }
-        ]
-      },
-      {
-        "id": "sensing_world",
-        "title": "🌍 開始感受世界",
-        "verbs": [
-          { "id": "listen", "label": "聆聽" },
-          { "id": "see", "label": "看見" },
-          { "id": "smell", "label": "聞" },
-          { "id": "taste", "label": "品嚐" },
-          { "id": "notice", "label": "察覺" },
-          { "id": "need", "label": "需要" },
-          { "id": "want", "label": "想要" }
-        ]
-      },
-      {
-        "id": "body_movement",
-        "title": "🧍 身體開始動起來",
-        "verbs": [
-          { "id": "move", "label": "移動" },
-          { "id": "sit", "label": "坐" },
-          { "id": "stand", "label": "站" },
-          { "id": "walk", "label": "走" },
-          { "id": "play", "label": "玩" },
-          { "id": "laugh", "label": "笑" }
-        ]
-      },
-      {
-        "id": "relationship",
-        "title": "🤝 開始與人連結",
-        "verbs": [
-          { "id": "connect", "label": "連結" },
-          { "id": "trust", "label": "信任" },
-          { "id": "love", "label": "愛" },
-          { "id": "care", "label": "珍惜" },
-          { "id": "ask", "label": "詢問" },
-          { "id": "give", "label": "給予" },
-          { "id": "share", "label": "分享" },
-          { "id": "speak", "label": "說話" }
-        ]
-      },
-      {
-        "id": "inner_world",
-        "title": "🧠 內在世界開始展開",
-        "verbs": [
-          { "id": "think", "label": "思考" },
-          { "id": "know", "label": "知道" },
-          { "id": "understand", "label": "理解" },
-          { "id": "wonder", "label": "感到好奇" },
-          { "id": "imagine", "label": "想像" },
-          { "id": "explore", "label": "探索" },
-          { "id": "choose", "label": "選擇" },
-          { "id": "act", "label": "行動" }
-        ]
-      },
-      {
-        "id": "expression_creation",
-        "title": "🎨 表達與創造開始打開",
-        "verbs": [
-          { "id": "sing", "label": "唱歌" },
-          { "id": "dance", "label": "跳舞" },
-          { "id": "enjoy", "label": "享受" },
-          { "id": "create", "label": "創造" },
-          { "id": "grow", "label": "成長" }
-        ]
-      },
-      {
-        "id": "life_flow",
-        "title": "🌀 活出人生的流動",
-        "verbs": [
-          { "id": "begin", "label": "開始" },
-          { "id": "continue", "label": "繼續" },
-          { "id": "wait", "label": "等待" },
-          { "id": "stay", "label": "停留" },
-          { "id": "leave", "label": "離開" },
-          { "id": "return", "label": "回來" },
-          { "id": "stop", "label": "停止" },
-          { "id": "change", "label": "改變" },
-          { "id": "end", "label": "結束" }
-        ]
-      }
-    ],
-    "v16LifeDecisionVerbs": [
-      {
-        "id": "survive",
-        "emoji": "👶",
-        "title": "生存",
-        "age": "0〜3歲",
-        "description": "為了生存而學會",
-        "verbs": [
-          { "id": "respond", "label": "反應" },
-          { "id": "belong", "label": "歸屬" },
-          { "id": "help", "label": "幫助" },
-          { "id": "protect", "label": "保護" }
-        ]
-      },
-      {
-        "id": "be-good",
-        "emoji": "🧒",
-        "title": "成為乖孩子",
-        "age": "3〜6歲",
-        "description": "在家庭、托兒所、幼兒園中學會",
-        "verbs": [
-          { "id": "behave", "label": "表現得體" },
-          { "id": "follow", "label": "跟隨" },
-          { "id": "obey", "label": "服從" },
-          { "id": "please", "label": "取悅" },
-          { "id": "hide", "label": "隱藏" },
-          { "id": "endure", "label": "忍耐" }
-        ]
-      },
-      {
-        "id": "learn",
-        "emoji": "🎒",
-        "title": "學習",
-        "age": "6〜18歲",
-        "description": "在學校教育中被塑造",
-        "verbs": [
-          { "id": "learn", "label": "學習" },
-          { "id": "check", "label": "確認" },
-          { "id": "prepare", "label": "準備" },
-          { "id": "compare", "label": "比較" },
-          { "id": "compete", "label": "競爭" },
-          { "id": "prove", "label": "證明" },
-          { "id": "succeed", "label": "成功" },
-          { "id": "hurry", "label": "趕快" }
-        ]
-      },
-      {
-        "id": "be-recognized",
-        "emoji": "💼",
-        "title": "被社會認可",
-        "age": "18〜30歲",
-        "description": "作為社會人被期待",
-        "verbs": [
-          { "id": "adapt", "label": "適應" },
-          { "id": "manage", "label": "管理" },
-          { "id": "perform", "label": "履行" },
-          { "id": "impress", "label": "留下好印象" },
-          { "id": "express", "label": "表達" },
-          { "id": "fix", "label": "解決問題" }
-        ]
-      },
-      {
-        "id": "support-life",
-        "emoji": "👨‍👩‍👧",
-        "title": "支撐人生",
-        "age": "30歲〜",
-        "description": "維持家庭、工作與社會",
-        "verbs": [
-          { "id": "own", "label": "擁有" },
-          { "id": "control", "label": "控制" },
-          { "id": "remember", "label": "記得" },
-          { "id": "appreciate", "label": "感謝" },
-          { "id": "sacrifice", "label": "犧牲" }
-        ]
-      },
-      {
-        "id": "modern-society",
-        "emoji": "📱",
-        "title": "現代社會",
-        "age": "",
-        "description": "現代特有且被強化的行為",
-        "verbs": [
-          { "id": "consume", "label": "消費" },
-          { "id": "avoid", "label": "避開" }
-        ]
-      },
-      {
-        "id": "lifelong",
-        "emoji": "♾️",
-        "title": "一生持續",
-        "age": "",
-        "description": "貫穿所有年齡階段",
-        "verbs": [
-          { "id": "strive", "label": "努力" }
-        ]
-      }
-    ],
-    "v16FreeVerbPlaceholder": "例：愛",
-    "v16StartWithVerb": "用這個動詞開始",
-    "v16VerbShowMore": "顯示更多",
-    "v16NegativeMeasurementQuestion": "「{verb}」\n\n那個時候，\n\n呼吸的自然程度是？",
-    "v16WorstNegativeQuestion": "由此受到的\n影響當中，\n如果有負面的，\n請全部寫下來。",
-    "v16WorstNegativePlaceholder": "例：沉重 / 害怕 / 有抵抗 / 失去自己",
-    "v16BestIdealQuestion": "關於這件事，\n你能想像到最理想的狀態是什麼？\n請全部寫下來。",
-    "v16BestIdealPlaceholder": "請寫下理想狀態",
-    "v16NoAnswerButton": "沒有答案出現",
-    "v16SaveAndExitButton": "在這裡儲存並結束",
-    "v16FreeVerbSaveTitle": "要儲存這個動詞嗎？",
-    "v16FreeVerbSaveBody": "免費版中，你可以無限次使用所選的動詞\n「{verb}」。\n\n若要儲存這個動詞，\n需要使用 Google 登入。\n\n如果不需要儲存，\n可以不登入直接結束。",
-    "v16FreeVerbSaveLoginButton": "用 Google 儲存",
-    "v16FreeVerbSaveSkipButton": "不儲存並結束",
-    "v16FreeVerbSavedTitle": "已儲存",
-    "v16FreeVerbSavedBody": "免費版中，你可以無限次使用所選的動詞\n「{verb}」。",
-    "v16FreeVerbSavedButton": "結束",
-    "v16BreathStep1Title": "呼吸。",
-    "v16BreathStep1Body": "與它相互平衡的能量。",
-    "v16BreathStep2Title": "呼吸。",
-    "v16BreathStep2Body": "除了那股能量之外的一切。",
-    "v16BreathOpposingEnergy": "感受它。\n與「{answer}」拮抗的能量。\n\n呼吸。",
-    "v16BreathAllExceptOpposing": "感受它。\n那股拮抗能量以外的一切。\n\n呼吸。",
-    "v16ResultBrand": "Noetune",
-    "v16ResultTitle": "動詞紀錄",
-    "v16ResultVerbLabel": "選擇的動詞",
-    "v16ResultFromLabel": "前",
-    "v16ResultTowardLabel": "後",
-    "v16ResultShiftLabel": "呼吸自然度",
-    "v16ResultNegativeAnswersLabel": "察覺到的影響（負面）",
-    "v16ResultIdealAnswersLabel": "察覺到的影響（正面）",
-    "v16ResultEmptyValue": "—",
-    "v16ResultFooter": "noetune.com",
-    "v13NonIdealQuestion": "不是那樣的狀態是什麼？",
-    "v13IdealQuestion": "那麼，理想的狀態是什麼？",
-    "v13NonIdealPlaceholder": "例：壓抑自己 / 不安 / 抵抗 / 迷惘",
-    "v13IdealPlaceholder": "例：信任自己 / 感到安心 / 自由自在 / 享受當下",
-    "selectedThemeFallback": "已選擇的主題",
-    "v13NonIdealFallback": "不是那樣的狀態",
-    "v13MeasurementQuestion": "「{theme}」\n\n那個時候，\n\n呼吸的自然程度是？",
-    "themeQuoteTemplate": "「{theme}」",
-    "resultThemeLabel": "主題：",
-    "resultEssenceLabel": "你的本質：",
-    "resultBreathNaturalness": "呼吸的自然程度",
-    "resultProfessionalFeatures": [
-      "所有主題",
-      "不限次數使用",
-      "隨時可以取消"
-    ],
-    "category_section_label": "依分類選擇",
-    "custom_input_placeholder": "自由輸入…",
-    "theme_cta_button": "用這個主題開始",
-    "see_more_themes": "查看更多",
-    "door_title": "請選一個\n比較容易回答的問題。",
-    "door_answer_placeholder": "輸入狀態…",
-    "door_next_button": "用這個答案繼續",
-    "door_a_question_template": "「{neg}」\n\n正在感受到這種感覺的人\n\n是什麼狀態？",
-    "door_b_question_template": "「{pos}」\n\n沒有感受到這種感覺的人\n\n是什麼狀態？",
-    "door_c_question_template": "「{pos}」\n\n正在感受到這種感覺的人\n\n是什麼狀態？",
-    "professionalPlanTitle": "Professional 方案",
-    "professionalPlanTrialUsed": "免費體驗可使用 1 個主題（已使用）",
-    "professionalPlanAccess": "Professional 可使用所有主題。",
-    "professionalPlanCta": "前往 Professional",
-    "portal_manage": "管理訂閱",
-    "guest_records_note": "訪客使用期間的紀錄會儲存在這台裝置中。\n若要在其他裝置使用或安全保留紀錄，請先登入。",
-    "pricing_soon": "準備中",
-    "lock_title": "繼續使用的說明",
-    "lock_body": "第一次體驗中，\n你已經完整感受了 Noetune。\n\n使用 Professional 時，\n你可以在需要的時候使用所有主題。",
-    "lock_cta": "使用 Professional 繼續",
-    "lock_note": "每月 NT$290",
-    "resultNewThemeButton": "用新的主題開始",
-    "next_button": "下一步",
-    "not_measurable_button": "無法數值化",
-    "skip_measurement": "跳過測量",
-    "feel_prompt": "感受。",
-    "breathe_start_hint": "輕輕吐氣後，點一下",
-    "session_result_header": "Session Shift",
-    "result_label_breath_ease": "呼吸的餘裕",
-    "result_poem": "珍惜此刻的變化。",
-    "result_label_from": "From",
-    "result_label_toward": "Toward",
-    "result_shift_section": "Shift",
-    "result_be_helper": "呼吸的餘裕度",
-    "result_nm_display": "沒有被固定",
-    "result_meaning": "沒有被固定＝\n不被數字固定住，\n可以自由變化的感覺",
-    "breath_in": "吸氣",
-    "breath_out": "吐氣",
-    "issue_placeholder": "輸入問題…",
-    "issue_skip": "沒有浮現",
-    "ideal_placeholder": "輸入留下來的狀態…",
-    "ideal_skip": "跳過",
-    "ideal_top_copy": "寫下下一個瞬間\n想感受到的體驗，\n或從下方開始。",
-    "see_more_ideals": "查看更多理想體驗",
-    "ideal_cta_button": "下一步",
-    "breath_2_text": "那時候呼吸的餘裕度",
-    "breath_3_text": "愛那個感覺。",
-    "breath_4_text": "包含那個感覺的一切。",
-    "breath_3_soft_text": "我對那份感受的感覺",
-    "breath_4_soft_text": "包含那份感受的一切",
-    "breath_5_soft_text": "那份感受不存在的狀態",
-    "breath_3_deep_text": "對那個感覺的感覺",
-    "breath_4_deep_text": "包含那個感覺的一切",
-    "breath_5_deep_text": "那個感覺不存在的狀態。",
-    "ideal_unified_title": "「{theme}」\n\n有這個的人，\n理想狀態是？",
-    "before2_title": "「{ideal}」\n\n那時候，\n呼吸有多少餘裕？",
-    "after2_title": "「{ideal}」\n\n那時候，\n呼吸有多少餘裕？",
-    "ideal_blocker_title": "是什麼阻礙了\n「{ideal}」？",
-    "ideal_blocker_placeholder": "輸入阻礙的狀態…",
-    "ideal_before2_title": "「{issue}」\n\n那時候，\n呼吸有多少餘裕？",
-    "ideal_after2_title": "「{issue}」\n\n那時候，\n呼吸有多少餘裕？",
-    "save_image_button": "儲存成圖片",
-    "save_image_creating": "正在製作圖片…",
-    "save_image_fallback_note": "如果無法儲存，\n請長按圖片，\n或使用截圖保存。",
-    "save_image_error": "無法儲存圖片。\n請使用截圖保存。",
-    "save_image_preview_note": "長按即可儲存圖片。",
-    "shift_note_title": "如果用一句話\n形容現在的感覺？",
-    "shift_note_placeholder": "例：稍微鬆開了 / 安靜地回來了",
-    "shift_note_button": "查看結果",
-    "shift_note_skip": "跳過",
-    "no_answer_button": "沒有答案出現",
-    "congrats_title": "Congratulations",
-    "congrats_body": "在這個主題裡，\n現在沒有反應浮現。\n\n這也許代表，\n此刻這個主題\n已經安靜下來了。\n\n如果需要，\n可以選擇別的主題。",
-    "congrats_choose_new_theme": "選擇別的主題",
-    "congrats_back_to_start": "回到開始畫面",
-    "result_shift_note_label": "現在的感覺",
-    "door_a_template": "正在感受到「{neg}」的人",
-    "door_b_template": "沒有感受到「{pos}」的人",
-    "door_c_template": "正在感受到「{pos}」的人",
-    "step2_placeholder": "輸入理想狀態…",
-    "step1_skip_default": "安靜地反應著",
-    "step2_skip_default": "安靜地回來了",
-    "wishEntryTitle": "選擇現在最在意的領域。",
-    "seeMore": "查看更多",
-    "aboutLink": "關於 Noetune",
-    "resultUnanswered": "尚未回答",
-    "professionalLead": "在需要的時候，\n安靜地回到自己的地方。",
-    "professionalTitle": "Professional",
-    "professionalPrice": "每月 NT$290",
-    "professionalCta": "查看 Professional",
-    "landingHero": "每一次想起原本的自己，\n人生就會變得輕一點。",
-    "landingSub": "選擇。\n回答。\n覺察。\n\nNoetune 是一個透過現實中的體驗，\n幫助你想起自然自己的 App。",
-    "landingStart": "開始",
-    "landingSection": "什麼時候可以使用",
-    "landingItems": [
-      "・為了金錢而起反應時",
-      "・在人際關係中卡住時",
-      "・工作讓自己變得沉重時",
-      "・對未來感到不安時",
-      "・一直責怪自己時",
-      "・不知道自己到底發生了什麼時"
-    ],
-    "landingFooter1": "Noetune 不是分析問題的 App。",
-    "landingFooter2": "透過簡短的問題，\n幫助你從正在發生的事情裡，\n慢慢認識自己。",
-    "landingAboutLink": "Noetune是什麼",
-    "landingPricingLink": "免費版與 Professional 版",
-    "v16LandingHero": "把人生的動詞，\n最佳化回原本的自己。",
-    "v16LandingSub": "這是一個幫助你想起與動詞原本的關係，\n並回到原本自己的 App。",
-    "v16LandingStart": "開始",
-    "v16LandingAboutTitle": "Noetune是什麼",
-    "v16LandingReadMore": "繼續閱讀",
-    "v16LandingSections": [
-      {
-        "title": "人生，是由動詞組成的。",
-        "bodyGroups": [
-          "我們每天都活在無數個「做」之中：",
-          "反應\n比較\n努力\n忍耐\n愛\n工作\n休息",
-          "我們活著數也數不清的動詞。"
-        ]
-      },
-      {
-        "title": "自我規則",
-        "bodyGroups": [
-          "我們透過家庭、學校、社會、文化、組織、時代等，",
-          "在無意識中，\n學會了會影響人生的自我規則。",
-          "其中許多，\n會以和動詞之間的關係出現，\n像是\n「必須～」\n或\n「應該～」。"
-        ]
-      },
-      {
-        "title": "所有動詞，都是中立的。",
-        "bodyGroups": [
-          "動詞本身，\n沒有好，也沒有壞。",
-          "不是正向，\n也不是負向。",
-          "決定你現在與未來的，\n是你每天使用的動詞之間的關係。\n那份關係，也會改變你與過去的關係。"
-        ]
-      },
-      {
-        "title": "Noetune 不是改變人的 App。",
-        "bodyGroups": [
-          "Noetune",
-          "不是給你新規則的 App。\n你也不需要勉強自己改變。",
-          "透過覺察自我規則，\n想起與動詞原本的關係，\n回到原本的自己。",
-          "這就是 Noetune 的目的。"
-        ]
-      }
-    ],
-    "v16LandingFinalCta": "請選擇你想要最佳化的動詞。",
-    "professionalSessionCta": "開始 Professional 體驗",
-    "authGoogleContinue": "使用 Google 繼續",
-    "authTitle": "登入",
-    "authClose": "關閉",
-    "authBody": "使用 Google 登入，儲存你的結果。",
-    "authEmailPlaceholder": "電子郵件地址",
-    "authErrorRetry": "無法登入，請再試一次。",
-    "authError": "無法登入。",
-    "authInvalidEmail": "請輸入有效的電子郵件地址。",
-    "authSendErrorRetry": "無法寄出，請再試一次。",
-    "authEmailButton": "使用電子郵件登入",
-    "authEmailSentMessage": "驗證信已寄出。\n請開啟信中的連結。",
-    "authSent": "已寄出",
-    "authSendError": "無法寄出。",
-    "authGoogleLogin": "使用 Google 登入",
-    "authRestoreProfessional": "恢復 Professional",
-    "authLogout": "登出",
-    "v13EndTitle": "要在這裡結束嗎？",
-    "v13FinishButton": "在這裡結束",
-    "v13ContinueInitial": "從最初的主題「{theme}」重新開始",
-    "appearanceLabel": "顯示模式",
-    "themeModeAuto": "自動",
-    "themeModeLight": "淺色",
-    "themeModeDark": "深色",
+  "meta": {
+    "appId": "noetune",
+    "appVersion": "v17",
+    "schemaVersion": "2026-07-03.1",
+    "locale": "zh-TW"
+  },
+  "app": {
+    "name": "Noetune",
+    "tagline": "讓你與人生的關係，慢慢變輕。"
+  },
+  "appearance": {
+    "label": "顯示",
+    "auto": "自動",
+    "light": "淺色",
+    "dark": "深色"
+  },
+  "lp": {
+    "logo": "Noetune",
+    "hero": {
+      "title": "讓你與人生的關係，\n稍微變輕。",
+      "body": "Noetune 不是\n解決問題的 App。\n\n這是一個讓你客觀地\n接近自己、\n轉換視角，\n並變得輕盈一些的地方。",
+      "cta": "開始這段旅程"
+    },
+    "not": {
+      "title": "這不是那種 App。",
+      "lines": [
+        "這不是替你解決問題的 App。",
+        "也不是由 AI 告訴你答案的 App。",
+        "也不是每天記錄、分析你的 App。"
+      ]
+    },
+    "core": {
+      "title": "讓你與人生的關係，慢慢變輕。",
+      "body": "目標不是把問題消除。\n而是有一天，你自然覺得：「當初到底是什麼問題呢？」\nNoetune 是為了讓你自然靠近那個狀態。"
+    },
+    "entryPreview": {
+      "title": "現在，哪一個比較接近你？",
+      "fromConcern": "從現在在意的事開始",
+      "fromIdeal": "從現在想感受到的狀態開始"
+    },
+    "experience": {
+      "title": "書寫。感受。呼吸。",
+      "lines": [
+        "寫下現在的狀態。",
+        "稍微感受幸福度100%。",
+        "呼吸。",
+        "看見變化。"
+      ]
+    },
+    "resultPreview": {
+      "title": "出現的，只有你的文字。",
+      "body": "主題。\n現在的狀態。\n變化。\n覺察。\n\n我們不會代替你解釋。"
+    },
+    "free": {
+      "title": "一次旅程，可以免費走到最後。",
+      "body": "不限制一次 session 本身。\n需要的時候，就可以開始。"
+    },
+    "bookmark": {
+      "title": "把今天的旅程，夾上書籤。",
+      "body": "把今天的覺察，留給未來的自己。\n之後再從那裡重新開始。"
+    },
+    "finalCta": {
+      "title": "現在，只要一分鐘。",
+      "cta": "開始這段旅程"
+    }
+  },
+  "entry": {
+    "categoryTitle": "想看見與什麼的關係？",
+    "categorySubtitle": "先選擇主題的入口。",
+    "typeTitle": "想從哪一邊開始看？",
+    "problemsLabel": "煩惱",
+    "idealsLabel": "理想",
+    "themeTitle": "選擇主題",
+    "freeInputTitle": "寫下這一刻在意的事",
+    "freeInputPlaceholder": "自由輸入",
+    "freeInputStart": "用這個主題開始"
+  },
+  "flow": {
+    "step0": {
+      "title": "選擇主題"
+    },
+    "step1": {
+      "kind": "measurement",
+      "label": "測量",
+      "quoteSource": "theme",
+      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
+      "rangeLabel": "0〜100"
+    },
+    "step2": {
+      "quoteSource": "theme",
+      "lead": "關於這個",
+      "main": "感受幸福度100%的狀態。",
+      "helper": "有個大概的感覺就可以。\n幾秒鐘就好。"
+    },
+    "step3": {
+      "quoteSource": "theme",
+      "lead": "關於這個，",
+      "main": "用語言表達現在的狀態。",
+      "helper": "能寫多少就寫多少。",
+      "placeholder": "寫在這裡"
+    },
+    "step4": {
+      "kind": "measurement",
+      "label": "測量",
+      "quoteSource": "currentStateText",
+      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
+      "rangeLabel": "0〜100"
+    },
+    "step5": {
+      "quoteSource": "currentStateText",
+      "lead": "關於這個",
+      "main": "感受幸福度100%的狀態。",
+      "helper": "有個大概的感覺就可以。\n幾秒鐘就好。"
+    },
+    "step6": {
+      "quoteSource": "currentStateText",
+      "lead": "對於這個，",
+      "main": "幸福度100%的我\n是什麼狀態？",
+      "helper": "能寫多少就寫多少。",
+      "placeholder": "寫在這裡"
+    },
+    "step7": {
+      "kind": "breath"
+    },
+    "step8": {
+      "kind": "measurement",
+      "label": "測量",
+      "quoteSource": "currentStateText",
+      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
+      "rangeLabel": "0〜100"
+    },
+    "step9": {
+      "kind": "result"
+    },
+    "finalTheme": {
+      "kind": "measurement",
+      "label": "最後測量",
+      "quoteSource": "theme",
+      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
+      "rangeLabel": "0〜100"
+    }
+  },
+  "breath": {
+    "step1": {
+      "smallTop": "請感覺。",
+      "main": "與現在這個感受\n相拮抗的能量",
+      "smallBottom": "輕輕吐氣後，點一下"
+    },
+    "step2": {
+      "smallTop": "請感覺。",
+      "main": "那個拮抗能量\n以外的一切。",
+      "smallBottom": "輕輕吐氣後，點一下"
+    },
+    "inhale": "吸氣",
+    "exhale": "吐氣"
+  },
+  "result": {
+    "cardTitle": "結果",
+    "selectedTheme": "選擇的主題",
+    "currentState": "你寫下的現在狀態",
+    "scoreSuffix": "的幸福度",
+    "before": "前",
+    "after": "後",
+    "awareness": "你的覺察",
+    "imageSave": "儲存結果圖片",
+    "shareStatusSaved": "結果圖片已儲存",
+    "shareStatusFailed": "無法儲存圖片"
+  },
+  "bookmark": {
+    "primaryCta": "加入書籤",
+    "resultHint": "可以先在這裡結束。\n把這段旅程夾上書籤。",
+    "saved": "書籤已儲存",
+    "loginRequired": "請登入後儲存書籤",
+    "proRequired": "若要繼續儲存書籤，需要 Pro"
+  },
+  "buttons": {
+    "next": "下一步",
+    "skip": "跳過",
+    "skipThisStep": "跳過這一步",
+    "back": "返回",
+    "start": "開始",
+    "continue": "繼續",
+    "done": "完成",
+    "close": "關閉",
+    "save": "儲存",
+    "cancel": "取消",
     "login": "登入",
     "signup": "註冊",
-    "manageSubscription": "管理訂閱",
     "logout": "登出",
-    "professional": "Professional",
-    "appearance": "顯示",
-    "language": "語言",
-    "account": "帳戶",
-    "saveResultButton": "儲存這個結果",
-    "saveResultLogin": "登入以儲存結果",
-    "saveResultSaved": "已儲存",
-    "saveResultSaving": "儲存中…",
-    "saveResultError": "無法儲存",
-    "saveProgressButton": "保存目前進度",
-    "saveProgressSaved": "進度已保存",
-    "resumeSavedTheme": "繼續保存的主題",
-    "saveProgressLoginTitle": "登入以保存進度",
-    "saveProgressLoginBody": "你正在使用 1 次免費體驗。\n登入後，可以在之後繼續同一個主題。",
-    "saveProgressSaving": "正在保存進度…",
-    "saveProgressError": "無法保存進度"
+    "manage": "管理",
+    "pricing": "查看 Pro",
+    "tryAgain": "再試一次",
+    "choose": "選擇",
+    "showMore": "顯示更多",
+    "anotherClearing": "再清理一次",
+    "restartTheme": "從這個主題重新開始",
+    "chooseThemeAgain": "重新選擇主題",
+    "noMoreAnswer": "沒有更多答案",
+    "cannotQuantify": "無法量化"
   },
-  "about": {
-    "title": "關於 Noetune",
-    "p1": "Noetune 是一個從\n現在最在意的人生主題開始，\n幫助你想起自然的自己應用程式。",
-    "p2": "身體與安心、\n人與人的連結、\n自己選擇的力量、\n享受、\n創造、\n理解。\n\n從這些之中，\n選擇此刻最接近自己的願望，\n回答幾個簡短的提問。",
-    "p3": "Noetune 不是\n分析問題的應用程式。\n也不是告訴你答案的應用程式。",
-    "p4": "它是一個工具，\n讓你透過此刻正在發生的事，\n慢慢察覺原本就在自己之中的感覺。",
-    "safety": "這不是醫療行為。\n如果你正處於緊急狀態，\n請向專業人士或身邊信任的人求助。"
+  "buttonsHint": {
+    "cannotQuantify": "已經不值得當成問題"
   },
-  "wishGroups": [
-    {
-      "key": "foundation",
-      "label": "身體與安心（存在的基礎）",
-      "wishes": [
-        {
-          "key": "life",
-          "label": "生命力",
-          "themes": [
-            {
-              "key": "life_01",
-              "label": "用身體活著",
-              "desc": "透過身體的感覺，感受生命"
-            },
-            {
-              "key": "life_02",
-              "label": "品味五感",
-              "desc": "享受看見、聽見、品嚐與觸摸"
-            },
-            {
-              "key": "life_03",
-              "label": "活著的實感",
-              "desc": "感受到此刻自己正在活著"
-            },
-            {
-              "key": "life_04",
-              "label": "品味當下",
-              "desc": "好好接收此刻正在發生的事"
-            },
-            {
-              "key": "life_05",
-              "label": "接收喜悅",
-              "desc": "自然感受開心與愉悅"
-            },
-            {
-              "key": "life_06",
-              "label": "允許舒服",
-              "desc": "不把舒適與渴望當成壞事"
-            },
-            {
-              "key": "life_07",
-              "label": "生命在流動",
-              "desc": "感受生命力在身體裡流動"
-            },
-            {
-              "key": "life_08",
-              "label": "享受行動",
-              "desc": "享受活動身體與採取行動"
-            },
-            {
-              "key": "life_09",
-              "label": "保有玩心",
-              "desc": "願意嘗試、笑一笑、變出新的方法"
-            },
-            {
-              "key": "life_10",
-              "label": "創造並表達",
-              "desc": "把內在的感覺化成具體形式"
-            },
-            {
-              "key": "life_11",
-              "label": "投入其中",
-              "desc": "深深進入自己喜歡的事"
-            },
-            {
-              "key": "life_12",
-              "label": "小小冒險",
-              "desc": "在日常中嘗試新的體驗"
-            },
-            {
-              "key": "life_13",
-              "label": "享受變化",
-              "desc": "把改變看成生命的流動"
-            },
-            {
-              "key": "life_14",
-              "label": "接納結束",
-              "desc": "把死亡與離別看成生命的一部分"
-            },
-            {
-              "key": "life_15",
-              "label": "感受情緒",
-              "desc": "把情緒當成生命的流動來感受"
-            },
-            {
-              "key": "life_16",
-              "label": "真誠互動",
-              "desc": "不過度包裝自己，也能與人連結"
-            },
-            {
-              "key": "life_17",
-              "label": "擁有界線",
-              "desc": "守護自己的喜悅與生命"
-            },
-            {
-              "key": "life_18",
-              "label": "信任自己",
-              "desc": "信任自己的感覺與直覺"
-            },
-            {
-              "key": "life_19",
-              "label": "與自然連結",
-              "desc": "在自然中感受生命"
-            },
-            {
-              "key": "life_20",
-              "label": "參與人生",
-              "desc": "不只是旁觀，而是親自體驗人生"
-            }
-          ]
-        },
-        {
-          "key": "safety",
-          "label": "安心",
-          "themes": [
-            {
-              "key": "safety_01",
-              "label": "我可以在這裡",
-              "desc": "感受到自己可以存在於此"
-            },
-            {
-              "key": "safety_02",
-              "label": "原本的自己",
-              "desc": "連同脆弱的部分，也能接納自己"
-            },
-            {
-              "key": "safety_03",
-              "label": "信任自己",
-              "desc": "感到自己有能力回應眼前的事"
-            },
-            {
-              "key": "safety_04",
-              "label": "身體放鬆",
-              "desc": "身體的緊繃慢慢鬆開"
-            },
-            {
-              "key": "safety_05",
-              "label": "扎根當下",
-              "desc": "在此時此地找到立足點"
-            },
-            {
-              "key": "safety_06",
-              "label": "自己調整",
-              "desc": "知道如何讓自己安定下來"
-            },
-            {
-              "key": "safety_07",
-              "label": "被支持著",
-              "desc": "不需要一個人扛下全部"
-            },
-            {
-              "key": "safety_08",
-              "label": "接受支持",
-              "desc": "能夠收下別人的幫助"
-            },
-            {
-              "key": "safety_09",
-              "label": "一個人也安心",
-              "desc": "在自己內在有可以依靠的地方"
-            },
-            {
-              "key": "safety_10",
-              "label": "安心的人",
-              "desc": "擁有讓自己鬆一口氣的關係"
-            },
-            {
-              "key": "safety_11",
-              "label": "保護自己",
-              "desc": "能夠守護自己的安全"
-            },
-            {
-              "key": "safety_12",
-              "label": "擁有界線",
-              "desc": "保有剛剛好的距離"
-            },
-            {
-              "key": "safety_13",
-              "label": "情緒也是安全的",
-              "desc": "能安全地感受自己的情緒"
-            },
-            {
-              "key": "safety_14",
-              "label": "不安也是訊號",
-              "desc": "把不安當成確認自己的訊號"
-            },
-            {
-              "key": "safety_15",
-              "label": "失敗後也能回來",
-              "desc": "即使失敗，自己也不會因此壞掉"
-            },
-            {
-              "key": "safety_16",
-              "label": "未知也沒關係",
-              "desc": "即使還不知道，也能往前走"
-            },
-            {
-              "key": "safety_17",
-              "label": "交給流動",
-              "desc": "放下無法控制的事"
-            },
-            {
-              "key": "safety_18",
-              "label": "已經足夠",
-              "desc": "感受到此刻已經擁有的滿足"
-            },
-            {
-              "key": "safety_19",
-              "label": "整理生活",
-              "desc": "用每天的節奏培養安心"
-            },
-            {
-              "key": "safety_20",
-              "label": "從安心出發",
-              "desc": "以安定作為行動的基礎"
-            }
-          ]
-        },
-        {
-          "key": "rest",
-          "label": "休息",
-          "themes": [
-            {
-              "key": "rest_01",
-              "label": "允許休息",
-              "desc": "覺得現在可以休息"
-            },
-            {
-              "key": "rest_02",
-              "label": "休息是保養",
-              "desc": "休息是在整理自己"
-            },
-            {
-              "key": "rest_03",
-              "label": "疲累是訊號",
-              "desc": "疲累時，知道那是「該休息了」的提醒"
-            },
-            {
-              "key": "rest_04",
-              "label": "讓身體休息",
-              "desc": "察覺身體想休息的聲音"
-            },
-            {
-              "key": "rest_05",
-              "label": "放鬆用力",
-              "desc": "讓身體裡的用力稍微鬆開"
-            },
-            {
-              "key": "rest_06",
-              "label": "交給重力",
-              "desc": "把身體交給支撐，變得輕鬆"
-            },
-            {
-              "key": "rest_07",
-              "label": "深深睡眠",
-              "desc": "把睡眠當成重要的事"
-            },
-            {
-              "key": "rest_08",
-              "label": "放慢呼吸",
-              "desc": "慢慢吐氣，讓自己安定"
-            },
-            {
-              "key": "rest_09",
-              "label": "品味什麼都不做",
-              "desc": "能夠享受什麼都不做的時間"
-            },
-            {
-              "key": "rest_10",
-              "label": "保留空白",
-              "desc": "為自己空出沒有安排的時間"
-            },
-            {
-              "key": "rest_11",
-              "label": "減少刺激",
-              "desc": "暫時離開手機、聲音與人群"
-            },
-            {
-              "key": "rest_12",
-              "label": "回到安靜",
-              "desc": "珍惜安靜的時間"
-            },
-            {
-              "key": "rest_13",
-              "label": "滋養自己",
-              "desc": "給身體真正需要的東西"
-            },
-            {
-              "key": "rest_14",
-              "label": "回到自然",
-              "desc": "接觸自然時，自己慢慢被整理"
-            },
-            {
-              "key": "rest_15",
-              "label": "自己的節奏",
-              "desc": "用自己的步調休息"
-            },
-            {
-              "key": "rest_16",
-              "label": "等待恢復",
-              "desc": "能等到精神自然回來"
-            },
-            {
-              "key": "rest_17",
-              "label": "交給別人",
-              "desc": "不全部自己做，也能請人幫忙"
-            },
-            {
-              "key": "rest_18",
-              "label": "為了休息說不",
-              "desc": "為了休息，能對勉強的事說不"
-            },
-            {
-              "key": "rest_19",
-              "label": "一起休息",
-              "desc": "即使在一起，也能什麼都不做地休息"
-            },
-            {
-              "key": "rest_20",
-              "label": "再次自然行動",
-              "desc": "休息之後，自然會再次動起來"
-            }
-          ]
-        },
-        {
-          "key": "health",
-          "label": "健康",
-          "themes": [
-            {
-              "key": "health_01",
-              "label": "身體是夥伴",
-              "desc": "不把身體當敵人，而是信任它"
-            },
-            {
-              "key": "health_02",
-              "label": "身體是同行者",
-              "desc": "和身體一起走一生"
-            },
-            {
-              "key": "health_03",
-              "label": "聽身體的聲音",
-              "desc": "察覺疲累、飢餓與不舒服"
-            },
-            {
-              "key": "health_04",
-              "label": "調整呼吸",
-              "desc": "透過呼吸與姿勢整理身體"
-            },
-            {
-              "key": "health_05",
-              "label": "讓流動變好",
-              "desc": "讓血液、代謝與情緒流動起來"
-            },
-            {
-              "key": "health_06",
-              "label": "好好活動",
-              "desc": "讓活動身體變得舒服"
-            },
-            {
-              "key": "health_07",
-              "label": "好好睡眠",
-              "desc": "透過睡眠恢復自己"
-            },
-            {
-              "key": "health_08",
-              "label": "好好吃飯",
-              "desc": "重視營養，也重視享受"
-            },
-            {
-              "key": "health_09",
-              "label": "休息中恢復",
-              "desc": "把休息當成健康的一部分"
-            },
-            {
-              "key": "health_10",
-              "label": "不勉強自己",
-              "desc": "尊重自己的極限"
-            },
-            {
-              "key": "health_11",
-              "label": "不適是訊號",
-              "desc": "把不適當成重新檢視的提醒"
-            },
-            {
-              "key": "health_12",
-              "label": "照顧身體",
-              "desc": "定期保養自己的身體"
-            },
-            {
-              "key": "health_13",
-              "label": "讓壓力流動",
-              "desc": "不把情緒與負荷一直累積在身體裡"
-            },
-            {
-              "key": "health_14",
-              "label": "與自然生活",
-              "desc": "配合自然的節奏"
-            },
-            {
-              "key": "health_15",
-              "label": "生活節奏",
-              "desc": "整理每天的生活流動"
-            },
-            {
-              "key": "health_16",
-              "label": "不比較身體",
-              "desc": "不過度拿自己的身體和別人比較"
-            },
-            {
-              "key": "health_17",
-              "label": "與變化相處",
-              "desc": "配合年齡與身體狀態的變化"
-            },
-            {
-              "key": "health_18",
-              "label": "搖晃後也能回穩",
-              "desc": "不完美也能再次回到平衡"
-            },
-            {
-              "key": "health_19",
-              "label": "透過環境安好",
-              "desc": "讓人與地方一起支持健康"
-            },
-            {
-              "key": "health_20",
-              "label": "從健康出發",
-              "desc": "以健康為基礎享受人生"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "relationship_dignity",
-      "label": "人際連結（關係與尊嚴）",
-      "wishes": [
-        {
-          "key": "love",
-          "label": "愛",
-          "themes": [
-            {
-              "key": "love_01",
-              "label": "值得被愛",
-              "desc": "自己可以被好好珍惜"
-            },
-            {
-              "key": "love_02",
-              "label": "愛自己",
-              "desc": "不隨便對待自己"
-            },
-            {
-              "key": "love_03",
-              "label": "愛會流動",
-              "desc": "愛在給予與接受之間擴展"
-            },
-            {
-              "key": "love_04",
-              "label": "接受愛",
-              "desc": "收下溫柔與好意"
-            },
-            {
-              "key": "love_05",
-              "label": "表達愛",
-              "desc": "把重要的心意表達出來"
-            },
-            {
-              "key": "love_06",
-              "label": "好好珍惜",
-              "desc": "把對方當成一個完整的存在來對待"
-            },
-            {
-              "key": "love_07",
-              "label": "打開心",
-              "desc": "一點一點地信任人"
-            },
-            {
-              "key": "love_08",
-              "label": "展現脆弱",
-              "desc": "不完美的自己也可以被看見"
-            },
-            {
-              "key": "love_09",
-              "label": "真誠相處",
-              "desc": "用真實的感受與人連結"
-            },
-            {
-              "key": "love_10",
-              "label": "好好聆聽",
-              "desc": "不急著定義對方，而是聽見對方"
-            },
-            {
-              "key": "love_11",
-              "label": "用身體感受愛",
-              "desc": "透過溫度與接觸感受愛"
-            },
-            {
-              "key": "love_12",
-              "label": "擁有界線",
-              "desc": "在愛裡也保有自己的不"
-            },
-            {
-              "key": "love_13",
-              "label": "平等的關係",
-              "desc": "不是只有一方一直忍耐"
-            },
-            {
-              "key": "love_14",
-              "label": "尊重自由",
-              "desc": "不把對方綁得太緊"
-            },
-            {
-              "key": "love_15",
-              "label": "尊重差異",
-              "desc": "不把差異當成關係的敵人"
-            },
-            {
-              "key": "love_16",
-              "label": "不害怕被拒絕",
-              "desc": "即使有人離開，自己的價值也不會消失"
-            },
-            {
-              "key": "love_17",
-              "label": "修復受傷",
-              "desc": "把錯過與受傷的地方重新整理"
-            },
-            {
-              "key": "love_18",
-              "label": "一個人也是愛",
-              "desc": "獨處時也好好珍惜自己"
-            },
-            {
-              "key": "love_19",
-              "label": "愛有很多形狀",
-              "desc": "也珍惜戀愛以外的愛"
-            },
-            {
-              "key": "love_20",
-              "label": "在世界看見愛",
-              "desc": "在世界裡找到溫柔"
-            }
-          ]
-        },
-        {
-          "key": "connection",
-          "label": "連結",
-          "themes": [
-            {
-              "key": "connection_01",
-              "label": "我也能連結",
-              "desc": "自己也能與人建立連結"
-            },
-            {
-              "key": "connection_02",
-              "label": "一個人也可以",
-              "desc": "分得出孤獨與孤立的不同"
-            },
-            {
-              "key": "connection_03",
-              "label": "打開心",
-              "desc": "一點一點地信任人"
-            },
-            {
-              "key": "connection_04",
-              "label": "展現真實",
-              "desc": "能讓脆弱與真心被看見"
-            },
-            {
-              "key": "connection_05",
-              "label": "主動靠近",
-              "desc": "不只是等待，也能主動開口"
-            },
-            {
-              "key": "connection_06",
-              "label": "對對方有興趣",
-              "desc": "想更認識對方"
-            },
-            {
-              "key": "connection_07",
-              "label": "好好聆聽",
-              "desc": "真正聽見對方說的話"
-            },
-            {
-              "key": "connection_08",
-              "label": "身體同頻",
-              "desc": "透過表情與呼吸感到連結"
-            },
-            {
-              "key": "connection_09",
-              "label": "表達感謝",
-              "desc": "傳達謝謝與肯定"
-            },
-            {
-              "key": "connection_10",
-              "label": "一起經驗",
-              "desc": "透過一起度過的時間加深關係"
-            },
-            {
-              "key": "connection_11",
-              "label": "打開也保護",
-              "desc": "帶著界線與人連結"
-            },
-            {
-              "key": "connection_12",
-              "label": "差異讓關係更豐富",
-              "desc": "不把差異當成連結的敵人"
-            },
-            {
-              "key": "connection_13",
-              "label": "依靠與被依靠",
-              "desc": "擁有可以互相幫忙的關係"
-            },
-            {
-              "key": "connection_14",
-              "label": "給予與接受",
-              "desc": "讓連結流動起來"
-            },
-            {
-              "key": "connection_15",
-              "label": "修復誤會",
-              "desc": "把誤解與衝突重新整理"
-            },
-            {
-              "key": "connection_16",
-              "label": "輕鬆也深刻",
-              "desc": "淺的關係與深的關係都能珍惜"
-            },
-            {
-              "key": "connection_17",
-              "label": "多種連結",
-              "desc": "擁有各種不同的關係"
-            },
-            {
-              "key": "connection_18",
-              "label": "分開也連著",
-              "desc": "即使不能見面，也能感到關係還在"
-            },
-            {
-              "key": "connection_19",
-              "label": "與自然連結",
-              "desc": "感受自己與自然、土地的關係"
-            },
-            {
-              "key": "connection_20",
-              "label": "世界是一張網",
-              "desc": "世界上的一切都彼此影響"
-            }
-          ]
-        },
-        {
-          "key": "recognition",
-          "label": "承認",
-          "themes": [
-            {
-              "key": "recognition_01",
-              "label": "我有價值",
-              "desc": "感受到自己的存在有價值"
-            },
-            {
-              "key": "recognition_02",
-              "label": "承認自己的存在",
-              "desc": "承認此刻在這裡的自己"
-            },
-            {
-              "key": "recognition_03",
-              "label": "自己看見自己",
-              "desc": "用自己的眼光看見自己"
-            },
-            {
-              "key": "recognition_04",
-              "label": "想被肯定也可以",
-              "desc": "不為想被看見的渴望感到羞愧"
-            },
-            {
-              "key": "recognition_05",
-              "label": "不依賴評價",
-              "desc": "不把評價當成全部"
-            },
-            {
-              "key": "recognition_06",
-              "label": "收下稱讚",
-              "desc": "收下讚美與感謝"
-            },
-            {
-              "key": "recognition_07",
-              "label": "品味成就感",
-              "desc": "接收完成事情的喜悅"
-            },
-            {
-              "key": "recognition_08",
-              "label": "看見自己的努力",
-              "desc": "承認自己走過的過程"
-            },
-            {
-              "key": "recognition_09",
-              "label": "說出自己的成果",
-              "desc": "談論自己的成果與長處"
-            },
-            {
-              "key": "recognition_10",
-              "label": "讓聲音被聽見",
-              "desc": "表達自己的意見"
-            },
-            {
-              "key": "recognition_11",
-              "label": "表達自己",
-              "desc": "把內在的東西化成形式"
-            },
-            {
-              "key": "recognition_12",
-              "label": "批評只是資訊",
-              "desc": "把指正當成資訊來看"
-            },
-            {
-              "key": "recognition_13",
-              "label": "聽取意見",
-              "desc": "為了成長而聽見別人的聲音"
-            },
-            {
-              "key": "recognition_14",
-              "label": "從比較中回來",
-              "desc": "即使比較了，也能回到自己"
-            },
-            {
-              "key": "recognition_15",
-              "label": "沒被肯定也在",
-              "desc": "即使沒有承認，也不失去自己"
-            },
-            {
-              "key": "recognition_16",
-              "label": "選擇看見自己的地方",
-              "desc": "選擇能承認自己的場域"
-            },
-            {
-              "key": "recognition_17",
-              "label": "看見別人",
-              "desc": "也能看見別人的價值"
-            },
-            {
-              "key": "recognition_18",
-              "label": "彼此肯定",
-              "desc": "一起發現彼此的好"
-            },
-            {
-              "key": "recognition_19",
-              "label": "獨一無二的自己",
-              "desc": "擁有只屬於自己的價值"
-            },
-            {
-              "key": "recognition_20",
-              "label": "使用自己的價值",
-              "desc": "把自己的好放到世界裡使用"
-            }
-          ]
-        },
-        {
-          "key": "value",
-          "label": "價值",
-          "themes": [
-            {
-              "key": "value_01",
-              "label": "存在本身有價值",
-              "desc": "即使什麼都做不到，也能感到自己有價值"
-            },
-            {
-              "key": "value_02",
-              "label": "察覺重要的事",
-              "desc": "能看見真正重要的東西"
-            },
-            {
-              "key": "value_03",
-              "label": "自己的價值",
-              "desc": "感受到自己也有重要的價值"
-            },
-            {
-              "key": "value_04",
-              "label": "看見別人的價值",
-              "desc": "看見別人的好與重要性"
-            },
-            {
-              "key": "value_05",
-              "label": "不比較也能看見",
-              "desc": "不靠比較，也能找到價值"
-            },
-            {
-              "key": "value_06",
-              "label": "弱點也有價值",
-              "desc": "把弱點與失敗也看成自己的一部分"
-            },
-            {
-              "key": "value_07",
-              "label": "看見小小的價值",
-              "desc": "對小事也能覺得很好"
-            },
-            {
-              "key": "value_08",
-              "label": "珍惜這一刻",
-              "desc": "感受到此刻不會再重來"
-            },
-            {
-              "key": "value_09",
-              "label": "把經驗化成價值",
-              "desc": "成功與失敗都能用在下一步"
-            },
-            {
-              "key": "value_10",
-              "label": "承認努力",
-              "desc": "不只看結果，也看見努力的過程"
-            },
-            {
-              "key": "value_11",
-              "label": "把差異化成價值",
-              "desc": "覺得不同的想法與個性很有意思"
-            },
-            {
-              "key": "value_12",
-              "label": "用身體感受價值",
-              "desc": "真正重要的東西，也能用身體感覺到"
-            },
-            {
-              "key": "value_13",
-              "label": "珍惜時間",
-              "desc": "好好使用時間"
-            },
-            {
-              "key": "value_14",
-              "label": "珍惜物品",
-              "desc": "不粗糙對待物品，而是好好使用"
-            },
-            {
-              "key": "value_15",
-              "label": "看見關係的價值",
-              "desc": "感受到人與人的連結很重要"
-            },
-            {
-              "key": "value_16",
-              "label": "使用自己的價值",
-              "desc": "把自己擁有的力量用在別人身上"
-            },
-            {
-              "key": "value_17",
-              "label": "創造價值",
-              "desc": "創造對人有幫助的東西或場域"
-            },
-            {
-              "key": "value_18",
-              "label": "接收價值",
-              "desc": "收下別人帶來的好東西"
-            },
-            {
-              "key": "value_19",
-              "label": "分享價值",
-              "desc": "把好的東西與人分享"
-            },
-            {
-              "key": "value_20",
-              "label": "培養價值",
-              "desc": "用時間培養重要的東西"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "freedom_power",
-      "label": "自己選擇的力量（自由與力量）",
-      "wishes": [
-        {
-          "key": "freedom",
-          "label": "自由",
-          "themes": [
-            {
-              "key": "freedom_01",
-              "label": "人生是自己的",
-              "desc": "掌握自己人生的主導權"
-            },
-            {
-              "key": "freedom_02",
-              "label": "自己決定",
-              "desc": "依照自己的意志做選擇"
-            },
-            {
-              "key": "freedom_03",
-              "label": "信任感覺",
-              "desc": "聽見自己的違和與納得"
-            },
-            {
-              "key": "freedom_04",
-              "label": "用價值觀選擇",
-              "desc": "用自己真正重視的事來選"
-            },
-            {
-              "key": "freedom_05",
-              "label": "承擔責任",
-              "desc": "從自己選擇的結果中學習"
-            },
-            {
-              "key": "freedom_06",
-              "label": "說不",
-              "desc": "拒絕不適合自己的事"
-            },
-            {
-              "key": "freedom_07",
-              "label": "說好",
-              "desc": "選擇自己想做的事"
-            },
-            {
-              "key": "freedom_08",
-              "label": "擁有界線",
-              "desc": "守護自己的時間與內心"
-            },
-            {
-              "key": "freedom_09",
-              "label": "不背負期待",
-              "desc": "不只用別人的期待來決定"
-            },
-            {
-              "key": "freedom_10",
-              "label": "不必被帶著走",
-              "desc": "不被同儕壓力吞沒"
-            },
-            {
-              "key": "freedom_11",
-              "label": "可以懷疑框架",
-              "desc": "重新看待所謂的常識與規則"
-            },
-            {
-              "key": "freedom_12",
-              "label": "選擇框架之外",
-              "desc": "選擇更像自己的路"
-            },
-            {
-              "key": "freedom_13",
-              "label": "自己的節奏",
-              "desc": "用自己的步調生活"
-            },
-            {
-              "key": "freedom_14",
-              "label": "身體很輕",
-              "desc": "身體能自由地活動"
-            },
-            {
-              "key": "freedom_15",
-              "label": "沒有正解也能走",
-              "desc": "即使還不確定，也能先走一步"
-            },
-            {
-              "key": "freedom_16",
-              "label": "可以停止",
-              "desc": "放下不再適合自己的事"
-            },
-            {
-              "key": "freedom_17",
-              "label": "可以開始",
-              "desc": "開始新的事情"
-            },
-            {
-              "key": "freedom_18",
-              "label": "在限制中選擇",
-              "desc": "在現有條件裡選出能走的一步"
-            },
-            {
-              "key": "freedom_19",
-              "label": "對方也自由",
-              "desc": "也尊重對方的選擇"
-            },
-            {
-              "key": "freedom_20",
-              "label": "自己是主角",
-              "desc": "自己描繪自己的人生"
-            }
-          ]
-        },
-        {
-          "key": "ability",
-          "label": "力量",
-          "themes": [
-            {
-              "key": "ability_01",
-              "label": "我有力量",
-              "desc": "自己也有能做到的事"
-            },
-            {
-              "key": "ability_02",
-              "label": "能力會成長",
-              "desc": "透過練習與經驗慢慢伸展"
-            },
-            {
-              "key": "ability_03",
-              "label": "現在能走的一步",
-              "desc": "找到此刻可以做的一個行動"
-            },
-            {
-              "key": "ability_04",
-              "label": "小小開始",
-              "desc": "不等完美，先開始一點點"
-            },
-            {
-              "key": "ability_05",
-              "label": "拆小目標",
-              "desc": "把大的事情拆成小步驟"
-            },
-            {
-              "key": "ability_06",
-              "label": "享受挑戰",
-              "desc": "也能正面面對有難度的事"
-            },
-            {
-              "key": "ability_07",
-              "label": "專注投入",
-              "desc": "專心進入眼前的課題"
-            },
-            {
-              "key": "ability_08",
-              "label": "嘗試並學習",
-              "desc": "透過實際去做來學習"
-            },
-            {
-              "key": "ability_09",
-              "label": "失敗是資訊",
-              "desc": "把失敗變成下一步的提示"
-            },
-            {
-              "key": "ability_10",
-              "label": "回頭看進步",
-              "desc": "記錄並看見自己的成長"
-            },
-            {
-              "key": "ability_11",
-              "label": "小小成功",
-              "desc": "承認自己做到的一點點"
-            },
-            {
-              "key": "ability_12",
-              "label": "自己的步調",
-              "desc": "不和別人比較地成長"
-            },
-            {
-              "key": "ability_13",
-              "label": "活用擅長",
-              "desc": "把自己的強項用在現實裡"
-            },
-            {
-              "key": "ability_14",
-              "label": "為不擅長找方法",
-              "desc": "即使不擅長，也能改變做法"
-            },
-            {
-              "key": "ability_15",
-              "label": "尋求幫助",
-              "desc": "需要時能向人詢問"
-            },
-            {
-              "key": "ability_16",
-              "label": "使用工具",
-              "desc": "用知識與工具擴展自己的力量"
-            },
-            {
-              "key": "ability_17",
-              "label": "活用意見",
-              "desc": "透過回饋讓自己變得更好"
-            },
-            {
-              "key": "ability_18",
-              "label": "專注能做的事",
-              "desc": "把力量用在能改變的地方"
-            },
-            {
-              "key": "ability_19",
-              "label": "完美前先拿出來",
-              "desc": "即使還沒完成，也先讓它出來並慢慢長大"
-            },
-            {
-              "key": "ability_20",
-              "label": "能力與價值不同",
-              "desc": "做不到的時候，自己的價值也不會下降"
-            }
-          ]
-        },
-        {
-          "key": "growth",
-          "label": "成長",
-          "themes": [
-            {
-              "key": "growth_01",
-              "label": "喜歡自己的伸展空間",
-              "desc": "把還做不到的事看成接下來會成長的地方"
-            },
-            {
-              "key": "growth_02",
-              "label": "從零開始學",
-              "desc": "不把不知道當成羞恥，而是坦率地學"
-            },
-            {
-              "key": "growth_03",
-              "label": "走向稍高的牆",
-              "desc": "也能前往對現在的自己稍微有難度的事"
-            },
-            {
-              "key": "growth_04",
-              "label": "更新自己",
-              "desc": "不被舊想法與習慣綁住，往新的自己前進"
-            },
-            {
-              "key": "growth_05",
-              "label": "把話聽成提示",
-              "desc": "把別人的話用在下一次改善"
-            },
-            {
-              "key": "growth_06",
-              "label": "從日常學習",
-              "desc": "在平常生活裡也找到可以學的事"
-            },
-            {
-              "key": "growth_07",
-              "label": "向一流學習",
-              "desc": "接觸厲害的人與真正好的東西，擴展自己的可能"
-            },
-            {
-              "key": "growth_08",
-              "label": "用身體記住",
-              "desc": "不只用想的，而是一邊做一邊學會"
-            },
-            {
-              "key": "growth_09",
-              "label": "拓寬視角",
-              "desc": "不只從自己，也能從整體與未來思考"
-            },
-            {
-              "key": "growth_10",
-              "label": "分享學到的事",
-              "desc": "把自己學到的事也用在別人身上"
-            },
-            {
-              "key": "growth_11",
-              "label": "不比較也成長",
-              "desc": "不過度和人比較，也能看見自己的變化"
-            },
-            {
-              "key": "growth_12",
-              "label": "停滯也是成長",
-              "desc": "把沒有進展的時期也當成成長的一部分"
-            },
-            {
-              "key": "growth_13",
-              "label": "把經驗化成智慧",
-              "desc": "從發生過的事裡接收重要的學習"
-            },
-            {
-              "key": "growth_14",
-              "label": "深深成長",
-              "desc": "不只能力，心的寬度也一起長大"
-            }
-          ]
-        },
-        {
-          "key": "adventure",
-          "label": "冒險",
-          "themes": [
-            {
-              "key": "adventure_01",
-              "label": "踏向未知一步",
-              "desc": "面對第一次的事，也能稍微往前走"
-            },
-            {
-              "key": "adventure_02",
-              "label": "信任好奇心",
-              "desc": "珍惜想知道、想試試看的感覺"
-            },
-            {
-              "key": "adventure_03",
-              "label": "把害怕化成力量",
-              "desc": "把緊張變成準備與專注的力量"
-            },
-            {
-              "key": "adventure_04",
-              "label": "走到外面去",
-              "desc": "也能走出熟悉的地方與做法"
-            },
-            {
-              "key": "adventure_05",
-              "label": "用身體探索",
-              "desc": "透過走路、觀看、觸摸與嘗試來認識世界"
-            },
-            {
-              "key": "adventure_06",
-              "label": "打開五感",
-              "desc": "好好感受聲音、氣味、景色與空氣"
-            },
-            {
-              "key": "adventure_07",
-              "label": "在日常中冒險",
-              "desc": "每天都能小小嘗試新的事"
-            },
-            {
-              "key": "adventure_08",
-              "label": "靈活前進",
-              "desc": "計畫改變時，也能找到另一種走法"
-            },
-            {
-              "key": "adventure_09",
-              "label": "享受困境",
-              "desc": "把麻煩也當成可以發揮創意的場面"
-            },
-            {
-              "key": "adventure_10",
-              "label": "準備好再前進",
-              "desc": "不只靠衝動，也做需要的準備再挑戰"
-            },
-            {
-              "key": "adventure_11",
-              "label": "從差異中學習",
-              "desc": "也能從和自己不同的人與文化中學習"
-            },
-            {
-              "key": "adventure_12",
-              "label": "和夥伴一起冒險",
-              "desc": "一個人也好，和夥伴一起也好，都能走向新的事"
-            },
-            {
-              "key": "adventure_13",
-              "label": "享受一個人",
-              "desc": "正因為是一個人，所以能自由行動"
-            },
-            {
-              "key": "adventure_14",
-              "label": "回來再前進",
-              "desc": "累了就回來，整理好後再出發"
-            },
-            {
-              "key": "adventure_15",
-              "label": "把經驗變成故事",
-              "desc": "把經歷過的事化成自己的學習與表達"
-            },
-            {
-              "key": "adventure_16",
-              "label": "走出自己的路",
-              "desc": "不只走既定的道路，也能創造自己的路"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "joy_abundance",
-      "label": "享受與滿足（喜悅與豐盛）",
-      "wishes": [
-        {
-          "key": "play",
-          "label": "遊玩",
-          "themes": [
-            {
-              "key": "play_01",
-              "label": "可以享受",
-              "desc": "讓享受成為生活自然的一部分"
-            },
-            {
-              "key": "play_02",
-              "label": "選擇有趣",
-              "desc": "比起看起來厲害，更能選擇有趣的方向"
-            },
-            {
-              "key": "play_03",
-              "label": "沒有目的也能享受",
-              "desc": "不只用有沒有用來決定"
-            },
-            {
-              "key": "play_04",
-              "label": "投入其中",
-              "desc": "投入當下的遊玩，甚至忘記時間"
-            },
-            {
-              "key": "play_05",
-              "label": "保有玩心",
-              "desc": "讓平常的事也變得有趣一點"
-            },
-            {
-              "key": "play_06",
-              "label": "小小嘗試",
-              "desc": "先試一點，之後再改也可以"
-            },
-            {
-              "key": "play_07",
-              "label": "把失敗變成笑聲",
-              "desc": "不順利的事也能笑一笑，並用在下一次"
-            },
-            {
-              "key": "play_08",
-              "label": "用規則玩",
-              "desc": "把規則與限制當成創意的入口"
-            },
-            {
-              "key": "play_09",
-              "label": "變成遊戲",
-              "desc": "把麻煩的事變成自己的遊戲"
-            },
-            {
-              "key": "play_10",
-              "label": "發明遊玩",
-              "desc": "自己創造新的玩法"
-            },
-            {
-              "key": "play_11",
-              "label": "用身體玩",
-              "desc": "透過聲音、動作、觸感與節奏來享受"
-            },
-            {
-              "key": "play_12",
-              "label": "用五感享受",
-              "desc": "享受聲音、顏色、味道與觸感"
-            },
-            {
-              "key": "play_13",
-              "label": "做東西來玩",
-              "desc": "享受畫畫、聲音、文字、料理與手作"
-            },
-            {
-              "key": "play_14",
-              "label": "讓場域放鬆",
-              "desc": "讓沉重的氣氛變得輕一點"
-            },
-            {
-              "key": "play_15",
-              "label": "和人一起玩",
-              "desc": "透過一起享受，和人靠近"
-            },
-            {
-              "key": "play_16",
-              "label": "享受差異",
-              "desc": "因為有不同的人，事情變得更有趣"
-            },
-            {
-              "key": "play_17",
-              "label": "一個人也能玩",
-              "desc": "一個人也能找到有趣的事"
-            },
-            {
-              "key": "play_18",
-              "label": "安心地玩",
-              "desc": "一邊照顧自己與對方，一邊享受"
-            },
-            {
-              "key": "play_19",
-              "label": "把日常變成遊樂場",
-              "desc": "把玩心放進平常生活裡"
-            },
-            {
-              "key": "play_20",
-              "label": "從遊玩中學習",
-              "desc": "在遊玩中自然產生發現與學習"
-            }
-          ]
-        },
-        {
-          "key": "joy",
-          "label": "喜悅",
-          "themes": [
-            {
-              "key": "joy_01",
-              "label": "允許喜悅",
-              "desc": "讓自己自然感受開心、快樂與舒服"
-            },
-            {
-              "key": "joy_02",
-              "label": "喜悅從內在湧現",
-              "desc": "不必先得到什麼，內在也能浮現明亮"
-            },
-            {
-              "key": "joy_03",
-              "label": "察覺小小幸福",
-              "desc": "在日常裡看見小小的開心"
-            },
-            {
-              "key": "joy_04",
-              "label": "品味當下",
-              "desc": "慢慢、深深地品味眼前的體驗"
-            },
-            {
-              "key": "joy_05",
-              "label": "用五感喜悅",
-              "desc": "把聲音、顏色、氣味、味道與觸感接收為喜悅"
-            },
-            {
-              "key": "joy_06",
-              "label": "用身體喜悅",
-              "desc": "享受吃、睡、動、休息與笑"
-            },
-            {
-              "key": "joy_07",
-              "label": "用心選擇",
-              "desc": "選擇讓心與身體變明亮的方向"
-            },
-            {
-              "key": "joy_08",
-              "label": "表達喜悅",
-              "desc": "喜悅出現時，能笑、說出來、慶祝或表現出來"
-            },
-            {
-              "key": "joy_09",
-              "label": "慶祝日常",
-              "desc": "當下慶祝小小進展與開心的事"
-            },
-            {
-              "key": "joy_10",
-              "label": "享受過程",
-              "desc": "結果還沒到來之前，也能享受正在前進的路"
-            },
-            {
-              "key": "joy_11",
-              "label": "讓自己開心",
-              "desc": "選擇讓自己的心與身體明亮的東西"
-            },
-            {
-              "key": "joy_12",
-              "label": "分享喜悅",
-              "desc": "讓自己的喜悅在人與人之間擴散"
-            },
-            {
-              "key": "joy_13",
-              "label": "能慶祝別人的喜悅",
-              "desc": "慶祝別人的幸福，而不把它變成自己的不足"
-            },
-            {
-              "key": "joy_14",
-              "label": "看見人的好",
-              "desc": "看見並表達對方的魅力與努力"
-            },
-            {
-              "key": "joy_15",
-              "label": "感謝自然湧現",
-              "desc": "察覺已經擁有的東西與支持自己的事物"
-            },
-            {
-              "key": "joy_16",
-              "label": "看見美",
-              "desc": "在自然、聲音、文字、表情與作品中找到美"
-            },
-            {
-              "key": "joy_17",
-              "label": "品味情緒",
-              "desc": "把各種情緒都接收為生命的深度"
-            },
-            {
-              "key": "joy_18",
-              "label": "尊重不同的喜悅",
-              "desc": "知道每個人覺得開心的事都不一樣"
-            },
-            {
-              "key": "joy_19",
-              "label": "創造喜悅",
-              "desc": "自己創造小小喜悅與明亮的氣氛"
-            },
-            {
-              "key": "joy_20",
-              "label": "把喜悅化成力量",
-              "desc": "讓喜悅連到下一個行動或創造"
-            }
-          ]
-        },
-        {
-          "key": "abundance",
-          "label": "豐盛",
-          "themes": [
-            {
-              "key": "abundance_01",
-              "label": "能夠接收",
-              "desc": "接收幫助、好意、機會、金錢與愛"
-            },
-            {
-              "key": "abundance_02",
-              "label": "感受到已經擁有的豐盛",
-              "desc": "不只看見不足，也看見已經存在的恩惠"
-            },
-            {
-              "key": "abundance_03",
-              "label": "感受到足夠",
-              "desc": "用身體感受此刻已經充足的部分"
-            },
-            {
-              "key": "abundance_04",
-              "label": "感謝自然湧現",
-              "desc": "自然感謝此刻擁有的事物與支持"
-            },
-            {
-              "key": "abundance_05",
-              "label": "安心地擁有",
-              "desc": "讓自己可以擁有需要的東西"
-            },
-            {
-              "key": "abundance_06",
-              "label": "選擇支持自己的東西",
-              "desc": "選擇支持生活與未來的事物"
-            },
-            {
-              "key": "abundance_07",
-              "label": "品味品質",
-              "desc": "比起價格，更珍惜真正適合自己的好東西"
-            },
-            {
-              "key": "abundance_08",
-              "label": "時間裡有餘裕",
-              "desc": "擁有休息、專注與品味的空間"
-            },
-            {
-              "key": "abundance_09",
-              "label": "把金錢當工具",
-              "desc": "把金錢作為支持生活與願望的工具來使用"
-            },
-            {
-              "key": "abundance_10",
-              "label": "整理豐盛",
-              "desc": "整理金錢、物品、時間、空間與關係"
-            },
-            {
-              "key": "abundance_11",
-              "label": "使用擁有的東西",
-              "desc": "把自己擁有的東西用在自己、他人與未來"
-            },
-            {
-              "key": "abundance_12",
-              "label": "讓豐盛流動",
-              "desc": "讓接收到的東西不只停在自己身上"
-            },
-            {
-              "key": "abundance_13",
-              "label": "把自己交出去",
-              "desc": "把自己能做的事帶給人與世界"
-            },
-            {
-              "key": "abundance_14",
-              "label": "創造價值",
-              "desc": "透過自己的行動與用心創造豐盛"
-            },
-            {
-              "key": "abundance_15",
-              "label": "可以依靠",
-              "desc": "不一個人全部扛住，而是能尋求幫助"
-            },
-            {
-              "key": "abundance_16",
-              "label": "不過度給予",
-              "desc": "分享的同時，也尊重自己的界線"
-            },
-            {
-              "key": "abundance_17",
-              "label": "慶祝別人的豐盛",
-              "desc": "慶祝別人的成功與幸福，而不把它變成自己的不足"
-            },
-            {
-              "key": "abundance_18",
-              "label": "在關係中變得豐盛",
-              "desc": "透過關係，讓彼此都更加豐盛"
-            },
-            {
-              "key": "abundance_19",
-              "label": "感受自然的恩惠",
-              "desc": "感受水、空氣、土、光、食物與季節的豐盛"
-            },
-            {
-              "key": "abundance_20",
-              "label": "為未來培養",
-              "desc": "把現在擁有的東西培養成未來的學習與習慣"
-            }
-          ]
-        },
-        {
-          "key": "beauty",
-          "label": "美",
-          "themes": [
-            {
-              "key": "beauty_01",
-              "label": "察覺美",
-              "desc": "在日常中找到小小的美"
-            },
-            {
-              "key": "beauty_02",
-              "label": "為美停下來",
-              "desc": "美出現時，能停一下"
-            },
-            {
-              "key": "beauty_03",
-              "label": "用五感品味",
-              "desc": "透過顏色、聲音、香氣、味道與觸感接收美"
-            },
-            {
-              "key": "beauty_04",
-              "label": "感受敬畏",
-              "desc": "讓壯闊的景色或音樂觸動胸口"
-            },
-            {
-              "key": "beauty_05",
-              "label": "感受自然的美",
-              "desc": "在天空、光、風、水、植物與季節中找到美"
-            },
-            {
-              "key": "beauty_06",
-              "label": "感受日常的美",
-              "desc": "在食物、房間、工具、衣服與文字中找到美"
-            },
-            {
-              "key": "beauty_07",
-              "label": "感受不完美的美",
-              "desc": "在裂痕、老舊、過程、搖晃與時間痕跡中感受美"
-            },
-            {
-              "key": "beauty_08",
-              "label": "品味短暫",
-              "desc": "感受正因為不會永遠存在而美麗的東西"
-            },
-            {
-              "key": "beauty_09",
-              "label": "品味安靜",
-              "desc": "接收空間、沉默、停頓與簡單之中的美"
-            },
-            {
-              "key": "beauty_10",
-              "label": "用身體感受美",
-              "desc": "注意接觸美時，胸口、眼睛、呼吸與皮膚的反應"
-            },
-            {
-              "key": "beauty_11",
-              "label": "澄清感官",
-              "desc": "更清楚地感受世界，而不是讓它流過去"
-            },
-            {
-              "key": "beauty_12",
-              "label": "看見人的美",
-              "desc": "不只看外表，也在動作、言語與溫柔中找到美"
-            },
-            {
-              "key": "beauty_13",
-              "label": "珍惜自己的美意識",
-              "desc": "不只依賴他人的評價，也珍惜自己覺得美的東西"
-            },
-            {
-              "key": "beauty_14",
-              "label": "尊重不同的美",
-              "desc": "尊重每個人感受到的美都不同"
-            },
-            {
-              "key": "beauty_15",
-              "label": "整理空間",
-              "desc": "透過房間、桌面、工具、光與聲音創造舒服的地方"
-            },
-            {
-              "key": "beauty_16",
-              "label": "創造美",
-              "desc": "用料理、文字、圖像、聲音、衣著或空間表達美"
-            },
-            {
-              "key": "beauty_17",
-              "label": "分享美",
-              "desc": "和他人一起品味並分享美好的事物"
-            },
-            {
-              "key": "beauty_18",
-              "label": "消費前先品味",
-              "desc": "在拍照、購買或評價之前，先深深接收"
-            },
-            {
-              "key": "beauty_19",
-              "label": "透過美安定",
-              "desc": "讓美使心與身體安靜並整理"
-            },
-            {
-              "key": "beauty_20",
-              "label": "守護美",
-              "desc": "珍惜自然、人、物、文化與地方的美"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "creation_contribution",
-      "label": "創造與傳遞（創造與貢獻）",
-      "wishes": [
-        {
-          "key": "creation",
-          "label": "創造",
-          "themes": [
-            {
-              "key": "creation_01",
-              "label": "想創造的心湧現",
-              "desc": "內在自然浮現想做出什麼的感覺"
-            },
-            {
-              "key": "creation_02",
-              "label": "開始創造",
-              "desc": "不等完美，先小小開始"
-            },
-            {
-              "key": "creation_03",
-              "label": "把感覺化成形",
-              "desc": "把內在感受與想法變成看得見的形式"
-            },
-            {
-              "key": "creation_04",
-              "label": "用手創造",
-              "desc": "用手與身體，一邊感受一邊創作"
-            },
-            {
-              "key": "creation_05",
-              "label": "小小嘗試",
-              "desc": "不急著完成，先試試看"
-            },
-            {
-              "key": "creation_06",
-              "label": "一切都是素材",
-              "desc": "把平凡的物品與事件也變成創作材料"
-            },
-            {
-              "key": "creation_07",
-              "label": "把限制化成巧思",
-              "desc": "即使條件有限，也能用心創造"
-            },
-            {
-              "key": "creation_08",
-              "label": "享受過程",
-              "desc": "不只享受完成品，也享受正在做的過程"
-            },
-            {
-              "key": "creation_09",
-              "label": "從錯誤中修正",
-              "desc": "做得不順時，也能調整並變得更好"
-            },
-            {
-              "key": "creation_10",
-              "label": "專注創作",
-              "desc": "做著做著，忘記時間"
-            },
-            {
-              "key": "creation_11",
-              "label": "守護創作時間",
-              "desc": "好好珍惜創作所需要的時間"
-            },
-            {
-              "key": "creation_12",
-              "label": "信任自己的感覺",
-              "desc": "相信自己覺得「這樣很好」的感覺"
-            },
-            {
-              "key": "creation_13",
-              "label": "發現需要",
-              "desc": "察覺「如果有這個就好了」"
-            },
-            {
-              "key": "creation_14",
-              "label": "做成能使用的形",
-              "desc": "把想法變成人們能使用的形式"
-            },
-            {
-              "key": "creation_15",
-              "label": "整理工具",
-              "desc": "整理創作所需要的工具與場所"
-            },
-            {
-              "key": "creation_16",
-              "label": "完成一個版本",
-              "desc": "不中途停下，而是先做到一個完成"
-            },
-            {
-              "key": "creation_17",
-              "label": "送到世界裡",
-              "desc": "把做出的東西讓人看見或收到"
-            },
-            {
-              "key": "creation_18",
-              "label": "從反應中成長",
-              "desc": "透過別人的反應，讓作品變得更好"
-            },
-            {
-              "key": "creation_19",
-              "label": "和人一起創造",
-              "desc": "不只一個人，也能和別人一起做"
-            },
-            {
-              "key": "creation_20",
-              "label": "連到下一步",
-              "desc": "把創作的經驗用在接下來的事"
-            }
-          ]
-        },
-        {
-          "key": "giving",
-          "label": "給予",
-          "themes": [
-            {
-              "key": "giving_01",
-              "label": "想給予的心湧現",
-              "desc": "自然浮現想為某人做點什麼的心情"
-            },
-            {
-              "key": "giving_02",
-              "label": "從充足中給予",
-              "desc": "也照顧自己，同時與人分享"
-            },
-            {
-              "key": "giving_03",
-              "label": "給予的喜悅",
-              "desc": "給予與幫助自然讓人感到開心"
-            },
-            {
-              "key": "giving_04",
-              "label": "我有可以給的東西",
-              "desc": "知道自己也有能交出去的東西"
-            },
-            {
-              "key": "giving_05",
-              "label": "感受對方需要",
-              "desc": "看見對方此刻可能需要什麼"
-            },
-            {
-              "key": "giving_06",
-              "label": "配合對方",
-              "desc": "選擇適合對方的給予方式"
-            },
-            {
-              "key": "giving_07",
-              "label": "小小遞出善意",
-              "desc": "小小的親切也能被珍惜"
-            },
-            {
-              "key": "giving_08",
-              "label": "把心放向對方",
-              "desc": "好好聽對方說話"
-            },
-            {
-              "key": "giving_09",
-              "label": "分享智慧",
-              "desc": "把自己知道的事，以能幫助人的方式分享"
-            },
-            {
-              "key": "giving_10",
-              "label": "借出力量",
-              "desc": "實際幫助需要支持的人"
-            },
-            {
-              "key": "giving_11",
-              "label": "分享喜悅",
-              "desc": "把自己的明亮也分給周圍的人"
-            },
-            {
-              "key": "giving_12",
-              "label": "溫暖場域",
-              "desc": "讓現場的氣氛變得好一點"
-            },
-            {
-              "key": "giving_13",
-              "label": "提供機會",
-              "desc": "創造讓別人能嘗試的機會"
-            },
-            {
-              "key": "giving_14",
-              "label": "引出對方力量",
-              "desc": "幫助對方變得能自己做到"
-            },
-            {
-              "key": "giving_15",
-              "label": "讓對方容易接收",
-              "desc": "用對方能接收的形式給予"
-            },
-            {
-              "key": "giving_16",
-              "label": "給出後放手",
-              "desc": "給出去之後，把它交給對方"
-            },
-            {
-              "key": "giving_17",
-              "label": "也保護自己",
-              "desc": "不因為給太多而耗盡自己"
-            },
-            {
-              "key": "giving_18",
-              "label": "保護對方自由",
-              "desc": "讓對方自己決定要不要接收"
-            },
-            {
-              "key": "giving_19",
-              "label": "也能接受",
-              "desc": "自己也能收下別人的幫助與善意"
-            },
-            {
-              "key": "giving_20",
-              "label": "培養互相給予",
-              "desc": "創造讓彼此更有生命力的關係"
-            }
-          ]
-        },
-        {
-          "key": "integrity",
-          "label": "正直",
-          "themes": [
-            {
-              "key": "integrity_01",
-              "label": "聽見良心",
-              "desc": "珍惜內在覺得哪裡不對的感覺"
-            },
-            {
-              "key": "integrity_02",
-              "label": "確認事實",
-              "desc": "不只憑聽說決定，而是確認真實"
-            },
-            {
-              "key": "integrity_03",
-              "label": "用身體感覺",
-              "desc": "把心裡或身體的不對勁當成重要訊號"
-            },
-            {
-              "key": "integrity_04",
-              "label": "誠實說話",
-              "desc": "不用謊言包住事情，而是清楚表達"
-            },
-            {
-              "key": "integrity_05",
-              "label": "說我不知道",
-              "desc": "不知道的時候，也能說不知道"
-            },
-            {
-              "key": "integrity_06",
-              "label": "言行一致",
-              "desc": "讓行動與說出口的話一致"
-            },
-            {
-              "key": "integrity_07",
-              "label": "沒人看見也誠實",
-              "desc": "即使沒有人看見，也做自己認為對的事"
-            },
-            {
-              "key": "integrity_08",
-              "label": "公平對待",
-              "desc": "不只偏向自己喜歡的人"
-            },
-            {
-              "key": "integrity_09",
-              "label": "承擔責任",
-              "desc": "看見自己行動帶來的影響"
-            },
-            {
-              "key": "integrity_10",
-              "label": "承認錯誤",
-              "desc": "錯了的時候，能承認並修復"
-            },
-            {
-              "key": "integrity_11",
-              "label": "重新檢視自己",
-              "desc": "願意想想自己是不是也可能錯了"
-            },
-            {
-              "key": "integrity_12",
-              "label": "不把正確當武器",
-              "desc": "不拿正確去攻擊別人"
-            },
-            {
-              "key": "integrity_13",
-              "label": "溫柔地說真話",
-              "desc": "即使是真話，也在意說法"
-            },
-            {
-              "key": "integrity_14",
-              "label": "允許不同的正確",
-              "desc": "知道每個人感到正確的事情可能不同"
-            },
-            {
-              "key": "integrity_15",
-              "label": "透過對話加深",
-              "desc": "即使意見不同，也能一起思考"
-            },
-            {
-              "key": "integrity_16",
-              "label": "劃出界線",
-              "desc": "面對不可以的事，能清楚設下界線"
-            },
-            {
-              "key": "integrity_17",
-              "label": "保護弱勢",
-              "desc": "顧及那些不容易發聲的人"
-            },
-            {
-              "key": "integrity_18",
-              "label": "擁有勇氣",
-              "desc": "即使困難，也說出需要被說出的話"
-            },
-            {
-              "key": "integrity_19",
-              "label": "為長遠選擇",
-              "desc": "不只選此刻方便的路"
-            },
-            {
-              "key": "integrity_20",
-              "label": "培養正直感",
-              "desc": "持續學習更好的判斷與正直"
-            }
-          ]
-        },
-        {
-          "key": "peace",
-          "label": "平和",
-          "themes": [
-            {
-              "key": "peace_01",
-              "label": "深層的安心",
-              "desc": "即使很多事發生，內在深處仍知道自己能找到路"
-            },
-            {
-              "key": "peace_02",
-              "label": "回到呼吸",
-              "desc": "想安定時，先從調整呼吸開始"
-            },
-            {
-              "key": "peace_03",
-              "label": "放鬆身體",
-              "desc": "察覺身體的緊繃，稍微鬆開"
-            },
-            {
-              "key": "peace_04",
-              "label": "停在當下",
-              "desc": "回到此刻正在做的事"
-            },
-            {
-              "key": "peace_05",
-              "label": "和情緒拉開空間",
-              "desc": "即使煩躁，也能察覺煩躁正在這裡"
-            },
-            {
-              "key": "peace_06",
-              "label": "反應前先停一下",
-              "desc": "回應之前，先呼吸一次"
-            },
-            {
-              "key": "peace_07",
-              "label": "守住安靜的中心",
-              "desc": "不被周圍帶走，回到自己"
-            },
-            {
-              "key": "peace_08",
-              "label": "交給流動",
-              "desc": "鬆開對無法改變之事的緊抓"
-            },
-            {
-              "key": "peace_09",
-              "label": "不被捲進去",
-              "desc": "即使別人生氣，自己也不一起被吞沒"
-            },
-            {
-              "key": "peace_10",
-              "label": "溫和地說",
-              "desc": "說需要說的話，但不變得尖銳"
-            },
-            {
-              "key": "peace_11",
-              "label": "只是聆聽",
-              "desc": "不急著給建議，而是完整聽見"
-            },
-            {
-              "key": "peace_12",
-              "label": "安靜地劃線",
-              "desc": "保持溫柔，同時設下界線"
-            },
-            {
-              "key": "peace_13",
-              "label": "不擴大衝突",
-              "desc": "選擇不讓爭執變得更大的方式"
-            },
-            {
-              "key": "peace_14",
-              "label": "看見現況",
-              "desc": "即使不是想要的樣子，也先看見現在"
-            },
-            {
-              "key": "peace_15",
-              "label": "照料日常",
-              "desc": "慢慢整理生活周圍的事"
-            },
-            {
-              "key": "peace_16",
-              "label": "保留空間",
-              "desc": "在行程與感受裡留一點餘地"
-            },
-            {
-              "key": "peace_17",
-              "label": "回到自然",
-              "desc": "接觸自然，恢復平靜"
-            },
-            {
-              "key": "peace_18",
-              "label": "品味小小舒服",
-              "desc": "感受生活中小小的放鬆"
-            },
-            {
-              "key": "peace_19",
-              "label": "讓場域安定",
-              "desc": "自己安定時，周圍也會稍微安定"
-            },
-            {
-              "key": "peace_20",
-              "label": "可以再次回來",
-              "desc": "即使亂了，也能再次回到平靜"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "key": "recognition_transcendence",
-      "label": "知曉與深化（認識與超越）",
-      "wishes": [
-        {
-          "key": "knowing",
-          "label": "知曉",
-          "themes": [
-            {
-              "key": "knowing_01",
-              "label": "對未知感到好奇",
-              "desc": "覺得不知道的事也可以很有意思"
-            },
-            {
-              "key": "knowing_02",
-              "label": "想知道的心湧現",
-              "desc": "內在自然浮現想更了解的感覺"
-            },
-            {
-              "key": "knowing_03",
-              "label": "保有問題",
-              "desc": "不只是記住答案，也會想知道為什麼"
-            },
-            {
-              "key": "knowing_04",
-              "label": "珍惜不知道",
-              "desc": "把不懂的事看成可以慢慢理解的入口"
-            },
-            {
-              "key": "knowing_05",
-              "label": "說我不知道",
-              "desc": "不知道的時候，也能說不知道"
-            },
-            {
-              "key": "knowing_06",
-              "label": "先觀察",
-              "desc": "在思考之前，先仔細看見"
-            },
-            {
-              "key": "knowing_07",
-              "label": "好好聆聽",
-              "desc": "仔細聽人說話"
-            },
-            {
-              "key": "knowing_08",
-              "label": "提出問題",
-              "desc": "對不懂的事提出詢問"
-            },
-            {
-              "key": "knowing_09",
-              "label": "查證確認",
-              "desc": "不只聽說，而是實際確認"
-            },
-            {
-              "key": "knowing_10",
-              "label": "從經驗中知道",
-              "desc": "不只聽別人說，也透過嘗試來理解"
-            },
-            {
-              "key": "knowing_11",
-              "label": "用身體知道",
-              "desc": "讓身體的感覺也成為理解的一部分"
-            },
-            {
-              "key": "knowing_12",
-              "label": "從差異中學習",
-              "desc": "從和自己不同的人身上學習"
-            },
-            {
-              "key": "knowing_13",
-              "label": "看見背景",
-              "desc": "理解事情背後的原因"
-            },
-            {
-              "key": "knowing_14",
-              "label": "追問本質",
-              "desc": "回到最根本的問題去思考"
-            },
-            {
-              "key": "knowing_15",
-              "label": "看見連結",
-              "desc": "看見一件事和另一件事如何相關"
-            },
-            {
-              "key": "knowing_16",
-              "label": "更新想法",
-              "desc": "讓新的理解改變自己的思考方式"
-            },
-            {
-              "key": "knowing_17",
-              "label": "把知識變成智慧",
-              "desc": "把知道的事用在真實生活裡"
-            },
-            {
-              "key": "knowing_18",
-              "label": "和人一起學",
-              "desc": "與他人一起學習"
-            },
-            {
-              "key": "knowing_19",
-              "label": "分享中加深",
-              "desc": "透過說給別人聽，讓理解更深"
-            },
-            {
-              "key": "knowing_20",
-              "label": "讓問題繼續長大",
-              "desc": "即使答案不立刻出現，也繼續思考"
-            }
-          ]
-        },
-        {
-          "key": "meaning",
-          "label": "意義",
-          "themes": [
-            {
-              "key": "meaning_01",
-              "label": "感受到意義",
-              "desc": "感受到某件事真的很重要"
-            },
-            {
-              "key": "meaning_02",
-              "label": "知道重要的是什麼",
-              "desc": "慢慢理解自己真正重視的事"
-            },
-            {
-              "key": "meaning_03",
-              "label": "用意義來選擇",
-              "desc": "不只看利益，也依照想珍惜的事來選"
-            },
-            {
-              "key": "meaning_04",
-              "label": "身體知道這就是了",
-              "desc": "用身體感覺到「就是這個」"
-            },
-            {
-              "key": "meaning_05",
-              "label": "珍惜時間",
-              "desc": "在意自己把時間交給什麼"
-            },
-            {
-              "key": "meaning_06",
-              "label": "看見自己的故事",
-              "desc": "讓經驗成為自己故事的一部分"
-            },
-            {
-              "key": "meaning_07",
-              "label": "把經驗化成智慧",
-              "desc": "即使是辛苦的事，也能從中學到什麼"
-            },
-            {
-              "key": "meaning_08",
-              "label": "在日常中找到意義",
-              "desc": "在平凡的日子裡也能找到意義"
-            },
-            {
-              "key": "meaning_09",
-              "label": "珍惜現在",
-              "desc": "重視此刻自己能做的事"
-            },
-            {
-              "key": "meaning_10",
-              "label": "踏出小小一步",
-              "desc": "即使還不全懂，也先走一步"
-            },
-            {
-              "key": "meaning_11",
-              "label": "活出自己的角色",
-              "desc": "珍惜此刻自己能扮演的角色"
-            },
-            {
-              "key": "meaning_12",
-              "label": "與人連結",
-              "desc": "在人與人的連結中感受到意義"
-            },
-            {
-              "key": "meaning_13",
-              "label": "深入地說話",
-              "desc": "好好談真正重要的事"
-            },
-            {
-              "key": "meaning_14",
-              "label": "對某人有幫助",
-              "desc": "把自己的力量用在別人身上"
-            },
-            {
-              "key": "meaning_15",
-              "label": "創造並留下",
-              "desc": "把自己的想法與經驗化成形式"
-            },
-            {
-              "key": "meaning_16",
-              "label": "接受並傳下去",
-              "desc": "把自己收到的東西傳給下一個人"
-            },
-            {
-              "key": "meaning_17",
-              "label": "看見時間有限",
-              "desc": "因為時間有限，所以珍惜現在"
-            },
-            {
-              "key": "meaning_18",
-              "label": "尊重別人的意義",
-              "desc": "理解每個人都有自己重視的事"
-            },
-            {
-              "key": "meaning_19",
-              "label": "持續抱著問題",
-              "desc": "持續思考人生的意義"
-            },
-            {
-              "key": "meaning_20",
-              "label": "培養意義",
-              "desc": "讓意義一點一點長大"
-            }
-          ]
-        },
-        {
-          "key": "transcendence",
-          "label": "超越",
-          "themes": [
-            {
-              "key": "transcendence_01",
-              "label": "不立刻跟著反應走",
-              "desc": "即使煩躁，也不必馬上從煩躁行動"
-            },
-            {
-              "key": "transcendence_02",
-              "label": "不只看自己",
-              "desc": "不只想到自己，也想到所有相關的人"
-            },
-            {
-              "key": "transcendence_03",
-              "label": "超越角色",
-              "desc": "角色與頭銜不是自己的全部"
-            },
-            {
-              "key": "transcendence_04",
-              "label": "超越假設",
-              "desc": "不急著下定論，而是換個角度看"
-            },
-            {
-              "key": "transcendence_05",
-              "label": "打開看不見的可能",
-              "desc": "不只用現在做不到的事來定義自己"
-            },
-            {
-              "key": "transcendence_06",
-              "label": "看得更寬",
-              "desc": "不只看眼前，也看更大的範圍"
-            },
-            {
-              "key": "transcendence_07",
-              "label": "回到內在安靜",
-              "desc": "即使外面很吵，也能回到內在安靜的地方"
-            },
-            {
-              "key": "transcendence_08",
-              "label": "此刻清醒地在這裡",
-              "desc": "完整地在此時此刻"
-            },
-            {
-              "key": "transcendence_09",
-              "label": "鬆開執著",
-              "desc": "少一點緊抓"
-            },
-            {
-              "key": "transcendence_10",
-              "label": "交給流動",
-              "desc": "做能做的事，剩下的交給流動"
-            },
-            {
-              "key": "transcendence_11",
-              "label": "感受敬畏",
-              "desc": "感受自然與生命的廣大"
-            },
-            {
-              "key": "transcendence_12",
-              "label": "與整體相連",
-              "desc": "感受到自己不是獨自活著"
-            },
-            {
-              "key": "transcendence_13",
-              "label": "與自然和諧",
-              "desc": "讓自然幫助自己回到平衡"
-            },
-            {
-              "key": "transcendence_14",
-              "label": "身體裡有空間",
-              "desc": "不只用頭腦，也透過身體知道"
-            },
-            {
-              "key": "transcendence_15",
-              "label": "在心流中忘我",
-              "desc": "投入到暫時忘記自己的程度"
-            },
-            {
-              "key": "transcendence_16",
-              "label": "超越黑白對錯",
-              "desc": "看得比單純對錯更寬"
-            },
-            {
-              "key": "transcendence_17",
-              "label": "接受時間有限",
-              "desc": "因為時間有限，所以珍惜現在"
-            },
-            {
-              "key": "transcendence_18",
-              "label": "連到表面之下",
-              "desc": "照顧表面底下更深的感受"
-            },
-            {
-              "key": "transcendence_19",
-              "label": "分享自己擁有的",
-              "desc": "把自己內在擁有的東西與人分享"
-            },
-            {
-              "key": "transcendence_20",
-              "label": "把洞察帶回日常",
-              "desc": "讓察覺到的事影響每天的行動"
-            }
-          ]
-        },
-        {
-          "key": "legacy",
-          "label": "繼承",
-          "themes": [
-            {
-              "key": "legacy_01",
-              "label": "看見自己承接的東西",
-              "desc": "發現自己也從別人那裡收到重要的東西"
-            },
-            {
-              "key": "legacy_02",
-              "label": "想把重要的留下",
-              "desc": "覺得重要的東西也想留給後面的人"
-            },
-            {
-              "key": "legacy_03",
-              "label": "選擇要留下什麼",
-              "desc": "自己選擇想留下的東西"
-            },
-            {
-              "key": "legacy_04",
-              "label": "留下活過的證明",
-              "desc": "把自己活過這件事化成某種形式"
-            },
-            {
-              "key": "legacy_05",
-              "label": "記錄經驗",
-              "desc": "留下自己做過、學到的事"
-            },
-            {
-              "key": "legacy_06",
-              "label": "留下智慧",
-              "desc": "把學到的事留下成別人能使用的形式"
-            },
-            {
-              "key": "legacy_07",
-              "label": "留下看不見的東西",
-              "desc": "不只留下物品，也留下重要的想法與感受"
-            },
-            {
-              "key": "legacy_08",
-              "label": "留下作品",
-              "desc": "把想法與感覺化成作品"
-            },
-            {
-              "key": "legacy_09",
-              "label": "傳下技能",
-              "desc": "把自己的方法與實用知識教給別人"
-            },
-            {
-              "key": "legacy_10",
-              "label": "留下文字",
-              "desc": "把重要的感受與想法寫成文字"
-            },
-            {
-              "key": "legacy_11",
-              "label": "留在心裡",
-              "desc": "在別人的心裡留下溫暖的東西"
-            },
-            {
-              "key": "legacy_12",
-              "label": "留下場所",
-              "desc": "創造人們能聚在一起的地方或系統"
-            },
-            {
-              "key": "legacy_13",
-              "label": "把照顧留給自然",
-              "desc": "為後來的人照顧自然與土地"
-            },
-            {
-              "key": "legacy_14",
-              "label": "培養下一個人",
-              "desc": "幫助別人變得能繼續下去"
-            },
-            {
-              "key": "legacy_15",
-              "label": "為未來選擇",
-              "desc": "不只考慮現在，也考慮之後會留下什麼"
-            },
-            {
-              "key": "legacy_16",
-              "label": "用心讓它留下",
-              "desc": "細心創造，讓它能留得更久"
-            },
-            {
-              "key": "legacy_17",
-              "label": "接受並傳下去",
-              "desc": "把自己收到的東西，用自己的形式傳到未來"
-            },
-            {
-              "key": "legacy_18",
-              "label": "允許它改變",
-              "desc": "即使留下的東西之後改變，也能接受"
-            },
-            {
-              "key": "legacy_19",
-              "label": "留下實質而非名聲",
-              "desc": "比起追求名氣，更想留下真正有用的東西"
-            },
-            {
-              "key": "legacy_20",
-              "label": "讓生命往前延續",
-              "desc": "感受到自己的生命會延續到未來"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "loops": {
+    "anotherClearingDescription": "針對你寫下的現在狀態，再清理一次。",
+    "anotherClearingReturn": "step5",
+    "anotherClearingBefore": "使用最近一次 Step8 的數值作為新的 Before。",
+    "restartThemeDescription": "針對你選擇或輸入的主題，從頭開始。",
+    "restartThemeReturn": "step2",
+    "chooseThemeAgainDescription": "重新選擇主題。",
+    "chooseThemeAgainReturn": "step0",
+    "finalClearingCondition": "只有在 Step3 不再出現回答時，才進行最後測量。"
+  },
+  "pricing": {
+    "title": "Pro",
+    "lead": "為了繼續旅程的書籤。",
+    "body": "Pro 不是為了解鎖被限制的體驗。\n而是為了留下今天的旅程，之後再從那裡開始。",
+    "cta": "儲存書籤"
+  },
+  "errors": {
+    "loadFailed": "無法讀取。",
+    "network": "無法連線。",
+    "required": "請輸入內容。",
+    "unknown": "發生錯誤。"
+  },
+  "status": {
+    "loading": "讀取中",
+    "saving": "儲存中",
+    "saved": "已儲存",
+    "ready": "準備好了"
+  },
+  "themeLibrary": {
+    "version": "v17",
+    "locale": "zh-TW",
+    "categories": [
+      {
+        "id": "self",
+        "label": "自己",
+        "emoji": "👤",
+        "problems": [
+          {
+            "id": "self_problem_519f2ce2",
+            "label": "討厭自己"
+          },
+          {
+            "id": "self_problem_f5b7349c",
+            "label": "無法喜歡自己"
+          },
+          {
+            "id": "self_problem_cbebfb3f",
+            "label": "無法肯定自己"
+          },
+          {
+            "id": "self_problem_3eff6505",
+            "label": "無法相信自己"
+          },
+          {
+            "id": "self_problem_e0d93916",
+            "label": "不了解自己"
+          },
+          {
+            "id": "self_problem_2dd0f565",
+            "label": "迷失了自己"
+          },
+          {
+            "id": "self_problem_21f2ab8f",
+            "label": "無法活得像自己"
+          },
+          {
+            "id": "self_problem_8d8387b3",
+            "label": "隱藏自己"
+          },
+          {
+            "id": "self_problem_3d711555",
+            "label": "偽裝自己"
+          },
+          {
+            "id": "self_problem_7cfae9f5",
+            "label": "對自己沒有自信"
+          },
+          {
+            "id": "self_problem_8a1562f9",
+            "label": "感覺不到自己的價值"
+          },
+          {
+            "id": "self_problem_53e2f626",
+            "label": "無法好好珍惜自己"
+          },
+          {
+            "id": "self_problem_4ea7da58",
+            "label": "會責怪自己"
+          },
+          {
+            "id": "self_problem_1b234f2b",
+            "label": "無法原諒自己"
+          },
+          {
+            "id": "self_problem_43d70343",
+            "label": "無法接納自己"
+          },
+          {
+            "id": "self_problem_dcb375bd",
+            "label": "對自己太嚴格"
+          },
+          {
+            "id": "self_problem_e7dc2c9c",
+            "label": "無法溫柔對待自己"
+          },
+          {
+            "id": "self_problem_4083b933",
+            "label": "總是把自己放到最後"
+          },
+          {
+            "id": "self_problem_ecf72dd9",
+            "label": "會犧牲自己"
+          },
+          {
+            "id": "self_problem_3c9bf7ff",
+            "label": "無法保護自己"
+          },
+          {
+            "id": "self_problem_722400e3",
+            "label": "無法改變自己"
+          },
+          {
+            "id": "self_problem_0b9217d9",
+            "label": "無法控制自己"
+          },
+          {
+            "id": "self_problem_2e8eebdb",
+            "label": "會輸給自己"
+          },
+          {
+            "id": "self_problem_b31e477b",
+            "label": "覺得自己很沒用"
+          },
+          {
+            "id": "self_problem_b268595e",
+            "label": "覺得自己很脆弱"
+          },
+          {
+            "id": "self_problem_8bc2e913",
+            "label": "開始厭惡自己"
+          },
+          {
+            "id": "self_problem_4910ca2c",
+            "label": "覺得自己很丟臉"
+          },
+          {
+            "id": "self_problem_7c00b2ba",
+            "label": "覺得自己不正常"
+          },
+          {
+            "id": "self_problem_3d393824",
+            "label": "覺得自己比較差"
+          },
+          {
+            "id": "self_problem_35b1adb4",
+            "label": "會拿自己和別人比較"
+          },
+          {
+            "id": "self_problem_9a2a11ab",
+            "label": "無法對自己滿意"
+          },
+          {
+            "id": "self_problem_7e0c31db",
+            "label": "無法期待自己"
+          },
+          {
+            "id": "self_problem_8bc59268",
+            "label": "感覺不到自己的未來"
+          },
+          {
+            "id": "self_problem_9e1989fa",
+            "label": "不知道自己的感受"
+          },
+          {
+            "id": "self_problem_d72e809f",
+            "label": "不知道自己的真心話"
+          },
+          {
+            "id": "self_problem_694a664c",
+            "label": "不知道自己想做什麼"
+          },
+          {
+            "id": "self_problem_9ce83d6e",
+            "label": "不知道自己的強項"
+          },
+          {
+            "id": "self_problem_4297a0c4",
+            "label": "覺得沒有自己的容身之處"
+          },
+          {
+            "id": "self_problem_d70a2cdb",
+            "label": "覺得自己沒有才能"
+          },
+          {
+            "id": "self_problem_62e10e93",
+            "label": "覺得自己沒有魅力"
+          },
+          {
+            "id": "self_problem_d04d894c",
+            "label": "覺得自己什麼都沒有"
+          },
+          {
+            "id": "self_problem_7e3f7daa",
+            "label": "覺得自己不被愛"
+          },
+          {
+            "id": "self_problem_b336dfbd",
+            "label": "覺得自己不被需要"
+          },
+          {
+            "id": "self_problem_b9f87678",
+            "label": "覺得自己不被認可"
+          },
+          {
+            "id": "self_problem_86a6e564",
+            "label": "覺得自己不被理解"
+          },
+          {
+            "id": "self_problem_776b261d",
+            "label": "覺得自己是一個人"
+          },
+          {
+            "id": "self_problem_4385e3ab",
+            "label": "覺得自己無法幸福"
+          },
+          {
+            "id": "self_problem_7097bd5f",
+            "label": "覺得自己無法改變"
+          },
+          {
+            "id": "self_problem_cfeb13ba",
+            "label": "覺得自己無法成功"
+          },
+          {
+            "id": "self_problem_02cffa67",
+            "label": "覺得自己總是失敗"
+          },
+          {
+            "id": "self_problem_f3f58b96",
+            "label": "覺得自己做什麼都不行"
+          },
+          {
+            "id": "self_problem_28e41173",
+            "label": "覺得自己無法回應期待"
+          },
+          {
+            "id": "self_problem_b2f97707",
+            "label": "總是在迷惘"
+          },
+          {
+            "id": "self_problem_4d3062e6",
+            "label": "無法決定"
+          },
+          {
+            "id": "self_problem_78966940",
+            "label": "無法持續"
+          },
+          {
+            "id": "self_problem_be4b64e4",
+            "label": "無法行動"
+          },
+          {
+            "id": "self_problem_b3950cc6",
+            "label": "會逃避"
+          },
+          {
+            "id": "self_problem_715f6656",
+            "label": "會放棄"
+          },
+          {
+            "id": "self_problem_5f604a82",
+            "label": "會太努力"
+          },
+          {
+            "id": "self_problem_d97b8847",
+            "label": "會勉強自己"
+          },
+          {
+            "id": "self_problem_7b07862d",
+            "label": "會忍耐過頭"
+          },
+          {
+            "id": "self_problem_761a9f5d",
+            "label": "說不出真正的感受"
+          },
+          {
+            "id": "self_problem_44b29ac2",
+            "label": "會隱藏真心話"
+          },
+          {
+            "id": "self_problem_3a144f01",
+            "label": "太配合別人"
+          },
+          {
+            "id": "self_problem_e4ed12d4",
+            "label": "說不出不要"
+          },
+          {
+            "id": "self_problem_bcf07f31",
+            "label": "無法拒絕"
+          },
+          {
+            "id": "self_problem_e42a8e70",
+            "label": "心無法休息"
+          },
+          {
+            "id": "self_problem_9ca1d83e",
+            "label": "總是不安"
+          },
+          {
+            "id": "self_problem_7a203f52",
+            "label": "總是焦慮"
+          },
+          {
+            "id": "self_problem_201d58d0",
+            "label": "總是疲憊"
+          },
+          {
+            "id": "self_problem_a70d0c18",
+            "label": "覺得自己很空"
+          },
+          {
+            "id": "self_problem_84092b48",
+            "label": "覺得不滿足"
+          },
+          {
+            "id": "self_problem_7269800b",
+            "label": "不知道自己為了什麼而活"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "self_ideal_fea952eb",
+            "label": "喜歡自己"
+          },
+          {
+            "id": "self_ideal_c6e3c6f2",
+            "label": "相信自己"
+          },
+          {
+            "id": "self_ideal_6a3ef1bc",
+            "label": "肯定自己"
+          },
+          {
+            "id": "self_ideal_26b2bd2f",
+            "label": "活得像自己"
+          },
+          {
+            "id": "self_ideal_dd1092ed",
+            "label": "珍惜自己"
+          },
+          {
+            "id": "self_ideal_a19bc47e",
+            "label": "原諒自己"
+          },
+          {
+            "id": "self_ideal_9a73a4ca",
+            "label": "有自信"
+          },
+          {
+            "id": "self_ideal_cedf2d5e",
+            "label": "為自己感到驕傲"
+          },
+          {
+            "id": "self_ideal_e7e83fef",
+            "label": "活出自己的人生"
+          },
+          {
+            "id": "self_ideal_dd3e2f15",
+            "label": "依照自己的真心活著"
+          },
+          {
+            "id": "self_ideal_322bd573",
+            "label": "對自己滿意"
+          },
+          {
+            "id": "self_ideal_8d670088",
+            "label": "不責怪自己"
+          },
+          {
+            "id": "self_ideal_5d56982f",
+            "label": "接納自己"
+          },
+          {
+            "id": "self_ideal_21da6155",
+            "label": "感受到自己的價值"
+          },
+          {
+            "id": "self_ideal_c3d18c0c",
+            "label": "了解自己"
+          },
+          {
+            "id": "self_ideal_accfa594",
+            "label": "心很平靜"
+          },
+          {
+            "id": "self_ideal_61bc1101",
+            "label": "感到安心"
+          },
+          {
+            "id": "self_ideal_e2de0cd6",
+            "label": "保持自然的自己"
+          },
+          {
+            "id": "self_ideal_1abfbaea",
+            "label": "由自己決定"
+          },
+          {
+            "id": "self_ideal_5d1ab9cf",
+            "label": "愛著自己"
+          }
+        ]
+      },
+      {
+        "id": "people",
+        "label": "人",
+        "emoji": "👥",
+        "problems": [
+          {
+            "id": "people_problem_ef848c88",
+            "label": "I feel all alone"
+          },
+          {
+            "id": "people_problem_e45424fd",
+            "label": "孤独感覺"
+          },
+          {
+            "id": "people_problem_a7d12b7b",
+            "label": "居場所沒有"
+          },
+          {
+            "id": "people_problem_4a7c2d1d",
+            "label": "人害怕"
+          },
+          {
+            "id": "people_problem_bcabc106",
+            "label": "人無法相信"
+          },
+          {
+            "id": "people_problem_fe173d62",
+            "label": "人信用無法"
+          },
+          {
+            "id": "people_problem_31ce373c",
+            "label": "I can’t open my heart to people"
+          },
+          {
+            "id": "people_problem_f6292e7e",
+            "label": "I can’t get closer to people"
+          },
+          {
+            "id": "people_problem_aeb7a511",
+            "label": "Talking with people is hard"
+          },
+          {
+            "id": "people_problem_cfe5eaf5",
+            "label": "I get nervous in front of people"
+          },
+          {
+            "id": "people_problem_5e2dffd8",
+            "label": "I worry about people watching me"
+          },
+          {
+            "id": "people_problem_cccfb7e6",
+            "label": "I worry what people think of me"
+          },
+          {
+            "id": "people_problem_b8de7d2f",
+            "label": "I’m afraid of being disliked"
+          },
+          {
+            "id": "people_problem_b2489a9c",
+            "label": "I’m afraid of being rejected"
+          },
+          {
+            "id": "people_problem_abb8d89c",
+            "label": "I’m afraid of being refused"
+          },
+          {
+            "id": "people_problem_cb43c9db",
+            "label": "I adjust too much to others"
+          },
+          {
+            "id": "people_problem_979a7694",
+            "label": "I read the room too much"
+          },
+          {
+            "id": "people_problem_3ddbd999",
+            "label": "I can’t say my true feelings"
+          },
+          {
+            "id": "people_problem_46995e39",
+            "label": "I can’t show myself"
+          },
+          {
+            "id": "people_problem_10eb6e63",
+            "label": "I can’t say no"
+          },
+          {
+            "id": "people_problem_8d8ea30d",
+            "label": "I can’t refuse"
+          },
+          {
+            "id": "people_problem_8c172861",
+            "label": "I can’t rely on others"
+          },
+          {
+            "id": "people_problem_00529d7c",
+            "label": "I can’t ask for help"
+          },
+          {
+            "id": "people_problem_d566b85f",
+            "label": "I can’t lean on others"
+          },
+          {
+            "id": "people_problem_ea5fa083",
+            "label": "I expect too much from people"
+          },
+          {
+            "id": "people_problem_8d874b48",
+            "label": "人對依存會"
+          },
+          {
+            "id": "people_problem_66cf9182",
+            "label": "I want to control people"
+          },
+          {
+            "id": "people_problem_b6a6946d",
+            "label": "人無法原諒"
+          },
+          {
+            "id": "people_problem_92237076",
+            "label": "I blame people"
+          },
+          {
+            "id": "people_problem_e0e7fe95",
+            "label": "I envy people"
+          },
+          {
+            "id": "people_problem_e4d83bde",
+            "label": "人對嫉妬會"
+          },
+          {
+            "id": "people_problem_96ccf5c6",
+            "label": "I compare myself with people"
+          },
+          {
+            "id": "people_problem_16ca720e",
+            "label": "人見下會"
+          },
+          {
+            "id": "people_problem_389bbf04",
+            "label": "I feel looked down on by people"
+          },
+          {
+            "id": "people_problem_df3e40aa",
+            "label": "People use me"
+          },
+          {
+            "id": "people_problem_ece6e39f",
+            "label": "People throw me off"
+          },
+          {
+            "id": "people_problem_0e3d1aeb",
+            "label": "I was hurt by someone"
+          },
+          {
+            "id": "people_problem_af238b45",
+            "label": "I hurt someone"
+          },
+          {
+            "id": "people_problem_7c402d21",
+            "label": "I end up fighting with people"
+          },
+          {
+            "id": "people_problem_8b962360",
+            "label": "I can’t understand people mutually"
+          },
+          {
+            "id": "people_problem_8f3e54f9",
+            "label": "People don’t understand me"
+          },
+          {
+            "id": "people_problem_ca9824a2",
+            "label": "人理解無法"
+          },
+          {
+            "id": "people_problem_6b07a3bb",
+            "label": "I avoid people"
+          },
+          {
+            "id": "people_problem_9026bc1a",
+            "label": "人和和疲憊"
+          },
+          {
+            "id": "people_problem_47a0fb79",
+            "label": "I feel lonely when I’m alone"
+          },
+          {
+            "id": "people_problem_248646cf",
+            "label": "I want people to recognize me"
+          },
+          {
+            "id": "people_problem_652134d5",
+            "label": "I want people to praise me"
+          },
+          {
+            "id": "people_problem_e50d7e62",
+            "label": "I want people to need me"
+          },
+          {
+            "id": "people_problem_70e05975",
+            "label": "I want people to love me"
+          },
+          {
+            "id": "people_problem_0c97a5ea",
+            "label": "I want people to care about me"
+          },
+          {
+            "id": "people_problem_040c4ca6",
+            "label": "I want people to accept me"
+          },
+          {
+            "id": "people_problem_5600d2a2",
+            "label": "People don’t recognize me"
+          },
+          {
+            "id": "people_problem_76c14ca4",
+            "label": "People don’t value me"
+          },
+          {
+            "id": "people_problem_e23d9e9f",
+            "label": "I was betrayed by someone"
+          },
+          {
+            "id": "people_problem_685ed9d7",
+            "label": "I betrayed someone"
+          },
+          {
+            "id": "people_problem_02696faa",
+            "label": "I feel inferior when comparing myself with others"
+          },
+          {
+            "id": "people_problem_b43dfef1",
+            "label": "人的成功痛苦"
+          },
+          {
+            "id": "people_problem_9787b80b",
+            "label": "I can’t be happy for others’ happiness"
+          },
+          {
+            "id": "people_problem_e7eed0e1",
+            "label": "I keep meeting other people’s expectations"
+          },
+          {
+            "id": "people_problem_548ab990",
+            "label": "人和的距離感不知道"
+          },
+          {
+            "id": "people_problem_ac88b311",
+            "label": "I can’t set boundaries with people"
+          },
+          {
+            "id": "people_problem_ba259313",
+            "label": "I can’t build deep relationships"
+          },
+          {
+            "id": "people_problem_b4d9e879",
+            "label": "人間関係無法持續"
+          },
+          {
+            "id": "people_problem_339bbd61",
+            "label": "I can’t end relationships"
+          },
+          {
+            "id": "people_problem_41f51bf7",
+            "label": "人對執着會"
+          },
+          {
+            "id": "people_problem_365e16da",
+            "label": "I can’t let people go"
+          },
+          {
+            "id": "people_problem_45a387a6",
+            "label": "I can’t like myself around people"
+          },
+          {
+            "id": "people_problem_943f9874",
+            "label": "人間関係對疲憊"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "people_ideal_a39b736f",
+            "label": "人相信"
+          },
+          {
+            "id": "people_ideal_88ae6639",
+            "label": "People trust me"
+          },
+          {
+            "id": "people_ideal_5418dbcc",
+            "label": "I trust people"
+          },
+          {
+            "id": "people_ideal_1ad515ba",
+            "label": "I can relate to people safely"
+          },
+          {
+            "id": "people_ideal_c89cf4e4",
+            "label": "I relate to people naturally"
+          },
+          {
+            "id": "people_ideal_b3ae3b8e",
+            "label": "I speak honestly"
+          },
+          {
+            "id": "people_ideal_8d42dd38",
+            "label": "I relate to people as myself"
+          },
+          {
+            "id": "people_ideal_3daebe63",
+            "label": "人的面前也安心著"
+          },
+          {
+            "id": "people_ideal_a0d83ef8",
+            "label": "I’m not worried about people watching me"
+          },
+          {
+            "id": "people_ideal_df221475",
+            "label": "I don’t compare myself with people"
+          },
+          {
+            "id": "people_ideal_6bcb8eef",
+            "label": "I’m not jealous"
+          },
+          {
+            "id": "people_ideal_57b1d304",
+            "label": "人肯定著"
+          },
+          {
+            "id": "people_ideal_c359ac66",
+            "label": "人尊重著"
+          },
+          {
+            "id": "people_ideal_6502fab9",
+            "label": "人原諒著"
+          },
+          {
+            "id": "people_ideal_40cd37a8",
+            "label": "人接納著"
+          },
+          {
+            "id": "people_ideal_ac492b8b",
+            "label": "人珍惜著"
+          },
+          {
+            "id": "people_ideal_0dcedd7c",
+            "label": "I’m connected with people I love"
+          },
+          {
+            "id": "people_ideal_0cb605a3",
+            "label": "信頼能夠人"
+          },
+          {
+            "id": "people_ideal_727c2561",
+            "label": "安心能夠居場所有"
+          },
+          {
+            "id": "people_ideal_bb0228d0",
+            "label": "一人以也安心著"
+          },
+          {
+            "id": "people_ideal_fa038c73",
+            "label": "I feel safe with people"
+          },
+          {
+            "id": "people_ideal_039c1a4f",
+            "label": "I’m not afraid of being disliked"
+          },
+          {
+            "id": "people_ideal_1fdf5dcd",
+            "label": "I don’t lose myself even if I’m rejected"
+          },
+          {
+            "id": "people_ideal_f5b6cb53",
+            "label": "I don’t over-adjust to people"
+          },
+          {
+            "id": "people_ideal_8d6c2674",
+            "label": "I express my opinion"
+          },
+          {
+            "id": "people_ideal_206b9061",
+            "label": "I refuse what I don’t want"
+          },
+          {
+            "id": "people_ideal_9c338da3",
+            "label": "I rely on others when needed"
+          },
+          {
+            "id": "people_ideal_fa86a571",
+            "label": "I help when needed"
+          },
+          {
+            "id": "people_ideal_2bc0cd9b",
+            "label": "My distance with people feels just right"
+          },
+          {
+            "id": "people_ideal_ca916cf2",
+            "label": "I’m building healthy relationships"
+          },
+          {
+            "id": "people_ideal_ba7a1fbc",
+            "label": "I laugh with people"
+          },
+          {
+            "id": "people_ideal_dcd7ff3c",
+            "label": "人和的時間享受著"
+          },
+          {
+            "id": "people_ideal_e1d1e8b1",
+            "label": "I cooperate with people"
+          },
+          {
+            "id": "people_ideal_ea07f9df",
+            "label": "I understand people mutually"
+          },
+          {
+            "id": "people_ideal_c8c8ef4e",
+            "label": "I’m building loving relationships"
+          },
+          {
+            "id": "people_ideal_b0bf5f2f",
+            "label": "I enjoy meeting people"
+          },
+          {
+            "id": "people_ideal_aecb4089",
+            "label": "人對感謝著"
+          },
+          {
+            "id": "people_ideal_b1363a28",
+            "label": "People are grateful to me"
+          },
+          {
+            "id": "people_ideal_e0f3dba1",
+            "label": "I grow safely with people"
+          },
+          {
+            "id": "people_ideal_448675c4",
+            "label": "人和的関係對滿意"
+          }
+        ]
+      },
+      {
+        "id": "love",
+        "label": "戀愛",
+        "emoji": "❤️",
+        "problems": [
+          {
+            "id": "love_problem_4181bde6",
+            "label": "戀人無法"
+          },
+          {
+            "id": "love_problem_f09e7deb",
+            "label": "喜歡的人無法"
+          },
+          {
+            "id": "love_problem_2e59af23",
+            "label": "The person I like doesn’t notice me"
+          },
+          {
+            "id": "love_problem_cafd9bd3",
+            "label": "告白無法"
+          },
+          {
+            "id": "love_problem_bf737949",
+            "label": "I can’t express my feelings"
+          },
+          {
+            "id": "love_problem_316bec9d",
+            "label": "被愛著和感受不到"
+          },
+          {
+            "id": "love_problem_2bb57b4b",
+            "label": "I can’t love"
+          },
+          {
+            "id": "love_problem_d90018d5",
+            "label": "I don’t know how to love"
+          },
+          {
+            "id": "love_problem_f560ef2b",
+            "label": "I don’t know how to be loved"
+          },
+          {
+            "id": "love_problem_2a988e13",
+            "label": "愛無法相信"
+          },
+          {
+            "id": "love_problem_832bd46b",
+            "label": "戀愛無法持續"
+          },
+          {
+            "id": "love_problem_690a1015",
+            "label": "It doesn’t last"
+          },
+          {
+            "id": "love_problem_73993159",
+            "label": "I’m still carrying a breakup"
+          },
+          {
+            "id": "love_problem_4aa9cd8f",
+            "label": "There is someone I can’t forget"
+          },
+          {
+            "id": "love_problem_c82c708c",
+            "label": "I can’t forget my ex"
+          },
+          {
+            "id": "love_problem_afdfdf6c",
+            "label": "I want to get back together"
+          },
+          {
+            "id": "love_problem_dec4041d",
+            "label": "Being alone feels lonely"
+          },
+          {
+            "id": "love_problem_7db24217",
+            "label": "一人以的害怕"
+          },
+          {
+            "id": "love_problem_a79d131b",
+            "label": "I hate myself without a partner"
+          },
+          {
+            "id": "love_problem_c216212d",
+            "label": "I’m anxious about whether I can marry"
+          },
+          {
+            "id": "love_problem_2bf13488",
+            "label": "I don’t want to marry"
+          },
+          {
+            "id": "love_problem_2fff2989",
+            "label": "I can’t decide to marry"
+          },
+          {
+            "id": "love_problem_f28d40e9",
+            "label": "結婚生活痛苦"
+          },
+          {
+            "id": "love_problem_a7bc4326",
+            "label": "Things aren’t going well with my partner"
+          },
+          {
+            "id": "love_problem_d048d66c",
+            "label": "I can’t talk things through with my partner"
+          },
+          {
+            "id": "love_problem_016fa85f",
+            "label": "伴侶無法相信"
+          },
+          {
+            "id": "love_problem_8a31088c",
+            "label": "My partner doesn’t trust me"
+          },
+          {
+            "id": "love_problem_0e2b65da",
+            "label": "I can’t tell my true feelings to my partner"
+          },
+          {
+            "id": "love_problem_036018e9",
+            "label": "I can’t lean on my partner"
+          },
+          {
+            "id": "love_problem_55536b45",
+            "label": "I can’t rely on my partner"
+          },
+          {
+            "id": "love_problem_63502fa2",
+            "label": "I expect too much from my partner"
+          },
+          {
+            "id": "love_problem_1d3a8b97",
+            "label": "伴侶對依存會"
+          },
+          {
+            "id": "love_problem_a675e3b0",
+            "label": "伴侶束縛會"
+          },
+          {
+            "id": "love_problem_59b9efcd",
+            "label": "My partner restricts me"
+          },
+          {
+            "id": "love_problem_845f7970",
+            "label": "My partner throws me off"
+          },
+          {
+            "id": "love_problem_2e7b0547",
+            "label": "I want to control my partner"
+          },
+          {
+            "id": "love_problem_7fec1071",
+            "label": "伴侶無法原諒"
+          },
+          {
+            "id": "love_problem_fad8734e",
+            "label": "My anger toward my partner won’t disappear"
+          },
+          {
+            "id": "love_problem_2e5b02fc",
+            "label": "Frustration with my partner is building up"
+          },
+          {
+            "id": "love_problem_22f18100",
+            "label": "I hurt my partner"
+          },
+          {
+            "id": "love_problem_da37714b",
+            "label": "My partner hurt me"
+          },
+          {
+            "id": "love_problem_4e424399",
+            "label": "浮気無法原諒"
+          },
+          {
+            "id": "love_problem_87097d9f",
+            "label": "浮気不安"
+          },
+          {
+            "id": "love_problem_c20fd5f4",
+            "label": "I’m afraid of being betrayed"
+          },
+          {
+            "id": "love_problem_bd948e2d",
+            "label": "I’m afraid of being abandoned"
+          },
+          {
+            "id": "love_problem_618eab2f",
+            "label": "嫉妬會"
+          },
+          {
+            "id": "love_problem_6314b116",
+            "label": "I want to possess them"
+          },
+          {
+            "id": "love_problem_0136fca7",
+            "label": "I doubt the other person"
+          },
+          {
+            "id": "love_problem_09e38213",
+            "label": "I watch the other person’s mood too much"
+          },
+          {
+            "id": "love_problem_944eb62b",
+            "label": "I adjust too much to the other person"
+          },
+          {
+            "id": "love_problem_10eb6e63",
+            "label": "I can’t say no"
+          },
+          {
+            "id": "love_problem_a2cc1c1a",
+            "label": "I can’t bring up breaking up"
+          },
+          {
+            "id": "love_problem_23154cef",
+            "label": "I can’t break up"
+          },
+          {
+            "id": "love_problem_6c29110c",
+            "label": "I can’t leave"
+          },
+          {
+            "id": "love_problem_72686975",
+            "label": "執着會"
+          },
+          {
+            "id": "love_problem_fad81fee",
+            "label": "I feel I can’t live without them"
+          },
+          {
+            "id": "love_problem_d5cd819c",
+            "label": "I’m afraid of losing them"
+          },
+          {
+            "id": "love_problem_299e055b",
+            "label": "自己對魅力沒有和感覺"
+          },
+          {
+            "id": "love_problem_fe03f255",
+            "label": "自信沒有"
+          },
+          {
+            "id": "love_problem_2314c23b",
+            "label": "I lose myself in love"
+          },
+          {
+            "id": "love_problem_a2e76f5a",
+            "label": "I’m afraid of getting hurt in love"
+          },
+          {
+            "id": "love_problem_63dacac9",
+            "label": "戀愛面倒和感覺"
+          },
+          {
+            "id": "love_problem_f691fdc9",
+            "label": "異性苦手"
+          },
+          {
+            "id": "love_problem_fb77c522",
+            "label": "I’m afraid to fall in love"
+          },
+          {
+            "id": "love_problem_9d76fdbb",
+            "label": "I’m afraid to be happy"
+          },
+          {
+            "id": "love_problem_8a04acb6",
+            "label": "I don’t feel happiness will last"
+          },
+          {
+            "id": "love_problem_d56a32cf",
+            "label": "I have given up on love"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "love_ideal_fac55e43",
+            "label": "愛著"
+          },
+          {
+            "id": "love_ideal_0ca98fab",
+            "label": "被愛著"
+          },
+          {
+            "id": "love_ideal_89e003eb",
+            "label": "We love each other"
+          },
+          {
+            "id": "love_ideal_8f89debb",
+            "label": "I love with safety"
+          },
+          {
+            "id": "love_ideal_f8d550eb",
+            "label": "I feel safely loved"
+          },
+          {
+            "id": "love_ideal_cee4ee8d",
+            "label": "We trust each other"
+          },
+          {
+            "id": "love_ideal_be48f61c",
+            "label": "We support each other"
+          },
+          {
+            "id": "love_ideal_c61d13b6",
+            "label": "We respect each other"
+          },
+          {
+            "id": "love_ideal_963d14e9",
+            "label": "We care for each other"
+          },
+          {
+            "id": "love_ideal_83951182",
+            "label": "I can be myself"
+          },
+          {
+            "id": "love_ideal_b11eacbe",
+            "label": "I feel safe together"
+          },
+          {
+            "id": "love_ideal_67b164e5",
+            "label": "Being together is fun"
+          },
+          {
+            "id": "love_ideal_4bbc96c9",
+            "label": "Being together feels calm"
+          },
+          {
+            "id": "love_ideal_b3ae3b8e",
+            "label": "I speak honestly"
+          },
+          {
+            "id": "love_ideal_f9122805",
+            "label": "I express my feelings"
+          },
+          {
+            "id": "love_ideal_cd85b250",
+            "label": "We receive each other’s feelings"
+          },
+          {
+            "id": "love_ideal_0b1d6646",
+            "label": "We understand each other"
+          },
+          {
+            "id": "love_ideal_69df6a2c",
+            "label": "彼此接納著"
+          },
+          {
+            "id": "love_ideal_84b04685",
+            "label": "彼此原諒著"
+          },
+          {
+            "id": "love_ideal_cd2bca45",
+            "label": "We trust each other"
+          },
+          {
+            "id": "love_ideal_1902680b",
+            "label": "彼此對自由以"
+          },
+          {
+            "id": "love_ideal_e33acdcb",
+            "label": "We support each other"
+          },
+          {
+            "id": "love_ideal_35296254",
+            "label": "We grow together"
+          },
+          {
+            "id": "love_ideal_54467840",
+            "label": "彼此對感謝著"
+          },
+          {
+            "id": "love_ideal_cb55ce73",
+            "label": "彼此珍惜著"
+          },
+          {
+            "id": "love_ideal_e4960dc1",
+            "label": "I’m not controlled by jealousy"
+          },
+          {
+            "id": "love_ideal_c8d30aa0",
+            "label": "I’m not controlled by anxiety"
+          },
+          {
+            "id": "love_ideal_b7ba3c1d",
+            "label": "I don’t restrict my partner"
+          },
+          {
+            "id": "love_ideal_5fa4eacc",
+            "label": "I am not restricted either"
+          },
+          {
+            "id": "love_ideal_befdf1ac",
+            "label": "I love as myself"
+          },
+          {
+            "id": "love_ideal_29192cb0",
+            "label": "My partner is also being themselves"
+          },
+          {
+            "id": "love_ideal_edd7fdb3",
+            "label": "My heart feels fulfilled"
+          },
+          {
+            "id": "love_ideal_db7acb7d",
+            "label": "I feel happiness"
+          },
+          {
+            "id": "love_ideal_8435d7b5",
+            "label": "Happiness continues"
+          },
+          {
+            "id": "love_ideal_46375f7c",
+            "label": "I’m building a safe relationship"
+          },
+          {
+            "id": "love_ideal_40a3d67a",
+            "label": "I’m building a trusting relationship"
+          },
+          {
+            "id": "love_ideal_12d730fd",
+            "label": "I’m building a healthy relationship"
+          },
+          {
+            "id": "love_ideal_4a3b37f2",
+            "label": "We laugh together from the heart"
+          },
+          {
+            "id": "love_ideal_e7920da0",
+            "label": "We walk toward the future together"
+          },
+          {
+            "id": "love_ideal_02686f38",
+            "label": "戀愛對滿意"
+          }
+        ]
+      },
+      {
+        "id": "family",
+        "label": "家人",
+        "emoji": "👨‍👩‍👧",
+        "problems": [
+          {
+            "id": "family_problem_91162456",
+            "label": "家人沉重"
+          },
+          {
+            "id": "family_problem_18ee6d38",
+            "label": "家人難受"
+          },
+          {
+            "id": "family_problem_de48f3fc",
+            "label": "家人苦手"
+          },
+          {
+            "id": "family_problem_1fafc04a",
+            "label": "I don’t fit with my family"
+          },
+          {
+            "id": "family_problem_b838a386",
+            "label": "家人對疲憊"
+          },
+          {
+            "id": "family_problem_ba1997a1",
+            "label": "I walk on eggshells around my family"
+          },
+          {
+            "id": "family_problem_456ee578",
+            "label": "I can’t tell my true feelings to my family"
+          },
+          {
+            "id": "family_problem_34690db2",
+            "label": "My family doesn’t understand me"
+          },
+          {
+            "id": "family_problem_b350f467",
+            "label": "I can’t understand my family"
+          },
+          {
+            "id": "family_problem_5582ea14",
+            "label": "My family rejects me"
+          },
+          {
+            "id": "family_problem_ff2a8494",
+            "label": "家人對不被認可"
+          },
+          {
+            "id": "family_problem_017251bd",
+            "label": "My family expects too much from me"
+          },
+          {
+            "id": "family_problem_f209f1c6",
+            "label": "家人的期待沉重"
+          },
+          {
+            "id": "family_problem_41dd6fa2",
+            "label": "I don’t want to disappoint my family"
+          },
+          {
+            "id": "family_problem_5902fff3",
+            "label": "I have to help my family"
+          },
+          {
+            "id": "family_problem_af1a19d1",
+            "label": "I have to protect my family"
+          },
+          {
+            "id": "family_problem_1b794695",
+            "label": "I carry my family"
+          },
+          {
+            "id": "family_problem_96521df9",
+            "label": "I can’t leave my family"
+          },
+          {
+            "id": "family_problem_c98f8298",
+            "label": "I’m bound by my family"
+          },
+          {
+            "id": "family_problem_5903fdce",
+            "label": "I’m controlled by my family"
+          },
+          {
+            "id": "family_problem_4c1cd849",
+            "label": "My family interferes with me"
+          },
+          {
+            "id": "family_problem_aef1b30f",
+            "label": "My family compares me"
+          },
+          {
+            "id": "family_problem_6690a700",
+            "label": "I can’t be myself in front of my family"
+          },
+          {
+            "id": "family_problem_450c8f2b",
+            "label": "I play the good child in front of my family"
+          },
+          {
+            "id": "family_problem_4500eed4",
+            "label": "I act strong in front of my family"
+          },
+          {
+            "id": "family_problem_4545da2d",
+            "label": "I can’t lean on my family"
+          },
+          {
+            "id": "family_problem_02488d1b",
+            "label": "I can’t rely on my family"
+          },
+          {
+            "id": "family_problem_c952610b",
+            "label": "I don’t want to rely on my family"
+          },
+          {
+            "id": "family_problem_dd17f94b",
+            "label": "家人無法相信"
+          },
+          {
+            "id": "family_problem_6ef7cac7",
+            "label": "家人無法原諒"
+          },
+          {
+            "id": "family_problem_a96a4285",
+            "label": "I feel anger toward my family"
+          },
+          {
+            "id": "family_problem_0f1f762b",
+            "label": "家人對罪悪感有"
+          },
+          {
+            "id": "family_problem_453bfe8f",
+            "label": "I feel sorry toward my family"
+          },
+          {
+            "id": "family_problem_e8209593",
+            "label": "It hurts that I dislike my family"
+          },
+          {
+            "id": "family_problem_6a4632fe",
+            "label": "家人大切對無法"
+          },
+          {
+            "id": "family_problem_50e86be8",
+            "label": "I want distance from my family"
+          },
+          {
+            "id": "family_problem_48c68c85",
+            "label": "I can’t take distance from my family"
+          },
+          {
+            "id": "family_problem_e7f44467",
+            "label": "Seeing my family tires me"
+          },
+          {
+            "id": "family_problem_6336eba7",
+            "label": "Talking with my family hurts"
+          },
+          {
+            "id": "family_problem_4c23323b",
+            "label": "With my family, I return to my old self"
+          },
+          {
+            "id": "family_problem_2f982c3c",
+            "label": "父母沉重"
+          },
+          {
+            "id": "family_problem_8e47b745",
+            "label": "父母害怕"
+          },
+          {
+            "id": "family_problem_e7bd45f7",
+            "label": "I want my parents to recognize me"
+          },
+          {
+            "id": "family_problem_891a0c23",
+            "label": "I want my parents to love me"
+          },
+          {
+            "id": "family_problem_4073c6db",
+            "label": "I want my parents to praise me"
+          },
+          {
+            "id": "family_problem_4c3d9d32",
+            "label": "I want my parents to understand me"
+          },
+          {
+            "id": "family_problem_960b2573",
+            "label": "父母對反抗無法"
+          },
+          {
+            "id": "family_problem_65f3cac8",
+            "label": "I can’t go against my parents"
+          },
+          {
+            "id": "family_problem_2ace87b2",
+            "label": "I can’t tell my true feelings to my parents"
+          },
+          {
+            "id": "family_problem_53947854",
+            "label": "I watch my parents’ mood too much"
+          },
+          {
+            "id": "family_problem_c62ff3cc",
+            "label": "I keep meeting my parents’ expectations"
+          },
+          {
+            "id": "family_problem_81e50e1d",
+            "label": "I carry my parents’ life"
+          },
+          {
+            "id": "family_problem_707a920d",
+            "label": "I want to reassure my parents"
+          },
+          {
+            "id": "family_problem_eb87c3ba",
+            "label": "I don’t want to make my parents sad"
+          },
+          {
+            "id": "family_problem_5dbd68d5",
+            "label": "I don’t want to disappoint my parents"
+          },
+          {
+            "id": "family_problem_56eec588",
+            "label": "I can’t abandon my parents"
+          },
+          {
+            "id": "family_problem_0704df77",
+            "label": "I can’t leave my parents"
+          },
+          {
+            "id": "family_problem_bd5c4f7f",
+            "label": "父母無法原諒"
+          },
+          {
+            "id": "family_problem_3d32fb53",
+            "label": "My anger toward my parents won’t disappear"
+          },
+          {
+            "id": "family_problem_bcf748ab",
+            "label": "I hold resentment toward my parents"
+          },
+          {
+            "id": "family_problem_bee42bbf",
+            "label": "父母向的罪悪感有"
+          },
+          {
+            "id": "family_problem_0780f565",
+            "label": "I’m not being a good child to my parents"
+          },
+          {
+            "id": "family_problem_1caed5fc",
+            "label": "父母的老後擔心"
+          },
+          {
+            "id": "family_problem_a588465c",
+            "label": "父母的介護不安"
+          },
+          {
+            "id": "family_problem_99153d33",
+            "label": "I feel sorry toward my child"
+          },
+          {
+            "id": "family_problem_59ac75d4",
+            "label": "I’m anxious about whether I can make my child happy"
+          },
+          {
+            "id": "family_problem_5d522491",
+            "label": "I’m anxious about raising my child well"
+          },
+          {
+            "id": "family_problem_d656d49c",
+            "label": "I get too angry at my child"
+          },
+          {
+            "id": "family_problem_a77bab9c",
+            "label": "I try to control my child"
+          },
+          {
+            "id": "family_problem_90834b7b",
+            "label": "I expect too much from my child"
+          },
+          {
+            "id": "family_problem_aa4e6ba5",
+            "label": "孩子的將來擔心"
+          },
+          {
+            "id": "family_problem_5376632e",
+            "label": "I’m afraid my child will dislike me"
+          },
+          {
+            "id": "family_problem_378aadff",
+            "label": "I’m afraid I can’t protect my child"
+          },
+          {
+            "id": "family_problem_332aa2a9",
+            "label": "I’m compared with my siblings"
+          },
+          {
+            "id": "family_problem_305a09ba",
+            "label": "I don’t get along with my siblings"
+          },
+          {
+            "id": "family_problem_78067164",
+            "label": "I’m jealous of my siblings"
+          },
+          {
+            "id": "family_problem_beabeb32",
+            "label": "手足無法原諒"
+          },
+          {
+            "id": "family_problem_2bd96493",
+            "label": "I blame myself for family problems"
+          },
+          {
+            "id": "family_problem_a6720ea7",
+            "label": "I try not to ruin the family mood"
+          },
+          {
+            "id": "family_problem_bc3a7960",
+            "label": "家人的中以居場所沒有"
+          },
+          {
+            "id": "family_problem_5c175538",
+            "label": "I feel lonely even with family"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "family_ideal_18f6cb86",
+            "label": "家人愛著"
+          },
+          {
+            "id": "family_ideal_46e9d537",
+            "label": "家人對被愛著"
+          },
+          {
+            "id": "family_ideal_6bb14a49",
+            "label": "和家人安心地相處著"
+          },
+          {
+            "id": "family_ideal_27eff0de",
+            "label": "和家人一起笑著"
+          },
+          {
+            "id": "family_ideal_66db8702",
+            "label": "和家人真心地交談著"
+          },
+          {
+            "id": "family_ideal_2bd803b8",
+            "label": "信任家人"
+          },
+          {
+            "id": "family_ideal_43266c72",
+            "label": "被家人信任著"
+          },
+          {
+            "id": "family_ideal_248d9714",
+            "label": "理解家人"
+          },
+          {
+            "id": "family_ideal_9867e2ae",
+            "label": "被家人理解著"
+          },
+          {
+            "id": "family_ideal_4e628ca8",
+            "label": "家人接納著"
+          },
+          {
+            "id": "family_ideal_5b008f45",
+            "label": "被家人接納著"
+          },
+          {
+            "id": "family_ideal_a0e8e26f",
+            "label": "家人原諒著"
+          },
+          {
+            "id": "family_ideal_01ca08fb",
+            "label": "被家人原諒著"
+          },
+          {
+            "id": "family_ideal_c033340a",
+            "label": "家人珍惜著"
+          },
+          {
+            "id": "family_ideal_5b40efb2",
+            "label": "被家人珍惜著"
+          },
+          {
+            "id": "family_ideal_a170783d",
+            "label": "和家人彼此支持著"
+          },
+          {
+            "id": "family_ideal_25d39dc2",
+            "label": "和家人彼此幫助著"
+          },
+          {
+            "id": "family_ideal_eee51f33",
+            "label": "家人對感謝著"
+          },
+          {
+            "id": "family_ideal_cfa13645",
+            "label": "被家人感謝著"
+          },
+          {
+            "id": "family_ideal_551f4cef",
+            "label": "家人和的時間享受著"
+          },
+          {
+            "id": "family_ideal_fe71bb24",
+            "label": "家人和的時間對滿意"
+          },
+          {
+            "id": "family_ideal_01f9a027",
+            "label": "和家人的心連在一起"
+          },
+          {
+            "id": "family_ideal_4c1e46d3",
+            "label": "和家人保持著安心的距離"
+          },
+          {
+            "id": "family_ideal_bce8745b",
+            "label": "自然地和家人相處著"
+          },
+          {
+            "id": "family_ideal_efa48814",
+            "label": "在家人面前也做自己"
+          },
+          {
+            "id": "family_ideal_1fc32eb3",
+            "label": "家人尊重著"
+          },
+          {
+            "id": "family_ideal_1b76b228",
+            "label": "被家人尊重著"
+          },
+          {
+            "id": "family_ideal_6aa2421f",
+            "label": "父母珍惜著"
+          },
+          {
+            "id": "family_ideal_d61bdcad",
+            "label": "安心地和父母說話"
+          },
+          {
+            "id": "family_ideal_fe96758c",
+            "label": "理解父母"
+          },
+          {
+            "id": "family_ideal_604581be",
+            "label": "被父母理解著"
+          },
+          {
+            "id": "family_ideal_d44246c8",
+            "label": "孩子相信"
+          },
+          {
+            "id": "family_ideal_c966d652",
+            "label": "被孩子信任著"
+          },
+          {
+            "id": "family_ideal_0ac11ee4",
+            "label": "為孩子的成長感到喜悅"
+          },
+          {
+            "id": "family_ideal_81a31d47",
+            "label": "家人各自都活出自己"
+          },
+          {
+            "id": "family_ideal_b75be9c3",
+            "label": "家人對安心感有"
+          },
+          {
+            "id": "family_ideal_b906a24d",
+            "label": "和家人平穩地生活著"
+          },
+          {
+            "id": "family_ideal_d4ba186e",
+            "label": "家人和的関係對滿意"
+          },
+          {
+            "id": "family_ideal_15417c69",
+            "label": "和家人感受到幸福"
+          },
+          {
+            "id": "family_ideal_495a3cb4",
+            "label": "家人和的絆感受到"
+          },
+          {
+            "id": "family_ideal_5a1e8edd",
+            "label": "和家人的關係很和諧"
+          }
+        ]
+      },
+      {
+        "id": "work",
+        "label": "工作",
+        "emoji": "💼",
+        "problems": [
+          {
+            "id": "work_problem_ec1a6d3e",
+            "label": "工作難受"
+          },
+          {
+            "id": "work_problem_2f43b74a",
+            "label": "work is something I dislike"
+          },
+          {
+            "id": "work_problem_17da5491",
+            "label": "work is not enjoyable"
+          },
+          {
+            "id": "work_problem_b74c404f",
+            "label": "work feels meaningless"
+          },
+          {
+            "id": "work_problem_cf214a3e",
+            "label": "work feels unrewarding"
+          },
+          {
+            "id": "work_problem_dcfbfcb7",
+            "label": "工作無法持續"
+          },
+          {
+            "id": "work_problem_f722eb83",
+            "label": "work cannot be found"
+          },
+          {
+            "id": "work_problem_df2562a7",
+            "label": "work is not decided"
+          },
+          {
+            "id": "work_problem_8cb364ed",
+            "label": "work I want to quit"
+          },
+          {
+            "id": "work_problem_8ab903f9",
+            "label": "work I can’t quit"
+          },
+          {
+            "id": "work_problem_ffd4a949",
+            "label": "不想工作"
+          },
+          {
+            "id": "work_problem_269f56b0",
+            "label": "工作過度了"
+          },
+          {
+            "id": "work_problem_16461bdb",
+            "label": "持續工作讓我痛苦"
+          },
+          {
+            "id": "work_problem_cdad6a46",
+            "label": "I can’t rest"
+          },
+          {
+            "id": "work_problem_df29d6fa",
+            "label": "太努力了"
+          },
+          {
+            "id": "work_problem_2d2e27b8",
+            "label": "I can’t relax"
+          },
+          {
+            "id": "work_problem_fd9a8f96",
+            "label": "成果出沒有"
+          },
+          {
+            "id": "work_problem_a8c3778a",
+            "label": "結果出沒有"
+          },
+          {
+            "id": "work_problem_0faf7135",
+            "label": "評価 not being recognized"
+          },
+          {
+            "id": "work_problem_b1f31693",
+            "label": "不被認可"
+          },
+          {
+            "id": "work_problem_5312a995",
+            "label": "昇給 does not happen"
+          },
+          {
+            "id": "work_problem_4bb014d2",
+            "label": "出世無法"
+          },
+          {
+            "id": "work_problem_23f44359",
+            "label": "賺不到錢"
+          },
+          {
+            "id": "work_problem_8dca2fc8",
+            "label": "營業額沒有成長"
+          },
+          {
+            "id": "work_problem_e07dbb9c",
+            "label": "客人沒有來"
+          },
+          {
+            "id": "work_problem_7f200db8",
+            "label": "客人沒有增加"
+          },
+          {
+            "id": "work_problem_9b0cf74c",
+            "label": "集客無法"
+          },
+          {
+            "id": "work_problem_6a60dd2d",
+            "label": "收入不穩定"
+          },
+          {
+            "id": "work_problem_3e344681",
+            "label": "無法變成收入"
+          },
+          {
+            "id": "work_problem_fe03f255",
+            "label": "自信沒有"
+          },
+          {
+            "id": "work_problem_cf05a717",
+            "label": "覺得實力不夠"
+          },
+          {
+            "id": "work_problem_7e9aaea8",
+            "label": "覺得能力不夠"
+          },
+          {
+            "id": "work_problem_a82a5a82",
+            "label": "才能沒有和感覺"
+          },
+          {
+            "id": "work_problem_eb587c74",
+            "label": "覺得不適合"
+          },
+          {
+            "id": "work_problem_c70607a3",
+            "label": "失敗害怕"
+          },
+          {
+            "id": "work_problem_a4ed5064",
+            "label": "挑戦無法"
+          },
+          {
+            "id": "work_problem_e8d6d79b",
+            "label": "行動無法"
+          },
+          {
+            "id": "work_problem_f9c11eb6",
+            "label": "無法踏出第一步"
+          },
+          {
+            "id": "work_problem_01942fcb",
+            "label": "決断無法"
+          },
+          {
+            "id": "work_problem_d1fd53ce",
+            "label": "無法持續"
+          },
+          {
+            "id": "work_problem_3f2766e2",
+            "label": "感到厭倦"
+          },
+          {
+            "id": "work_problem_14e68180",
+            "label": "提不起幹勁"
+          },
+          {
+            "id": "work_problem_a6933301",
+            "label": "集中無法"
+          },
+          {
+            "id": "work_problem_add14d5c",
+            "label": "總是拖延"
+          },
+          {
+            "id": "work_problem_f8ac9fae",
+            "label": "太追求完美"
+          },
+          {
+            "id": "work_problem_b5db8a6e",
+            "label": "把自己逼得太緊"
+          },
+          {
+            "id": "work_problem_7af1a645",
+            "label": "責任沉重"
+          },
+          {
+            "id": "work_problem_d05e0c91",
+            "label": "壓力很大"
+          },
+          {
+            "id": "work_problem_f0bb6422",
+            "label": "將來不安"
+          },
+          {
+            "id": "work_problem_11318c00",
+            "label": "沒有轉職的勇氣"
+          },
+          {
+            "id": "work_problem_5b0021e9",
+            "label": "沒有創業的勇氣"
+          },
+          {
+            "id": "work_problem_ea8a0cbe",
+            "label": "無法把工作交給別人"
+          },
+          {
+            "id": "work_problem_c157fa5c",
+            "label": "無法依靠別人"
+          },
+          {
+            "id": "work_problem_8d8ea30d",
+            "label": "I can’t refuse"
+          },
+          {
+            "id": "work_problem_1b58af99",
+            "label": "承擔太多工作"
+          },
+          {
+            "id": "work_problem_ee5bd158",
+            "label": "工作與生活失去平衡"
+          },
+          {
+            "id": "work_problem_c4b8c5f6",
+            "label": "每天都一樣，很無聊"
+          },
+          {
+            "id": "work_problem_e983cf4e",
+            "label": "不知道自己想做什麼工作"
+          },
+          {
+            "id": "work_problem_c85c3044",
+            "label": "喜歡的事工作對無法"
+          },
+          {
+            "id": "work_problem_0f676851",
+            "label": "無法靠喜歡的事賺錢"
+          },
+          {
+            "id": "work_problem_009698b3",
+            "label": "持續做著討厭的工作"
+          },
+          {
+            "id": "work_problem_f597ca64",
+            "label": "人間関係以工作難受"
+          },
+          {
+            "id": "work_problem_1a36b0a8",
+            "label": "工作的壓力很大"
+          },
+          {
+            "id": "work_problem_81c43c83",
+            "label": "被工作追著跑"
+          },
+          {
+            "id": "work_problem_2870223a",
+            "label": "人生變得只有工作"
+          },
+          {
+            "id": "work_problem_5368ad2a",
+            "label": "用工作來決定自己的價值"
+          },
+          {
+            "id": "work_problem_86874e39",
+            "label": "害怕失去工作"
+          },
+          {
+            "id": "work_problem_74ce2b53",
+            "label": "放不下工作上的失敗"
+          },
+          {
+            "id": "work_problem_e0ecd9d7",
+            "label": "因為工作而責備自己"
+          },
+          {
+            "id": "work_problem_d9e730cd",
+            "label": "對工作沒有自信"
+          },
+          {
+            "id": "work_problem_ba38fe49",
+            "label": "即使成功也不滿足"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "work_ideal_74894aa3",
+            "label": "工作享受著"
+          },
+          {
+            "id": "work_ideal_1cd48149",
+            "label": "感受到工作的意義"
+          },
+          {
+            "id": "work_ideal_2b1d2f29",
+            "label": "每天都很充實"
+          },
+          {
+            "id": "work_ideal_1bb2701a",
+            "label": "做著適合自己的工作"
+          },
+          {
+            "id": "work_ideal_3c15d29b",
+            "label": "做著喜歡的工作"
+          },
+          {
+            "id": "work_ideal_71baae4d",
+            "label": "發揮自己擅長的事"
+          },
+          {
+            "id": "work_ideal_61cebdfb",
+            "label": "發揮自己的力量"
+          },
+          {
+            "id": "work_ideal_cf5faea5",
+            "label": "展現自己的價值"
+          },
+          {
+            "id": "work_ideal_a637a773",
+            "label": "正在成長"
+          },
+          {
+            "id": "work_ideal_e057b9f7",
+            "label": "正在挑戰新的事"
+          },
+          {
+            "id": "work_ideal_a0074103",
+            "label": "正在行動"
+          },
+          {
+            "id": "work_ideal_ea4b4c89",
+            "label": "持續著"
+          },
+          {
+            "id": "work_ideal_2c29d20d",
+            "label": "正在專注"
+          },
+          {
+            "id": "work_ideal_1abfbaea",
+            "label": "由自己決定"
+          },
+          {
+            "id": "work_ideal_f29e0f6f",
+            "label": "帶著自信工作"
+          },
+          {
+            "id": "work_ideal_41d92a8e",
+            "label": "有成果出現"
+          },
+          {
+            "id": "work_ideal_4fd15bc6",
+            "label": "被認可著"
+          },
+          {
+            "id": "work_ideal_cf17495d",
+            "label": "被信任著"
+          },
+          {
+            "id": "work_ideal_57a3efea",
+            "label": "被需要著"
+          },
+          {
+            "id": "work_ideal_9877063f",
+            "label": "正在幫助別人"
+          },
+          {
+            "id": "work_ideal_0ac1e0dd",
+            "label": "被人喜悅著"
+          },
+          {
+            "id": "work_ideal_19947bfd",
+            "label": "有穩定的收入"
+          },
+          {
+            "id": "work_ideal_b3818c27",
+            "label": "靠喜歡的事獲得收入"
+          },
+          {
+            "id": "work_ideal_cb0fa8df",
+            "label": "努力正在開花結果"
+          },
+          {
+            "id": "work_ideal_f22a6df6",
+            "label": "按照自己的步調工作"
+          },
+          {
+            "id": "work_ideal_c6db07a4",
+            "label": "心對有餘裕"
+          },
+          {
+            "id": "work_ideal_cd23a6d2",
+            "label": "一邊享受一邊工作"
+          },
+          {
+            "id": "work_ideal_d1584930",
+            "label": "和夥伴合作著"
+          },
+          {
+            "id": "work_ideal_65dd7ef3",
+            "label": "安心地工作著"
+          },
+          {
+            "id": "work_ideal_153352b5",
+            "label": "工作與生活取得平衡"
+          },
+          {
+            "id": "work_ideal_12a9eea7",
+            "label": "在需要的時候休息"
+          },
+          {
+            "id": "work_ideal_f70ba39b",
+            "label": "對未來抱有希望"
+          },
+          {
+            "id": "work_ideal_0f402c6b",
+            "label": "自己的工作對滿意"
+          },
+          {
+            "id": "work_ideal_291b63ea",
+            "label": "真實感受到自己的成長"
+          },
+          {
+            "id": "work_ideal_da48cb25",
+            "label": "以自己的樣子工作著"
+          }
+        ]
+      },
+      {
+        "id": "money",
+        "label": "金錢",
+        "emoji": "💰",
+        "problems": [
+          {
+            "id": "money_problem_51c3336e",
+            "label": "錢不夠"
+          },
+          {
+            "id": "money_problem_28c80a44",
+            "label": "金錢沒有"
+          },
+          {
+            "id": "money_problem_a3453aeb",
+            "label": "存錢無法"
+          },
+          {
+            "id": "money_problem_73a79a7b",
+            "label": "債務有"
+          },
+          {
+            "id": "money_problem_0c422b33",
+            "label": "付款痛苦"
+          },
+          {
+            "id": "money_problem_34c2c191",
+            "label": "將來的金錢不安"
+          },
+          {
+            "id": "money_problem_bf8feab1",
+            "label": "老後的金錢擔心"
+          },
+          {
+            "id": "money_problem_3160b820",
+            "label": "收入少沒有"
+          },
+          {
+            "id": "money_problem_6a60dd2d",
+            "label": "收入不穩定"
+          },
+          {
+            "id": "money_problem_711e7cc8",
+            "label": "薪水沒有增加"
+          },
+          {
+            "id": "money_problem_1ac581d0",
+            "label": "無法如願賺錢"
+          },
+          {
+            "id": "money_problem_a28e9255",
+            "label": "無法增加金錢"
+          },
+          {
+            "id": "money_problem_4446c7f5",
+            "label": "害怕失去金錢"
+          },
+          {
+            "id": "money_problem_d061bded",
+            "label": "錢很快就減少"
+          },
+          {
+            "id": "money_problem_00856510",
+            "label": "金錢無法持續"
+          },
+          {
+            "id": "money_problem_3632f329",
+            "label": "錢留不住"
+          },
+          {
+            "id": "money_problem_05895132",
+            "label": "總是亂花錢"
+          },
+          {
+            "id": "money_problem_ffc8ea2d",
+            "label": "花太多錢"
+          },
+          {
+            "id": "money_problem_29f9cf0c",
+            "label": "節約無法持續"
+          },
+          {
+            "id": "money_problem_372b73e9",
+            "label": "金錢的管理苦手"
+          },
+          {
+            "id": "money_problem_2dec6321",
+            "label": "不懂金錢的事"
+          },
+          {
+            "id": "money_problem_e9834fd8",
+            "label": "投資害怕"
+          },
+          {
+            "id": "money_problem_95cb9e20",
+            "label": "投資失敗了"
+          },
+          {
+            "id": "money_problem_6e0c535b",
+            "label": "在金錢上失敗了"
+          },
+          {
+            "id": "money_problem_4e27dc39",
+            "label": "正在為錢辛苦"
+          },
+          {
+            "id": "money_problem_77dc019b",
+            "label": "因為錢而疲憊"
+          },
+          {
+            "id": "money_problem_28a008af",
+            "label": "腦子裡全是錢的事"
+          },
+          {
+            "id": "money_problem_bea63f7e",
+            "label": "因為錢而睡不著"
+          },
+          {
+            "id": "money_problem_832a913c",
+            "label": "被金錢牽著走"
+          },
+          {
+            "id": "money_problem_03e7dab5",
+            "label": "被金錢束縛著"
+          },
+          {
+            "id": "money_problem_994ae457",
+            "label": "依賴金錢"
+          },
+          {
+            "id": "money_problem_d2e00ce8",
+            "label": "執著於金錢"
+          },
+          {
+            "id": "money_problem_b0999ffe",
+            "label": "金錢沒有和安心無法"
+          },
+          {
+            "id": "money_problem_1ac51dc6",
+            "label": "即使有錢也無法安心"
+          },
+          {
+            "id": "money_problem_ef6c02e2",
+            "label": "不擅長收下金錢"
+          },
+          {
+            "id": "money_problem_39bbc2e0",
+            "label": "對收下金錢有罪惡感"
+          },
+          {
+            "id": "money_problem_e52ab263",
+            "label": "害怕拿到錢"
+          },
+          {
+            "id": "money_problem_013b55fb",
+            "label": "不擅長定價"
+          },
+          {
+            "id": "money_problem_8451d8a5",
+            "label": "說不出高價格"
+          },
+          {
+            "id": "money_problem_f492dba6",
+            "label": "把東西賣得太便宜"
+          },
+          {
+            "id": "money_problem_4a003763",
+            "label": "金錢請求無法"
+          },
+          {
+            "id": "money_problem_102b16ba",
+            "label": "無法拒絕金錢上的請求"
+          },
+          {
+            "id": "money_problem_71d13249",
+            "label": "金錢貸會"
+          },
+          {
+            "id": "money_problem_3c291925",
+            "label": "錢要不回來"
+          },
+          {
+            "id": "money_problem_d8e5a1ec",
+            "label": "為別人花太多錢"
+          },
+          {
+            "id": "money_problem_80359a9a",
+            "label": "無法為自己花錢"
+          },
+          {
+            "id": "money_problem_96dbdc3e",
+            "label": "對花錢有罪惡感"
+          },
+          {
+            "id": "money_problem_65ed7de7",
+            "label": "覺得自己沒有擁有金錢的價值"
+          },
+          {
+            "id": "money_problem_1ef0c25c",
+            "label": "面對有錢人會感到自卑"
+          },
+          {
+            "id": "money_problem_0ee277c5",
+            "label": "羨慕有錢人"
+          },
+          {
+            "id": "money_problem_aa89616c",
+            "label": "嫉妒有錢人"
+          },
+          {
+            "id": "money_problem_0fb2dcf4",
+            "label": "討厭有錢人"
+          },
+          {
+            "id": "money_problem_f6393122",
+            "label": "用金錢和別人比較"
+          },
+          {
+            "id": "money_problem_51e4eb58",
+            "label": "用金錢決定自己的價值"
+          },
+          {
+            "id": "money_problem_887f2b7d",
+            "label": "羨慕有錢的人"
+          },
+          {
+            "id": "money_problem_913b5996",
+            "label": "金錢原因以人間関係痛苦"
+          },
+          {
+            "id": "money_problem_b66ce620",
+            "label": "和家人因為錢起衝突"
+          },
+          {
+            "id": "money_problem_daf0ba7d",
+            "label": "和伴侶因為錢起衝突"
+          },
+          {
+            "id": "money_problem_b17caf37",
+            "label": "父母的金錢擔心"
+          },
+          {
+            "id": "money_problem_73f3eda7",
+            "label": "孩子的金錢擔心"
+          },
+          {
+            "id": "money_problem_b8796947",
+            "label": "為了錢而忍耐著"
+          },
+          {
+            "id": "money_problem_7d984eaf",
+            "label": "因為錢，無法做喜歡的事"
+          },
+          {
+            "id": "money_problem_2f025569",
+            "label": "為了錢而工作"
+          },
+          {
+            "id": "money_problem_40c0489b",
+            "label": "因為錢而無法辭掉工作"
+          },
+          {
+            "id": "money_problem_09270baa",
+            "label": "因為錢而放棄夢想"
+          },
+          {
+            "id": "money_problem_4b693fc9",
+            "label": "金錢的自由沒有"
+          },
+          {
+            "id": "money_problem_3240d606",
+            "label": "被金錢支配人生"
+          },
+          {
+            "id": "money_problem_b0104160",
+            "label": "認為只要有錢就能幸福"
+          },
+          {
+            "id": "money_problem_c17ab299",
+            "label": "即使有錢也不滿足"
+          },
+          {
+            "id": "money_problem_0e71ff0a",
+            "label": "太看重金錢的價值"
+          },
+          {
+            "id": "money_problem_68db2cde",
+            "label": "金錢無法相信"
+          },
+          {
+            "id": "money_problem_53728602",
+            "label": "金錢信用無法"
+          },
+          {
+            "id": "money_problem_054fffa1",
+            "label": "不擅長談錢"
+          },
+          {
+            "id": "money_problem_390237d4",
+            "label": "無法和別人商量金錢的事"
+          },
+          {
+            "id": "money_problem_f79b6585",
+            "label": "因為錢而感到羞恥"
+          },
+          {
+            "id": "money_problem_cacda8e3",
+            "label": "因為錢而責備自己"
+          },
+          {
+            "id": "money_problem_55a56c30",
+            "label": "金錢對自信沒有"
+          },
+          {
+            "id": "money_problem_686ba5c2",
+            "label": "金錢對余裕沒有"
+          },
+          {
+            "id": "money_problem_5a18413e",
+            "label": "被錢追著跑"
+          },
+          {
+            "id": "money_problem_cd1b1583",
+            "label": "害怕在金錢上失敗"
+          },
+          {
+            "id": "money_problem_78d59672",
+            "label": "無法原諒失去金錢的自己"
+          },
+          {
+            "id": "money_problem_164ac387",
+            "label": "沒有持續擁有金錢的自信"
+          },
+          {
+            "id": "money_problem_4bdd58b7",
+            "label": "覺得自己沒有增加金錢的能力"
+          },
+          {
+            "id": "money_problem_fcd62478",
+            "label": "覺得自己無法創造金錢"
+          },
+          {
+            "id": "money_problem_049617d1",
+            "label": "對金錢的不安消不掉"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "money_ideal_461b4822",
+            "label": "金錢對安心著"
+          },
+          {
+            "id": "money_ideal_88966166",
+            "label": "金錢對有餘裕"
+          },
+          {
+            "id": "money_ideal_1b6b0023",
+            "label": "有需要的金錢"
+          },
+          {
+            "id": "money_ideal_bbefe0e6",
+            "label": "money is not a problem"
+          },
+          {
+            "id": "money_ideal_8927528b",
+            "label": "安心地接收著"
+          },
+          {
+            "id": "money_ideal_a872d139",
+            "label": "安心地支付著"
+          },
+          {
+            "id": "money_ideal_9c603fb0",
+            "label": "安心地使用著"
+          },
+          {
+            "id": "money_ideal_0172311b",
+            "label": "金錢珍惜著"
+          },
+          {
+            "id": "money_ideal_e0186f58",
+            "label": "money is managed well"
+          },
+          {
+            "id": "money_ideal_1f1dcaef",
+            "label": "money circulates naturally"
+          },
+          {
+            "id": "money_ideal_8be5a300",
+            "label": "收入穩定"
+          },
+          {
+            "id": "money_ideal_c032a6b1",
+            "label": "充分地賺著錢"
+          },
+          {
+            "id": "money_ideal_573733fa",
+            "label": "接收著自己的價值"
+          },
+          {
+            "id": "money_ideal_5b43241f",
+            "label": "一邊被喜悅著，一邊獲得收入"
+          },
+          {
+            "id": "money_ideal_b3818c27",
+            "label": "靠喜歡的事獲得收入"
+          },
+          {
+            "id": "money_ideal_8e048eac",
+            "label": "一邊幫助別人，一邊獲得收入"
+          },
+          {
+            "id": "money_ideal_86613586",
+            "label": "沒有失去金錢的不安"
+          },
+          {
+            "id": "money_ideal_40dba424",
+            "label": "將來的金錢對安心著"
+          },
+          {
+            "id": "money_ideal_b6e410e9",
+            "label": "有餘裕支撐家人"
+          },
+          {
+            "id": "money_ideal_2868e8cd",
+            "label": "能選擇自己需要的東西"
+          },
+          {
+            "id": "money_ideal_50bb46a7",
+            "label": "能把錢用在重要的事上"
+          },
+          {
+            "id": "money_ideal_c6fc0309",
+            "label": "輕鬆地儲蓄著"
+          },
+          {
+            "id": "money_ideal_440f05cc",
+            "label": "輕鬆地增加著"
+          },
+          {
+            "id": "money_ideal_68a3fac2",
+            "label": "輕鬆地守護著"
+          },
+          {
+            "id": "money_ideal_da7aff93",
+            "label": "和金錢建立健康的關係"
+          },
+          {
+            "id": "money_ideal_5cdd330d",
+            "label": "money is not controlling me"
+          },
+          {
+            "id": "money_ideal_c1c401e8",
+            "label": "money does not define my worth"
+          },
+          {
+            "id": "money_ideal_17329580",
+            "label": "money is handled freely"
+          },
+          {
+            "id": "money_ideal_ca8767b8",
+            "label": "金錢對感謝著"
+          },
+          {
+            "id": "money_ideal_50c4a40c",
+            "label": "金錢和的関係對滿意"
+          }
+        ]
+      },
+      {
+        "id": "health",
+        "label": "健康",
+        "emoji": "🩺",
+        "problems": [
+          {
+            "id": "health_problem_3703de32",
+            "label": "身體難受"
+          },
+          {
+            "id": "health_problem_c43a3e00",
+            "label": "身體沉重"
+          },
+          {
+            "id": "health_problem_5ced3473",
+            "label": "body feels sluggish"
+          },
+          {
+            "id": "health_problem_e31e6195",
+            "label": "身體力沒有"
+          },
+          {
+            "id": "health_problem_aa81dc97",
+            "label": "疲勞消不掉"
+          },
+          {
+            "id": "health_problem_8f7b84f1",
+            "label": "睡不著"
+          },
+          {
+            "id": "health_problem_f2948e96",
+            "label": "早上起不來"
+          },
+          {
+            "id": "health_problem_15720dcf",
+            "label": "疼痛有"
+          },
+          {
+            "id": "health_problem_98107fab",
+            "label": "疾病害怕"
+          },
+          {
+            "id": "health_problem_9be34c47",
+            "label": "老化害怕"
+          },
+          {
+            "id": "health_problem_79fd82e9",
+            "label": "害怕變胖"
+          },
+          {
+            "id": "health_problem_48940ed3",
+            "label": "瘦不下來"
+          },
+          {
+            "id": "health_problem_5464eab1",
+            "label": "總是吃太多"
+          },
+          {
+            "id": "health_problem_0b6d95ed",
+            "label": "無法忍住不吃"
+          },
+          {
+            "id": "health_problem_08718823",
+            "label": "運動無法持續"
+          },
+          {
+            "id": "health_problem_ece583ff",
+            "label": "健康管理無法"
+          },
+          {
+            "id": "health_problem_ab9ce809",
+            "label": "討厭自己的身體"
+          },
+          {
+            "id": "health_problem_d3f39013",
+            "label": "討厭自己的外表"
+          },
+          {
+            "id": "health_problem_ff279166",
+            "label": "照鏡子很痛苦"
+          },
+          {
+            "id": "health_problem_219bd11b",
+            "label": "害怕被人看見"
+          },
+          {
+            "id": "health_problem_9ce3a0f8",
+            "label": "身體對自信沒有"
+          },
+          {
+            "id": "health_problem_c7c379e1",
+            "label": "身體大切對無法"
+          },
+          {
+            "id": "health_problem_18a01677",
+            "label": "無理會"
+          },
+          {
+            "id": "health_problem_cdad6a46",
+            "label": "I can’t rest"
+          },
+          {
+            "id": "health_problem_db498f80",
+            "label": "總是努力到極限"
+          },
+          {
+            "id": "health_problem_524eae6b",
+            "label": "聽不見身體的聲音"
+          },
+          {
+            "id": "health_problem_4c90edf6",
+            "label": "不調無視會"
+          },
+          {
+            "id": "health_problem_2c6adfb8",
+            "label": "害怕去醫院"
+          },
+          {
+            "id": "health_problem_fb0bac02",
+            "label": "健康診断害怕"
+          },
+          {
+            "id": "health_problem_52f25da9",
+            "label": "將來的身體不安"
+          },
+          {
+            "id": "health_problem_9a28b168",
+            "label": "家人的健康擔心"
+          },
+          {
+            "id": "health_problem_c7c7570d",
+            "label": "孩子的健康擔心"
+          },
+          {
+            "id": "health_problem_16c7cbf4",
+            "label": "父母的健康擔心"
+          },
+          {
+            "id": "health_problem_0f167be0",
+            "label": "責備生病的自己"
+          },
+          {
+            "id": "health_problem_66fcd8fa",
+            "label": "無法原諒身體狀況不好的自己"
+          },
+          {
+            "id": "health_problem_9391c7b1",
+            "label": "覺得自己必須保持精神"
+          },
+          {
+            "id": "health_problem_f0761725",
+            "label": "覺得自己必須堅強"
+          },
+          {
+            "id": "health_problem_79c55b9f",
+            "label": "不想造成別人的麻煩"
+          },
+          {
+            "id": "health_problem_e2ce59b9",
+            "label": "無法展現脆弱的一面"
+          },
+          {
+            "id": "health_problem_d53fd0c9",
+            "label": "害怕被照護"
+          },
+          {
+            "id": "health_problem_bd197076",
+            "label": "害怕死亡"
+          },
+          {
+            "id": "health_problem_0565e626",
+            "label": "感覺生命力變弱了"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "health_ideal_92b8be74",
+            "label": "body feels light"
+          },
+          {
+            "id": "health_ideal_d7f596fe",
+            "label": "身體楽"
+          },
+          {
+            "id": "health_ideal_942ad9d2",
+            "label": "身體元気"
+          },
+          {
+            "id": "health_ideal_9b038826",
+            "label": "睡得很好"
+          },
+          {
+            "id": "health_ideal_9597ee03",
+            "label": "早上清爽地醒來"
+          },
+          {
+            "id": "health_ideal_b219c820",
+            "label": "疲勞已經恢復"
+          },
+          {
+            "id": "health_ideal_adf6772a",
+            "label": "breath is deep"
+          },
+          {
+            "id": "health_ideal_e1c814c7",
+            "label": "心很安定"
+          },
+          {
+            "id": "health_ideal_1521019c",
+            "label": "身體對安心著"
+          },
+          {
+            "id": "health_ideal_539a94ce",
+            "label": "信任自己的身體"
+          },
+          {
+            "id": "health_ideal_06a4a2fd",
+            "label": "身體珍惜著"
+          },
+          {
+            "id": "health_ideal_54e791c5",
+            "label": "聽著身體的聲音"
+          },
+          {
+            "id": "health_ideal_78e83f77",
+            "label": "沒有勉強自己"
+          },
+          {
+            "id": "health_ideal_12a9eea7",
+            "label": "在需要的時候休息"
+          },
+          {
+            "id": "health_ideal_ea98547f",
+            "label": "按照自己的步調行動"
+          },
+          {
+            "id": "health_ideal_1cc9588a",
+            "label": "飲食享受著"
+          },
+          {
+            "id": "health_ideal_be3dfc73",
+            "label": "對吃東西感到安心"
+          },
+          {
+            "id": "health_ideal_72607b03",
+            "label": "舒服地活動著"
+          },
+          {
+            "id": "health_ideal_8febe9bd",
+            "label": "健康享受著"
+          },
+          {
+            "id": "health_ideal_12c65e8c",
+            "label": "接納自己的外表"
+          },
+          {
+            "id": "health_ideal_b695a737",
+            "label": "自己的身體接納著"
+          },
+          {
+            "id": "health_ideal_29636ab8",
+            "label": "年齢接納著"
+          },
+          {
+            "id": "health_ideal_a019d487",
+            "label": "不害怕老去"
+          },
+          {
+            "id": "health_ideal_890fc2bb",
+            "label": "不過度害怕疾病"
+          },
+          {
+            "id": "health_ideal_4ae92dfe",
+            "label": "平靜地面對身體狀況的變化"
+          },
+          {
+            "id": "health_ideal_c37eeca5",
+            "label": "心和身體連在一起"
+          },
+          {
+            "id": "health_ideal_f537e332",
+            "label": "心和身體取得平衡"
+          },
+          {
+            "id": "health_ideal_408e192e",
+            "label": "感受到生命力"
+          },
+          {
+            "id": "health_ideal_213f20a8",
+            "label": "舒服地活在今天"
+          },
+          {
+            "id": "health_ideal_7137a6ec",
+            "label": "健康和的関係對滿意"
+          }
+        ]
+      },
+      {
+        "id": "time",
+        "label": "時間",
+        "emoji": "⏰",
+        "problems": [
+          {
+            "id": "time_problem_da61b38c",
+            "label": "時間沒有"
+          },
+          {
+            "id": "time_problem_aa688b87",
+            "label": "總是很忙"
+          },
+          {
+            "id": "time_problem_237e8162",
+            "label": "總是在趕"
+          },
+          {
+            "id": "time_problem_0fc4c2cd",
+            "label": "總是焦慮"
+          },
+          {
+            "id": "time_problem_70a11dc9",
+            "label": "余裕沒有"
+          },
+          {
+            "id": "time_problem_8569735e",
+            "label": "無法慢下來"
+          },
+          {
+            "id": "time_problem_f36dbf52",
+            "label": "沒有休息的時間"
+          },
+          {
+            "id": "time_problem_adb2bf06",
+            "label": "自己的時間沒有"
+          },
+          {
+            "id": "time_problem_34bcd136",
+            "label": "家人和的時間沒有"
+          },
+          {
+            "id": "time_problem_046668b3",
+            "label": "重要的人和的時間沒有"
+          },
+          {
+            "id": "time_problem_41601093",
+            "label": "沒有做喜歡的事的時間"
+          },
+          {
+            "id": "time_problem_ecf74051",
+            "label": "沒有做想做的事的時間"
+          },
+          {
+            "id": "time_problem_0b60d2dd",
+            "label": "該做的事太多"
+          },
+          {
+            "id": "time_problem_fac73119",
+            "label": "每天一下子就結束了"
+          },
+          {
+            "id": "time_problem_0df970ad",
+            "label": "浪費了一天"
+          },
+          {
+            "id": "time_problem_ac20270a",
+            "label": "浪費了假日"
+          },
+          {
+            "id": "time_problem_bdf65624",
+            "label": "浪費了人生"
+          },
+          {
+            "id": "time_problem_6a4d4e0a",
+            "label": "無法好好運用時間"
+          },
+          {
+            "id": "time_problem_3726b87c",
+            "label": "沒有照計畫前進"
+          },
+          {
+            "id": "time_problem_f99cd69c",
+            "label": "把行程排得太滿"
+          },
+          {
+            "id": "time_problem_add14d5c",
+            "label": "總是拖延"
+          },
+          {
+            "id": "time_problem_38db61d8",
+            "label": "總是懶散下去"
+          },
+          {
+            "id": "time_problem_a6933301",
+            "label": "集中無法"
+          },
+          {
+            "id": "time_problem_d1fd53ce",
+            "label": "無法持續"
+          },
+          {
+            "id": "time_problem_6b6eb8e3",
+            "label": "被期限追著跑"
+          },
+          {
+            "id": "time_problem_ee64cbc8",
+            "label": "總是到最後一刻才完成"
+          },
+          {
+            "id": "time_problem_25eecbc8",
+            "label": "總是遲到"
+          },
+          {
+            "id": "time_problem_ac25b6d2",
+            "label": "不擅長等待"
+          },
+          {
+            "id": "time_problem_8fbda990",
+            "label": "總是讓別人等"
+          },
+          {
+            "id": "time_problem_251b5954",
+            "label": "想快點看到結果"
+          },
+          {
+            "id": "time_problem_c886110a",
+            "label": "想快點改變"
+          },
+          {
+            "id": "time_problem_a6a1a4ae",
+            "label": "想快點成功"
+          },
+          {
+            "id": "time_problem_ebaa409d",
+            "label": "想快點安心"
+          },
+          {
+            "id": "time_problem_2d7410cb",
+            "label": "被過去拖住"
+          },
+          {
+            "id": "time_problem_80ba1f29",
+            "label": "想回到過去"
+          },
+          {
+            "id": "time_problem_522dc9e1",
+            "label": "想重來過去"
+          },
+          {
+            "id": "time_problem_2f68a099",
+            "label": "如果那時候那樣做就好了"
+          },
+          {
+            "id": "time_problem_09da6620",
+            "label": "無法享受當下"
+          },
+          {
+            "id": "time_problem_14a77392",
+            "label": "今對集中無法"
+          },
+          {
+            "id": "time_problem_2563134f",
+            "label": "未來不安"
+          },
+          {
+            "id": "time_problem_f5ea2f96",
+            "label": "一想到未來就害怕"
+          },
+          {
+            "id": "time_problem_fe74ddda",
+            "label": "害怕變老"
+          },
+          {
+            "id": "time_problem_c52f8bac",
+            "label": "覺得錯過了機會"
+          },
+          {
+            "id": "time_problem_e35056cb",
+            "label": "覺得已經太晚了"
+          },
+          {
+            "id": "time_problem_84156799",
+            "label": "覺得來不及了"
+          },
+          {
+            "id": "time_problem_1490db82",
+            "label": "覺得自己比別人落後"
+          },
+          {
+            "id": "time_problem_213fe1c3",
+            "label": "覺得人生沒有前進"
+          }
+        ],
+        "ideals": [
+          {
+            "id": "time_ideal_b24d1409",
+            "label": "時間對有餘裕"
+          },
+          {
+            "id": "time_ideal_c6db07a4",
+            "label": "心對有餘裕"
+          },
+          {
+            "id": "time_ideal_0993d98f",
+            "label": "專注在當下"
+          },
+          {
+            "id": "time_ideal_e36cab98",
+            "label": "品味著當下"
+          },
+          {
+            "id": "time_ideal_6f139cd7",
+            "label": "今天珍惜著"
+          },
+          {
+            "id": "time_ideal_94a6d2b0",
+            "label": "細緻地度過每一天"
+          },
+          {
+            "id": "time_ideal_55ad07ab",
+            "label": "自己的時間有"
+          },
+          {
+            "id": "time_ideal_324e0920",
+            "label": "重要的人和的時間有"
+          },
+          {
+            "id": "time_ideal_2b42f7d1",
+            "label": "有做喜歡的事的時間"
+          },
+          {
+            "id": "time_ideal_93b0ccb1",
+            "label": "有休息的時間"
+          },
+          {
+            "id": "time_ideal_883a12d1",
+            "label": "推進著必要的事"
+          },
+          {
+            "id": "time_ideal_28d7a6d6",
+            "label": "優先順序很清楚"
+          },
+          {
+            "id": "time_ideal_f0000031",
+            "label": "選擇著重要的事"
+          },
+          {
+            "id": "time_ideal_0deab867",
+            "label": "不拖延地行動著"
+          },
+          {
+            "id": "time_ideal_05fc114f",
+            "label": "按照自己的步調前進"
+          },
+          {
+            "id": "time_ideal_41ca7620",
+            "label": "沒有焦慮"
+          },
+          {
+            "id": "time_ideal_52b8aa95",
+            "label": "沒有太急"
+          },
+          {
+            "id": "time_ideal_d4442189",
+            "label": "放下過去"
+          },
+          {
+            "id": "time_ideal_84002ad7",
+            "label": "信任未來"
+          },
+          {
+            "id": "time_ideal_29636ab8",
+            "label": "年齢接納著"
+          },
+          {
+            "id": "time_ideal_af019741",
+            "label": "不和別人比較而焦慮"
+          },
+          {
+            "id": "time_ideal_26dce58b",
+            "label": "感覺自己來得及"
+          },
+          {
+            "id": "time_ideal_73a9b408",
+            "label": "信任人生的流動"
+          },
+          {
+            "id": "time_ideal_76d5b9b7",
+            "label": "把時間當成自己的盟友"
+          },
+          {
+            "id": "time_ideal_98733f77",
+            "label": "時間和的関係對滿意"
+          }
+        ]
+      }
+    ]
+  },
+  "languages": {
+    "en": "English",
+    "ja": "日本語",
+    "zh-TW": "繁體中文"
+  }
 }
