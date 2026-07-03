@@ -6268,7 +6268,7 @@ function renderV17Screen(screenId) {
     setEl('v17-breath-hint', v17Copy('flow.breathSteps.' + breathPart + '.hint'));
     var breathCircle = document.getElementById('circle-v17-breath');
     if (breathCircle) breathCircle.setAttribute('aria-label', v17Copy('flow.app.breathCircle'));
-    if (breathCircle && !v17BreathComplete) {
+    if (breathCircle && !v17BreathComplete && !breathCircle.classList.contains('pulse')) {
       breathCircle.textContent = v17Copy(
         breathCircle.classList.contains('exhale') ? 'flow.breath.exhale' : 'flow.breath.inhale'
       );
@@ -6434,28 +6434,38 @@ function openV17Breath() {
 
 var v17BreathRunId = 0;
 var v17BreathComplete = false;
+var v17BreathCount = 0;
 var V17_BREATH_LEAD_MS = 600;
 var V17_BREATH_INHALE_MS = 3000;
 var V17_BREATH_EXHALE_MS = 4000;
 
 function resetV17BreathScreen() {
-  var runId = ++v17BreathRunId;
+  v17BreathRunId += 1;
   breathing = false;
   v17BreathComplete = false;
+  v17BreathCount = 0;
   var circle = document.getElementById('circle-v17-breath');
   if (circle) {
-    circle.textContent = v17Copy('flow.breath.inhale');
+    circle.textContent = '';
     circle.className = 'breath-circle pulse';
   }
-  setTimeout(function() {
-    runV17BreathCycle(runId);
-  }, V17_BREATH_LEAD_MS);
 }
 
 function runV17BreathCycle(runId) {
   if (runId !== v17BreathRunId || v17BreathComplete || cur !== 's-v17-breath') return;
   var circle = document.getElementById('circle-v17-breath');
   if (!circle) return;
+  if (v17BreathCount >= 1) {
+    v17BreathComplete = true;
+    breathing = false;
+    circle.textContent = '✓';
+    circle.className = 'breath-circle';
+    setTimeout(function() {
+      if (runId !== v17BreathRunId || cur !== 's-v17-breath') return;
+      continueV17BreathPhase();
+    }, 800);
+    return;
+  }
   breathing = true;
   circle.textContent = v17Copy('flow.breath.inhale');
   circle.className = 'breath-circle inhale';
@@ -6464,6 +6474,8 @@ function runV17BreathCycle(runId) {
     circle.textContent = v17Copy('flow.breath.exhale');
     circle.className = 'breath-circle exhale';
     setTimeout(function() {
+      if (runId !== v17BreathRunId || v17BreathComplete || cur !== 's-v17-breath') return;
+      v17BreathCount += 1;
       runV17BreathCycle(runId);
     }, V17_BREATH_EXHALE_MS);
   }, V17_BREATH_INHALE_MS);
@@ -6477,11 +6489,10 @@ function onV17BreathKeydown(event) {
 }
 
 function startV17Breath() {
-  if (v17BreathComplete || cur !== 's-v17-breath') return;
-  v17BreathComplete = true;
-  v17BreathRunId += 1;
-  breathing = false;
-  continueV17BreathPhase();
+  if (breathing || v17BreathComplete || cur !== 's-v17-breath') return;
+  var runId = ++v17BreathRunId;
+  v17BreathCount = 0;
+  setTimeout(function(){ runV17BreathCycle(runId); }, V17_BREATH_LEAD_MS);
 }
 
 function continueV17BreathPhase() {
