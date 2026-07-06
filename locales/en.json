@@ -76,6 +76,14 @@
     "freeInputPlaceholder": "Write freely",
     "freeInputStart": "Start with this theme"
   },
+  "theme": {
+    "freeInputCategory": "Free input",
+    "freeInputPlaceholder": "Enter freely",
+    "confirm": "Confirm",
+    "problemFreeInput": "Free input",
+    "idealFreeInput": "Free input",
+    "showMore": "Show more"
+  },
   "flow": {
     "step0": {
       "title": "Choose a theme"
@@ -89,56 +97,42 @@
     },
     "step2": {
       "quoteSource": "theme",
-      "lead": "About this",
-      "main": "Feel the state of 100% happiness.",
-      "helper": "A vague sense is enough.\nA few seconds is all you need."
+      "problems": {
+        "prompt": "In relation to this,\nwhat would 100% happiness feel like?",
+        "placeholder": "Write here",
+        "responseTarget": "idealStateText"
+      },
+      "ideals": {
+        "prompt": "In relation to this,\nwhat is your current state?",
+        "placeholder": "Write here",
+        "responseTarget": "currentStateText"
+      }
     },
     "step3": {
-      "quoteSource": "theme",
-      "lead": "About this,",
-      "main": "Express your current state in words.",
-      "helper": "Write as much as comes.",
-      "placeholder": "Write here"
+      "quoteSource": "step2Text",
+      "problems": {
+        "prompt": "In relation to that,\nwhat is your current state?",
+        "placeholder": "Write here",
+        "responseTarget": "currentStateText"
+      },
+      "ideals": {
+        "prompt": "In relation to that,\nwhat would 100% happiness feel like?",
+        "placeholder": "Write here",
+        "responseTarget": "idealStateText"
+      }
     },
     "step4": {
-      "kind": "measurement",
-      "label": "Measurement",
-      "quoteSource": "currentStateText",
-      "prompt": "When you bring your attention to this,\nhow happy do you feel?",
-      "rangeLabel": "0–100"
-    },
-    "step5": {
-      "quoteSource": "currentStateText",
-      "lead": "About this",
-      "main": "Feel the state of 100% happiness.",
-      "helper": "A vague sense is enough.\nA few seconds is all you need."
-    },
-    "step6": {
-      "quoteSource": "currentStateText",
-      "lead": "In relation to this,",
-      "main": "At 100% happiness,\nwhat state am I in?",
-      "helper": "Write as much as comes.",
-      "placeholder": "Write here"
-    },
-    "step7": {
       "kind": "breath"
     },
-    "step8": {
+    "step5": {
       "kind": "measurement",
-      "label": "Measurement",
-      "quoteSource": "currentStateText",
-      "prompt": "When you bring your attention to this,\nhow happy do you feel?",
-      "rangeLabel": "0–100"
-    },
-    "step9": {
-      "kind": "result"
-    },
-    "finalTheme": {
-      "kind": "measurement",
-      "label": "Final measurement",
+      "label": "Measure again",
       "quoteSource": "theme",
       "prompt": "When you bring your attention to this,\nhow happy do you feel?",
       "rangeLabel": "0–100"
+    },
+    "step6": {
+      "kind": "result"
     }
   },
   "breath": {
@@ -157,12 +151,13 @@
   },
   "result": {
     "cardTitle": "Result",
-    "selectedTheme": "Selected theme",
+    "selectedProblem": "Selected concern",
+    "selectedIdeal": "Selected ideal",
     "currentState": "The current state you wrote",
-    "scoreSuffix": "happiness score for this",
+    "idealState": "The 100% happiness state you wrote",
+    "scoreSuffix": "Happiness score for the selected theme",
     "before": "Before",
     "after": "After",
-    "awareness": "Your awareness",
     "imageSave": "Save result image",
     "shareStatusSaved": "Result image saved",
     "shareStatusFailed": "Could not save the image"
@@ -193,24 +188,12 @@
     "tryAgain": "Try again",
     "choose": "Choose",
     "showMore": "Show more",
-    "anotherClearing": "Clear this again",
     "restartTheme": "Start this theme again",
     "chooseThemeAgain": "Choose another theme",
-    "noMoreAnswer": "No more answers",
     "cannotQuantify": "Cannot quantify"
   },
   "buttonsHint": {
     "cannotQuantify": "No longer worth treating as a problem"
-  },
-  "loops": {
-    "anotherClearingDescription": "Clear the current state you wrote one more time.",
-    "anotherClearingReturn": "step5",
-    "anotherClearingBefore": "Use the latest Step 8 value as the new Before score.",
-    "restartThemeDescription": "Start again from the theme you chose or wrote.",
-    "restartThemeReturn": "step2",
-    "chooseThemeAgainDescription": "Choose another theme.",
-    "chooseThemeAgainReturn": "step0",
-    "finalClearingCondition": "Only when no Step 3 answer comes anymore, run the final measurement."
   },
   "pricing": {
     "title": "Pro",

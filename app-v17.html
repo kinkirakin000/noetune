@@ -270,11 +270,6 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .hcq-empty{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#8F8F88;line-height:1.8;text-align:center;padding:1rem 0}
 .hcq-status{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#8F8F88;line-height:1.8;text-align:center;padding:1.1rem 0}
 .v17-entry-shell{width:100%;max-width:360px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:3rem}
-.v17-entry-heading{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;line-height:1.9;letter-spacing:.06em;text-align:center;color:#1A1A1A;margin-bottom:1rem}
-.v17-entry-shell .v17-writing{width:100%;max-width:none;text-align:left;margin-bottom:1rem}
-.v17-entry-shell>.btn{align-self:center;margin-top:0}
-.v17-entry-divider{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 1.8rem;color:#A8A8A2;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.12em}
-.v17-entry-divider::before,.v17-entry-divider::after{content:'';height:1px;background:#E5E5DF;flex:1}
 .v17-category-intro{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:1.9;letter-spacing:.04em;text-align:center;color:#77736E;margin-bottom:1rem}
 .v17-theme-accordion{width:100%;border-bottom:1px solid #E8E8E2}
 .v17-category{border-top:1px solid #E8E8E2}
@@ -286,12 +281,24 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-category.open>.v17-category-body,.v17-track.open>.v17-track-body{display:block}
 .v17-category-body{padding:0 .2rem .8rem}
 .v17-track{border-top:1px solid rgba(232,232,226,.72)}
+.v17-track-free{padding:.1rem .35rem .75rem}
+.v17-track-free-toggle{width:100%;border:0;border-radius:12px;background:transparent;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;letter-spacing:.06em;text-align:left;padding:.65rem .55rem;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.v17-track-free-toggle:active{background:rgba(107,144,128,.07)}
+.v17-track-free-form{display:none;grid-template-columns:minmax(0,1fr) auto;gap:.55rem;margin-top:.35rem}
+.v17-track-free.open>.v17-track-free-form{display:grid}
+.v17-inline-input{min-width:0;width:100%;height:44px;padding:.7rem .85rem;border:1px solid rgba(107,144,128,.25);border-radius:14px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;letter-spacing:.03em;outline:none;-webkit-appearance:none}
+.v17-inline-input:focus{border-color:rgba(83,191,186,.6);box-shadow:0 0 0 3px rgba(108,211,205,.065)}
+.v17-inline-input::placeholder{color:#AAA69F}
+.v17-inline-confirm{min-width:66px;height:44px;padding:0 .9rem;border:1px solid #6B9080;border-radius:14px;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.06em;cursor:pointer}
+.v17-inline-confirm:disabled{opacity:.32;cursor:default}
+.v17-custom-category-setup{padding:.35rem .4rem 1rem}
+.v17-custom-category-setup .v17-track-free-form{display:grid;margin-top:0}
 .v17-theme-list{display:flex;flex-direction:column;gap:.5rem;padding:.1rem .35rem .9rem}
 .v17-library-theme{width:100%;border:1px solid rgba(107,144,128,.25);border-radius:16px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:1.7;letter-spacing:.03em;padding:.8rem .9rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .v17-library-theme:active{border-color:#6B9080;background:rgba(107,144,128,.09)}
 .v17-theme-more{margin:0;padding:.75rem 0 1rem;font-size:.7rem}
 .v17-result-copy{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:1.9;color:#1A1A1A;letter-spacing:.03em;white-space:pre-line}
-.lp-hero-title,.lp-hero-sub,.screen-title,.measure-problem,.breath-main,.v17-entry-heading,.v17-theme-quote,.v17-step-copy,.v17-step-helper,.v17-breath-body,.v17-breath-hint{line-break:strict;text-wrap:balance}
+.lp-hero-title,.lp-hero-sub,.screen-title,.measure-problem,.breath-main,.v17-theme-quote,.v17-step-copy,.v17-step-helper,.v17-breath-body,.v17-breath-hint{line-break:strict;text-wrap:balance}
 .v17-library-theme,.v17-result-theme,.v17-result-copy{line-break:strict;text-wrap:pretty;overflow-wrap:anywhere}
 .btn,.btn-ghost,.btn-lp-start,.btn-see-more,.v17-result-action{line-height:1.55;text-wrap:balance;white-space:normal}
 #s-nega{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
@@ -656,12 +663,16 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 .language-menu button:active,.language-menu button.selected,.account-menu button:active{background:linear-gradient(120deg,rgba(64,145,135,.22),rgba(105,76,143,.2));color:#e4f2ef}
 .account-menu-separator{background:rgba(105,204,196,.13)}
 .save-result-toast{background:rgba(13,23,28,.92);color:#d7e7e3;border-color:rgba(105,204,196,.22);box-shadow:0 14px 38px rgba(0,0,0,.3)}
-.v17-entry-heading,.v17-category-button,.v17-library-theme,.v17-result-copy{color:#F5EFE6}
+.v17-category-button,.v17-library-theme,.v17-result-copy{color:#F5EFE6}
 .v17-category-intro,.v17-track-button{color:#B8B2A8}
-.v17-entry-divider{color:#8E8981}
-.v17-entry-divider::before,.v17-entry-divider::after,.v17-theme-accordion,.v17-category,.v17-track{border-color:rgba(245,239,230,.1);background-color:transparent}
-.v17-entry-divider::before,.v17-entry-divider::after{background:rgba(245,239,230,.1)}
+.v17-theme-accordion,.v17-category,.v17-track{border-color:rgba(245,239,230,.1);background-color:transparent}
 .v17-library-theme{background:rgba(98,194,184,.055);border-color:rgba(124,204,195,.2)}
+.v17-track-free-toggle{color:#8FB8A4}
+.v17-track-free-toggle:active{background:rgba(143,184,164,.08)}
+.v17-inline-input{color:#F5EFE6;background:rgba(11,20,25,.3);border-color:rgba(105,200,193,.17)}
+.v17-inline-input:focus{border-color:rgba(107,220,211,.5)}
+.v17-inline-input::placeholder{color:#6F6B65}
+.v17-inline-confirm{background:#486C5D;border-color:#486C5D;color:#F5EFE6}
 .btn-v17-skip{color:#8E8981;background:none;border-color:transparent}
 .btn-v17-skip:active{color:#F5EFE6;background:none}
 .btn-back{background:rgba(13,23,28,.68);border-color:rgba(105,204,196,.18);color:#B8B2A8}
@@ -746,10 +757,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V17 ENTRY CHOICE ── -->
 <div class="screen screen-scroll" id="s-v17-entry-choice">
   <div class="v17-entry-shell">
-    <div class="v17-entry-heading" id="v17-free-input-title"></div>
-    <textarea class="v17-writing" id="in-v17-free-theme" maxlength="600" oninput="onV17FreeInput(this.value)"></textarea>
-    <button class="btn" id="btn-v17-free-start" type="button" onclick="submitV17FreeInput()" disabled></button>
-    <div class="v17-entry-divider" id="v17-entry-divider"></div>
     <div class="v17-category-intro" id="v17-category-intro"></div>
     <div class="v17-theme-accordion" id="v17-theme-accordion"></div>
     <div class="hcq-status" id="v17-theme-library-status" role="status" aria-live="polite"></div>
@@ -1069,46 +1076,21 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
 </div>
 
-<div class="screen" id="s-v17-ideal-100">
+<div class="screen" id="s-v17-first-response">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-hundred-focus"></div>
-    <div class="v17-step-copy" id="v17-ideal-prompt"></div>
-    <button class="btn" id="next-v17-ideal" type="button" onclick="continueV17IdealState()"></button>
+    <div class="v17-theme-quote" id="v17-first-response-quote"></div>
+    <div class="v17-step-copy" id="v17-first-response-prompt"></div>
+    <textarea class="v17-writing" id="in-v17-first-response" maxlength="600" oninput="onV17RouteInput('first',this.value)"></textarea>
+    <button class="btn" id="next-v17-first-response" type="button" onclick="submitV17FirstResponse()" disabled></button>
   </div>
 </div>
 
-<div class="screen" id="s-v17-current-state">
+<div class="screen" id="s-v17-second-response">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-current-theme"></div>
-    <div class="v17-step-copy" id="v17-current-prompt"></div>
-    <textarea class="v17-writing" id="in-v17-current" maxlength="600" oninput="onV17WritingInput('current',this.value)"></textarea>
-    <button class="btn" id="next-v17-current" type="button" onclick="submitV17CurrentState()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-current-measure">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-current-measure-quote"></div>
-    <div class="v17-step-copy" id="v17-current-measure-prompt"></div>
-    <div class="score-num" id="num-v17-current-measure"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-current-measure" oninput="onSlider('v17-current-measure',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
-    </div>
-    <button class="btn-nm v17-not-a-problem" id="nm-v17-current-measure" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-current-measure')">
-      <span class="v17-not-a-problem-label" id="nm-label-v17-current-measure"></span>
-      <span class="v17-not-a-problem-hint" id="nm-hint-v17-current-measure"></span>
-    </button>
-    <button class="btn" id="next-v17-current-measure" type="button" onclick="submitV17CurrentStateScore()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-ideal-state">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-ideal-state-quote"></div>
-    <div class="v17-step-copy" id="v17-ideal-state-prompt"></div>
-    <textarea class="v17-writing" id="in-v17-ideal-state" maxlength="600" oninput="onV17WritingInput('idealState',this.value)"></textarea>
-    <button class="btn" id="next-v17-ideal-state" type="button" onclick="submitV17IdealState()" disabled></button>
+    <div class="v17-theme-quote" id="v17-second-response-quote"></div>
+    <div class="v17-step-copy" id="v17-second-response-prompt"></div>
+    <textarea class="v17-writing" id="in-v17-second-response" maxlength="600" oninput="onV17RouteInput('second',this.value)"></textarea>
+    <button class="btn" id="next-v17-second-response" type="button" onclick="submitV17SecondResponse()" disabled></button>
   </div>
 </div>
 
@@ -1135,23 +1117,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <span class="v17-not-a-problem-hint" id="nm-hint-v17-final"></span>
     </button>
     <button class="btn" id="next-v17-final" type="button" onclick="submitV17FinalScore()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-theme-final">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-theme-final-quote"></div>
-    <div class="v17-step-copy" id="v17-theme-final-prompt"></div>
-    <div class="score-num" id="num-v17-theme-final"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-theme-final" oninput="onSlider('v17-theme-final',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
-    </div>
-    <button class="btn-nm v17-not-a-problem" id="nm-v17-theme-final" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-theme-final')">
-      <span class="v17-not-a-problem-label" id="nm-label-v17-theme-final"></span>
-      <span class="v17-not-a-problem-hint" id="nm-hint-v17-theme-final"></span>
-    </button>
-    <button class="btn" id="next-v17-theme-final" type="button" onclick="submitV17ThemeFinalScore()" disabled></button>
   </div>
 </div>
 
@@ -1319,18 +1284,18 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="v17-result-theme" id="t-result-from"></div>
     </div>
     <div class="sc-note-wrap">
-      <div class="sc-section-label" id="v17-result-current-label"></div>
-      <div class="v17-result-copy" id="v17-result-current"></div>
+      <div class="sc-section-label" id="v17-result-step2-label"></div>
+      <div class="v17-result-copy" id="v17-result-step2"></div>
+    </div>
+    <div class="sc-note-wrap">
+      <div class="sc-section-label" id="v17-result-step3-label"></div>
+      <div class="v17-result-copy" id="v17-result-step3"></div>
     </div>
     <div class="v17-result-happiness-label" id="v17-result-happiness-label"></div>
     <div class="v17-result-score-flow" id="v17-result-scores">
       <div class="v17-result-score-point"><span id="v17-result-before-label"></span><strong id="r-be-b"></strong></div>
       <div class="v17-result-score-arrow">↓</div>
       <div class="v17-result-score-point"><span id="v17-result-after-label"></span><strong id="r-be-a"></strong></div>
-    </div>
-    <div class="sc-note-wrap">
-      <div class="sc-section-label" id="v17-result-awareness-label"></div>
-      <div class="v17-result-copy" id="v17-result-awareness"></div>
     </div>
     <span id="t-result-sub" hidden></span>
     <span id="t-shift-note-display" hidden></span>
@@ -1342,9 +1307,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <div class="v17-result-actions">
+  <div class="v17-result-actions" id="v17-result-actions">
     <button class="v17-result-action primary" id="btn-save-result" onclick="saveCurrentResult()"></button>
-    <button class="v17-result-action" id="btn-v17-clear-again" type="button" onclick="repeatV17Clearing()"></button>
     <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartV17Theme()"></button>
     <button class="v17-result-action" id="btn-repeat-theme" type="button" onclick="chooseV17NewQuestion()"></button>
   </div>
@@ -3976,8 +3940,8 @@ async function startLanding() {
 }
 
 var SCREEN_ORDER = [
-  's-v17-entry-choice','s-v17-before','s-v17-ideal-100','s-v17-current-state','s-v17-current-measure',
-  's-v17-ideal-state','s-v17-breath','s-v17-final-measure','s-v17-theme-final','s-result',
+  's-v17-entry-choice','s-v17-before','s-v17-first-response','s-v17-second-response',
+  's-v17-breath','s-v17-final-measure','s-result',
   's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-v16-after-measurement','s-v16-result','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
@@ -4007,14 +3971,7 @@ function onSlider(key, v) {
       D.firstThemeScore = score;
       D.initialThemeScore = score;
       D.v17Flow.initialThemeScore = score;
-    } else if (key === 'v17-current-measure') {
-      D.currentStateInitialScore = score;
-      D.currentStateScore = score;
-      D.v17Flow.currentStateBeforeScore = score;
     } else if (key === 'v17-final') {
-      D.currentStateFinalScore = score;
-      D.v17Flow.currentStateAfterScore = score;
-    } else if (key === 'v17-theme-final') {
       D.finalThemeScore = score;
       D.v17Flow.finalThemeScore = score;
     }
@@ -4040,14 +3997,7 @@ function selectV17NotAProblem(key) {
     D.firstThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
-  } else if (key === 'v17-current-measure') {
-    D.currentStateInitialScore = V17_SCORE_NOT_A_PROBLEM;
-    D.currentStateScore = V17_SCORE_NOT_A_PROBLEM;
-    D.v17Flow.currentStateBeforeScore = V17_SCORE_NOT_A_PROBLEM;
   } else if (key === 'v17-final') {
-    D.currentStateFinalScore = V17_SCORE_NOT_A_PROBLEM;
-    D.v17Flow.currentStateAfterScore = V17_SCORE_NOT_A_PROBLEM;
-  } else if (key === 'v17-theme-final') {
     D.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
   }
@@ -4155,6 +4105,7 @@ function prepareEntryFlow() {
   D.freeInputValue = '';
   D.freeInputNextStep = '';
   v17QuestionSearchValue = '';
+  v17CustomCategoryName = '';
   clearV17QuestionState();
   D.themeKey = null;
   D.theme = '';
@@ -4162,63 +4113,6 @@ function prepareEntryFlow() {
   D.themeNegative = '';
   themeChosen = false;
   renderThemeScreen();
-}
-
-function openV17FreeInput() {
-  clearV17QuestionState();
-  D.themeKey = null;
-  D.theme = '';
-  D.themePositive = '';
-  D.themeNegative = '';
-  themeChosen = false;
-  var input = document.getElementById('in-v17-free-theme');
-  var button = document.getElementById('btn-v17-free-start');
-  if (input) input.value = '';
-  if (button) button.disabled = true;
-  renderV17Screen('s-v17-entry-choice');
-  if (cur !== 's-v17-entry-choice') fwd('s-v17-entry-choice');
-  setTimeout(function() { if (input) input.focus(); }, 180);
-}
-
-function onV17FreeInput(value) {
-  var button = document.getElementById('btn-v17-free-start');
-  if (button) button.disabled = !String(value || '').trim();
-}
-
-function submitV17FreeInput() {
-  var input = document.getElementById('in-v17-free-theme');
-  var value = input ? input.value.trim() : '';
-  if (!value) return;
-  ensureV17QuestionState();
-  D.questionId = null;
-  D.themeId = null;
-  D.questionTextAtTime = value;
-  D.localeAtTime = lang || 'ja';
-  D.freeInputTheme = value;
-  D.themeSource = 'freeInput';
-  D.themeKey = null;
-  D.theme = value;
-  D.themePositive = value;
-  D.themeNegative = '';
-  D.themeMeaning = '';
-  themeChosen = true;
-  trackEvent('theme_selected', { themeKey: null, lang: lang, source: 'freeInput' });
-  startSession();
-}
-
-function openV17QuestionPicker() {
-  clearV17QuestionState();
-  D.themeKey = null;
-  D.theme = '';
-  D.themePositive = '';
-  D.themeNegative = '';
-  themeChosen = false;
-  renderThemeScreen();
-  if (cur !== 's-v17-entry-choice') fwd('s-v17-entry-choice');
-  setTimeout(function() {
-    var accordion = document.getElementById('v17-theme-accordion');
-    if (accordion) accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 180);
 }
 
 function chooseEntryMethod(method) {
@@ -4520,6 +4414,7 @@ var v17ThemeLibraryLocale = '';
 var v17ThemeLibraryCache = {};
 var v17ThemeLibraryPromise = null;
 var v17ThemeLibraryError = '';
+var v17CustomCategoryName = '';
 
 function getV17ThemeLibraryLocale() {
   if (lang === 'ja' || lang === 'zh-TW') return lang;
@@ -4595,6 +4490,202 @@ function appendV17ThemePage(category, track, themeList, moreButton) {
   moreButton.style.display = end < track.themes.length ? '' : 'none';
 }
 
+function bindV17FreeInputEnterGuard(input) {
+  if (!input) return;
+  var composing = false;
+  input.addEventListener('compositionstart', function() {
+    composing = true;
+  });
+  input.addEventListener('compositionend', function() {
+    composing = false;
+  });
+  input.addEventListener('keydown', function(event) {
+    if (event.key !== 'Enter') return;
+    if (event.isComposing || event.keyCode === 229 || composing) return;
+    event.preventDefault();
+    event.stopPropagation();
+  });
+}
+
+function startV17TrackFreeInput(category, track, value) {
+  var themeText = String(value || '').trim();
+  if (!themeText || !track) return;
+  ensureV17QuestionState();
+  D.questionId = null;
+  D.themeId = null;
+  D.questionTextAtTime = themeText;
+  D.localeAtTime = lang || v17ThemeLibraryLocale;
+  D.freeInputTheme = themeText;
+  D.themeSource = category && category.id === 'custom'
+    ? 'customCategoryFreeInput' : 'categoryFreeInput';
+  D.themeCategoryId = category ? category.id : '';
+  D.themeCategoryLabelAtTime = category ? category.label : '';
+  D.themeTrackId = track.id;
+  D.themeKey = null;
+  D.theme = themeText;
+  D.themePositive = themeText;
+  D.themeNegative = '';
+  D.themeMeaning = '';
+  themeChosen = true;
+  trackEvent('theme_selected', {
+    themeKey: null,
+    lang: lang,
+    source: D.themeSource,
+    categoryId: D.themeCategoryId,
+    trackId: D.themeTrackId
+  });
+  startSession();
+}
+
+function createV17TrackFreeInput(category, track) {
+  var wrap = document.createElement('div');
+  wrap.className = 'v17-track-free';
+  var toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'v17-track-free-toggle';
+  toggle.textContent = v17Copy(track.id === 'ideals'
+    ? 'theme.idealFreeInput' : 'theme.problemFreeInput');
+  toggle.setAttribute('aria-expanded', 'false');
+  var form = document.createElement('div');
+  form.className = 'v17-track-free-form';
+  var input = document.createElement('input');
+  input.type = 'text';
+  input.className = 'v17-inline-input';
+  input.maxLength = 600;
+  input.placeholder = v17Copy('theme.freeInputPlaceholder');
+  bindV17FreeInputEnterGuard(input);
+  var confirm = document.createElement('button');
+  confirm.type = 'button';
+  confirm.className = 'v17-inline-confirm';
+  confirm.textContent = v17Copy('theme.confirm');
+  confirm.disabled = true;
+  toggle.onclick = function() {
+    var open = wrap.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    if (open) setTimeout(function() { input.focus(); }, 0);
+  };
+  input.oninput = function() { confirm.disabled = !input.value.trim(); };
+  confirm.onclick = function() { startV17TrackFreeInput(category, track, input.value); };
+  form.appendChild(input);
+  form.appendChild(confirm);
+  wrap.appendChild(toggle);
+  wrap.appendChild(form);
+  return wrap;
+}
+
+function createV17TrackSection(category, track, includeThemes) {
+  var trackWrap = document.createElement('div');
+  trackWrap.className = 'v17-track';
+  trackWrap.dataset.trackId = track.id;
+  var trackButton = document.createElement('button');
+  trackButton.type = 'button';
+  trackButton.className = 'v17-track-button';
+  trackButton.setAttribute('aria-expanded', 'false');
+  var trackLabel = document.createElement('span');
+  trackLabel.textContent = track.label;
+  var trackMark = document.createElement('span');
+  trackMark.className = 'v17-accordion-mark';
+  trackMark.textContent = '＋';
+  trackButton.appendChild(trackLabel);
+  trackButton.appendChild(trackMark);
+  trackButton.onclick = function() {
+    var open = trackWrap.classList.toggle('open');
+    trackButton.setAttribute('aria-expanded', String(open));
+    trackMark.textContent = open ? '－' : '＋';
+  };
+  var trackBody = document.createElement('div');
+  trackBody.className = 'v17-track-body';
+  trackBody.appendChild(createV17TrackFreeInput(category, track));
+  if (includeThemes) {
+    var themeList = document.createElement('div');
+    themeList.className = 'v17-theme-list';
+    var moreButton = document.createElement('button');
+    moreButton.type = 'button';
+    moreButton.className = 'btn-see-more v17-theme-more';
+    moreButton.textContent = v17Copy('theme.showMore');
+    moreButton.onclick = function() {
+      appendV17ThemePage(category, track, themeList, moreButton);
+    };
+    trackBody.appendChild(themeList);
+    trackBody.appendChild(moreButton);
+    appendV17ThemePage(category, track, themeList, moreButton);
+  }
+  trackWrap.appendChild(trackButton);
+  trackWrap.appendChild(trackBody);
+  return trackWrap;
+}
+
+function createV17CustomCategorySection() {
+  var category = {
+    id: 'custom',
+    label: v17CustomCategoryName || v17Copy('theme.freeInputCategory')
+  };
+  var categoryWrap = document.createElement('section');
+  categoryWrap.className = 'v17-category' + (v17CustomCategoryName ? ' open' : '');
+  categoryWrap.dataset.categoryId = category.id;
+  var categoryButton = document.createElement('button');
+  categoryButton.type = 'button';
+  categoryButton.className = 'v17-category-button';
+  categoryButton.setAttribute('aria-expanded', v17CustomCategoryName ? 'true' : 'false');
+  var categoryLabel = document.createElement('span');
+  categoryLabel.textContent = category.label;
+  var categoryMark = document.createElement('span');
+  categoryMark.className = 'v17-accordion-mark';
+  categoryMark.textContent = v17CustomCategoryName ? '－' : '＋';
+  categoryButton.appendChild(categoryLabel);
+  categoryButton.appendChild(categoryMark);
+  categoryButton.onclick = function() {
+    var open = categoryWrap.classList.toggle('open');
+    categoryButton.setAttribute('aria-expanded', String(open));
+    categoryMark.textContent = open ? '－' : '＋';
+  };
+  var categoryBody = document.createElement('div');
+  categoryBody.className = 'v17-category-body';
+  if (v17CustomCategoryName) {
+    var tracks = [
+      { id: 'problems', label: v17Copy('entry.problemsLabel') },
+      { id: 'ideals', label: v17Copy('entry.idealsLabel') }
+    ];
+    tracks.forEach(function(track) {
+      categoryBody.appendChild(createV17TrackSection(category, track, false));
+    });
+  } else {
+    var setup = document.createElement('div');
+    setup.className = 'v17-custom-category-setup';
+    var form = document.createElement('div');
+    form.className = 'v17-track-free-form';
+    var input = document.createElement('input');
+    input.type = 'text';
+    input.className = 'v17-inline-input';
+    input.maxLength = 120;
+    input.placeholder = v17Copy('theme.freeInputPlaceholder');
+    bindV17FreeInputEnterGuard(input);
+    var confirm = document.createElement('button');
+    confirm.type = 'button';
+    confirm.className = 'v17-inline-confirm';
+    confirm.textContent = v17Copy('theme.confirm');
+    confirm.disabled = true;
+    var submitCategory = function() {
+      var value = input.value.trim();
+      if (!value) return;
+      v17CustomCategoryName = value;
+      ensureV17QuestionState();
+      D.themeCategoryId = 'custom';
+      D.themeCategoryLabelAtTime = value;
+      renderV17ThemeAccordion();
+    };
+    input.oninput = function() { confirm.disabled = !input.value.trim(); };
+    confirm.onclick = submitCategory;
+    form.appendChild(input);
+    form.appendChild(confirm);
+    setup.appendChild(form);
+    categoryBody.appendChild(setup);
+  }
+  categoryWrap.appendChild(categoryButton);
+  categoryWrap.appendChild(categoryBody);
+  return categoryWrap;
+}
+
 function renderV17ThemeAccordion() {
   var root = document.getElementById('v17-theme-accordion');
   var status = document.getElementById('v17-theme-library-status');
@@ -4609,6 +4700,10 @@ function renderV17ThemeAccordion() {
     status.textContent = v17Copy('flow.entry.themeLoading');
     return;
   }
+  if (!v17CustomCategoryName && D.themeCategoryId === 'custom' && D.themeCategoryLabelAtTime) {
+    v17CustomCategoryName = D.themeCategoryLabelAtTime;
+  }
+  root.appendChild(createV17CustomCategorySection());
   v17ThemeLibraryData.categories.forEach(function(category) {
     var categoryWrap = document.createElement('section');
     categoryWrap.className = 'v17-category';
@@ -4632,42 +4727,7 @@ function renderV17ThemeAccordion() {
     var categoryBody = document.createElement('div');
     categoryBody.className = 'v17-category-body';
     category.tracks.forEach(function(track) {
-      var trackWrap = document.createElement('div');
-      trackWrap.className = 'v17-track';
-      trackWrap.dataset.trackId = track.id;
-      var trackButton = document.createElement('button');
-      trackButton.type = 'button';
-      trackButton.className = 'v17-track-button';
-      trackButton.setAttribute('aria-expanded', 'false');
-      var trackLabel = document.createElement('span');
-      trackLabel.textContent = track.label;
-      var trackMark = document.createElement('span');
-      trackMark.className = 'v17-accordion-mark';
-      trackMark.textContent = '＋';
-      trackButton.appendChild(trackLabel);
-      trackButton.appendChild(trackMark);
-      trackButton.onclick = function() {
-        var open = trackWrap.classList.toggle('open');
-        trackButton.setAttribute('aria-expanded', String(open));
-        trackMark.textContent = open ? '－' : '＋';
-      };
-      var trackBody = document.createElement('div');
-      trackBody.className = 'v17-track-body';
-      var themeList = document.createElement('div');
-      themeList.className = 'v17-theme-list';
-      var moreButton = document.createElement('button');
-      moreButton.type = 'button';
-      moreButton.className = 'btn-see-more v17-theme-more';
-      moreButton.textContent = v17Copy('flow.entry.showMore');
-      moreButton.onclick = function() {
-        appendV17ThemePage(category, track, themeList, moreButton);
-      };
-      trackBody.appendChild(themeList);
-      trackBody.appendChild(moreButton);
-      appendV17ThemePage(category, track, themeList, moreButton);
-      trackWrap.appendChild(trackButton);
-      trackWrap.appendChild(trackBody);
-      categoryBody.appendChild(trackWrap);
+      categoryBody.appendChild(createV17TrackSection(category, track, true));
     });
     categoryWrap.appendChild(categoryButton);
     categoryWrap.appendChild(categoryBody);
@@ -4685,6 +4745,7 @@ function selectV17LibraryTheme(category, track, theme) {
   D.freeInputTheme = '';
   D.themeSource = 'themeLibrary';
   D.themeCategoryId = category ? category.id : '';
+  D.themeCategoryLabelAtTime = category ? category.label : '';
   D.themeTrackId = track ? track.id : '';
   D.themeKey = theme.id;
   D.theme = theme.label;
@@ -4735,13 +4796,6 @@ function getV17Path(root, path) {
   return value;
 }
 
-function joinV17LocaleParts(record, keys) {
-  if (!record) return undefined;
-  return keys.map(function(key) { return record[key]; })
-    .filter(function(value) { return typeof value === 'string' && value.length; })
-    .join('\n');
-}
-
 function v17LocaleQuoteTemplate(variable) {
   return lang === 'en' ? '“{' + variable + '}”' : '「{' + variable + '}」';
 }
@@ -4763,35 +4817,27 @@ function v17LocaleValue(path) {
     'flow.landing.hero': 'lp.hero.title',
     'flow.landing.subtitle': 'lp.hero.body',
     'flow.landing.start': 'lp.hero.cta',
-    'flow.entry.freeTitle': 'entry.freeInputTitle',
-    'flow.entry.freePlaceholder': 'entry.freeInputPlaceholder',
-    'flow.entry.freeStart': 'entry.freeInputStart',
     'flow.entry.categoryIntro': 'entry.categoryTitle',
     'flow.entry.themeLoading': 'status.loading',
     'flow.entry.themeError': 'errors.loadFailed',
     'flow.entry.skippedTheme': 'entry.freeInputTitle',
-    'flow.entry.showMore': 'buttons.showMore',
     'flow.common.continue': 'buttons.continue',
     'flow.measurement.cannotQuantify': 'buttons.cannotQuantify',
     'flow.measurement.cannotQuantifyHint': 'buttonsHint.cannotQuantify',
     'flow.step1.prompt': 'flow.step1.prompt',
-    'flow.step3.placeholder': 'flow.step3.placeholder',
-    'flow.step4.prompt': 'flow.step4.prompt',
-    'flow.step6.placeholder': 'flow.step6.placeholder',
-    'flow.step8.prompt': 'flow.step8.prompt',
-    'flow.step8.result': 'buttons.done',
-    'flow.finalTheme.prompt': 'flow.finalTheme.prompt',
-    'flow.finalTheme.result': 'buttons.done',
+    'flow.step5.prompt': 'flow.step5.prompt',
+    'flow.step5.result': 'buttons.done',
     'flow.pro.title': 'pricing.title',
     'flow.pro.lead': 'pricing.lead',
     'flow.pro.value': 'pricing.body',
     'flow.pro.cta': 'pricing.cta',
-    'flow.result.theme': 'result.selectedTheme',
+    'flow.result.problemTheme': 'result.selectedProblem',
+    'flow.result.idealTheme': 'result.selectedIdeal',
     'flow.result.currentState': 'result.currentState',
+    'flow.result.idealState': 'result.idealState',
     'flow.result.happiness': 'result.scoreSuffix',
     'flow.result.before': 'result.before',
     'flow.result.after': 'result.after',
-    'flow.result.awareness': 'result.awareness',
     'flow.result.image': 'result.imageSave',
     'flow.result.imageReady': 'result.shareStatusSaved',
     'flow.result.imageError': 'result.shareStatusFailed',
@@ -4800,7 +4846,6 @@ function v17LocaleValue(path) {
     'flow.result.saved': 'bookmark.saved',
     'flow.result.saveError': 'errors.unknown',
     'flow.result.resume': 'buttons.continue',
-    'flow.result.clearAgain': 'buttons.anotherClearing',
     'flow.result.restartTheme': 'buttons.restartTheme',
     'flow.result.chooseTheme': 'buttons.chooseThemeAgain'
   };
@@ -4808,14 +4853,6 @@ function v17LocaleValue(path) {
   if (path === 'flow.app.breathCircle') return getV17Path(locale, 'breath.step1.smallBottom');
   if (path === 'flow.landing.sections') return [];
   if (path === 'flow.landing.aboutTitle' || path === 'flow.landing.readMore' || path === 'flow.landing.finalCta') return '';
-  if (path === 'flow.entry.or') return '';
-  if (path === 'flow.hundred.prompt') {
-    var flowState = D && D.v17Flow;
-    var stepKey = flowState && flowState.happinessPhase === 'current' ? 'step5' : 'step2';
-    return joinV17LocaleParts(getV17Path(locale, 'flow.' + stepKey), ['lead', 'main', 'helper']);
-  }
-  if (path === 'flow.step3.prompt') return joinV17LocaleParts(getV17Path(locale, 'flow.step3'), ['lead', 'main', 'helper']);
-  if (path === 'flow.step6.prompt') return joinV17LocaleParts(getV17Path(locale, 'flow.step6'), ['lead', 'main', 'helper']);
   if (path === 'flow.breathSteps.first.lead') return getV17Path(locale, 'breath.step1.smallTop');
   if (path === 'flow.breathSteps.first.body') return getV17Path(locale, 'breath.step1.main');
   if (path === 'flow.breathSteps.first.hint') return getV17Path(locale, 'breath.step1.smallBottom');
@@ -4833,16 +4870,13 @@ function v17LocaleValue(path) {
   }
   var quoteVariables = {
     'flow.step1.quote': 'theme',
-    'flow.hundred.quote': 'text',
-    'flow.step3.quote': 'theme',
-    'flow.step4.quote': 'currentState',
-    'flow.step6.quote': 'currentState',
-    'flow.step8.quote': 'currentState',
-    'flow.finalTheme.quote': 'theme',
+    'flow.step2.quote': 'theme',
+    'flow.step3.quote': 'response',
+    'flow.step5.quote': 'theme',
     'flow.result.quote': 'text'
   };
   if (quoteVariables[path]) return v17LocaleQuoteTemplate(quoteVariables[path]);
-  return undefined;
+  return getV17Path(locale, path);
 }
 
 function v17Value(path) {
@@ -4887,6 +4921,7 @@ function ensureV17QuestionState() {
   if (typeof D.freeInputTheme === 'undefined') D.freeInputTheme = '';
   if (typeof D.themeSource === 'undefined') D.themeSource = '';
   if (typeof D.themeCategoryId === 'undefined') D.themeCategoryId = '';
+  if (typeof D.themeCategoryLabelAtTime === 'undefined') D.themeCategoryLabelAtTime = '';
   if (typeof D.themeTrackId === 'undefined') D.themeTrackId = '';
 }
 
@@ -4896,19 +4931,13 @@ function ensureV17SessionState() {
   if (typeof D.initialThemeScore === 'undefined') D.initialThemeScore = null;
   if (typeof D.currentState === 'undefined') D.currentState = '';
   if (typeof D.currentStateText === 'undefined') D.currentStateText = D.currentState || '';
-  if (typeof D.currentStateInitialScore === 'undefined') D.currentStateInitialScore = null;
-  if (typeof D.currentStateFinalScore === 'undefined') D.currentStateFinalScore = null;
-  if (typeof D.currentStateScore === 'undefined') D.currentStateScore = null;
   if (typeof D.currentStateDraft === 'undefined') D.currentStateDraft = D.currentState || '';
-  if (!Array.isArray(D.idealStateAnswers)) D.idealStateAnswers = [];
-  if (!Array.isArray(D.remeasureScores)) D.remeasureScores = [];
   if (typeof D.idealState === 'undefined') D.idealState = '';
   if (typeof D.idealStateText === 'undefined') D.idealStateText = D.idealState || '';
   if (typeof D.idealStateDraft === 'undefined') D.idealStateDraft = D.idealState || '';
   if (typeof D.awareness === 'undefined') D.awareness = '';
   if (typeof D.finalThemeScore === 'undefined') D.finalThemeScore = null;
   if (typeof D.deltaScore === 'undefined') D.deltaScore = null;
-  if (typeof D.remeasureScore === 'undefined') D.remeasureScore = null;
   if (typeof D.v17Flow === 'undefined') D.v17Flow = null;
 }
 
@@ -4918,19 +4947,13 @@ function resetV17SessionState() {
   D.initialThemeScore = null;
   D.currentState = '';
   D.currentStateText = '';
-  D.currentStateInitialScore = null;
-  D.currentStateFinalScore = null;
-  D.currentStateScore = null;
   D.currentStateDraft = '';
-  D.idealStateAnswers = [];
-  D.remeasureScores = [];
   D.idealState = '';
   D.idealStateText = '';
   D.idealStateDraft = '';
   D.awareness = '';
   D.finalThemeScore = null;
   D.deltaScore = null;
-  D.remeasureScore = null;
   D.v17Flow = null;
 }
 
@@ -4943,6 +4966,7 @@ function clearV17QuestionState() {
   D.freeInputTheme = '';
   D.themeSource = '';
   D.themeCategoryId = '';
+  D.themeCategoryLabelAtTime = '';
   D.themeTrackId = '';
 }
 
@@ -5000,6 +5024,7 @@ function getV17QuestionSnapshot() {
     freeInputTheme: D.freeInputTheme || '',
     themeSource: D.themeSource || (D.questionId ? 'hcq' : 'freeInput'),
     themeCategoryId: D.themeCategoryId || '',
+    themeCategoryLabelAtTime: D.themeCategoryLabelAtTime || '',
     themeTrackId: D.themeTrackId || ''
   };
 }
@@ -5137,6 +5162,9 @@ function selectHCQQuestion(question) {
   D.localeAtTime = lang || v17QuestionCatalogLocale;
   D.freeInputTheme = '';
   D.themeSource = 'hcq';
+  D.themeCategoryId = '';
+  D.themeCategoryLabelAtTime = '';
+  D.themeTrackId = 'problems';
   themeChosen = true;
   trackEvent('theme_selected', { themeKey: question.id, lang: lang, source: 'hcq' });
   syncSelectedHCQUI();
@@ -6059,6 +6087,7 @@ function startSession() {
 }
 
 function createV17FlowState() {
+  var route = getV17ThemeRoute();
   return {
     appVersion: 'v17',
     theme: D.questionTextAtTime || '',
@@ -6068,22 +6097,25 @@ function createV17FlowState() {
     questionTextAtTime: D.questionTextAtTime || '',
     localeAtTime: D.localeAtTime || lang || 'ja',
     freeInputTheme: D.freeInputTheme || '',
+    themeCategoryId: D.themeCategoryId || '',
+    themeCategoryLabelAtTime: D.themeCategoryLabelAtTime || '',
+    themeTrackId: D.themeTrackId || 'problems',
+    route: route,
     currentStep: 'step1',
-    happinessPhase: 'theme',
     breathPhase: 'first',
     initialThemeScore: null,
+    step2Text: '',
+    step2Draft: '',
+    step3Text: '',
+    step3Draft: '',
     currentState: '',
     currentStateText: '',
     currentStateDraft: '',
-    currentStateBeforeScore: null,
-    currentStateAfterScore: null,
     idealState: '',
     idealStateText: '',
     idealStateDraft: '',
     breath: { first: false, second: false },
-    clearings: [],
-    finalThemeScore: null,
-    resultMode: 'clearing'
+    finalThemeScore: null
   };
 }
 
@@ -6097,6 +6129,50 @@ function getV17CurrentStateText() {
 
 function getV17IdealStateText() {
   return D.idealStateText || D.idealState || '';
+}
+
+function getV17ThemeRoute() {
+  var trackId = D && D.themeTrackId ? D.themeTrackId
+    : D && D.v17Flow && D.v17Flow.themeTrackId ? D.v17Flow.themeTrackId : '';
+  return trackId === 'ideals' ? 'ideals' : 'problems';
+}
+
+function getV17ResponseKind(position) {
+  var route = getV17ThemeRoute();
+  if (position === 'first') return route === 'ideals' ? 'currentState' : 'idealState';
+  return route === 'ideals' ? 'idealState' : 'currentState';
+}
+
+function getV17RouteDraft(position) {
+  var flow = D.v17Flow || {};
+  var flowDraft = position === 'first' ? flow.step2Draft : flow.step3Draft;
+  if (typeof flowDraft === 'string' && flowDraft) return flowDraft;
+  return getV17ResponseKind(position) === 'idealState' ? D.idealStateDraft : D.currentStateDraft;
+}
+
+function setV17SemanticResponse(kind, value) {
+  if (kind === 'idealState') {
+    D.idealState = value;
+    D.idealStateText = value;
+    D.idealStateDraft = value;
+    D.ideal = value;
+    D.idealAnswer = value;
+    if (D.v17Flow) {
+      D.v17Flow.idealState = value;
+      D.v17Flow.idealStateText = value;
+      D.v17Flow.idealStateDraft = value;
+    }
+    return;
+  }
+  D.currentState = value;
+  D.currentStateText = value;
+  D.currentStateDraft = value;
+  D.issue = value;
+  if (D.v17Flow) {
+    D.v17Flow.currentState = value;
+    D.v17Flow.currentStateText = value;
+    D.v17Flow.currentStateDraft = value;
+  }
 }
 
 function renderV17StaticCopy() {
@@ -6128,7 +6204,7 @@ function renderV17StaticCopy() {
 }
 
 var V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
-var V17_MEASUREMENT_KEYS = ['v17-before', 'v17-current-measure', 'v17-final', 'v17-theme-final'];
+var V17_MEASUREMENT_KEYS = ['v17-before', 'v17-final'];
 
 function renderV17NotAProblemCopy() {
   V17_MEASUREMENT_KEYS.forEach(function(key) {
@@ -6142,23 +6218,17 @@ function positionV17SkipButton(screenId) {
   if (!button) return;
   var target = null;
   if (screenId === 's-v17-entry-choice') {
-    target = document.getElementById('btn-v17-free-start');
+    target = document.getElementById('v17-theme-accordion');
   } else if (screenId === 's-v17-before') {
     target = document.getElementById('next-v17-before');
-  } else if (screenId === 's-v17-ideal-100') {
-    target = document.getElementById('next-v17-ideal');
-  } else if (screenId === 's-v17-current-state') {
-    target = document.getElementById('next-v17-current');
-  } else if (screenId === 's-v17-current-measure') {
-    target = document.getElementById('next-v17-current-measure');
-  } else if (screenId === 's-v17-ideal-state') {
-    target = document.getElementById('next-v17-ideal-state');
+  } else if (screenId === 's-v17-first-response') {
+    target = document.getElementById('next-v17-first-response');
+  } else if (screenId === 's-v17-second-response') {
+    target = document.getElementById('next-v17-second-response');
   } else if (screenId === 's-v17-breath') {
     target = document.getElementById('circle-v17-breath');
   } else if (screenId === 's-v17-final-measure') {
     target = document.getElementById('next-v17-final');
-  } else if (screenId === 's-v17-theme-final') {
-    target = document.getElementById('next-v17-theme-final');
   } else if (screenId === 's-result') {
     target = document.getElementById('v17-result-actions');
   }
@@ -6212,55 +6282,39 @@ function restoreV17Slider(key, value) {
 function renderV17Screen(screenId) {
   var flow = D.v17Flow;
   if (screenId === 's-v17-entry-choice') {
-    setEl('v17-free-input-title', v17Copy('flow.entry.freeTitle'));
-    setEl('btn-v17-free-start', v17Copy('flow.entry.freeStart'));
-    setEl('v17-entry-divider', v17Copy('flow.entry.or'));
     setEl('v17-category-intro', v17Copy('flow.entry.categoryIntro'));
-    var freeInput = document.getElementById('in-v17-free-theme');
-    if (freeInput) {
-      freeInput.placeholder = v17Copy('flow.entry.freePlaceholder');
-      freeInput.value = D.themeSource === 'freeInput' ? (D.freeInputTheme || '') : '';
-    }
-    var freeStart = document.getElementById('btn-v17-free-start');
-    if (freeStart) freeStart.disabled = !freeInput || !freeInput.value.trim();
   } else if (screenId === 's-v17-before') {
     setEl('v17-before-theme', v17Format('flow.step1.quote', { theme: D.questionTextAtTime }));
     setEl('v17-before-prompt', v17Copy('flow.step1.prompt'));
     setEl('next-v17-before', v17Copy('flow.common.continue'));
     restoreV17Slider('v17-before', D.initialThemeScore);
-  } else if (screenId === 's-v17-ideal-100') {
-    var happinessFocus = flow && flow.happinessPhase === 'current'
-      ? getV17CurrentStateText() : D.questionTextAtTime;
-    setEl('v17-hundred-focus', v17Format('flow.hundred.quote', { text: happinessFocus }));
-    setEl('v17-ideal-prompt', v17Copy('flow.hundred.prompt'));
-    setEl('next-v17-ideal', v17Copy('flow.common.continue'));
-  } else if (screenId === 's-v17-current-state') {
-    setEl('v17-current-theme', v17Format('flow.step3.quote', { theme: D.questionTextAtTime }));
-    setEl('v17-current-prompt', v17Copy('flow.step3.prompt'));
-    setEl('next-v17-current', v17Copy('flow.common.continue'));
-    var currentInput = document.getElementById('in-v17-current');
-    if (currentInput) {
-      currentInput.placeholder = v17Copy('flow.step3.placeholder');
-      currentInput.value = D.currentStateDraft;
+  } else if (screenId === 's-v17-first-response') {
+    var firstRoute = getV17ThemeRoute();
+    var firstPath = 'flow.step2.' + firstRoute;
+    setEl('v17-first-response-quote', v17Format('flow.step2.quote', { theme: D.questionTextAtTime }));
+    setEl('v17-first-response-prompt', v17Copy(firstPath + '.prompt'));
+    setEl('next-v17-first-response', v17Copy('flow.common.continue'));
+    var firstInput = document.getElementById('in-v17-first-response');
+    if (firstInput) {
+      firstInput.placeholder = v17Copy(firstPath + '.placeholder');
+      firstInput.value = getV17RouteDraft('first');
     }
-    var currentButton = document.getElementById('next-v17-current');
-    if (currentButton) currentButton.disabled = !currentInput || !currentInput.value.trim();
-  } else if (screenId === 's-v17-current-measure') {
-    setEl('v17-current-measure-quote', v17Format('flow.step4.quote', { currentState: getV17CurrentStateText() }));
-    setEl('v17-current-measure-prompt', v17Copy('flow.step4.prompt'));
-    setEl('next-v17-current-measure', v17Copy('flow.common.continue'));
-    restoreV17Slider('v17-current-measure', D.currentStateInitialScore);
-  } else if (screenId === 's-v17-ideal-state') {
-    setEl('v17-ideal-state-quote', v17Format('flow.step6.quote', { currentState: getV17CurrentStateText() }));
-    setEl('v17-ideal-state-prompt', v17Copy('flow.step6.prompt'));
-    setEl('next-v17-ideal-state', v17Copy('flow.common.continue'));
-    var idealInput = document.getElementById('in-v17-ideal-state');
-    if (idealInput) {
-      idealInput.placeholder = v17Copy('flow.step6.placeholder');
-      idealInput.value = D.idealStateDraft;
+    var firstButton = document.getElementById('next-v17-first-response');
+    if (firstButton) firstButton.disabled = !firstInput || !firstInput.value.trim();
+  } else if (screenId === 's-v17-second-response') {
+    var secondRoute = getV17ThemeRoute();
+    var secondPath = 'flow.step3.' + secondRoute;
+    var step2Text = flow && flow.step2Text ? flow.step2Text : D.questionTextAtTime;
+    setEl('v17-second-response-quote', v17Format('flow.step3.quote', { response: step2Text }));
+    setEl('v17-second-response-prompt', v17Copy(secondPath + '.prompt'));
+    setEl('next-v17-second-response', v17Copy('flow.common.continue'));
+    var secondInput = document.getElementById('in-v17-second-response');
+    if (secondInput) {
+      secondInput.placeholder = v17Copy(secondPath + '.placeholder');
+      secondInput.value = getV17RouteDraft('second');
     }
-    var idealButton = document.getElementById('next-v17-ideal-state');
-    if (idealButton) idealButton.disabled = !idealInput || !idealInput.value.trim();
+    var secondButton = document.getElementById('next-v17-second-response');
+    if (secondButton) secondButton.disabled = !secondInput || !secondInput.value.trim();
   } else if (screenId === 's-v17-breath') {
     var breathPart = flow && flow.breathPhase === 'second' ? 'second' : 'first';
     setEl('v17-breath-lead', v17Copy('flow.breathSteps.' + breathPart + '.lead'));
@@ -6274,15 +6328,10 @@ function renderV17Screen(screenId) {
       );
     }
   } else if (screenId === 's-v17-final-measure') {
-    setEl('v17-final-quote', v17Format('flow.step8.quote', { currentState: getV17CurrentStateText() }));
-    setEl('v17-final-prompt', v17Copy('flow.step8.prompt'));
-    setEl('next-v17-final', v17Copy('flow.step8.result'));
-    restoreV17Slider('v17-final', D.currentStateFinalScore);
-  } else if (screenId === 's-v17-theme-final') {
-    setEl('v17-theme-final-quote', v17Format('flow.finalTheme.quote', { theme: D.questionTextAtTime }));
-    setEl('v17-theme-final-prompt', v17Copy('flow.finalTheme.prompt'));
-    setEl('next-v17-theme-final', v17Copy('flow.finalTheme.result'));
-    restoreV17Slider('v17-theme-final', D.finalThemeScore);
+    setEl('v17-final-quote', v17Format('flow.step5.quote', { theme: D.questionTextAtTime }));
+    setEl('v17-final-prompt', v17Copy('flow.step5.prompt'));
+    setEl('next-v17-final', v17Copy('flow.step5.result'));
+    restoreV17Slider('v17-final', D.finalThemeScore);
   } else if (screenId === 's-result') {
     renderV17Result();
   }
@@ -6293,7 +6342,7 @@ function renderCurrentV17Screen() {
   if (String(cur || '').indexOf('s-v17-') === 0 || cur === 's-result') renderV17Screen(cur);
 }
 
-function startV17Session() {
+function startV17Session(replaceHistory) {
   ensureV17SessionState();
   resetV17SessionState();
   _savedProgressResumeActive = false;
@@ -6313,12 +6362,11 @@ function startV17Session() {
   D.v13History = [];
   D.v17Flow = createV17FlowState();
   resetSlider('v17-before');
-  resetSlider('v17-current-measure');
   resetSlider('v17-final');
-  resetSlider('v17-theme-final');
   renderV17Screen('s-v17-before');
   trackEvent('v17_session_started', { themeId: D.themeId, questionId: D.questionId, locale: D.localeAtTime });
-  fwd('s-v17-before');
+  if (replaceHistory) showScreenDirect('s-v17-before');
+  else fwd('s-v17-before');
 }
 
 function submitV17BeforeScore() {
@@ -6326,97 +6374,64 @@ function submitV17BeforeScore() {
   var value = arguments.length ? arguments[0] : getSliderVal('v17-before');
   D.firstThemeScore = value;
   D.initialThemeScore = value;
+  D.breathEaseBefore = value;
   D.v17Flow.initialThemeScore = value;
-  openV17FeelHundred('theme');
+  openV17FirstResponse();
 }
 
-function openV17FeelHundred(phase) {
-  if (D.v17Flow) D.v17Flow.happinessPhase = phase || D.v17Flow.happinessPhase || 'theme';
-  setV17CurrentStep(D.v17Flow && D.v17Flow.happinessPhase === 'current' ? 'step5' : 'step2');
-  renderV17Screen('s-v17-ideal-100');
-  fwd('s-v17-ideal-100');
+function openV17FirstResponse() {
+  setV17CurrentStep('step2');
+  renderV17Screen('s-v17-first-response');
+  fwd('s-v17-first-response');
 }
 
-function continueV17IdealState() {
-  var phase = D.v17Flow ? D.v17Flow.happinessPhase : 'theme';
-  if (phase === 'current') {
-    openV17IdealState();
-    return;
-  }
-  openV17CurrentState();
-}
-
-function openV17CurrentState() {
-  setV17CurrentStep('step3');
-  renderV17Screen('s-v17-current-state');
-  fwd('s-v17-current-state');
-}
-
-function onV17WritingInput(step, value) {
+function onV17RouteInput(position, value) {
   var text = String(value || '');
-  if (step === 'idealState') {
+  var flow = D.v17Flow;
+  var kind = getV17ResponseKind(position);
+  if (flow) {
+    if (position === 'first') flow.step2Draft = text;
+    else flow.step3Draft = text;
+  }
+  if (kind === 'idealState') {
     D.idealStateDraft = text;
-    if (D.v17Flow) D.v17Flow.idealStateDraft = text;
+    if (flow) flow.idealStateDraft = text;
   } else {
     D.currentStateDraft = text;
-    if (D.v17Flow) D.v17Flow.currentStateDraft = text;
+    if (flow) flow.currentStateDraft = text;
   }
-  var buttonId = step === 'idealState' ? 'next-v17-ideal-state' : 'next-v17-current';
+  var buttonId = position === 'first' ? 'next-v17-first-response' : 'next-v17-second-response';
   var button = document.getElementById(buttonId);
   if (button) button.disabled = !text.trim();
 }
 
-function submitV17CurrentState() {
-  var input = document.getElementById('in-v17-current');
+function submitV17FirstResponse(allowEmpty) {
+  var input = document.getElementById('in-v17-first-response');
   var value = input ? input.value.trim() : '';
-  if (!value) return;
-  D.currentState = value;
-  D.currentStateText = value;
-  D.currentStateDraft = value;
-  D.v17Flow.currentState = value;
-  D.v17Flow.currentStateText = value;
-  D.v17Flow.currentStateDraft = value;
-  D.issue = value;
-  setV17CurrentStep('step4');
-  renderV17Screen('s-v17-current-measure');
-  fwd('s-v17-current-measure');
+  if (!value && !allowEmpty) return;
+  if (value) {
+    D.v17Flow.step2Text = value;
+    D.v17Flow.step2Draft = value;
+    setV17SemanticResponse(getV17ResponseKind('first'), value);
+  }
+  openV17SecondResponse();
 }
 
-function submitV17CurrentStateScore() {
-  ensureV17SessionState();
-  var value = arguments.length ? arguments[0] : getSliderVal('v17-current-measure');
-  D.currentStateInitialScore = value;
-  D.currentStateScore = value;
-  D.breathEaseBefore = value;
-  D.v17Flow.currentStateBeforeScore = value;
-  openV17FeelHundred('current');
+function openV17SecondResponse() {
+  setV17CurrentStep('step3');
+  renderV17Screen('s-v17-second-response');
+  fwd('s-v17-second-response');
 }
 
-function openV17IdealState() {
-  setV17CurrentStep('step6');
-  renderV17Screen('s-v17-ideal-state');
-  fwd('s-v17-ideal-state');
-}
-
-function submitV17IdealState() {
-  var input = document.getElementById('in-v17-ideal-state');
+function submitV17SecondResponse(allowEmpty) {
+  var input = document.getElementById('in-v17-second-response');
   var value = input ? input.value.trim() : '';
-  if (!value) return;
-  D.idealState = value;
-  D.idealStateText = value;
-  D.idealStateDraft = value;
-  D.awareness = value;
-  D.ideal = value;
-  D.idealAnswer = value;
-  D.shiftNote = value;
-  if (D.idealStateAnswers[D.idealStateAnswers.length - 1] !== value) D.idealStateAnswers.push(value);
-  D.v17Flow.idealState = value;
-  D.v17Flow.idealStateText = value;
-  D.v17Flow.idealStateDraft = value;
-  openV17Breath();
-}
-
-function skipV17IdealState() {
+  if (!value && !allowEmpty) return;
+  if (value) {
+    D.v17Flow.step3Text = value;
+    D.v17Flow.step3Draft = value;
+    setV17SemanticResponse(getV17ResponseKind('second'), value);
+  }
   openV17Breath();
 }
 
@@ -6426,7 +6441,7 @@ function openV17Breath() {
     return;
   }
   D.v17Flow.breathPhase = D.v17Flow.breath.first && !D.v17Flow.breath.second ? 'second' : 'first';
-  setV17CurrentStep('step7.' + D.v17Flow.breathPhase);
+  setV17CurrentStep('step4.' + D.v17Flow.breathPhase);
   resetV17BreathScreen();
   renderV17Screen('s-v17-breath');
   fwd('s-v17-breath');
@@ -6503,7 +6518,7 @@ function continueV17BreathPhase() {
   flow.breath[flow.breathPhase] = true;
   if (flow.breathPhase === 'first') {
     flow.breathPhase = 'second';
-    setV17CurrentStep('step7.second');
+    setV17CurrentStep('step4.second');
     resetV17BreathScreen();
     renderV17Screen('s-v17-breath');
     return;
@@ -6512,73 +6527,50 @@ function continueV17BreathPhase() {
 }
 
 function openV17FinalMeasurement() {
-  setV17CurrentStep('step8');
-  if (typeof D.currentStateFinalScore !== 'number') resetSlider('v17-final');
+  setV17CurrentStep('step5');
+  if (D.finalThemeScore === null || D.finalThemeScore === undefined) resetSlider('v17-final');
   renderV17Screen('s-v17-final-measure');
   fwd('s-v17-final-measure');
 }
 
 function submitV17FinalScore() {
   var value = arguments.length ? arguments[0] : getSliderVal('v17-final');
-  D.currentStateFinalScore = value;
-  D.currentStateScore = value;
-  D.breathEaseAfter = value;
-  D.deltaScore = typeof value === 'number' && typeof D.currentStateInitialScore === 'number'
-    ? value - D.currentStateInitialScore : null;
-  D.v17Flow.currentStateAfterScore = value;
-  D.v17Flow.resultMode = 'clearing';
-  D.v17Flow.clearings.push({
-    index: D.v17Flow.clearings.length,
-    currentState: getV17CurrentStateText(),
-    currentStateText: getV17CurrentStateText(),
-    beforeScore: D.currentStateInitialScore,
-    afterScore: value,
-    idealState: getV17IdealStateText(),
-    idealStateText: getV17IdealStateText()
-  });
-  D.v17Flow.currentStep = 'step9';
-  showV17Result();
-}
-
-function openV17ThemeFinalMeasurement() {
-  setV17CurrentStep('finalTheme');
-  resetSlider('v17-theme-final');
-  renderV17Screen('s-v17-theme-final');
-  fwd('s-v17-theme-final');
-}
-
-function submitV17ThemeFinalScore() {
-  var value = arguments.length ? arguments[0] : getSliderVal('v17-theme-final');
   D.finalThemeScore = value;
+  D.breathEaseAfter = value;
+  D.deltaScore = typeof value === 'number' && typeof D.initialThemeScore === 'number'
+    ? value - D.initialThemeScore : null;
   D.v17Flow.finalThemeScore = value;
-  D.v17Flow.resultMode = 'themeFinal';
-  D.v17Flow.currentStep = 'step9';
+  D.v17Flow.currentStep = 'step6';
   showV17Result();
 }
 
 function renderV17Result() {
   var flow = D.v17Flow || {};
+  var route = getV17ThemeRoute();
   var currentStateText = getV17CurrentStateText();
   var idealStateText = getV17IdealStateText();
-  var themeOnlyResult = flow.resultMode === 'themeFinal' && !currentStateText;
-  var beforeScore = themeOnlyResult ? D.initialThemeScore : D.currentStateInitialScore;
-  var afterScore = themeOnlyResult ? D.finalThemeScore : D.currentStateFinalScore;
-  setEl('v17-result-theme-label', v17Copy('flow.result.theme'));
+  var step2Kind = getV17ResponseKind('first');
+  var step3Kind = getV17ResponseKind('second');
+  var step2Text = flow.step2Text || (step2Kind === 'idealState' ? idealStateText : currentStateText);
+  var step3Text = flow.step3Text || (step3Kind === 'idealState' ? idealStateText : currentStateText);
+  setEl('v17-result-theme-label', v17Copy(route === 'ideals'
+    ? 'flow.result.idealTheme' : 'flow.result.problemTheme'));
   setEl('t-result-from', v17Format('flow.result.quote', { text: D.questionTextAtTime }));
-  setEl('v17-result-current-label', v17Copy('flow.result.currentState'));
-  setEl('v17-result-current', currentStateText ? v17Format('flow.result.quote', { text: currentStateText }) : '—');
+  setEl('v17-result-step2-label', v17Copy(step2Kind === 'idealState'
+    ? 'flow.result.idealState' : 'flow.result.currentState'));
+  setEl('v17-result-step2', step2Text ? v17Format('flow.result.quote', { text: step2Text }) : '—');
+  setEl('v17-result-step3-label', v17Copy(step3Kind === 'idealState'
+    ? 'flow.result.idealState' : 'flow.result.currentState'));
+  setEl('v17-result-step3', step3Text ? v17Format('flow.result.quote', { text: step3Text }) : '—');
   setEl('v17-result-happiness-label', v17Copy('flow.result.happiness'));
-  setEl('v17-result-awareness-label', v17Copy('flow.result.awareness'));
-  setEl('v17-result-awareness', idealStateText ? v17Format('flow.result.quote', { text: idealStateText }) : '—');
   setEl('t-result-sub', currentStateText);
   setEl('t-shift-note-display', idealStateText);
   setEl('v17-result-before-label', v17Copy('flow.result.before'));
   setEl('v17-result-after-label', v17Copy('flow.result.after'));
-  setEl('r-be-b', formatV17Score(beforeScore));
-  setEl('r-be-a', formatV17Score(afterScore));
+  setEl('r-be-b', formatV17Score(D.initialThemeScore));
+  setEl('r-be-a', formatV17Score(D.finalThemeScore));
   setEl('btn-save-image', v17Copy('flow.result.image'));
   setEl('t-save-preview-note', v17Copy('flow.result.imagePreview'));
-  setEl('btn-v17-clear-again', v17Copy('flow.result.clearAgain'));
   setEl('btn-v17-restart-theme', v17Copy('flow.result.restartTheme'));
   setEl('btn-repeat-theme', v17Copy('flow.result.chooseTheme'));
   renderResultSaveUI();
@@ -6597,36 +6589,22 @@ function showV17Result() {
   clearPendingProgress();
   trackEvent('v17_session_completed', {
     questionId: D.questionId,
-    before: D.currentStateInitialScore,
-    after: D.currentStateFinalScore,
+    route: getV17ThemeRoute(),
+    before: D.initialThemeScore,
+    after: D.finalThemeScore,
     delta: D.deltaScore
   });
   fwd('s-result');
 }
 
-function repeatV17Clearing() {
-  if (!getV17CurrentStateText()) {
-    restartV17Theme();
-    return;
-  }
-  D.currentStateInitialScore = D.currentStateFinalScore;
-  D.currentStateScore = D.currentStateInitialScore;
-  D.breathEaseBefore = D.currentStateInitialScore;
-  D.breathEaseAfter = null;
-  D.currentStateFinalScore = null;
-  D.v17Flow.currentStateBeforeScore = D.currentStateInitialScore;
-  D.v17Flow.currentStateAfterScore = null;
-  D.v17Flow.breath = { first: false, second: false };
-  openV17FeelHundred('current');
-}
-
 function restartV17Theme() {
-  D.v17Flow.breath = { first: false, second: false };
-  openV17FeelHundred('theme');
+  resetV17BreathScreen();
+  startV17Session(true);
 }
 
 function chooseV17NewQuestion() {
   resetV17BreathScreen();
+  v17CustomCategoryName = '';
   clearV17QuestionState();
   resetV17SessionState();
   D.theme = '';
@@ -6640,10 +6618,6 @@ function chooseV17NewQuestion() {
   themeChosen = false;
   themeVisibleCount = 12;
   v17QuestionSearchValue = '';
-  var freeInput = document.getElementById('in-v17-free-theme');
-  var freeButton = document.getElementById('btn-v17-free-start');
-  if (freeInput) freeInput.value = '';
-  if (freeButton) freeButton.disabled = true;
   renderThemeScreen();
   showScreenDirect('s-v17-entry-choice');
 }
@@ -6657,6 +6631,9 @@ function skipV17ThemeSelection() {
   D.localeAtTime = lang || 'ja';
   D.freeInputTheme = '';
   D.themeSource = 'skipped';
+  D.themeCategoryId = '';
+  D.themeCategoryLabelAtTime = '';
+  D.themeTrackId = 'problems';
   D.themeKey = null;
   D.theme = fallbackTheme;
   D.themePositive = fallbackTheme;
@@ -6670,21 +6647,17 @@ function getV17SkipScore(value) {
 }
 
 function skipV17ResultChoice() {
-  renderThemeScreen();
-  showScreenDirect('s-v17-entry-choice');
+  chooseV17NewQuestion();
 }
 
 function handleV17Skip() {
   if (cur === 's-landing') { startLanding(); return; }
   if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
   if (cur === 's-v17-before') { submitV17BeforeScore(getV17SkipScore(D.initialThemeScore)); return; }
-  if (cur === 's-v17-ideal-100') { continueV17IdealState(); return; }
-  if (cur === 's-v17-current-state') { openV17ThemeFinalMeasurement(); return; }
-  if (cur === 's-v17-current-measure') { submitV17CurrentStateScore(getV17SkipScore(D.currentStateInitialScore)); return; }
-  if (cur === 's-v17-ideal-state') { skipV17IdealState(); return; }
+  if (cur === 's-v17-first-response') { submitV17FirstResponse(true); return; }
+  if (cur === 's-v17-second-response') { submitV17SecondResponse(true); return; }
   if (cur === 's-v17-breath') { continueV17BreathPhase(); return; }
-  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.currentStateFinalScore)); return; }
-  if (cur === 's-v17-theme-final') { submitV17ThemeFinalScore(getV17SkipScore(D.finalThemeScore)); return; }
+  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.finalThemeScore)); return; }
   if (cur === 's-result') { skipV17ResultChoice(); return; }
   showScreenDirect('s-v17-entry-choice');
 }
@@ -7409,6 +7382,7 @@ function applyV17QuestionSnapshotToPayload(payload) {
   payload.freeInputTheme = snapshot.freeInputTheme;
   payload.themeSource = snapshot.themeSource;
   payload.themeCategoryId = snapshot.themeCategoryId;
+  payload.themeCategoryLabelAtTime = snapshot.themeCategoryLabelAtTime;
   payload.themeTrackId = snapshot.themeTrackId;
   if (!payload.themeKey) payload.themeKey = snapshot.themeId || snapshot.questionId;
   if (!payload.selectedThemeKey) payload.selectedThemeKey = snapshot.themeId || snapshot.questionId;
@@ -7426,9 +7400,10 @@ function applyV17QuestionSnapshotToPayload(payload) {
     payload.resultCardData.hcqSnapshot = snapshot;
     payload.resultCardData.initialThemeScore = D.initialThemeScore;
     payload.resultCardData.finalThemeScore = D.finalThemeScore;
+    payload.resultCardData.themeRoute = getV17ThemeRoute();
+    payload.resultCardData.step2Text = D.v17Flow ? D.v17Flow.step2Text : '';
+    payload.resultCardData.step3Text = D.v17Flow ? D.v17Flow.step3Text : '';
     payload.resultCardData.currentState = D.currentState;
-    payload.resultCardData.currentStateBeforeScore = D.currentStateInitialScore;
-    payload.resultCardData.currentStateAfterScore = D.currentStateFinalScore;
     payload.resultCardData.idealState = D.idealState;
   }
   return payload;
@@ -7463,6 +7438,7 @@ function wrapV17SavePayloadBuilders() {
         D.freeInputTheme = snapshot.freeInputTheme || '';
         D.themeSource = snapshot.themeSource || (D.questionId ? 'hcq' : 'freeInput');
         D.themeCategoryId = snapshot.themeCategoryId || '';
+        D.themeCategoryLabelAtTime = snapshot.themeCategoryLabelAtTime || '';
         D.themeTrackId = snapshot.themeTrackId || '';
         if (D.questionTextAtTime) {
           D.themeKey = D.themeId || D.questionId;
@@ -7479,7 +7455,9 @@ function wrapV17SavePayloadBuilders() {
 }
 
 document.addEventListener('keydown', function(e){
-  if (e.key === 'Enter' && (!e.target || e.target.tagName !== 'TEXTAREA')) e.preventDefault();
+  if (e.key !== 'Enter') return;
+  if (e.isComposing || e.keyCode === 229) return;
+  if (!e.target || e.target.tagName !== 'TEXTAREA') e.preventDefault();
 });
 async function initializeApp() {
   ensureV17QuestionState();

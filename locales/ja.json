@@ -76,6 +76,14 @@
     "freeInputPlaceholder": "自由に入力",
     "freeInputStart": "このテーマで始める"
   },
+  "theme": {
+    "freeInputCategory": "自由入力",
+    "freeInputPlaceholder": "自由に入力",
+    "confirm": "確定",
+    "problemFreeInput": "自由入力",
+    "idealFreeInput": "自由入力",
+    "showMore": "さらに見る"
+  },
   "flow": {
     "step0": {
       "title": "テーマ選択"
@@ -89,56 +97,42 @@
     },
     "step2": {
       "quoteSource": "theme",
-      "lead": "これについて",
-      "main": "幸せ100%の状態を感じる。",
-      "helper": "なんとなくで大丈夫です。\n数秒で構いません。"
+      "problems": {
+        "prompt": "これに対して、\n幸せ100%の状態は？",
+        "placeholder": "ここに書く",
+        "responseTarget": "idealStateText"
+      },
+      "ideals": {
+        "prompt": "これに対して、\n今の状態は？",
+        "placeholder": "ここに書く",
+        "responseTarget": "currentStateText"
+      }
     },
     "step3": {
-      "quoteSource": "theme",
-      "lead": "これについて、",
-      "main": "いまの状態を言葉で表現。",
-      "helper": "書けるだけ書く。",
-      "placeholder": "ここに書く"
+      "quoteSource": "step2Text",
+      "problems": {
+        "prompt": "それに対し、\n今の状態は？",
+        "placeholder": "ここに書く",
+        "responseTarget": "currentStateText"
+      },
+      "ideals": {
+        "prompt": "それに対し、\n幸せ100%の状態は？",
+        "placeholder": "ここに書く",
+        "responseTarget": "idealStateText"
+      }
     },
     "step4": {
-      "kind": "measurement",
-      "label": "計測",
-      "quoteSource": "currentStateText",
-      "prompt": "それに意識を向けたときの\n幸せ度は？",
-      "rangeLabel": "0〜100"
-    },
-    "step5": {
-      "quoteSource": "currentStateText",
-      "lead": "これについて",
-      "main": "幸せ100%の状態を感じる。",
-      "helper": "なんとなくで大丈夫です。\n数秒で構いません。"
-    },
-    "step6": {
-      "quoteSource": "currentStateText",
-      "lead": "それに対し、",
-      "main": "幸せ100%の私は\nどんな状態ですか。",
-      "helper": "書けるだけ書く。",
-      "placeholder": "ここに書く"
-    },
-    "step7": {
       "kind": "breath"
     },
-    "step8": {
+    "step5": {
       "kind": "measurement",
-      "label": "計測",
-      "quoteSource": "currentStateText",
-      "prompt": "それに意識を向けたときの\n幸せ度は？",
-      "rangeLabel": "0〜100"
-    },
-    "step9": {
-      "kind": "result"
-    },
-    "finalTheme": {
-      "kind": "measurement",
-      "label": "最後の計測",
+      "label": "再計測",
       "quoteSource": "theme",
       "prompt": "それに意識を向けたときの\n幸せ度は？",
       "rangeLabel": "0〜100"
+    },
+    "step6": {
+      "kind": "result"
     }
   },
   "breath": {
@@ -157,12 +151,13 @@
   },
   "result": {
     "cardTitle": "結果",
-    "selectedTheme": "選択したテーマ",
+    "selectedProblem": "選択した悩み",
+    "selectedIdeal": "選択した理想",
     "currentState": "あなたが記入した今の状態",
-    "scoreSuffix": "についての幸せ度",
+    "idealState": "あなたが記入した幸せ100%の状態",
+    "scoreSuffix": "選択したテーマについての幸せ度",
     "before": "前",
     "after": "後",
-    "awareness": "あなたの気づき",
     "imageSave": "結果画像を保存",
     "shareStatusSaved": "結果画像を保存しました",
     "shareStatusFailed": "画像を保存できませんでした"
@@ -193,24 +188,12 @@
     "tryAgain": "もう一度",
     "choose": "選ぶ",
     "showMore": "さらに見る",
-    "anotherClearing": "もう一度クリアリング",
     "restartTheme": "このテーマを最初から",
     "chooseThemeAgain": "テーマを選び直す",
-    "noMoreAnswer": "もう出てこない",
     "cannotQuantify": "数値化不可"
   },
   "buttonsHint": {
     "cannotQuantify": "問題に値しない"
-  },
-  "loops": {
-    "anotherClearingDescription": "あなたが記入した今の状態について、もう一度クリアリング。",
-    "anotherClearingReturn": "step5",
-    "anotherClearingBefore": "直近のStep8の値をBeforeとして使用",
-    "restartThemeDescription": "あなたが選択、または記入したテーマについて、最初から行う。",
-    "restartThemeReturn": "step2",
-    "chooseThemeAgainDescription": "テーマを選び直す。",
-    "chooseThemeAgainReturn": "step0",
-    "finalClearingCondition": "Step3に回答が出なくなった最後だけ計測する。"
   },
   "pricing": {
     "title": "Pro",

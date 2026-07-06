@@ -76,6 +76,14 @@
     "freeInputPlaceholder": "自由輸入",
     "freeInputStart": "用這個主題開始"
   },
+  "theme": {
+    "freeInputCategory": "自由輸入",
+    "freeInputPlaceholder": "自由輸入內容",
+    "confirm": "確定",
+    "problemFreeInput": "自由輸入",
+    "idealFreeInput": "自由輸入",
+    "showMore": "顯示更多"
+  },
   "flow": {
     "step0": {
       "title": "選擇主題"
@@ -89,56 +97,42 @@
     },
     "step2": {
       "quoteSource": "theme",
-      "lead": "關於這個",
-      "main": "感受幸福度100%的狀態。",
-      "helper": "有個大概的感覺就可以。\n幾秒鐘就好。"
+      "problems": {
+        "prompt": "面對這件事，\n幸福感達到 100% 時，\n會是什麼狀態？",
+        "placeholder": "寫在這裡",
+        "responseTarget": "idealStateText"
+      },
+      "ideals": {
+        "prompt": "面對這件事，\n你現在是什麼狀態？",
+        "placeholder": "寫在這裡",
+        "responseTarget": "currentStateText"
+      }
     },
     "step3": {
-      "quoteSource": "theme",
-      "lead": "關於這個，",
-      "main": "用語言表達現在的狀態。",
-      "helper": "能寫多少就寫多少。",
-      "placeholder": "寫在這裡"
+      "quoteSource": "step2Text",
+      "problems": {
+        "prompt": "相對於這個狀態，\n你現在是什麼狀態？",
+        "placeholder": "寫在這裡",
+        "responseTarget": "currentStateText"
+      },
+      "ideals": {
+        "prompt": "相對於這個狀態，\n幸福感達到 100% 時，\n會是什麼狀態？",
+        "placeholder": "寫在這裡",
+        "responseTarget": "idealStateText"
+      }
     },
     "step4": {
-      "kind": "measurement",
-      "label": "測量",
-      "quoteSource": "currentStateText",
-      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
-      "rangeLabel": "0〜100"
-    },
-    "step5": {
-      "quoteSource": "currentStateText",
-      "lead": "關於這個",
-      "main": "感受幸福度100%的狀態。",
-      "helper": "有個大概的感覺就可以。\n幾秒鐘就好。"
-    },
-    "step6": {
-      "quoteSource": "currentStateText",
-      "lead": "對於這個，",
-      "main": "幸福度100%的我\n是什麼狀態？",
-      "helper": "能寫多少就寫多少。",
-      "placeholder": "寫在這裡"
-    },
-    "step7": {
       "kind": "breath"
     },
-    "step8": {
+    "step5": {
       "kind": "measurement",
-      "label": "測量",
-      "quoteSource": "currentStateText",
-      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
-      "rangeLabel": "0〜100"
-    },
-    "step9": {
-      "kind": "result"
-    },
-    "finalTheme": {
-      "kind": "measurement",
-      "label": "最後測量",
+      "label": "再次測量",
       "quoteSource": "theme",
       "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
       "rangeLabel": "0〜100"
+    },
+    "step6": {
+      "kind": "result"
     }
   },
   "breath": {
@@ -157,12 +151,13 @@
   },
   "result": {
     "cardTitle": "結果",
-    "selectedTheme": "選擇的主題",
-    "currentState": "你寫下的現在狀態",
-    "scoreSuffix": "的幸福度",
+    "selectedProblem": "你選擇的煩惱",
+    "selectedIdeal": "你選擇的理想",
+    "currentState": "你寫下的目前狀態",
+    "idealState": "你寫下的幸福感達到 100% 時的狀態",
+    "scoreSuffix": "所選主題的幸福度",
     "before": "前",
     "after": "後",
-    "awareness": "你的覺察",
     "imageSave": "儲存結果圖片",
     "shareStatusSaved": "結果圖片已儲存",
     "shareStatusFailed": "無法儲存圖片"
@@ -193,24 +188,12 @@
     "tryAgain": "再試一次",
     "choose": "選擇",
     "showMore": "顯示更多",
-    "anotherClearing": "再清理一次",
     "restartTheme": "從這個主題重新開始",
     "chooseThemeAgain": "重新選擇主題",
-    "noMoreAnswer": "沒有更多答案",
     "cannotQuantify": "無法量化"
   },
   "buttonsHint": {
     "cannotQuantify": "已經不值得當成問題"
-  },
-  "loops": {
-    "anotherClearingDescription": "針對你寫下的現在狀態，再清理一次。",
-    "anotherClearingReturn": "step5",
-    "anotherClearingBefore": "使用最近一次 Step8 的數值作為新的 Before。",
-    "restartThemeDescription": "針對你選擇或輸入的主題，從頭開始。",
-    "restartThemeReturn": "step2",
-    "chooseThemeAgainDescription": "重新選擇主題。",
-    "chooseThemeAgainReturn": "step0",
-    "finalClearingCondition": "只有在 Step3 不再出現回答時，才進行最後測量。"
   },
   "pricing": {
     "title": "Pro",

@@ -1,55 +1,64 @@
 {
-  "version": "4.0",
+  "version": "5.0",
   "appVersion": "v17",
   "localeSource": "locales/{locale}.json",
   "themeSource": "v17/data/theme-library-{locale}.json",
+  "routeSource": "themeTrackId",
+  "routes": [
+    "problems",
+    "ideals"
+  ],
+  "themeSelection": {
+    "categoriesSource": "themeSource",
+    "libraryCategoryCount": 8,
+    "appendFreeInputCategory": true,
+    "tracks": [
+      "problems",
+      "ideals"
+    ],
+    "trackFreeInput": true,
+    "themePageSize": 4,
+    "freeInputCategoryUsesLibraryThemes": false
+  },
   "sequence": [
     {
       "id": "step0",
       "screen": "themeSelection",
-      "quoteSource": null,
+      "routeValues": {
+        "problems": "problems",
+        "ideals": "ideals"
+      },
       "skippable": true
     },
     {
       "id": "step1",
       "screen": "initialThemeMeasurement",
       "quoteSource": "theme",
+      "responseTarget": "initialThemeScore",
       "skippable": true
     },
     {
       "id": "step2",
-      "screen": "feelHundredTheme",
+      "screen": "firstResponseInput",
       "quoteSource": "theme",
+      "responseTargetByRoute": {
+        "problems": "idealStateText",
+        "ideals": "currentStateText"
+      },
       "skippable": true
     },
     {
       "id": "step3",
-      "screen": "currentStateInput",
-      "quoteSource": "theme",
-      "responseTarget": "currentStateText",
+      "screen": "secondResponseInput",
+      "quoteSource": "step2Text",
+      "responseTargetByRoute": {
+        "problems": "currentStateText",
+        "ideals": "idealStateText"
+      },
       "skippable": true
     },
     {
       "id": "step4",
-      "screen": "currentStateMeasurement",
-      "quoteSource": "currentStateText",
-      "skippable": true
-    },
-    {
-      "id": "step5",
-      "screen": "feelHundredCurrentState",
-      "quoteSource": "currentStateText",
-      "skippable": true
-    },
-    {
-      "id": "step6",
-      "screen": "idealStateInput",
-      "quoteSource": "currentStateText",
-      "responseTarget": "idealStateText",
-      "skippable": true
-    },
-    {
-      "id": "step7",
       "screen": "breath",
       "phases": [
         "first",
@@ -58,43 +67,37 @@
       "skippable": true
     },
     {
-      "id": "step8",
-      "screen": "currentStateAfterMeasurement",
-      "quoteSource": "currentStateText",
+      "id": "step5",
+      "screen": "themeRemeasurement",
+      "quoteSource": "theme",
+      "responseTarget": "finalThemeScore",
       "skippable": true
     },
     {
-      "id": "step9",
+      "id": "step6",
       "screen": "result",
       "skippable": true
     }
   ],
-  "finalThemeMeasurement": {
-    "screen": "finalThemeMeasurement",
-    "quoteSource": "theme",
-    "condition": "noCurrentStateTextAnswer",
-    "skippable": true
-  },
   "resultFields": [
     "theme",
+    "themeTrackId",
     "currentStateText",
-    "currentStateBeforeScore",
-    "currentStateAfterScore",
-    "idealStateText"
+    "idealStateText",
+    "initialThemeScore",
+    "finalThemeScore"
   ],
-  "loops": {
-    "anotherClearing": {
-      "returnTo": "step5",
-      "beforeScoreSource": "latestStep8",
-      "preserve": [
-        "theme",
-        "currentStateText"
-      ]
+  "resultActions": {
+    "bookmark": {
+      "preserveSession": true
     },
     "restartTheme": {
-      "returnTo": "step2",
+      "returnTo": "step1",
       "preserve": [
-        "theme"
+        "theme",
+        "themeId",
+        "themeCategoryId",
+        "themeTrackId"
       ]
     },
     "chooseThemeAgain": {
