@@ -18,51 +18,70 @@
   "lp": {
     "logo": "Noetune",
     "hero": {
-      "title": "人生との関係を、\n少し軽くする。",
-      "body": "Noetuneは、\n問題を解決するアプリではありません。\n\n客観的に、\nあなたがあなた自身にアクセスし、\n視点が変わり、\n軽くなるための場所です。",
-      "cta": "旅を始める"
+      "title": "Noetuneは、\n自分の反応を見つめ、\n少しずつ軽くなるための場所です。",
+      "body": "問いに沿って書き、感じ、呼吸し、\nその前後の変化を確かめます。",
+      "cta": "静かにはじめる",
+      "note": "無料で、最後まで使えます。"
     },
-    "not": {
-      "title": "これは、そういうアプリではありません。",
-      "lines": [
-        "問題を解決するアプリでは、ありません。",
-        "AIが答えを教えるアプリでも、ありません。",
-        "毎日記録して、分析されるアプリでも、ありません。"
-      ]
-    },
-    "core": {
-      "title": "人生との関係を、少しずつ軽くしていく。",
-      "body": "ゴールは、問題を消すことではありません。\n気づけば「何が問題だったのだろう」と思っている。\nそこへ、自然に近づいていくためのプロダクトです。"
-    },
-    "entryPreview": {
-      "title": "今、どちらに近いですか。",
-      "fromConcern": "今気になっていることから",
-      "fromIdeal": "今感じたい状態から"
-    },
-    "experience": {
-      "title": "書く。感じる。呼吸する。",
-      "lines": [
-        "今の状態を書く。",
-        "幸せ100%を少し感じる。",
-        "呼吸する。",
-        "変化を見る。"
-      ]
-    },
-    "resultPreview": {
-      "title": "出てくるのは、あなたの言葉だけ。",
-      "body": "テーマ。\n今の状態。\n変化。\n気づき。\n\n私たちは、あなたの代わりに解釈しません。"
-    },
-    "free": {
-      "title": "一回の旅は、無料で最後まで。",
-      "body": "セッションそのものを制限しません。\n必要なときに、必要なだけ始められます。"
-    },
-    "bookmark": {
-      "title": "今日の旅を、しおりに。",
-      "body": "今日の気づきを、未来のあなたへ残す。\nそこからまた、続きを始める。"
-    },
+    "sections": [
+      {
+        "title": "人生のさまざまなテーマとの関係に、\n少しずつ余裕が生まれ、広がる。",
+        "bodyGroups": [
+          "頭の中にある見えない反応を、\n一歩引いた場所から見つめます。",
+          "Noetuneは、\n問題の答えを教えたり、\nあなたを分析したりするアプリではありません。",
+          "あなた自身が書き、感じ、呼吸する。\n\nそして、\n自分の内側で起きた変化に、\n自分で気づくための場所です。"
+        ]
+      },
+      {
+        "title": "一回のセッションで得られる変化",
+        "bodyGroups": [],
+        "items": [
+          "言葉にならないモヤモヤが言葉になる",
+          "その奥にある反応に気づく",
+          "それをどう扱うか、自分で選べるようになる",
+          "感情との間に距離が生まれる",
+          "テーマを別の視点から見られる",
+          "内側の変化をBefore / Afterで確認する"
+        ]
+      },
+      {
+        "title": "セッションを繰り返すことで得られる変化",
+        "bodyGroups": [
+          "強く反応するテーマも、\n何度か向き合うことで、\n少しずつ関係の変化が見えてきます。"
+        ],
+        "items": [
+          "同じ出来事への反応が変わり始める",
+          "なぜ強く反応していたのかに気づき始める",
+          "反応の背景にあったものを自分で理解していく",
+          "テーマを思い浮かべたときの重さや空気感が変わる",
+          "「何も変わっていない」という感覚の外に出ている自分に気づく"
+        ]
+      },
+      {
+        "title": "",
+        "bodyGroups": [
+          "一回ごとのセッションは、\n無料で何度でも。"
+        ],
+        "cta": "FreeとProの違いを見る",
+        "ctaAction": "pricing"
+      }
+    ],
     "finalCta": {
-      "title": "今、1分だけ。",
-      "cta": "旅を始める"
+      "title": "いま、少し気になることから。",
+      "cta": "静かにはじめる"
+    },
+    "homeScreen": {
+      "title": "スマホのホーム画面に追加",
+      "body": "アプリのように、繰り返しいつでも使えます。",
+      "cta": "スマホのホーム画面に追加",
+      "modalTitle": "ホーム画面に追加する",
+      "iphoneTitle": "iPhone / iPadの場合",
+      "iphoneBody": "Safariで開き、共有ボタンを押して、「ホーム画面に追加」を選んでください。",
+      "androidTitle": "Androidの場合",
+      "androidBody": "Chromeのメニューを開き、「ホーム画面に追加」を選んでください。",
+      "desktopTitle": "PCの場合",
+      "desktopBody": "スマホで開くと、ホーム画面に追加できます。",
+      "close": "閉じる"
     }
   },
   "entry": {
@@ -78,7 +97,12 @@
   },
   "theme": {
     "freeInputCategory": "自由入力",
+    "categoryGuide": "「{theme}」について、\n悩み・理想の\nどちらから始めますか。",
+    "problemGuide": "「{theme}」について、\n悩み・問題を書く。",
+    "idealGuide": "「{theme}」について、\n理想状態を書く。",
     "freeInputPlaceholder": "自由に入力",
+    "problemFreeInputPlaceholder": "「{theme}」について、\n悩み・問題を書く。\n\nまたは、\n下のリストから選ぶ。",
+    "idealFreeInputPlaceholder": "「{theme}」について、\n理想状態を書く。\n\nまたは、\n下のリストから選ぶ。",
     "confirm": "確定",
     "problemFreeInput": "自由入力",
     "idealFreeInput": "自由入力",
@@ -151,6 +175,13 @@
   },
   "result": {
     "cardTitle": "結果",
+    "themeLabel": "テーマ",
+    "subthemeLabel": "サブテーマ",
+    "happinessLabel": "幸福度",
+    "awarenessTitle": "気づいたこと",
+    "showMoreAwareness": "もっと見る",
+    "showRecentAwareness": "一部だけ見る",
+    "site": "noetune.com",
     "selectedProblem": "選択した悩み",
     "selectedIdeal": "選択した理想",
     "currentState": "あなたが記入した今の状態",
@@ -158,9 +189,17 @@
     "scoreSuffix": "選択したテーマについての幸せ度",
     "before": "前",
     "after": "後",
+    "showAllScores": "すべて見る",
+    "showRecentScores": "直近5件に戻す",
     "imageSave": "結果画像を保存",
     "shareStatusSaved": "結果画像を保存しました",
-    "shareStatusFailed": "画像を保存できませんでした"
+    "shareStatusFailed": "画像を保存できませんでした",
+    "actions": {
+      "bookmark": "しおりを挟む",
+      "restartSubtheme": "このサブテーマを最初から",
+      "restartTheme": "このテーマを最初から",
+      "chooseAnotherTheme": "別のテーマを選び直す"
+    }
   },
   "bookmark": {
     "primaryCta": "しおりに挟む",
@@ -196,10 +235,118 @@
     "cannotQuantify": "問題に値しない"
   },
   "pricing": {
-    "title": "Pro",
-    "lead": "旅を続けるための、しおり。",
-    "body": "Proは、機能を解放するためではありません。\n今日の旅を残し、そこから続きを始めるためのものです。",
-    "cta": "しおりを保存する"
+    "eyebrow": "Free / Pro",
+    "title": "どちらを選んでも、\n今日のJourneyは最後まで。",
+    "lead": "Freeでも、Noetuneのセッション体験は完全です。\n\nProは、大切なJourneyを\n時間をまたいで続けるためのプランです。",
+    "body": "Proは、機能を解放するためではありません。\n大切なJourneyを、時間をまたいで続けるためのものです。",
+    "cta": "Proを始める",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "tagline": "今日のJourneyを、最後まで。",
+        "price": "無料",
+        "priceNote": "",
+        "featuresLead": "含まれるもの",
+        "features": [
+          "完全なセッション",
+          "すべてのHuman Core Questions",
+          "自由入力",
+          "Before / After",
+          "呼吸",
+          "結果カード",
+          "結果画像の書き出し",
+          "セッション回数無制限",
+          "AI分析なし",
+          "広告なし"
+        ],
+        "cta": "無料で始める"
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "大切なJourneyを、続きから。",
+        "price": "準備中",
+        "priceNote": "準備ができたら、この画面から始められます。",
+        "featuresLead": "Freeのすべてに加えて",
+        "features": [
+          "Journeyを途中で一時停止",
+          "前回離れた位置から再開",
+          "複数のActive Journeys",
+          "大切なテーマを時間をまたいで継続"
+        ],
+        "cta": "Proを始める",
+        "ctaGuest": "ログインしてProを始める",
+        "ctaFree": "Proを始める",
+        "ctaPro": "プランを管理"
+      }
+    },
+    "comparison": {
+      "title": "FreeとProの違い",
+      "items": [
+        {
+          "id": "completeSession",
+          "label": "完全なセッション",
+          "free": "○",
+          "pro": "○"
+        },
+        {
+          "id": "unlimitedSessions",
+          "label": "セッション回数",
+          "free": "無制限",
+          "pro": "無制限"
+        },
+        {
+          "id": "allQuestions",
+          "label": "Human Core Questions",
+          "free": "すべて",
+          "pro": "すべて"
+        },
+        {
+          "id": "pauseJourney",
+          "label": "Journeyを途中で一時停止",
+          "free": "—",
+          "pro": "○"
+        },
+        {
+          "id": "resumeJourney",
+          "label": "続きから再開",
+          "free": "—",
+          "pro": "○"
+        },
+        {
+          "id": "activeJourneys",
+          "label": "Active Journeys",
+          "free": "—",
+          "pro": "複数"
+        },
+        {
+          "id": "aiAnalysis",
+          "label": "AIによる分析",
+          "free": "なし",
+          "pro": "なし"
+        },
+        {
+          "id": "ads",
+          "label": "広告",
+          "free": "なし",
+          "pro": "なし"
+        }
+      ]
+    },
+    "meaning": {
+      "title": "Proは、保存のためではありません。",
+      "body": "一回のセッションは、\nその日のJourneyを最後まで進めます。\n\nけれど、ひとつのテーマとの関係は、\n一日で終わらないことがあります。\n\nProは、大切なJourneyを一度閉じ、\nまた同じ場所から続けるためにあります。"
+    },
+    "footer": {
+      "body": "まずはFreeで、\n完全なセッションを体験できます。",
+      "cta": "今のテーマで始める"
+    },
+    "legal": {
+      "cancelAnytime": "Proはいつでも管理できます。"
+    },
+    "pauseJourney": {
+      "title": "このJourneyを、あとで続ける。",
+      "body": "Proでは、ここから再開できます。"
+    }
   },
   "errors": {
     "loadFailed": "読み込めませんでした。",

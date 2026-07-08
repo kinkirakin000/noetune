@@ -4,9 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Noetune">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#FAFAF7">
+<meta name="theme-color" content="#F7F5EF">
 <meta name="theme-color" content="#151412" media="(prefers-color-scheme:dark)">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="icon" href="./icons/noetune-icon-192.png" type="image/png">
 <title></title>
 <meta name="description" content="Remember your natural self through real-life experiences.">
 <meta property="og:title" content="Noetune">
@@ -23,9 +28,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
+:root{--header-safe-height:8.5rem}
 body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;background:#FAFAF7;color:#1A1A1A}
-.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3.5rem 1.8rem 2.5rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.screen-scroll{justify-content:flex-start;align-items:center;overflow-y:auto;padding-top:calc(4.8rem + env(safe-area-inset-top));padding-bottom:calc(5.5rem + env(safe-area-inset-bottom))}
+.screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.8rem 2.5rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.screen-scroll{justify-content:flex-start;align-items:center;overflow-y:auto;padding-top:calc(var(--header-safe-height) + env(safe-area-inset-top));padding-bottom:calc(5.5rem + env(safe-area-inset-bottom))}
 .screen-scroll>*{flex-shrink:0}
 .screen.active{opacity:1;transform:translateY(0);pointer-events:all}
 .screen.exit{opacity:0;transform:translateY(-12px)}
@@ -112,6 +118,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-breath-lead{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;color:#A8A8A2;letter-spacing:.1em;margin-bottom:1.4rem}
 .v17-breath-body{font-family:'Noto Serif JP',serif;font-size:clamp(1.25rem,5vw,1.55rem);font-weight:400;color:#1A1A1A;line-height:1.8;letter-spacing:.035em;text-align:center;white-space:pre-line;margin-bottom:1.8rem;text-wrap:balance}
 .v17-breath-hint{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;color:#A8A8A2;letter-spacing:.06em;margin-bottom:1.5rem}
+.v17-support-primary{font-size:.92rem;line-height:1.85;letter-spacing:.035em}
 .v17-writing{font-family:'Noto Serif JP',serif;font-size:.94rem;font-weight:300;line-height:1.8;width:100%;max-width:330px;min-height:132px;padding:1rem 1.1rem;border:1px solid rgba(108,181,179,.24);border-radius:18px;background:rgba(255,255,255,.23);color:#1A1A1A;outline:none;resize:vertical;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 10px 25px rgba(75,112,124,.045)}
 .v17-writing:focus{border-color:rgba(83,191,186,.6);box-shadow:inset 0 1px 0 rgba(255,255,255,.64),0 0 0 3px rgba(108,211,205,.065),0 10px 28px rgba(75,142,148,.08)}
 .v17-writing::placeholder{color:#AAA69F}
@@ -120,12 +127,29 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-result-row:last-child{border-bottom:none}
 .v17-result-label{font-family:'Noto Serif JP',serif;font-size:.7rem;color:#77736E;letter-spacing:.12em}
 .v17-result-value{font-family:'Noto Serif JP',serif;font-size:1.05rem;color:#6B9080;font-weight:600}
-.v17-result-happiness-label{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;line-height:1.8;letter-spacing:.04em;margin:1.1rem 0 .8rem;text-align:center}
-.v17-result-score-flow{display:flex;flex-direction:column;align-items:center;gap:.25rem;padding:.3rem 0 1rem}
+.v17-result-brand{font-family:'Noto Serif JP',serif;font-size:.88rem;font-weight:500;letter-spacing:.08em;color:#1A1A1A;text-align:center;margin-bottom:1.1rem}
+.v17-result-happiness-label{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;line-height:1.8;letter-spacing:.04em;margin:1.1rem 0 .55rem;text-align:left}
+.v17-result-score-flow{display:flex;flex-direction:column;align-items:flex-start;gap:.25rem;padding:.2rem 0 .2rem;max-width:100%}
+.v17-result-score-pair{display:flex;flex-direction:column;align-items:center;gap:.25rem}
 .v17-result-score-point{display:flex;align-items:baseline;justify-content:center;gap:1.2rem;min-width:150px}
 .v17-result-score-point span{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.14em}
 .v17-result-score-point strong{font-family:'Noto Serif JP',serif;font-size:1.55rem;color:#6B9080;font-weight:500}
 .v17-result-score-arrow{font-size:.8rem;color:#B8B8B0;line-height:1.2}
+.v17-result-score-trail{display:flex;align-items:center;justify-content:flex-start;gap:.65rem;max-width:100%;padding:.1rem 0 .35rem;flex-wrap:wrap;overflow:visible;scrollbar-width:none}
+.v17-result-score-trail::-webkit-scrollbar{display:none}
+.v17-result-score-trail[hidden],.v17-result-score-pair[hidden]{display:none}
+.v17-result-score-item{display:inline-flex;align-items:center;gap:.65rem;flex:0 0 auto;font-family:'Noto Serif JP',serif;font-size:1.45rem;color:#6B9080;font-weight:500;line-height:1.4}
+.v17-result-score-item:not(:last-child)::after{content:'→';font-size:.9rem;color:#B8B8B0;font-weight:300}
+.v17-result-score-toggle{align-self:center;background:transparent;border:none;padding:0;margin:.05rem 0 0;font-family:'Noto Serif JP',serif;font-size:.68rem;letter-spacing:.08em;color:#8F8F88;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s;text-align:center}
+.v17-result-score-toggle:active{color:#6B9080}
+.v17-result-score-toggle[hidden]{display:none}
+.v17-result-divider{height:1px;background:#EDEDE7;margin:1.1rem 0 .95rem}
+.v17-result-awareness-list{display:flex;flex-direction:column;gap:.42rem;padding:.08rem 0 0}
+.v17-result-awareness-item{font-family:'Noto Serif JP',serif;font-size:.73rem;line-height:1.48;color:#1A1A1A;letter-spacing:.02em;white-space:pre-line;overflow-wrap:anywhere;word-break:break-word}
+.v17-result-awareness-toggle{align-self:flex-start;background:transparent;border:none;padding:0;margin:.7rem 0 0;font-family:'Noto Serif JP',serif;font-size:.68rem;letter-spacing:.08em;color:#8F8F88;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s}
+.v17-result-awareness-toggle:active{color:#6B9080}
+.v17-result-awareness-toggle[hidden]{display:none}
+.v17-result-site{font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.12em;color:#8F8F88;text-align:center;padding-top:.1rem}
 .v17-result-actions{width:100%;max-width:320px;display:flex;flex-direction:column;gap:.65rem;margin-top:1.3rem;padding-bottom:2rem}
 .v17-result-action{width:100%;min-height:48px;border:1px solid rgba(107,144,128,.22);border-radius:16px;background:rgba(255,255,255,.18);color:#4F5E59;font-family:'Noto Serif JP',serif;font-size:.78rem;letter-spacing:.05em;cursor:pointer}
 .v17-result-action.primary{background:#6B9080;color:#fff;border-color:#6B9080}
@@ -270,31 +294,41 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .hcq-empty{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#8F8F88;line-height:1.8;text-align:center;padding:1rem 0}
 .hcq-status{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#8F8F88;line-height:1.8;text-align:center;padding:1.1rem 0}
 .v17-entry-shell{width:100%;max-width:360px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:3rem}
-.v17-entry-heading{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;line-height:1.9;letter-spacing:.06em;text-align:center;color:#1A1A1A;margin-bottom:1rem}
-.v17-entry-shell .v17-writing{width:100%;max-width:none;text-align:left;margin-bottom:1rem}
-.v17-entry-shell>.btn{align-self:center;margin-top:0}
-.v17-entry-divider{display:flex;align-items:center;gap:1rem;margin:2.5rem 0 1.8rem;color:#A8A8A2;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.12em}
-.v17-entry-divider::before,.v17-entry-divider::after{content:'';height:1px;background:#E5E5DF;flex:1}
 .v17-category-intro{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:1.9;letter-spacing:.04em;text-align:center;color:#77736E;margin-bottom:1rem}
 .v17-theme-accordion{width:100%;border-bottom:1px solid #E8E8E2}
 .v17-category{border-top:1px solid #E8E8E2}
 .v17-category-button,.v17-track-button{width:100%;border:0;background:transparent;color:#1A1A1A;font-family:'Noto Serif JP',serif;cursor:pointer;display:flex;align-items:center;justify-content:space-between;text-align:left;-webkit-tap-highlight-color:transparent}
 .v17-category-button{padding:1rem .15rem;font-size:.9rem;letter-spacing:.1em}
 .v17-track-button{padding:.85rem .4rem;font-size:.78rem;letter-spacing:.08em;color:#666660}
+.v17-category-guide,.v17-track-guide{font-family:'Noto Serif JP',serif;font-weight:300;letter-spacing:.04em;line-height:1.55;white-space:pre-line;color:#A8A8A2}
+.v17-category-guide{font-size:.72rem;margin:.15rem .15rem .55rem}
+.v17-track-guide{font-size:.66rem;margin:.25rem .4rem .55rem}
 .v17-accordion-mark{font-size:.85rem;color:#A8A8A2;font-weight:300}
 .v17-category-body,.v17-track-body{display:none}
 .v17-category.open>.v17-category-body,.v17-track.open>.v17-track-body{display:block}
 .v17-category-body{padding:0 .2rem .8rem}
 .v17-track{border-top:1px solid rgba(232,232,226,.72)}
+.v17-track-free{padding:.1rem .35rem .75rem}
+.v17-track-free-form{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.55rem;margin-top:.35rem;align-items:start}
+.v17-inline-textarea{min-width:0;width:100%;min-height:8rem;padding:.95rem .9rem;border:1px solid rgba(107,144,128,.25);border-radius:14px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:1.55;letter-spacing:.03em;outline:none;resize:vertical;-webkit-appearance:none;white-space:pre-wrap;overflow:hidden;box-sizing:border-box}
+.v17-inline-textarea:focus{border-color:rgba(83,191,186,.6);box-shadow:0 0 0 3px rgba(108,211,205,.065)}
+.v17-inline-textarea::placeholder{color:#AAA69F;white-space:pre-line}
+.v17-inline-input{min-width:0;width:100%;height:44px;padding:.7rem .85rem;border:1px solid rgba(107,144,128,.25);border-radius:14px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;letter-spacing:.03em;outline:none;-webkit-appearance:none}
+.v17-inline-input:focus{border-color:rgba(83,191,186,.6);box-shadow:0 0 0 3px rgba(108,205,205,.065)}
+.v17-inline-input::placeholder{color:#AAA69F}
+.v17-inline-confirm{min-width:66px;height:44px;padding:0 .9rem;border:1px solid #6B9080;border-radius:14px;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.72rem;letter-spacing:.06em;cursor:pointer}
+.v17-inline-confirm:disabled{opacity:.32;cursor:default}
+.v17-custom-category-setup{padding:.35rem .4rem 1rem}
+.v17-custom-category-setup .v17-track-free-form{display:grid;margin-top:0}
 .v17-theme-list{display:flex;flex-direction:column;gap:.5rem;padding:.1rem .35rem .9rem}
 .v17-library-theme{width:100%;border:1px solid rgba(107,144,128,.25);border-radius:16px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:1.7;letter-spacing:.03em;padding:.8rem .9rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .v17-library-theme:active{border-color:#6B9080;background:rgba(107,144,128,.09)}
 .v17-theme-more{margin:0;padding:.75rem 0 1rem;font-size:.7rem}
 .v17-result-copy{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:1.9;color:#1A1A1A;letter-spacing:.03em;white-space:pre-line}
-.lp-hero-title,.lp-hero-sub,.screen-title,.measure-problem,.breath-main,.v17-entry-heading,.v17-theme-quote,.v17-step-copy,.v17-step-helper,.v17-breath-body,.v17-breath-hint{line-break:strict;text-wrap:balance}
+.lp-hero-title,.lp-hero-sub,.screen-title,.measure-problem,.breath-main,.v17-theme-quote,.v17-step-copy,.v17-step-helper,.v17-breath-body,.v17-breath-hint{line-break:strict;text-wrap:balance}
 .v17-library-theme,.v17-result-theme,.v17-result-copy{line-break:strict;text-wrap:pretty;overflow-wrap:anywhere}
 .btn,.btn-ghost,.btn-lp-start,.btn-see-more,.v17-result-action{line-height:1.55;text-wrap:balance;white-space:normal}
-#s-nega{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-nega{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.8rem 5rem}
 #s-nega-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:2rem}
 #s-nega-inner>*{flex-shrink:0}
 #s-nega-top{margin-bottom:1.4rem;text-align:center}
@@ -314,6 +348,16 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .auth-box-btn:disabled{opacity:.35;cursor:default}
 .auth-box-msg{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#6B9080;letter-spacing:.05em;line-height:1.9;margin-top:1rem;white-space:pre-line;min-height:1.2em}
 .auth-box-close{position:absolute;top:.7rem;right:.9rem;background:none;border:none;color:#C0C0BA;font-size:1rem;cursor:pointer;line-height:1;padding:4px 6px}
+#home-screen-modal{position:fixed;inset:0;background:rgba(26,26,26,.5);z-index:9100;display:none;align-items:center;justify-content:center;padding:1.4rem}
+#home-screen-modal.open{display:flex}
+.home-screen-box{width:min(360px,92vw);background:#FAFAF7;border-radius:18px;padding:1.8rem 1.45rem 1.4rem;box-shadow:0 18px 44px rgba(0,0,0,.14);position:relative;text-align:left}
+.home-screen-box-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:500;letter-spacing:.08em;color:#1A1A1A;margin-bottom:1rem;text-align:center}
+.home-screen-box-body{display:flex;flex-direction:column;gap:.95rem;font-family:'Noto Serif JP',serif;font-size:.76rem;line-height:1.9;letter-spacing:.04em;color:#6F6F68;white-space:pre-line}
+.home-screen-box-group{display:flex;flex-direction:column;gap:.25rem}
+.home-screen-box-group-title{font-size:.68rem;letter-spacing:.12em;color:#A8A8A2;text-transform:uppercase}
+.home-screen-box-group-text{white-space:pre-line}
+.home-screen-box-close{display:block;width:100%;margin-top:1.25rem;border:1px solid rgba(107,144,128,.2);border-radius:999px;background:rgba(255,255,255,.08);color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.74rem;letter-spacing:.08em;padding:11px 16px;cursor:pointer}
+.home-screen-box-close:active{background:rgba(107,144,128,.08)}
 #s-entry-inner,#s-v17-entry-choice-inner{width:100%;max-width:300px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch}
 .entry-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.1em;color:#A8A8A2;text-align:center;margin-bottom:2rem}
 .entry-choice{display:flex;flex-direction:column;align-items:stretch;margin-bottom:1.2rem}
@@ -321,31 +365,48 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .entry-choice-btn:active{transform:scale(.98);opacity:.85}
 .entry-choice-btn.disabled{background:#EDEDE7;color:#C0C0BA;cursor:default}
 .entry-choice-desc{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.05em;line-height:1.9;margin-top:.6rem;white-space:pre-line;padding:0 2px}
-#s-about{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
-#s-pricing{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
-.pricing-inner{max-width:320px}
-.pricing-lead{text-align:center}
-.pricing-plan-card{width:100%;box-sizing:border-box;border:1px solid #E8E8E2;border-radius:14px;padding:1rem 1.1rem;margin:1rem 0;background:rgba(255,255,255,.28)}
-.pricing-plan-label{font-family:'Noto Serif JP',serif;font-size:.68rem;color:#A8A8A2;letter-spacing:.14em;margin-bottom:.45rem}
-.pricing-plan-title{font-family:'Noto Serif JP',serif;font-size:.88rem;color:#1A1A1A;letter-spacing:.04em;line-height:1.8;margin-bottom:.4rem}
-.pricing-plan-description{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#77736E;letter-spacing:.04em;line-height:1.9;white-space:pre-line}
-.pricing-feature-list{list-style:none;margin:.55rem 0 0;padding:0}
-.pricing-feature-list li{font-family:'Noto Serif JP',serif;font-size:.76rem;color:#77736E;letter-spacing:.04em;line-height:1.9}
-.pricing-feature-list li::before{content:'・'}
-.pricing-cta{margin-top:2rem;margin-bottom:0}
-.pricing-soon{color:#A8A8A2;font-size:.8rem;letter-spacing:.06em;text-align:center;margin-top:1.6rem;font-family:'Noto Serif JP',serif}
-.pricing-price{font-family:'Noto Serif JP',serif;font-size:1.3rem;font-weight:500;letter-spacing:.06em;color:#1A1A1A;text-align:center;margin:1.6rem 0 .4rem}
-.pricing-note{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#A8A8A2;letter-spacing:.06em;line-height:1.9;text-align:center;margin-top:1.2rem;white-space:pre-line}
+#s-about{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 2rem 5rem}
+#s-pricing{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 2rem 5rem}
+#pricing-root{width:100%;max-width:400px;margin:0 auto;padding:0 0 calc(3.5rem + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:stretch}
+.pricing-page{display:flex;flex-direction:column;gap:3.6rem}
+.pricing-eyebrow{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:400;letter-spacing:.16em;color:#A8A8A2;text-transform:uppercase;text-align:center;margin-bottom:.9rem}
+.pricing-title{font-family:'Noto Serif JP',serif;font-size:1.08rem;font-weight:400;line-height:1.9;letter-spacing:.06em;color:#1A1A1A;text-align:center;white-space:pre-line;margin-bottom:1.05rem}
+.pricing-lead{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:1.95;letter-spacing:.04em;color:#77736E;text-align:center;white-space:pre-line}
+.pricing-plans{display:flex;flex-direction:column;gap:1rem}
+.pricing-plan-card{width:100%;box-sizing:border-box;border:1px solid rgba(107,144,128,.18);border-radius:16px;padding:1.35rem 1.2rem;background:rgba(255,255,255,.24)}
+.pricing-plan-card[data-plan="pro"]{background:rgba(255,255,255,.18)}
+.pricing-plan-name{font-family:'Noto Serif JP',serif;font-size:.96rem;font-weight:500;letter-spacing:.08em;color:#1A1A1A;margin-bottom:.35rem}
+.pricing-plan-tagline{font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:300;line-height:1.85;letter-spacing:.04em;color:#77736E;white-space:pre-line;margin-bottom:1rem}
+.pricing-price{font-family:'Noto Serif JP',serif;font-size:1.05rem;font-weight:400;line-height:1.5;letter-spacing:.06em;color:#1A1A1A;margin-bottom:.25rem;text-align:left}
+.pricing-price-note{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;line-height:1.75;letter-spacing:.04em;color:#A8A8A2;white-space:pre-line;margin-bottom:1rem}
+.pricing-features-lead{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:400;letter-spacing:.1em;color:#8F8F88;margin:1rem 0 .55rem}
+.pricing-feature-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.38rem}
+.pricing-feature-list li{font-family:'Noto Serif JP',serif;font-size:.75rem;font-weight:300;line-height:1.65;letter-spacing:.03em;color:#555550;position:relative;padding-left:1rem}
+.pricing-feature-list li::before{content:'・';position:absolute;left:0;color:#A8A8A2}
+.pricing-plan-card .btn{width:100%;margin-top:1.25rem}
+.pricing-soon{display:none;color:#A8A8A2;font-size:.72rem;letter-spacing:.04em;text-align:center;margin-top:.8rem;font-family:'Noto Serif JP',serif;line-height:1.8;white-space:pre-line}
+.pricing-section-title{font-family:'Noto Serif JP',serif;font-size:.94rem;font-weight:400;letter-spacing:.06em;line-height:1.8;color:#1A1A1A;text-align:center;margin-bottom:1.1rem;white-space:pre-line}
+.pricing-comparison-list{display:flex;flex-direction:column;gap:.7rem}
+.pricing-comparison-row{border-top:1px solid #E8E8E2;padding:1rem .1rem 0}
+.pricing-comparison-label{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:400;line-height:1.65;letter-spacing:.04em;color:#1A1A1A;margin-bottom:.65rem}
+.pricing-comparison-values{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}
+.pricing-comparison-value{border:1px solid rgba(107,144,128,.15);border-radius:12px;padding:.72rem .7rem;background:rgba(255,255,255,.15);min-width:0}
+.pricing-comparison-plan{display:block;font-family:'Noto Serif JP',serif;font-size:.64rem;font-weight:400;letter-spacing:.12em;color:#A8A8A2;margin-bottom:.25rem}
+.pricing-comparison-text{display:block;font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:1.55;letter-spacing:.03em;color:#555550;overflow-wrap:anywhere}
+.pricing-meaning-body,.pricing-footer-body{font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:2;letter-spacing:.04em;color:#77736E;text-align:center;white-space:pre-line}
+.pricing-footer{text-align:center}
+.pricing-footer .btn{margin-top:1.25rem}
+.pricing-legal{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;line-height:1.75;letter-spacing:.04em;color:#A8A8A2;text-align:center;white-space:pre-line;margin-top:1rem}
 .btn-pricing-return{font-family:'Noto Serif JP',serif;background:transparent;border:none;color:#8F8F88;font-size:.72rem;letter-spacing:.08em;cursor:pointer;margin-top:.6rem;padding:6px 0;-webkit-tap-highlight-color:transparent;transition:color .2s;display:block;width:100%;text-align:center}
 .btn-pricing-return:active{color:#6B9080}
 .pricing-return-wrap{margin-top:2rem;display:flex;flex-direction:column;align-items:center}
-#s-lock{display:block;overflow-y:auto;padding:4.5rem 2rem 5rem}
+#s-lock{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 2rem 5rem}
 .about-inner{width:100%;max-width:300px;margin:0 auto}
 .about-title{font-family:'Noto Serif JP',serif;font-size:.95rem;font-weight:500;letter-spacing:.08em;color:#1A1A1A;margin-bottom:2rem}
 .about-para{font-family:'Noto Serif JP',serif;font-size:.84rem;font-weight:300;color:#555550;letter-spacing:.04em;line-height:2.1;margin-bottom:1.5rem;white-space:pre-line}
 .about-safety{color:#77736E;font-size:.78rem;border-top:1px solid #EDEDE7;padding-top:1.2rem;margin-top:1.8rem}
-#s-ideal{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
-#s-ideal.ideal-reaction-mode{display:flex;align-items:center;justify-content:center;padding:3.5rem 1.8rem 2.5rem}
+#s-ideal{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.8rem 5rem}
+#s-ideal.ideal-reaction-mode{display:flex;align-items:center;justify-content:center;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.8rem 2.5rem}
 #s-ideal.ideal-reaction-mode #s-ideal-inner{padding-bottom:0}
 #s-ideal-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
 #s-ideal-inner>*{flex-shrink:0}
@@ -355,10 +416,11 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .ideal-btn.selected{background:rgba(107,144,128,.2);border-color:#6B9080}
 .ideal-btn:active{transform:scale(.97)}
 .ideal-btn-sm{min-height:40px;padding:8px 8px;font-size:13px}
-#s-theme{display:block;overflow-y:auto;padding:4.5rem 1.8rem 5rem}
+#s-theme{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.8rem 5rem}
 #s-theme-inner{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;align-items:stretch;padding-bottom:5.5rem}
 #s-theme-inner>*{flex-shrink:0}
 #theme-cta-wrap{position:fixed;bottom:0;left:0;right:0;padding:1.4rem 2rem 2.4rem;background:linear-gradient(transparent,rgba(250,250,247,.97) 28%);text-align:center;z-index:150;opacity:0;pointer-events:none;transition:opacity .4s;-webkit-backdrop-filter:none}
+#s-door,#s-congrats{overflow-y:auto !important;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.4rem 6rem !important}
 /* Door cards */
 .door-card{font-family:'Noto Serif JP',serif;padding:12px 16px;background:#F5F5F2;border:1.5px solid rgba(200,200,195,.4);border-radius:12px;cursor:pointer;transition:border-color .2s,background .2s;-webkit-tap-highlight-color:transparent}
 .door-card.selected{background:rgba(107,144,128,.08);border-color:#6B9080}
@@ -388,28 +450,30 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .lp-hero{min-height:calc(100vh - 3rem);display:flex;flex-direction:column;justify-content:center;padding:1rem 0 2.2rem;}
 .lp-hero-title{font-family:'Noto Serif JP',serif;font-size:1.34rem;font-weight:400;line-height:2;letter-spacing:.06em;color:#1A1A1A;text-align:center;white-space:pre-line;margin:.5rem 0 1.6rem;}
 .lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-hero-title{font-size:1.18rem;line-height:2.1;}
-.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-section{max-width:260px;margin-left:auto;margin-right:auto;}
-.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-section-title{text-align:left;}
-.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list{max-width:260px;margin:0 auto;padding:0;text-align:left;align-items:stretch;}
-.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{font-size:.76rem;line-height:1.9;letter-spacing:.08em;color:#A8A8A2;}
 .lp-hero-sub{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#77736E;white-space:pre-line;text-align:center;margin-bottom:2.4rem;}
+.lp-hero-note{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;line-height:1.9;letter-spacing:.06em;color:#A8A8A2;white-space:pre-line;text-align:center;margin:1rem auto 0;max-width:15rem}
 .lp-cta-wrap{text-align:center;}
 .btn-lp-start{display:inline-block;background:#6B9080;color:#fff;font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;letter-spacing:.12em;border:none;padding:14px 52px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s;}
 .btn-lp-start:active{opacity:.8;}
+.btn-lp-subtle{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 24px;border:1px solid rgba(107,144,128,.28);border-radius:999px;background:rgba(255,255,255,.08);color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.76rem;font-weight:400;letter-spacing:.08em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s,border-color .2s,background .2s}
+.btn-lp-subtle:active{opacity:.82;background:rgba(107,144,128,.08);border-color:rgba(107,144,128,.42)}
+.lp-sections{display:flex;flex-direction:column}
 .lp-section{border-top:1px solid #E8E8E2;padding:3rem 0;margin-top:0;}
-.lp-section-title{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;line-height:1.9;letter-spacing:.08em;color:#1A1A1A;text-align:left;margin-bottom:1.5rem;}
-.lp-about-title{font-size:1rem;text-align:center;color:#A8A8A2;margin-bottom:0;}
-.lp-section-body{display:flex;flex-direction:column;gap:1.05rem;font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:300;line-height:2.05;letter-spacing:.04em;color:#77736E;}
+.lp-section-label{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:400;letter-spacing:.16em;color:#A8A8A2;text-transform:uppercase;margin-bottom:.95rem}
+.lp-section-title{font-family:'Noto Serif JP',serif;font-size:.96rem;font-weight:400;line-height:1.88;letter-spacing:.06em;color:#1A1A1A;text-align:left;margin-bottom:1.1rem;white-space:pre-line}
+.lp-section-body{display:flex;flex-direction:column;gap:.95rem;font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:1.95;letter-spacing:.04em;color:#77736E;}
 .lp-section-body-group{margin:0;white-space:pre-line;}
-.lp-read-more-wrap{border-top:1px solid #E8E8E2;padding:2.6rem 0 0;text-align:center;}
-.btn-lp-read-more{display:inline-block;background:transparent;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:400;letter-spacing:.1em;border:1px solid #6B9080;padding:12px 34px;border-radius:40px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s,background .2s;}
-.btn-lp-read-more:active{opacity:.8;background:rgba(107,144,128,.08);}
-.lp-item-list{list-style:none;display:flex;flex-direction:column;gap:.95rem;}
-.lp-item-list li{font-family:'Noto Serif JP',serif;font-size:.84rem;font-weight:300;line-height:1.85;letter-spacing:.03em;color:#1A1A1A;padding-left:1em;text-indent:-1em;}
+.lp-item-list{list-style:none;display:flex;flex-direction:column;gap:.6rem;padding:0;margin:.1rem 0 0}
+.lp-item-list li{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:1.82;letter-spacing:.04em;color:#1A1A1A;white-space:pre-line}
+.lp-section-cta-wrap{padding-top:.45rem}
 .lp-footer{border-top:1px solid #E8E8E2;padding:2.8rem 0 0;margin-top:0;text-align:center;}
-.lp-footer p{font-family:'Noto Serif JP',serif;font-size:.78rem;font-weight:300;line-height:2.1;letter-spacing:.04em;color:#A8A8A2;white-space:pre-line;}
+.lp-footer p{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:400;line-height:1.9;letter-spacing:.06em;color:#1A1A1A;white-space:pre-line;}
 .lp-footer p+p{margin-top:1.2rem;}
 .lp-footer .btn-lp-start{margin-top:1.5rem;}
+.home-screen-cta-wrap{display:flex;flex-direction:column;align-items:center;margin-top:1.2rem}
+.btn-home-screen-add{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 18px;border:1px solid rgba(107,144,128,.24);border-radius:999px;background:rgba(255,255,255,.08);color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:400;letter-spacing:.06em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s,border-color .2s,background .2s}
+.btn-home-screen-add:active{opacity:.82;background:rgba(107,144,128,.08);border-color:rgba(107,144,128,.4)}
+.home-screen-note{max-width:16rem;margin:.55rem auto 0;font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;line-height:1.8;letter-spacing:.04em;color:#A8A8A2;white-space:pre-line;text-align:center}
 .portal-outline-btn{display:inline-block;margin:1.2rem auto 0;padding:9px 22px;background:transparent;border:1px solid #6B9080;border-radius:999px;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:400;letter-spacing:.08em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,opacity .2s;}
 .portal-outline-btn:active{background:rgba(107,144,128,.08);opacity:.85;}
 /* ── QUIET HOLOGRAPHIC SURFACE ── */
@@ -541,6 +605,7 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .sc-note-wrap{border-top-color:rgba(245,239,230,.1)}
 .btn-save-image{border-color:rgba(143,184,164,.35);color:#8FB8A4}
 .btn-save-image:active{background:rgba(143,184,164,.08)}
+.result-home-screen-wrap{margin-top:.85rem;display:flex;flex-direction:column;align-items:center}
 .save-preview-wrap img{border-color:rgba(245,239,230,.14)}
 .btn-secondary-result{color:#B8B2A8}
 .btn-secondary-result:active{color:#8FB8A4}
@@ -563,11 +628,27 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .theme-group-header{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
 .btn-about-link{color:#B8B2A8}
 .btn-about-link:active{color:#8FB8A4}
+.btn-home-screen-add{border-color:rgba(143,184,164,.2);background:rgba(143,184,164,.05);color:#BFE0D3}
+.home-screen-note{color:#8E8981}
+.home-screen-box{background:#1B1A17}
+.home-screen-box-title{color:#F5EFE6}
+.home-screen-box-body{color:#B8B2A8}
+.home-screen-box-group-title{color:#8E8981}
+.home-screen-box-close{background:rgba(245,239,230,.04);color:#BFE0D3;border-color:rgba(143,184,164,.2)}
 .entry-choice-btn{background:#252320;color:#F5EFE6}
 .entry-choice-btn.disabled{background:#1E1D1A;color:#4A4845}
 .entry-choice-desc{color:#8E8981}
 .about-para{color:#B8B2A8}
 .about-safety{color:#8E8981;border-top-color:rgba(245,239,230,.1)}
+.pricing-title,.pricing-plan-name,.pricing-section-title,.pricing-comparison-label{color:#F5EFE6}
+.pricing-lead,.pricing-plan-tagline,.pricing-meaning-body,.pricing-footer-body{color:#B8B2A8}
+.pricing-plan-card,.pricing-plan-card[data-plan="pro"]{background:rgba(245,239,230,.035);border-color:rgba(245,239,230,.14)}
+.pricing-price,.pricing-comparison-text{color:#F5EFE6}
+.pricing-price-note,.pricing-features-lead,.pricing-comparison-plan,.pricing-legal,.pricing-soon{color:#8E8981}
+.pricing-feature-list li{color:#B8B2A8}
+.pricing-feature-list li::before{color:#6F6B65}
+.pricing-comparison-row{border-top-color:rgba(245,239,230,.1)}
+.pricing-comparison-value{background:rgba(245,239,230,.03);border-color:rgba(245,239,230,.11)}
 .pricing-price{color:#F5EFE6}
 .pricing-note{color:#5A5855}
 .btn-pricing-return{color:#8E8981}
@@ -606,12 +687,12 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .theme-screen-sub,.entry-subtitle{color:#5A5855}
 .lp-hero-title{color:#F5EFE6}
 .lp-hero-sub{color:#8E8981}
+.lp-hero-note,.lp-section-label{color:#B8B2A8}
 .lp-section-title{color:#F5EFE6}
-.lp-about-title,.lp-section-body,.lp-footer p{color:#8E8981}
-.lp-read-more-wrap{border-top-color:rgba(245,239,230,.1)}
-.btn-lp-read-more{color:#8FB8A4;border-color:#8FB8A4}
+.lp-section-body{color:#8E8981}
+.btn-lp-subtle{color:#BFE0D3;border-color:rgba(143,184,164,.28);background:rgba(143,184,164,.05)}
 .lp-item-list li{color:#F5EFE6}
-.lp-wrap:has(.lp-lang-btn.selected[data-lp="ja"]) .lp-item-list li{color:#8E8981;}
+.lp-footer p{color:#F5EFE6}
 .lp-section,.lp-footer{border-top-color:rgba(245,239,230,.1)}
 .btn-lp-start{background:#8FB8A4}
 .lp-lang-btn{color:#3A3836}
@@ -656,18 +737,32 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 .language-menu button:active,.language-menu button.selected,.account-menu button:active{background:linear-gradient(120deg,rgba(64,145,135,.22),rgba(105,76,143,.2));color:#e4f2ef}
 .account-menu-separator{background:rgba(105,204,196,.13)}
 .save-result-toast{background:rgba(13,23,28,.92);color:#d7e7e3;border-color:rgba(105,204,196,.22);box-shadow:0 14px 38px rgba(0,0,0,.3)}
-.v17-entry-heading,.v17-category-button,.v17-library-theme,.v17-result-copy{color:#F5EFE6}
-.v17-category-intro,.v17-track-button{color:#B8B2A8}
-.v17-entry-divider{color:#8E8981}
-.v17-entry-divider::before,.v17-entry-divider::after,.v17-theme-accordion,.v17-category,.v17-track{border-color:rgba(245,239,230,.1);background-color:transparent}
-.v17-entry-divider::before,.v17-entry-divider::after{background:rgba(245,239,230,.1)}
+.v17-category-button,.v17-library-theme,.v17-result-copy{color:#F5EFE6}
+.v17-category-intro,.v17-track-button,.v17-category-guide,.v17-track-guide{color:#B8B2A8}
+.v17-theme-accordion,.v17-category,.v17-track{border-color:rgba(245,239,230,.1);background-color:transparent}
 .v17-library-theme{background:rgba(98,194,184,.055);border-color:rgba(124,204,195,.2)}
+.v17-inline-textarea,.v17-inline-input{color:#F5EFE6;background:rgba(11,20,25,.3);border-color:rgba(105,200,193,.17)}
+.v17-inline-textarea:focus,.v17-inline-input:focus{border-color:rgba(107,220,211,.5)}
+.v17-inline-textarea::placeholder,.v17-inline-input::placeholder{color:#6F6B65}
+.v17-inline-confirm{background:#486C5D;border-color:#486C5D;color:#F5EFE6}
+.v17-custom-category-setup .v17-track-free-form{grid-template-columns:minmax(0,1fr) auto}
+@media(max-width:520px){
+  .v17-track-free-form{grid-template-columns:1fr}
+  .v17-inline-textarea{min-height:8.5rem}
+  .v17-track-free-form .v17-inline-confirm{width:100%}
+}
 .btn-v17-skip{color:#8E8981;background:none;border-color:transparent}
 .btn-v17-skip:active{color:#F5EFE6;background:none}
 .btn-back{background:rgba(13,23,28,.68);border-color:rgba(105,204,196,.18);color:#B8B2A8}
 .v17-breath-body{color:#F5EFE6}
 .v17-breath-lead,.v17-breath-hint,.v17-step-helper{color:#8E8981}
-.v17-result-happiness-label{color:#B8B2A8}
+.v17-result-brand,.v17-result-happiness-label{color:#B8B2A8}
+.v17-result-score-item{color:#8FB8A4}
+.v17-result-score-item:not(:last-child)::after{color:#6F746F}
+.v17-result-divider{background:rgba(245,239,230,.1)}
+.v17-result-awareness-item,.v17-result-site{color:#F5EFE6}
+.v17-result-awareness-toggle{color:#B8B2A8}
+.v17-result-awareness-toggle:active{color:#8FB8A4}
 .v17-result-action{background:rgba(98,194,184,.055);border-color:rgba(124,204,195,.2);color:#D7E7E3}
 .v17-result-action.primary{background:linear-gradient(112deg,rgba(39,73,70,.72),rgba(42,95,91,.68) 45%,rgba(67,57,91,.66));color:#E8F4F1}
 </style>
@@ -718,26 +813,22 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <div class="screen active" id="s-landing">
   <div class="lp-wrap">
     <div class="lp-logo" id="v17-lp-logo"></div>
-    <section class="lp-hero" aria-labelledby="lp-v16-hero-title">
-      <h1 class="lp-hero-title" id="lp-v16-hero-title"></h1>
-      <p class="lp-hero-sub" id="lp-v16-hero-sub"></p>
+    <section class="lp-hero" aria-labelledby="lp-hero-title">
+      <h1 class="lp-hero-title" id="lp-hero-title"></h1>
+      <p class="lp-hero-sub" id="lp-hero-sub"></p>
       <div class="lp-cta-wrap">
-        <button class="btn-lp-start" id="btn-v16-lp-start" onclick="startLanding()"></button>
+        <button class="btn-lp-start" id="btn-lp-start-hero" onclick="startLanding()"></button>
+        <p class="lp-hero-note" id="lp-hero-note"></p>
       </div>
       <button class="btn-about-link" id="btn-resume-progress" onclick="resumeSavedProgress()" style="display:none;margin:1rem auto 0"></button>
     </section>
-    <div id="lp-v16-initial-sections"></div>
-    <section class="lp-section">
-      <h2 class="lp-section-title lp-about-title" id="lp-v16-about-title"></h2>
-    </section>
-    <div class="lp-read-more-wrap" id="lp-v16-read-more-wrap">
-      <button class="btn-lp-read-more" id="btn-v16-lp-read-more" onclick="expandV16Landing()"></button>
-    </div>
-    <div id="lp-v16-more" hidden>
-      <div id="lp-v16-more-sections"></div>
-      <div class="lp-footer">
-        <p id="lp-v16-final-cta"></p>
-        <button class="btn-lp-start" id="btn-v16-lp-final-start" onclick="startLanding()"></button>
+    <div class="lp-sections" id="lp-sections"></div>
+    <div class="lp-footer">
+      <p id="lp-final-cta"></p>
+      <button class="btn-lp-start" id="btn-lp-start-final" onclick="startLanding()"></button>
+      <div class="home-screen-cta-wrap">
+        <button class="btn-home-screen-add" id="btn-home-screen-add-lp" type="button" onclick="openHomeScreenInstallPrompt()"></button>
+        <p class="home-screen-note" id="lp-home-screen-note"></p>
       </div>
     </div>
   </div>
@@ -746,10 +837,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V17 ENTRY CHOICE ── -->
 <div class="screen screen-scroll" id="s-v17-entry-choice">
   <div class="v17-entry-shell">
-    <div class="v17-entry-heading" id="v17-free-input-title"></div>
-    <textarea class="v17-writing" id="in-v17-free-theme" maxlength="600" oninput="onV17FreeInput(this.value)"></textarea>
-    <button class="btn" id="btn-v17-free-start" type="button" onclick="submitV17FreeInput()" disabled></button>
-    <div class="v17-entry-divider" id="v17-entry-divider"></div>
     <div class="v17-category-intro" id="v17-category-intro"></div>
     <div class="v17-theme-accordion" id="v17-theme-accordion"></div>
     <div class="hcq-status" id="v17-theme-library-status" role="status" aria-live="polite"></div>
@@ -809,7 +896,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 BEFORE MEASUREMENT ── -->
 <div class="screen" id="s-v16-before-measurement">
-  <div class="measure-problem v16-question" id="t-v16-before-measurement"></div>
+  <div class="measure-problem v16-question v17-support-primary" id="t-v16-before-measurement"></div>
   <div class="score-num" id="num-v16-before"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-before" oninput="onV16BeforeSlider(this.value)">
@@ -884,7 +971,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── V16 AFTER MEASUREMENT ── -->
 <div class="screen" id="s-v16-after-measurement">
-  <div class="measure-problem v16-question" id="t-v16-after-measurement"></div>
+  <div class="measure-problem v16-question v17-support-primary" id="t-v16-after-measurement"></div>
   <div class="score-num" id="num-v16-after"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-v16-after" oninput="onV16AfterSlider(this.value)">
@@ -1055,7 +1142,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <div class="screen" id="s-v17-before">
   <div class="v17-step">
     <div class="v17-theme-quote" id="v17-before-theme"></div>
-    <div class="v17-step-copy" id="v17-before-prompt"></div>
+    <div class="v17-step-copy v17-support-primary" id="v17-before-prompt"></div>
     <div class="score-num" id="num-v17-before"></div>
     <div class="slider-wrap">
       <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-before" oninput="onSlider('v17-before',this.value)">
@@ -1069,46 +1156,21 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
 </div>
 
-<div class="screen" id="s-v17-ideal-100">
+<div class="screen" id="s-v17-first-response">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-hundred-focus"></div>
-    <div class="v17-step-copy" id="v17-ideal-prompt"></div>
-    <button class="btn" id="next-v17-ideal" type="button" onclick="continueV17IdealState()"></button>
+    <div class="v17-theme-quote" id="v17-first-response-quote"></div>
+    <div class="v17-step-copy v17-support-primary" id="v17-first-response-prompt"></div>
+    <textarea class="v17-writing" id="in-v17-first-response" maxlength="600" oninput="onV17RouteInput('first',this.value)"></textarea>
+    <button class="btn" id="next-v17-first-response" type="button" onclick="submitV17FirstResponse()" disabled></button>
   </div>
 </div>
 
-<div class="screen" id="s-v17-current-state">
+<div class="screen" id="s-v17-second-response">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-current-theme"></div>
-    <div class="v17-step-copy" id="v17-current-prompt"></div>
-    <textarea class="v17-writing" id="in-v17-current" maxlength="600" oninput="onV17WritingInput('current',this.value)"></textarea>
-    <button class="btn" id="next-v17-current" type="button" onclick="submitV17CurrentState()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-current-measure">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-current-measure-quote"></div>
-    <div class="v17-step-copy" id="v17-current-measure-prompt"></div>
-    <div class="score-num" id="num-v17-current-measure"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-current-measure" oninput="onSlider('v17-current-measure',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
-    </div>
-    <button class="btn-nm v17-not-a-problem" id="nm-v17-current-measure" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-current-measure')">
-      <span class="v17-not-a-problem-label" id="nm-label-v17-current-measure"></span>
-      <span class="v17-not-a-problem-hint" id="nm-hint-v17-current-measure"></span>
-    </button>
-    <button class="btn" id="next-v17-current-measure" type="button" onclick="submitV17CurrentStateScore()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-ideal-state">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-ideal-state-quote"></div>
-    <div class="v17-step-copy" id="v17-ideal-state-prompt"></div>
-    <textarea class="v17-writing" id="in-v17-ideal-state" maxlength="600" oninput="onV17WritingInput('idealState',this.value)"></textarea>
-    <button class="btn" id="next-v17-ideal-state" type="button" onclick="submitV17IdealState()" disabled></button>
+    <div class="v17-theme-quote" id="v17-second-response-quote"></div>
+    <div class="v17-step-copy v17-support-primary" id="v17-second-response-prompt"></div>
+    <textarea class="v17-writing" id="in-v17-second-response" maxlength="600" oninput="onV17RouteInput('second',this.value)"></textarea>
+    <button class="btn" id="next-v17-second-response" type="button" onclick="submitV17SecondResponse()" disabled></button>
   </div>
 </div>
 
@@ -1116,7 +1178,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="v17-step">
     <div class="v17-breath-lead" id="v17-breath-lead"></div>
     <div class="v17-breath-body" id="v17-breath-body"></div>
-    <div class="v17-breath-hint" id="v17-breath-hint"></div>
+    <div class="v17-breath-hint v17-support-primary" id="v17-breath-hint"></div>
     <div class="breath-circle pulse" id="circle-v17-breath" role="button" tabindex="0" onclick="startV17Breath()" onkeydown="onV17BreathKeydown(event)"></div>
   </div>
 </div>
@@ -1124,7 +1186,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <div class="screen" id="s-v17-final-measure">
   <div class="v17-step">
     <div class="v17-theme-quote" id="v17-final-quote"></div>
-    <div class="v17-step-copy" id="v17-final-prompt"></div>
+    <div class="v17-step-copy v17-support-primary" id="v17-final-prompt"></div>
     <div class="score-num" id="num-v17-final"></div>
     <div class="slider-wrap">
       <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-final" oninput="onSlider('v17-final',this.value)">
@@ -1135,23 +1197,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <span class="v17-not-a-problem-hint" id="nm-hint-v17-final"></span>
     </button>
     <button class="btn" id="next-v17-final" type="button" onclick="submitV17FinalScore()" disabled></button>
-  </div>
-</div>
-
-<div class="screen" id="s-v17-theme-final">
-  <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-theme-final-quote"></div>
-    <div class="v17-step-copy" id="v17-theme-final-prompt"></div>
-    <div class="score-num" id="num-v17-theme-final"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-theme-final" oninput="onSlider('v17-theme-final',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
-    </div>
-    <button class="btn-nm v17-not-a-problem" id="nm-v17-theme-final" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-theme-final')">
-      <span class="v17-not-a-problem-label" id="nm-label-v17-theme-final"></span>
-      <span class="v17-not-a-problem-hint" id="nm-hint-v17-theme-final"></span>
-    </button>
-    <button class="btn" id="next-v17-theme-final" type="button" onclick="submitV17ThemeFinalScore()" disabled></button>
   </div>
 </div>
 
@@ -1224,7 +1269,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── BEFORE 2: Breathing Stability ── -->
 <div class="screen" id="s-before2">
-  <div class="measure-problem" id="t-b2"></div>
+  <div class="measure-problem v17-support-primary" id="t-b2"></div>
   <div class="score-num" id="num-b2"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-b2" oninput="onSlider('b2',this.value)">
@@ -1292,7 +1337,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <!-- ── AFTER 2: Re-Entry Probability re-measure ── -->
 <div class="screen" id="s-after2">
-  <div class="measure-problem" id="t-a2"></div>
+  <div class="measure-problem v17-support-primary" id="t-a2"></div>
   <div class="score-num" id="num-a2" style="color:#6B9080"></div>
   <div class="slider-wrap">
     <input type="range" min="0" max="100" step="1" value="50" id="sl-a2" oninput="onSlider('a2',this.value)">
@@ -1314,24 +1359,37 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── RESULT ── -->
 <div class="screen screen-scroll" id="s-result">
   <div class="sc-card" id="result-card">
+    <div class="v17-result-brand" id="v17-result-brand"></div>
     <div class="sc-note-wrap">
       <div class="sc-section-label" id="v17-result-theme-label"></div>
       <div class="v17-result-theme" id="t-result-from"></div>
     </div>
     <div class="sc-note-wrap">
-      <div class="sc-section-label" id="v17-result-current-label"></div>
-      <div class="v17-result-copy" id="v17-result-current"></div>
+      <div class="sc-section-label" id="v17-result-subtheme-label"></div>
+      <div class="v17-result-copy" id="v17-result-subtheme"></div>
     </div>
     <div class="v17-result-happiness-label" id="v17-result-happiness-label"></div>
     <div class="v17-result-score-flow" id="v17-result-scores">
-      <div class="v17-result-score-point"><span id="v17-result-before-label"></span><strong id="r-be-b"></strong></div>
-      <div class="v17-result-score-arrow">↓</div>
-      <div class="v17-result-score-point"><span id="v17-result-after-label"></span><strong id="r-be-a"></strong></div>
+      <div class="v17-result-score-trail" id="v17-result-score-trail" aria-live="polite"></div>
+      <button class="v17-result-score-toggle" id="btn-v17-score-trail-toggle" type="button" onclick="toggleV17ScoreTrail()"></button>
+      <div class="v17-result-score-pair" id="v17-result-score-pair" hidden>
+        <div class="v17-result-score-point"><span id="v17-result-before-label"></span><strong id="r-be-b"></strong></div>
+        <div class="v17-result-score-arrow">↓</div>
+        <div class="v17-result-score-point"><span id="v17-result-after-label"></span><strong id="r-be-a"></strong></div>
+      </div>
     </div>
+    <div class="v17-result-divider"></div>
     <div class="sc-note-wrap">
       <div class="sc-section-label" id="v17-result-awareness-label"></div>
-      <div class="v17-result-copy" id="v17-result-awareness"></div>
+      <div class="v17-result-awareness-list" id="v17-result-awareness-list"></div>
+      <button class="v17-result-awareness-toggle" id="btn-v17-awareness-toggle" type="button" onclick="toggleV17AwarenessTrail()"></button>
     </div>
+    <div class="v17-result-divider"></div>
+    <div class="v17-result-site" id="v17-result-site"></div>
+    <span id="v17-result-step2-label" hidden></span>
+    <span id="v17-result-step2" hidden></span>
+    <span id="v17-result-step3-label" hidden></span>
+    <span id="v17-result-step3" hidden></span>
     <span id="t-result-sub" hidden></span>
     <span id="t-shift-note-display" hidden></span>
     <span id="t-result-meaning" hidden></span>
@@ -1342,27 +1400,22 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <img id="save-preview-img" alt="">
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
-  <div class="v17-result-actions">
+  <div class="v17-result-actions" id="v17-result-actions">
     <button class="v17-result-action primary" id="btn-save-result" onclick="saveCurrentResult()"></button>
-    <button class="v17-result-action" id="btn-v17-clear-again" type="button" onclick="repeatV17Clearing()"></button>
-    <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartV17Theme()"></button>
-    <button class="v17-result-action" id="btn-repeat-theme" type="button" onclick="chooseV17NewQuestion()"></button>
+    <button class="v17-result-action" id="btn-v17-restart-subtheme" type="button" onclick="restartCurrentSubtheme()"></button>
+    <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartCurrentTheme()"></button>
+    <button class="v17-result-action" id="btn-v17-choose-another-theme" type="button" onclick="chooseAnotherTheme()"></button>
+  </div>
+  <div class="result-home-screen-wrap">
+    <button class="btn-home-screen-add" id="btn-home-screen-add-result" type="button" onclick="openHomeScreenInstallPrompt()"></button>
+    <p class="home-screen-note" id="result-home-screen-note"></p>
   </div>
   <div class="save-result-status" id="save-result-status" role="status" aria-live="polite"></div>
 </div>
 
 <!-- ── PRICING ── -->
 <div class="screen" id="s-pricing">
-  <div class="about-inner pricing-inner">
-    <div class="about-title" id="t-professional-plan-title"></div>
-    <div class="about-para pricing-lead" id="t-professional-plan-trial"></div>
-    <div class="about-para pricing-lead" id="t-professional-plan-access"></div>
-    <div style="text-align:center">
-      <button class="btn pricing-cta" id="btn-pricing-cta" onclick="pricingCtaClick()"></button>
-      <div class="pricing-note" id="t-guest-records-note" style="display:none"></div>
-      <div class="pricing-soon" id="t-pricing-soon" style="display:none"></div>
-    </div>
-  </div>
+  <div id="pricing-root"></div>
 </div>
 
 <!-- ── LOCK (trial exhausted — dormant placeholder) ── -->
@@ -1504,6 +1557,68 @@ function claimGuestFirstSessionIfNeeded() {
     .catch(function() { return false; });
 }
 
+var homeScreenInstallPromptEvent = null;
+
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeinstallprompt', function(event) {
+    event.preventDefault();
+    homeScreenInstallPromptEvent = event;
+  });
+  window.addEventListener('appinstalled', function() {
+    homeScreenInstallPromptEvent = null;
+  });
+}
+
+function isV17IOSDevice() {
+  var ua = navigator.userAgent || '';
+  return /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+
+function isV17AndroidDevice() {
+  var ua = navigator.userAgent || '';
+  return /Android/.test(ua);
+}
+
+function renderHomeScreenInstallCopy() {
+  if (!getV17LocaleRoot()) return;
+  setEl('btn-home-screen-add-lp', v17Copy('lp.homeScreen.cta'));
+  setEl('lp-home-screen-note', v17Copy('lp.homeScreen.body'));
+  setEl('btn-home-screen-add-result', v17Copy('lp.homeScreen.cta'));
+  setEl('result-home-screen-note', v17Copy('lp.homeScreen.body'));
+  setEl('home-screen-modal-title', v17Copy('lp.homeScreen.modalTitle'));
+  setEl('home-screen-ios-title', v17Copy('lp.homeScreen.iphoneTitle'));
+  setEl('home-screen-ios-body', v17Copy('lp.homeScreen.iphoneBody'));
+  setEl('home-screen-android-title', v17Copy('lp.homeScreen.androidTitle'));
+  setEl('home-screen-android-body', v17Copy('lp.homeScreen.androidBody'));
+  setEl('home-screen-desktop-title', v17Copy('lp.homeScreen.desktopTitle'));
+  setEl('home-screen-desktop-body', v17Copy('lp.homeScreen.desktopBody'));
+  setEl('btn-home-screen-modal-close', v17Copy('lp.homeScreen.close'));
+}
+
+function openHomeScreenInstallModal() {
+  renderHomeScreenInstallCopy();
+  var modal = document.getElementById('home-screen-modal');
+  if (modal) modal.classList.add('open');
+}
+
+function closeHomeScreenInstallModal() {
+  var modal = document.getElementById('home-screen-modal');
+  if (modal) modal.classList.remove('open');
+}
+
+function openHomeScreenInstallPrompt() {
+  if (isV17AndroidDevice() && homeScreenInstallPromptEvent && typeof homeScreenInstallPromptEvent.prompt === 'function') {
+    var promptEvent = homeScreenInstallPromptEvent;
+    homeScreenInstallPromptEvent = null;
+    promptEvent.prompt();
+    if (promptEvent.userChoice && typeof promptEvent.userChoice.then === 'function') {
+      promptEvent.userChoice.then(function() {}, function() {});
+    }
+    return;
+  }
+  openHomeScreenInstallModal();
+}
+
 function applyThemeMode() {
   var root = document.documentElement;
   var darkStyles = document.getElementById('dark-theme-styles');
@@ -1591,6 +1706,7 @@ function updateAccountActions() {
   if (separator) separator.hidden = state === 'guest';
   var upgrade = document.getElementById('result-upgrade-block');
   if (upgrade) upgrade.style.display = state === 'plus' ? 'none' : '';
+  if (typeof updatePricingAccountState === 'function') updatePricingAccountState();
 }
 
 function openAccountAuth(signup) {
@@ -3883,11 +3999,15 @@ renderStaticTexts = function() {
 };
 
 /* ── LANDING PAGE COPY ── */
-var v16LandingExpanded = false;
-
-function createV16LandingSection(section) {
+function createV17LandingSection(section) {
   var sectionEl = document.createElement('section');
   sectionEl.className = 'lp-section';
+  if (section.label) {
+    var label = document.createElement('div');
+    label.className = 'lp-section-label';
+    label.textContent = section.label;
+    sectionEl.appendChild(label);
+  }
 
   var title = document.createElement('h2');
   title.className = 'lp-section-title';
@@ -3905,57 +4025,236 @@ function createV16LandingSection(section) {
 
   sectionEl.appendChild(title);
   sectionEl.appendChild(body);
+  if (Array.isArray(section.items) && section.items.length) {
+    var list = document.createElement('ul');
+    list.className = 'lp-item-list';
+    section.items.forEach(function(item) {
+      var line = document.createElement('li');
+      line.textContent = item || '';
+      list.appendChild(line);
+    });
+    sectionEl.appendChild(list);
+  }
+  if (section.cta) {
+    var actionWrap = document.createElement('div');
+    actionWrap.className = 'lp-section-cta-wrap';
+    var action = document.createElement('button');
+    action.type = 'button';
+    action.className = 'btn-lp-subtle';
+    action.textContent = section.cta;
+    action.onclick = section.ctaAction === 'pricing' ? openV17PricingFromLanding : startLanding;
+    actionWrap.appendChild(action);
+    sectionEl.appendChild(actionWrap);
+  }
   return sectionEl;
 }
 
-function renderV16LandingVisibility() {
-  var more = document.getElementById('lp-v16-more');
-  var readMore = document.getElementById('lp-v16-read-more-wrap');
-  var sections = v17Value('flow.landing.sections');
-  var hasMore = Array.isArray(sections) && sections.length > 2;
-  if (more) more.hidden = !hasMore || !v16LandingExpanded;
-  if (readMore) readMore.hidden = !hasMore || v16LandingExpanded;
+function openV17PricingFromLanding() {
+  fwd('s-pricing');
 }
 
-function expandV16Landing() {
-  v16LandingExpanded = true;
-  renderV16LandingVisibility();
-}
-
-function renderV16LandingCopy() {
+function renderV17LandingCopy() {
   if (!getV17LocaleRoot()) return;
+  var locale = getV17LocaleRoot();
   document.title = v17Copy('flow.app.title');
   setEl('v17-lp-logo', v17Copy('flow.landing.logo'));
-  setEl('lp-v16-hero-title', v17Copy('flow.landing.hero'));
-  setEl('lp-v16-hero-sub', v17Copy('flow.landing.subtitle'));
-  setEl('btn-v16-lp-start', v17Copy('flow.landing.start'));
-  setEl('lp-v16-about-title', v17Copy('flow.landing.aboutTitle'));
-  setEl('btn-v16-lp-read-more', v17Copy('flow.landing.readMore'));
-  setEl('lp-v16-final-cta', v17Copy('flow.landing.finalCta'));
-  setEl('btn-v16-lp-final-start', v17Copy('flow.landing.start'));
+  setEl('lp-hero-title', getV17Path(locale, 'lp.hero.title'));
+  setEl('lp-hero-sub', getV17Path(locale, 'lp.hero.body'));
+  setEl('btn-lp-start-hero', getV17Path(locale, 'lp.hero.cta'));
+  setEl('lp-hero-note', getV17Path(locale, 'lp.hero.note'));
+  setEl('lp-final-cta', getV17Path(locale, 'lp.finalCta.title'));
+  setEl('btn-lp-start-final', getV17Path(locale, 'lp.finalCta.cta'));
   var back = document.getElementById('btn-back');
   if (back) back.setAttribute('aria-label', v17Copy('flow.app.back'));
 
-  var initialWrap = document.getElementById('lp-v16-initial-sections');
-  var moreWrap = document.getElementById('lp-v16-more-sections');
-  if (!initialWrap || !moreWrap) return;
-  initialWrap.innerHTML = '';
-  moreWrap.innerHTML = '';
-  var sections = v17Value('flow.landing.sections');
+  var sectionWrap = document.getElementById('lp-sections');
+  if (!sectionWrap) return;
+  sectionWrap.innerHTML = '';
+  var sections = getV17Path(locale, 'lp.sections');
   if (!Array.isArray(sections)) sections = [];
-  sections.forEach(function(section, index) {
-    var target = index < 2 ? initialWrap : moreWrap;
-    target.appendChild(createV16LandingSection(section));
+  sections.forEach(function(section) {
+    sectionWrap.appendChild(createV17LandingSection(section));
   });
-  var aboutTitle = document.getElementById('lp-v16-about-title');
-  var aboutSection = aboutTitle && aboutTitle.parentElement ? aboutTitle.parentElement : null;
-  var readMoreWrap = document.getElementById('lp-v16-read-more-wrap');
-  var finalCta = document.getElementById('lp-v16-final-cta');
-  var hasMore = sections.length > 2;
-  if (aboutSection) aboutSection.hidden = !sections.length || !v17Copy('flow.landing.aboutTitle');
-  if (readMoreWrap) readMoreWrap.hidden = !hasMore || v16LandingExpanded;
-  if (finalCta) finalCta.hidden = !v17Copy('flow.landing.finalCta');
-  renderV16LandingVisibility();
+}
+
+function getPricingLocale() {
+  var locale = getV17LocaleRoot();
+  if (!locale || !locale.pricing) {
+    console.warn('[pricing] Missing pricing locale');
+    return null;
+  }
+  return locale.pricing;
+}
+
+function getPricingLocaleValue(path) {
+  var pricing = getPricingLocale();
+  if (!pricing) return null;
+  var value = getV17Path({ pricing: pricing }, 'pricing.' + path);
+  if (value === undefined || value === null || value === '') {
+    console.warn('[pricing] Missing locale value:', path);
+    return null;
+  }
+  return value;
+}
+
+function appendPricingText(parent, tagName, className, text) {
+  if (text === null || text === undefined || text === '') return null;
+  var el = document.createElement(tagName);
+  if (className) el.className = className;
+  el.textContent = text;
+  parent.appendChild(el);
+  return el;
+}
+
+function renderPricingPlanCard(planKey, plan) {
+  var card = document.createElement('section');
+  card.className = 'pricing-plan-card';
+  card.dataset.plan = planKey;
+  appendPricingText(card, 'div', 'pricing-plan-name', plan.name);
+  appendPricingText(card, 'div', 'pricing-plan-tagline', plan.tagline);
+  appendPricingText(card, 'div', 'pricing-price', plan.price);
+  appendPricingText(card, 'div', 'pricing-price-note', plan.priceNote);
+  appendPricingText(card, 'div', 'pricing-features-lead', plan.featuresLead);
+  var features = Array.isArray(plan.features) ? plan.features : [];
+  if (!Array.isArray(plan.features)) console.warn('[pricing] Missing features:', planKey);
+  if (features.length) {
+    var list = document.createElement('ul');
+    list.className = 'pricing-feature-list';
+    features.forEach(function(feature) {
+      var item = document.createElement('li');
+      item.textContent = feature;
+      list.appendChild(item);
+    });
+    card.appendChild(list);
+  }
+  var button = document.createElement('button');
+  button.type = 'button';
+  button.className = planKey === 'free' ? 'btn-ghost' : 'btn';
+  button.id = planKey === 'free' ? 'btn-pricing-free-start' : 'btn-pricing-cta';
+  button.onclick = planKey === 'free' ? handleFreeStartAction : handlePricingPrimaryAction;
+  button.textContent = planKey === 'free' ? plan.cta : getPricingAccountCtaLabel();
+  card.appendChild(button);
+  if (planKey === 'pro') {
+    var status = document.createElement('div');
+    status.className = 'pricing-soon';
+    status.id = 't-pricing-soon';
+    status.textContent = plan.priceNote || '';
+    card.appendChild(status);
+  }
+  return card;
+}
+
+function renderPricingComparison(pricing) {
+  var section = document.createElement('section');
+  section.className = 'pricing-comparison';
+  appendPricingText(section, 'h2', 'pricing-section-title', pricing.comparison && pricing.comparison.title);
+  var list = document.createElement('div');
+  list.className = 'pricing-comparison-list';
+  var items = pricing.comparison && Array.isArray(pricing.comparison.items) ? pricing.comparison.items : [];
+  if (!items.length) console.warn('[pricing] Missing comparison items');
+  items.forEach(function(item) {
+    var row = document.createElement('div');
+    row.className = 'pricing-comparison-row';
+    row.dataset.comparisonId = item.id || '';
+    appendPricingText(row, 'div', 'pricing-comparison-label', item.label);
+    var values = document.createElement('div');
+    values.className = 'pricing-comparison-values';
+    [
+      { key: 'free', plan: pricing.plans && pricing.plans.free ? pricing.plans.free.name : '', value: item.free },
+      { key: 'pro', plan: pricing.plans && pricing.plans.pro ? pricing.plans.pro.name : '', value: item.pro }
+    ].forEach(function(entry) {
+      var valueBox = document.createElement('div');
+      valueBox.className = 'pricing-comparison-value';
+      valueBox.setAttribute('aria-label', [item.label, entry.plan, entry.value].filter(Boolean).join(' '));
+      appendPricingText(valueBox, 'span', 'pricing-comparison-plan', entry.plan);
+      appendPricingText(valueBox, 'span', 'pricing-comparison-text', entry.value);
+      values.appendChild(valueBox);
+    });
+    row.appendChild(values);
+    list.appendChild(row);
+  });
+  section.appendChild(list);
+  return section;
+}
+
+function getPricingAccountCtaLabel() {
+  var plan = getPricingLocaleValue('plans.pro');
+  if (!plan) return '';
+  var state = getAccountUIState();
+  if (state === 'plus') return plan.ctaPro || '';
+  if (state === 'guest') return plan.ctaGuest || plan.cta || '';
+  return plan.ctaFree || plan.cta || '';
+}
+
+function updatePricingAccountState() {
+  var button = document.getElementById('btn-pricing-cta');
+  if (!button) return;
+  button.disabled = false;
+  button.textContent = getPricingAccountCtaLabel();
+}
+
+function updatePricingCTA() {
+  updatePricingAccountState();
+}
+
+function handlePricingPrimaryAction() {
+  if (getAccountUIState() === 'plus') {
+    openCustomerPortal();
+    return;
+  }
+  pricingCtaClick();
+}
+
+function handleFreeStartAction() {
+  startLanding();
+}
+
+function renderPricingPage() {
+  var root = document.getElementById('pricing-root');
+  var pricing = getPricingLocale();
+  if (!root || !pricing) return;
+  root.innerHTML = '';
+  var page = document.createElement('div');
+  page.className = 'pricing-page';
+
+  var intro = document.createElement('section');
+  intro.className = 'pricing-intro';
+  appendPricingText(intro, 'div', 'pricing-eyebrow', pricing.eyebrow);
+  appendPricingText(intro, 'h1', 'pricing-title', pricing.title);
+  appendPricingText(intro, 'div', 'pricing-lead', pricing.lead);
+  page.appendChild(intro);
+
+  var plans = document.createElement('section');
+  plans.className = 'pricing-plans';
+  if (!pricing.plans || !pricing.plans.free || !pricing.plans.pro) {
+    console.warn('[pricing] Missing plan definitions');
+  } else {
+    plans.appendChild(renderPricingPlanCard('free', pricing.plans.free));
+    plans.appendChild(renderPricingPlanCard('pro', pricing.plans.pro));
+  }
+  page.appendChild(plans);
+  page.appendChild(renderPricingComparison(pricing));
+
+  var meaning = document.createElement('section');
+  meaning.className = 'pricing-meaning';
+  appendPricingText(meaning, 'h2', 'pricing-section-title', pricing.meaning && pricing.meaning.title);
+  appendPricingText(meaning, 'div', 'pricing-meaning-body', pricing.meaning && pricing.meaning.body);
+  page.appendChild(meaning);
+
+  var footer = document.createElement('section');
+  footer.className = 'pricing-footer';
+  appendPricingText(footer, 'div', 'pricing-footer-body', pricing.footer && pricing.footer.body);
+  var freeButton = document.createElement('button');
+  freeButton.type = 'button';
+  freeButton.className = 'btn';
+  freeButton.textContent = pricing.footer && pricing.footer.cta ? pricing.footer.cta : '';
+  freeButton.onclick = handleFreeStartAction;
+  footer.appendChild(freeButton);
+  appendPricingText(footer, 'div', 'pricing-legal', pricing.legal && pricing.legal.cancelAnytime);
+  page.appendChild(footer);
+
+  root.appendChild(page);
+  updatePricingAccountState();
 }
 
 var setLandingLangV15 = setLandingLang;
@@ -3976,8 +4275,8 @@ async function startLanding() {
 }
 
 var SCREEN_ORDER = [
-  's-v17-entry-choice','s-v17-before','s-v17-ideal-100','s-v17-current-state','s-v17-current-measure',
-  's-v17-ideal-state','s-v17-breath','s-v17-final-measure','s-v17-theme-final','s-result',
+  's-v17-entry-choice','s-v17-before','s-v17-first-response','s-v17-second-response',
+  's-v17-breath','s-v17-final-measure','s-result',
   's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-v16-after-measurement','s-v16-result','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
@@ -4007,14 +4306,7 @@ function onSlider(key, v) {
       D.firstThemeScore = score;
       D.initialThemeScore = score;
       D.v17Flow.initialThemeScore = score;
-    } else if (key === 'v17-current-measure') {
-      D.currentStateInitialScore = score;
-      D.currentStateScore = score;
-      D.v17Flow.currentStateBeforeScore = score;
     } else if (key === 'v17-final') {
-      D.currentStateFinalScore = score;
-      D.v17Flow.currentStateAfterScore = score;
-    } else if (key === 'v17-theme-final') {
       D.finalThemeScore = score;
       D.v17Flow.finalThemeScore = score;
     }
@@ -4040,14 +4332,7 @@ function selectV17NotAProblem(key) {
     D.firstThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
-  } else if (key === 'v17-current-measure') {
-    D.currentStateInitialScore = V17_SCORE_NOT_A_PROBLEM;
-    D.currentStateScore = V17_SCORE_NOT_A_PROBLEM;
-    D.v17Flow.currentStateBeforeScore = V17_SCORE_NOT_A_PROBLEM;
   } else if (key === 'v17-final') {
-    D.currentStateFinalScore = V17_SCORE_NOT_A_PROBLEM;
-    D.v17Flow.currentStateAfterScore = V17_SCORE_NOT_A_PROBLEM;
-  } else if (key === 'v17-theme-final') {
     D.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
   }
@@ -4155,6 +4440,7 @@ function prepareEntryFlow() {
   D.freeInputValue = '';
   D.freeInputNextStep = '';
   v17QuestionSearchValue = '';
+  v17CustomCategoryName = '';
   clearV17QuestionState();
   D.themeKey = null;
   D.theme = '';
@@ -4162,63 +4448,6 @@ function prepareEntryFlow() {
   D.themeNegative = '';
   themeChosen = false;
   renderThemeScreen();
-}
-
-function openV17FreeInput() {
-  clearV17QuestionState();
-  D.themeKey = null;
-  D.theme = '';
-  D.themePositive = '';
-  D.themeNegative = '';
-  themeChosen = false;
-  var input = document.getElementById('in-v17-free-theme');
-  var button = document.getElementById('btn-v17-free-start');
-  if (input) input.value = '';
-  if (button) button.disabled = true;
-  renderV17Screen('s-v17-entry-choice');
-  if (cur !== 's-v17-entry-choice') fwd('s-v17-entry-choice');
-  setTimeout(function() { if (input) input.focus(); }, 180);
-}
-
-function onV17FreeInput(value) {
-  var button = document.getElementById('btn-v17-free-start');
-  if (button) button.disabled = !String(value || '').trim();
-}
-
-function submitV17FreeInput() {
-  var input = document.getElementById('in-v17-free-theme');
-  var value = input ? input.value.trim() : '';
-  if (!value) return;
-  ensureV17QuestionState();
-  D.questionId = null;
-  D.themeId = null;
-  D.questionTextAtTime = value;
-  D.localeAtTime = lang || 'ja';
-  D.freeInputTheme = value;
-  D.themeSource = 'freeInput';
-  D.themeKey = null;
-  D.theme = value;
-  D.themePositive = value;
-  D.themeNegative = '';
-  D.themeMeaning = '';
-  themeChosen = true;
-  trackEvent('theme_selected', { themeKey: null, lang: lang, source: 'freeInput' });
-  startSession();
-}
-
-function openV17QuestionPicker() {
-  clearV17QuestionState();
-  D.themeKey = null;
-  D.theme = '';
-  D.themePositive = '';
-  D.themeNegative = '';
-  themeChosen = false;
-  renderThemeScreen();
-  if (cur !== 's-v17-entry-choice') fwd('s-v17-entry-choice');
-  setTimeout(function() {
-    var accordion = document.getElementById('v17-theme-accordion');
-    if (accordion) accordion.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 180);
 }
 
 function chooseEntryMethod(method) {
@@ -4520,6 +4749,8 @@ var v17ThemeLibraryLocale = '';
 var v17ThemeLibraryCache = {};
 var v17ThemeLibraryPromise = null;
 var v17ThemeLibraryError = '';
+var v17CustomCategoryName = '';
+var v17ThemeSelectionFocusId = '';
 
 function getV17ThemeLibraryLocale() {
   if (lang === 'ja' || lang === 'zh-TW') return lang;
@@ -4595,6 +4826,199 @@ function appendV17ThemePage(category, track, themeList, moreButton) {
   moreButton.style.display = end < track.themes.length ? '' : 'none';
 }
 
+function bindV17FreeInputEnterGuard(input) {
+  if (!input) return;
+  var composing = false;
+  input.addEventListener('compositionstart', function() {
+    composing = true;
+  });
+  input.addEventListener('compositionend', function() {
+    composing = false;
+  });
+  input.addEventListener('keydown', function(event) {
+    if (event.key !== 'Enter') return;
+    if (event.isComposing || event.keyCode === 229 || composing) return;
+    if (input.tagName === 'TEXTAREA') return;
+    event.preventDefault();
+    event.stopPropagation();
+  });
+}
+
+function startV17TrackFreeInput(category, track, value) {
+  var themeText = String(value || '').trim();
+  if (!themeText || !track) return;
+  ensureV17QuestionState();
+  v17ThemeSelectionFocusId = '';
+  D.questionId = null;
+  D.themeId = null;
+  D.questionTextAtTime = themeText;
+  D.localeAtTime = lang || v17ThemeLibraryLocale;
+  D.freeInputTheme = themeText;
+  D.themeSource = category && category.id === 'custom'
+    ? 'customCategoryFreeInput' : 'categoryFreeInput';
+  D.themeCategoryId = category ? category.id : '';
+  D.themeCategoryLabelAtTime = category ? category.label : '';
+  D.themeTrackId = track.id;
+  D.themeKey = null;
+  D.theme = themeText;
+  D.themePositive = themeText;
+  D.themeNegative = '';
+  D.themeMeaning = '';
+  themeChosen = true;
+  trackEvent('theme_selected', {
+    themeKey: null,
+    lang: lang,
+    source: D.themeSource,
+    categoryId: D.themeCategoryId,
+    trackId: D.themeTrackId
+  });
+  startSession();
+}
+
+function createV17TrackFreeInput(category, track) {
+  var wrap = document.createElement('div');
+  wrap.className = 'v17-track-free';
+  var form = document.createElement('div');
+  form.className = 'v17-track-free-form';
+  var input = document.createElement('textarea');
+  input.className = 'v17-inline-textarea';
+  input.rows = 3;
+  input.maxLength = 600;
+  input.placeholder = v17Format(track.id === 'ideals'
+    ? 'theme.idealFreeInputPlaceholder' : 'theme.problemFreeInputPlaceholder', {
+      theme: category.label
+    });
+  bindV17FreeInputEnterGuard(input);
+  var confirm = document.createElement('button');
+  confirm.type = 'button';
+  confirm.className = 'v17-inline-confirm';
+  confirm.textContent = v17Copy('theme.confirm');
+  confirm.disabled = true;
+  input.oninput = function() { confirm.disabled = !input.value.trim(); };
+  confirm.onclick = function() { startV17TrackFreeInput(category, track, input.value); };
+  form.appendChild(input);
+  form.appendChild(confirm);
+  wrap.appendChild(form);
+  return wrap;
+}
+
+function createV17TrackSection(category, track, includeThemes) {
+  var trackWrap = document.createElement('div');
+  trackWrap.className = 'v17-track';
+  trackWrap.dataset.trackId = track.id;
+  var trackButton = document.createElement('button');
+  trackButton.type = 'button';
+  trackButton.className = 'v17-track-button';
+  trackButton.setAttribute('aria-expanded', 'false');
+  var trackLabel = document.createElement('span');
+  trackLabel.textContent = track.label;
+  var trackMark = document.createElement('span');
+  trackMark.className = 'v17-accordion-mark';
+  trackMark.textContent = '＋';
+  trackButton.appendChild(trackLabel);
+  trackButton.appendChild(trackMark);
+  trackButton.onclick = function() {
+    var open = trackWrap.classList.toggle('open');
+    trackButton.setAttribute('aria-expanded', String(open));
+    trackMark.textContent = open ? '－' : '＋';
+  };
+  var trackBody = document.createElement('div');
+  trackBody.className = 'v17-track-body';
+  trackBody.appendChild(createV17TrackFreeInput(category, track));
+  if (includeThemes) {
+    var themeList = document.createElement('div');
+    themeList.className = 'v17-theme-list';
+    var moreButton = document.createElement('button');
+    moreButton.type = 'button';
+    moreButton.className = 'btn-see-more v17-theme-more';
+    moreButton.textContent = v17Copy('theme.showMore');
+    moreButton.onclick = function() {
+      appendV17ThemePage(category, track, themeList, moreButton);
+    };
+    trackBody.appendChild(themeList);
+    trackBody.appendChild(moreButton);
+    appendV17ThemePage(category, track, themeList, moreButton);
+  }
+  trackWrap.appendChild(trackButton);
+  trackWrap.appendChild(trackBody);
+  return trackWrap;
+}
+
+function createV17CustomCategorySection() {
+  var category = {
+    id: 'custom',
+    label: v17CustomCategoryName || v17Copy('theme.freeInputCategory')
+  };
+  var categoryWrap = document.createElement('section');
+  categoryWrap.className = 'v17-category' + (v17CustomCategoryName ? ' open' : '');
+  categoryWrap.dataset.categoryId = category.id;
+  var categoryButton = document.createElement('button');
+  categoryButton.type = 'button';
+  categoryButton.className = 'v17-category-button';
+  categoryButton.setAttribute('aria-expanded', v17CustomCategoryName ? 'true' : 'false');
+  var categoryLabel = document.createElement('span');
+  categoryLabel.textContent = category.label;
+  var categoryMark = document.createElement('span');
+  categoryMark.className = 'v17-accordion-mark';
+  categoryMark.textContent = v17CustomCategoryName ? '－' : '＋';
+  categoryButton.appendChild(categoryLabel);
+  categoryButton.appendChild(categoryMark);
+  categoryButton.onclick = function() {
+    var open = categoryWrap.classList.toggle('open');
+    categoryButton.setAttribute('aria-expanded', String(open));
+    categoryMark.textContent = open ? '－' : '＋';
+  };
+  var categoryBody = document.createElement('div');
+  categoryBody.className = 'v17-category-body';
+  if (v17CustomCategoryName) {
+    var customGuide = document.createElement('div');
+    customGuide.className = 'v17-category-guide';
+    customGuide.textContent = v17Format('theme.categoryGuide', { theme: v17CustomCategoryName });
+    categoryBody.appendChild(customGuide);
+    var tracks = [
+      { id: 'problems', label: v17Copy('entry.problemsLabel') },
+      { id: 'ideals', label: v17Copy('entry.idealsLabel') }
+    ];
+    tracks.forEach(function(track) {
+      categoryBody.appendChild(createV17TrackSection(category, track, false));
+    });
+  } else {
+    var setup = document.createElement('div');
+    setup.className = 'v17-custom-category-setup';
+    var form = document.createElement('div');
+    form.className = 'v17-track-free-form';
+    var input = document.createElement('textarea');
+    input.className = 'v17-inline-textarea';
+    input.rows = 3;
+    input.maxLength = 120;
+    input.placeholder = v17Copy('theme.freeInputPlaceholder');
+    bindV17FreeInputEnterGuard(input);
+    var confirm = document.createElement('button');
+    confirm.type = 'button';
+    confirm.className = 'v17-inline-confirm';
+    confirm.textContent = v17Copy('theme.confirm');
+    confirm.disabled = true;
+    var submitCategory = function() {
+      var value = input.value.trim();
+      if (!value) return;
+      v17CustomCategoryName = value;
+      ensureV17QuestionState();
+      D.themeCategoryId = 'custom';
+      D.themeCategoryLabelAtTime = value;
+      renderV17ThemeAccordion();
+    };
+    input.oninput = function() { confirm.disabled = !input.value.trim(); };
+    confirm.onclick = submitCategory;
+    form.appendChild(input);
+    form.appendChild(confirm);
+    setup.appendChild(form);
+    categoryBody.appendChild(setup);
+  }
+  categoryWrap.appendChild(categoryButton);
+  categoryWrap.appendChild(categoryBody);
+  return categoryWrap;
+}
+
 function renderV17ThemeAccordion() {
   var root = document.getElementById('v17-theme-accordion');
   var status = document.getElementById('v17-theme-library-status');
@@ -4609,19 +5033,38 @@ function renderV17ThemeAccordion() {
     status.textContent = v17Copy('flow.entry.themeLoading');
     return;
   }
+  if (!v17CustomCategoryName && D.themeCategoryId === 'custom' && D.themeCategoryLabelAtTime) {
+    v17CustomCategoryName = D.themeCategoryLabelAtTime;
+  }
+  var focusCategoryId = v17ThemeSelectionFocusId || '';
+  if (focusCategoryId && focusCategoryId !== 'custom') {
+    var hasFocusedCategory = v17ThemeLibraryData.categories.some(function(category) {
+      return category.id === focusCategoryId;
+    });
+    if (!hasFocusedCategory) {
+      focusCategoryId = '';
+      v17ThemeSelectionFocusId = '';
+    }
+  }
+  if (!focusCategoryId || focusCategoryId === 'custom') {
+    root.appendChild(createV17CustomCategorySection());
+    if (focusCategoryId === 'custom') return;
+  }
   v17ThemeLibraryData.categories.forEach(function(category) {
+    if (focusCategoryId && category.id !== focusCategoryId) return;
+    var isFocused = focusCategoryId === category.id;
     var categoryWrap = document.createElement('section');
-    categoryWrap.className = 'v17-category';
+    categoryWrap.className = 'v17-category' + (isFocused ? ' open' : '');
     categoryWrap.dataset.categoryId = category.id;
     var categoryButton = document.createElement('button');
     categoryButton.type = 'button';
     categoryButton.className = 'v17-category-button';
-    categoryButton.setAttribute('aria-expanded', 'false');
+    categoryButton.setAttribute('aria-expanded', isFocused ? 'true' : 'false');
     var categoryLabel = document.createElement('span');
     categoryLabel.textContent = category.label;
     var categoryMark = document.createElement('span');
     categoryMark.className = 'v17-accordion-mark';
-    categoryMark.textContent = '＋';
+    categoryMark.textContent = isFocused ? '－' : '＋';
     categoryButton.appendChild(categoryLabel);
     categoryButton.appendChild(categoryMark);
     categoryButton.onclick = function() {
@@ -4631,43 +5074,12 @@ function renderV17ThemeAccordion() {
     };
     var categoryBody = document.createElement('div');
     categoryBody.className = 'v17-category-body';
+    var categoryGuide = document.createElement('div');
+    categoryGuide.className = 'v17-category-guide';
+    categoryGuide.textContent = v17Format('theme.categoryGuide', { theme: category.label });
+    categoryBody.appendChild(categoryGuide);
     category.tracks.forEach(function(track) {
-      var trackWrap = document.createElement('div');
-      trackWrap.className = 'v17-track';
-      trackWrap.dataset.trackId = track.id;
-      var trackButton = document.createElement('button');
-      trackButton.type = 'button';
-      trackButton.className = 'v17-track-button';
-      trackButton.setAttribute('aria-expanded', 'false');
-      var trackLabel = document.createElement('span');
-      trackLabel.textContent = track.label;
-      var trackMark = document.createElement('span');
-      trackMark.className = 'v17-accordion-mark';
-      trackMark.textContent = '＋';
-      trackButton.appendChild(trackLabel);
-      trackButton.appendChild(trackMark);
-      trackButton.onclick = function() {
-        var open = trackWrap.classList.toggle('open');
-        trackButton.setAttribute('aria-expanded', String(open));
-        trackMark.textContent = open ? '－' : '＋';
-      };
-      var trackBody = document.createElement('div');
-      trackBody.className = 'v17-track-body';
-      var themeList = document.createElement('div');
-      themeList.className = 'v17-theme-list';
-      var moreButton = document.createElement('button');
-      moreButton.type = 'button';
-      moreButton.className = 'btn-see-more v17-theme-more';
-      moreButton.textContent = v17Copy('flow.entry.showMore');
-      moreButton.onclick = function() {
-        appendV17ThemePage(category, track, themeList, moreButton);
-      };
-      trackBody.appendChild(themeList);
-      trackBody.appendChild(moreButton);
-      appendV17ThemePage(category, track, themeList, moreButton);
-      trackWrap.appendChild(trackButton);
-      trackWrap.appendChild(trackBody);
-      categoryBody.appendChild(trackWrap);
+      categoryBody.appendChild(createV17TrackSection(category, track, true));
     });
     categoryWrap.appendChild(categoryButton);
     categoryWrap.appendChild(categoryBody);
@@ -4678,6 +5090,7 @@ function renderV17ThemeAccordion() {
 function selectV17LibraryTheme(category, track, theme) {
   if (!theme) return;
   ensureV17QuestionState();
+  v17ThemeSelectionFocusId = '';
   D.questionId = null;
   D.themeId = theme.id;
   D.questionTextAtTime = theme.label;
@@ -4685,6 +5098,7 @@ function selectV17LibraryTheme(category, track, theme) {
   D.freeInputTheme = '';
   D.themeSource = 'themeLibrary';
   D.themeCategoryId = category ? category.id : '';
+  D.themeCategoryLabelAtTime = category ? category.label : '';
   D.themeTrackId = track ? track.id : '';
   D.themeKey = theme.id;
   D.theme = theme.label;
@@ -4735,13 +5149,6 @@ function getV17Path(root, path) {
   return value;
 }
 
-function joinV17LocaleParts(record, keys) {
-  if (!record) return undefined;
-  return keys.map(function(key) { return record[key]; })
-    .filter(function(value) { return typeof value === 'string' && value.length; })
-    .join('\n');
-}
-
 function v17LocaleQuoteTemplate(variable) {
   return lang === 'en' ? '“{' + variable + '}”' : '「{' + variable + '}」';
 }
@@ -4763,59 +5170,43 @@ function v17LocaleValue(path) {
     'flow.landing.hero': 'lp.hero.title',
     'flow.landing.subtitle': 'lp.hero.body',
     'flow.landing.start': 'lp.hero.cta',
-    'flow.entry.freeTitle': 'entry.freeInputTitle',
-    'flow.entry.freePlaceholder': 'entry.freeInputPlaceholder',
-    'flow.entry.freeStart': 'entry.freeInputStart',
     'flow.entry.categoryIntro': 'entry.categoryTitle',
     'flow.entry.themeLoading': 'status.loading',
     'flow.entry.themeError': 'errors.loadFailed',
     'flow.entry.skippedTheme': 'entry.freeInputTitle',
-    'flow.entry.showMore': 'buttons.showMore',
     'flow.common.continue': 'buttons.continue',
     'flow.measurement.cannotQuantify': 'buttons.cannotQuantify',
     'flow.measurement.cannotQuantifyHint': 'buttonsHint.cannotQuantify',
     'flow.step1.prompt': 'flow.step1.prompt',
-    'flow.step3.placeholder': 'flow.step3.placeholder',
-    'flow.step4.prompt': 'flow.step4.prompt',
-    'flow.step6.placeholder': 'flow.step6.placeholder',
-    'flow.step8.prompt': 'flow.step8.prompt',
-    'flow.step8.result': 'buttons.done',
-    'flow.finalTheme.prompt': 'flow.finalTheme.prompt',
-    'flow.finalTheme.result': 'buttons.done',
+    'flow.step5.prompt': 'flow.step5.prompt',
+    'flow.step5.result': 'buttons.done',
     'flow.pro.title': 'pricing.title',
     'flow.pro.lead': 'pricing.lead',
     'flow.pro.value': 'pricing.body',
     'flow.pro.cta': 'pricing.cta',
-    'flow.result.theme': 'result.selectedTheme',
+    'flow.result.problemTheme': 'result.selectedProblem',
+    'flow.result.idealTheme': 'result.selectedIdeal',
     'flow.result.currentState': 'result.currentState',
+    'flow.result.idealState': 'result.idealState',
     'flow.result.happiness': 'result.scoreSuffix',
     'flow.result.before': 'result.before',
     'flow.result.after': 'result.after',
-    'flow.result.awareness': 'result.awareness',
     'flow.result.image': 'result.imageSave',
     'flow.result.imageReady': 'result.shareStatusSaved',
     'flow.result.imageError': 'result.shareStatusFailed',
-    'flow.result.save': 'bookmark.primaryCta',
+    'flow.result.save': 'result.actions.bookmark',
     'flow.result.saving': 'status.saving',
     'flow.result.saved': 'bookmark.saved',
     'flow.result.saveError': 'errors.unknown',
     'flow.result.resume': 'buttons.continue',
-    'flow.result.clearAgain': 'buttons.anotherClearing',
-    'flow.result.restartTheme': 'buttons.restartTheme',
-    'flow.result.chooseTheme': 'buttons.chooseThemeAgain'
+    'flow.result.restartSubtheme': 'result.actions.restartSubtheme',
+    'flow.result.restartTheme': 'result.actions.restartTheme',
+    'flow.result.chooseTheme': 'result.actions.chooseAnotherTheme'
   };
   if (directMap[path]) return getV17Path(locale, directMap[path]);
   if (path === 'flow.app.breathCircle') return getV17Path(locale, 'breath.step1.smallBottom');
   if (path === 'flow.landing.sections') return [];
   if (path === 'flow.landing.aboutTitle' || path === 'flow.landing.readMore' || path === 'flow.landing.finalCta') return '';
-  if (path === 'flow.entry.or') return '';
-  if (path === 'flow.hundred.prompt') {
-    var flowState = D && D.v17Flow;
-    var stepKey = flowState && flowState.happinessPhase === 'current' ? 'step5' : 'step2';
-    return joinV17LocaleParts(getV17Path(locale, 'flow.' + stepKey), ['lead', 'main', 'helper']);
-  }
-  if (path === 'flow.step3.prompt') return joinV17LocaleParts(getV17Path(locale, 'flow.step3'), ['lead', 'main', 'helper']);
-  if (path === 'flow.step6.prompt') return joinV17LocaleParts(getV17Path(locale, 'flow.step6'), ['lead', 'main', 'helper']);
   if (path === 'flow.breathSteps.first.lead') return getV17Path(locale, 'breath.step1.smallTop');
   if (path === 'flow.breathSteps.first.body') return getV17Path(locale, 'breath.step1.main');
   if (path === 'flow.breathSteps.first.hint') return getV17Path(locale, 'breath.step1.smallBottom');
@@ -4829,20 +5220,17 @@ function v17LocaleValue(path) {
   if (path === 'not_measurable_button') return getV17Path(locale, 'buttons.cannotQuantify');
   if (path === 'flow.result.imageCreating') return getV17Path(locale, 'status.loading');
   if (path === 'flow.result.saveLogin') {
-    return [getV17Path(locale, 'buttons.login'), getV17Path(locale, 'bookmark.primaryCta')].filter(Boolean).join(' — ');
+    return [getV17Path(locale, 'buttons.login'), getV17Path(locale, 'result.actions.bookmark')].filter(Boolean).join(' — ');
   }
   var quoteVariables = {
     'flow.step1.quote': 'theme',
-    'flow.hundred.quote': 'text',
-    'flow.step3.quote': 'theme',
-    'flow.step4.quote': 'currentState',
-    'flow.step6.quote': 'currentState',
-    'flow.step8.quote': 'currentState',
-    'flow.finalTheme.quote': 'theme',
+    'flow.step2.quote': 'theme',
+    'flow.step3.quote': 'response',
+    'flow.step5.quote': 'theme',
     'flow.result.quote': 'text'
   };
   if (quoteVariables[path]) return v17LocaleQuoteTemplate(quoteVariables[path]);
-  return undefined;
+  return getV17Path(locale, path);
 }
 
 function v17Value(path) {
@@ -4887,6 +5275,7 @@ function ensureV17QuestionState() {
   if (typeof D.freeInputTheme === 'undefined') D.freeInputTheme = '';
   if (typeof D.themeSource === 'undefined') D.themeSource = '';
   if (typeof D.themeCategoryId === 'undefined') D.themeCategoryId = '';
+  if (typeof D.themeCategoryLabelAtTime === 'undefined') D.themeCategoryLabelAtTime = '';
   if (typeof D.themeTrackId === 'undefined') D.themeTrackId = '';
 }
 
@@ -4896,42 +5285,42 @@ function ensureV17SessionState() {
   if (typeof D.initialThemeScore === 'undefined') D.initialThemeScore = null;
   if (typeof D.currentState === 'undefined') D.currentState = '';
   if (typeof D.currentStateText === 'undefined') D.currentStateText = D.currentState || '';
-  if (typeof D.currentStateInitialScore === 'undefined') D.currentStateInitialScore = null;
-  if (typeof D.currentStateFinalScore === 'undefined') D.currentStateFinalScore = null;
-  if (typeof D.currentStateScore === 'undefined') D.currentStateScore = null;
   if (typeof D.currentStateDraft === 'undefined') D.currentStateDraft = D.currentState || '';
-  if (!Array.isArray(D.idealStateAnswers)) D.idealStateAnswers = [];
-  if (!Array.isArray(D.remeasureScores)) D.remeasureScores = [];
   if (typeof D.idealState === 'undefined') D.idealState = '';
   if (typeof D.idealStateText === 'undefined') D.idealStateText = D.idealState || '';
   if (typeof D.idealStateDraft === 'undefined') D.idealStateDraft = D.idealState || '';
   if (typeof D.awareness === 'undefined') D.awareness = '';
   if (typeof D.finalThemeScore === 'undefined') D.finalThemeScore = null;
   if (typeof D.deltaScore === 'undefined') D.deltaScore = null;
-  if (typeof D.remeasureScore === 'undefined') D.remeasureScore = null;
   if (typeof D.v17Flow === 'undefined') D.v17Flow = null;
+  if (!Array.isArray(D.currentThemeScoreTrail)) {
+    D.currentThemeScoreTrail = D.v17Flow && Array.isArray(D.v17Flow.currentThemeScoreTrail)
+      ? D.v17Flow.currentThemeScoreTrail.slice() : [];
+  }
+  if (!Array.isArray(D.currentThemeAwarenessTrail)) {
+    D.currentThemeAwarenessTrail = D.v17Flow && Array.isArray(D.v17Flow.currentThemeAwarenessTrail)
+      ? D.v17Flow.currentThemeAwarenessTrail.slice() : [];
+  }
 }
 
-function resetV17SessionState() {
+function resetV17SessionState(preserveThemeScoreTrail) {
   ensureV17SessionState();
+  var scoreTrail = preserveThemeScoreTrail ? D.currentThemeScoreTrail.slice() : [];
+  var awarenessTrail = preserveThemeScoreTrail ? D.currentThemeAwarenessTrail.slice() : [];
   D.firstThemeScore = null;
   D.initialThemeScore = null;
   D.currentState = '';
   D.currentStateText = '';
-  D.currentStateInitialScore = null;
-  D.currentStateFinalScore = null;
-  D.currentStateScore = null;
   D.currentStateDraft = '';
-  D.idealStateAnswers = [];
-  D.remeasureScores = [];
   D.idealState = '';
   D.idealStateText = '';
   D.idealStateDraft = '';
   D.awareness = '';
   D.finalThemeScore = null;
   D.deltaScore = null;
-  D.remeasureScore = null;
   D.v17Flow = null;
+  D.currentThemeScoreTrail = scoreTrail;
+  D.currentThemeAwarenessTrail = awarenessTrail;
 }
 
 function clearV17QuestionState() {
@@ -4943,6 +5332,7 @@ function clearV17QuestionState() {
   D.freeInputTheme = '';
   D.themeSource = '';
   D.themeCategoryId = '';
+  D.themeCategoryLabelAtTime = '';
   D.themeTrackId = '';
 }
 
@@ -5000,6 +5390,7 @@ function getV17QuestionSnapshot() {
     freeInputTheme: D.freeInputTheme || '',
     themeSource: D.themeSource || (D.questionId ? 'hcq' : 'freeInput'),
     themeCategoryId: D.themeCategoryId || '',
+    themeCategoryLabelAtTime: D.themeCategoryLabelAtTime || '',
     themeTrackId: D.themeTrackId || ''
   };
 }
@@ -5137,6 +5528,9 @@ function selectHCQQuestion(question) {
   D.localeAtTime = lang || v17QuestionCatalogLocale;
   D.freeInputTheme = '';
   D.themeSource = 'hcq';
+  D.themeCategoryId = '';
+  D.themeCategoryLabelAtTime = '';
+  D.themeTrackId = 'problems';
   themeChosen = true;
   trackEvent('theme_selected', { themeKey: question.id, lang: lang, source: 'hcq' });
   syncSelectedHCQUI();
@@ -6058,7 +6452,49 @@ function startSession() {
   startV17Session();
 }
 
+var v17RepeatResultState = null;
+var v17RepeatCycleState = null;
+var v17RepeatReturnPending = false;
+
+function cloneV17State(state) {
+  return JSON.parse(JSON.stringify(state || {}));
+}
+
+function clearV17RepeatNavigation() {
+  v17RepeatResultState = null;
+  v17RepeatCycleState = null;
+  v17RepeatReturnPending = false;
+}
+
+function resumeV17RepeatCycle() {
+  if (!v17RepeatCycleState || cur !== 's-result') return false;
+  v17RepeatResultState = D;
+  D = v17RepeatCycleState;
+  v17RepeatCycleState = null;
+  v17RepeatReturnPending = true;
+  showScreenDirect('s-v17-first-response');
+  renderV17Screen('s-v17-first-response');
+  return true;
+}
+
+function returnToV17RepeatResult() {
+  if (!v17RepeatReturnPending || !v17RepeatResultState
+      || cur !== 's-v17-first-response') return false;
+  v17RepeatCycleState = D;
+  D = v17RepeatResultState;
+  v17RepeatResultState = null;
+  v17RepeatReturnPending = false;
+  showScreenDirect('s-result');
+  renderV17Screen('s-result');
+  return true;
+}
+
 function createV17FlowState() {
+  var route = getV17ThemeRoute();
+  var scoreTrail = Array.isArray(D.currentThemeScoreTrail)
+    ? D.currentThemeScoreTrail.slice() : [];
+  var awarenessTrail = Array.isArray(D.currentThemeAwarenessTrail)
+    ? D.currentThemeAwarenessTrail.slice() : [];
   return {
     appVersion: 'v17',
     theme: D.questionTextAtTime || '',
@@ -6068,22 +6504,32 @@ function createV17FlowState() {
     questionTextAtTime: D.questionTextAtTime || '',
     localeAtTime: D.localeAtTime || lang || 'ja',
     freeInputTheme: D.freeInputTheme || '',
+    themeCategoryId: D.themeCategoryId || '',
+    themeCategoryLabelAtTime: D.themeCategoryLabelAtTime || '',
+    themeTrackId: D.themeTrackId || 'problems',
+    route: route,
     currentStep: 'step1',
-    happinessPhase: 'theme',
+    currentThemeScoreTrail: scoreTrail,
+    currentThemeAwarenessTrail: awarenessTrail,
+    scoreTrailBeforeIndex: scoreTrail.length ? scoreTrail.length - 1 : null,
+    scoreTrailAfterIndex: null,
+    scoreTrailExpanded: false,
+    awarenessTrailIndex: null,
+    awarenessTrailExpanded: false,
     breathPhase: 'first',
     initialThemeScore: null,
+    step2Text: '',
+    step2Draft: '',
+    step3Text: '',
+    step3Draft: '',
     currentState: '',
     currentStateText: '',
     currentStateDraft: '',
-    currentStateBeforeScore: null,
-    currentStateAfterScore: null,
     idealState: '',
     idealStateText: '',
     idealStateDraft: '',
     breath: { first: false, second: false },
-    clearings: [],
-    finalThemeScore: null,
-    resultMode: 'clearing'
+    finalThemeScore: null
   };
 }
 
@@ -6099,6 +6545,50 @@ function getV17IdealStateText() {
   return D.idealStateText || D.idealState || '';
 }
 
+function getV17ThemeRoute() {
+  var trackId = D && D.themeTrackId ? D.themeTrackId
+    : D && D.v17Flow && D.v17Flow.themeTrackId ? D.v17Flow.themeTrackId : '';
+  return trackId === 'ideals' ? 'ideals' : 'problems';
+}
+
+function getV17ResponseKind(position) {
+  var route = getV17ThemeRoute();
+  if (position === 'first') return route === 'ideals' ? 'currentState' : 'idealState';
+  return route === 'ideals' ? 'idealState' : 'currentState';
+}
+
+function getV17RouteDraft(position) {
+  var flow = D.v17Flow || {};
+  var flowDraft = position === 'first' ? flow.step2Draft : flow.step3Draft;
+  if (typeof flowDraft === 'string' && flowDraft) return flowDraft;
+  return getV17ResponseKind(position) === 'idealState' ? D.idealStateDraft : D.currentStateDraft;
+}
+
+function setV17SemanticResponse(kind, value) {
+  if (kind === 'idealState') {
+    D.idealState = value;
+    D.idealStateText = value;
+    D.idealStateDraft = value;
+    D.ideal = value;
+    D.idealAnswer = value;
+    if (D.v17Flow) {
+      D.v17Flow.idealState = value;
+      D.v17Flow.idealStateText = value;
+      D.v17Flow.idealStateDraft = value;
+    }
+    return;
+  }
+  D.currentState = value;
+  D.currentStateText = value;
+  D.currentStateDraft = value;
+  D.issue = value;
+  if (D.v17Flow) {
+    D.v17Flow.currentState = value;
+    D.v17Flow.currentStateText = value;
+    D.v17Flow.currentStateDraft = value;
+  }
+}
+
 function renderV17StaticCopy() {
   if (!getV17LocaleRoot()) return;
   applyThemeMode();
@@ -6111,24 +6601,22 @@ function renderV17StaticCopy() {
   setEl('account-professional', v17Copy('flow.app.pricing'));
   setEl('account-manage', v17Copy('flow.app.manage'));
   setEl('account-logout', v17Copy('flow.app.logout'));
-  setEl('t-professional-plan-title', v17Copy('flow.pro.title'));
-  setEl('t-professional-plan-trial', v17Copy('flow.pro.lead'));
-  setEl('t-professional-plan-access', v17Copy('flow.pro.value'));
-  setEl('btn-pricing-cta', v17Copy('flow.pro.cta'));
   setEl('btn-resume-progress', v17Copy('flow.result.resume'));
   setEl('btn-v17-skip', v17Copy('flow.app.skip'));
+  renderHomeScreenInstallCopy();
   renderV17NotAProblemCopy();
   var back = document.getElementById('btn-back');
   if (back) back.setAttribute('aria-label', v17Copy('flow.app.back'));
   var authClose = document.getElementById('btn-auth-close');
   if (authClose) authClose.setAttribute('aria-label', v17Copy('flow.app.close'));
   setEl('auth-submit-btn', v17Copy('flow.common.continue'));
-  renderV16LandingCopy();
+  renderV17LandingCopy();
+  renderPricingPage();
   renderCurrentV17Screen();
 }
 
 var V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
-var V17_MEASUREMENT_KEYS = ['v17-before', 'v17-current-measure', 'v17-final', 'v17-theme-final'];
+var V17_MEASUREMENT_KEYS = ['v17-before', 'v17-final'];
 
 function renderV17NotAProblemCopy() {
   V17_MEASUREMENT_KEYS.forEach(function(key) {
@@ -6142,23 +6630,17 @@ function positionV17SkipButton(screenId) {
   if (!button) return;
   var target = null;
   if (screenId === 's-v17-entry-choice') {
-    target = document.getElementById('btn-v17-free-start');
+    target = document.getElementById('v17-theme-accordion');
   } else if (screenId === 's-v17-before') {
     target = document.getElementById('next-v17-before');
-  } else if (screenId === 's-v17-ideal-100') {
-    target = document.getElementById('next-v17-ideal');
-  } else if (screenId === 's-v17-current-state') {
-    target = document.getElementById('next-v17-current');
-  } else if (screenId === 's-v17-current-measure') {
-    target = document.getElementById('next-v17-current-measure');
-  } else if (screenId === 's-v17-ideal-state') {
-    target = document.getElementById('next-v17-ideal-state');
+  } else if (screenId === 's-v17-first-response') {
+    target = document.getElementById('next-v17-first-response');
+  } else if (screenId === 's-v17-second-response') {
+    target = document.getElementById('next-v17-second-response');
   } else if (screenId === 's-v17-breath') {
     target = document.getElementById('circle-v17-breath');
   } else if (screenId === 's-v17-final-measure') {
     target = document.getElementById('next-v17-final');
-  } else if (screenId === 's-v17-theme-final') {
-    target = document.getElementById('next-v17-theme-final');
   } else if (screenId === 's-result') {
     target = document.getElementById('v17-result-actions');
   }
@@ -6174,6 +6656,175 @@ function positionV17SkipButton(screenId) {
 function formatV17Score(value) {
   if (value === V17_SCORE_NOT_A_PROBLEM) return v17Copy('flow.measurement.cannotQuantify');
   return value === null || value === undefined || value === '' ? '—' : String(value);
+}
+
+function syncV17ThemeScoreTrail() {
+  ensureV17SessionState();
+  if (D.v17Flow) D.v17Flow.currentThemeScoreTrail = D.currentThemeScoreTrail.slice();
+}
+
+function syncV17ThemeAwarenessTrail() {
+  ensureV17SessionState();
+  if (D.v17Flow) D.v17Flow.currentThemeAwarenessTrail = D.currentThemeAwarenessTrail.slice();
+}
+
+function isV17ThemeScoreTrailExpanded() {
+  return !!(D.v17Flow && D.v17Flow.scoreTrailExpanded);
+}
+
+function setV17ThemeScoreTrailExpanded(expanded) {
+  ensureV17SessionState();
+  if (!D.v17Flow) return;
+  D.v17Flow.scoreTrailExpanded = !!expanded;
+}
+
+function toggleV17ScoreTrail() {
+  ensureV17SessionState();
+  if (!D.v17Flow) return;
+  setV17ThemeScoreTrailExpanded(!isV17ThemeScoreTrailExpanded());
+  renderV17ThemeScoreTrail();
+}
+
+function isV17AwarenessTrailExpanded() {
+  return !!(D.v17Flow && D.v17Flow.awarenessTrailExpanded);
+}
+
+function setV17AwarenessTrailExpanded(expanded) {
+  ensureV17SessionState();
+  if (!D.v17Flow) return;
+  D.v17Flow.awarenessTrailExpanded = !!expanded;
+}
+
+function toggleV17AwarenessTrail() {
+  ensureV17SessionState();
+  if (!D.v17Flow) return;
+  setV17AwarenessTrailExpanded(!isV17AwarenessTrailExpanded());
+  renderV17AwarenessTrail();
+}
+
+function updateV17ScoreTrailToggle() {
+  var button = document.getElementById('btn-v17-score-trail-toggle');
+  if (!button) return;
+  var trailLength = Array.isArray(D.currentThemeScoreTrail) ? D.currentThemeScoreTrail.length : 0;
+  var canExpand = trailLength > 5;
+  if (!canExpand) {
+    button.hidden = true;
+    button.textContent = '';
+    button.setAttribute('aria-pressed', 'false');
+    return;
+  }
+  button.hidden = false;
+  button.textContent = isV17ThemeScoreTrailExpanded()
+    ? v17Copy('result.showRecentScores')
+    : v17Copy('result.showAllScores');
+  button.setAttribute('aria-pressed', isV17ThemeScoreTrailExpanded() ? 'true' : 'false');
+}
+
+function setV17ThemeScoreTrailBefore(value) {
+  ensureV17SessionState();
+  var flow = D.v17Flow;
+  var index = flow && typeof flow.scoreTrailBeforeIndex === 'number'
+    ? flow.scoreTrailBeforeIndex : null;
+  if (index === null || index < 0 || index >= D.currentThemeScoreTrail.length) {
+    D.currentThemeScoreTrail.push(value);
+    index = D.currentThemeScoreTrail.length - 1;
+    if (flow) flow.scoreTrailBeforeIndex = index;
+  } else {
+    D.currentThemeScoreTrail[index] = value;
+  }
+  syncV17ThemeScoreTrail();
+}
+
+function setV17ThemeScoreTrailAfter(value) {
+  ensureV17SessionState();
+  var flow = D.v17Flow;
+  var index = flow && typeof flow.scoreTrailAfterIndex === 'number'
+    ? flow.scoreTrailAfterIndex : null;
+  if (index === null || index < 0 || index >= D.currentThemeScoreTrail.length) {
+    D.currentThemeScoreTrail.push(value);
+    index = D.currentThemeScoreTrail.length - 1;
+    if (flow) flow.scoreTrailAfterIndex = index;
+  } else {
+    D.currentThemeScoreTrail[index] = value;
+  }
+  syncV17ThemeScoreTrail();
+}
+
+function setV17ThemeAwarenessEntry(value) {
+  ensureV17SessionState();
+  var text = String(value || '').trim();
+  if (!text) return;
+  var flow = D.v17Flow;
+  var index = flow && typeof flow.awarenessTrailIndex === 'number'
+    ? flow.awarenessTrailIndex : null;
+  if (index === null || index < 0 || index >= D.currentThemeAwarenessTrail.length) {
+    D.currentThemeAwarenessTrail.push(text);
+    index = D.currentThemeAwarenessTrail.length - 1;
+    if (flow) flow.awarenessTrailIndex = index;
+  } else {
+    D.currentThemeAwarenessTrail[index] = text;
+  }
+  syncV17ThemeAwarenessTrail();
+}
+
+function renderV17ThemeScoreTrail() {
+  ensureV17SessionState();
+  var allScores = D.currentThemeScoreTrail.length
+    ? D.currentThemeScoreTrail.slice()
+    : [D.initialThemeScore, D.finalThemeScore].filter(function(score) {
+      return score !== null && score !== undefined && score !== '';
+    });
+  var visibleScores = isV17ThemeScoreTrailExpanded()
+    ? allScores
+    : allScores.slice(-5);
+  var wrap = document.getElementById('v17-result-score-trail');
+  var pair = document.getElementById('v17-result-score-pair');
+  if (pair) pair.hidden = true;
+  if (!wrap) return;
+  wrap.hidden = false;
+  while (wrap.firstChild) wrap.removeChild(wrap.firstChild);
+  if (!visibleScores.length) visibleScores = [null];
+  visibleScores.forEach(function(score) {
+    var item = document.createElement('span');
+    item.className = 'v17-result-score-item';
+    item.textContent = formatV17Score(score);
+    wrap.appendChild(item);
+  });
+  updateV17ScoreTrailToggle();
+}
+
+function renderV17AwarenessTrail() {
+  ensureV17SessionState();
+  var wrap = document.getElementById('v17-result-awareness-list');
+  var button = document.getElementById('btn-v17-awareness-toggle');
+  if (!wrap || !button) return;
+  var trail = Array.isArray(D.currentThemeAwarenessTrail)
+    ? D.currentThemeAwarenessTrail.filter(function(item) { return String(item || '').trim(); })
+    : [];
+  var visibleTrail = isV17AwarenessTrailExpanded() ? trail : trail.slice(0, 5);
+  while (wrap.firstChild) wrap.removeChild(wrap.firstChild);
+  if (!visibleTrail.length) {
+    var empty = document.createElement('div');
+    empty.className = 'v17-result-awareness-item';
+    empty.textContent = '—';
+    wrap.appendChild(empty);
+  } else {
+    visibleTrail.forEach(function(item) {
+      var row = document.createElement('div');
+      row.className = 'v17-result-awareness-item';
+      row.textContent = v17Format('flow.result.quote', { text: item });
+      wrap.appendChild(row);
+    });
+  }
+  if (trail.length > 5) {
+    button.hidden = false;
+    button.textContent = isV17AwarenessTrailExpanded()
+      ? v17Copy('result.showRecentAwareness')
+      : v17Copy('result.showMoreAwareness');
+  } else {
+    button.hidden = true;
+    button.textContent = '';
+  }
 }
 
 function restoreV17Slider(key, value) {
@@ -6212,55 +6863,39 @@ function restoreV17Slider(key, value) {
 function renderV17Screen(screenId) {
   var flow = D.v17Flow;
   if (screenId === 's-v17-entry-choice') {
-    setEl('v17-free-input-title', v17Copy('flow.entry.freeTitle'));
-    setEl('btn-v17-free-start', v17Copy('flow.entry.freeStart'));
-    setEl('v17-entry-divider', v17Copy('flow.entry.or'));
     setEl('v17-category-intro', v17Copy('flow.entry.categoryIntro'));
-    var freeInput = document.getElementById('in-v17-free-theme');
-    if (freeInput) {
-      freeInput.placeholder = v17Copy('flow.entry.freePlaceholder');
-      freeInput.value = D.themeSource === 'freeInput' ? (D.freeInputTheme || '') : '';
-    }
-    var freeStart = document.getElementById('btn-v17-free-start');
-    if (freeStart) freeStart.disabled = !freeInput || !freeInput.value.trim();
   } else if (screenId === 's-v17-before') {
     setEl('v17-before-theme', v17Format('flow.step1.quote', { theme: D.questionTextAtTime }));
     setEl('v17-before-prompt', v17Copy('flow.step1.prompt'));
     setEl('next-v17-before', v17Copy('flow.common.continue'));
     restoreV17Slider('v17-before', D.initialThemeScore);
-  } else if (screenId === 's-v17-ideal-100') {
-    var happinessFocus = flow && flow.happinessPhase === 'current'
-      ? getV17CurrentStateText() : D.questionTextAtTime;
-    setEl('v17-hundred-focus', v17Format('flow.hundred.quote', { text: happinessFocus }));
-    setEl('v17-ideal-prompt', v17Copy('flow.hundred.prompt'));
-    setEl('next-v17-ideal', v17Copy('flow.common.continue'));
-  } else if (screenId === 's-v17-current-state') {
-    setEl('v17-current-theme', v17Format('flow.step3.quote', { theme: D.questionTextAtTime }));
-    setEl('v17-current-prompt', v17Copy('flow.step3.prompt'));
-    setEl('next-v17-current', v17Copy('flow.common.continue'));
-    var currentInput = document.getElementById('in-v17-current');
-    if (currentInput) {
-      currentInput.placeholder = v17Copy('flow.step3.placeholder');
-      currentInput.value = D.currentStateDraft;
+  } else if (screenId === 's-v17-first-response') {
+    var firstRoute = getV17ThemeRoute();
+    var firstPath = 'flow.step2.' + firstRoute;
+    setEl('v17-first-response-quote', v17Format('flow.step2.quote', { theme: D.questionTextAtTime }));
+    setEl('v17-first-response-prompt', v17Copy(firstPath + '.prompt'));
+    setEl('next-v17-first-response', v17Copy('flow.common.continue'));
+    var firstInput = document.getElementById('in-v17-first-response');
+    if (firstInput) {
+      firstInput.placeholder = v17Copy(firstPath + '.placeholder');
+      firstInput.value = getV17RouteDraft('first');
     }
-    var currentButton = document.getElementById('next-v17-current');
-    if (currentButton) currentButton.disabled = !currentInput || !currentInput.value.trim();
-  } else if (screenId === 's-v17-current-measure') {
-    setEl('v17-current-measure-quote', v17Format('flow.step4.quote', { currentState: getV17CurrentStateText() }));
-    setEl('v17-current-measure-prompt', v17Copy('flow.step4.prompt'));
-    setEl('next-v17-current-measure', v17Copy('flow.common.continue'));
-    restoreV17Slider('v17-current-measure', D.currentStateInitialScore);
-  } else if (screenId === 's-v17-ideal-state') {
-    setEl('v17-ideal-state-quote', v17Format('flow.step6.quote', { currentState: getV17CurrentStateText() }));
-    setEl('v17-ideal-state-prompt', v17Copy('flow.step6.prompt'));
-    setEl('next-v17-ideal-state', v17Copy('flow.common.continue'));
-    var idealInput = document.getElementById('in-v17-ideal-state');
-    if (idealInput) {
-      idealInput.placeholder = v17Copy('flow.step6.placeholder');
-      idealInput.value = D.idealStateDraft;
+    var firstButton = document.getElementById('next-v17-first-response');
+    if (firstButton) firstButton.disabled = !firstInput || !firstInput.value.trim();
+  } else if (screenId === 's-v17-second-response') {
+    var secondRoute = getV17ThemeRoute();
+    var secondPath = 'flow.step3.' + secondRoute;
+    var step2Text = flow && flow.step2Text ? flow.step2Text : D.questionTextAtTime;
+    setEl('v17-second-response-quote', v17Format('flow.step3.quote', { response: step2Text }));
+    setEl('v17-second-response-prompt', v17Copy(secondPath + '.prompt'));
+    setEl('next-v17-second-response', v17Copy('flow.common.continue'));
+    var secondInput = document.getElementById('in-v17-second-response');
+    if (secondInput) {
+      secondInput.placeholder = v17Copy(secondPath + '.placeholder');
+      secondInput.value = getV17RouteDraft('second');
     }
-    var idealButton = document.getElementById('next-v17-ideal-state');
-    if (idealButton) idealButton.disabled = !idealInput || !idealInput.value.trim();
+    var secondButton = document.getElementById('next-v17-second-response');
+    if (secondButton) secondButton.disabled = !secondInput || !secondInput.value.trim();
   } else if (screenId === 's-v17-breath') {
     var breathPart = flow && flow.breathPhase === 'second' ? 'second' : 'first';
     setEl('v17-breath-lead', v17Copy('flow.breathSteps.' + breathPart + '.lead'));
@@ -6274,15 +6909,10 @@ function renderV17Screen(screenId) {
       );
     }
   } else if (screenId === 's-v17-final-measure') {
-    setEl('v17-final-quote', v17Format('flow.step8.quote', { currentState: getV17CurrentStateText() }));
-    setEl('v17-final-prompt', v17Copy('flow.step8.prompt'));
-    setEl('next-v17-final', v17Copy('flow.step8.result'));
-    restoreV17Slider('v17-final', D.currentStateFinalScore);
-  } else if (screenId === 's-v17-theme-final') {
-    setEl('v17-theme-final-quote', v17Format('flow.finalTheme.quote', { theme: D.questionTextAtTime }));
-    setEl('v17-theme-final-prompt', v17Copy('flow.finalTheme.prompt'));
-    setEl('next-v17-theme-final', v17Copy('flow.finalTheme.result'));
-    restoreV17Slider('v17-theme-final', D.finalThemeScore);
+    setEl('v17-final-quote', v17Format('flow.step5.quote', { theme: D.questionTextAtTime }));
+    setEl('v17-final-prompt', v17Copy('flow.step5.prompt'));
+    setEl('next-v17-final', v17Copy('flow.step5.result'));
+    restoreV17Slider('v17-final', D.finalThemeScore);
   } else if (screenId === 's-result') {
     renderV17Result();
   }
@@ -6293,7 +6923,8 @@ function renderCurrentV17Screen() {
   if (String(cur || '').indexOf('s-v17-') === 0 || cur === 's-result') renderV17Screen(cur);
 }
 
-function startV17Session() {
+function startV17Session(replaceHistory) {
+  clearV17RepeatNavigation();
   ensureV17SessionState();
   resetV17SessionState();
   _savedProgressResumeActive = false;
@@ -6313,12 +6944,11 @@ function startV17Session() {
   D.v13History = [];
   D.v17Flow = createV17FlowState();
   resetSlider('v17-before');
-  resetSlider('v17-current-measure');
   resetSlider('v17-final');
-  resetSlider('v17-theme-final');
   renderV17Screen('s-v17-before');
   trackEvent('v17_session_started', { themeId: D.themeId, questionId: D.questionId, locale: D.localeAtTime });
-  fwd('s-v17-before');
+  if (replaceHistory) showScreenDirect('s-v17-before');
+  else fwd('s-v17-before');
 }
 
 function submitV17BeforeScore() {
@@ -6326,97 +6956,65 @@ function submitV17BeforeScore() {
   var value = arguments.length ? arguments[0] : getSliderVal('v17-before');
   D.firstThemeScore = value;
   D.initialThemeScore = value;
+  D.breathEaseBefore = value;
   D.v17Flow.initialThemeScore = value;
-  openV17FeelHundred('theme');
+  setV17ThemeScoreTrailBefore(value);
+  openV17FirstResponse();
 }
 
-function openV17FeelHundred(phase) {
-  if (D.v17Flow) D.v17Flow.happinessPhase = phase || D.v17Flow.happinessPhase || 'theme';
-  setV17CurrentStep(D.v17Flow && D.v17Flow.happinessPhase === 'current' ? 'step5' : 'step2');
-  renderV17Screen('s-v17-ideal-100');
-  fwd('s-v17-ideal-100');
+function openV17FirstResponse() {
+  setV17CurrentStep('step2');
+  renderV17Screen('s-v17-first-response');
+  fwd('s-v17-first-response');
 }
 
-function continueV17IdealState() {
-  var phase = D.v17Flow ? D.v17Flow.happinessPhase : 'theme';
-  if (phase === 'current') {
-    openV17IdealState();
-    return;
-  }
-  openV17CurrentState();
-}
-
-function openV17CurrentState() {
-  setV17CurrentStep('step3');
-  renderV17Screen('s-v17-current-state');
-  fwd('s-v17-current-state');
-}
-
-function onV17WritingInput(step, value) {
+function onV17RouteInput(position, value) {
   var text = String(value || '');
-  if (step === 'idealState') {
+  var flow = D.v17Flow;
+  var kind = getV17ResponseKind(position);
+  if (flow) {
+    if (position === 'first') flow.step2Draft = text;
+    else flow.step3Draft = text;
+  }
+  if (kind === 'idealState') {
     D.idealStateDraft = text;
-    if (D.v17Flow) D.v17Flow.idealStateDraft = text;
+    if (flow) flow.idealStateDraft = text;
   } else {
     D.currentStateDraft = text;
-    if (D.v17Flow) D.v17Flow.currentStateDraft = text;
+    if (flow) flow.currentStateDraft = text;
   }
-  var buttonId = step === 'idealState' ? 'next-v17-ideal-state' : 'next-v17-current';
+  var buttonId = position === 'first' ? 'next-v17-first-response' : 'next-v17-second-response';
   var button = document.getElementById(buttonId);
   if (button) button.disabled = !text.trim();
 }
 
-function submitV17CurrentState() {
-  var input = document.getElementById('in-v17-current');
+function submitV17FirstResponse(allowEmpty) {
+  var input = document.getElementById('in-v17-first-response');
   var value = input ? input.value.trim() : '';
-  if (!value) return;
-  D.currentState = value;
-  D.currentStateText = value;
-  D.currentStateDraft = value;
-  D.v17Flow.currentState = value;
-  D.v17Flow.currentStateText = value;
-  D.v17Flow.currentStateDraft = value;
-  D.issue = value;
-  setV17CurrentStep('step4');
-  renderV17Screen('s-v17-current-measure');
-  fwd('s-v17-current-measure');
+  if (!value && !allowEmpty) return;
+  if (value) {
+    D.v17Flow.step2Text = value;
+    D.v17Flow.step2Draft = value;
+    setV17SemanticResponse(getV17ResponseKind('first'), value);
+  }
+  openV17SecondResponse();
 }
 
-function submitV17CurrentStateScore() {
-  ensureV17SessionState();
-  var value = arguments.length ? arguments[0] : getSliderVal('v17-current-measure');
-  D.currentStateInitialScore = value;
-  D.currentStateScore = value;
-  D.breathEaseBefore = value;
-  D.v17Flow.currentStateBeforeScore = value;
-  openV17FeelHundred('current');
+function openV17SecondResponse() {
+  setV17CurrentStep('step3');
+  renderV17Screen('s-v17-second-response');
+  fwd('s-v17-second-response');
 }
 
-function openV17IdealState() {
-  setV17CurrentStep('step6');
-  renderV17Screen('s-v17-ideal-state');
-  fwd('s-v17-ideal-state');
-}
-
-function submitV17IdealState() {
-  var input = document.getElementById('in-v17-ideal-state');
+function submitV17SecondResponse(allowEmpty) {
+  var input = document.getElementById('in-v17-second-response');
   var value = input ? input.value.trim() : '';
-  if (!value) return;
-  D.idealState = value;
-  D.idealStateText = value;
-  D.idealStateDraft = value;
-  D.awareness = value;
-  D.ideal = value;
-  D.idealAnswer = value;
-  D.shiftNote = value;
-  if (D.idealStateAnswers[D.idealStateAnswers.length - 1] !== value) D.idealStateAnswers.push(value);
-  D.v17Flow.idealState = value;
-  D.v17Flow.idealStateText = value;
-  D.v17Flow.idealStateDraft = value;
-  openV17Breath();
-}
-
-function skipV17IdealState() {
+  if (!value && !allowEmpty) return;
+  if (value) {
+    D.v17Flow.step3Text = value;
+    D.v17Flow.step3Draft = value;
+    setV17SemanticResponse(getV17ResponseKind('second'), value);
+  }
   openV17Breath();
 }
 
@@ -6426,7 +7024,7 @@ function openV17Breath() {
     return;
   }
   D.v17Flow.breathPhase = D.v17Flow.breath.first && !D.v17Flow.breath.second ? 'second' : 'first';
-  setV17CurrentStep('step7.' + D.v17Flow.breathPhase);
+  setV17CurrentStep('step4.' + D.v17Flow.breathPhase);
   resetV17BreathScreen();
   renderV17Screen('s-v17-breath');
   fwd('s-v17-breath');
@@ -6503,7 +7101,7 @@ function continueV17BreathPhase() {
   flow.breath[flow.breathPhase] = true;
   if (flow.breathPhase === 'first') {
     flow.breathPhase = 'second';
-    setV17CurrentStep('step7.second');
+    setV17CurrentStep('step4.second');
     resetV17BreathScreen();
     renderV17Screen('s-v17-breath');
     return;
@@ -6512,47 +7110,22 @@ function continueV17BreathPhase() {
 }
 
 function openV17FinalMeasurement() {
-  setV17CurrentStep('step8');
-  if (typeof D.currentStateFinalScore !== 'number') resetSlider('v17-final');
+  setV17CurrentStep('step5');
+  if (D.finalThemeScore === null || D.finalThemeScore === undefined) resetSlider('v17-final');
   renderV17Screen('s-v17-final-measure');
   fwd('s-v17-final-measure');
 }
 
 function submitV17FinalScore() {
   var value = arguments.length ? arguments[0] : getSliderVal('v17-final');
-  D.currentStateFinalScore = value;
-  D.currentStateScore = value;
-  D.breathEaseAfter = value;
-  D.deltaScore = typeof value === 'number' && typeof D.currentStateInitialScore === 'number'
-    ? value - D.currentStateInitialScore : null;
-  D.v17Flow.currentStateAfterScore = value;
-  D.v17Flow.resultMode = 'clearing';
-  D.v17Flow.clearings.push({
-    index: D.v17Flow.clearings.length,
-    currentState: getV17CurrentStateText(),
-    currentStateText: getV17CurrentStateText(),
-    beforeScore: D.currentStateInitialScore,
-    afterScore: value,
-    idealState: getV17IdealStateText(),
-    idealStateText: getV17IdealStateText()
-  });
-  D.v17Flow.currentStep = 'step9';
-  showV17Result();
-}
-
-function openV17ThemeFinalMeasurement() {
-  setV17CurrentStep('finalTheme');
-  resetSlider('v17-theme-final');
-  renderV17Screen('s-v17-theme-final');
-  fwd('s-v17-theme-final');
-}
-
-function submitV17ThemeFinalScore() {
-  var value = arguments.length ? arguments[0] : getSliderVal('v17-theme-final');
   D.finalThemeScore = value;
+  D.breathEaseAfter = value;
+  D.deltaScore = typeof value === 'number' && typeof D.initialThemeScore === 'number'
+    ? value - D.initialThemeScore : null;
   D.v17Flow.finalThemeScore = value;
-  D.v17Flow.resultMode = 'themeFinal';
-  D.v17Flow.currentStep = 'step9';
+  D.v17Flow.currentStep = 'step6';
+  setV17ThemeScoreTrailAfter(value);
+  setV17ThemeAwarenessEntry(getV17IdealStateText());
   showV17Result();
 }
 
@@ -6560,32 +7133,47 @@ function renderV17Result() {
   var flow = D.v17Flow || {};
   var currentStateText = getV17CurrentStateText();
   var idealStateText = getV17IdealStateText();
-  var themeOnlyResult = flow.resultMode === 'themeFinal' && !currentStateText;
-  var beforeScore = themeOnlyResult ? D.initialThemeScore : D.currentStateInitialScore;
-  var afterScore = themeOnlyResult ? D.finalThemeScore : D.currentStateFinalScore;
-  setEl('v17-result-theme-label', v17Copy('flow.result.theme'));
-  setEl('t-result-from', v17Format('flow.result.quote', { text: D.questionTextAtTime }));
-  setEl('v17-result-current-label', v17Copy('flow.result.currentState'));
-  setEl('v17-result-current', currentStateText ? v17Format('flow.result.quote', { text: currentStateText }) : '—');
-  setEl('v17-result-happiness-label', v17Copy('flow.result.happiness'));
-  setEl('v17-result-awareness-label', v17Copy('flow.result.awareness'));
-  setEl('v17-result-awareness', idealStateText ? v17Format('flow.result.quote', { text: idealStateText }) : '—');
+  var step2Kind = getV17ResponseKind('first');
+  var step3Kind = getV17ResponseKind('second');
+  var step2Text = flow.step2Text || (step2Kind === 'idealState' ? idealStateText : currentStateText);
+  var step3Text = flow.step3Text || (step3Kind === 'idealState' ? idealStateText : currentStateText);
+  var themeLabel = D.themeCategoryLabelAtTime || D.questionTextAtTime || '';
+  var subthemeLabel = D.questionTextAtTime || themeLabel;
+  setEl('v17-result-brand', v17Copy('app.name'));
+  setEl('v17-result-theme-label', v17Copy('result.themeLabel'));
+  setEl('t-result-from', themeLabel || '—');
+  setEl('v17-result-subtheme-label', v17Copy('result.subthemeLabel'));
+  setEl('v17-result-subtheme', subthemeLabel ? v17Format('flow.result.quote', { text: subthemeLabel }) : '—');
+  setEl('v17-result-step2-label', step2Kind === 'idealState'
+    ? v17Copy('flow.result.idealState') : v17Copy('flow.result.currentState'));
+  setEl('v17-result-step2', step2Text ? v17Format('flow.result.quote', { text: step2Text }) : '—');
+  setEl('v17-result-step3-label', step3Kind === 'idealState'
+    ? v17Copy('flow.result.idealState') : v17Copy('flow.result.currentState'));
+  setEl('v17-result-step3', step3Text ? v17Format('flow.result.quote', { text: step3Text }) : '—');
+  setEl('v17-result-happiness-label', v17Copy('result.happinessLabel'));
+  setEl('v17-result-awareness-label', v17Copy('result.awarenessTitle'));
+  setEl('v17-result-site', v17Copy('result.site'));
   setEl('t-result-sub', currentStateText);
   setEl('t-shift-note-display', idealStateText);
-  setEl('v17-result-before-label', v17Copy('flow.result.before'));
-  setEl('v17-result-after-label', v17Copy('flow.result.after'));
-  setEl('r-be-b', formatV17Score(beforeScore));
-  setEl('r-be-a', formatV17Score(afterScore));
+  setEl('v17-result-before-label', '');
+  setEl('v17-result-after-label', '');
+  setEl('r-be-b', formatV17Score(D.initialThemeScore));
+  setEl('r-be-a', formatV17Score(D.finalThemeScore));
+  renderV17ThemeScoreTrail();
+  renderV17AwarenessTrail();
   setEl('btn-save-image', v17Copy('flow.result.image'));
   setEl('t-save-preview-note', v17Copy('flow.result.imagePreview'));
-  setEl('btn-v17-clear-again', v17Copy('flow.result.clearAgain'));
+  setEl('btn-v17-restart-subtheme', v17Copy('flow.result.restartSubtheme'));
   setEl('btn-v17-restart-theme', v17Copy('flow.result.restartTheme'));
-  setEl('btn-repeat-theme', v17Copy('flow.result.chooseTheme'));
+  setEl('btn-v17-choose-another-theme', v17Copy('flow.result.chooseTheme'));
   renderResultSaveUI();
 }
 
 function showV17Result() {
+  clearV17RepeatNavigation();
   ensureV17SessionState();
+  if (D.v17Flow) D.v17Flow.scoreTrailExpanded = false;
+  if (D.v17Flow) D.v17Flow.awarenessTrailExpanded = false;
   renderV17Result();
   var imageStatus = document.getElementById('v17-image-status');
   var previewWrap = document.getElementById('save-preview-wrap');
@@ -6597,36 +7185,132 @@ function showV17Result() {
   clearPendingProgress();
   trackEvent('v17_session_completed', {
     questionId: D.questionId,
-    before: D.currentStateInitialScore,
-    after: D.currentStateFinalScore,
+    route: getV17ThemeRoute(),
+    before: D.initialThemeScore,
+    after: D.finalThemeScore,
     delta: D.deltaScore
   });
   fwd('s-result');
 }
 
-function repeatV17Clearing() {
-  if (!getV17CurrentStateText()) {
-    restartV17Theme();
+function restartCurrentSubtheme() {
+  if (resumeV17RepeatCycle()) return;
+  ensureV17SessionState();
+  if (!D.questionTextAtTime) {
+    chooseAnotherTheme();
     return;
   }
-  D.currentStateInitialScore = D.currentStateFinalScore;
-  D.currentStateScore = D.currentStateInitialScore;
-  D.breathEaseBefore = D.currentStateInitialScore;
+  var previousAfter = D.finalThemeScore;
+  var hasPreviousAfter = typeof previousAfter === 'number' || previousAfter === V17_SCORE_NOT_A_PROBLEM;
+  if (!hasPreviousAfter) {
+    v17ThemeSelectionFocusId = '';
+    startV17Session(true);
+    return;
+  }
+  var previousCycleCount = D.v17Flow && typeof D.v17Flow.cycleCount === 'number'
+    ? D.v17Flow.cycleCount : 1;
+  v17RepeatResultState = cloneV17State(D);
+  v17RepeatCycleState = null;
+  v17RepeatReturnPending = true;
+  resetV17BreathScreen();
+  resetV17SessionState(true);
+  _savedProgressResumeActive = false;
+  v17ThemeSelectionFocusId = '';
+  D.entryMode = 'v17';
+  D.themeKey = D.themeId || D.questionId || null;
+  D.theme = D.questionTextAtTime;
+  D.themePositive = D.questionTextAtTime;
+  D.themeNegative = '';
+  D.issue = '';
+  D.ideal = '';
+  D.shiftNote = '';
+  D.reactionAnswer = '';
+  D.idealAnswer = '';
+  D.breathEaseBefore = previousAfter;
   D.breathEaseAfter = null;
-  D.currentStateFinalScore = null;
-  D.v17Flow.currentStateBeforeScore = D.currentStateInitialScore;
-  D.v17Flow.currentStateAfterScore = null;
-  D.v17Flow.breath = { first: false, second: false };
-  openV17FeelHundred('current');
+  D.freeInputType = null;
+  D.freeInputValue = null;
+  D.v13OriginalTheme = '';
+  D.v13History = [];
+  D.v17Flow = createV17FlowState();
+  D.v17Flow.cycleCount = previousCycleCount + 1;
+  D.v17Flow.isBeforeMeasured = true;
+  D.firstThemeScore = previousAfter;
+  D.initialThemeScore = previousAfter;
+  D.v17Flow.initialThemeScore = previousAfter;
+  if (!D.currentThemeScoreTrail.length) {
+    setV17ThemeScoreTrailBefore(previousAfter);
+  } else {
+    syncV17ThemeScoreTrail();
+  }
+  setV17CurrentStep('step2');
+  resetSlider('v17-before');
+  resetSlider('v17-final');
+  renderV17Screen('s-v17-first-response');
+  trackEvent('v17_subtheme_restarted', {
+    themeId: D.themeId,
+    questionId: D.questionId,
+    route: getV17ThemeRoute(),
+    before: previousAfter,
+    cycleCount: D.v17Flow.cycleCount
+  });
+  showScreenDirect('s-v17-first-response');
+}
+
+function restartCurrentTheme() {
+  clearV17RepeatNavigation();
+  resetV17BreathScreen();
+  ensureV17QuestionState();
+  var categoryId = D.themeCategoryId || '';
+  var categoryLabel = D.themeCategoryLabelAtTime || '';
+  if (!categoryId) {
+    chooseAnotherTheme();
+    return;
+  }
+  v17ThemeSelectionFocusId = categoryId;
+  v17CustomCategoryName = categoryId === 'custom' ? categoryLabel : '';
+  resetV17SessionState();
+  clearV17QuestionState();
+  D.themeCategoryId = categoryId;
+  D.themeCategoryLabelAtTime = categoryLabel;
+  D.themeTrackId = '';
+  D.theme = '';
+  D.themeKey = null;
+  D.themePositive = '';
+  D.themeNegative = '';
+  D.issue = '';
+  D.ideal = '';
+  D.shiftNote = '';
+  D.reactionAnswer = '';
+  D.idealAnswer = '';
+  D.breathEaseBefore = null;
+  D.breathEaseAfter = null;
+  D.freeInputType = null;
+  D.freeInputValue = null;
+  D.entryMode = null;
+  D.v13OriginalTheme = '';
+  D.v13History = [];
+  _savedProgressResumeActive = false;
+  themeChosen = false;
+  resetSlider('v17-before');
+  resetSlider('v17-final');
+  renderThemeScreen();
+  showScreenDirect('s-v17-entry-choice');
 }
 
 function restartV17Theme() {
-  D.v17Flow.breath = { first: false, second: false };
-  openV17FeelHundred('theme');
+  restartCurrentSubtheme();
+}
+
+function chooseAnotherTheme() {
+  chooseV17NewQuestion();
 }
 
 function chooseV17NewQuestion() {
+  clearV17RepeatNavigation();
   resetV17BreathScreen();
+  v17ThemeSelectionFocusId = '';
+  v17CustomCategoryName = '';
   clearV17QuestionState();
   resetV17SessionState();
   D.theme = '';
@@ -6636,20 +7320,23 @@ function chooseV17NewQuestion() {
   D.issue = '';
   D.ideal = '';
   D.shiftNote = '';
+  D.reactionAnswer = '';
+  D.idealAnswer = '';
+  D.breathEaseBefore = null;
+  D.breathEaseAfter = null;
+  D.freeInputType = null;
+  D.freeInputValue = null;
   D.entryMode = null;
   themeChosen = false;
   themeVisibleCount = 12;
   v17QuestionSearchValue = '';
-  var freeInput = document.getElementById('in-v17-free-theme');
-  var freeButton = document.getElementById('btn-v17-free-start');
-  if (freeInput) freeInput.value = '';
-  if (freeButton) freeButton.disabled = true;
   renderThemeScreen();
   showScreenDirect('s-v17-entry-choice');
 }
 
 function skipV17ThemeSelection() {
   ensureV17QuestionState();
+  v17ThemeSelectionFocusId = '';
   var fallbackTheme = v17Copy('flow.entry.skippedTheme');
   D.questionId = null;
   D.themeId = null;
@@ -6657,6 +7344,9 @@ function skipV17ThemeSelection() {
   D.localeAtTime = lang || 'ja';
   D.freeInputTheme = '';
   D.themeSource = 'skipped';
+  D.themeCategoryId = '';
+  D.themeCategoryLabelAtTime = '';
+  D.themeTrackId = 'problems';
   D.themeKey = null;
   D.theme = fallbackTheme;
   D.themePositive = fallbackTheme;
@@ -6670,21 +7360,17 @@ function getV17SkipScore(value) {
 }
 
 function skipV17ResultChoice() {
-  renderThemeScreen();
-  showScreenDirect('s-v17-entry-choice');
+  chooseV17NewQuestion();
 }
 
 function handleV17Skip() {
   if (cur === 's-landing') { startLanding(); return; }
   if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
   if (cur === 's-v17-before') { submitV17BeforeScore(getV17SkipScore(D.initialThemeScore)); return; }
-  if (cur === 's-v17-ideal-100') { continueV17IdealState(); return; }
-  if (cur === 's-v17-current-state') { openV17ThemeFinalMeasurement(); return; }
-  if (cur === 's-v17-current-measure') { submitV17CurrentStateScore(getV17SkipScore(D.currentStateInitialScore)); return; }
-  if (cur === 's-v17-ideal-state') { skipV17IdealState(); return; }
+  if (cur === 's-v17-first-response') { submitV17FirstResponse(true); return; }
+  if (cur === 's-v17-second-response') { submitV17SecondResponse(true); return; }
   if (cur === 's-v17-breath') { continueV17BreathPhase(); return; }
-  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.currentStateFinalScore)); return; }
-  if (cur === 's-v17-theme-final') { submitV17ThemeFinalScore(getV17SkipScore(D.finalThemeScore)); return; }
+  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.finalThemeScore)); return; }
   if (cur === 's-result') { skipV17ResultChoice(); return; }
   showScreenDirect('s-v17-entry-choice');
 }
@@ -6748,6 +7434,7 @@ function saveV17ResultCard() {
 
 var v17BaseGoBack = goBack;
 goBack = function() {
+  if (returnToV17RepeatResult()) return;
   if (cur === 's-v17-breath') resetV17BreathScreen();
   if (navHistory.length) {
     v17BaseGoBack();
@@ -7088,6 +7775,10 @@ function formatV13History() {
 
 function showResult() {
   if (requireActiveAccess()) return;
+  var v17ScoreTrail = document.getElementById('v17-result-score-trail');
+  var scorePair = document.getElementById('v17-result-score-pair');
+  if (v17ScoreTrail) v17ScoreTrail.hidden = true;
+  if (scorePair) scorePair.hidden = false;
   trackEvent('v7_complete');
   trackEvent('result_viewed', { lang: lang, has_door: !!D.doorKey });
   var useWesternQuotes = ['en','es','de','pt-BR','fr'].indexOf(lang) >= 0;
@@ -7409,6 +8100,7 @@ function applyV17QuestionSnapshotToPayload(payload) {
   payload.freeInputTheme = snapshot.freeInputTheme;
   payload.themeSource = snapshot.themeSource;
   payload.themeCategoryId = snapshot.themeCategoryId;
+  payload.themeCategoryLabelAtTime = snapshot.themeCategoryLabelAtTime;
   payload.themeTrackId = snapshot.themeTrackId;
   if (!payload.themeKey) payload.themeKey = snapshot.themeId || snapshot.questionId;
   if (!payload.selectedThemeKey) payload.selectedThemeKey = snapshot.themeId || snapshot.questionId;
@@ -7426,9 +8118,10 @@ function applyV17QuestionSnapshotToPayload(payload) {
     payload.resultCardData.hcqSnapshot = snapshot;
     payload.resultCardData.initialThemeScore = D.initialThemeScore;
     payload.resultCardData.finalThemeScore = D.finalThemeScore;
+    payload.resultCardData.themeRoute = getV17ThemeRoute();
+    payload.resultCardData.step2Text = D.v17Flow ? D.v17Flow.step2Text : '';
+    payload.resultCardData.step3Text = D.v17Flow ? D.v17Flow.step3Text : '';
     payload.resultCardData.currentState = D.currentState;
-    payload.resultCardData.currentStateBeforeScore = D.currentStateInitialScore;
-    payload.resultCardData.currentStateAfterScore = D.currentStateFinalScore;
     payload.resultCardData.idealState = D.idealState;
   }
   return payload;
@@ -7463,6 +8156,7 @@ function wrapV17SavePayloadBuilders() {
         D.freeInputTheme = snapshot.freeInputTheme || '';
         D.themeSource = snapshot.themeSource || (D.questionId ? 'hcq' : 'freeInput');
         D.themeCategoryId = snapshot.themeCategoryId || '';
+        D.themeCategoryLabelAtTime = snapshot.themeCategoryLabelAtTime || '';
         D.themeTrackId = snapshot.themeTrackId || '';
         if (D.questionTextAtTime) {
           D.themeKey = D.themeId || D.questionId;
@@ -7479,7 +8173,9 @@ function wrapV17SavePayloadBuilders() {
 }
 
 document.addEventListener('keydown', function(e){
-  if (e.key === 'Enter' && (!e.target || e.target.tagName !== 'TEXTAREA')) e.preventDefault();
+  if (e.key !== 'Enter') return;
+  if (e.isComposing || e.keyCode === 229) return;
+  if (!e.target || e.target.tagName !== 'TEXTAREA') e.preventDefault();
 });
 async function initializeApp() {
   ensureV17QuestionState();
@@ -7494,6 +8190,28 @@ async function initializeApp() {
 initializeApp();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js" integrity="sha384-ZZ1pncU3bQe8y31yfZdMFdSpttDoPmOZg2wguVK9almUodir1PghgT0eY7Mrty8H" crossorigin="anonymous"></script>
+
+<!-- ── HOME SCREEN INSTALL MODAL ── -->
+<div id="home-screen-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeHomeScreenInstallModal()">
+  <div class="home-screen-box">
+    <div class="home-screen-box-title" id="home-screen-modal-title"></div>
+    <div class="home-screen-box-body">
+      <div class="home-screen-box-group">
+        <div class="home-screen-box-group-title" id="home-screen-ios-title"></div>
+        <div class="home-screen-box-group-text" id="home-screen-ios-body"></div>
+      </div>
+      <div class="home-screen-box-group">
+        <div class="home-screen-box-group-title" id="home-screen-android-title"></div>
+        <div class="home-screen-box-group-text" id="home-screen-android-body"></div>
+      </div>
+      <div class="home-screen-box-group">
+        <div class="home-screen-box-group-title" id="home-screen-desktop-title"></div>
+        <div class="home-screen-box-group-text" id="home-screen-desktop-body"></div>
+      </div>
+    </div>
+    <button class="home-screen-box-close" id="btn-home-screen-modal-close" type="button" onclick="closeHomeScreenInstallModal()"></button>
+  </div>
+</div>
 
 <!-- ── AUTH MODAL ── -->
 <div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeV16FreeVerbSaveModal()">

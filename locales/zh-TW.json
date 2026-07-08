@@ -18,51 +18,70 @@
   "lp": {
     "logo": "Noetune",
     "hero": {
-      "title": "讓你與人生的關係，\n稍微變輕。",
-      "body": "Noetune 不是\n解決問題的 App。\n\n這是一個讓你客觀地\n接近自己、\n轉換視角，\n並變得輕盈一些的地方。",
-      "cta": "開始這段旅程"
+      "title": "Noetune 是一個\n看見自己的反應，\n讓自己慢慢變得輕一點的地方。",
+      "body": "跟著提問書寫、感受、呼吸，\n再確認前後的變化。",
+      "cta": "安靜地開始",
+      "note": "免費也可以完整走到最後。"
     },
-    "not": {
-      "title": "這不是那種 App。",
-      "lines": [
-        "這不是替你解決問題的 App。",
-        "也不是由 AI 告訴你答案的 App。",
-        "也不是每天記錄、分析你的 App。"
-      ]
-    },
-    "core": {
-      "title": "讓你與人生的關係，慢慢變輕。",
-      "body": "目標不是把問題消除。\n而是有一天，你自然覺得：「當初到底是什麼問題呢？」\nNoetune 是為了讓你自然靠近那個狀態。"
-    },
-    "entryPreview": {
-      "title": "現在，哪一個比較接近你？",
-      "fromConcern": "從現在在意的事開始",
-      "fromIdeal": "從現在想感受到的狀態開始"
-    },
-    "experience": {
-      "title": "書寫。感受。呼吸。",
-      "lines": [
-        "寫下現在的狀態。",
-        "稍微感受幸福度100%。",
-        "呼吸。",
-        "看見變化。"
-      ]
-    },
-    "resultPreview": {
-      "title": "出現的，只有你的文字。",
-      "body": "主題。\n現在的狀態。\n變化。\n覺察。\n\n我們不會代替你解釋。"
-    },
-    "free": {
-      "title": "一次旅程，可以免費走到最後。",
-      "body": "不限制一次 session 本身。\n需要的時候，就可以開始。"
-    },
-    "bookmark": {
-      "title": "把今天的旅程，夾上書籤。",
-      "body": "把今天的覺察，留給未來的自己。\n之後再從那裡重新開始。"
-    },
+    "sections": [
+      {
+        "title": "與人生各種主題的關係，\n一點一點生出餘裕，並慢慢展開。",
+        "bodyGroups": [
+          "把腦中那些看不見的反應，\n從稍微退後一步的地方看見。",
+          "Noetune 不是\n告訴你問題答案，\n也不是分析你的 App。",
+          "你自己書寫、感受、呼吸。\n\n然後，\n自己看見\n內在正在發生的變化。"
+        ]
+      },
+      {
+        "title": "一次 session 中可以得到的變化",
+        "bodyGroups": [],
+        "items": [
+          "說不出口的悶悶感變成文字",
+          "看見那更深處的反應",
+          "開始能自己選擇，如何對待它",
+          "與情緒之間產生距離",
+          "能從不同視角看這個主題",
+          "用 Before / After 確認內在的變化"
+        ]
+      },
+      {
+        "title": "重複 session 後可以得到的變化",
+        "bodyGroups": [
+          "即使是反應很強烈的主題，\n面對幾次之後，\n也會一點一點看見關係的變化。"
+        ],
+        "items": [
+          "對同一件事的反應開始改變",
+          "開始看見自己為什麼會那麼強烈地反應",
+          "開始自己理解反應背後曾經有什麼",
+          "想到這個主題時的沉重感或氛圍開始改變",
+          "看見自己已經走出「什麼都沒有改變」的感覺之外"
+        ]
+      },
+      {
+        "title": "",
+        "bodyGroups": [
+          "每一次 session，\n都可以免費進行，不限次數。"
+        ],
+        "cta": "查看 Free 與 Pro 的差別",
+        "ctaAction": "pricing"
+      }
+    ],
     "finalCta": {
-      "title": "現在，只要一分鐘。",
-      "cta": "開始這段旅程"
+      "title": "就從現在，\n那件有點在意的事開始。",
+      "cta": "安靜地開始"
+    },
+    "homeScreen": {
+      "title": "加入手機主畫面",
+      "body": "像 App 一樣，隨時反覆使用。",
+      "cta": "加入手機主畫面",
+      "modalTitle": "加入主畫面",
+      "iphoneTitle": "iPhone / iPad",
+      "iphoneBody": "請用 Safari 開啟，點選分享按鈕，然後選擇「加入主畫面」。",
+      "androidTitle": "Android",
+      "androidBody": "請開啟 Chrome 選單，然後選擇「加入主畫面」。",
+      "desktopTitle": "電腦版",
+      "desktopBody": "用手機開啟 Noetune，就可以加入主畫面。",
+      "close": "關閉"
     }
   },
   "entry": {
@@ -78,7 +97,12 @@
   },
   "theme": {
     "freeInputCategory": "自由輸入",
+    "categoryGuide": "關於「{theme}」，\n從煩惱或理想開始，\n你想從哪裡開始？",
+    "problemGuide": "關於「{theme}」，\n寫下煩惱或問題。",
+    "idealGuide": "關於「{theme}」，\n寫下理想狀態。",
     "freeInputPlaceholder": "自由輸入內容",
+    "problemFreeInputPlaceholder": "關於「{theme}」，\n寫下煩惱或問題。\n\n或者，\n從下方清單選擇。",
+    "idealFreeInputPlaceholder": "關於「{theme}」，\n寫下理想狀態。\n\n或者，\n從下方清單選擇。",
     "confirm": "確定",
     "problemFreeInput": "自由輸入",
     "idealFreeInput": "自由輸入",
@@ -151,6 +175,13 @@
   },
   "result": {
     "cardTitle": "結果",
+    "themeLabel": "主題",
+    "subthemeLabel": "子主題",
+    "happinessLabel": "幸福度",
+    "awarenessTitle": "注意到的事",
+    "showMoreAwareness": "查看更多",
+    "showRecentAwareness": "只看部分",
+    "site": "noetune.com",
     "selectedProblem": "你選擇的煩惱",
     "selectedIdeal": "你選擇的理想",
     "currentState": "你寫下的目前狀態",
@@ -158,9 +189,17 @@
     "scoreSuffix": "所選主題的幸福度",
     "before": "前",
     "after": "後",
+    "showAllScores": "查看全部",
+    "showRecentScores": "只看近期 5 筆",
     "imageSave": "儲存結果圖片",
     "shareStatusSaved": "結果圖片已儲存",
-    "shareStatusFailed": "無法儲存圖片"
+    "shareStatusFailed": "無法儲存圖片",
+    "actions": {
+      "bookmark": "放入書籤",
+      "restartSubtheme": "重新開始這個子主題",
+      "restartTheme": "重新開始這個主題",
+      "chooseAnotherTheme": "重新選擇其他主題"
+    }
   },
   "bookmark": {
     "primaryCta": "加入書籤",
@@ -196,10 +235,118 @@
     "cannotQuantify": "已經不值得當成問題"
   },
   "pricing": {
-    "title": "Pro",
-    "lead": "為了繼續旅程的書籤。",
-    "body": "Pro 不是為了解鎖被限制的體驗。\n而是為了留下今天的旅程，之後再從那裡開始。",
-    "cta": "儲存書籤"
+    "eyebrow": "Free / Pro",
+    "title": "無論選擇哪一個，\n今天的 Journey 都能完整走完。",
+    "lead": "Free 也包含完整的 Noetune 體驗。\n\nPro 是為了讓重要的 Journey，\n能夠跨越時間繼續走下去。",
+    "body": "Pro 不是為了解鎖更多功能。\n而是為了讓重要的 Journey，能夠跨越時間繼續。",
+    "cta": "開始 Pro",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "tagline": "完整走完今天的 Journey。",
+        "price": "免費",
+        "priceNote": "",
+        "featuresLead": "包含",
+        "features": [
+          "完整的 Session",
+          "所有 Human Core Questions",
+          "自由輸入",
+          "Before / After",
+          "呼吸",
+          "結果卡",
+          "匯出結果圖片",
+          "Session 次數不限",
+          "不使用 AI 分析",
+          "無廣告"
+        ],
+        "cta": "免費開始"
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "從離開的位置，繼續重要的 Journey。",
+        "price": "準備中",
+        "priceNote": "Pro 準備好後，可以從這個頁面開始。",
+        "featuresLead": "包含 Free 的全部功能，另外還有",
+        "features": [
+          "暫停一段 Journey",
+          "從上次離開的位置繼續",
+          "多段 Active Journeys",
+          "讓重要的主題跨越時間延續"
+        ],
+        "cta": "開始 Pro",
+        "ctaGuest": "登入並開始 Pro",
+        "ctaFree": "開始 Pro",
+        "ctaPro": "管理方案"
+      }
+    },
+    "comparison": {
+      "title": "Free 與 Pro 的差別",
+      "items": [
+        {
+          "id": "completeSession",
+          "label": "完整的 Session",
+          "free": "完整",
+          "pro": "完整"
+        },
+        {
+          "id": "unlimitedSessions",
+          "label": "Session 次數",
+          "free": "不限",
+          "pro": "不限"
+        },
+        {
+          "id": "allQuestions",
+          "label": "Human Core Questions",
+          "free": "全部",
+          "pro": "全部"
+        },
+        {
+          "id": "pauseJourney",
+          "label": "暫停一段 Journey",
+          "free": "—",
+          "pro": "可以"
+        },
+        {
+          "id": "resumeJourney",
+          "label": "從上次離開的位置繼續",
+          "free": "—",
+          "pro": "可以"
+        },
+        {
+          "id": "activeJourneys",
+          "label": "Active Journeys",
+          "free": "—",
+          "pro": "多段"
+        },
+        {
+          "id": "aiAnalysis",
+          "label": "AI 分析",
+          "free": "沒有",
+          "pro": "沒有"
+        },
+        {
+          "id": "ads",
+          "label": "廣告",
+          "free": "沒有",
+          "pro": "沒有"
+        }
+      ]
+    },
+    "meaning": {
+      "title": "Pro 不是為了儲存資料。",
+      "body": "一次 Session，\n可以完整走完今天的 Journey。\n\n但你與一個主題之間的關係，\n不一定會在一天內結束。\n\nPro 讓你暫時放下一段重要的 Journey，\n之後再回到原來的位置繼續。"
+    },
+    "footer": {
+      "body": "你可以先從完整的 Free Session 開始。",
+      "cta": "從現在的主題開始"
+    },
+    "legal": {
+      "cancelAnytime": "你可以隨時管理方案。"
+    },
+    "pauseJourney": {
+      "title": "之後再繼續這段 Journey。",
+      "body": "使用 Pro，可以從這個位置繼續。"
+    }
   },
   "errors": {
     "loadFailed": "無法讀取。",

@@ -3,9 +3,12 @@ function pricingCtaClick() {
   var activeBtn = document.getElementById(isLock ? 'btn-lock-cta' : 'btn-pricing-cta');
   var activeBtnPath = isLock ? 'ui.lock_cta' : 'ui.professionalPlanCta';
   var soonMsg = document.getElementById('t-pricing-soon');
+  var fallbackLabel = typeof getPricingAccountCtaLabel === 'function'
+    ? getPricingAccountCtaLabel()
+    : t(activeBtnPath);
 
   function showFallback() {
-    if (activeBtn) { activeBtn.disabled = false; activeBtn.textContent = t(activeBtnPath); }
+    if (activeBtn) { activeBtn.disabled = false; activeBtn.textContent = fallbackLabel; }
     if (soonMsg) soonMsg.style.display = 'block';
   }
 

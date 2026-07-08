@@ -18,51 +18,70 @@
   "lp": {
     "logo": "Noetune",
     "hero": {
-      "title": "Lighten your relationship\nwith life, just a little.",
-      "body": "Noetune is not\nan app that solves problems.\n\nIt is a place to step back,\naccess yourself,\nlet your perspective shift,\nand feel lighter.",
-      "cta": "Begin the journey"
+      "title": "Noetune is a place\nto notice your reactions\nand become a little lighter.",
+      "body": "Write, feel, and breathe along with the questions,\nthen check what changes before and after.",
+      "cta": "Begin quietly",
+      "note": "You can use the full session for free."
     },
-    "not": {
-      "title": "This is not that kind of app.",
-      "lines": [
-        "It is not an app that solves your problems.",
-        "It is not an app where AI gives you answers.",
-        "It is not an app that records and analyzes you every day."
-      ]
-    },
-    "core": {
-      "title": "Lightening your relationship with life, little by little.",
-      "body": "The goal is not to erase the problem.\nOne day, you may find yourself wondering, “What was the problem?”\nNoetune helps you move there naturally."
-    },
-    "entryPreview": {
-      "title": "Which feels closer right now?",
-      "fromConcern": "Start from what feels present",
-      "fromIdeal": "Start from the state you want to feel"
-    },
-    "experience": {
-      "title": "Write. Feel. Breathe.",
-      "lines": [
-        "Write your current state.",
-        "Feel 100% happiness for a moment.",
-        "Breathe.",
-        "See what changed."
-      ]
-    },
-    "resultPreview": {
-      "title": "Only your words appear.",
-      "body": "Theme.\nCurrent state.\nChange.\nAwareness.\n\nWe do not interpret on your behalf."
-    },
-    "free": {
-      "title": "One journey, complete for free.",
-      "body": "The session itself is not limited.\nBegin whenever you need, as often as you need."
-    },
-    "bookmark": {
-      "title": "Place a bookmark in today’s journey.",
-      "body": "Leave today’s awareness for your future self.\nThen begin again from there."
-    },
+    "sections": [
+      {
+        "title": "A little more space begins to open\nin your relationship with the many themes of life.",
+        "bodyGroups": [
+          "The invisible reactions in your mind\nare observed from one step back.",
+          "Noetune is not an app\nthat gives you answers to problems\nor analyzes you.",
+          "You write, feel, and breathe.\n\nAnd then,\nyou notice for yourself\nthe change happening inside you."
+        ]
+      },
+      {
+        "title": "Changes you can experience in a single session",
+        "bodyGroups": [],
+        "items": [
+          "Unspoken unease becomes words",
+          "You notice the reaction underneath it",
+          "You become able to choose for yourself how to be with it",
+          "A little distance opens between you and the emotion",
+          "You can see the theme from another perspective",
+          "You check the inner change with Before / After"
+        ]
+      },
+      {
+        "title": "Changes that can come from repeating sessions",
+        "bodyGroups": [
+          "Even with themes you react to strongly,\nby facing them several times,\nyou begin to see the relationship changing little by little."
+        ],
+        "items": [
+          "Your reaction to the same event begins to change",
+          "You begin to notice why you reacted so strongly",
+          "You come to understand for yourself what was behind the reaction",
+          "The weight or atmosphere you feel when the theme comes to mind changes",
+          "You notice yourself outside the feeling that “nothing has changed”"
+        ]
+      },
+      {
+        "title": "",
+        "bodyGroups": [
+          "Each individual session is free,\nas many times as you like."
+        ],
+        "cta": "See Free and Pro",
+        "ctaAction": "pricing"
+      }
+    ],
     "finalCta": {
-      "title": "Just one minute now.",
-      "cta": "Begin the journey"
+      "title": "Start from whatever feels slightly present now.",
+      "cta": "Begin quietly"
+    },
+    "homeScreen": {
+      "title": "Add to your home screen",
+      "body": "Use Noetune anytime, like an app.",
+      "cta": "Add to your home screen",
+      "modalTitle": "Add to home screen",
+      "iphoneTitle": "For iPhone / iPad",
+      "iphoneBody": "Open in Safari, tap the Share button, then choose “Add to Home Screen.”",
+      "androidTitle": "For Android",
+      "androidBody": "Open the Chrome menu, then choose “Add to Home screen.”",
+      "desktopTitle": "For desktop",
+      "desktopBody": "Open Noetune on your phone to add it to your home screen.",
+      "close": "Close"
     }
   },
   "entry": {
@@ -78,7 +97,12 @@
   },
   "theme": {
     "freeInputCategory": "Free input",
+    "categoryGuide": "For “{theme}”,\nfrom concern or ideal,\nwhere would you like to begin?",
+    "problemGuide": "About “{theme}”,\nwrite the concern or problem.",
+    "idealGuide": "About “{theme}”,\nwrite the ideal state.",
     "freeInputPlaceholder": "Enter freely",
+    "problemFreeInputPlaceholder": "About “{theme}”,\nwrite the concern or problem.\n\nOr,\nchoose from the list below.",
+    "idealFreeInputPlaceholder": "About “{theme}”,\nwrite the ideal state.\n\nOr,\nchoose from the list below.",
     "confirm": "Confirm",
     "problemFreeInput": "Free input",
     "idealFreeInput": "Free input",
@@ -151,6 +175,13 @@
   },
   "result": {
     "cardTitle": "Result",
+    "themeLabel": "Theme",
+    "subthemeLabel": "Subtheme",
+    "happinessLabel": "Happiness",
+    "awarenessTitle": "What I noticed",
+    "showMoreAwareness": "Show more",
+    "showRecentAwareness": "Show less",
+    "site": "noetune.com",
     "selectedProblem": "Selected concern",
     "selectedIdeal": "Selected ideal",
     "currentState": "The current state you wrote",
@@ -158,9 +189,17 @@
     "scoreSuffix": "Happiness score for the selected theme",
     "before": "Before",
     "after": "After",
+    "showAllScores": "Show all",
+    "showRecentScores": "Show recent 5",
     "imageSave": "Save result image",
     "shareStatusSaved": "Result image saved",
-    "shareStatusFailed": "Could not save the image"
+    "shareStatusFailed": "Could not save the image",
+    "actions": {
+      "bookmark": "Place a bookmark",
+      "restartSubtheme": "Restart this subtheme",
+      "restartTheme": "Restart this theme",
+      "chooseAnotherTheme": "Choose another theme"
+    }
   },
   "bookmark": {
     "primaryCta": "Place a bookmark",
@@ -196,10 +235,118 @@
     "cannotQuantify": "No longer worth treating as a problem"
   },
   "pricing": {
-    "title": "Pro",
-    "lead": "A bookmark for continuing the journey.",
-    "body": "Pro is not for unlocking a restricted experience.\nIt is for keeping today’s journey, and beginning again from there.",
-    "cta": "Save bookmark"
+    "eyebrow": "Free / Pro",
+    "title": "Whichever you choose,\ntoday’s Journey is complete.",
+    "lead": "Free includes the complete Noetune session.\n\nPro is for continuing the Journeys\nthat matter across time.",
+    "body": "Pro is not for unlocking more features.\nIt is for continuing important Journeys across time.",
+    "cta": "Begin Pro",
+    "plans": {
+      "free": {
+        "name": "Free",
+        "tagline": "Complete today’s Journey.",
+        "price": "Free",
+        "priceNote": "",
+        "featuresLead": "Included",
+        "features": [
+          "Complete sessions",
+          "All Human Core Questions",
+          "Free input",
+          "Before / After",
+          "Breathing",
+          "Result card",
+          "Result image export",
+          "Unlimited sessions",
+          "No AI analysis",
+          "No ads"
+        ],
+        "cta": "Begin for free"
+      },
+      "pro": {
+        "name": "Pro",
+        "tagline": "Return to the Journeys that matter.",
+        "price": "Coming soon",
+        "priceNote": "When Pro is ready, you can begin from this page.",
+        "featuresLead": "Everything in Free, plus",
+        "features": [
+          "Pause a Journey",
+          "Resume from where you left",
+          "Multiple Active Journeys",
+          "Continue important themes across time"
+        ],
+        "cta": "Begin Pro",
+        "ctaGuest": "Sign in to begin Pro",
+        "ctaFree": "Begin Pro",
+        "ctaPro": "Manage plan"
+      }
+    },
+    "comparison": {
+      "title": "Free and Pro",
+      "items": [
+        {
+          "id": "completeSession",
+          "label": "Complete session",
+          "free": "Complete",
+          "pro": "Complete"
+        },
+        {
+          "id": "unlimitedSessions",
+          "label": "Sessions",
+          "free": "Unlimited",
+          "pro": "Unlimited"
+        },
+        {
+          "id": "allQuestions",
+          "label": "Human Core Questions",
+          "free": "All",
+          "pro": "All"
+        },
+        {
+          "id": "pauseJourney",
+          "label": "Pause a Journey",
+          "free": "—",
+          "pro": "Yes"
+        },
+        {
+          "id": "resumeJourney",
+          "label": "Resume from where you left",
+          "free": "—",
+          "pro": "Yes"
+        },
+        {
+          "id": "activeJourneys",
+          "label": "Active Journeys",
+          "free": "—",
+          "pro": "Multiple"
+        },
+        {
+          "id": "aiAnalysis",
+          "label": "AI analysis",
+          "free": "None",
+          "pro": "None"
+        },
+        {
+          "id": "ads",
+          "label": "Ads",
+          "free": "None",
+          "pro": "None"
+        }
+      ]
+    },
+    "meaning": {
+      "title": "Pro is not about storage.",
+      "body": "A single session can complete today’s Journey.\n\nBut your relationship with a theme\nmay continue beyond one day.\n\nPro lets you pause an important Journey\nand return to the same place later."
+    },
+    "footer": {
+      "body": "Begin with a complete Free session.",
+      "cta": "Begin with a theme"
+    },
+    "legal": {
+      "cancelAnytime": "You can manage your plan anytime."
+    },
+    "pauseJourney": {
+      "title": "Continue this Journey later.",
+      "body": "With Pro, you can return to this exact place."
+    }
   },
   "errors": {
     "loadFailed": "Could not load.",
