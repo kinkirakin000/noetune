@@ -1,0 +1,1146 @@
+{
+  "appVersion": "v17",
+  "schemaVersion": 1,
+  "libraryId": "spiritual-wisdom",
+  "locale": "zh-TW",
+  "label": "靈性智慧",
+  "intro": "請選擇此刻內心所向往的意識狀態。",
+  "selectionNote": "這不是用來評分自己是否做得到。只要選擇此刻最吸引你的項目。",
+  "defaultTrackId": "ideals",
+  "pageSize": 4,
+  "showMoreLabel": "顯示更多",
+  "display": {
+    "itemLayout": "label-description",
+    "showNumbers": false,
+    "accordionGroups": true
+  },
+  "groupCount": 15,
+  "themeCount": 170,
+  "groups": [
+    {
+      "id": "presence",
+      "order": 1,
+      "label": "活在當下的意識",
+      "themes": [
+        {
+          "id": "sw-001",
+          "label": "當下意識",
+          "description": "不沉浸在過去的後悔或未來的擔憂中，而是把注意力放在此刻正在發生的事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-002",
+          "label": "臨在",
+          "description": "心與身體都真實地在此時此地。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-003",
+          "label": "覺察",
+          "description": "能察覺自己的想法、情緒與身體感受。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-004",
+          "label": "清醒的狀態",
+          "description": "不在無意識中行動，而是知道自己正在感受什麼、做什麼。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-005",
+          "label": "身心一致",
+          "description": "不只活在頭腦裡，也一邊感受身體，一邊生活。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-006",
+          "label": "記得自己",
+          "description": "做任何事時，也記得自己此刻正在這裡。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-007",
+          "label": "細緻的注意",
+          "description": "能察覺自己與周遭細微的變化。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-008",
+          "label": "活著的實感",
+          "description": "不只用頭腦理解，也能透過身體感受到自己正在活著。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-009",
+          "label": "全然投入日常",
+          "description": "吃飯、走路、說話時，專注於眼前正在做的事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-010",
+          "label": "與當下親近",
+          "description": "不逃離此刻，而是完整地感受與品味它。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "stillness-centeredness",
+      "order": 2,
+      "label": "寧靜與安住中心的意識",
+      "themes": [
+        {
+          "id": "sw-011",
+          "label": "內在的寧靜",
+          "description": "即使周遭喧鬧，內心深處仍然安靜。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-012",
+          "label": "念頭之前的寂靜",
+          "description": "感受到腦中語言出現之前，那份安靜的狀態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-013",
+          "label": "安住中心",
+          "description": "不被周遭發生的事情牽著走，也不失去自己。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-014",
+          "label": "接地",
+          "description": "不只停留在頭腦中，而是與身體和現實穩定連結。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-015",
+          "label": "沉著",
+          "description": "不急著得到答案，能慢慢地看清事情。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-016",
+          "label": "平安",
+          "description": "即使有問題存在，內心深處也不再交戰。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-017",
+          "label": "心的清澈",
+          "description": "不被強烈的成見或情緒遮蔽，能如實看見事物。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-018",
+          "label": "允許留白",
+          "description": "不勉強用事情填滿沒有任何事發生的時間。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-019",
+          "label": "接納的沉默",
+          "description": "不急著製造答案，能安靜地感受與等待。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-020",
+          "label": "安住於存在",
+          "description": "即使什麼都不做，也能因只是存在於此而感到安心。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "acceptance-surrender",
+      "order": 3,
+      "label": "接納與交託的意識",
+      "themes": [
+        {
+          "id": "sw-021",
+          "label": "如實接納",
+          "description": "在判斷喜歡或不喜歡之前，先承認眼前的現實就是如此。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-022",
+          "label": "允許情緒",
+          "description": "不把悲傷或憤怒視為壞事，允許自己真實感受。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-023",
+          "label": "不抗拒",
+          "description": "不持續否定正在發生的事，而是先承接它。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-024",
+          "label": "臣服",
+          "description": "不再試圖只靠自己的力量控制一切。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-025",
+          "label": "交託",
+          "description": "相信生命中也存在自己尚未理解的更大流動。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-026",
+          "label": "不執著結果",
+          "description": "會努力行動，但即使結果不如預期，也不否定自己。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-027",
+          "label": "接納不確定",
+          "description": "即使還不知道答案，也不立刻被不安淹沒。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-028",
+          "label": "接納變化",
+          "description": "接受沒有任何事物會永遠維持不變。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-029",
+          "label": "穿越失落",
+          "description": "不否定失去重要事物的悲傷，願意花時間感受它。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-030",
+          "label": "信任生命",
+          "description": "即使無法理解一切，也相信自己能繼續走下去。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-031",
+          "label": "順服神聖旨意",
+          "description": "不只重視個人的欲望，也珍惜更大的善與神聖方向。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-032",
+          "label": "順流而行",
+          "description": "不勉強推動事情，而是感受適合的時機與方向再行動。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "observer-awareness",
+      "order": 4,
+      "label": "觀察自己的意識",
+      "themes": [
+        {
+          "id": "sw-033",
+          "label": "觀察者意識",
+          "description": "不被想法和情緒吞沒，而是退一步看著它們。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-034",
+          "label": "覺察覺察本身",
+          "description": "察覺那個正在看、正在感受的「意識本身」。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-035",
+          "label": "不認同念頭",
+          "description": "不把腦中浮現的想法視為絕對真實。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-036",
+          "label": "不認同情緒",
+          "description": "即使感到憤怒或悲傷，也不認為自己本身就是憤怒或悲傷。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-037",
+          "label": "不被角色定義",
+          "description": "明白父母、工作、頭銜等角色都不是自己的全部。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-038",
+          "label": "人格之前的自己",
+          "description": "感受到在性格與過去故事更深處，還有一個安靜的自己。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-039",
+          "label": "純粹覺察",
+          "description": "不急著判斷，只是清楚地覺察。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-040",
+          "label": "自我探索",
+          "description": "從自己的內在確認「真正的我是誰」。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-041",
+          "label": "覺醒於真實自我",
+          "description": "明白短暫的情緒與性格並不等於真正的自己。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-042",
+          "label": "存在與意識合一",
+          "description": "不只覺得自己擁有意識，而是感受到自己就是意識本身。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "equanimity-nonattachment",
+      "order": 5,
+      "label": "平等心與不執著的意識",
+      "themes": [
+        {
+          "id": "sw-043",
+          "label": "平等心",
+          "description": "不會完全被愉快或不愉快的事情牽著走。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-044",
+          "label": "不立即反應",
+          "description": "事情發生時，不立刻隨情緒反應，而能先停一下。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-045",
+          "label": "不執著",
+          "description": "即使珍惜人或事物，也不試圖把它們當成自己的所有物來控制。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-046",
+          "label": "不執著觀點",
+          "description": "不認為只有自己的想法才是正確的。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-047",
+          "label": "平等看待成功與失敗",
+          "description": "明白無論成功或失敗，自己的價值都不會改變。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-048",
+          "label": "不受讚美與批評支配",
+          "description": "無論被稱讚或批評，都不會完全失去自己。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-049",
+          "label": "不受得失動搖",
+          "description": "即使得到或失去什麼，內心的根基也不會因此崩塌。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-050",
+          "label": "能觀察欲望",
+          "description": "能察覺自己想要的心情，而不被它支配。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-051",
+          "label": "能承接恐懼",
+          "description": "即使感到害怕，也不只依照恐懼來決定行動。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-052",
+          "label": "敞開而穩定",
+          "description": "即使可能受傷，也不把心完全關閉。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "love-compassion",
+      "order": 6,
+      "label": "愛與慈悲的意識",
+      "themes": [
+        {
+          "id": "sw-053",
+          "label": "慈愛",
+          "description": "真心希望自己與他人幸福。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-054",
+          "label": "慈悲",
+          "description": "看見他人的痛苦，並願意做自己能做的事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-055",
+          "label": "無條件的愛",
+          "description": "即使對方不符合自己的期待，也珍惜對方的存在。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-056",
+          "label": "自我慈悲",
+          "description": "也以溫柔的話語與態度對待正在受苦的自己。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-057",
+          "label": "寬恕",
+          "description": "不是把對方的行為合理化，而是放下持續折磨自己的憤怒。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-058",
+          "label": "由理解而生的愛",
+          "description": "不只看對方表面的行為，也看見其背後的痛苦。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-059",
+          "label": "同理",
+          "description": "試著想像並感受對方正在經歷什麼。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-060",
+          "label": "分享喜悅",
+          "description": "不嫉妒他人的幸福與成功，而能一起歡喜。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-061",
+          "label": "不分別的愛",
+          "description": "不論喜歡或不喜歡，都看見每個生命的價值。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-062",
+          "label": "包容",
+          "description": "面對與自己不同的人或觀點，不急著排斥，而能先承接。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-063",
+          "label": "溫柔",
+          "description": "把自己的力量用來幫助人，而不是控制人。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-064",
+          "label": "深度傾聽",
+          "description": "不急著反駁或給建議，而是完整地聽見對方。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-065",
+          "label": "有愛的語言",
+          "description": "不只說正確的話，也選擇不傷害對方的表達方式。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "connection-oneness",
+      "order": 7,
+      "label": "連結與合一的意識",
+      "themes": [
+        {
+          "id": "sw-066",
+          "label": "相互依存的意識",
+          "description": "明白若沒有他人與自然的支持，自己無法獨立存在。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-067",
+          "label": "與生命連結",
+          "description": "感受到自己不只與人類，也與動物、植物和大地相連。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-068",
+          "label": "一體感",
+          "description": "感受到自己與世界並不是完全分開的。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-069",
+          "label": "從分離感中自由",
+          "description": "「自己被孤單地切離世界」的感覺逐漸減弱。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-070",
+          "label": "普遍自我的意識",
+          "description": "感受到他人之中也有與自己相同的生命與意識。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-071",
+          "label": "非二元意識",
+          "description": "感受到「自己」與「世界」在根本上並非完全分離。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-072",
+          "label": "萬物一體的意識",
+          "description": "感受到各種存在都來自同一個根源。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-073",
+          "label": "包含差異的合一",
+          "description": "明白每個人雖然不同，卻在深處彼此相連。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-074",
+          "label": "宇宙意識",
+          "description": "不只把自己視為一個人，也感受到自己是整個宇宙的一部分。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-075",
+          "label": "與神一致",
+          "description": "不把神視為遙遠的存在，也感受到神聖存在於自己之內。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-076",
+          "label": "愛者與被愛者合一",
+          "description": "在深刻的愛中，給予者與接受者的界線逐漸淡化。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "humility-unknowing",
+      "order": 8,
+      "label": "謙卑與接納未知的意識",
+      "themes": [
+        {
+          "id": "sw-077",
+          "label": "謙卑",
+          "description": "明白自己並不是知道一切。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-078",
+          "label": "初心",
+          "description": "不自以為已經知道，而以全新的心重新看見。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-079",
+          "label": "允許不知道",
+          "description": "即使不知道答案，也不勉強製造答案。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-080",
+          "label": "保持可學習",
+          "description": "能向任何人、任何經驗學習。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-081",
+          "label": "不再自我辯護",
+          "description": "即使承認自己的錯誤，也知道自己的價值不會因此消失。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-082",
+          "label": "彈性的理解",
+          "description": "知道新的事實後，能調整自己的想法。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-083",
+          "label": "向神秘敞開",
+          "description": "對理性無法解釋的事，不急著立刻否定。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-084",
+          "label": "敬畏",
+          "description": "接觸自然、宇宙與生命的廣大時，從心中生起敬意。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-085",
+          "label": "驚奇感",
+          "description": "即使面對日常小事，也能感受到新鮮與不可思議。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "truth-clarity",
+      "order": 9,
+      "label": "真實與清明的意識",
+      "themes": [
+        {
+          "id": "sw-086",
+          "label": "對自己誠實",
+          "description": "不欺騙自己真正的感受與動機。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-087",
+          "label": "看見真相的勇氣",
+          "description": "即使真相令人不舒服，也願意誠實面對現實。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-088",
+          "label": "辨識力",
+          "description": "能分辨恐懼、欲望、成見與直覺。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-089",
+          "label": "洞察",
+          "description": "不只看表面的事件，也看見背後的原因。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-090",
+          "label": "清明",
+          "description": "即使處於混亂中，也不失去對重要事物的辨識。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-091",
+          "label": "正見",
+          "description": "減少自己的成見，盡可能如實地看見現實。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-092",
+          "label": "不受偏見限制",
+          "description": "不只依照成長背景與先入為主的想法判斷人事物。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-093",
+          "label": "從幻象中醒來",
+          "description": "能區分自己編出的故事與實際正在發生的事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-094",
+          "label": "內在一致",
+          "description": "想法、感受、言語與行動沒有嚴重分裂。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-095",
+          "label": "選擇本質",
+          "description": "把自己的時間與力量用在真正重要的事上。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "joy-fulfillment",
+      "order": 10,
+      "label": "喜悅與滿足的意識",
+      "themes": [
+        {
+          "id": "sw-096",
+          "label": "無條件的喜悅",
+          "description": "即使沒有特別的成功，也能因活著而感到喜悅。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-097",
+          "label": "知足",
+          "description": "能感受到現在擁有的已經足夠。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-098",
+          "label": "感恩",
+          "description": "看見自己已經收到的事物，並珍惜它們。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-099",
+          "label": "感受祝福",
+          "description": "把日常的小事視為值得感謝的禮物。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-100",
+          "label": "內在豐盛",
+          "description": "不是依靠金錢或物品的多寡，而是內在感到充實。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-101",
+          "label": "至福",
+          "description": "即使沒有明確原因，也能感受到深層幸福。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-102",
+          "label": "輕盈",
+          "description": "不把自己與人生看得過度沉重。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-103",
+          "label": "遊戲的意識",
+          "description": "不只把人生當成問題，也把它視為享受、嘗試與創造的空間。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-104",
+          "label": "自然的歡欣",
+          "description": "被壓抑的生命力能夠自由流動。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-105",
+          "label": "我已足夠的意識",
+          "description": "感受到此刻的自己已經擁有存在所需要的根本條件。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "sacredness-prayer",
+      "order": 11,
+      "label": "神聖與祈禱的意識",
+      "themes": [
+        {
+          "id": "sw-106",
+          "label": "對神聖的感受力",
+          "description": "即使在普通日常中，也能感受到深刻意義與尊貴。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-107",
+          "label": "神聖臨在的意識",
+          "description": "無論身在何處，都感受到神聖存在陪伴在旁。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-108",
+          "label": "祈禱的意識",
+          "description": "不只說出願望，也把整顆心轉向神聖。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-109",
+          "label": "憶念",
+          "description": "即使日常忙碌，也不忘記自己的本質與神聖。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-110",
+          "label": "奉獻",
+          "description": "不只為自己，也把能力與生命用於更大的目的。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-111",
+          "label": "皈依",
+          "description": "比起個人的欲望與方便，更重視真理與神聖教導。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-112",
+          "label": "崇敬",
+          "description": "尊重神聖是自己無法控制或完全理解的存在。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-113",
+          "label": "與神聖親近",
+          "description": "不覺得神聖遙不可及，而是在心中感受到親近。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-114",
+          "label": "聆聽引導",
+          "description": "不只依照頭腦的計畫，也傾聽內在安靜的感受。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-115",
+          "label": "接受恩典",
+          "description": "不試圖只靠努力獲得一切，也願意接受被給予的幫助與祝福。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "freedom-liberation",
+      "order": 12,
+      "label": "自由與解脫的意識",
+      "themes": [
+        {
+          "id": "sw-116",
+          "label": "內在自由",
+          "description": "即使外在條件受限，內心仍能選擇自己的態度與行動。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-117",
+          "label": "從制約中自由",
+          "description": "不把家庭、社會與過去灌輸的想法視為絕對真理。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-118",
+          "label": "從自我中自由",
+          "description": "不再拚命保護自己或證明自己是對的。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-119",
+          "label": "從恐懼中自由",
+          "description": "即使恐懼存在，也不讓它支配自己的人生。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-120",
+          "label": "從欲望中自由",
+          "description": "不認為只有得到想要的東西才能幸福。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-121",
+          "label": "不與痛苦認同",
+          "description": "即使感到痛苦，也不認為自己就是痛苦本身。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-122",
+          "label": "從過去中自由",
+          "description": "不讓過去的事件成為現在自己的限制。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-123",
+          "label": "從掌控未來中自由",
+          "description": "不再認為必須把未來準備得完美才能安心。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-124",
+          "label": "超越生死的意識",
+          "description": "感受到生命不只等於從出生到死亡之間的身體。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-125",
+          "label": "解脫與覺醒",
+          "description": "不再被執著、成見與分離感支配。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "embodied-action",
+      "order": 13,
+      "label": "展現在日常行動中的意識",
+      "themes": [
+        {
+          "id": "sw-126",
+          "label": "服務的意識",
+          "description": "不只為自己，也把能力用於他人與社會。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-127",
+          "label": "慷慨",
+          "description": "不只分享金錢，也願意分享時間、知識與善意。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-128",
+          "label": "負責任的自由",
+          "description": "不為了自己的自由而傷害他人。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-129",
+          "label": "倫理一致",
+          "description": "把內心重視的價值，實際表現在行動中。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-130",
+          "label": "勇氣",
+          "description": "即使害怕，也選擇自己真正重視的事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-131",
+          "label": "耐心",
+          "description": "不勉強催促自己或他人成長。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-132",
+          "label": "堅韌",
+          "description": "即使遇到困難，也不完全失去希望與柔軟。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-133",
+          "label": "有界線的愛",
+          "description": "不把愛與無止境的忍耐混為一談。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-134",
+          "label": "和諧",
+          "description": "珍惜自己、他人與自然能自在共存的狀態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-135",
+          "label": "創造性的回應",
+          "description": "不重複慣性反應，而是選擇適合當下的新回應。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-136",
+          "label": "真實",
+          "description": "不扮演討好他人的樣子，而是以真正的自己生活。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-137",
+          "label": "與使命一致",
+          "description": "把人生用在自己真心認為重要的方向上。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-138",
+          "label": "平凡",
+          "description": "不追求成為特別的人，而是細緻地活在日常中。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "deep-awakening",
+      "order": 14,
+      "label": "深層覺醒的狀態",
+      "themes": [
+        {
+          "id": "sw-139",
+          "label": "空性",
+          "description": "明白所有事物都不是獨立固定的存在，而是由各種關係共同形成。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-140",
+          "label": "無我",
+          "description": "覺察到並不存在一個永遠不變、固定的「我」。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-141",
+          "label": "純粹存在",
+          "description": "超越名字、身分與性格，只是單純存在的感受。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-142",
+          "label": "純粹意識",
+          "description": "即使沒有想法與情緒，仍然存在的覺察本身。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-143",
+          "label": "非二元",
+          "description": "感受到自己與世界、觀看者與被觀看者在根本上並不分離。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-144",
+          "label": "絕對的一體性",
+          "description": "直接感受到所有存在都由同一個根源顯現。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-145",
+          "label": "自我實現",
+          "description": "知道自己的本質超越性格與過去的故事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-146",
+          "label": "與神合一",
+          "description": "感受到自己與神聖存在之間的界線消失。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-147",
+          "label": "自我消融",
+          "description": "不是自我完全消失，而是不再讓自我成為人生的主人。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-148",
+          "label": "融入愛中",
+          "description": "為了保護自己而築起的牆，在深刻的愛中逐漸鬆開。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-149",
+          "label": "永恆的當下",
+          "description": "感受到不是過去或未來，而是只有當下永恆存在。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-150",
+          "label": "超越語言的意識",
+          "description": "無法用語言或思考完整說明，只能直接經驗。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "contemporary-spirituality",
+      "order": 15,
+      "label": "現代靈性常談的意識",
+      "themes": [
+        {
+          "id": "sw-151",
+          "label": "高頻率",
+          "description": "強烈感受到愛、喜悅、感恩與安心的狀態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-152",
+          "label": "能量平衡",
+          "description": "心、身體與思考不再彼此強烈衝突，而能整合在一起。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-153",
+          "label": "敞開心門",
+          "description": "不再害怕付出愛，也不再害怕接受愛。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-154",
+          "label": "與靈魂一致",
+          "description": "不依照周遭期待，而是依循內在深處的真心生活。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-155",
+          "label": "與高我一致",
+          "description": "不從恐懼或欲望出發，而從更寬廣、更有智慧的自己行動。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-156",
+          "label": "本來的頻率",
+          "description": "不勉強成為別人，而是展現自己原本的樣子。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-157",
+          "label": "與宇宙和諧",
+          "description": "感受到自己的行動與生命更大的流動相吻合。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-158",
+          "label": "接收共時性",
+          "description": "能在偶然的巧合中感受到意義或引導。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-159",
+          "label": "豐盛意識",
+          "description": "不認為自己一無所有，而能看見已經存在的恩惠。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-160",
+          "label": "從充足而非匱乏出發",
+          "description": "不是因為不足而行動，而是從已經被滋養的內心出發。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-161",
+          "label": "允許自己接收",
+          "description": "能不帶罪惡感地接受愛、幫助、金錢與肯定。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-162",
+          "label": "與顯化一致",
+          "description": "願望、想法、情緒與行動都朝向同一個方向。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-163",
+          "label": "活出靈魂目的",
+          "description": "活出自己此生真正想體驗與表達的事。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-164",
+          "label": "向直覺敞開",
+          "description": "不只相信理性，也信任內在自然浮現的感覺。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-165",
+          "label": "能量輕盈",
+          "description": "不再被過去的情緒與沉重信念強烈束縛。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-166",
+          "label": "無條件的自我價值",
+          "description": "即使沒有成功或認可，也感受到自己有價值。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-167",
+          "label": "本質的自我表達",
+          "description": "不過度迎合他人，而能表達真正的感受與天賦。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-168",
+          "label": "創造者意識",
+          "description": "不只把自己視為人生的受害者，也相信自己能透過選擇參與創造人生。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-169",
+          "label": "共同創造的意識",
+          "description": "相信人生不是只靠自己形成，而是與他人及更大的流動共同創造。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-170",
+          "label": "地球意識・蓋亞意識",
+          "description": "不把地球只視為可利用的資源，而是珍惜它作為支持眾生的一個生命整體。",
+          "trackId": "ideals"
+        }
+      ]
+    }
+  ]
+}

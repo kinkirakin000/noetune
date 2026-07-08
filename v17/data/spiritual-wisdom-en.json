@@ -1,0 +1,1146 @@
+{
+  "appVersion": "v17",
+  "schemaVersion": 1,
+  "libraryId": "spiritual-wisdom",
+  "locale": "en",
+  "label": "Spiritual Wisdom",
+  "intro": "Choose the state of awareness that draws your attention now.",
+  "selectionNote": "This is not a test of whether you have achieved it. Simply choose what speaks to you now.",
+  "defaultTrackId": "ideals",
+  "pageSize": 4,
+  "showMoreLabel": "Show more",
+  "display": {
+    "itemLayout": "label-description",
+    "showNumbers": false,
+    "accordionGroups": true
+  },
+  "groupCount": 15,
+  "themeCount": 170,
+  "groups": [
+    {
+      "id": "presence",
+      "order": 1,
+      "label": "Awareness of the present moment",
+      "themes": [
+        {
+          "id": "sw-001",
+          "label": "Present awareness",
+          "description": "Attention rests on what is happening now, rather than on regret about the past or worry about the future.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-002",
+          "label": "Presence",
+          "description": "Both mind and body are fully here.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-003",
+          "label": "Awareness",
+          "description": "You notice your thoughts, emotions, and bodily sensations.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-004",
+          "label": "Wakefulness",
+          "description": "You do not act unconsciously; you know what you are feeling and doing.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-005",
+          "label": "Mind-body alignment",
+          "description": "You do not live only in your head; you stay connected with bodily experience as you live.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-006",
+          "label": "Self-remembering",
+          "description": "Even while doing something, you remember that you are here.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-007",
+          "label": "Attentiveness",
+          "description": "You can notice subtle changes in yourself and your surroundings.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-008",
+          "label": "A sense of being alive",
+          "description": "You do not only think about life; you feel through your body that you are alive.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-009",
+          "label": "Full participation in daily life",
+          "description": "While eating, walking, or speaking, you are present with what you are doing.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-010",
+          "label": "Intimacy with the moment",
+          "description": "You do not escape the present moment; you experience it fully.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "stillness-centeredness",
+      "order": 2,
+      "label": "Stillness and centeredness",
+      "themes": [
+        {
+          "id": "sw-011",
+          "label": "Inner stillness",
+          "description": "Even when the world around you is noisy, there is quiet deep within.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-012",
+          "label": "Silence before thought",
+          "description": "You sense the quiet that is present before words begin in the mind.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-013",
+          "label": "Being centered",
+          "description": "You are not swept away by events around you, and you do not lose yourself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-014",
+          "label": "Grounding",
+          "description": "You do not remain only in thought; you stay connected with your body and reality.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-015",
+          "label": "Calmness",
+          "description": "You do not rush to find an answer and can look at things slowly.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-016",
+          "label": "Inner peace",
+          "description": "Even when problems exist, there is no inner battle at the deepest level.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-017",
+          "label": "Clarity of mind",
+          "description": "Strong assumptions and emotions do not prevent you from seeing things honestly.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-018",
+          "label": "Allowing empty space",
+          "description": "You do not feel compelled to fill every quiet or uneventful moment.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-019",
+          "label": "Receptive silence",
+          "description": "You do not rush to create an answer; you can feel quietly and wait.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-020",
+          "label": "Resting in being",
+          "description": "Even without doing anything, you can feel at ease simply being here.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "acceptance-surrender",
+      "order": 3,
+      "label": "Acceptance and surrender",
+      "themes": [
+        {
+          "id": "sw-021",
+          "label": "Acceptance as it is",
+          "description": "Before deciding whether you like or dislike something, you acknowledge the reality that is here.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-022",
+          "label": "Allowing emotions",
+          "description": "You do not treat sadness or anger as bad; you allow yourself to feel them.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-023",
+          "label": "Non-resistance",
+          "description": "You stop continually denying what is happening and first allow it to be received.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-024",
+          "label": "Surrender",
+          "description": "You stop trying to control everything through your own power alone.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-025",
+          "label": "Trusting the greater flow",
+          "description": "You trust that life also contains a larger movement you may not yet understand.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-026",
+          "label": "Freedom from attachment to outcomes",
+          "description": "You make an effort, but you do not reject yourself when the result is not what you hoped for.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-027",
+          "label": "Acceptance of uncertainty",
+          "description": "Even without an answer, you do not immediately become overwhelmed by anxiety.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-028",
+          "label": "Acceptance of change",
+          "description": "You accept that nothing remains exactly the same forever.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-029",
+          "label": "Moving through loss",
+          "description": "You do not deny the grief of losing something important and allow yourself time to feel it.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-030",
+          "label": "Trust in life",
+          "description": "Even without understanding everything, you trust that you can keep moving through life.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-031",
+          "label": "Surrender to divine will",
+          "description": "You value not only personal desire, but also a greater good or sacred direction.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-032",
+          "label": "Moving with the flow",
+          "description": "You do not force events forward; you act while sensing the right timing and direction.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "observer-awareness",
+      "order": 4,
+      "label": "Observing the self",
+      "themes": [
+        {
+          "id": "sw-033",
+          "label": "Observer awareness",
+          "description": "You are not swallowed by thoughts and emotions; you step back and observe them.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-034",
+          "label": "Awareness of awareness",
+          "description": "You notice the awareness itself that is seeing and feeling.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-035",
+          "label": "Disidentification from thought",
+          "description": "You do not treat every thought that appears as absolute truth.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-036",
+          "label": "Disidentification from emotion",
+          "description": "Even when anger or sadness is present, you do not believe that you are anger or sadness itself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-037",
+          "label": "Freedom from roles",
+          "description": "You know that roles such as parent, profession, or title are not the whole of who you are.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-038",
+          "label": "Awareness beneath personality",
+          "description": "You sense a quiet self beneath your personality and the story of your past.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-039",
+          "label": "Pure awareness",
+          "description": "You simply notice, without immediately judging.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-040",
+          "label": "Self-inquiry",
+          "description": "You look within to discover what your true self is.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-041",
+          "label": "Awakening to the true self",
+          "description": "You realize that temporary emotions and personality are not the whole of your true self.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-042",
+          "label": "Unity of being and awareness",
+          "description": "Rather than only feeling that you have awareness, you sense that you are awareness itself.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "equanimity-nonattachment",
+      "order": 5,
+      "label": "Equanimity and non-attachment",
+      "themes": [
+        {
+          "id": "sw-043",
+          "label": "Equanimity",
+          "description": "You are not completely controlled by pleasant or unpleasant experiences.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-044",
+          "label": "Non-reactivity",
+          "description": "When something happens, you can pause instead of reacting immediately from emotion.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-045",
+          "label": "Non-attachment",
+          "description": "You can care deeply without trying to possess or control a person or thing.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-046",
+          "label": "Non-attachment to views",
+          "description": "You do not assume that only your own viewpoint is correct.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-047",
+          "label": "Equal regard for success and failure",
+          "description": "You know that your worth does not change whether you succeed or fail.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-048",
+          "label": "Freedom from praise and criticism",
+          "description": "Whether praised or criticized, you do not completely lose yourself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-049",
+          "label": "Freedom from gain and loss",
+          "description": "Gaining or losing something does not destroy your inner foundation.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-050",
+          "label": "Observing desire",
+          "description": "You notice wanting without being ruled by it.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-051",
+          "label": "Holding fear",
+          "description": "Fear may be present, but it is not the only thing deciding your actions.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-052",
+          "label": "Open-hearted stability",
+          "description": "Even when there is a possibility of being hurt, you do not close your heart completely.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "love-compassion",
+      "order": 6,
+      "label": "Love and compassion",
+      "themes": [
+        {
+          "id": "sw-053",
+          "label": "Loving-kindness",
+          "description": "You sincerely wish for your own happiness and the happiness of others.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-054",
+          "label": "Compassion",
+          "description": "You notice another person’s suffering and want to do what you can.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-055",
+          "label": "Unconditional love",
+          "description": "Even when someone does not meet your expectations, you continue to value their existence.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-056",
+          "label": "Self-compassion",
+          "description": "You offer kind words and a gentle attitude to yourself when you are suffering.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-057",
+          "label": "Forgiveness",
+          "description": "You do not declare the other person’s action right; you release the anger that keeps hurting you.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-058",
+          "label": "Love born from understanding",
+          "description": "You see not only a person’s outward behavior, but also the pain beneath it.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-059",
+          "label": "Empathy",
+          "description": "You try to imagine and feel what another person may be experiencing.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-060",
+          "label": "Sharing joy",
+          "description": "You can celebrate another person’s happiness or success without envy.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-061",
+          "label": "Love without discrimination",
+          "description": "Regardless of preference, you recognize the value of every life.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-062",
+          "label": "Inclusiveness",
+          "description": "You can receive people and ideas that differ from you without immediately rejecting them.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-063",
+          "label": "Gentleness",
+          "description": "You use your strength to help rather than control.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-064",
+          "label": "Deep listening",
+          "description": "You listen fully without rushing to argue or give advice.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-065",
+          "label": "Loving speech",
+          "description": "You choose not only what is correct, but also a way of speaking that does not wound.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "connection-oneness",
+      "order": 7,
+      "label": "Connection and oneness",
+      "themes": [
+        {
+          "id": "sw-066",
+          "label": "Interbeing",
+          "description": "You understand that you cannot exist without the support of other people and nature.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-067",
+          "label": "Connection with life",
+          "description": "You feel connected not only with people, but also with animals, plants, and the earth.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-068",
+          "label": "A sense of oneness",
+          "description": "You feel that you and the world are not completely separate.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-069",
+          "label": "Freedom from separation",
+          "description": "The feeling that you are isolated and cut off from the world begins to soften.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-070",
+          "label": "Universal self-awareness",
+          "description": "You sense in others the same life and awareness that are present in you.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-071",
+          "label": "Nondual awareness",
+          "description": "You feel that self and world are not fundamentally separate.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-072",
+          "label": "Awareness that all is one",
+          "description": "You sense that many forms of existence arise from the same source.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-073",
+          "label": "Oneness that includes difference",
+          "description": "You understand that people can be different and still be deeply connected.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-074",
+          "label": "Cosmic consciousness",
+          "description": "You experience yourself not only as one person, but as part of the whole universe.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-075",
+          "label": "Unity with the divine",
+          "description": "You do not experience the divine only as distant; you also sense it within yourself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-076",
+          "label": "Union of lover and beloved",
+          "description": "In deep love, the distinction between giver and receiver begins to fade.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "humility-unknowing",
+      "order": 8,
+      "label": "Humility and openness to not knowing",
+      "themes": [
+        {
+          "id": "sw-077",
+          "label": "Humility",
+          "description": "You understand that you do not know everything.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-078",
+          "label": "Beginner’s mind",
+          "description": "You do not assume you already know; you look with fresh eyes.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-079",
+          "label": "Allowing not knowing",
+          "description": "Even without an answer, you do not force yourself to invent one.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-080",
+          "label": "Teachability",
+          "description": "You can learn from anyone and from any experience.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-081",
+          "label": "Freedom from self-justification",
+          "description": "You know that admitting a mistake does not erase your worth.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-082",
+          "label": "Flexible understanding",
+          "description": "When you learn new facts, you can change your view.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-083",
+          "label": "Openness to mystery",
+          "description": "You do not immediately reject what cannot be explained by reason.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-084",
+          "label": "Awe",
+          "description": "In the presence of nature, the universe, or life’s vastness, you feel sincere reverence.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-085",
+          "label": "Wonder",
+          "description": "Even ordinary events can feel fresh and mysterious.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "truth-clarity",
+      "order": 9,
+      "label": "Truth and clarity",
+      "themes": [
+        {
+          "id": "sw-086",
+          "label": "Self-honesty",
+          "description": "You do not hide your true feelings or motives from yourself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-087",
+          "label": "Courage to see the truth",
+          "description": "Even when reality is uncomfortable, you are willing to face it honestly.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-088",
+          "label": "Discernment",
+          "description": "You can distinguish fear, desire, assumption, and intuition.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-089",
+          "label": "Insight",
+          "description": "You see not only what is happening on the surface, but also the causes beneath it.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-090",
+          "label": "Clarity",
+          "description": "Even in confusion, you do not lose sight of what matters.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-091",
+          "label": "Right seeing",
+          "description": "You reduce the influence of assumptions and try to see reality as accurately as possible.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-092",
+          "label": "Freedom from prejudice",
+          "description": "You do not judge people or situations only through upbringing or preconceptions.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-093",
+          "label": "Awakening from illusion",
+          "description": "You can distinguish the story you created from what is actually happening.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-094",
+          "label": "Inner alignment",
+          "description": "What you think, feel, say, and do are not deeply divided.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-095",
+          "label": "Choosing what is essential",
+          "description": "You give your time and energy to what truly matters.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "joy-fulfillment",
+      "order": 10,
+      "label": "Joy and fulfillment",
+      "themes": [
+        {
+          "id": "sw-096",
+          "label": "Unconditional joy",
+          "description": "You can feel joy in being alive even without a special achievement.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-097",
+          "label": "Contentment",
+          "description": "You can feel that what is present now is enough.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-098",
+          "label": "Gratitude",
+          "description": "You notice what you have already received and value it.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-099",
+          "label": "Feeling blessed",
+          "description": "You receive small events in daily life as gifts worthy of gratitude.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-100",
+          "label": "Inner abundance",
+          "description": "Fulfillment comes from within, not only from the amount of money or possessions you have.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-101",
+          "label": "Bliss",
+          "description": "You feel deep happiness even without a clear reason.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-102",
+          "label": "Lightness",
+          "description": "You do not treat yourself or life with unnecessary heaviness.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-103",
+          "label": "Playfulness",
+          "description": "You live life not only as a problem to solve, but as a place to enjoy, experiment, and create.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-104",
+          "label": "Natural delight",
+          "description": "Life energy that had been held back can flow freely.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-105",
+          "label": "The sense of being enough",
+          "description": "You feel that, at the deepest level, you already have what is needed to exist.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "sacredness-prayer",
+      "order": 11,
+      "label": "Sacredness and prayer",
+      "themes": [
+        {
+          "id": "sw-106",
+          "label": "Sensitivity to the sacred",
+          "description": "You can sense deep meaning and dignity within ordinary daily life.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-107",
+          "label": "Awareness of divine presence",
+          "description": "Wherever you are, you feel accompanied by a sacred presence.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-108",
+          "label": "Prayerful awareness",
+          "description": "You do not only state a wish; you turn your whole heart toward the sacred.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-109",
+          "label": "Remembrance",
+          "description": "Even in a busy life, you do not forget your essence or the sacred.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-110",
+          "label": "Devotion",
+          "description": "You use your life and abilities not only for yourself, but for a greater purpose.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-111",
+          "label": "Taking refuge",
+          "description": "You value truth and sacred teaching more than personal desire or convenience.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-112",
+          "label": "Reverence",
+          "description": "You honor the sacred as something you cannot control or fully understand.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-113",
+          "label": "Sacred intimacy",
+          "description": "The sacred does not feel far away; it feels close within your heart.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-114",
+          "label": "Listening for guidance",
+          "description": "You listen not only to mental plans, but also to the quiet sense within.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-115",
+          "label": "Receiving grace",
+          "description": "You do not try to obtain everything through effort alone; you also receive help and blessing.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "freedom-liberation",
+      "order": 12,
+      "label": "Freedom and liberation",
+      "themes": [
+        {
+          "id": "sw-116",
+          "label": "Inner freedom",
+          "description": "Even when outer conditions are limited, you can still choose your attitude and actions.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-117",
+          "label": "Freedom from conditioning",
+          "description": "You do not treat ideas inherited from family, society, or the past as absolute truth.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-118",
+          "label": "Freedom from ego",
+          "description": "You are not consumed by protecting yourself or proving that you are right.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-119",
+          "label": "Freedom from fear",
+          "description": "Fear may exist, but you do not let it rule your life.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-120",
+          "label": "Freedom from desire",
+          "description": "You do not believe you can be happy only after getting what you want.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-121",
+          "label": "Freedom from identification with suffering",
+          "description": "Even when suffering is present, you do not believe that you are suffering itself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-122",
+          "label": "Freedom from the past",
+          "description": "You do not let past events define the limits of who you are now.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-123",
+          "label": "Freedom from compulsive control of the future",
+          "description": "You no longer believe the future must be perfectly prepared before you can feel safe.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-124",
+          "label": "Awareness beyond life and death",
+          "description": "You sense that life is more than the body between birth and death.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-125",
+          "label": "Liberation and awakening",
+          "description": "You are no longer ruled by attachment, assumption, and separation.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "embodied-action",
+      "order": 13,
+      "label": "Awareness expressed through daily action",
+      "themes": [
+        {
+          "id": "sw-126",
+          "label": "Service",
+          "description": "You use your abilities not only for yourself, but also for others and society.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-127",
+          "label": "Generosity",
+          "description": "You share not only money, but also time, knowledge, and kindness.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-128",
+          "label": "Responsible freedom",
+          "description": "You do not harm others in the name of your own freedom.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-129",
+          "label": "Ethical alignment",
+          "description": "You express in action what you inwardly believe is important.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-130",
+          "label": "Courage",
+          "description": "Even when afraid, you choose what you truly value.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-131",
+          "label": "Patience",
+          "description": "You do not force your own growth or another person’s growth to happen faster.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-132",
+          "label": "Resilience",
+          "description": "Even in difficulty, you do not completely lose hope or tenderness.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-133",
+          "label": "Love with boundaries",
+          "description": "You do not confuse love with enduring everything.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-134",
+          "label": "Harmony",
+          "description": "You value ways for yourself, others, and nature to live together without unnecessary strain.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-135",
+          "label": "Creative response",
+          "description": "Rather than repeating habitual reactions, you choose a new response suited to the moment.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-136",
+          "label": "Authenticity",
+          "description": "You live as your real self rather than as a version designed to please others.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-137",
+          "label": "Alignment with purpose",
+          "description": "You give your life to the direction you genuinely feel matters.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-138",
+          "label": "Ordinariness",
+          "description": "You do not need to become special; you live everyday life with care.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "deep-awakening",
+      "order": 14,
+      "label": "Deep states of awakening",
+      "themes": [
+        {
+          "id": "sw-139",
+          "label": "Emptiness",
+          "description": "You understand that nothing exists as an isolated, fixed thing; everything arises through relationships.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-140",
+          "label": "No-self",
+          "description": "You realize there is no permanent, unchanging self.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-141",
+          "label": "Pure being",
+          "description": "Beyond name, role, and personality, there is the simple sense of being.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-142",
+          "label": "Pure consciousness",
+          "description": "The awareness that remains even when thoughts and emotions are absent.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-143",
+          "label": "Nonduality",
+          "description": "You feel that self and world, observer and observed, are not fundamentally separate.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-144",
+          "label": "Absolute oneness",
+          "description": "You directly sense that all existence appears from one source.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-145",
+          "label": "Self-realization",
+          "description": "You know that your essence goes beyond personality and the story of your past.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-146",
+          "label": "Union with the divine",
+          "description": "You feel the boundary between yourself and the sacred dissolve.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-147",
+          "label": "Dissolution of ego",
+          "description": "The ego does not necessarily disappear, but it no longer rules your life.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-148",
+          "label": "Dissolving into love",
+          "description": "The walls built to protect yourself soften within deep love.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-149",
+          "label": "The eternal now",
+          "description": "You sense that only the present exists eternally, rather than past or future.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-150",
+          "label": "Awareness beyond words",
+          "description": "A state that cannot be fully explained through words or thought and must be directly experienced.",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "contemporary-spirituality",
+      "order": 15,
+      "label": "Awareness described in contemporary spirituality",
+      "themes": [
+        {
+          "id": "sw-151",
+          "label": "High vibration",
+          "description": "A state of strongly feeling love, joy, gratitude, and ease.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-152",
+          "label": "Balanced energy",
+          "description": "Mind, body, and thought no longer strongly conflict and feel integrated.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-153",
+          "label": "An open heart",
+          "description": "You are not afraid to give love or receive it.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-154",
+          "label": "Alignment with the soul",
+          "description": "You live according to your deepest truth rather than the expectations around you.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-155",
+          "label": "Alignment with the higher self",
+          "description": "You act not from fear or craving, but from a wider and wiser perspective within yourself.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-156",
+          "label": "Your natural frequency",
+          "description": "You stop forcing yourself to become someone else and express your original nature.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-157",
+          "label": "Harmony with the universe",
+          "description": "You feel that your actions are aligned with the larger movement of life.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-158",
+          "label": "Receiving synchronicity",
+          "description": "You can sense meaning or guidance in meaningful coincidences.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-159",
+          "label": "Abundance consciousness",
+          "description": "You do not assume you have nothing; you notice the blessings already present.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-160",
+          "label": "Living from fulfillment rather than lack",
+          "description": "You act not because you are deficient, but from an inner sense of already being nourished.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-161",
+          "label": "Allowing yourself to receive",
+          "description": "You can receive love, help, money, and appreciation without guilt.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-162",
+          "label": "Alignment with manifestation",
+          "description": "Your wishes, thoughts, emotions, and actions point in the same direction.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-163",
+          "label": "Living the soul’s purpose",
+          "description": "You live what you truly wish to experience and express in this lifetime.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-164",
+          "label": "Openness to intuition",
+          "description": "You trust not only reason, but also the natural sense that arises from within.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-165",
+          "label": "Energetic lightness",
+          "description": "You are no longer strongly bound by past emotions or heavy beliefs.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-166",
+          "label": "Unconditional self-worth",
+          "description": "Even without success or approval, you feel that you have value.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-167",
+          "label": "Essential self-expression",
+          "description": "You do not over-adapt to others; you express your real feelings and gifts.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-168",
+          "label": "Creator consciousness",
+          "description": "You do not see yourself only as a victim of life; you recognize your power to shape life through choice.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-169",
+          "label": "Co-creative consciousness",
+          "description": "You understand that life is shaped not by you alone, but together with others and a larger flow.",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-170",
+          "label": "Earth consciousness / Gaia consciousness",
+          "description": "You do not treat Earth merely as a resource; you value it as a living whole that supports all beings.",
+          "trackId": "ideals"
+        }
+      ]
+    }
+  ]
+}

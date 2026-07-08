@@ -1,0 +1,1146 @@
+{
+  "appVersion": "v17",
+  "schemaVersion": 1,
+  "libraryId": "spiritual-wisdom",
+  "locale": "ja",
+  "label": "霊的叡智",
+  "intro": "今、心が向かう意識のあり方を選んでください。",
+  "selectionNote": "できているかを評価するものではありません。ただ、今気になるものを選んでください。",
+  "defaultTrackId": "ideals",
+  "pageSize": 4,
+  "showMoreLabel": "もっと見る",
+  "display": {
+    "itemLayout": "label-description",
+    "showNumbers": false,
+    "accordionGroups": true
+  },
+  "groupCount": 15,
+  "themeCount": 170,
+  "groups": [
+    {
+      "id": "presence",
+      "order": 1,
+      "label": "今ここにいる意識",
+      "themes": [
+        {
+          "id": "sw-001",
+          "label": "現在意識",
+          "description": "過去の後悔や未来の心配ではなく、今起きていることに意識を向けている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-002",
+          "label": "臨在",
+          "description": "心も身体も、しっかりこの場所にいる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-003",
+          "label": "気づき",
+          "description": "自分の思考、感情、身体の感覚に気づいている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-004",
+          "label": "目覚めている状態",
+          "description": "無意識に行動せず、自分が何を感じ、何をしているか分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-005",
+          "label": "身体と心の一致",
+          "description": "頭の中だけで生きず、身体の感覚も感じながら生きている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-006",
+          "label": "自己想起",
+          "description": "何かをしている最中も、「自分がここにいる」と分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-007",
+          "label": "注意深さ",
+          "description": "自分や周囲の小さな変化にも気づける。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-008",
+          "label": "生きている実感",
+          "description": "頭で考えるだけでなく、自分が生きていることを身体で感じている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-009",
+          "label": "日常への完全な参加",
+          "description": "食べる、歩く、話すなど、今していることに集中している。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-010",
+          "label": "瞬間への親密さ",
+          "description": "今この瞬間から逃げず、しっかり味わっている。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "stillness-centeredness",
+      "order": 2,
+      "label": "静けさと中心にいる意識",
+      "themes": [
+        {
+          "id": "sw-011",
+          "label": "内なる静けさ",
+          "description": "周りが騒がしくても、心の奥は静かである。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-012",
+          "label": "思考以前の静寂",
+          "description": "頭の中の言葉が始まる前の、静かな感覚を感じている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-013",
+          "label": "中心にいる状態",
+          "description": "周囲の出来事に振り回されず、自分を見失わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-014",
+          "label": "グラウンディング",
+          "description": "頭だけで考えず、身体や現実としっかりつながっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-015",
+          "label": "落ち着き",
+          "description": "すぐに答えを出そうとせず、ゆっくり物事を見ることができる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-016",
+          "label": "平安",
+          "description": "問題があっても、心の奥では争っていない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-017",
+          "label": "心の透明さ",
+          "description": "強い思い込みや感情に邪魔されず、物事を素直に見られる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-018",
+          "label": "空白を許す意識",
+          "description": "何も起きていない時間を、無理に何かで埋めようとしない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-019",
+          "label": "受け入れる沈黙",
+          "description": "すぐに答えを作らず、静かに感じ、待つことができる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-020",
+          "label": "存在に休む状態",
+          "description": "何かをしなくても、ただここにいるだけで安心できる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "acceptance-surrender",
+      "order": 3,
+      "label": "受け入れ、委ねる意識",
+      "themes": [
+        {
+          "id": "sw-021",
+          "label": "あるがままの受容",
+          "description": "好き嫌いを判断する前に、今の現実をそのまま認める。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-022",
+          "label": "感情を許す状態",
+          "description": "悲しみや怒りを悪いものとせず、感じることを自分に許す。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-023",
+          "label": "抵抗しない意識",
+          "description": "起きていることを否定し続けず、まず受け止める。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-024",
+          "label": "明け渡し",
+          "description": "すべてを自分の力だけで支配しようとすることをやめる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-025",
+          "label": "委ねる意識",
+          "description": "自分には分からない大きな流れもあると信じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-026",
+          "label": "結果への執着からの自由",
+          "description": "努力はするが、望んだ結果にならなくても自分を否定しない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-027",
+          "label": "不確実性を受け入れる意識",
+          "description": "答えが分からなくても、すぐに不安でいっぱいにならない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-028",
+          "label": "変化を受け入れる意識",
+          "description": "何も同じままではないことを受け入れる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-029",
+          "label": "喪失を通過する意識",
+          "description": "大切なものを失った悲しみを否定せず、時間をかけて感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-030",
+          "label": "人生への信頼",
+          "description": "すべてを理解できなくても、人生を進んでいけると信じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-031",
+          "label": "神意への服従",
+          "description": "自分の欲だけでなく、より大きな善や神聖な方向を大切にする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-032",
+          "label": "流れとともにある状態",
+          "description": "無理に物事を進めず、適切な時や方向を感じながら動く。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "observer-awareness",
+      "order": 4,
+      "label": "自分を観察する意識",
+      "themes": [
+        {
+          "id": "sw-033",
+          "label": "観察者意識",
+          "description": "思考や感情に飲み込まれず、一歩離れて見ている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-034",
+          "label": "気づいている自分への気づき",
+          "description": "何かを見たり感じたりしている「意識そのもの」に気づく。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-035",
+          "label": "思考との非同一化",
+          "description": "頭に浮かぶ考えを、絶対的な真実だと思わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-036",
+          "label": "感情との非同一化",
+          "description": "怒りや悲しみを感じても、「自分そのものが怒りや悲しみだ」とは思わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-037",
+          "label": "役割から自由な意識",
+          "description": "親、仕事、肩書などの役割だけが自分ではないと分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-038",
+          "label": "人格以前の意識",
+          "description": "自分の性格や過去の物語よりも奥に、静かな自分がいると感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-039",
+          "label": "純粋な気づき",
+          "description": "何かを判断せず、ただ気づいている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-040",
+          "label": "自己探求の意識",
+          "description": "「本当の自分とは何か」を、自分の内側で確かめようとする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-041",
+          "label": "真我への目覚め",
+          "description": "一時的な感情や性格だけが本当の自分ではないと気づく。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-042",
+          "label": "存在と意識の一致",
+          "description": "「意識を持っている」のではなく、「自分は意識そのものだ」と感じる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "equanimity-nonattachment",
+      "order": 5,
+      "label": "平静さと執着しない意識",
+      "themes": [
+        {
+          "id": "sw-043",
+          "label": "平静心",
+          "description": "嬉しいことにも嫌なことにも、完全には振り回されない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-044",
+          "label": "非反応性",
+          "description": "何かが起きても、すぐに感情のまま反応せず、一度立ち止まれる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-045",
+          "label": "執着しない心",
+          "description": "大切にしても、相手や物を自分のものとして支配しようとしない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-046",
+          "label": "考えへの非執着",
+          "description": "自分の考えだけが正しいとは思わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-047",
+          "label": "成功と失敗を同じように見る意識",
+          "description": "成功しても失敗しても、自分の価値は変わらないと分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-048",
+          "label": "賞賛と批判からの自由",
+          "description": "褒められても批判されても、自分を完全には見失わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-049",
+          "label": "得ることと失うことからの自由",
+          "description": "何かを手に入れたり失ったりしても、心の土台まで崩れない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-050",
+          "label": "欲望を観察できる意識",
+          "description": "欲しい気持ちに気づきながら、それに支配されない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-051",
+          "label": "恐れを抱えられる意識",
+          "description": "怖さがあっても、恐れだけで行動を決めない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-052",
+          "label": "心を開いた安定",
+          "description": "傷つく可能性があっても、心を完全には閉じない。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "love-compassion",
+      "order": 6,
+      "label": "愛と慈悲の意識",
+      "themes": [
+        {
+          "id": "sw-053",
+          "label": "慈愛",
+          "description": "自分や他者が幸せであることを願う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-054",
+          "label": "慈悲",
+          "description": "誰かの苦しみに気づき、できることをしようとする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-055",
+          "label": "無条件の愛",
+          "description": "相手が自分の期待どおりでなくても、その存在を大切にする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-056",
+          "label": "自己慈悲",
+          "description": "苦しんでいる自分にも、優しい言葉や態度を向ける。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-057",
+          "label": "赦し",
+          "description": "相手の行為を正しいことにするのではなく、自分を苦しめ続ける怒りを手放す。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-058",
+          "label": "理解から生まれる愛",
+          "description": "相手の表面的な行動だけでなく、その奥にある苦しみも見る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-059",
+          "label": "共感",
+          "description": "相手がどのように感じているかを想像し、感じ取ろうとする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-060",
+          "label": "喜びを分かち合う意識",
+          "description": "他人の幸せや成功を、妬まずに一緒に喜ぶ。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-061",
+          "label": "差別しない愛",
+          "description": "好き嫌いに関係なく、すべての命には価値があると見る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-062",
+          "label": "包容力",
+          "description": "自分と違う人や考えも、すぐに排除せず受け止められる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-063",
+          "label": "優しさ",
+          "description": "自分の力を、人を支配するためではなく助けるために使う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-064",
+          "label": "深く聴く意識",
+          "description": "すぐに反論や助言をせず、相手の話をそのまま聴く。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-065",
+          "label": "愛ある言葉の意識",
+          "description": "正しいことを言うだけでなく、相手を傷つけない伝え方を選ぶ。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "connection-oneness",
+      "order": 7,
+      "label": "つながりと一体性の意識",
+      "themes": [
+        {
+          "id": "sw-066",
+          "label": "相互存在の意識",
+          "description": "自分は、他者や自然の助けなしには存在できないと分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-067",
+          "label": "生命とのつながり",
+          "description": "人間だけでなく、動物、植物、大地ともつながっていると感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-068",
+          "label": "一体感",
+          "description": "自分と世界が完全に別々ではないと感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-069",
+          "label": "分離感からの解放",
+          "description": "「自分は世界から一人だけ切り離されている」という感覚が薄れる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-070",
+          "label": "普遍的な自己の意識",
+          "description": "他者の中にも、自分と同じ命や意識があると感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-071",
+          "label": "非二元意識",
+          "description": "「自分」と「世界」が、本当は完全に別々ではないと感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-072",
+          "label": "すべてが一つである意識",
+          "description": "さまざまな存在が、同じ根源から生まれていると感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-073",
+          "label": "違いを含んだ一体性",
+          "description": "人それぞれ違っていても、深い部分ではつながっていると分かる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-074",
+          "label": "宇宙意識",
+          "description": "自分を一人の人間だけでなく、宇宙全体の一部として感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-075",
+          "label": "神との一致",
+          "description": "神を遠くにいる存在ではなく、自分の内側にもあると感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-076",
+          "label": "愛する者と愛される者の合一",
+          "description": "深い愛の中で、与える側と受け取る側の区別が薄れる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "humility-unknowing",
+      "order": 8,
+      "label": "謙虚さと、分からなさを受け入れる意識",
+      "themes": [
+        {
+          "id": "sw-077",
+          "label": "謙虚さ",
+          "description": "自分がすべてを知っているわけではないと分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-078",
+          "label": "初心",
+          "description": "知っているつもりにならず、新しい気持ちで見る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-079",
+          "label": "知らないことを許す意識",
+          "description": "答えが分からなくても、無理に答えを作らない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-080",
+          "label": "教えられる状態",
+          "description": "誰からでも、どんな出来事からでも学べる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-081",
+          "label": "自己正当化からの自由",
+          "description": "自分の間違いを認めても、自分の価値はなくならないと分かっている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-082",
+          "label": "柔軟な認識",
+          "description": "新しい事実を知ったら、自分の考えを変えられる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-083",
+          "label": "神秘への開放性",
+          "description": "理屈では説明できないことも、すぐに否定しない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-084",
+          "label": "畏敬",
+          "description": "自然や宇宙、生命の大きさに触れて、心から敬う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-085",
+          "label": "驚きの意識",
+          "description": "当たり前の出来事にも、新鮮さや不思議さを感じる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "truth-clarity",
+      "order": 9,
+      "label": "真実と明晰さの意識",
+      "themes": [
+        {
+          "id": "sw-086",
+          "label": "自己誠実",
+          "description": "自分の本当の気持ちや目的をごまかさない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-087",
+          "label": "真実を見る勇気",
+          "description": "耳の痛いことでも、現実を正直に見る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-088",
+          "label": "識別力",
+          "description": "恐れ、欲望、思い込み、直感の違いを見分ける。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-089",
+          "label": "洞察",
+          "description": "表面に見える出来事だけでなく、その奥にある原因を見る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-090",
+          "label": "明晰さ",
+          "description": "混乱しているときも、何が大切かを見失わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-091",
+          "label": "正見",
+          "description": "自分の思い込みを減らし、現実をできるだけ正しく見る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-092",
+          "label": "偏見からの自由",
+          "description": "育った環境や先入観だけで、人や物事を判断しない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-093",
+          "label": "幻想からの目覚め",
+          "description": "自分が作った物語と、実際に起きていることを区別する。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-094",
+          "label": "内なる一致",
+          "description": "考えていること、感じていること、言うこと、行動が大きくずれていない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-095",
+          "label": "本質を選ぶ意識",
+          "description": "本当に大切なことに、自分の時間と力を使う。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "joy-fulfillment",
+      "order": 10,
+      "label": "喜びと満たされた意識",
+      "themes": [
+        {
+          "id": "sw-096",
+          "label": "無条件の喜び",
+          "description": "特別な成功がなくても、生きていることに喜びを感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-097",
+          "label": "満足",
+          "description": "今あるものでも、十分だと感じられる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-098",
+          "label": "感謝",
+          "description": "すでに受け取っているものに気づき、大切にする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-099",
+          "label": "祝福を感じる意識",
+          "description": "日常の小さな出来事を、ありがたい贈り物として受け取る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-100",
+          "label": "内なる豊かさ",
+          "description": "お金や物の量ではなく、自分の内側が満たされている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-101",
+          "label": "至福",
+          "description": "はっきりした理由がなくても、深い幸福を感じている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-102",
+          "label": "軽やかさ",
+          "description": "自分や人生を必要以上に深刻に考えない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-103",
+          "label": "遊びの意識",
+          "description": "人生を問題としてだけでなく、楽しみ、試し、創造する場として生きる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-104",
+          "label": "自然な歓喜",
+          "description": "抑えられていた生きる力が、自由に流れている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-105",
+          "label": "十分であるという意識",
+          "description": "今の自分には、存在するために必要なものがすでにあると感じる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "sacredness-prayer",
+      "order": 11,
+      "label": "神聖さと祈りの意識",
+      "themes": [
+        {
+          "id": "sw-106",
+          "label": "神聖なものへの感受性",
+          "description": "普通の日常の中にも、深い意味や尊さを感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-107",
+          "label": "神の臨在意識",
+          "description": "どこにいても、神聖な存在がそばにいると感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-108",
+          "label": "祈りの意識",
+          "description": "願いを言うだけでなく、心全体を神聖なものへ向ける。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-109",
+          "label": "想起の意識",
+          "description": "忙しい日常の中でも、自分の本質や神聖なものを忘れない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-110",
+          "label": "献身",
+          "description": "自分の力や人生を、自分だけでなく大きな目的のために使う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-111",
+          "label": "帰依",
+          "description": "自分の欲や都合よりも、真理や神聖な教えを大切にする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-112",
+          "label": "崇敬",
+          "description": "神聖なものを、自分が支配したり理解し尽くしたりできないものとして敬う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-113",
+          "label": "聖なる親密さ",
+          "description": "神聖な存在を遠くに感じず、自分の心の近くに感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-114",
+          "label": "導きを聴く意識",
+          "description": "頭で立てた計画だけでなく、内側の静かな感覚にも耳を傾ける。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-115",
+          "label": "恩寵を受け取る意識",
+          "description": "すべてを努力だけで得ようとせず、与えられる助けや恵みも受け取る。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "freedom-liberation",
+      "order": 12,
+      "label": "自由と解放の意識",
+      "themes": [
+        {
+          "id": "sw-116",
+          "label": "内的自由",
+          "description": "外の状況が自由でなくても、心の中では態度や行動を選べる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-117",
+          "label": "条件づけからの自由",
+          "description": "家族、社会、過去から教えられた考えを、絶対の真実だと思わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-118",
+          "label": "自我からの自由",
+          "description": "自分を守ったり、正しく見せたりすることに必死にならない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-119",
+          "label": "恐怖からの解放",
+          "description": "恐れがあっても、それに人生を支配させない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-120",
+          "label": "欲望からの解放",
+          "description": "欲しいものが手に入らなければ幸せになれない、とは思わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-121",
+          "label": "苦しみとの同一化からの解放",
+          "description": "苦しみを感じても、「自分は苦しみそのものだ」とは思わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-122",
+          "label": "過去からの自由",
+          "description": "過去の出来事を、今の自分の限界にしない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-123",
+          "label": "未来への強迫からの自由",
+          "description": "未来を完璧に準備しなければ安心できない状態から離れる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-124",
+          "label": "生と死を超えた意識",
+          "description": "命は、生まれてから死ぬまでの身体だけではないと感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-125",
+          "label": "解脱・覚醒",
+          "description": "執着、思い込み、分離感に支配されなくなる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "embodied-action",
+      "order": 13,
+      "label": "日常の行動に現れる意識",
+      "themes": [
+        {
+          "id": "sw-126",
+          "label": "奉仕の意識",
+          "description": "自分の能力を、自分だけでなく他者や社会のためにも使う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-127",
+          "label": "寛大さ",
+          "description": "お金だけでなく、時間、知識、優しさを惜しまず分ける。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-128",
+          "label": "責任ある自由",
+          "description": "自分の自由のために、他者を傷つけない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-129",
+          "label": "倫理的一致",
+          "description": "心の中で大切だと思っていることを、実際の行動にも表す。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-130",
+          "label": "勇気",
+          "description": "怖くても、本当に大切だと思うことを選ぶ。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-131",
+          "label": "忍耐",
+          "description": "自分や他者の成長を、無理に急がせない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-132",
+          "label": "不屈さ",
+          "description": "困難があっても、希望や心の柔らかさを完全には失わない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-133",
+          "label": "境界を持った愛",
+          "description": "愛することと、何でも我慢することを混同しない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-134",
+          "label": "調和",
+          "description": "自分、他者、自然が無理なく共に生きられる状態を大切にする。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-135",
+          "label": "創造的な応答",
+          "description": "いつもの反応を繰り返さず、その場に合った新しい対応を選ぶ。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-136",
+          "label": "真正さ",
+          "description": "他人に好かれるための姿ではなく、本当の自分として生きる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-137",
+          "label": "使命との一致",
+          "description": "自分が本当に大切だと感じる方向に、人生を使う。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-138",
+          "label": "普通さ",
+          "description": "特別な人になろうとせず、日常を丁寧に生きる。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "deep-awakening",
+      "order": 14,
+      "label": "深い覚醒状態",
+      "themes": [
+        {
+          "id": "sw-139",
+          "label": "空性",
+          "description": "すべてのものは、単独で固定された存在ではなく、さまざまな関係によって成り立っていると分かる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-140",
+          "label": "無我",
+          "description": "変わらない固定された「自分」があるわけではないと気づく。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-141",
+          "label": "純粋存在",
+          "description": "名前、立場、性格を超えて、ただ存在している感覚。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-142",
+          "label": "純粋意識",
+          "description": "思考や感情がなくても残っている、気づきそのもの。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-143",
+          "label": "非二元性",
+          "description": "自分と世界、見る者と見られるものが、本当は別々ではないと感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-144",
+          "label": "絶対的な一体性",
+          "description": "すべての存在が、一つの根源から現れていると直接感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-145",
+          "label": "自己実現",
+          "description": "自分の本質が、性格や過去の物語を超えたものだと知る。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-146",
+          "label": "神との合一",
+          "description": "自分と神聖な存在との境界がなくなるように感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-147",
+          "label": "自我の消滅",
+          "description": "自我がなくなるのではなく、自我を人生の主人にしなくなる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-148",
+          "label": "愛への消融",
+          "description": "自分を守るための壁が、深い愛の中でほどけていく。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-149",
+          "label": "永遠の今",
+          "description": "過去や未来ではなく、今だけが永遠に存在しているように感じる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-150",
+          "label": "言葉を超えた意識",
+          "description": "言葉や考えでは説明できず、直接感じるしかない状態。",
+          "trackId": "ideals"
+        }
+      ]
+    },
+    {
+      "id": "contemporary-spirituality",
+      "order": 15,
+      "label": "現代スピリチュアルで語られる意識",
+      "themes": [
+        {
+          "id": "sw-151",
+          "label": "高い波動",
+          "description": "愛、喜び、感謝、安心などを強く感じている状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-152",
+          "label": "エネルギーが整った状態",
+          "description": "心、身体、思考が大きくぶつからず、まとまっている状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-153",
+          "label": "ハートが開いた状態",
+          "description": "愛を与えることも、受け取ることも怖がらない状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-154",
+          "label": "魂との一致",
+          "description": "周囲の期待ではなく、自分の深い本心に沿って生きている状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-155",
+          "label": "ハイヤーセルフとの一致",
+          "description": "恐れや欲ではなく、より広く賢い自分の視点から行動している状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-156",
+          "label": "本来の周波数",
+          "description": "無理に他人になろうとせず、本来の自分らしさを表している状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-157",
+          "label": "宇宙との調和",
+          "description": "自分の行動が、人生の大きな流れと合っていると感じる状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-158",
+          "label": "シンクロニシティを受け取る状態",
+          "description": "偶然の一致の中に、意味や導きを感じ取れる状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-159",
+          "label": "豊かさの意識",
+          "description": "自分には何もないと思わず、すでにある恵みに気づいている状態。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-160",
+          "label": "不足ではなく充足から生きる状態",
+          "description": "足りないから行動するのではなく、すでに満たされた心から行動する。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-161",
+          "label": "受け取ることを許した状態",
+          "description": "愛、助け、お金、評価などを、罪悪感なく受け取れる。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-162",
+          "label": "具現化と一致した状態",
+          "description": "願い、考え、感情、行動が同じ方向を向いている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-163",
+          "label": "魂の目的を生きる状態",
+          "description": "自分がこの人生で本当に体験し、表現したいことを生きている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-164",
+          "label": "直感に開かれた状態",
+          "description": "理屈だけでなく、内側から自然に湧く感覚も信頼している。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-165",
+          "label": "エネルギー的に軽い状態",
+          "description": "過去の感情や重い思い込みに強く縛られていない。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-166",
+          "label": "無条件の自己価値",
+          "description": "成功や評価がなくても、自分には価値があると感じている。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-167",
+          "label": "本質的な自己表現",
+          "description": "他人に合わせすぎず、自分の本当の感覚や才能を表している。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-168",
+          "label": "創造主意識",
+          "description": "自分は人生の被害者であるだけでなく、選択によって人生を作る力があると考える。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-169",
+          "label": "共同創造の意識",
+          "description": "人生は自分一人だけで作るのではなく、他者や大きな流れと一緒に作られると考える。",
+          "trackId": "ideals"
+        },
+        {
+          "id": "sw-170",
+          "label": "地球意識・ガイア意識",
+          "description": "地球をただ利用する物ではなく、自分たちを支える一つの生命として大切にする。",
+          "trackId": "ideals"
+        }
+      ]
+    }
+  ]
+}

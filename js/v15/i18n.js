@@ -17,6 +17,19 @@ function T(key, vars) {
   return t('ui.' + key, isV17Locale ? '' : key, vars);
 }
 
+function getLandingCopyText(v15Path, v17Path) {
+  var isV17Locale = currentLocale && currentLocale.meta && currentLocale.meta.appVersion === 'v17';
+  if (isV17Locale && typeof getV17LocaleRoot === 'function' && typeof getV17Path === 'function') {
+    var v17Root = getV17LocaleRoot();
+    if (v17Root) {
+      var v17Value = getV17Path(v17Root, v17Path || v15Path);
+      if (v17Value !== undefined && v17Value !== null && v17Value !== '') return v17Value;
+    }
+  }
+  var legacyValue = getText(v15Path, '');
+  return legacyValue !== undefined && legacyValue !== null ? legacyValue : '';
+}
+
 function renderStaticTexts() {
   document.documentElement.lang = lang;
   applyThemeMode();
@@ -232,26 +245,29 @@ async function setLandingLang(code) {
   landingLang = code;
   await loadLocale(code);
   landingLang = lang;
-  setEl('lp-hero-title', getText('ui.landingHero'));
-  setEl('lp-hero-sub', getText('ui.landingSub'));
+  setElIfText('lp-hero-title', getLandingCopyText('ui.landingHero', 'lp.hero.title'));
+  setElIfText('lp-hero-sub', getLandingCopyText('ui.landingSub', 'lp.hero.body'));
   var btn = document.getElementById('btn-lp-start');
-  if (btn) btn.textContent = getText('ui.landingStart');
-  setEl('lp-section-title', getText('ui.landingSection'));
+  if (btn) btn.textContent = getLandingCopyText('ui.landingStart', 'lp.hero.cta');
+  setElIfText('lp-section-title', getLandingCopyText('ui.landingSection', 'lp.sectionsTitle'));
   var ul = document.getElementById('lp-item-list');
   if (ul) {
     ul.innerHTML = '';
-    getText('ui.landingItems', []).forEach(function(item) {
-      var li = document.createElement('li');
-      li.textContent = item;
-      ul.appendChild(li);
-    });
+    var landingItems = getLandingCopyText('ui.landingItems', 'lp.sections');
+    if (Array.isArray(landingItems)) {
+      landingItems.forEach(function(item) {
+        var li = document.createElement('li');
+        li.textContent = item;
+        ul.appendChild(li);
+      });
+    }
   }
-  var footer1 = getText('ui.landingFooter1');
-  var footer2 = getText('ui.landingFooter2');
-  var aboutText = getText('ui.landingAboutLink', getText('ui.aboutLink'));
-  var pricingText = getText('ui.landingPricingLink');
-  setEl('lp-footer-p1', footer1);
-  setEl('lp-footer-p2', footer2);
+  var footer1 = getLandingCopyText('ui.landingFooter1', 'lp.finalCta.title');
+  var footer2 = getLandingCopyText('ui.landingFooter2', 'lp.finalCta.cta');
+  var aboutText = getLandingCopyText('ui.landingAboutLink', 'lp.finalCta.title');
+  var pricingText = getLandingCopyText('ui.landingPricingLink', 'lp.finalCta.cta');
+  setElIfText('lp-footer-p1', footer1);
+  setElIfText('lp-footer-p2', footer2);
   var footerP1 = document.getElementById('lp-footer-p1');
   var footerP2 = document.getElementById('lp-footer-p2');
   var aboutLink = document.getElementById('btn-lp-about-link');

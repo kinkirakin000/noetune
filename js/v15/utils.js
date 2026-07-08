@@ -3,6 +3,12 @@ function setEl(id, tx) {
   if (e) e.textContent = tx;
 }
 
+function setElIfText(id, tx) {
+  if (tx === undefined || tx === null || tx === '') return false;
+  setEl(id, tx);
+  return true;
+}
+
 function clearChildren(el) {
   while (el.firstChild) el.removeChild(el.firstChild);
 }
@@ -35,6 +41,7 @@ function createResultClientRef() {
 }
 
 window.setEl = setEl;
+window.setElIfText = setElIfText;
 window.clearChildren = clearChildren;
 window.getByPath = getByPath;
 window.interpolateLocaleText = interpolateLocaleText;
