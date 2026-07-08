@@ -99,7 +99,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn:disabled{opacity:.3;cursor:default;box-shadow:none}
 .btn-ghost{font-family:'Noto Serif JP',serif;margin-top:.5rem;padding:8px 22px;background:transparent;color:#8F8F88;border:none;border-radius:30px;font-size:.74rem;letter-spacing:.1em;cursor:pointer;transition:color .25s}
 .btn-ghost:active{color:#6B9080}
-.breath-sub{font-family:'Noto Serif JP',serif;font-size:.86rem;font-weight:400;color:#8F8F88;text-align:center;letter-spacing:.08em;margin-bottom:.35rem}
+.breath-sub{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:400;color:#8F8F88;text-align:center;letter-spacing:.08em;margin-bottom:.35rem}
 .breath-main{font-family:'Noto Serif JP',serif;font-size:1rem;font-weight:400;color:#1A1A1A;text-align:center;letter-spacing:.03em;line-height:1.85;max-width:300px;margin-bottom:1.8rem;white-space:pre-line}
 .screen .v16-question{color:#1A1A1A;white-space:pre-line}
 .v16-input-question{width:100%;max-width:340px;margin:0 auto 2rem;color:var(--text);font-family:'Noto Serif JP',serif;font-size:clamp(22px,4.8vw,30px);font-weight:400;line-height:1.8;letter-spacing:.06em;text-align:center}
@@ -115,7 +115,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-theme-quote{font-family:'Noto Serif JP',serif;font-size:clamp(1.16rem,4.7vw,1.42rem);font-weight:400;line-height:1.75;letter-spacing:.035em;color:#1A1A1A;max-width:340px;margin-bottom:2rem;white-space:pre-line;text-wrap:balance}
 .v17-step-copy{font-family:'Noto Serif JP',serif;font-size:.96rem;font-weight:300;line-height:2.05;letter-spacing:.035em;color:#625F5A;max-width:320px;margin-bottom:1.8rem;white-space:pre-line;text-wrap:balance}
 .v17-step-helper{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;line-height:1.8;letter-spacing:.05em;color:#A8A8A2;margin:.15rem 0 .8rem;white-space:pre-line}
-.v17-breath-lead{font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;color:#A8A8A2;letter-spacing:.1em;margin-bottom:1.4rem}
+.v17-breath-lead{font-family:'Noto Serif JP',serif;font-size:.92rem;font-weight:300;line-height:1.85;letter-spacing:.035em;color:#A8A8A2;margin-bottom:1.4rem}
 .v17-breath-body{font-family:'Noto Serif JP',serif;font-size:clamp(1.25rem,5vw,1.55rem);font-weight:400;color:#1A1A1A;line-height:1.8;letter-spacing:.035em;text-align:center;white-space:pre-line;margin-bottom:1.8rem;text-wrap:balance}
 .v17-breath-hint{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;color:#A8A8A2;letter-spacing:.06em;margin-bottom:1.5rem}
 .v17-support-primary{font-size:.92rem;line-height:1.85;letter-spacing:.035em}
@@ -323,6 +323,13 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-theme-list{display:flex;flex-direction:column;gap:.5rem;padding:.1rem .35rem .9rem}
 .v17-library-theme{width:100%;border:1px solid rgba(107,144,128,.25);border-radius:16px;background:rgba(255,255,255,.24);color:#1A1A1A;font-family:'Noto Serif JP',serif;font-size:.8rem;font-weight:300;line-height:1.7;letter-spacing:.03em;padding:.8rem .9rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .v17-library-theme:active{border-color:#6B9080;background:rgba(107,144,128,.09)}
+.v17-library-theme-label{display:block}
+.v17-library-theme-desc{display:block;margin-top:.35rem;color:#8F8F88;font-size:.7rem;line-height:1.65;letter-spacing:.02em}
+.v17-spiritual-theme-block{max-width:340px;margin:0 auto 2.45rem;text-align:center}
+.v17-spiritual-theme-block .v17-theme-quote{max-width:100%;margin-bottom:.45rem}
+.v17-spiritual-theme-block .v17-theme-meaning{display:block;margin:0 auto;color:#8F8F88;font-size:.82rem;line-height:1.8}
+.v17-theme-meaning{margin:.55rem auto 0;max-width:330px;color:#8F8F88;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:300;line-height:1.8;letter-spacing:.03em;text-align:center;white-space:pre-line}
+.v17-result-meaning{margin-top:.35rem;color:#8F8F88;font-size:.78rem;line-height:1.7}
 .v17-theme-more{margin:0;padding:.75rem 0 1rem;font-size:.7rem}
 .v17-result-copy{font-family:'Noto Serif JP',serif;font-size:.86rem;line-height:1.9;color:#1A1A1A;letter-spacing:.03em;white-space:pre-line}
 .lp-hero-title,.lp-hero-sub,.screen-title,.measure-problem,.breath-main,.v17-theme-quote,.v17-step-copy,.v17-step-helper,.v17-breath-body,.v17-breath-hint{line-break:strict;text-wrap:balance}
@@ -365,6 +372,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .entry-choice-btn:active{transform:scale(.98);opacity:.85}
 .entry-choice-btn.disabled{background:#EDEDE7;color:#C0C0BA;cursor:default}
 .entry-choice-desc{font-family:'Noto Serif JP',serif;font-size:.72rem;color:#77736E;letter-spacing:.05em;line-height:1.9;margin-top:.6rem;white-space:pre-line;padding:0 2px}
+.v17-start-options{width:100%;max-width:320px;margin:0 auto;display:flex;flex-direction:column;gap:1.05rem}
+.v17-start-option{display:flex;flex-direction:column;gap:.45rem;padding:1rem 1.05rem;border:1px solid rgba(107,144,128,.2);border-radius:18px;background:rgba(255,255,255,.18);color:#1A1A1A;font-family:'Noto Serif JP',serif;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.v17-start-option-title{font-size:.9rem;letter-spacing:.08em;line-height:1.55}
+.v17-start-option-desc{font-size:.72rem;color:#77736E;letter-spacing:.04em;line-height:1.75;white-space:pre-line}
 #s-about{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 2rem 5rem}
 #s-pricing{display:block;overflow-y:auto;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 2rem 5rem}
 #pricing-root{width:100%;max-width:400px;margin:0 auto;padding:0 0 calc(3.5rem + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:stretch}
@@ -834,12 +845,44 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
 </div>
 
+<!-- ── V17 START CATEGORY ── -->
+<div class="screen" id="s-v17-start-category">
+  <div id="s-entry-inner">
+    <div class="entry-title" id="v17-start-category-title"></div>
+    <div class="v17-start-options">
+      <button class="v17-start-option" id="btn-v17-start-free" type="button" onclick="openV17FreeInputEntry()">
+        <span class="v17-start-option-title" id="v17-start-free-title"></span>
+        <span class="v17-start-option-desc" id="v17-start-free-desc"></span>
+      </button>
+      <button class="v17-start-option" id="btn-v17-start-life" type="button" onclick="openV17LifeThemeEntry()">
+        <span class="v17-start-option-title" id="v17-start-life-title"></span>
+        <span class="v17-start-option-desc" id="v17-start-life-desc"></span>
+      </button>
+      <button class="v17-start-option" id="btn-v17-start-spiritual" type="button" onclick="openV17SpiritualWisdomEntry()">
+        <span class="v17-start-option-title" id="v17-start-spiritual-title"></span>
+        <span class="v17-start-option-desc" id="v17-start-spiritual-desc"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- ── V17 ENTRY CHOICE ── -->
 <div class="screen screen-scroll" id="s-v17-entry-choice">
   <div class="v17-entry-shell">
     <div class="v17-category-intro" id="v17-category-intro"></div>
     <div class="v17-theme-accordion" id="v17-theme-accordion"></div>
     <div class="hcq-status" id="v17-theme-library-status" role="status" aria-live="polite"></div>
+  </div>
+</div>
+
+<!-- ── V17 SPIRITUAL WISDOM ── -->
+<div class="screen screen-scroll" id="s-v17-spiritual-wisdom">
+  <div class="v17-entry-shell">
+    <div class="v17-category-intro" id="v17-spiritual-label"></div>
+    <div class="v17-category-guide" id="v17-spiritual-intro"></div>
+    <div class="v17-category-guide" id="v17-spiritual-note"></div>
+    <div class="v17-theme-accordion" id="v17-spiritual-accordion"></div>
+    <div class="hcq-status" id="v17-spiritual-status" role="status" aria-live="polite"></div>
   </div>
 </div>
 
@@ -1141,7 +1184,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── V17 HCQ SESSION FLOW ── -->
 <div class="screen" id="s-v17-before">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-before-theme"></div>
+    <div class="v17-theme-block" id="v17-before-theme-block">
+      <div class="v17-theme-quote" id="v17-before-theme"></div>
+      <div class="v17-theme-meaning" id="v17-before-meaning"></div>
+    </div>
     <div class="v17-step-copy v17-support-primary" id="v17-before-prompt"></div>
     <div class="score-num" id="num-v17-before"></div>
     <div class="slider-wrap">
@@ -1158,7 +1204,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <div class="screen" id="s-v17-first-response">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-first-response-quote"></div>
+    <div class="v17-theme-block" id="v17-first-response-theme-block">
+      <div class="v17-theme-quote" id="v17-first-response-quote"></div>
+      <div class="v17-theme-meaning" id="v17-first-response-meaning"></div>
+    </div>
     <div class="v17-step-copy v17-support-primary" id="v17-first-response-prompt"></div>
     <textarea class="v17-writing" id="in-v17-first-response" maxlength="600" oninput="onV17RouteInput('first',this.value)"></textarea>
     <button class="btn" id="next-v17-first-response" type="button" onclick="submitV17FirstResponse()" disabled></button>
@@ -1167,7 +1216,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <div class="screen" id="s-v17-second-response">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-second-response-quote"></div>
+    <div class="v17-theme-block" id="v17-second-response-theme-block">
+      <div class="v17-theme-quote" id="v17-second-response-quote"></div>
+      <div class="v17-theme-meaning" id="v17-second-response-meaning"></div>
+    </div>
     <div class="v17-step-copy v17-support-primary" id="v17-second-response-prompt"></div>
     <textarea class="v17-writing" id="in-v17-second-response" maxlength="600" oninput="onV17RouteInput('second',this.value)"></textarea>
     <button class="btn" id="next-v17-second-response" type="button" onclick="submitV17SecondResponse()" disabled></button>
@@ -1185,7 +1237,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 
 <div class="screen" id="s-v17-final-measure">
   <div class="v17-step">
-    <div class="v17-theme-quote" id="v17-final-quote"></div>
+    <div class="v17-theme-block" id="v17-final-theme-block">
+      <div class="v17-theme-quote" id="v17-final-quote"></div>
+      <div class="v17-theme-meaning" id="v17-final-meaning"></div>
+    </div>
     <div class="v17-step-copy v17-support-primary" id="v17-final-prompt"></div>
     <div class="score-num" id="num-v17-final"></div>
     <div class="slider-wrap">
@@ -1367,6 +1422,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="sc-note-wrap">
       <div class="sc-section-label" id="v17-result-subtheme-label"></div>
       <div class="v17-result-copy" id="v17-result-subtheme"></div>
+      <div class="v17-result-copy v17-result-meaning" id="t-result-meaning"></div>
     </div>
     <div class="v17-result-happiness-label" id="v17-result-happiness-label"></div>
     <div class="v17-result-score-flow" id="v17-result-scores">
@@ -1392,7 +1448,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <span id="v17-result-step3" hidden></span>
     <span id="t-result-sub" hidden></span>
     <span id="t-shift-note-display" hidden></span>
-    <span id="t-result-meaning" hidden></span>
   </div>
   <button class="btn-save-image" id="btn-save-image" type="button" onclick="saveV17ResultCard()"></button>
   <div class="v17-image-status" id="v17-image-status" role="status" aria-live="polite"></div>
@@ -4057,21 +4112,21 @@ function renderV17LandingCopy() {
   if (!getV17LocaleRoot()) return;
   var locale = getV17LocaleRoot();
   document.title = v17Copy('flow.app.title');
-  setEl('v17-lp-logo', v17Copy('flow.landing.logo'));
-  setEl('lp-hero-title', getV17Path(locale, 'lp.hero.title'));
-  setEl('lp-hero-sub', getV17Path(locale, 'lp.hero.body'));
-  setEl('btn-lp-start-hero', getV17Path(locale, 'lp.hero.cta'));
-  setEl('lp-hero-note', getV17Path(locale, 'lp.hero.note'));
-  setEl('lp-final-cta', getV17Path(locale, 'lp.finalCta.title'));
-  setEl('btn-lp-start-final', getV17Path(locale, 'lp.finalCta.cta'));
+  setElIfText('v17-lp-logo', v17Copy('flow.landing.logo'));
+  setElIfText('lp-hero-title', getV17Path(locale, 'lp.hero.title'));
+  setElIfText('lp-hero-sub', getV17Path(locale, 'lp.hero.body'));
+  setElIfText('btn-lp-start-hero', getV17Path(locale, 'lp.hero.cta'));
+  setElIfText('lp-hero-note', getV17Path(locale, 'lp.hero.note'));
+  setElIfText('lp-final-cta', getV17Path(locale, 'lp.finalCta.title'));
+  setElIfText('btn-lp-start-final', getV17Path(locale, 'lp.finalCta.cta'));
   var back = document.getElementById('btn-back');
   if (back) back.setAttribute('aria-label', v17Copy('flow.app.back'));
 
   var sectionWrap = document.getElementById('lp-sections');
   if (!sectionWrap) return;
-  sectionWrap.innerHTML = '';
   var sections = getV17Path(locale, 'lp.sections');
-  if (!Array.isArray(sections)) sections = [];
+  if (!Array.isArray(sections) || !sections.length) return;
+  sectionWrap.innerHTML = '';
   sections.forEach(function(section) {
     sectionWrap.appendChild(createV17LandingSection(section));
   });
@@ -4262,6 +4317,7 @@ setLandingLang = async function(code) {
   await loadV17FlowCopy();
   await setLandingLangV15(code);
   await loadV17ThemeLibrary();
+  if (cur === 's-v17-spiritual-wisdom') await loadV17SpiritualWisdomLibrary();
   renderV17StaticCopy();
 };
 window.setLandingLang = setLandingLang;
@@ -4269,13 +4325,12 @@ window.setLandingLang = setLandingLang;
 async function startLanding() {
   prepareEntryFlow();
   await loadV17FlowCopy();
-  await loadV17ThemeLibrary();
-  renderV17Screen('s-v17-entry-choice');
-  await setLang(landingLang, 's-v17-entry-choice');
+  renderV17Screen('s-v17-start-category');
+  await setLang(landingLang, 's-v17-start-category');
 }
 
 var SCREEN_ORDER = [
-  's-v17-entry-choice','s-v17-before','s-v17-first-response','s-v17-second-response',
+  's-v17-start-category','s-v17-entry-choice','s-v17-spiritual-wisdom','s-v17-before','s-v17-first-response','s-v17-second-response',
   's-v17-breath','s-v17-final-measure','s-result',
   's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-v16-after-measurement','s-v16-result','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-nega','s-v12-free','s-nega-ideal','s-door',
@@ -4751,10 +4806,69 @@ var v17ThemeLibraryPromise = null;
 var v17ThemeLibraryError = '';
 var v17CustomCategoryName = '';
 var v17ThemeSelectionFocusId = '';
+var v17ThemeEntryMode = 'all';
+var v17SpiritualWisdomData = null;
+var v17SpiritualWisdomLocale = '';
+var v17SpiritualWisdomCache = {};
+var v17SpiritualWisdomPromise = null;
+var v17SpiritualWisdomError = '';
+var v17SpiritualOpenGroupId = '';
+var v17SpiritualVisibleCounts = {};
 
 function getV17ThemeLibraryLocale() {
   if (lang === 'ja' || lang === 'zh-TW') return lang;
   return 'en';
+}
+
+function getV17SpiritualWisdomLocale() {
+  return getV17ThemeLibraryLocale();
+}
+
+function isValidV17SpiritualWisdomLibrary(data) {
+  if (!data || data.libraryId !== 'spiritual-wisdom' || !Array.isArray(data.groups)) return false;
+  if (!data.label || !data.intro || !data.selectionNote) return false;
+  return data.groups.every(function(group) {
+    return group && group.id && group.label && Array.isArray(group.themes)
+      && group.themes.every(function(theme) {
+        return theme && theme.id && theme.label && theme.description;
+      });
+  });
+}
+
+function loadV17SpiritualWisdomLibrary() {
+  var locale = getV17SpiritualWisdomLocale();
+  if (v17SpiritualWisdomCache[locale]) {
+    v17SpiritualWisdomLocale = locale;
+    v17SpiritualWisdomData = v17SpiritualWisdomCache[locale];
+    v17SpiritualWisdomError = '';
+    renderV17SpiritualWisdomScreen();
+    return Promise.resolve(v17SpiritualWisdomData);
+  }
+  if (v17SpiritualWisdomPromise && v17SpiritualWisdomLocale === locale) return v17SpiritualWisdomPromise;
+  v17SpiritualWisdomLocale = locale;
+  v17SpiritualWisdomError = '';
+  renderV17SpiritualWisdomScreen();
+  v17SpiritualWisdomPromise = fetch('./v17/data/spiritual-wisdom-' + locale + '.json')
+    .then(function(response) {
+      if (!response.ok) throw new Error('spiritual wisdom fetch failed');
+      return response.json();
+    })
+    .then(function(data) {
+      if (!isValidV17SpiritualWisdomLibrary(data)) throw new Error('invalid spiritual wisdom library');
+      v17SpiritualWisdomCache[locale] = data;
+      if (v17SpiritualWisdomLocale === locale) v17SpiritualWisdomData = data;
+      return data;
+    })
+    .catch(function(error) {
+      v17SpiritualWisdomError = error && error.message ? error.message : 'spiritual wisdom error';
+      if (v17SpiritualWisdomLocale === locale) v17SpiritualWisdomData = null;
+      return null;
+    })
+    .finally(function() {
+      v17SpiritualWisdomPromise = null;
+      renderV17SpiritualWisdomScreen();
+    });
+  return v17SpiritualWisdomPromise;
 }
 
 function isValidV17ThemeLibrary(data) {
@@ -4824,6 +4938,143 @@ function appendV17ThemePage(category, track, themeList, moreButton) {
     themeList.appendChild(createV17LibraryThemeButton(category, track, track.themes[i]));
   }
   moreButton.style.display = end < track.themes.length ? '' : 'none';
+}
+
+function createV17SpiritualThemeButton(group, theme) {
+  var themeButton = document.createElement('button');
+  themeButton.type = 'button';
+  themeButton.className = 'v17-library-theme';
+  var label = document.createElement('span');
+  label.className = 'v17-library-theme-label';
+  label.textContent = theme.label || '';
+  var desc = document.createElement('span');
+  desc.className = 'v17-library-theme-desc';
+  desc.textContent = theme.description || '';
+  themeButton.appendChild(label);
+  themeButton.appendChild(desc);
+  themeButton.onclick = function() { selectV17SpiritualWisdomTheme(group, theme); };
+  return themeButton;
+}
+
+function appendV17SpiritualThemePage(group, themeList, moreButton) {
+  var library = v17SpiritualWisdomData;
+  if (!library || !group || !Array.isArray(group.themes)) return;
+  var pageSize = Math.max(1, Number(library.pageSize) || 4);
+  var currentCount = v17SpiritualVisibleCounts[group.id] || pageSize;
+  var nextCount = Math.min(currentCount + pageSize, group.themes.length);
+  v17SpiritualVisibleCounts[group.id] = nextCount;
+  renderV17SpiritualGroupThemes(group, themeList, moreButton);
+}
+
+function renderV17SpiritualGroupThemes(group, themeList, moreButton) {
+  var library = v17SpiritualWisdomData;
+  if (!library || !themeList || !moreButton || !group || !Array.isArray(group.themes)) return;
+  var pageSize = Math.max(1, Number(library.pageSize) || 4);
+  var visibleCount = Math.min(v17SpiritualVisibleCounts[group.id] || pageSize, group.themes.length);
+  v17SpiritualVisibleCounts[group.id] = visibleCount;
+  clearChildren(themeList);
+  group.themes.slice(0, visibleCount).forEach(function(theme) {
+    themeList.appendChild(createV17SpiritualThemeButton(group, theme));
+  });
+  moreButton.textContent = library.showMoreLabel || v17Copy('theme.showMore');
+  moreButton.style.display = visibleCount < group.themes.length ? '' : 'none';
+}
+
+function createV17SpiritualGroupSection(group) {
+  var groupWrap = document.createElement('section');
+  groupWrap.className = 'v17-category' + (v17SpiritualOpenGroupId === group.id ? ' open' : '');
+  groupWrap.dataset.groupId = group.id;
+  var groupButton = document.createElement('button');
+  groupButton.type = 'button';
+  groupButton.className = 'v17-category-button';
+  groupButton.setAttribute('aria-expanded', v17SpiritualOpenGroupId === group.id ? 'true' : 'false');
+  var groupLabel = document.createElement('span');
+  groupLabel.textContent = group.label || '';
+  var groupMark = document.createElement('span');
+  groupMark.className = 'v17-accordion-mark';
+  groupMark.textContent = v17SpiritualOpenGroupId === group.id ? '－' : '＋';
+  groupButton.appendChild(groupLabel);
+  groupButton.appendChild(groupMark);
+  var groupBody = document.createElement('div');
+  groupBody.className = 'v17-category-body';
+  var themeList = document.createElement('div');
+  themeList.className = 'v17-theme-list';
+  var moreButton = document.createElement('button');
+  moreButton.type = 'button';
+  moreButton.className = 'btn-see-more v17-theme-more';
+  moreButton.onclick = function() {
+    appendV17SpiritualThemePage(group, themeList, moreButton);
+  };
+  groupBody.appendChild(themeList);
+  groupBody.appendChild(moreButton);
+  groupButton.onclick = function() {
+    var open = groupWrap.classList.toggle('open');
+    groupButton.setAttribute('aria-expanded', String(open));
+    groupMark.textContent = open ? '－' : '＋';
+    v17SpiritualOpenGroupId = open ? group.id : '';
+  };
+  renderV17SpiritualGroupThemes(group, themeList, moreButton);
+  groupWrap.appendChild(groupButton);
+  groupWrap.appendChild(groupBody);
+  return groupWrap;
+}
+
+function renderV17SpiritualWisdomScreen() {
+  var root = document.getElementById('v17-spiritual-accordion');
+  var status = document.getElementById('v17-spiritual-status');
+  if (!root || !status) return;
+  clearChildren(root);
+  status.textContent = '';
+  if (v17SpiritualWisdomError) {
+    status.textContent = v17Copy('errors.loadFailed');
+    setEl('v17-spiritual-label', '');
+    setEl('v17-spiritual-intro', '');
+    setEl('v17-spiritual-note', '');
+    return;
+  }
+  if (!v17SpiritualWisdomData || v17SpiritualWisdomLocale !== getV17SpiritualWisdomLocale()) {
+    status.textContent = v17Copy('status.loading');
+    return;
+  }
+  var library = v17SpiritualWisdomData;
+  setEl('v17-spiritual-label', library.label || '');
+  setEl('v17-spiritual-intro', library.intro || '');
+  setEl('v17-spiritual-note', library.selectionNote || '');
+  var groups = library.groups.slice().sort(function(a, b) {
+    return (Number(a.order) || 0) - (Number(b.order) || 0);
+  });
+  groups.forEach(function(group) {
+    root.appendChild(createV17SpiritualGroupSection(group));
+  });
+}
+
+function selectV17SpiritualWisdomTheme(group, theme) {
+  if (!theme || !v17SpiritualWisdomData) return;
+  ensureV17QuestionState();
+  var library = v17SpiritualWisdomData;
+  D.questionId = null;
+  D.themeId = theme.id;
+  D.questionTextAtTime = theme.label;
+  D.localeAtTime = lang || v17SpiritualWisdomLocale;
+  D.freeInputTheme = '';
+  D.themeSource = 'spiritual-wisdom';
+  D.themeTrackId = theme.trackId || library.defaultTrackId || 'ideals';
+  D.themeCategoryId = group ? group.id : '';
+  D.themeCategoryLabelAtTime = group ? group.label : '';
+  D.themeKey = theme.id;
+  D.theme = theme.label;
+  D.themePositive = theme.label;
+  D.themeNegative = '';
+  D.themeMeaning = theme.description || '';
+  themeChosen = true;
+  trackEvent('theme_selected', {
+    themeKey: theme.id,
+    lang: lang,
+    source: 'spiritual-wisdom',
+    categoryId: D.themeCategoryId,
+    trackId: D.themeTrackId
+  });
+  startSession();
 }
 
 function bindV17FreeInputEnterGuard(input) {
@@ -5019,6 +5270,37 @@ function createV17CustomCategorySection() {
   return categoryWrap;
 }
 
+function renderV17StartCategoryScreen() {
+  setEl('v17-start-category-title', v17Copy('entry.startTitle'));
+  setEl('v17-start-free-title', v17Copy('entry.startFreeTitle'));
+  setEl('v17-start-free-desc', v17Copy('entry.startFreeDescription'));
+  setEl('v17-start-life-title', v17Copy('entry.startLifeTitle'));
+  setEl('v17-start-life-desc', v17Copy('entry.startLifeDescription'));
+  setEl('v17-start-spiritual-title', v17Copy('entry.startSpiritualTitle'));
+  setEl('v17-start-spiritual-desc', v17Copy('entry.startSpiritualDescription'));
+}
+
+function openV17FreeInputEntry() {
+  v17ThemeEntryMode = 'free';
+  v17ThemeSelectionFocusId = 'custom';
+  renderThemeScreen();
+  fwd('s-v17-entry-choice');
+}
+
+function openV17LifeThemeEntry() {
+  v17ThemeEntryMode = 'life';
+  v17ThemeSelectionFocusId = '';
+  loadV17ThemeLibrary();
+  renderThemeScreen();
+  fwd('s-v17-entry-choice');
+}
+
+function openV17SpiritualWisdomEntry() {
+  loadV17SpiritualWisdomLibrary();
+  renderV17SpiritualWisdomScreen();
+  fwd('s-v17-spiritual-wisdom');
+}
+
 function renderV17ThemeAccordion() {
   var root = document.getElementById('v17-theme-accordion');
   var status = document.getElementById('v17-theme-library-status');
@@ -5046,7 +5328,7 @@ function renderV17ThemeAccordion() {
       v17ThemeSelectionFocusId = '';
     }
   }
-  if (!focusCategoryId || focusCategoryId === 'custom') {
+  if (v17ThemeEntryMode !== 'life' && (!focusCategoryId || focusCategoryId === 'custom')) {
     root.appendChild(createV17CustomCategorySection());
     if (focusCategoryId === 'custom') return;
   }
@@ -5277,6 +5559,7 @@ function ensureV17QuestionState() {
   if (typeof D.themeCategoryId === 'undefined') D.themeCategoryId = '';
   if (typeof D.themeCategoryLabelAtTime === 'undefined') D.themeCategoryLabelAtTime = '';
   if (typeof D.themeTrackId === 'undefined') D.themeTrackId = '';
+  if (typeof D.themeMeaning === 'undefined') D.themeMeaning = '';
 }
 
 function ensureV17SessionState() {
@@ -5334,6 +5617,7 @@ function clearV17QuestionState() {
   D.themeCategoryId = '';
   D.themeCategoryLabelAtTime = '';
   D.themeTrackId = '';
+  D.themeMeaning = '';
 }
 
 function isHCQExcludedRange(id) {
@@ -5391,7 +5675,8 @@ function getV17QuestionSnapshot() {
     themeSource: D.themeSource || (D.questionId ? 'hcq' : 'freeInput'),
     themeCategoryId: D.themeCategoryId || '',
     themeCategoryLabelAtTime: D.themeCategoryLabelAtTime || '',
-    themeTrackId: D.themeTrackId || ''
+    themeTrackId: D.themeTrackId || '',
+    themeMeaning: D.themeMeaning || ''
   };
 }
 
@@ -6507,6 +6792,7 @@ function createV17FlowState() {
     themeCategoryId: D.themeCategoryId || '',
     themeCategoryLabelAtTime: D.themeCategoryLabelAtTime || '',
     themeTrackId: D.themeTrackId || 'problems',
+    themeMeaning: D.themeMeaning || '',
     route: route,
     currentStep: 'step1',
     currentThemeScoreTrail: scoreTrail,
@@ -6549,6 +6835,31 @@ function getV17ThemeRoute() {
   var trackId = D && D.themeTrackId ? D.themeTrackId
     : D && D.v17Flow && D.v17Flow.themeTrackId ? D.v17Flow.themeTrackId : '';
   return trackId === 'ideals' ? 'ideals' : 'problems';
+}
+
+function getV17ThemeMeaning() {
+  if (D && D.themeSource === 'spiritual-wisdom') {
+    return D.themeMeaning || (D.v17Flow && D.v17Flow.themeMeaning) || '';
+  }
+  return '';
+}
+
+function renderV17ThemeMeaning(elementId) {
+  var element = document.getElementById(elementId);
+  if (!element) return;
+  var meaning = getV17ThemeMeaning();
+  element.textContent = meaning;
+  element.style.display = meaning ? '' : 'none';
+}
+
+function renderV17ThemeBlock(blockId, quoteId, meaningId, fallbackQuote) {
+  var block = document.getElementById(blockId);
+  var isSpiritual = D && D.themeSource === 'spiritual-wisdom';
+  if (block) block.classList.toggle('v17-spiritual-theme-block', !!isSpiritual);
+  setEl(quoteId, isSpiritual
+    ? v17Format('flow.step1.quote', { theme: D.questionTextAtTime })
+    : fallbackQuote);
+  if (meaningId) renderV17ThemeMeaning(meaningId);
 }
 
 function getV17ResponseKind(position) {
@@ -6612,6 +6923,8 @@ function renderV17StaticCopy() {
   setEl('auth-submit-btn', v17Copy('flow.common.continue'));
   renderV17LandingCopy();
   renderPricingPage();
+  renderV17StartCategoryScreen();
+  if (cur === 's-v17-spiritual-wisdom') renderV17SpiritualWisdomScreen();
   renderCurrentV17Screen();
 }
 
@@ -6629,8 +6942,12 @@ function positionV17SkipButton(screenId) {
   var button = document.getElementById('btn-v17-skip');
   if (!button) return;
   var target = null;
-  if (screenId === 's-v17-entry-choice') {
+  if (screenId === 's-v17-start-category') {
+    target = document.getElementById('btn-v17-start-spiritual');
+  } else if (screenId === 's-v17-entry-choice') {
     target = document.getElementById('v17-theme-accordion');
+  } else if (screenId === 's-v17-spiritual-wisdom') {
+    target = document.getElementById('v17-spiritual-accordion');
   } else if (screenId === 's-v17-before') {
     target = document.getElementById('next-v17-before');
   } else if (screenId === 's-v17-first-response') {
@@ -6862,17 +7179,34 @@ function restoreV17Slider(key, value) {
 
 function renderV17Screen(screenId) {
   var flow = D.v17Flow;
-  if (screenId === 's-v17-entry-choice') {
+  if (screenId === 's-v17-start-category') {
+    renderV17StartCategoryScreen();
+  } else if (screenId === 's-v17-entry-choice') {
     setEl('v17-category-intro', v17Copy('flow.entry.categoryIntro'));
+  } else if (screenId === 's-v17-spiritual-wisdom') {
+    renderV17SpiritualWisdomScreen();
+    if (!v17SpiritualWisdomData || v17SpiritualWisdomLocale !== getV17SpiritualWisdomLocale()) {
+      loadV17SpiritualWisdomLibrary();
+    }
   } else if (screenId === 's-v17-before') {
-    setEl('v17-before-theme', v17Format('flow.step1.quote', { theme: D.questionTextAtTime }));
+    renderV17ThemeBlock(
+      'v17-before-theme-block',
+      'v17-before-theme',
+      'v17-before-meaning',
+      v17Format('flow.step1.quote', { theme: D.questionTextAtTime })
+    );
     setEl('v17-before-prompt', v17Copy('flow.step1.prompt'));
     setEl('next-v17-before', v17Copy('flow.common.continue'));
     restoreV17Slider('v17-before', D.initialThemeScore);
   } else if (screenId === 's-v17-first-response') {
     var firstRoute = getV17ThemeRoute();
     var firstPath = 'flow.step2.' + firstRoute;
-    setEl('v17-first-response-quote', v17Format('flow.step2.quote', { theme: D.questionTextAtTime }));
+    renderV17ThemeBlock(
+      'v17-first-response-theme-block',
+      'v17-first-response-quote',
+      'v17-first-response-meaning',
+      v17Format('flow.step2.quote', { theme: D.questionTextAtTime })
+    );
     setEl('v17-first-response-prompt', v17Copy(firstPath + '.prompt'));
     setEl('next-v17-first-response', v17Copy('flow.common.continue'));
     var firstInput = document.getElementById('in-v17-first-response');
@@ -6885,8 +7219,17 @@ function renderV17Screen(screenId) {
   } else if (screenId === 's-v17-second-response') {
     var secondRoute = getV17ThemeRoute();
     var secondPath = 'flow.step3.' + secondRoute;
-    var step2Text = flow && flow.step2Text ? flow.step2Text : D.questionTextAtTime;
+    var step2Text = flow && flow.step2Text
+      ? flow.step2Text
+      : (D.currentStateText || D.currentState || '');
     setEl('v17-second-response-quote', v17Format('flow.step3.quote', { response: step2Text }));
+    var secondMeaning = document.getElementById('v17-second-response-meaning');
+    if (secondMeaning) {
+      secondMeaning.textContent = '';
+      secondMeaning.style.display = 'none';
+    }
+    var secondBlock = document.getElementById('v17-second-response-theme-block');
+    if (secondBlock) secondBlock.classList.remove('v17-spiritual-theme-block');
     setEl('v17-second-response-prompt', v17Copy(secondPath + '.prompt'));
     setEl('next-v17-second-response', v17Copy('flow.common.continue'));
     var secondInput = document.getElementById('in-v17-second-response');
@@ -6909,7 +7252,12 @@ function renderV17Screen(screenId) {
       );
     }
   } else if (screenId === 's-v17-final-measure') {
-    setEl('v17-final-quote', v17Format('flow.step5.quote', { theme: D.questionTextAtTime }));
+    renderV17ThemeBlock(
+      'v17-final-theme-block',
+      'v17-final-quote',
+      'v17-final-meaning',
+      v17Format('flow.step5.quote', { theme: D.questionTextAtTime })
+    );
     setEl('v17-final-prompt', v17Copy('flow.step5.prompt'));
     setEl('next-v17-final', v17Copy('flow.step5.result'));
     restoreV17Slider('v17-final', D.finalThemeScore);
@@ -7144,6 +7492,7 @@ function renderV17Result() {
   setEl('t-result-from', themeLabel || '—');
   setEl('v17-result-subtheme-label', v17Copy('result.subthemeLabel'));
   setEl('v17-result-subtheme', subthemeLabel ? v17Format('flow.result.quote', { text: subthemeLabel }) : '—');
+  renderV17ThemeMeaning('t-result-meaning');
   setEl('v17-result-step2-label', step2Kind === 'idealState'
     ? v17Copy('flow.result.idealState') : v17Copy('flow.result.currentState'));
   setEl('v17-result-step2', step2Text ? v17Format('flow.result.quote', { text: step2Text }) : '—');
@@ -7261,6 +7610,32 @@ function restartCurrentTheme() {
   clearV17RepeatNavigation();
   resetV17BreathScreen();
   ensureV17QuestionState();
+  if (D.themeSource === 'spiritual-wisdom') {
+    v17SpiritualOpenGroupId = D.themeCategoryId || v17SpiritualOpenGroupId;
+    resetV17SessionState();
+    clearV17QuestionState();
+    D.theme = '';
+    D.themeKey = null;
+    D.themePositive = '';
+    D.themeNegative = '';
+    D.issue = '';
+    D.ideal = '';
+    D.shiftNote = '';
+    D.reactionAnswer = '';
+    D.idealAnswer = '';
+    D.breathEaseBefore = null;
+    D.breathEaseAfter = null;
+    D.freeInputType = null;
+    D.freeInputValue = null;
+    D.entryMode = null;
+    themeChosen = false;
+    resetSlider('v17-before');
+    resetSlider('v17-final');
+    loadV17SpiritualWisdomLibrary();
+    renderV17SpiritualWisdomScreen();
+    showScreenDirect('s-v17-spiritual-wisdom');
+    return;
+  }
   var categoryId = D.themeCategoryId || '';
   var categoryLabel = D.themeCategoryLabelAtTime || '';
   if (!categoryId) {
@@ -7278,6 +7653,7 @@ function restartCurrentTheme() {
   D.themeKey = null;
   D.themePositive = '';
   D.themeNegative = '';
+  D.themeMeaning = '';
   D.issue = '';
   D.ideal = '';
   D.shiftNote = '';
@@ -7310,6 +7686,7 @@ function chooseV17NewQuestion() {
   clearV17RepeatNavigation();
   resetV17BreathScreen();
   v17ThemeSelectionFocusId = '';
+  v17ThemeEntryMode = 'all';
   v17CustomCategoryName = '';
   clearV17QuestionState();
   resetV17SessionState();
@@ -7317,6 +7694,7 @@ function chooseV17NewQuestion() {
   D.themeKey = null;
   D.themePositive = '';
   D.themeNegative = '';
+  D.themeMeaning = '';
   D.issue = '';
   D.ideal = '';
   D.shiftNote = '';
@@ -7330,8 +7708,8 @@ function chooseV17NewQuestion() {
   themeChosen = false;
   themeVisibleCount = 12;
   v17QuestionSearchValue = '';
-  renderThemeScreen();
-  showScreenDirect('s-v17-entry-choice');
+  renderV17Screen('s-v17-start-category');
+  showScreenDirect('s-v17-start-category');
 }
 
 function skipV17ThemeSelection() {
@@ -7351,6 +7729,7 @@ function skipV17ThemeSelection() {
   D.theme = fallbackTheme;
   D.themePositive = fallbackTheme;
   D.themeNegative = '';
+  D.themeMeaning = '';
   themeChosen = true;
   startSession();
 }
@@ -7365,7 +7744,9 @@ function skipV17ResultChoice() {
 
 function handleV17Skip() {
   if (cur === 's-landing') { startLanding(); return; }
+  if (cur === 's-v17-start-category') { openV17LifeThemeEntry(); return; }
   if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
+  if (cur === 's-v17-spiritual-wisdom') { skipV17ThemeSelection(); return; }
   if (cur === 's-v17-before') { submitV17BeforeScore(getV17SkipScore(D.initialThemeScore)); return; }
   if (cur === 's-v17-first-response') { submitV17FirstResponse(true); return; }
   if (cur === 's-v17-second-response') { submitV17SecondResponse(true); return; }
@@ -8102,6 +8483,7 @@ function applyV17QuestionSnapshotToPayload(payload) {
   payload.themeCategoryId = snapshot.themeCategoryId;
   payload.themeCategoryLabelAtTime = snapshot.themeCategoryLabelAtTime;
   payload.themeTrackId = snapshot.themeTrackId;
+  payload.themeMeaning = snapshot.themeMeaning;
   if (!payload.themeKey) payload.themeKey = snapshot.themeId || snapshot.questionId;
   if (!payload.selectedThemeKey) payload.selectedThemeKey = snapshot.themeId || snapshot.questionId;
   payload.themeLabel = snapshot.questionTextAtTime;
@@ -8119,6 +8501,7 @@ function applyV17QuestionSnapshotToPayload(payload) {
     payload.resultCardData.initialThemeScore = D.initialThemeScore;
     payload.resultCardData.finalThemeScore = D.finalThemeScore;
     payload.resultCardData.themeRoute = getV17ThemeRoute();
+    payload.resultCardData.themeMeaning = D.themeMeaning || '';
     payload.resultCardData.step2Text = D.v17Flow ? D.v17Flow.step2Text : '';
     payload.resultCardData.step3Text = D.v17Flow ? D.v17Flow.step3Text : '';
     payload.resultCardData.currentState = D.currentState;
@@ -8158,6 +8541,7 @@ function wrapV17SavePayloadBuilders() {
         D.themeCategoryId = snapshot.themeCategoryId || '';
         D.themeCategoryLabelAtTime = snapshot.themeCategoryLabelAtTime || '';
         D.themeTrackId = snapshot.themeTrackId || '';
+        D.themeMeaning = snapshot.themeMeaning || '';
         if (D.questionTextAtTime) {
           D.themeKey = D.themeId || D.questionId;
           D.theme = D.questionTextAtTime;
