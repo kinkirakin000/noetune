@@ -85,6 +85,13 @@
     }
   },
   "entry": {
+    "startTitle": "此刻，你想從哪裡開始？",
+    "startFreeTitle": "自由輸入",
+    "startFreeDescription": "用自己的話，寫下此刻在意的事",
+    "startLifeTitle": "與人生的關係",
+    "startLifeDescription": "從人生主題中，選擇此刻最在意的內容",
+    "startSpiritualTitle": "靈性智慧",
+    "startSpiritualDescription": "選擇此刻內心所向往的意識狀態",
     "categoryTitle": "想看見與什麼的關係？",
     "categorySubtitle": "先選擇主題的入口。",
     "typeTitle": "想從哪一邊開始看？",

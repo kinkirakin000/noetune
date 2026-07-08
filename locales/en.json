@@ -85,6 +85,13 @@
     }
   },
   "entry": {
+    "startTitle": "Where would you like to begin?",
+    "startFreeTitle": "Write freely",
+    "startFreeDescription": "Write what is on your mind, in your own words.",
+    "startLifeTitle": "Relationship with Life",
+    "startLifeDescription": "Choose what matters to you now from themes of life.",
+    "startSpiritualTitle": "Spiritual Wisdom",
+    "startSpiritualDescription": "Choose the state of awareness that draws you now.",
     "categoryTitle": "What relationship do you want to look at?",
     "categorySubtitle": "First, choose an entrance to the theme.",
     "typeTitle": "Which side do you want to look from?",
