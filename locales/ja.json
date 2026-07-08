@@ -18,7 +18,7 @@
   "lp": {
     "logo": "Noetune",
     "hero": {
-      "title": "Noetuneは、\n自分の反応を見つめ、\n少しずつ軽くなるための場所です。",
+      "title": "Noetuneは、\n自分の反応に気づき、\n少しずつ本来の自分を\n再発見する場所です。",
       "body": "問いに沿って書き、感じ、呼吸し、\nその前後の変化を確かめます。",
       "cta": "静かにはじめる",
       "note": "無料で、最後まで使えます。"
@@ -85,6 +85,13 @@
     }
   },
   "entry": {
+    "startTitle": "今、どこから始めますか",
+    "startFreeTitle": "自由入力",
+    "startFreeDescription": "今気になっていることを、自分の言葉で書く",
+    "startLifeTitle": "人生との関わり",
+    "startLifeDescription": "人生のテーマから、今気になるものを選ぶ",
+    "startSpiritualTitle": "霊的叡智",
+    "startSpiritualDescription": "今、心が向かう意識のあり方を選ぶ",
     "categoryTitle": "何との関係を見ますか。",
     "categorySubtitle": "まず、テーマの入口を選んでください。",
     "typeTitle": "どちらから見ますか。",
