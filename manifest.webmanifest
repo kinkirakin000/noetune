@@ -1,23 +1,24 @@
 {
   "name": "Noetune",
   "short_name": "Noetune",
-  "start_url": "./app-v17.html",
-  "scope": "./",
+  "description": "Noetune",
+  "start_url": "https://noetune.com/",
+  "scope": "https://noetune.com/",
   "display": "standalone",
   "background_color": "#F7F5EF",
   "theme_color": "#F7F5EF",
   "icons": [
     {
-      "src": "./icons/noetune-icon-192.png",
+      "src": "/icons/noetune-icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "./icons/noetune-icon-512.png",
+      "src": "/icons/noetune-icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
