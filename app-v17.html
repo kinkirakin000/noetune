@@ -813,7 +813,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <button type="button" id="account-professional" onclick="closeAccountMenu();fwd('s-pricing')" hidden></button>
       <button type="button" id="account-manage" onclick="closeAccountMenu();openCustomerPortal()" hidden></button>
       <div class="account-menu-separator" id="account-menu-separator" hidden></div>
-      <button type="button" id="account-logout" onclick="closeAccountMenu();logoutUser()" hidden></button>
+      <button type="button" id="account-logout" onclick="closeAccountMenu();logoutV17User()" hidden></button>
     </div>
   </div>
 </div>
@@ -1616,15 +1616,16 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <script src="./js/v15/auth-ui.js"></script>
 <script src="./js/v15/progress-save.js"></script>
 <script src="./js/v15/auth-core.js"></script>
+<script src="./js/v17/auth.js"></script>
 <script src="./js/v15/result-save.js"></script>
 <script src="./js/v15/result-image-save.js"></script>
 <!-- ── AUTH MODAL ── -->
-<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
+<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeV17AuthModal()">
   <div class="auth-box">
-    <button class="auth-box-close" id="btn-auth-close" onclick="closeAuthModal()" aria-label="">✕</button>
+    <button class="auth-box-close" id="btn-auth-close" onclick="closeV17AuthModal()" aria-label="">✕</button>
     <div class="auth-box-title" id="auth-modal-title"></div>
     <div class="auth-box-body" id="auth-modal-body"></div>
-    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"></button>
+    <button class="auth-box-btn" id="auth-google-btn" onclick="loginV17WithGoogle()"></button>
     <button class="btn-ghost" id="v16-free-verb-save-skip" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
     <button class="auth-box-btn" id="v16-free-verb-saved-finish" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
     <input class="auth-box-input" type="email" id="auth-email-input"
@@ -1824,7 +1825,7 @@ function updateAccountActions() {
 
 function openAccountAuth(signup) {
   closeAccountMenu();
-  openAuthModal();
+  openV17AuthModal();
   if (getV17LocaleRoot()) {
     var actionCopy = v17Copy(signup ? 'flow.app.signup' : 'flow.app.login');
     setEl('auth-modal-title', actionCopy);
@@ -4038,7 +4039,7 @@ function openV16FreeVerbSaveExit() {
     if (saveV16FreeVerbLocally()) showV16FreeVerbSaved();
     return;
   }
-  openAuthModal();
+  openV17AuthModal();
   setEl('auth-modal-title', T('v16FreeVerbSaveTitle'));
   setEl('auth-modal-body', v16Text('v16FreeVerbSaveBody', { verb: D.verb }));
   var google = document.getElementById('auth-google-btn');
@@ -4054,11 +4055,11 @@ function openV16FreeVerbSaveExit() {
 
 function saveV16FreeVerbAndLogin() {
   if (!saveV16FreeVerbLocally()) return;
-  loginWithGoogle();
+  loginV17WithGoogle();
 }
 
 function showV16FreeVerbSaved() {
-  openAuthModal();
+  openV17AuthModal();
   setEl('auth-modal-title', T('v16FreeVerbSavedTitle'));
   setEl('auth-modal-body', v16Text('v16FreeVerbSavedBody', { verb: D.verb }));
   var google = document.getElementById('auth-google-btn');
@@ -4073,14 +4074,14 @@ function resetV16FreeVerbSaveModal() {
   var google = document.getElementById('auth-google-btn');
   var skip = document.getElementById('v16-free-verb-save-skip');
   var finish = document.getElementById('v16-free-verb-saved-finish');
-  if (google) { google.onclick = loginWithGoogle; google.style.display = ''; }
+  if (google) { google.onclick = loginV17WithGoogle; google.style.display = ''; }
   if (skip) skip.style.display = 'none';
   if (finish) finish.style.display = 'none';
 }
 
 function closeV16FreeVerbSaveModal() {
   resetV16FreeVerbSaveModal();
-  closeAuthModal();
+  closeV17AuthModal();
 }
 
 function finishV16FreeVerbSaveExit() {
@@ -9194,7 +9195,7 @@ function showResultSaveToast(message) {
 function openResultSaveAuth(payload) {
   setPendingResult(payload);
   setResultSaveState('login');
-  openAuthModal();
+  openV17AuthModal();
   var loginCopy = D.v17Flow ? v17Copy('flow.result.saveLogin') : T('saveResultLogin');
   setEl('auth-modal-title', loginCopy);
   setEl('auth-modal-body', loginCopy);
@@ -9300,7 +9301,7 @@ async function initializeApp() {
   loadV17ThemeLibrary();
   await setLandingLang(landingLang);
   updateProgress();
-  initSupabase();
+  initV17Auth();
 }
 initializeApp();
 </script>
