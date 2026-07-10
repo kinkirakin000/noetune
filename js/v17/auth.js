@@ -9,6 +9,7 @@ var v17SupabaseClient = null;
 var v17SupabaseReadyPromise = null;
 var v17SupabaseSdkPromise = null;
 var v17AuthBusy = false;
+var v17PendingSavePromise = null;
 
 function syncV17AuthCompatibilityState() {
   if (typeof currentUser !== 'undefined') currentUser = v17AuthState.user || null;
@@ -21,6 +22,35 @@ function setV17AuthState(patch) {
   syncV17AuthCompatibilityState();
   renderV17AccountUI();
   return v17AuthState;
+}
+
+function runV17PendingSavesIfNeeded() {
+  if (!v17AuthState.user || v17AuthState.status === 'guest' || v17AuthState.status === 'idle') {
+    return Promise.resolve(false);
+  }
+  if (v17PendingSavePromise) return v17PendingSavePromise;
+  v17PendingSavePromise = Promise.resolve()
+    .then(function() {
+      if (typeof savePendingResultIfNeeded === 'function') {
+        return Promise.resolve(savePendingResultIfNeeded());
+      }
+      return null;
+    })
+    .then(function() {
+      if (typeof savePendingProgressIfNeeded === 'function') {
+        return Promise.resolve(savePendingProgressIfNeeded());
+      }
+      return null;
+    })
+    .catch(function(error) {
+      console.warn('v17 pending save failed', error);
+      return false;
+    })
+    .then(function(result) {
+      v17PendingSavePromise = null;
+      return result !== false;
+    });
+  return v17PendingSavePromise;
 }
 
 function getV17AuthModal() {
@@ -91,7 +121,9 @@ function ensureV17SupabaseReady() {
                   error: null
                 });
                 closeV17AuthModal();
-                fetchV17Profile();
+                fetchV17Profile().then(function() {
+                  return runV17PendingSavesIfNeeded();
+                });
               } else {
                 setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
               }
@@ -178,6 +210,7 @@ async function restoreV17Session() {
     }
     setV17AuthState({ status: 'loading', user: session.user, profile: null, error: null });
     await fetchV17Profile();
+    await runV17PendingSavesIfNeeded();
     return true;
   } catch (e) {
     setV17AuthState({ status: 'error', user: null, profile: null, error: 'session' });
@@ -228,6 +261,7 @@ async function logoutV17User() {
       await v17SupabaseClient.auth.signOut();
     }
   } catch (e) {}
+  v17PendingSavePromise = null;
   setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
   return true;
 }
