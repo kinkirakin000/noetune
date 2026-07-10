@@ -4859,6 +4859,7 @@ var v17QuestionCatalogLocale = 'ja';
 var v17FlowCopyData = null;
 var v17FlowCopyPromise = null;
 var v17FlowCopyError = '';
+var v17LocaleRootCache = {};
 var v17ThemeLibraryData = null;
 var v17ThemeLibraryLocale = '';
 var v17ThemeLibraryCache = {};
@@ -5546,8 +5547,12 @@ function loadV17FlowCopy() {
 }
 
 function getV17LocaleRoot() {
-  if (currentLocale && currentLocale.meta && currentLocale.meta.appVersion === 'v17') return currentLocale;
-  return null;
+  var requestedLang = lang || landingLang || 'en';
+  if (currentLocale && currentLocale.meta && currentLocale.meta.appVersion === 'v17') {
+    v17LocaleRootCache[requestedLang] = currentLocale;
+    return currentLocale;
+  }
+  return v17LocaleRootCache[requestedLang] || null;
 }
 
 function getV17Path(root, path) {
