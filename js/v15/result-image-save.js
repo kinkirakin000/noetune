@@ -12,11 +12,36 @@ function saveResultCard() {
           if (!blob) { tryNewTabFallback(canvas); return; }
           try {
             var url = URL.createObjectURL(blob);
-            var a = document.createElement('a');
-            a.href = url; a.download = 'noetune-session-shift.png';
-            document.body.appendChild(a); a.click(); document.body.removeChild(a);
-            setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
-            showSaveFallbackNote();
+            var file = null;
+            try {
+              file = new File([blob], 'noetune-session-shift.png', { type: 'image/png' });
+            } catch (e) {
+              file = null;
+            }
+            var finish = function() {
+              setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+              showSaveFallbackNote();
+            };
+            var fallbackDownload = function() {
+              var a = document.createElement('a');
+              a.href = url; a.download = 'noetune-session-shift.png';
+              document.body.appendChild(a); a.click(); document.body.removeChild(a);
+              finish();
+            };
+            if (navigator && typeof navigator.share === 'function' && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+              navigator.share({
+                files: [file],
+                title: document.title || 'Noetune',
+                text: T('save_image_button')
+              }).then(function() {
+                finish();
+              }).catch(function(error) {
+                if (error && error.name === 'AbortError') return;
+                fallbackDownload();
+              });
+            } else {
+              fallbackDownload();
+            }
           } catch(e) { tryNewTabFallback(canvas); }
         }, 'image/png');
       })

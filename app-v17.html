@@ -8474,14 +8474,39 @@ function saveV17ResultCard() {
           return;
         }
         var url = URL.createObjectURL(blob);
-        var link = document.createElement('a');
-        link.href = url;
-        link.download = 'noetune-v17-result.png';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        setTimeout(function() { URL.revokeObjectURL(url); }, 1600);
-        if (status) status.textContent = v17Copy('flow.result.imageReady');
+        var file = null;
+        try {
+          file = new File([blob], 'noetune-v17-result.png', { type: 'image/png' });
+        } catch (e) {
+          file = null;
+        }
+        var finish = function() {
+          setTimeout(function() { URL.revokeObjectURL(url); }, 1600);
+          if (status) status.textContent = v17Copy('flow.result.imageReady');
+        };
+        var fallbackDownload = function() {
+          var link = document.createElement('a');
+          link.href = url;
+          link.download = 'noetune-v17-result.png';
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          finish();
+        };
+        if (navigator && typeof navigator.share === 'function' && file && navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: v17Copy('app.name') || 'Noetune',
+            text: v17Copy('flow.result.image')
+          }).then(function() {
+            finish();
+          }).catch(function(error) {
+            if (error && error.name === 'AbortError') return;
+            fallbackDownload();
+          });
+        } else {
+          fallbackDownload();
+        }
       }, 'image/png', 1);
     }).catch(function() {
       if (status) status.textContent = v17Copy('flow.result.imageError');
