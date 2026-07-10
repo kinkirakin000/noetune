@@ -6,6 +6,12 @@
       "maxDuration": 10
     }
   },
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/app-v17.html"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",
