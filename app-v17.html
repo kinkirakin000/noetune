@@ -7097,8 +7097,8 @@ function renderV17StaticCopy() {
   applyThemeMode();
   updateLanguageControl();
   var accountState = getAccountUIState();
-  setEl('account-chip-label', v17Copy(accountState === 'guest' ? 'flow.app.login'
-    : accountState === 'free' ? 'flow.app.pricing' : 'flow.app.manage'));
+  setEl('account-chip-label', v17Copy(accountState === 'guest' ? 'flow.app.accountState.guest'
+    : accountState === 'free' ? 'flow.app.accountState.free' : 'flow.app.accountState.pro'));
   setEl('account-login', v17Copy('flow.app.login'));
   setEl('account-signup', v17Copy('flow.app.signup'));
   setEl('account-professional', v17Copy('flow.app.pricing'));

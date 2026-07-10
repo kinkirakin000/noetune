@@ -78,6 +78,18 @@ function refreshV17BillingUI() {
   }
 }
 
+function getV17AccountChipLabelForState(state) {
+  var fallback = state === 'free' ? 'Free' : state === 'plus' ? 'Pro' : '';
+  if (typeof v17Copy !== 'function') return fallback;
+  var path = state === 'guest'
+    ? 'flow.app.accountState.guest'
+    : state === 'free'
+      ? 'flow.app.accountState.free'
+      : 'flow.app.accountState.pro';
+  var value = v17Copy(path);
+  return value || fallback;
+}
+
 function getV17AuthModal() {
   return document.getElementById('auth-modal');
 }
@@ -309,12 +321,9 @@ function renderV17AccountUI() {
   var chip = document.getElementById('btn-account-chip');
   var chipLabel = document.getElementById('account-chip-label');
   if (chipLabel) {
-    if (state === 'guest') {
-      chipLabel.textContent = chipLabel.textContent || '';
-    } else if (state === 'free') {
-      chipLabel.textContent = chipLabel.textContent || '';
-    } else if (state === 'plus') {
-      chipLabel.textContent = chipLabel.textContent || '';
+    var chipText = getV17AccountChipLabelForState(state);
+    if (chipText || state !== 'guest') {
+      chipLabel.textContent = chipText;
     }
   }
   if (chip) chip.disabled = false;

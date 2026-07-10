@@ -241,6 +241,11 @@
     "logout": "Log out",
     "manage": "Manage",
     "pricing": "View Pro",
+    "accountState": {
+      "guest": "Log in",
+      "free": "Free",
+      "pro": "Pro"
+    },
     "tryAgain": "Try again",
     "choose": "Choose",
     "showMore": "Show more",

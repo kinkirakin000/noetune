@@ -241,6 +241,11 @@
     "logout": "ログアウト",
     "manage": "管理",
     "pricing": "Proを見る",
+    "accountState": {
+      "guest": "ログイン",
+      "free": "Free",
+      "pro": "Pro"
+    },
     "tryAgain": "もう一度",
     "choose": "選ぶ",
     "showMore": "さらに見る",
