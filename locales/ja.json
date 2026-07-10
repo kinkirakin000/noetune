@@ -92,6 +92,11 @@
     "startLifeDescription": "人生のテーマから、今気になるものを選ぶ",
     "startSpiritualTitle": "霊的叡智",
     "startSpiritualDescription": "今、心が向かう意識のあり方を選ぶ",
+    "sessionModeTitle": "セッションの深さを選んでください。",
+    "sessionModeRegularTitle": "Regular Dive",
+    "sessionModeRegularDescription": "一度ずつ、静かに見つめます。\n日常のセッションに。",
+    "sessionModeDeepTitle": "Deep Dive",
+    "sessionModeDeepDescription": "言葉を重ねながら、深く見つめます。\n長く続いているテーマに。",
     "categoryTitle": "何との関係を見ますか。",
     "categorySubtitle": "まず、テーマの入口を選んでください。",
     "typeTitle": "どちらから見ますか。",
@@ -134,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "これに対して、\n今の状態は？",
+        "prompt": "一方、\n頭に浮かぶ状態は？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -142,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "それに対し、\n今の状態は？",
+        "prompt": "一方、\n頭に浮かぶ状態は？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "それに対し、\n幸せ100%の状態は？",
+        "prompt": "では、\n幸せ100%の人の状態は？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       }
@@ -162,6 +167,11 @@
       "prompt": "それに意識を向けたときの\n幸せ度は？",
       "rangeLabel": "0〜100"
     },
+    "deepDive": {
+      "feel100": {
+        "prompt": "これについて、\n幸せ100％の状態を感じる。\n一呼吸。\n\nなんとなくで、\n数秒で大丈夫です。"
+      }
+    },
     "step6": {
       "kind": "result"
     }
@@ -169,13 +179,13 @@
   "breath": {
     "step1": {
       "smallTop": "感じてください。",
-      "main": "今のその感覚に\n拮抗するエネルギー",
-      "smallBottom": "軽く息を吐いてから、タップ"
+      "main": "今のその感覚に\n拮抗するエネルギー。",
+      "smallBottom": "一呼吸。"
     },
     "step2": {
       "smallTop": "感じてください。",
-      "main": "その拮抗エネルギー\n以外の全て。",
-      "smallBottom": "軽く息を吐いてから、タップ"
+      "main": "拮抗エネルギー以外のすべて。",
+      "smallBottom": "一呼吸。"
     },
     "inhale": "吸う",
     "exhale": "吐く"
@@ -209,11 +219,11 @@
     }
   },
   "bookmark": {
-    "primaryCta": "しおりに挟む",
+    "primaryCta": "しおりを挟む",
     "resultHint": "ここで一旦終了できます。\nこの旅を、しおりに挟んでおけます。",
-    "saved": "しおりに保存しました",
-    "loginRequired": "しおりを保存するにはログインしてください",
-    "proRequired": "しおりを続けて保存するにはProが必要です"
+    "saved": "しおりを挟みました",
+    "loginRequired": "しおりを挟むにはログインしてください",
+    "proRequired": "この旅の続きをしおりに残すにはProが必要です"
   },
   "buttons": {
     "next": "次へ",
@@ -236,123 +246,149 @@
     "showMore": "さらに見る",
     "restartTheme": "このテーマを最初から",
     "chooseThemeAgain": "テーマを選び直す",
-    "cannotQuantify": "数値化不可"
+    "cannotQuantify": "数値化不可",
+    "deepDiveNoMoreWords": "これ以上、言葉が出ない"
   },
   "buttonsHint": {
     "cannotQuantify": "問題に値しない"
   },
   "pricing": {
     "eyebrow": "Free / Pro",
-    "title": "どちらを選んでも、\n今日のJourneyは最後まで。",
-    "lead": "Freeでも、Noetuneのセッション体験は完全です。\n\nProは、大切なJourneyを\n時間をまたいで続けるためのプランです。",
-    "body": "Proは、機能を解放するためではありません。\n大切なJourneyを、時間をまたいで続けるためのものです。",
-    "cta": "Proを始める",
+    "title": "今日を、少し軽くする。\n変化を、積み重ねる。",
+    "lead": "Freeでも、Noetuneのセッション体験は完全です。\n\nProは、同じテーマとの関係を\n時間の中で続けるためのプランです。",
+    "body": "FreeにもProにも、AI分析はありません。\nセッション回数はどちらも無制限です。\n違いは、Journeyを時間の中で積み重ねられるかどうかです。",
+    "cta": "Proについて見る",
     "plans": {
       "free": {
         "name": "Free",
-        "tagline": "今日のJourneyを、最後まで。",
+        "tagline": "今日を、少し軽くする。",
         "price": "無料",
-        "priceNote": "",
-        "featuresLead": "含まれるもの",
+        "priceNote": "登録なしで、すぐ始められます。",
+        "featuresLead": "Freeに含まれるもの",
         "features": [
-          "完全なセッション",
-          "すべてのHuman Core Questions",
-          "自由入力",
+          "すべてのテーマ",
+          "自由入力テーマ",
+          "完全なセッション体験",
           "Before / After",
           "呼吸",
           "結果カード",
-          "結果画像の書き出し",
+          "結果画像保存",
           "セッション回数無制限",
+          "登録なしでも利用可能",
           "AI分析なし",
-          "広告なし"
+          "広告なし",
+          "長期履歴、推移、比較はなし"
         ],
-        "cta": "無料で始める"
+        "cta": "Freeで始める"
       },
       "pro": {
         "name": "Pro",
-        "tagline": "大切なJourneyを、続きから。",
+        "tagline": "変化を、積み重ねる。",
         "price": "準備中",
-        "priceNote": "準備ができたら、この画面から始められます。",
+        "priceNote": "ログイン前提で使うプランです。\n準備ができたら、この画面から始められます。",
         "featuresLead": "Freeのすべてに加えて",
         "features": [
-          "Journeyを途中で一時停止",
-          "前回離れた位置から再開",
-          "複数のActive Journeys",
-          "大切なテーマを時間をまたいで継続"
+          "テーマにしおりを挟む",
+          "ログインして使う",
+          "AI分析なし"
         ],
-        "cta": "Proを始める",
-        "ctaGuest": "ログインしてProを始める",
-        "ctaFree": "Proを始める",
+        "cta": "Proについて見る",
+        "ctaGuest": "ログインしてProを見る",
+        "ctaFree": "Proについて見る",
         "ctaPro": "プランを管理"
       }
     },
     "comparison": {
-      "title": "FreeとProの違い",
+      "title": "Free / Pro 比較",
       "items": [
         {
-          "id": "completeSession",
-          "label": "完全なセッション",
-          "free": "○",
-          "pro": "○"
-        },
-        {
-          "id": "unlimitedSessions",
+          "id": "sessionCount",
           "label": "セッション回数",
           "free": "無制限",
           "pro": "無制限"
         },
         {
-          "id": "allQuestions",
-          "label": "Human Core Questions",
-          "free": "すべて",
-          "pro": "すべて"
+          "id": "allThemes",
+          "label": "すべてのテーマ",
+          "free": "あり",
+          "pro": "あり"
         },
         {
-          "id": "pauseJourney",
-          "label": "Journeyを途中で一時停止",
-          "free": "—",
-          "pro": "○"
+          "id": "freeInput",
+          "label": "自由入力",
+          "free": "あり",
+          "pro": "あり"
         },
         {
-          "id": "resumeJourney",
-          "label": "続きから再開",
-          "free": "—",
-          "pro": "○"
+          "id": "completeSession",
+          "label": "完全なセッション",
+          "free": "あり",
+          "pro": "あり"
         },
         {
-          "id": "activeJourneys",
-          "label": "Active Journeys",
-          "free": "—",
-          "pro": "複数"
+          "id": "beforeAfter",
+          "label": "Before / After",
+          "free": "あり",
+          "pro": "あり"
         },
         {
-          "id": "aiAnalysis",
-          "label": "AIによる分析",
-          "free": "なし",
-          "pro": "なし"
+          "id": "breathFlow",
+          "label": "呼吸フロー",
+          "free": "あり",
+          "pro": "あり"
+        },
+        {
+          "id": "resultCard",
+          "label": "結果カード",
+          "free": "あり",
+          "pro": "あり"
+        },
+        {
+          "id": "resultImageSave",
+          "label": "結果画像保存",
+          "free": "あり",
+          "pro": "あり"
+        },
+        {
+          "id": "registrationFree",
+          "label": "登録なし利用",
+          "free": "可能",
+          "pro": "ログイン必要"
         },
         {
           "id": "ads",
           "label": "広告",
           "free": "なし",
           "pro": "なし"
+        },
+        {
+          "id": "bookmark",
+          "label": "テーマしおり",
+          "free": "なし",
+          "pro": "あり"
+        },
+        {
+          "id": "aiAnalysis",
+          "label": "AI分析",
+          "free": "なし",
+          "pro": "なし"
         }
       ]
     },
     "meaning": {
-      "title": "Proは、保存のためではありません。",
-      "body": "一回のセッションは、\nその日のJourneyを最後まで進めます。\n\nけれど、ひとつのテーマとの関係は、\n一日で終わらないことがあります。\n\nProは、大切なJourneyを一度閉じ、\nまた同じ場所から続けるためにあります。"
+      "title": "Proは、ただ記録を残すためのものではありません。",
+      "body": "一回のセッションは、\n今日のJourneyを最後まで進めます。\n\nけれど、ひとつのテーマとの関係は、\n一日で終わらないことがあります。\n\nProは、同じテーマとの関係を\n時間の中で積み重ねるためのものです。"
     },
     "footer": {
-      "body": "まずはFreeで、\n完全なセッションを体験できます。",
-      "cta": "今のテーマで始める"
+      "body": "まずはFreeで、\n登録なしの完全なセッションを体験できます。",
+      "cta": "Freeで始める"
     },
     "legal": {
       "cancelAnytime": "Proはいつでも管理できます。"
     },
     "pauseJourney": {
       "title": "このJourneyを、あとで続ける。",
-      "body": "Proでは、ここから再開できます。"
+      "body": "Proでは、旅を続ける準備をしています。"
     }
   },
   "errors": {

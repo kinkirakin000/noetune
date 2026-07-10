@@ -92,6 +92,11 @@
     "startLifeDescription": "從人生主題中，選擇此刻最在意的內容",
     "startSpiritualTitle": "靈性智慧",
     "startSpiritualDescription": "選擇此刻內心所向往的意識狀態",
+    "sessionModeTitle": "選擇這次探索的深度。",
+    "sessionModeRegularTitle": "Regular Dive",
+    "sessionModeRegularDescription": "一次一次，安靜地看見。\n適合日常的探索。",
+    "sessionModeDeepTitle": "Deep Dive",
+    "sessionModeDeepDescription": "沿著每一次回答，繼續深入。\n適合長期存在的主題。",
     "categoryTitle": "想看見與什麼的關係？",
     "categorySubtitle": "先選擇主題的入口。",
     "typeTitle": "想從哪一邊開始看？",
@@ -134,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "面對這件事，\n你現在是什麼狀態？",
+        "prompt": "另一方面，\n腦中浮現的是什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -142,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "相對於這個狀態，\n你現在是什麼狀態？",
+        "prompt": "另一方面，\n腦中浮現的是什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "相對於這個狀態，\n幸福感達到 100% 時，\n會是什麼狀態？",
+        "prompt": "那麼，\n處於100%幸福狀態的人是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }
@@ -162,20 +167,25 @@
       "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
       "rangeLabel": "0〜100"
     },
+    "deepDive": {
+      "feel100": {
+        "prompt": "對此，\n感受100%幸福的狀態。\n呼吸一次。\n\n只要大概感受一下，\n幾秒鐘就可以。"
+      }
+    },
     "step6": {
       "kind": "result"
     }
   },
   "breath": {
     "step1": {
-      "smallTop": "請感覺。",
-      "main": "與現在這個感受\n相拮抗的能量",
-      "smallBottom": "輕輕吐氣後，點一下"
+      "smallTop": "感受一下。",
+      "main": "與此刻感受\n相抗衡的能量。",
+      "smallBottom": "呼吸一次。"
     },
     "step2": {
-      "smallTop": "請感覺。",
-      "main": "那個拮抗能量\n以外的一切。",
-      "smallBottom": "輕輕吐氣後，點一下"
+      "smallTop": "感受一下。",
+      "main": "除了相抗衡能量以外的一切。",
+      "smallBottom": "呼吸一次。"
     },
     "inhale": "吸氣",
     "exhale": "吐氣"
@@ -202,7 +212,7 @@
     "shareStatusSaved": "結果圖片已儲存",
     "shareStatusFailed": "無法儲存圖片",
     "actions": {
-      "bookmark": "放入書籤",
+      "bookmark": "加入書籤",
       "restartSubtheme": "重新開始這個子主題",
       "restartTheme": "重新開始這個主題",
       "chooseAnotherTheme": "重新選擇其他主題"
@@ -210,10 +220,10 @@
   },
   "bookmark": {
     "primaryCta": "加入書籤",
-    "resultHint": "可以先在這裡結束。\n把這段旅程夾上書籤。",
-    "saved": "書籤已儲存",
-    "loginRequired": "請登入後儲存書籤",
-    "proRequired": "若要繼續儲存書籤，需要 Pro"
+    "resultHint": "可以先在這裡結束。\n為這個主題加上書籤，之後再回來繼續。",
+    "saved": "已加入書籤",
+    "loginRequired": "請登入後加入書籤",
+    "proRequired": "若要為多個主題儲存書籤，需要使用 Pro"
   },
   "buttons": {
     "next": "下一步",
@@ -236,123 +246,148 @@
     "showMore": "顯示更多",
     "restartTheme": "從這個主題重新開始",
     "chooseThemeAgain": "重新選擇主題",
-    "cannotQuantify": "無法量化"
+    "cannotQuantify": "無法量化",
+    "deepDiveNoMoreWords": "沒有更多話了"
   },
   "buttonsHint": {
     "cannotQuantify": "已經不值得當成問題"
   },
   "pricing": {
     "eyebrow": "Free / Pro",
-    "title": "無論選擇哪一個，\n今天的 Journey 都能完整走完。",
-    "lead": "Free 也包含完整的 Noetune 體驗。\n\nPro 是為了讓重要的 Journey，\n能夠跨越時間繼續走下去。",
-    "body": "Pro 不是為了解鎖更多功能。\n而是為了讓重要的 Journey，能夠跨越時間繼續。",
-    "cta": "開始 Pro",
+    "title": "今天，輕一點。\n把變化慢慢累積。",
+    "lead": "Free 也能不限次數使用\n完整的 Noetune Session。\n\nPro 可以保留每一次的變化，\n讓這些變化隨著時間慢慢累積。",
+    "body": "兩個方案都沒有 AI 分析。\nSession 次數都不限。\n差別在於，你要不要把一段 Journey 持續下去。",
+    "cta": "看 Pro",
     "plans": {
       "free": {
         "name": "Free",
-        "tagline": "完整走完今天的 Journey。",
+        "tagline": "讓今天輕一點。",
         "price": "免費",
-        "priceNote": "",
-        "featuresLead": "包含",
+        "priceNote": "不需要註冊就能開始。",
+        "featuresLead": "Free 包含",
         "features": [
-          "完整的 Session",
-          "所有 Human Core Questions",
-          "自由輸入",
+          "所有主題",
+          "自由輸入主題",
+          "完整的 Session 體驗",
           "Before / After",
           "呼吸",
           "結果卡",
-          "匯出結果圖片",
+          "結果圖片儲存",
           "Session 次數不限",
-          "不使用 AI 分析",
-          "無廣告"
+          "不需要註冊",
+          "沒有廣告",
+          "沒有 AI 分析"
         ],
-        "cta": "免費開始"
+        "cta": "開始 Free"
       },
       "pro": {
         "name": "Pro",
-        "tagline": "從離開的位置，繼續重要的 Journey。",
+        "tagline": "讓每一次的變化，慢慢累積。",
         "price": "準備中",
-        "priceNote": "Pro 準備好後，可以從這個頁面開始。",
-        "featuresLead": "包含 Free 的全部功能，另外還有",
+        "priceNote": "需要登入。\n準備好之後，就能從這個頁面開始。",
+        "featuresLead": "Free 之外，還有",
         "features": [
-          "暫停一段 Journey",
-          "從上次離開的位置繼續",
-          "多段 Active Journeys",
-          "讓重要的主題跨越時間延續"
+          "主題書籤",
+          "登入後使用",
+          "沒有 AI 分析"
         ],
-        "cta": "開始 Pro",
-        "ctaGuest": "登入並開始 Pro",
-        "ctaFree": "開始 Pro",
+        "cta": "看 Pro",
+        "ctaGuest": "登入後看 Pro",
+        "ctaFree": "看 Pro",
         "ctaPro": "管理方案"
       }
     },
     "comparison": {
-      "title": "Free 與 Pro 的差別",
+      "title": "Free / Pro 比較",
       "items": [
         {
-          "id": "completeSession",
-          "label": "完整的 Session",
-          "free": "完整",
-          "pro": "完整"
-        },
-        {
-          "id": "unlimitedSessions",
+          "id": "sessionCount",
           "label": "Session 次數",
           "free": "不限",
           "pro": "不限"
         },
         {
-          "id": "allQuestions",
-          "label": "Human Core Questions",
+          "id": "allThemes",
+          "label": "所有主題",
           "free": "全部",
           "pro": "全部"
         },
         {
-          "id": "pauseJourney",
-          "label": "暫停一段 Journey",
-          "free": "—",
-          "pro": "可以"
+          "id": "freeInput",
+          "label": "自由輸入",
+          "free": "有",
+          "pro": "有"
         },
         {
-          "id": "resumeJourney",
-          "label": "從上次離開的位置繼續",
-          "free": "—",
-          "pro": "可以"
+          "id": "completeSession",
+          "label": "完整的 Session",
+          "free": "有",
+          "pro": "有"
         },
         {
-          "id": "activeJourneys",
-          "label": "Active Journeys",
-          "free": "—",
-          "pro": "多段"
+          "id": "beforeAfter",
+          "label": "Before / After",
+          "free": "有",
+          "pro": "有"
         },
         {
-          "id": "aiAnalysis",
-          "label": "AI 分析",
-          "free": "沒有",
-          "pro": "沒有"
+          "id": "breathFlow",
+          "label": "呼吸流程",
+          "free": "有",
+          "pro": "有"
+        },
+        {
+          "id": "resultCard",
+          "label": "結果卡",
+          "free": "有",
+          "pro": "有"
+        },
+        {
+          "id": "resultImageSave",
+          "label": "結果圖片儲存",
+          "free": "有",
+          "pro": "有"
+        },
+        {
+          "id": "registrationFree",
+          "label": "不需要註冊",
+          "free": "可以",
+          "pro": "需要登入"
         },
         {
           "id": "ads",
           "label": "廣告",
           "free": "沒有",
           "pro": "沒有"
+        },
+        {
+          "id": "bookmark",
+          "label": "主題書籤",
+          "free": "—",
+          "pro": "可用"
+        },
+        {
+          "id": "aiAnalysis",
+          "label": "AI 分析",
+          "free": "沒有",
+          "pro": "沒有"
         }
       ]
     },
     "meaning": {
-      "title": "Pro 不是為了儲存資料。",
-      "body": "一次 Session，\n可以完整走完今天的 Journey。\n\n但你與一個主題之間的關係，\n不一定會在一天內結束。\n\nPro 讓你暫時放下一段重要的 Journey，\n之後再回到原來的位置繼續。"
+      "title": "Pro 不只是為了保存紀錄。",
+      "body": "一次 Session，\n就能看見今天發生的變化。\n\n但是，你與一個主題之間的關係，\n不一定會在一天內結束。\n\nPro 會保留每一次的覺察與變化，\n讓你看見它們如何隨著時間慢慢累積，\n也看見自己與過去有什麼不同。"
     },
     "footer": {
-      "body": "你可以先從完整的 Free Session 開始。",
-      "cta": "從現在的主題開始"
+      "body": "先從 Free 開始。\n不需要註冊。",
+      "cta": "開始 Free"
     },
     "legal": {
       "cancelAnytime": "你可以隨時管理方案。"
     },
     "pauseJourney": {
       "title": "之後再繼續這段 Journey。",
-      "body": "使用 Pro，可以從這個位置繼續。"
+      "body": "使用 Pro，可以保留目前為止的變化，\n之後再回到這個主題繼續。"
     }
   },
   "errors": {
