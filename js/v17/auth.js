@@ -21,6 +21,7 @@ function setV17AuthState(patch) {
   v17AuthState = Object.assign({}, v17AuthState, patch || {});
   syncV17AuthCompatibilityState();
   renderV17AccountUI();
+  refreshV17BillingUI();
   return v17AuthState;
 }
 
@@ -49,8 +50,32 @@ function runV17PendingSavesIfNeeded() {
     .then(function(result) {
       v17PendingSavePromise = null;
       return result !== false;
-    });
+  });
   return v17PendingSavePromise;
+}
+
+function refreshV17BillingUI() {
+  try {
+    if (typeof updatePricingCTA === 'function') {
+      updatePricingCTA();
+    }
+  } catch (error) {
+    console.warn('v17 billing ui update failed: updatePricingCTA', error);
+  }
+  try {
+    if (typeof updatePricingAccountState === 'function') {
+      updatePricingAccountState();
+    }
+  } catch (error) {
+    console.warn('v17 billing ui update failed: updatePricingAccountState', error);
+  }
+  try {
+    if (typeof updatePortalButton === 'function') {
+      updatePortalButton();
+    }
+  } catch (error) {
+    console.warn('v17 billing ui update failed: updatePortalButton', error);
+  }
 }
 
 function getV17AuthModal() {
