@@ -76,7 +76,7 @@ function handleAuthenticatedSession(event, session) {
   savePendingResultIfNeeded();
   savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
     fetchProfile();
-    if (event === 'SIGNED_IN') closeAuthModal();
+    if (session && session.user) closeAuthModal();
     if (_checkoutSuccessPending) refreshProfileAfterCheckout();
     updateLoginButton();
   });
