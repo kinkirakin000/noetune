@@ -6,10 +6,13 @@
       "maxDuration": 10
     }
   },
-  "rewrites": [
+  "routes": [
     {
-      "source": "/",
-      "destination": "/app-v17.html"
+      "src": "^/$",
+      "dest": "/app-v17.html"
+    },
+    {
+      "handle": "filesystem"
     }
   ],
   "headers": [
