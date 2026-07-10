@@ -1,26 +1,41 @@
-function loginWithGoogle() {
-  if (!supabaseClient || !supabaseClient.auth) return;
+var _supabaseInitPromise = null;
+
+function ensureSupabaseClientReady() {
+  if (supabaseClient && supabaseClient.auth) return Promise.resolve(true);
+  if (_supabaseInitPromise) return _supabaseInitPromise;
+  return initSupabase();
+}
+
+async function loginWithGoogle() {
   var msg = document.getElementById('auth-modal-msg');
   var btn = document.getElementById('auth-google-btn');
   if (msg) msg.textContent = '';
   if (btn) { btn.disabled = true; btn.textContent = '…'; }
-  if (typeof trackEvent === 'function') trackEvent('google_login_started', { lang: lang });
-  supabaseClient.auth.signInWithOAuth({
-    provider: 'google',
-    options: {
-      redirectTo: window.location.origin + window.location.pathname
-    }
-  })
-  .then(function(result) {
-    if (result.error) {
+  try {
+    var ready = await ensureSupabaseClientReady();
+    if (!ready || !supabaseClient || !supabaseClient.auth || typeof supabaseClient.auth.signInWithOAuth !== 'function') {
       if (msg) msg.textContent = T('authErrorRetry');
       if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
+      return false;
     }
-  })
-  .catch(function() {
+    if (typeof trackEvent === 'function') trackEvent('google_login_started', { lang: lang });
+    var result = await supabaseClient.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin + window.location.pathname
+      }
+    });
+    if (result && result.error) {
+      if (msg) msg.textContent = T('authErrorRetry');
+      if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
+      return false;
+    }
+    return true;
+  } catch(e) {
     if (msg) msg.textContent = T('authError');
     if (btn) { btn.disabled = false; setGoogleAuthButtonLabel(btn); }
-  });
+    return false;
+  }
 }
 
 function submitAuthEmail() {
@@ -68,45 +83,56 @@ function handleAuthenticatedSession(event, session) {
 }
 
 function initSupabase() {
-  fetch('/api/config')
+  if (_supabaseInitPromise) return _supabaseInitPromise;
+  _supabaseInitPromise = fetch('/api/config')
     .then(function(r) { return r.ok ? r.json() : null; })
     .then(function(cfg) {
-      if (!cfg) return;
+      if (!cfg) return false;
       initPostHog(cfg);
-      if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) return;
-      var s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.106.2/dist/umd/supabase.min.js';
-      s.integrity = 'sha384-4Cjkyy4cE1EgIS0C+Y3xzGmJ2noQFRRU91yKAW8IxtPfVtbQXPMqadSc3sYnjwou';
-      s.crossOrigin = 'anonymous';
-      s.onload = function() {
-        try {
-          supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
-          supabaseClient.auth.onAuthStateChange(function(event, session) {
-            if (session && session.user) {
-              handleAuthenticatedSession(event, session);
-            } else {
-              currentUser    = null;
-              currentProfile = null;
-              updateLoginButton();
-            }
-          });
-          supabaseClient.auth.getSession()
-            .then(function(result) {
-              if (result.data && result.data.session) {
-                handleAuthenticatedSession(null, result.data.session);
+      if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) return false;
+      return new Promise(function(resolve) {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.106.2/dist/umd/supabase.min.js';
+        s.integrity = 'sha384-4Cjkyy4cE1EgIS0C+Y3xzGmJ2noQFRRU91yKAW8IxtPfVtbQXPMqadSc3sYnjwou';
+        s.crossOrigin = 'anonymous';
+        s.onload = function() {
+          try {
+            supabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
+            supabaseClient.auth.onAuthStateChange(function(event, session) {
+              if (session && session.user) {
+                handleAuthenticatedSession(event, session);
               } else {
-                _savedProgress = null;
-                renderResumeProgressUI();
+                currentUser    = null;
+                currentProfile = null;
                 updateLoginButton();
               }
-            })
-            .catch(function() {});
-        } catch(e) {}
-      };
-      s.onerror = function() {};
-      document.head.appendChild(s);
+            });
+            supabaseClient.auth.getSession()
+              .then(function(result) {
+                if (result.data && result.data.session) {
+                  handleAuthenticatedSession(null, result.data.session);
+                } else {
+                  _savedProgress = null;
+                  renderResumeProgressUI();
+                  updateLoginButton();
+                }
+                resolve(true);
+              })
+              .catch(function() { resolve(true); });
+          } catch(e) {
+            resolve(false);
+          }
+        };
+        s.onerror = function() { resolve(false); };
+        document.head.appendChild(s);
+      });
     })
-    .catch(function() {});
+    .catch(function() { return false; })
+    .then(function(ok) {
+      if (!ok) _supabaseInitPromise = null;
+      return !!ok;
+    });
+  return _supabaseInitPromise;
 }
 
 function fetchProfile() {
