@@ -18,68 +18,68 @@
   "lp": {
     "logo": "Noetune",
     "hero": {
-      "title": "Noetune is a place\nto notice your reactions\nand become a little lighter.",
-      "body": "Write, feel, and breathe along with the questions,\nthen check what changes before and after.",
+      "title": "Noetune is a place\nto notice your reactions\nand gradually rediscover\nyour natural self.",
+      "body": "Follow the questions to write, feel, and breathe,\nthen notice what changes before and after.",
       "cta": "Begin quietly",
-      "note": "You can use the full session for free."
+      "note": "Use the complete experience for free."
     },
     "sections": [
       {
-        "title": "A little more space begins to open\nin your relationship with the many themes of life.",
+        "title": "Little by little, more space opens\nin your relationship with the many themes of life.",
         "bodyGroups": [
-          "The invisible reactions in your mind\nare observed from one step back.",
-          "Noetune is not an app\nthat gives you answers to problems\nor analyzes you.",
-          "You write, feel, and breathe.\n\nAnd then,\nyou notice for yourself\nthe change happening inside you."
+          "Observe the unseen reactions in your mind\nfrom one small step back.",
+          "Noetune is not an app\nthat gives you answers to your problems\nor analyzes you.",
+          "You write, feel, and breathe for yourself.\n\nAnd then,\nyou notice for yourself\nthe changes taking place within you."
         ]
       },
       {
-        "title": "Changes you can experience in a single session",
+        "title": "What can change in a single session",
         "bodyGroups": [],
         "items": [
-          "Unspoken unease becomes words",
-          "You notice the reaction underneath it",
-          "You become able to choose for yourself how to be with it",
+          "A vague feeling that had no words begins to take shape",
+          "You notice the reaction beneath it",
+          "You become able to choose how to relate to it",
           "A little distance opens between you and the emotion",
-          "You can see the theme from another perspective",
-          "You check the inner change with Before / After"
+          "You begin to see the theme from another perspective",
+          "You notice the inner change through Before / After"
         ]
       },
       {
-        "title": "Changes that can come from repeating sessions",
+        "title": "What can change by repeating sessions",
         "bodyGroups": [
-          "Even with themes you react to strongly,\nby facing them several times,\nyou begin to see the relationship changing little by little."
+          "Even with themes that trigger a strong reaction,\nmeeting them several times\ncan gradually reveal a change in your relationship with them."
         ],
         "items": [
           "Your reaction to the same event begins to change",
           "You begin to notice why you reacted so strongly",
-          "You come to understand for yourself what was behind the reaction",
-          "The weight or atmosphere you feel when the theme comes to mind changes",
-          "You notice yourself outside the feeling that “nothing has changed”"
+          "You gradually understand for yourself what was behind the reaction",
+          "The heaviness or atmosphere you feel when the theme comes to mind begins to change",
+          "You notice that you have moved beyond the feeling that “nothing has changed”"
         ]
       },
       {
         "title": "",
         "bodyGroups": [
-          "Each individual session is free,\nas many times as you like."
+          "Every session is free,\nas many times as you need."
         ],
         "cta": "See Free and Pro",
         "ctaAction": "pricing"
       }
     ],
     "finalCta": {
-      "title": "Start from whatever feels slightly present now.",
+      "title": "Begin with whatever feels slightly present now.",
       "cta": "Begin quietly"
     },
     "homeScreen": {
-      "title": "Add to your home screen",
-      "body": "Use Noetune anytime, like an app.",
-      "cta": "Add to your home screen",
+      "title": "Add Noetune to your home screen",
+      "body": "Use it anytime, again and again, like an app.",
+      "cta": "Add to home screen",
       "modalTitle": "Add to home screen",
-      "iphoneTitle": "For iPhone / iPad",
-      "iphoneBody": "Open in Safari, tap the Share button, then choose “Add to Home Screen.”",
-      "androidTitle": "For Android",
+      "iphoneTitle": "On iPhone / iPad",
+      "iphoneBody": "Open Noetune in Safari, tap the Share button, then choose “Add to Home Screen.”",
+      "androidTitle": "On Android",
       "androidBody": "Open the Chrome menu, then choose “Add to Home screen.”",
-      "desktopTitle": "For desktop",
+      "desktopTitle": "On a computer",
       "desktopBody": "Open Noetune on your phone to add it to your home screen.",
       "close": "Close"
     }
