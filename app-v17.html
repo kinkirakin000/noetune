@@ -1618,6 +1618,22 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <script src="./js/v15/auth-core.js"></script>
 <script src="./js/v15/result-save.js"></script>
 <script src="./js/v15/result-image-save.js"></script>
+<!-- ── AUTH MODAL ── -->
+<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
+  <div class="auth-box">
+    <button class="auth-box-close" id="btn-auth-close" onclick="closeAuthModal()" aria-label="">✕</button>
+    <div class="auth-box-title" id="auth-modal-title"></div>
+    <div class="auth-box-body" id="auth-modal-body"></div>
+    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"></button>
+    <button class="btn-ghost" id="v16-free-verb-save-skip" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
+    <button class="auth-box-btn" id="v16-free-verb-saved-finish" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
+    <input class="auth-box-input" type="email" id="auth-email-input"
+      autocomplete="email" inputmode="email" style="display:none"
+      onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
+    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()" style="display:none"></button>
+    <div class="auth-box-msg" id="auth-modal-msg"></div>
+  </div>
+</div>
 <script>
 function hasClaimedGuestFirstSession() {
   try { return localStorage.getItem('guest_first_session_claimed') === 'true'; }
@@ -9307,21 +9323,5 @@ initializeApp();
   </div>
 </div>
 
-<!-- ── AUTH MODAL ── -->
-<div id="auth-modal" role="dialog" aria-modal="true" onclick="if(event.target===this)closeAuthModal()">
-  <div class="auth-box">
-    <button class="auth-box-close" id="btn-auth-close" onclick="closeAuthModal()" aria-label="">✕</button>
-    <div class="auth-box-title" id="auth-modal-title"></div>
-    <div class="auth-box-body" id="auth-modal-body"></div>
-    <button class="auth-box-btn" id="auth-google-btn" onclick="loginWithGoogle()"></button>
-    <button class="btn-ghost" id="v16-free-verb-save-skip" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
-    <button class="auth-box-btn" id="v16-free-verb-saved-finish" type="button" onclick="finishV16FreeVerbSaveExit()" style="display:none"></button>
-    <input class="auth-box-input" type="email" id="auth-email-input"
-      autocomplete="email" inputmode="email" style="display:none"
-      onkeydown="if(event.key==='Enter'){event.preventDefault();submitAuthEmail();}">
-    <button class="auth-box-btn" id="auth-submit-btn" onclick="submitAuthEmail()" style="display:none"></button>
-    <div class="auth-box-msg" id="auth-modal-msg"></div>
-  </div>
-</div>
 </body>
 </html>
