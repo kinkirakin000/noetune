@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "當你把注意力放在這件事上時，\n正向感受的程度是多少？",
+      "prompt": "當你把注意力放在這件事上時，\n你的充實程度是多少？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,11 +164,11 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "當你把注意力放在這件事上時，\n正向感受的程度是多少？",
+      "prompt": "當你把注意力放在這件事上時，\n你的充實程度是多少？",
       "rangeLabel": "0〜100"
     },
     "measurement": {
-      "negativePrompt": "當你把注意力放在這件事上時，\n負向感受的程度是多少？"
+      "negativePrompt": "當你把注意力放在這件事上時，\n你的匱乏程度是多少？"
     },
     "deepDive": {
       "feel100": {
@@ -198,8 +198,8 @@
     "themeLabel": "主題",
     "subthemeLabel": "子主題",
     "happinessLabel": "幸福度",
-    "positiveSensation": "正面感受",
-    "negativeSensation": "負面感受",
+    "positiveSensation": "充實度",
+    "negativeSensation": "匱乏度",
     "awarenessTitle": "注意到的事",
     "showMoreAwareness": "查看更多",
     "showRecentAwareness": "只看部分",

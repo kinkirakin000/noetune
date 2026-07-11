@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
+      "prompt": "When you bring your attention to it,\nhow fulfilled do you feel?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -164,11 +164,11 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
+      "prompt": "When you bring your attention to it,\nhow fulfilled do you feel?",
       "rangeLabel": "0–100"
     },
     "measurement": {
-      "negativePrompt": "When you focus your attention on it,\nwhat is the level of negative sensation?"
+      "negativePrompt": "When you bring your attention to it,\nhow deprived do you feel?"
     },
     "deepDive": {
       "feel100": {
@@ -198,8 +198,8 @@
     "themeLabel": "Theme",
     "subthemeLabel": "Subtheme",
     "happinessLabel": "Happiness",
-    "positiveSensation": "Positive sensation",
-    "negativeSensation": "Negative sensation",
+    "positiveSensation": "Fulfillment",
+    "negativeSensation": "Deprivation",
     "awarenessTitle": "What I noticed",
     "showMoreAwareness": "Show more",
     "showRecentAwareness": "Show less",
