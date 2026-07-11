@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
+      "prompt": "當你把注意力放在這件事上時，\n正向感受的程度是多少？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "另一方面，\n腦中浮現的是什麼狀態？",
+        "prompt": "當它尚未實現時，\n我是什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "另一方面，\n腦中浮現的是什麼狀態？",
+        "prompt": "當它尚未實現時，\n我是什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "那麼，\n處於100%幸福狀態的人是什麼樣子？",
+        "prompt": "無論過去還是未來，\n都不曾經歷這件事的我，\n是什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "把意識放在這上面時，\n現在的幸福度是多少？",
+      "prompt": "當你把注意力放在這件事上時，\n正向感受的程度是多少？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {

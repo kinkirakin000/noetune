@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When you bring your attention to this,\nhow happy do you feel?",
+      "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "On the other hand,\nwhat state comes to mind?",
+        "prompt": "When it has not been realized,\nwhat state am I in?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "On the other hand,\nwhat state comes to mind?",
+        "prompt": "When it has not been realized,\nwhat state am I in?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "Then,\nwhat is a person at 100% happiness like?",
+        "prompt": "What state am I in\nif I have never experienced it\nand never will?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When you bring your attention to this,\nhow happy do you feel?",
+      "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
       "rangeLabel": "0–100"
     },
     "deepDive": {

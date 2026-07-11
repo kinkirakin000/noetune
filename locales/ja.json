@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "計測",
       "quoteSource": "theme",
-      "prompt": "それに意識を向けたときの\n幸せ度は？",
+      "prompt": "それに意識を向けたときの\nポジティブ感覚の度合いは？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "一方、\n頭に浮かぶ状態は？",
+        "prompt": "それが実現していないとき、\n私はどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "一方、\n頭に浮かぶ状態は？",
+        "prompt": "それが実現していないとき、\n私はどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "では、\n幸せ100%の人の状態は？",
+        "prompt": "これまでもこれからも、\nそれを経験することのない私は、\nどんな状態？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       }
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再計測",
       "quoteSource": "theme",
-      "prompt": "それに意識を向けたときの\n幸せ度は？",
+      "prompt": "それに意識を向けたときの\nポジティブ感覚の度合いは？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {
