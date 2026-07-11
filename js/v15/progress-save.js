@@ -26,7 +26,9 @@ function renderResumeProgressUI() {
 var PROGRESS_STATE_KEYS = [
     'theme','themeKey','themePositive','themeNegative','freeInputType','freeInputValue','freeInputNextStep',
     'issue','ideal','shiftNote','reactionAnswer','idealAnswer','entryMode','doorKey','doorSentence',
-    'breathEaseBefore','breathEaseAfter','breathMode','selectedWishGroup','selectedWish','selectedWishTheme',
+    'firstThemeScore','initialThemeScore','finalThemeScore','deltaScore',
+    'breathEaseBefore','breathEaseAfter','beforeEmotionPositive','beforeEmotionNegative','afterEmotionPositive','afterEmotionNegative',
+    'breathMode','selectedWishGroup','selectedWish','selectedWishTheme',
     'v13InitialTheme','v13OriginalTheme','v13CurrentTheme','v13History','v13CurrentNonIdeal','v13StepNumber',
     'v13BeforeNaturalness','v13AfterNaturalness','v13PendingScreen'
   ];
@@ -39,6 +41,17 @@ function progressStateSnapshot() {
 
 function buildCurrentProgressPayload() {
   var history = Array.isArray(D.v13History) ? D.v13History : [];
+  var progressData = progressStateSnapshot();
+  progressData.measurementData = {
+    before: {
+      positive: D.beforeEmotionPositive === undefined ? null : D.beforeEmotionPositive,
+      negative: D.beforeEmotionNegative === undefined ? null : D.beforeEmotionNegative
+    },
+    after: {
+      positive: D.afterEmotionPositive === undefined ? null : D.afterEmotionPositive,
+      negative: D.afterEmotionNegative === undefined ? null : D.afterEmotionNegative
+    }
+  };
   return {
     themeKey: D.themeKey || D.selectedWishTheme || null,
     wishKey: D.selectedWish || null,
@@ -52,7 +65,17 @@ function buildCurrentProgressPayload() {
     beforeScore: D.breathEaseBefore == null ? null : String(D.breathEaseBefore),
     currentScore: D.v13AfterNaturalness == null ? null : String(D.v13AfterNaturalness),
     language: lang,
-    progressData: progressStateSnapshot()
+    measurementData: {
+      before: {
+        positive: D.beforeEmotionPositive === undefined ? null : D.beforeEmotionPositive,
+        negative: D.beforeEmotionNegative === undefined ? null : D.beforeEmotionNegative
+      },
+      after: {
+        positive: D.afterEmotionPositive === undefined ? null : D.afterEmotionPositive,
+        negative: D.afterEmotionNegative === undefined ? null : D.afterEmotionNegative
+      }
+    },
+    progressData: progressData
   };
 }
 

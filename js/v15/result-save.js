@@ -31,6 +31,16 @@ function buildCurrentResultPayload() {
     },
     beforeScore: D.breathEaseBefore == null ? null : String(D.breathEaseBefore),
     afterScore: D.breathEaseAfter == null ? null : String(D.breathEaseAfter),
+    measurementData: {
+      before: {
+        positive: D.beforeEmotionPositive === undefined ? null : D.beforeEmotionPositive,
+        negative: D.beforeEmotionNegative === undefined ? null : D.beforeEmotionNegative
+      },
+      after: {
+        positive: D.afterEmotionPositive === undefined ? null : D.afterEmotionPositive,
+        negative: D.afterEmotionNegative === undefined ? null : D.afterEmotionNegative
+      }
+    },
     resultSummary: card ? (card.innerText || card.textContent || '').trim() : '',
     resultCardData: {
       theme: resultText('t-result-from'),

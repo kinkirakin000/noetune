@@ -28,8 +28,8 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden}
-:root{--header-safe-height:8.5rem}
-body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;background:#FAFAF7;color:#1A1A1A}
+:root{--header-safe-height:8.5rem;--text-primary:#1A1A1A;--text-secondary:#625F5A;--text-muted:#77736E;--text-soft:#8F8F88;--text-disabled:#A8A8A2}
+body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;background:#FAFAF7;color:var(--text-primary)}
 .screen{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:calc(var(--header-safe-height) + env(safe-area-inset-top)) 1.8rem 2.5rem;opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .screen-scroll{justify-content:flex-start;align-items:center;overflow-y:auto;padding-top:calc(var(--header-safe-height) + env(safe-area-inset-top));padding-bottom:calc(5.5rem + env(safe-area-inset-bottom))}
 .screen-scroll>*{flex-shrink:0}
@@ -115,6 +115,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-theme-quote{font-family:'Noto Serif JP',serif;font-size:clamp(1.16rem,4.7vw,1.42rem);font-weight:400;line-height:1.75;letter-spacing:.035em;color:#1A1A1A;max-width:340px;margin-bottom:2rem;white-space:pre-line;text-wrap:balance}
 .v17-step-copy{font-family:'Noto Serif JP',serif;font-size:.96rem;font-weight:300;line-height:2.05;letter-spacing:.035em;color:#625F5A;max-width:320px;margin-bottom:1.8rem;white-space:pre-line;text-wrap:balance}
 .v17-step-helper{font-family:'Noto Serif JP',serif;font-size:.7rem;font-weight:300;line-height:1.8;letter-spacing:.05em;color:#A8A8A2;margin:.15rem 0 .8rem;white-space:pre-line}
+.v17-measurement-group{width:100%;display:flex;flex-direction:column;align-items:center;margin:0 0 1.35rem}
+.v17-measurement-label{font-family:'Noto Serif JP',serif;font-size:.82rem;font-weight:500;line-height:1.6;letter-spacing:.06em;color:#77736E;margin:0 0 .55rem;white-space:pre-line}
+.v17-measurement-prompt{margin-bottom:1rem}
 .v17-breath-lead{font-family:'Noto Serif JP',serif;font-size:.92rem;font-weight:300;line-height:1.85;letter-spacing:.035em;color:#A8A8A2;margin-bottom:1.4rem}
 .v17-breath-body{font-family:'Noto Serif JP',serif;font-size:.98rem;font-weight:600;color:#1A1A1A;line-height:2;letter-spacing:.035em;text-align:center;white-space:pre-line;max-width:320px;margin:0 auto 1.8rem;text-wrap:balance}
 .v17-breath-hint{font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;color:#A8A8A2;letter-spacing:.06em;margin-bottom:1.5rem}
@@ -573,10 +576,10 @@ body{isolation:isolate}
   .os-space{opacity:.72;mix-blend-mode:normal}
 }
 /* ── DARK MODE ── */
-:root{--bg:#FAFAF7;--text:#1A1A1A;--muted:#A8A8A2;--soft:#77736E;--border:#E8E8E2;--card-bg:#FAFAF7;--primary:#6B9080;--input-line:#D4DDD8}
+:root{--bg:#FAFAF7;--text:#1A1A1A;--muted:#A8A8A2;--soft:#77736E;--border:#E8E8E2;--card-bg:#FAFAF7;--primary:#6B9080;--input-line:#D4DDD8;--text-primary:#1A1A1A;--text-secondary:#625F5A;--text-muted:#77736E;--text-soft:#8F8F88;--text-disabled:#A8A8A2}
 </style>
 <style id="dark-theme-styles" media="(prefers-color-scheme: dark)">
-:root{--bg:#151412;--text:#F5EFE6;--muted:#8E8981;--soft:#B8B2A8;--border:rgba(245,239,230,.14);--card-bg:#1B1A17;--primary:#8FB8A4;--input-line:rgba(143,184,164,.45)}
+:root{--bg:#151412;--text:#F5EFE6;--muted:#8E8981;--soft:#B8B2A8;--border:rgba(245,239,230,.14);--card-bg:#1B1A17;--primary:#8FB8A4;--input-line:rgba(143,184,164,.45);--text-primary:#F5EFE6;--text-secondary:#C7C0B6;--text-muted:#9F9990;--text-soft:#D0C9BF;--text-disabled:#4A4845}
 body{background:#151412;color:#F5EFE6}
 .progress-bar{background:#8FB8A4}
 .btn-back svg path{stroke:#B8B2A8}
@@ -777,6 +780,37 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 .v17-result-awareness-toggle:active{color:#8FB8A4}
 .v17-result-action{background:rgba(98,194,184,.055);border-color:rgba(124,204,195,.2);color:#D7E7E3}
 .v17-result-action.primary{background:linear-gradient(112deg,rgba(39,73,70,.72),rgba(42,95,91,.68) 45%,rgba(67,57,91,.66));color:#E8F4F1}
+</style>
+<style>
+.btn-v17-skip{color:var(--text-muted);opacity:1;font-weight:400}
+.btn-v17-skip:active{color:var(--primary);opacity:1}
+.v17-step-helper,.v17-breath-lead,.v17-breath-hint,.v17-not-a-problem-hint,.theme-screen-sub,.entry-subtitle,.theme-btn-desc,.ideal-btn-desc,.theme-section-desc,.v17-category-guide,.v17-track-guide,.v17-library-theme-desc,.pricing-lead,.pricing-plan-tagline,.pricing-price-note,.pricing-legal,.lp-hero-sub,.lp-hero-note,.lp-section-body,.home-screen-note,.result-upgrade-body,.result-hint,.save-fallback-note,.v17-theme-meaning,.v17-result-meaning,.v17-start-option-desc,.entry-choice-desc,.situation-row-desc,.situation-list-heading,.v17-result-label,.v17-result-happiness-label,.sc-section-label,.v17-result-site,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status{font-weight:400;opacity:1}
+.v17-step-helper,.v17-breath-lead,.v17-breath-hint,.theme-screen-sub,.entry-subtitle,.theme-btn-desc,.ideal-btn-desc,.theme-section-desc,.v17-category-guide,.v17-track-guide,.v17-library-theme-desc,.pricing-lead,.pricing-plan-tagline,.pricing-price-note,.pricing-legal,.lp-hero-sub,.lp-hero-note,.lp-section-body,.home-screen-note,.result-upgrade-body,.result-hint,.save-fallback-note,.v17-theme-meaning,.v17-result-meaning,.v17-start-option-desc,.entry-choice-desc,.situation-row-desc{color:var(--text-secondary)}
+.v17-not-a-problem-hint,.situation-list-heading,.v17-result-label,.v17-result-happiness-label,.sc-section-label,.v17-result-site,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status,.btn-v17-skip{color:var(--text-muted)}
+.v17-breath-lead{font-size:.84rem;line-height:1.8;letter-spacing:.04em}
+.v17-breath-hint{font-size:.74rem;line-height:1.7}
+.v17-step-helper{font-size:.78rem;line-height:1.7}
+.v17-start-option-desc,.entry-choice-desc,.theme-section-desc,.v17-category-guide,.v17-track-guide,.v17-library-theme-desc,.pricing-lead,.pricing-plan-tagline,.pricing-price-note,.pricing-legal,.lp-hero-sub,.lp-hero-note,.lp-section-body,.home-screen-note,.result-upgrade-body,.result-hint,.save-fallback-note,.v17-theme-meaning,.v17-result-meaning,.theme-screen-sub,.entry-subtitle,.theme-btn-desc,.ideal-btn-desc,.situation-row-desc{font-size:.8rem;line-height:1.75}
+.v17-start-option-desc,.entry-choice-desc,.theme-btn-desc,.ideal-btn-desc,.theme-section-desc,.v17-category-guide,.v17-track-guide,.v17-library-theme-desc,.pricing-lead,.pricing-plan-tagline,.lp-hero-sub,.lp-section-body,.result-upgrade-body,.v17-theme-meaning,.v17-result-meaning{font-size:.82rem}
+.v17-not-a-problem-hint,.situation-row-status,.situation-list-heading,.v17-result-label,.v17-result-happiness-label,.sc-section-label,.v17-result-site,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status{font-size:.72rem}
+.v17-result-awareness-item{font-weight:400;line-height:1.6}
+.v17-result-label,.v17-result-happiness-label,.sc-section-label,.v17-result-site,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status{letter-spacing:.08em}
+.v17-breath-lead,.v17-breath-hint,.v17-step-helper,.v17-start-option-desc,.entry-choice-desc,.theme-screen-sub,.entry-subtitle,.theme-btn-desc,.ideal-btn-desc,.theme-section-desc,.v17-category-guide,.v17-track-guide,.v17-library-theme-desc,.pricing-lead,.pricing-plan-tagline,.pricing-price-note,.pricing-legal,.lp-hero-sub,.lp-hero-note,.lp-section-body,.home-screen-note,.result-upgrade-body,.result-hint,.save-fallback-note,.v17-theme-meaning,.v17-result-meaning,.situation-row-desc{letter-spacing:.04em}
+.v17-not-a-problem-hint,.situation-list-heading,.v17-result-label,.v17-result-happiness-label,.sc-section-label,.v17-result-site,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status{letter-spacing:.06em}
+.v17-not-a-problem-hint,.v17-result-score-toggle,.v17-result-awareness-toggle,.btn-v17-skip,.v17-image-status,.save-result-status{opacity:1}
+.v17-not-a-problem-hint,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status{font-size:.74rem}
+.v17-result-awareness-item{color:var(--text-primary)}
+.v17-result-label,.v17-result-happiness-label,.sc-section-label,.v17-result-site,.v17-result-score-toggle,.v17-result-awareness-toggle,.v17-image-status,.save-result-status{color:var(--text-muted)}
+.v17-result-score-toggle:active,.v17-result-awareness-toggle:active{color:var(--primary)}
+.v17-not-a-problem-hint{color:var(--text-muted)}
+.v17-theme-meaning,.v17-result-meaning{color:var(--text-secondary)}
+.v17-step-copy{color:var(--text-secondary)}
+.result-hint{font-size:.8rem;line-height:1.7}
+.save-fallback-note{font-size:.74rem;line-height:1.6}
+.pricing-price-note,.pricing-legal{color:var(--text-soft)}
+.lp-hero-note,.home-screen-note{color:var(--text-soft)}
+.v17-result-awareness-item,.v17-result-site{opacity:1}
+.v17-result-awareness-item{font-size:.78rem}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TH1504X2CK"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-TH1504X2CK',{send_page_view:true});</script>
@@ -1206,16 +1240,32 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="v17-theme-quote" id="v17-before-theme"></div>
       <div class="v17-theme-meaning" id="v17-before-meaning"></div>
     </div>
-    <div class="v17-step-copy v17-support-primary" id="v17-before-prompt"></div>
-    <div class="score-num" id="num-v17-before"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-before" oninput="onSlider('v17-before',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
+    <div class="v17-measurement-group">
+      <div class="v17-measurement-label" id="v17-before-positive-label"></div>
+      <div class="v17-step-copy v17-support-primary v17-measurement-prompt" id="v17-before-positive-prompt"></div>
+      <div class="score-num" id="num-v17-before-positive"></div>
+      <div class="slider-wrap">
+        <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-before-positive" oninput="onV17EmotionMeasurementSlider('before','positive',this.value)">
+        <div class="slider-labels"><span>0</span><span>100</span></div>
+      </div>
+      <button class="btn-nm v17-not-a-problem" id="nm-v17-before-positive" type="button" aria-pressed="false" onclick="selectV17EmotionNotAProblem('before','positive')">
+        <span class="v17-not-a-problem-label" id="nm-label-v17-before-positive"></span>
+        <span class="v17-not-a-problem-hint" id="nm-hint-v17-before-positive"></span>
+      </button>
     </div>
-    <button class="btn-nm v17-not-a-problem" id="nm-v17-before" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-before')">
-      <span class="v17-not-a-problem-label" id="nm-label-v17-before"></span>
-      <span class="v17-not-a-problem-hint" id="nm-hint-v17-before"></span>
-    </button>
+    <div class="v17-measurement-group">
+      <div class="v17-measurement-label" id="v17-before-negative-label"></div>
+      <div class="v17-step-copy v17-support-primary v17-measurement-prompt" id="v17-before-negative-prompt"></div>
+      <div class="score-num" id="num-v17-before-negative"></div>
+      <div class="slider-wrap">
+        <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-before-negative" oninput="onV17EmotionMeasurementSlider('before','negative',this.value)">
+        <div class="slider-labels"><span>0</span><span>100</span></div>
+      </div>
+      <button class="btn-nm v17-not-a-problem" id="nm-v17-before-negative" type="button" aria-pressed="false" onclick="selectV17EmotionNotAProblem('before','negative')">
+        <span class="v17-not-a-problem-label" id="nm-label-v17-before-negative"></span>
+        <span class="v17-not-a-problem-hint" id="nm-hint-v17-before-negative"></span>
+      </button>
+    </div>
     <button class="btn" id="next-v17-before" type="button" onclick="submitV17BeforeScore()" disabled></button>
   </div>
 </div>
@@ -1283,16 +1333,32 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <div class="v17-theme-quote" id="v17-final-quote"></div>
       <div class="v17-theme-meaning" id="v17-final-meaning"></div>
     </div>
-    <div class="v17-step-copy v17-support-primary" id="v17-final-prompt"></div>
-    <div class="score-num" id="num-v17-final"></div>
-    <div class="slider-wrap">
-      <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-final" oninput="onSlider('v17-final',this.value)">
-      <div class="slider-labels"><span>0</span><span>100</span></div>
+    <div class="v17-measurement-group">
+      <div class="v17-measurement-label" id="v17-final-positive-label"></div>
+      <div class="v17-step-copy v17-support-primary v17-measurement-prompt" id="v17-final-positive-prompt"></div>
+      <div class="score-num" id="num-v17-final-positive"></div>
+      <div class="slider-wrap">
+        <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-final-positive" oninput="onV17EmotionMeasurementSlider('after','positive',this.value)">
+        <div class="slider-labels"><span>0</span><span>100</span></div>
+      </div>
+      <button class="btn-nm v17-not-a-problem" id="nm-v17-final-positive" type="button" aria-pressed="false" onclick="selectV17EmotionNotAProblem('after','positive')">
+        <span class="v17-not-a-problem-label" id="nm-label-v17-final-positive"></span>
+        <span class="v17-not-a-problem-hint" id="nm-hint-v17-final-positive"></span>
+      </button>
     </div>
-    <button class="btn-nm v17-not-a-problem" id="nm-v17-final" type="button" aria-pressed="false" onclick="selectV17NotAProblem('v17-final')">
-      <span class="v17-not-a-problem-label" id="nm-label-v17-final"></span>
-      <span class="v17-not-a-problem-hint" id="nm-hint-v17-final"></span>
-    </button>
+    <div class="v17-measurement-group">
+      <div class="v17-measurement-label" id="v17-final-negative-label"></div>
+      <div class="v17-step-copy v17-support-primary v17-measurement-prompt" id="v17-final-negative-prompt"></div>
+      <div class="score-num" id="num-v17-final-negative"></div>
+      <div class="slider-wrap">
+        <input type="range" min="0" max="100" step="1" value="50" id="sl-v17-final-negative" oninput="onV17EmotionMeasurementSlider('after','negative',this.value)">
+        <div class="slider-labels"><span>0</span><span>100</span></div>
+      </div>
+      <button class="btn-nm v17-not-a-problem" id="nm-v17-final-negative" type="button" aria-pressed="false" onclick="selectV17EmotionNotAProblem('after','negative')">
+        <span class="v17-not-a-problem-label" id="nm-label-v17-final-negative"></span>
+        <span class="v17-not-a-problem-hint" id="nm-hint-v17-final-negative"></span>
+      </button>
+    </div>
     <button class="btn" id="next-v17-final" type="button" onclick="submitV17FinalScore()" disabled></button>
   </div>
 </div>
@@ -4453,6 +4519,197 @@ function selectV17NotAProblem(key) {
   }
 }
 
+function getV17EmotionMeasurementMeta(stage) {
+  return stage === 'after'
+    ? {
+        prefix: 'v17-final',
+        positiveKey: 'v17-final-positive',
+        negativeKey: 'v17-final-negative',
+        positiveField: 'afterEmotionPositive',
+        negativeField: 'afterEmotionNegative',
+        compatScoreField: 'finalThemeScore',
+        compatBreathField: 'breathEaseAfter',
+        promptKey: 'flow.step5.prompt',
+        labelPrefix: 'v17-final'
+      }
+    : {
+        prefix: 'v17-before',
+        positiveKey: 'v17-before-positive',
+        negativeKey: 'v17-before-negative',
+        positiveField: 'beforeEmotionPositive',
+        negativeField: 'beforeEmotionNegative',
+        compatScoreField: 'initialThemeScore',
+        compatBreathField: 'breathEaseBefore',
+        promptKey: 'flow.step1.prompt',
+        labelPrefix: 'v17-before'
+      };
+}
+
+function isV17EmotionMeasurementAnswered(value) {
+  return typeof value === 'number' || value === V17_SCORE_NOT_A_PROBLEM;
+}
+
+function getV17EmotionMeasurementValue(stage, aspect) {
+  var meta = getV17EmotionMeasurementMeta(stage);
+  return aspect === 'positive'
+    ? D[meta.positiveField]
+    : D[meta.negativeField];
+}
+
+function setV17EmotionMeasurementValue(stage, aspect, value) {
+  ensureV17SessionState();
+  if (!D.v17Flow) D.v17Flow = createV17FlowState();
+  var meta = getV17EmotionMeasurementMeta(stage);
+  var field = aspect === 'positive' ? meta.positiveField : meta.negativeField;
+  var parsed = value === V17_SCORE_NOT_A_PROBLEM ? V17_SCORE_NOT_A_PROBLEM : Number(value);
+  D[field] = parsed;
+  if (D.v17Flow) D.v17Flow[field] = parsed;
+  if (D.v17Flow) {
+    D.v17Flow.measurement = D.v17Flow.measurement || {
+      before: { positive: null, negative: null },
+      after: { positive: null, negative: null }
+    };
+    var targetStage = stage === 'after' ? 'after' : 'before';
+    D.v17Flow.measurement[targetStage][aspect] = parsed;
+    D.v17Flow.measurement.before.positive = D.beforeEmotionPositive;
+    D.v17Flow.measurement.before.negative = D.beforeEmotionNegative;
+    D.v17Flow.measurement.after.positive = D.afterEmotionPositive;
+    D.v17Flow.measurement.after.negative = D.afterEmotionNegative;
+  }
+  if (stage === 'before' && aspect === 'positive') {
+    D.firstThemeScore = parsed;
+    D.initialThemeScore = parsed;
+    D.breathEaseBefore = parsed;
+    if (D.v17Flow) D.v17Flow.initialThemeScore = parsed;
+  } else if (stage === 'after' && aspect === 'positive') {
+    D.finalThemeScore = parsed;
+    D.breathEaseAfter = parsed;
+    if (D.v17Flow) D.v17Flow.finalThemeScore = parsed;
+    D.deltaScore = typeof parsed === 'number' && typeof D.initialThemeScore === 'number'
+      ? parsed - D.initialThemeScore : null;
+  }
+  if (D.v17Flow) {
+    D.v17Flow.currentStep = stage === 'after' ? 'step5' : 'step1';
+  }
+  restoreV17Slider(meta[aspect === 'positive' ? 'positiveKey' : 'negativeKey'], parsed);
+  updateV17EmotionMeasurementNext(stage);
+}
+
+function updateV17EmotionMeasurementNext(stage) {
+  var meta = getV17EmotionMeasurementMeta(stage);
+  var nextButton = document.getElementById('next-' + meta.prefix);
+  var positive = getV17EmotionMeasurementValue(stage, 'positive');
+  var negative = getV17EmotionMeasurementValue(stage, 'negative');
+  var enabled = isV17EmotionMeasurementAnswered(positive) && isV17EmotionMeasurementAnswered(negative);
+  if (nextButton) nextButton.disabled = !enabled;
+  return enabled;
+}
+
+function renderV17EmotionMeasurementScreen(stage) {
+  var meta = getV17EmotionMeasurementMeta(stage);
+  var positivePrompt = v17Copy('flow.measurement.positivePrompt') || v17Copy(stage === 'after' ? 'flow.step5.prompt' : 'flow.step1.prompt');
+  var negativePrompt = v17Copy('flow.measurement.negativePrompt');
+  setEl(meta.prefix + '-positive-label', v17Copy('flow.measurement.positiveLabel'));
+  setEl(meta.prefix + '-positive-prompt', positivePrompt);
+  setEl(meta.prefix + '-negative-label', v17Copy('flow.measurement.negativeLabel'));
+  setEl(meta.prefix + '-negative-prompt', negativePrompt);
+  setEl('next-' + meta.prefix, v17Copy('flow.common.continue'));
+  restoreV17Slider(meta.positiveKey, getV17EmotionMeasurementValue(stage, 'positive'));
+  restoreV17Slider(meta.negativeKey, getV17EmotionMeasurementValue(stage, 'negative'));
+  updateV17EmotionMeasurementNext(stage);
+}
+
+function onV17EmotionMeasurementSlider(stage, aspect, value) {
+  setV17EmotionMeasurementValue(stage, aspect, value);
+}
+
+function selectV17EmotionNotAProblem(stage, aspect) {
+  setV17EmotionMeasurementValue(stage, aspect, V17_SCORE_NOT_A_PROBLEM);
+}
+
+function submitV17EmotionMeasurement(stage) {
+  ensureV17SessionState();
+  var positive = getV17EmotionMeasurementValue(stage, 'positive');
+  var negative = getV17EmotionMeasurementValue(stage, 'negative');
+  if (!isV17EmotionMeasurementAnswered(positive) || !isV17EmotionMeasurementAnswered(negative)) return;
+  if (stage === 'before') {
+    setV17CurrentStep('step1');
+    D.firstThemeScore = positive;
+    D.initialThemeScore = positive;
+    D.breathEaseBefore = positive;
+    if (D.v17Flow) D.v17Flow.initialThemeScore = positive;
+    setV17ThemeScoreTrailBefore(positive);
+    if (D.v17SessionMode === 'deep') {
+      startV17DeepDive();
+      return;
+    }
+    openV17FirstResponse();
+    return;
+  }
+  setV17CurrentStep('step5');
+  D.finalThemeScore = positive;
+  D.breathEaseAfter = positive;
+  if (D.v17Flow) D.v17Flow.finalThemeScore = positive;
+  if (D.v17Flow) D.v17Flow.currentStep = 'step6';
+  D.deltaScore = typeof positive === 'number' && typeof D.initialThemeScore === 'number'
+    ? positive - D.initialThemeScore : null;
+  setV17ThemeScoreTrailAfter(positive);
+  setV17ThemeAwarenessEntry(getV17IdealStateText());
+  showV17Result();
+}
+
+function skipV17EmotionMeasurement(stage) {
+  setV17EmotionMeasurementValue(stage, 'positive', V17_SCORE_NOT_A_PROBLEM);
+  setV17EmotionMeasurementValue(stage, 'negative', V17_SCORE_NOT_A_PROBLEM);
+  submitV17EmotionMeasurement(stage);
+}
+
+function resetV17EmotionMeasurementState(stage) {
+  var meta = getV17EmotionMeasurementMeta(stage);
+  if (stage === 'after') {
+    D.afterEmotionPositive = null;
+    D.afterEmotionNegative = null;
+    D.finalThemeScore = null;
+    D.breathEaseAfter = null;
+    D.deltaScore = null;
+  } else {
+    D.beforeEmotionPositive = null;
+    D.beforeEmotionNegative = null;
+    D.firstThemeScore = null;
+    D.initialThemeScore = null;
+    D.breathEaseBefore = null;
+    D.deltaScore = null;
+  }
+  if (D.v17Flow) {
+    D.v17Flow[meta.positiveField] = null;
+    D.v17Flow[meta.negativeField] = null;
+    D.v17Flow.measurement = D.v17Flow.measurement || {
+      before: { positive: null, negative: null },
+      after: { positive: null, negative: null }
+    };
+    D.v17Flow.measurement[stage === 'after' ? 'after' : 'before'].positive = null;
+    D.v17Flow.measurement[stage === 'after' ? 'after' : 'before'].negative = null;
+    if (stage === 'after') D.v17Flow.finalThemeScore = null;
+    else D.v17Flow.initialThemeScore = null;
+  }
+  resetSlider(meta.positiveKey);
+  resetSlider(meta.negativeKey);
+  updateV17EmotionMeasurementNext(stage);
+}
+
+function getV17EmotionMeasurementSnapshot() {
+  return {
+    before: {
+      positive: D.beforeEmotionPositive === undefined ? null : D.beforeEmotionPositive,
+      negative: D.beforeEmotionNegative === undefined ? null : D.beforeEmotionNegative
+    },
+    after: {
+      positive: D.afterEmotionPositive === undefined ? null : D.afterEmotionPositive,
+      negative: D.afterEmotionNegative === undefined ? null : D.afterEmotionNegative
+    }
+  };
+}
+
 function selectNM(key) {
   var nm  = document.getElementById('nm-'   + key); if (nm)  nm.classList.add('selected');
   var num = document.getElementById('num-'  + key); if (num) { num.textContent = T('not_measurable_button'); num.className = 'score-num nm'; }
@@ -5700,6 +5957,10 @@ function ensureV17SessionState() {
   ensureV17QuestionState();
   if (typeof D.firstThemeScore === 'undefined') D.firstThemeScore = null;
   if (typeof D.initialThemeScore === 'undefined') D.initialThemeScore = null;
+  if (typeof D.beforeEmotionPositive === 'undefined') D.beforeEmotionPositive = null;
+  if (typeof D.beforeEmotionNegative === 'undefined') D.beforeEmotionNegative = null;
+  if (typeof D.afterEmotionPositive === 'undefined') D.afterEmotionPositive = null;
+  if (typeof D.afterEmotionNegative === 'undefined') D.afterEmotionNegative = null;
   if (typeof D.currentState === 'undefined') D.currentState = '';
   if (typeof D.currentStateText === 'undefined') D.currentStateText = D.currentState || '';
   if (typeof D.currentStateDraft === 'undefined') D.currentStateDraft = D.currentState || '';
@@ -5726,6 +5987,10 @@ function resetV17SessionState(preserveThemeScoreTrail) {
   var awarenessTrail = preserveThemeScoreTrail ? D.currentThemeAwarenessTrail.slice() : [];
   D.firstThemeScore = null;
   D.initialThemeScore = null;
+  D.beforeEmotionPositive = null;
+  D.beforeEmotionNegative = null;
+  D.afterEmotionPositive = null;
+  D.afterEmotionNegative = null;
   D.currentState = '';
   D.currentStateText = '';
   D.currentStateDraft = '';
@@ -6932,6 +7197,10 @@ function startV17RepeatedSubthemeSession(mode) {
   D.shiftNote = '';
   D.reactionAnswer = '';
   D.idealAnswer = '';
+  D.beforeEmotionPositive = previousAfter;
+  D.beforeEmotionNegative = null;
+  D.afterEmotionPositive = null;
+  D.afterEmotionNegative = null;
   D.breathEaseBefore = previousAfter;
   D.breathEaseAfter = null;
   D.v13OriginalTheme = '';
@@ -6996,7 +7265,21 @@ function createV17FlowState() {
     deepDive: null,
     breathPhase: 'first',
     breathStep: 1,
-    initialThemeScore: null,
+    initialThemeScore: D.initialThemeScore === undefined ? null : D.initialThemeScore,
+    beforeEmotionPositive: D.beforeEmotionPositive === undefined ? null : D.beforeEmotionPositive,
+    beforeEmotionNegative: D.beforeEmotionNegative === undefined ? null : D.beforeEmotionNegative,
+    afterEmotionPositive: D.afterEmotionPositive === undefined ? null : D.afterEmotionPositive,
+    afterEmotionNegative: D.afterEmotionNegative === undefined ? null : D.afterEmotionNegative,
+    measurement: {
+      before: {
+        positive: D.beforeEmotionPositive === undefined ? null : D.beforeEmotionPositive,
+        negative: D.beforeEmotionNegative === undefined ? null : D.beforeEmotionNegative
+      },
+      after: {
+        positive: D.afterEmotionPositive === undefined ? null : D.afterEmotionPositive,
+        negative: D.afterEmotionNegative === undefined ? null : D.afterEmotionNegative
+      }
+    },
     step2Text: '',
     step2Draft: '',
     step3Text: '',
@@ -7008,7 +7291,7 @@ function createV17FlowState() {
     idealStateText: '',
     idealStateDraft: '',
     breath: { first: false, second: false },
-    finalThemeScore: null
+    finalThemeScore: D.finalThemeScore === undefined ? null : D.finalThemeScore
   };
 }
 
@@ -7124,9 +7407,17 @@ function renderV17StaticCopy() {
 
 var V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
 var V17_MEASUREMENT_KEYS = ['v17-before', 'v17-final'];
+var V17_EMOTION_MEASUREMENT_KEYS = [
+  'v17-before-positive', 'v17-before-negative',
+  'v17-final-positive', 'v17-final-negative'
+];
 
 function renderV17NotAProblemCopy() {
   V17_MEASUREMENT_KEYS.forEach(function(key) {
+    setEl('nm-label-' + key, v17Copy('flow.measurement.cannotQuantify'));
+    setEl('nm-hint-' + key, v17Copy('flow.measurement.cannotQuantifyHint'));
+  });
+  V17_EMOTION_MEASUREMENT_KEYS.forEach(function(key) {
     setEl('nm-label-' + key, v17Copy('flow.measurement.cannotQuantify'));
     setEl('nm-hint-' + key, v17Copy('flow.measurement.cannotQuantifyHint'));
   });
@@ -7467,9 +7758,7 @@ function renderV17Screen(screenId) {
       'v17-before-meaning',
       v17Format('flow.step1.quote', { theme: D.questionTextAtTime })
     );
-    setEl('v17-before-prompt', v17Copy('flow.step1.prompt'));
-    setEl('next-v17-before', v17Copy('flow.common.continue'));
-    restoreV17Slider('v17-before', D.initialThemeScore);
+    renderV17EmotionMeasurementScreen('before');
   } else if (screenId === 's-v17-first-response') {
     var firstRoute = getV17ThemeRoute();
     var firstPath = 'flow.step2.' + firstRoute;
@@ -7524,9 +7813,8 @@ function renderV17Screen(screenId) {
       'v17-final-meaning',
       v17Format('flow.step5.quote', { theme: D.questionTextAtTime })
     );
-    setEl('v17-final-prompt', v17Copy('flow.step5.prompt'));
+    renderV17EmotionMeasurementScreen('after');
     setEl('next-v17-final', v17Copy('flow.step5.result'));
-    restoreV17Slider('v17-final', D.finalThemeScore);
   } else if (screenId === 's-result') {
     renderV17Result();
   }
@@ -7553,13 +7841,11 @@ function startV17Session(replaceHistory) {
   D.shiftNote = '';
   D.reactionAnswer = '';
   D.idealAnswer = '';
-  D.breathEaseBefore = null;
-  D.breathEaseAfter = null;
   D.v13OriginalTheme = '';
   D.v13History = [];
   D.v17Flow = createV17FlowState();
-  resetSlider('v17-before');
-  resetSlider('v17-final');
+  resetV17EmotionMeasurementState('before');
+  resetV17EmotionMeasurementState('after');
   renderV17Screen('s-v17-before');
   trackEvent('v17_session_started', { themeId: D.themeId, questionId: D.questionId, locale: D.localeAtTime });
   if (replaceHistory) showScreenDirect('s-v17-before');
@@ -7568,17 +7854,7 @@ function startV17Session(replaceHistory) {
 
 function submitV17BeforeScore() {
   ensureV17SessionState();
-  var value = arguments.length ? arguments[0] : getSliderVal('v17-before');
-  D.firstThemeScore = value;
-  D.initialThemeScore = value;
-  D.breathEaseBefore = value;
-  D.v17Flow.initialThemeScore = value;
-  setV17ThemeScoreTrailBefore(value);
-  if (D.v17SessionMode === 'deep') {
-    startV17DeepDive();
-    return;
-  }
-  openV17FirstResponse();
+  submitV17EmotionMeasurement('before');
 }
 
 function openV17FirstResponse() {
@@ -8180,22 +8456,13 @@ function continueV17BreathPhase() {
 
 function openV17FinalMeasurement() {
   setV17CurrentStep('step5');
-  if (D.finalThemeScore === null || D.finalThemeScore === undefined) resetSlider('v17-final');
   renderV17Screen('s-v17-final-measure');
   fwd('s-v17-final-measure');
 }
 
 function submitV17FinalScore() {
-  var value = arguments.length ? arguments[0] : getSliderVal('v17-final');
-  D.finalThemeScore = value;
-  D.breathEaseAfter = value;
-  D.deltaScore = typeof value === 'number' && typeof D.initialThemeScore === 'number'
-    ? value - D.initialThemeScore : null;
-  D.v17Flow.finalThemeScore = value;
-  D.v17Flow.currentStep = 'step6';
-  setV17ThemeScoreTrailAfter(value);
-  setV17ThemeAwarenessEntry(getV17IdealStateText());
-  showV17Result();
+  ensureV17SessionState();
+  submitV17EmotionMeasurement('after');
 }
 
 function renderV17Result() {
@@ -8454,13 +8721,13 @@ function handleV17Skip() {
   if (cur === 's-v17-start-category') { openV17LifeThemeEntry(); return; }
   if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
   if (cur === 's-v17-spiritual-wisdom') { skipV17ThemeSelection(); return; }
-  if (cur === 's-v17-before') { submitV17BeforeScore(getV17SkipScore(D.initialThemeScore)); return; }
+  if (cur === 's-v17-before') { skipV17EmotionMeasurement('before'); return; }
   if (cur === 's-v17-first-response') { submitV17FirstResponse(true); return; }
   if (cur === 's-v17-second-response') { submitV17SecondResponse(true); return; }
   if (cur === 's-v17-deep-response') { submitV17DeepDiveResponse(true); return; }
   if (cur === 's-v17-deep-feel-100') { submitV17DeepDiveFeel100(); return; }
   if (cur === 's-v17-breath') { completeV17BreathFlow(); return; }
-  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.finalThemeScore)); return; }
+  if (cur === 's-v17-final-measure') { skipV17EmotionMeasurement('after'); return; }
   if (cur === 's-result') { skipV17ResultChoice(); return; }
   showScreenDirect('s-v17-entry-choice');
 }
@@ -9238,6 +9505,7 @@ function applyV17QuestionSnapshotToPayload(payload) {
     payload.resultCardData.hcqSnapshot = snapshot;
     payload.resultCardData.initialThemeScore = D.initialThemeScore;
     payload.resultCardData.finalThemeScore = D.finalThemeScore;
+    payload.resultCardData.measurementData = getV17EmotionMeasurementSnapshot();
     payload.resultCardData.themeRoute = getV17ThemeRoute();
     payload.resultCardData.themeMeaning = D.themeMeaning || '';
     payload.resultCardData.step2Text = D.v17Flow ? D.v17Flow.step2Text : '';
@@ -9245,6 +9513,10 @@ function applyV17QuestionSnapshotToPayload(payload) {
     payload.resultCardData.currentState = D.currentState;
     payload.resultCardData.idealState = D.idealState;
   }
+  if (payload.userAnswers && typeof payload.userAnswers === 'object') {
+    payload.userAnswers.measurementData = getV17EmotionMeasurementSnapshot();
+  }
+  payload.measurementData = getV17EmotionMeasurementSnapshot();
   return payload;
 }
 
