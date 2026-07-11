@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "When it has not been realized,\nwhat state am I in?",
+        "prompt": "What state is a person in\nwhen they are unaffected by it?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "When it has not been realized,\nwhat state am I in?",
+        "prompt": "What state is a person in\nwhen they are unaffected by it?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "What state am I in\nif I have never experienced it\nand never will?",
+        "prompt": "What state is a person in\nif they have never experienced it\nand never will?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }

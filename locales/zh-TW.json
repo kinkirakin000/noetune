@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "當它尚未實現時，\n我是什麼樣的狀態？",
+        "prompt": "與這件事無關的人，\n是什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "當它尚未實現時，\n我是什麼樣的狀態？",
+        "prompt": "與這件事無關的人，\n是什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "無論過去還是未來，\n都不曾經歷這件事的我，\n是什麼樣的狀態？",
+        "prompt": "無論過去還是未來，\n都不會經歷這件事的人，\n是什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }
