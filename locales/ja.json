@@ -221,9 +221,12 @@
   "bookmark": {
     "primaryCta": "しおりを挟む",
     "resultHint": "ここで一旦終了できます。\nこの旅を、しおりに挟んでおけます。",
-    "saved": "しおりを挟みました",
+    "saved": "保存済み",
+    "removed": "しおりを外しました",
     "loginRequired": "しおりを挟むにはログインしてください",
-    "proRequired": "この旅の続きをしおりに残すにはProが必要です"
+    "proRequired": "複数のしおりを残すにはProが必要です",
+    "loading": "処理中…",
+    "error": "うまく保存できませんでした"
   },
   "buttons": {
     "next": "次へ",

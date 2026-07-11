@@ -221,9 +221,12 @@
   "bookmark": {
     "primaryCta": "Bookmark this theme",
     "resultHint": "You can stop here for now.\nBookmark this theme and return to it later.",
-    "saved": "Bookmark added",
+    "saved": "Saved",
+    "removed": "Bookmark removed",
     "loginRequired": "Log in to add a bookmark",
-    "proRequired": "Pro is required to save bookmarks for multiple themes"
+    "proRequired": "Pro is required for multiple bookmarks",
+    "loading": "Loading…",
+    "error": "Could not save this bookmark"
   },
   "buttons": {
     "next": "Next",

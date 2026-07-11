@@ -1498,7 +1498,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <div class="v17-result-actions" id="v17-result-actions">
-    <button class="v17-result-action primary" id="btn-save-result" onclick="saveCurrentResult()"></button>
+    <button class="v17-result-action primary" id="btn-save-result" onclick="toggleCurrentThemeBookmark()"></button>
     <button class="v17-result-action" id="btn-v17-restart-subtheme" type="button" onclick="restartCurrentSubtheme()"></button>
     <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartCurrentTheme()"></button>
     <button class="v17-result-action" id="btn-v17-choose-another-theme" type="button" onclick="chooseAnotherTheme()"></button>
@@ -1617,6 +1617,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <script src="./js/v15/progress-save.js"></script>
 <script src="./js/v15/auth-core.js"></script>
 <script src="./js/v17/auth.js"></script>
+<script src="./js/v17/bookmarks.js"></script>
 <script src="./js/v15/result-save.js"></script>
 <script src="./js/v15/result-image-save.js"></script>
 <!-- ── AUTH MODAL ── -->
@@ -8254,7 +8255,9 @@ function showV17Result() {
   if (imageStatus) imageStatus.textContent = '';
   if (previewWrap) previewWrap.style.display = 'none';
   if (previewImage) previewImage.removeAttribute('src');
-  resetResultSaveUI();
+  if (!D.v17Flow) {
+    resetResultSaveUI();
+  }
   clearPendingProgress();
   trackEvent('v17_session_completed', {
     questionId: D.questionId,
@@ -8264,6 +8267,7 @@ function showV17Result() {
     delta: D.deltaScore
   });
   fwd('s-result');
+  if (typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(true);
 }
 
 function restartCurrentSubtheme() {
@@ -8954,9 +8958,11 @@ function showResult() {
     }
   }
   updateResultRepeatLabel();
-  resetResultSaveUI();
-  clearPendingProgress();
-  clearSavedProgress();
+  if (!D.v17Flow) {
+    resetResultSaveUI();
+    clearPendingProgress();
+    clearSavedProgress();
+  }
   fwd('s-result');
   markGuestFirstSessionCompleted();
   consumeTrialOnResult();

@@ -221,9 +221,12 @@
   "bookmark": {
     "primaryCta": "加入書籤",
     "resultHint": "可以先在這裡結束。\n為這個主題加上書籤，之後再回來繼續。",
-    "saved": "已加入書籤",
+    "saved": "已儲存",
+    "removed": "已移除書籤",
     "loginRequired": "請登入後加入書籤",
-    "proRequired": "若要為多個主題儲存書籤，需要使用 Pro"
+    "proRequired": "若要儲存多個書籤，需要使用 Pro",
+    "loading": "載入中…",
+    "error": "無法儲存這個書籤"
   },
   "buttons": {
     "next": "下一步",

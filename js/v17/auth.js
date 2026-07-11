@@ -22,6 +22,7 @@ function setV17AuthState(patch) {
   syncV17AuthCompatibilityState();
   renderV17AccountUI();
   refreshV17BillingUI();
+  if (typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(false);
   return v17AuthState;
 }
 
@@ -40,6 +41,12 @@ function runV17PendingSavesIfNeeded() {
     .then(function() {
       if (typeof savePendingProgressIfNeeded === 'function') {
         return Promise.resolve(savePendingProgressIfNeeded());
+      }
+      return null;
+    })
+    .then(function() {
+      if (typeof savePendingBookmarkIfNeeded === 'function') {
+        return Promise.resolve(savePendingBookmarkIfNeeded());
       }
       return null;
     })
