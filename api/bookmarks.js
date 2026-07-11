@@ -219,7 +219,11 @@ module.exports = async (req, res) => {
 
     return sendMethodNotAllowed(res);
   } catch (error) {
-    console.error('[bookmarks]', error && error.message ? error.message : 'unknown error');
-    return sendInternalError(res);
+    console.error(error);
+    return res.status(500).json({
+      ok: false,
+      error: 'internal_error',
+      message: error && error.message ? error.message : String(error)
+    });
   }
 };
