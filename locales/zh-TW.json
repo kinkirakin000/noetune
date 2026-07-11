@@ -134,12 +134,12 @@
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "面對這件事，\n幸福感達到 100% 時，\n會是什麼狀態？",
+        "prompt": "如果我從未經歷過那件事，\n今後也不會經歷，\n我會處於什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "當它尚未實現時，\n我是什麼樣的狀態？",
+        "prompt": "和那樣的人相比，\n我處於什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "當它尚未實現時，\n我是什麼樣的狀態？",
+        "prompt": "和那樣的人相比，\n我處於什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "無論過去還是未來，\n都不曾經歷這件事的我，\n是什麼樣的狀態？",
+        "prompt": "如果我從未經歷過那件事，\n今後也不會經歷，\n我會處於什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }
@@ -166,6 +166,9 @@
       "quoteSource": "theme",
       "prompt": "當你把注意力放在這件事上時，\n正向感受的程度是多少？",
       "rangeLabel": "0〜100"
+    },
+    "measurement": {
+      "negativePrompt": "當你把注意力放在這件事上時，\n負向感受的程度是多少？"
     },
     "deepDive": {
       "feel100": {
@@ -195,6 +198,8 @@
     "themeLabel": "主題",
     "subthemeLabel": "子主題",
     "happinessLabel": "幸福度",
+    "positiveSensation": "正面感受",
+    "negativeSensation": "負面感受",
     "awarenessTitle": "注意到的事",
     "showMoreAwareness": "查看更多",
     "showRecentAwareness": "只看部分",

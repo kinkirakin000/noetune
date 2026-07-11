@@ -33,8 +33,15 @@ function updateBackBtn() {
 function updateProgress() {
   var p = document.getElementById('progress');
   if (!p) return;
-  var i = SCREEN_ORDER.indexOf(cur);
-  p.style.width = (i < 0 ? 0 : (i / (SCREEN_ORDER.length - 1)) * 100) + '%';
+  var order = SCREEN_ORDER;
+  var isDeep = !!(D && (D.v17SessionMode === 'deep' || (D.v17Flow && D.v17Flow.sessionMode === 'deep')));
+  if (!isDeep) {
+    order = SCREEN_ORDER.filter(function(id) {
+      return id !== 's-v17-deep-before-negative' && id !== 's-v17-deep-after-negative';
+    });
+  }
+  var i = order.indexOf(cur);
+  p.style.width = (i < 0 ? 0 : (i / (order.length - 1)) * 100) + '%';
 }
 
 function showScreenDirect(id) {
@@ -58,7 +65,7 @@ function backToStart() {
   D = { theme:'', themeKey:null, themePositive:'', themeNegative:'', issue:'', ideal:'', shiftNote:'',
         reactionAnswer:'', idealAnswer:'',
         entryMode:null, doorKey:null, doorSentence:'',
-        breathEaseBefore:null, breathEaseAfter:null, breathMode:null };
+        breathEaseBefore:null, breathEaseAfter:null, beforeEmotionNegative:null, afterEmotionNegative:null, breathMode:null };
   navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
   ['b1','b2','a1','a2'].forEach(resetSlider);

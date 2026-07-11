@@ -35,6 +35,7 @@ var D = {
   entryMode: null,
   doorKey: null, doorSentence:'',
   breathEaseBefore:null, breathEaseAfter:null,
+  beforeEmotionNegative:null, afterEmotionNegative:null,
   breathMode: null,
   v13InitialTheme: '',
   v13OriginalTheme: '',

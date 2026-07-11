@@ -134,12 +134,12 @@
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "In relation to this,\nwhat would 100% happiness feel like?",
+        "prompt": "What state am I in\nif I have never experienced that\nand never will?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "When it has not been realized,\nwhat state am I in?",
+        "prompt": "Compared with someone like that,\nwhat state am I in?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "When it has not been realized,\nwhat state am I in?",
+        "prompt": "Compared with someone like that,\nwhat state am I in?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "What state am I in\nif I have never experienced it\nand never will?",
+        "prompt": "What state am I in\nif I have never experienced that\nand never will?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }
@@ -166,6 +166,9 @@
       "quoteSource": "theme",
       "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
       "rangeLabel": "0–100"
+    },
+    "measurement": {
+      "negativePrompt": "When you focus your attention on it,\nwhat is the level of negative sensation?"
     },
     "deepDive": {
       "feel100": {
@@ -195,6 +198,8 @@
     "themeLabel": "Theme",
     "subthemeLabel": "Subtheme",
     "happinessLabel": "Happiness",
+    "positiveSensation": "Positive sensation",
+    "negativeSensation": "Negative sensation",
     "awarenessTitle": "What I noticed",
     "showMoreAwareness": "Show more",
     "showRecentAwareness": "Show less",

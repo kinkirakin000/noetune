@@ -134,12 +134,12 @@
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "これに対して、\n幸せ100%の状態は？",
+        "prompt": "これまでもこれからも、\nそれを経験することのない私は、\nどんな状態？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "それが実現していないとき、\n私はどんな状態ですか？",
+        "prompt": "そういう人と比較し、\n私はどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -147,7 +147,7 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "それが実現していないとき、\n私はどんな状態ですか？",
+        "prompt": "そういう人と比較し、\n私はどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
@@ -166,6 +166,9 @@
       "quoteSource": "theme",
       "prompt": "それに意識を向けたときの\nポジティブ感覚の度合いは？",
       "rangeLabel": "0〜100"
+    },
+    "measurement": {
+      "negativePrompt": "それに意識を向けたときの\nネガティブ感覚の度合いは？"
     },
     "deepDive": {
       "feel100": {
@@ -195,6 +198,8 @@
     "themeLabel": "テーマ",
     "subthemeLabel": "サブテーマ",
     "happinessLabel": "幸福度",
+    "positiveSensation": "ポジティブな感覚",
+    "negativeSensation": "ネガティブな感覚",
     "awarenessTitle": "気づいたこと",
     "showMoreAwareness": "もっと見る",
     "showRecentAwareness": "一部だけ見る",
