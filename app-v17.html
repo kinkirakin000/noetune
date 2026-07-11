@@ -1234,11 +1234,11 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 </div>
 
 <!-- ── V17 HCQ SESSION FLOW ── -->
-<div class="screen" id="s-v17-before">
+<div class="screen" id="s-v17-before-positive">
   <div class="v17-step">
-    <div class="v17-theme-block" id="v17-before-theme-block">
-      <div class="v17-theme-quote" id="v17-before-theme"></div>
-      <div class="v17-theme-meaning" id="v17-before-meaning"></div>
+    <div class="v17-theme-block" id="v17-before-positive-theme-block">
+      <div class="v17-theme-quote" id="v17-before-positive-theme"></div>
+      <div class="v17-theme-meaning" id="v17-before-positive-meaning"></div>
     </div>
     <div class="v17-measurement-group">
       <div class="v17-measurement-label" id="v17-before-positive-label"></div>
@@ -1253,6 +1253,17 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <span class="v17-not-a-problem-hint" id="nm-hint-v17-before-positive"></span>
       </button>
     </div>
+    <button class="btn" id="next-v17-before-positive" type="button" onclick="submitV17EmotionMeasurement('before','positive')" disabled></button>
+    <button class="btn-ghost" id="skip-v17-before-positive" type="button" onclick="skipV17EmotionMeasurement('before','positive')"></button>
+  </div>
+</div>
+
+<div class="screen" id="s-v17-before-negative">
+  <div class="v17-step">
+    <div class="v17-theme-block" id="v17-before-negative-theme-block">
+      <div class="v17-theme-quote" id="v17-before-negative-theme"></div>
+      <div class="v17-theme-meaning" id="v17-before-negative-meaning"></div>
+    </div>
     <div class="v17-measurement-group">
       <div class="v17-measurement-label" id="v17-before-negative-label"></div>
       <div class="v17-step-copy v17-support-primary v17-measurement-prompt" id="v17-before-negative-prompt"></div>
@@ -1266,7 +1277,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <span class="v17-not-a-problem-hint" id="nm-hint-v17-before-negative"></span>
       </button>
     </div>
-    <button class="btn" id="next-v17-before" type="button" onclick="submitV17BeforeScore()" disabled></button>
+    <button class="btn" id="next-v17-before-negative" type="button" onclick="submitV17EmotionMeasurement('before','negative')" disabled></button>
+    <button class="btn-ghost" id="skip-v17-before-negative" type="button" onclick="skipV17EmotionMeasurement('before','negative')"></button>
   </div>
 </div>
 
@@ -1327,11 +1339,11 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   </div>
 </div>
 
-<div class="screen" id="s-v17-final-measure">
+<div class="screen" id="s-v17-final-positive">
   <div class="v17-step">
-    <div class="v17-theme-block" id="v17-final-theme-block">
-      <div class="v17-theme-quote" id="v17-final-quote"></div>
-      <div class="v17-theme-meaning" id="v17-final-meaning"></div>
+    <div class="v17-theme-block" id="v17-final-positive-theme-block">
+      <div class="v17-theme-quote" id="v17-final-positive-quote"></div>
+      <div class="v17-theme-meaning" id="v17-final-positive-meaning"></div>
     </div>
     <div class="v17-measurement-group">
       <div class="v17-measurement-label" id="v17-final-positive-label"></div>
@@ -1346,6 +1358,17 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <span class="v17-not-a-problem-hint" id="nm-hint-v17-final-positive"></span>
       </button>
     </div>
+    <button class="btn" id="next-v17-final-positive" type="button" onclick="submitV17EmotionMeasurement('after','positive')" disabled></button>
+    <button class="btn-ghost" id="skip-v17-final-positive" type="button" onclick="skipV17EmotionMeasurement('after','positive')"></button>
+  </div>
+</div>
+
+<div class="screen" id="s-v17-final-negative">
+  <div class="v17-step">
+    <div class="v17-theme-block" id="v17-final-negative-theme-block">
+      <div class="v17-theme-quote" id="v17-final-negative-quote"></div>
+      <div class="v17-theme-meaning" id="v17-final-negative-meaning"></div>
+    </div>
     <div class="v17-measurement-group">
       <div class="v17-measurement-label" id="v17-final-negative-label"></div>
       <div class="v17-step-copy v17-support-primary v17-measurement-prompt" id="v17-final-negative-prompt"></div>
@@ -1359,7 +1382,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <span class="v17-not-a-problem-hint" id="nm-hint-v17-final-negative"></span>
       </button>
     </div>
-    <button class="btn" id="next-v17-final" type="button" onclick="submitV17FinalScore()" disabled></button>
+    <button class="btn" id="next-v17-final-negative" type="button" onclick="submitV17EmotionMeasurement('after','negative')" disabled></button>
+    <button class="btn-ghost" id="skip-v17-final-negative" type="button" onclick="skipV17EmotionMeasurement('after','negative')"></button>
   </div>
 </div>
 
@@ -4456,8 +4480,8 @@ async function startLanding() {
 }
 
 var SCREEN_ORDER = [
-  's-v17-start-category','s-v17-entry-choice','s-v17-spiritual-wisdom','s-v17-session-mode','s-v17-before','s-v17-first-response','s-v17-second-response','s-v17-deep-response','s-v17-deep-feel-100',
-  's-v17-breath','s-v17-final-measure','s-result',
+  's-v17-start-category','s-v17-entry-choice','s-v17-spiritual-wisdom','s-v17-session-mode','s-v17-before-positive','s-v17-before-negative','s-v17-first-response','s-v17-second-response','s-v17-deep-response','s-v17-deep-feel-100',
+  's-v17-breath','s-v17-final-positive','s-v17-final-negative','s-result',
   's-entry-method','s-v16-basic-verbs','s-v16-life-decision-verbs','s-v16-free-verb-input','s-v16-before-measurement','s-v16-negative-input','s-v16-breath-1','s-v16-ideal-input','s-v16-breath-2','s-v16-loop-choice','s-v16-after-measurement','s-v16-result','s-free-type-choice','s-free-ideal-input','s-free-topic-input',
   's-entry-choice','s-nega','s-v12-free','s-nega-ideal','s-door',
   's-issue','s-ideal',
@@ -4519,30 +4543,23 @@ function selectV17NotAProblem(key) {
   }
 }
 
-function getV17EmotionMeasurementMeta(stage) {
-  return stage === 'after'
-    ? {
-        prefix: 'v17-final',
-        positiveKey: 'v17-final-positive',
-        negativeKey: 'v17-final-negative',
-        positiveField: 'afterEmotionPositive',
-        negativeField: 'afterEmotionNegative',
-        compatScoreField: 'finalThemeScore',
-        compatBreathField: 'breathEaseAfter',
-        promptKey: 'flow.step5.prompt',
-        labelPrefix: 'v17-final'
-      }
-    : {
-        prefix: 'v17-before',
-        positiveKey: 'v17-before-positive',
-        negativeKey: 'v17-before-negative',
-        positiveField: 'beforeEmotionPositive',
-        negativeField: 'beforeEmotionNegative',
-        compatScoreField: 'initialThemeScore',
-        compatBreathField: 'breathEaseBefore',
-        promptKey: 'flow.step1.prompt',
-        labelPrefix: 'v17-before'
-      };
+function getV17EmotionMeasurementMeta(stage, aspect) {
+  var isAfter = stage === 'after';
+  var isPositive = aspect !== 'negative';
+  var prefix = isAfter ? (isPositive ? 'v17-final-positive' : 'v17-final-negative') : (isPositive ? 'v17-before-positive' : 'v17-before-negative');
+  return {
+    stage: isAfter ? 'after' : 'before',
+    aspect: isPositive ? 'positive' : 'negative',
+    prefix: prefix,
+    screenId: isAfter ? (isPositive ? 's-v17-final-positive' : 's-v17-final-negative') : (isPositive ? 's-v17-before-positive' : 's-v17-before-negative'),
+    nextScreenId: isAfter ? (isPositive ? 's-v17-final-negative' : 's-result') : (isPositive ? 's-v17-before-negative' : 's-v17-first-response'),
+    positiveKey: isAfter ? 'v17-final-positive' : 'v17-before-positive',
+    negativeKey: isAfter ? 'v17-final-negative' : 'v17-before-negative',
+    positiveField: isAfter ? 'afterEmotionPositive' : 'beforeEmotionPositive',
+    negativeField: isAfter ? 'afterEmotionNegative' : 'beforeEmotionNegative',
+    promptKey: isPositive ? 'flow.measurement.positivePrompt' : 'flow.measurement.negativePrompt',
+    labelKey: isPositive ? 'flow.measurement.positiveLabel' : 'flow.measurement.negativeLabel'
+  };
 }
 
 function isV17EmotionMeasurementAnswered(value) {
@@ -4550,7 +4567,7 @@ function isV17EmotionMeasurementAnswered(value) {
 }
 
 function getV17EmotionMeasurementValue(stage, aspect) {
-  var meta = getV17EmotionMeasurementMeta(stage);
+  var meta = getV17EmotionMeasurementMeta(stage, aspect);
   return aspect === 'positive'
     ? D[meta.positiveField]
     : D[meta.negativeField];
@@ -4559,7 +4576,7 @@ function getV17EmotionMeasurementValue(stage, aspect) {
 function setV17EmotionMeasurementValue(stage, aspect, value) {
   ensureV17SessionState();
   if (!D.v17Flow) D.v17Flow = createV17FlowState();
-  var meta = getV17EmotionMeasurementMeta(stage);
+  var meta = getV17EmotionMeasurementMeta(stage, aspect);
   var field = aspect === 'positive' ? meta.positiveField : meta.negativeField;
   var parsed = value === V17_SCORE_NOT_A_PROBLEM ? V17_SCORE_NOT_A_PROBLEM : Number(value);
   D[field] = parsed;
@@ -4589,34 +4606,29 @@ function setV17EmotionMeasurementValue(stage, aspect, value) {
       ? parsed - D.initialThemeScore : null;
   }
   if (D.v17Flow) {
-    D.v17Flow.currentStep = stage === 'after' ? 'step5' : 'step1';
+    D.v17Flow.currentStep = stage + '.' + aspect;
   }
-  restoreV17Slider(meta[aspect === 'positive' ? 'positiveKey' : 'negativeKey'], parsed);
-  updateV17EmotionMeasurementNext(stage);
+  restoreV17Slider(meta.prefix, parsed);
+  updateV17EmotionMeasurementNext(stage, aspect);
 }
 
-function updateV17EmotionMeasurementNext(stage) {
-  var meta = getV17EmotionMeasurementMeta(stage);
+function updateV17EmotionMeasurementNext(stage, aspect) {
+  var meta = getV17EmotionMeasurementMeta(stage, aspect);
   var nextButton = document.getElementById('next-' + meta.prefix);
-  var positive = getV17EmotionMeasurementValue(stage, 'positive');
-  var negative = getV17EmotionMeasurementValue(stage, 'negative');
-  var enabled = isV17EmotionMeasurementAnswered(positive) && isV17EmotionMeasurementAnswered(negative);
+  var value = getV17EmotionMeasurementValue(stage, aspect);
+  var enabled = isV17EmotionMeasurementAnswered(value);
   if (nextButton) nextButton.disabled = !enabled;
   return enabled;
 }
 
-function renderV17EmotionMeasurementScreen(stage) {
-  var meta = getV17EmotionMeasurementMeta(stage);
-  var positivePrompt = v17Copy('flow.measurement.positivePrompt') || v17Copy(stage === 'after' ? 'flow.step5.prompt' : 'flow.step1.prompt');
-  var negativePrompt = v17Copy('flow.measurement.negativePrompt');
-  setEl(meta.prefix + '-positive-label', v17Copy('flow.measurement.positiveLabel'));
-  setEl(meta.prefix + '-positive-prompt', positivePrompt);
-  setEl(meta.prefix + '-negative-label', v17Copy('flow.measurement.negativeLabel'));
-  setEl(meta.prefix + '-negative-prompt', negativePrompt);
+function renderV17EmotionMeasurementScreen(stage, aspect) {
+  var meta = getV17EmotionMeasurementMeta(stage, aspect);
+  var prompt = v17Copy(meta.promptKey);
+  setEl(meta.prefix + '-label', v17Copy(meta.labelKey));
+  setEl(meta.prefix + '-prompt', prompt);
   setEl('next-' + meta.prefix, v17Copy('flow.common.continue'));
-  restoreV17Slider(meta.positiveKey, getV17EmotionMeasurementValue(stage, 'positive'));
-  restoreV17Slider(meta.negativeKey, getV17EmotionMeasurementValue(stage, 'negative'));
-  updateV17EmotionMeasurementNext(stage);
+  restoreV17Slider(meta.prefix, getV17EmotionMeasurementValue(stage, aspect));
+  updateV17EmotionMeasurementNext(stage, aspect);
 }
 
 function onV17EmotionMeasurementSlider(stage, aspect, value) {
@@ -4627,18 +4639,23 @@ function selectV17EmotionNotAProblem(stage, aspect) {
   setV17EmotionMeasurementValue(stage, aspect, V17_SCORE_NOT_A_PROBLEM);
 }
 
-function submitV17EmotionMeasurement(stage) {
+function submitV17EmotionMeasurement(stage, aspect) {
   ensureV17SessionState();
-  var positive = getV17EmotionMeasurementValue(stage, 'positive');
-  var negative = getV17EmotionMeasurementValue(stage, 'negative');
-  if (!isV17EmotionMeasurementAnswered(positive) || !isV17EmotionMeasurementAnswered(negative)) return;
+  var value = getV17EmotionMeasurementValue(stage, aspect);
+  if (!isV17EmotionMeasurementAnswered(value)) return;
   if (stage === 'before') {
-    setV17CurrentStep('step1');
-    D.firstThemeScore = positive;
-    D.initialThemeScore = positive;
-    D.breathEaseBefore = positive;
-    if (D.v17Flow) D.v17Flow.initialThemeScore = positive;
-    setV17ThemeScoreTrailBefore(positive);
+    if (aspect === 'positive') {
+      setV17CurrentStep('step1.negative');
+      D.firstThemeScore = value;
+      D.initialThemeScore = value;
+      D.breathEaseBefore = value;
+      if (D.v17Flow) D.v17Flow.initialThemeScore = value;
+      setV17ThemeScoreTrailBefore(value);
+      renderV17Screen('s-v17-before-negative');
+      fwd('s-v17-before-negative');
+      return;
+    }
+    setV17CurrentStep('step1.complete');
     if (D.v17SessionMode === 'deep') {
       startV17DeepDive();
       return;
@@ -4646,26 +4663,32 @@ function submitV17EmotionMeasurement(stage) {
     openV17FirstResponse();
     return;
   }
+  if (aspect === 'positive') {
+    setV17CurrentStep('step5.negative');
+    D.finalThemeScore = value;
+    D.breathEaseAfter = value;
+    if (D.v17Flow) D.v17Flow.finalThemeScore = value;
+    D.deltaScore = typeof value === 'number' && typeof D.initialThemeScore === 'number'
+      ? value - D.initialThemeScore : null;
+    setV17ThemeScoreTrailAfter(value);
+    renderV17Screen('s-v17-final-negative');
+    fwd('s-v17-final-negative');
+    return;
+  }
   setV17CurrentStep('step5');
-  D.finalThemeScore = positive;
-  D.breathEaseAfter = positive;
-  if (D.v17Flow) D.v17Flow.finalThemeScore = positive;
   if (D.v17Flow) D.v17Flow.currentStep = 'step6';
-  D.deltaScore = typeof positive === 'number' && typeof D.initialThemeScore === 'number'
-    ? positive - D.initialThemeScore : null;
-  setV17ThemeScoreTrailAfter(positive);
+  setV17ThemeScoreTrailAfter(D.finalThemeScore);
   setV17ThemeAwarenessEntry(getV17IdealStateText());
   showV17Result();
 }
 
-function skipV17EmotionMeasurement(stage) {
-  setV17EmotionMeasurementValue(stage, 'positive', V17_SCORE_NOT_A_PROBLEM);
-  setV17EmotionMeasurementValue(stage, 'negative', V17_SCORE_NOT_A_PROBLEM);
-  submitV17EmotionMeasurement(stage);
+function skipV17EmotionMeasurement(stage, aspect) {
+  setV17EmotionMeasurementValue(stage, aspect, V17_SCORE_NOT_A_PROBLEM);
+  submitV17EmotionMeasurement(stage, aspect);
 }
 
 function resetV17EmotionMeasurementState(stage) {
-  var meta = getV17EmotionMeasurementMeta(stage);
+  var meta = getV17EmotionMeasurementMeta(stage, 'positive');
   if (stage === 'after') {
     D.afterEmotionPositive = null;
     D.afterEmotionNegative = null;
@@ -4694,7 +4717,8 @@ function resetV17EmotionMeasurementState(stage) {
   }
   resetSlider(meta.positiveKey);
   resetSlider(meta.negativeKey);
-  updateV17EmotionMeasurementNext(stage);
+  updateV17EmotionMeasurementNext(stage, 'positive');
+  updateV17EmotionMeasurementNext(stage, 'negative');
 }
 
 function getV17EmotionMeasurementSnapshot() {
@@ -7433,8 +7457,10 @@ function positionV17SkipButton(screenId) {
     target = document.getElementById('v17-theme-accordion');
   } else if (screenId === 's-v17-spiritual-wisdom') {
     target = document.getElementById('v17-spiritual-accordion');
-  } else if (screenId === 's-v17-before') {
-    target = document.getElementById('next-v17-before');
+  } else if (screenId === 's-v17-before-positive') {
+    target = document.getElementById('next-v17-before-positive');
+  } else if (screenId === 's-v17-before-negative') {
+    target = document.getElementById('next-v17-before-negative');
   } else if (screenId === 's-v17-first-response') {
     target = document.getElementById('next-v17-first-response');
   } else if (screenId === 's-v17-second-response') {
@@ -7445,8 +7471,10 @@ function positionV17SkipButton(screenId) {
     target = document.getElementById('next-v17-deep-feel-100');
   } else if (screenId === 's-v17-breath') {
     target = document.getElementById('btn-v17-breath-next');
-  } else if (screenId === 's-v17-final-measure') {
-    target = document.getElementById('next-v17-final');
+  } else if (screenId === 's-v17-final-positive') {
+    target = document.getElementById('next-v17-final-positive');
+  } else if (screenId === 's-v17-final-negative') {
+    target = document.getElementById('next-v17-final-negative');
   } else if (screenId === 's-result') {
     target = document.getElementById('v17-result-actions');
   }
@@ -7751,14 +7779,22 @@ function renderV17Screen(screenId) {
     }
   } else if (screenId === 's-v17-session-mode') {
     renderV17SessionModeScreen();
-  } else if (screenId === 's-v17-before') {
+  } else if (screenId === 's-v17-before-positive') {
     renderV17ThemeBlock(
-      'v17-before-theme-block',
-      'v17-before-theme',
-      'v17-before-meaning',
+      'v17-before-positive-theme-block',
+      'v17-before-positive-theme',
+      'v17-before-positive-meaning',
       v17Format('flow.step1.quote', { theme: D.questionTextAtTime })
     );
-    renderV17EmotionMeasurementScreen('before');
+    renderV17EmotionMeasurementScreen('before', 'positive');
+  } else if (screenId === 's-v17-before-negative') {
+    renderV17ThemeBlock(
+      'v17-before-negative-theme-block',
+      'v17-before-negative-theme',
+      'v17-before-negative-meaning',
+      v17Format('flow.step1.quote', { theme: D.questionTextAtTime })
+    );
+    renderV17EmotionMeasurementScreen('before', 'negative');
   } else if (screenId === 's-v17-first-response') {
     var firstRoute = getV17ThemeRoute();
     var firstPath = 'flow.step2.' + firstRoute;
@@ -7806,15 +7842,24 @@ function renderV17Screen(screenId) {
     renderV17DeepDiveFeel100Screen();
   } else if (screenId === 's-v17-breath') {
     renderV17BreathScreen();
-  } else if (screenId === 's-v17-final-measure') {
+  } else if (screenId === 's-v17-final-positive') {
     renderV17ThemeBlock(
-      'v17-final-theme-block',
-      'v17-final-quote',
-      'v17-final-meaning',
+      'v17-final-positive-theme-block',
+      'v17-final-positive-quote',
+      'v17-final-positive-meaning',
       v17Format('flow.step5.quote', { theme: D.questionTextAtTime })
     );
-    renderV17EmotionMeasurementScreen('after');
-    setEl('next-v17-final', v17Copy('flow.step5.result'));
+    renderV17EmotionMeasurementScreen('after', 'positive');
+    setEl('next-v17-final-positive', v17Copy('flow.common.continue'));
+  } else if (screenId === 's-v17-final-negative') {
+    renderV17ThemeBlock(
+      'v17-final-negative-theme-block',
+      'v17-final-negative-quote',
+      'v17-final-negative-meaning',
+      v17Format('flow.step5.quote', { theme: D.questionTextAtTime })
+    );
+    renderV17EmotionMeasurementScreen('after', 'negative');
+    setEl('next-v17-final-negative', v17Copy('flow.step5.result'));
   } else if (screenId === 's-result') {
     renderV17Result();
   }
@@ -7846,15 +7891,15 @@ function startV17Session(replaceHistory) {
   D.v17Flow = createV17FlowState();
   resetV17EmotionMeasurementState('before');
   resetV17EmotionMeasurementState('after');
-  renderV17Screen('s-v17-before');
+  renderV17Screen('s-v17-before-positive');
   trackEvent('v17_session_started', { themeId: D.themeId, questionId: D.questionId, locale: D.localeAtTime });
-  if (replaceHistory) showScreenDirect('s-v17-before');
-  else fwd('s-v17-before');
+  if (replaceHistory) showScreenDirect('s-v17-before-positive');
+  else fwd('s-v17-before-positive');
 }
 
 function submitV17BeforeScore() {
   ensureV17SessionState();
-  submitV17EmotionMeasurement('before');
+  submitV17EmotionMeasurement('before', 'positive');
 }
 
 function openV17FirstResponse() {
@@ -8455,14 +8500,14 @@ function continueV17BreathPhase() {
 }
 
 function openV17FinalMeasurement() {
-  setV17CurrentStep('step5');
-  renderV17Screen('s-v17-final-measure');
-  fwd('s-v17-final-measure');
+  setV17CurrentStep('step5.positive');
+  renderV17Screen('s-v17-final-positive');
+  fwd('s-v17-final-positive');
 }
 
 function submitV17FinalScore() {
   ensureV17SessionState();
-  submitV17EmotionMeasurement('after');
+  submitV17EmotionMeasurement('after', 'positive');
 }
 
 function renderV17Result() {
@@ -8721,13 +8766,15 @@ function handleV17Skip() {
   if (cur === 's-v17-start-category') { openV17LifeThemeEntry(); return; }
   if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
   if (cur === 's-v17-spiritual-wisdom') { skipV17ThemeSelection(); return; }
-  if (cur === 's-v17-before') { skipV17EmotionMeasurement('before'); return; }
+  if (cur === 's-v17-before-positive') { skipV17EmotionMeasurement('before', 'positive'); return; }
+  if (cur === 's-v17-before-negative') { skipV17EmotionMeasurement('before', 'negative'); return; }
   if (cur === 's-v17-first-response') { submitV17FirstResponse(true); return; }
   if (cur === 's-v17-second-response') { submitV17SecondResponse(true); return; }
   if (cur === 's-v17-deep-response') { submitV17DeepDiveResponse(true); return; }
   if (cur === 's-v17-deep-feel-100') { submitV17DeepDiveFeel100(); return; }
   if (cur === 's-v17-breath') { completeV17BreathFlow(); return; }
-  if (cur === 's-v17-final-measure') { skipV17EmotionMeasurement('after'); return; }
+  if (cur === 's-v17-final-positive') { skipV17EmotionMeasurement('after', 'positive'); return; }
+  if (cur === 's-v17-final-negative') { skipV17EmotionMeasurement('after', 'negative'); return; }
   if (cur === 's-result') { skipV17ResultChoice(); return; }
   showScreenDirect('s-v17-entry-choice');
 }
