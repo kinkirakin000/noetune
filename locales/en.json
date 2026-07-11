@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When you focus your attention on it,\nwhat is the level of positive emotion?",
+      "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -164,14 +164,8 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When you focus your attention on it,\nwhat is the level of positive emotion?",
+      "prompt": "When you focus your attention on it,\nwhat is the level of positive feeling?",
       "rangeLabel": "0–100"
-    },
-    "measurement": {
-      "positiveLabel": "Positive emotion",
-      "positivePrompt": "When you focus your attention on it,\nwhat is the level of positive emotion?",
-      "negativeLabel": "Negative emotion",
-      "negativePrompt": "When you focus your attention on it,\nwhat is the level of negative emotion?"
     },
     "deepDive": {
       "feel100": {
