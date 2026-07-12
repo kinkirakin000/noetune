@@ -153,7 +153,13 @@ function setV17BookmarkStatus(messageKey, persist) {
 function setV17BookmarkButtonState(labelKey, disabled, bookmarked) {
   var button = getV17BookmarkButton();
   if (!button) return;
-  button.textContent = v17Copy(labelKey || 'bookmark.primaryCta');
+  var label = v17Copy(labelKey || 'bookmark.primaryCta');
+  if (!label) {
+    label = bookmarked ? v17Copy('bookmark.saved') : v17Copy('bookmark.primaryCta');
+  }
+  if (label) {
+    button.textContent = label;
+  }
   button.disabled = !!disabled;
   button.setAttribute('aria-busy', disabled ? 'true' : 'false');
   button.setAttribute('aria-pressed', bookmarked ? 'true' : 'false');
