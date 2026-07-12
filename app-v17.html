@@ -486,6 +486,9 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .btn-home-screen-add{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 18px;border:1px solid rgba(107,144,128,.24);border-radius:999px;background:rgba(255,255,255,.08);color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:400;letter-spacing:.06em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .2s,border-color .2s,background .2s}
 .btn-home-screen-add:active{opacity:.82;background:rgba(107,144,128,.08);border-color:rgba(107,144,128,.4)}
 .home-screen-note{max-width:16rem;margin:.55rem auto 0;font-family:'Noto Serif JP',serif;font-size:.68rem;font-weight:300;line-height:1.8;letter-spacing:.04em;color:#A8A8A2;white-space:pre-line;text-align:center}
+.result-home-screen-wrap{width:100%;margin-top:.85rem;display:flex;flex-direction:column;align-items:center;box-sizing:border-box;padding:0 1rem;text-align:center}
+.result-home-screen-wrap .btn-home-screen-add{max-width:calc(100% - 32px);margin-left:auto;margin-right:auto}
+.result-home-screen-wrap .home-screen-note{width:100%;margin-left:auto;margin-right:auto;text-align:center}
 .portal-outline-btn{display:inline-block;margin:1.2rem auto 0;padding:9px 22px;background:transparent;border:1px solid #6B9080;border-radius:999px;color:#6B9080;font-family:'Noto Serif JP',serif;font-size:.72rem;font-weight:400;letter-spacing:.08em;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .2s,color .2s,opacity .2s;}
 .portal-outline-btn:active{background:rgba(107,144,128,.08);opacity:.85;}
 /* ── QUIET HOLOGRAPHIC SURFACE ── */
@@ -618,8 +621,6 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .sc-note-wrap{border-top-color:rgba(245,239,230,.1)}
 .btn-save-image{border-color:rgba(143,184,164,.35);color:#8FB8A4}
 .btn-save-image:active{background:rgba(143,184,164,.08)}
-.result-home-screen-wrap{width:100%;margin-top:.85rem;display:flex;flex-direction:column;align-items:center;box-sizing:border-box;padding:0 1rem}
-.btn-home-screen-add{display:inline-flex;align-items:center;justify-content:center;max-width:calc(100% - 32px);margin-left:auto;margin-right:auto;box-sizing:border-box}
 .save-preview-wrap img{border-color:rgba(245,239,230,.14)}
 .btn-secondary-result{color:#B8B2A8}
 .btn-secondary-result:active{color:#8FB8A4}
@@ -7168,7 +7169,7 @@ function startV17RepeatedSubthemeSession(mode) {
   resetSlider('v17-before');
   resetSlider('v17-final');
   if (D.v17SessionMode === 'deep') {
-    startV17DeepDive();
+    openV17DeepNegativeMeasurement('before');
     return;
   }
   setV17CurrentStep('step2');
