@@ -5712,11 +5712,13 @@ function v17LocaleValue(path) {
     'flow.app.back': 'buttons.back',
     'flow.app.skip': 'buttons.skipThisStep',
     'flow.app.close': 'buttons.close',
+    'flow.app.account': 'buttons.account',
     'flow.app.login': 'buttons.login',
     'flow.app.signup': 'buttons.signup',
     'flow.app.logout': 'buttons.logout',
     'flow.app.manage': 'buttons.manage',
     'flow.app.pricing': 'buttons.pricing',
+    'flow.app.continueWithGoogle': 'buttons.continueWithGoogle',
     'flow.landing.logo': 'lp.logo',
     'flow.landing.hero': 'lp.hero.title',
     'flow.landing.subtitle': 'lp.hero.body',
@@ -6697,8 +6699,12 @@ function skipNegaIdeal() {
 
 function setGoogleAuthButtonLabel(btn) {
   if (!btn) return;
-  var label = getV17LocaleRoot() ? v17Copy('flow.app.login') : T('authGoogleContinue');
-  btn.innerHTML = '<span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text">' + label + '</span>';
+  var label = getV17LocaleRoot()
+    ? v17Copy('flow.app.continueWithGoogle')
+    : (T('authGoogleContinue') || 'Continue with Google');
+  btn.innerHTML = '<span class="auth-google-g" aria-hidden="true">G</span><span class="auth-google-text"></span>';
+  var text = btn.querySelector('.auth-google-text');
+  if (text) text.textContent = label;
 }
 
 /* ── Trial consumption ───────────────────────────────────────────────────── */
@@ -7315,9 +7321,7 @@ function renderV17StaticCopy() {
   if (!getV17LocaleRoot()) return;
   applyThemeMode();
   updateLanguageControl();
-  var accountState = getAccountUIState();
-  setEl('account-chip-label', v17Copy(accountState === 'guest' ? 'flow.app.accountState.guest'
-    : accountState === 'free' ? 'flow.app.accountState.free' : 'flow.app.accountState.pro'));
+  setEl('account-chip-label', v17Copy('flow.app.account'));
   setEl('account-login', v17Copy('flow.app.login'));
   setEl('account-signup', v17Copy('flow.app.signup'));
   setEl('account-professional', v17Copy('flow.app.pricing'));

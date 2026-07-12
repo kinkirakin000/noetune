@@ -260,7 +260,9 @@
     "restartTheme": "從這個主題重新開始",
     "chooseThemeAgain": "重新選擇主題",
     "cannotQuantify": "無法量化",
-    "deepDiveNoMoreWords": "沒有更多話了"
+    "deepDiveNoMoreWords": "沒有更多話了",
+    "account": "帳戶",
+    "continueWithGoogle": "使用 Google 繼續"
   },
   "buttonsHint": {
     "cannotQuantify": "已經不值得當成問題"

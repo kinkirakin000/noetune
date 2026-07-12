@@ -260,7 +260,9 @@
     "restartTheme": "このテーマを最初から",
     "chooseThemeAgain": "テーマを選び直す",
     "cannotQuantify": "数値化不可",
-    "deepDiveNoMoreWords": "これ以上、言葉が出ない"
+    "deepDiveNoMoreWords": "これ以上、言葉が出ない",
+    "account": "アカウント",
+    "continueWithGoogle": "Googleで続ける"
   },
   "buttonsHint": {
     "cannotQuantify": "問題に値しない"

@@ -86,15 +86,24 @@ function refreshV17BillingUI() {
 }
 
 function getV17AccountChipLabelForState(state) {
-  var fallback = state === 'free' ? 'Free' : state === 'plus' ? 'Pro' : '';
-  if (typeof v17Copy !== 'function') return fallback;
-  var path = state === 'guest'
-    ? 'flow.app.accountState.guest'
-    : state === 'free'
-      ? 'flow.app.accountState.free'
-      : 'flow.app.accountState.pro';
-  var value = v17Copy(path);
-  return value || fallback;
+  if (typeof v17Copy === 'function') {
+    var value = v17Copy('flow.app.account');
+    if (value) return value;
+  }
+  return state === 'free' ? 'Free' : state === 'plus' ? 'Pro' : 'Account';
+}
+
+function resetV17AuthModalUI() {
+  var msg = getV17AuthMsg();
+  var btn = getV17GoogleButton();
+  if (msg) msg.textContent = '';
+  if (btn) {
+    btn.style.display = '';
+    btn.disabled = v17AuthBusy;
+    btn.setAttribute('aria-busy', v17AuthBusy ? 'true' : 'false');
+    btn.onclick = loginV17WithGoogle;
+    if (typeof setGoogleAuthButtonLabel === 'function') setGoogleAuthButtonLabel(btn);
+  }
 }
 
 function getV17AuthModal() {
@@ -348,6 +357,7 @@ function renderV17AccountUI() {
 function openV17AuthModal() {
   var modal = getV17AuthModal();
   if (!modal) return;
+  resetV17AuthModalUI();
   modal.classList.add('open');
 }
 

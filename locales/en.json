@@ -260,7 +260,9 @@
     "restartTheme": "Start this theme again",
     "chooseThemeAgain": "Choose another theme",
     "cannotQuantify": "Cannot quantify",
-    "deepDiveNoMoreWords": "No more words"
+    "deepDiveNoMoreWords": "No more words",
+    "account": "Account",
+    "continueWithGoogle": "Continue with Google"
   },
   "buttonsHint": {
     "cannotQuantify": "No longer worth treating as a problem"
