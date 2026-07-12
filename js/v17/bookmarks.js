@@ -356,7 +356,7 @@ async function refreshV17BookmarkState(force) {
     return false;
   }
   if (!force && v17BookmarkState.loadedUserId === user.id && v17BookmarkState.loadedThemeKey === ctx.stableThemeKey && !v17BookmarkState.loadingPromise) {
-    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
+    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
     if (!v17BookmarkState.statusText) setV17BookmarkStatus('', true);
     return !!v17BookmarkState.currentBookmark;
   }
@@ -375,7 +375,7 @@ async function refreshV17BookmarkState(force) {
       v17BookmarkState.loadedUserId = user.id;
       v17BookmarkState.loadedThemeKey = ctx.stableThemeKey;
       v17BookmarkState.error = null;
-      setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
+      setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
       setV17BookmarkStatus('', true);
       return !!v17BookmarkState.currentBookmark;
     })
@@ -385,7 +385,7 @@ async function refreshV17BookmarkState(force) {
         v17BookmarkState.bookmarks = [];
         v17BookmarkState.loadedUserId = '';
         v17BookmarkState.loadedThemeKey = '';
-        setV17BookmarkButtonState('bookmark.primaryCta', !canWrite, false);
+        setV17BookmarkButtonState('bookmark.primaryCta', false, false);
         setV17BookmarkStatus('', true);
         return false;
       }
@@ -393,14 +393,14 @@ async function refreshV17BookmarkState(force) {
         v17BookmarkState.error = error;
         v17BookmarkState.loadedUserId = user.id;
         v17BookmarkState.loadedThemeKey = ctx.stableThemeKey;
-        setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
+        setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
         if (!v17BookmarkState.statusText) {
           setV17BookmarkStatus(error.code === 'profile_unavailable' ? 'bookmark.error' : '', false);
         }
         return false;
       }
       v17BookmarkState.error = error;
-      setV17BookmarkButtonState('bookmark.primaryCta', !canWrite, false);
+      setV17BookmarkButtonState('bookmark.primaryCta', false, false);
       setV17BookmarkStatus('bookmark.error', false);
       return false;
     })
@@ -453,7 +453,7 @@ function renderV17BookmarkUI(force) {
     refreshV17BookmarkState(true);
     return true;
   }
-  setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
+  setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
   if (!v17BookmarkState.statusText) setV17BookmarkStatus('', true);
   return !!v17BookmarkState.currentBookmark;
 }
@@ -525,7 +525,7 @@ async function toggleCurrentThemeBookmark() {
   var user = getV17BookmarkUser();
   if (user && !canV17WriteBookmarkData()) {
     setV17BookmarkStatus('bookmark.proRequired', false);
-    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', true, !!v17BookmarkState.currentBookmark);
+    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
     return false;
   }
   if (!user) {
