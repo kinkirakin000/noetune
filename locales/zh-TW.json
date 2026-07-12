@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "當你把注意力放在這件事上時，\n你的充實程度是多少？",
+      "prompt": "當你把注意力放在這件事上時，\n你有多充實？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,11 +164,11 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "當你把注意力放在這件事上時，\n你的充實程度是多少？",
+      "prompt": "當你把注意力放在這件事上時，\n你有多充實？",
       "rangeLabel": "0〜100"
     },
     "measurement": {
-      "negativePrompt": "當你把注意力放在這件事上時，\n你的匱乏程度是多少？"
+      "negativePrompt": "當你把注意力放在這件事上時，\n你有多匱乏？"
     },
     "deepDive": {
       "feel100": {
@@ -197,9 +197,9 @@
     "cardTitle": "結果",
     "themeLabel": "主題",
     "subthemeLabel": "子主題",
-    "happinessLabel": "幸福度",
-    "positiveSensation": "充實度",
-    "negativeSensation": "匱乏度",
+    "happinessLabel": "充實感",
+    "positiveSensation": "充實感",
+    "negativeSensation": "匱乏感",
     "awarenessTitle": "注意到的事",
     "showMoreAwareness": "查看更多",
     "showRecentAwareness": "只看部分",
@@ -208,7 +208,7 @@
     "selectedIdeal": "你選擇的理想",
     "currentState": "你寫下的目前狀態",
     "idealState": "你寫下的幸福感達到 100% 時的狀態",
-    "scoreSuffix": "所選主題的幸福度",
+    "scoreSuffix": "所選主題的充實感",
     "before": "前",
     "after": "後",
     "showAllScores": "查看全部",

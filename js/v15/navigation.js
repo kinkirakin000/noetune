@@ -1,7 +1,17 @@
+function captureNavPageStateSnapshot(id) {
+  if (typeof captureV17NavigationSnapshot === 'function') return captureV17NavigationSnapshot(id);
+  return null;
+}
+
+function restoreNavPageStateSnapshot(snapshot) {
+  if (typeof restoreV17NavigationSnapshot === 'function') restoreV17NavigationSnapshot(snapshot);
+}
+
 function fwd(id) {
   var c = document.getElementById(cur);
   var n = document.getElementById(id);
   if (!c || !n || cur === id) return;
+  navPageStateHistory.push(captureNavPageStateSnapshot(cur));
   navHistory.push(cur);
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
@@ -18,11 +28,23 @@ function goBack() {
     var h = document.getElementById('hint-' + k); if (h) h.style.display = '';
   });
   var prev = navHistory.pop();
+  var snapshot = navPageStateHistory.length ? navPageStateHistory.pop() : null;
   var c = document.getElementById(cur), n = document.getElementById(prev);
   if (!c || !n || cur === prev) { updateBackBtn(); return; }
   c.classList.remove('active'); c.classList.add('exit');
   setTimeout(function(){ c.classList.remove('exit'); }, 500);
-  setTimeout(function(){ n.classList.add('active'); cur = prev; updateBackBtn(); updateProgress(); updateThemeCTA(); updateIdealCTA(); updateDoorCTA(); updateNegaCTA(); }, 130);
+  setTimeout(function(){
+    n.classList.add('active');
+    cur = prev;
+    restoreNavPageStateSnapshot(snapshot);
+    if (typeof renderCurrentV17Screen === 'function') renderCurrentV17Screen();
+    updateBackBtn();
+    updateProgress();
+    updateThemeCTA();
+    updateIdealCTA();
+    updateDoorCTA();
+    updateNegaCTA();
+  }, 130);
 }
 
 function updateBackBtn() {
@@ -53,6 +75,7 @@ function showScreenDirect(id) {
   if (next) next.classList.add('active');
   cur = id;
   navHistory = [];
+  navPageStateHistory = [];
   updateBackBtn();
   updateProgress();
   updateThemeCTA();
@@ -66,7 +89,7 @@ function backToStart() {
         reactionAnswer:'', idealAnswer:'',
         entryMode:null, doorKey:null, doorSentence:'',
         breathEaseBefore:null, breathEaseAfter:null, beforeEmotionNegative:null, afterEmotionNegative:null, breathMode:null };
-  navHistory = []; themeChosen = false; breathing = false; breathCount = 0;
+  navHistory = []; navPageStateHistory = []; themeChosen = false; breathing = false; breathCount = 0;
   themeVisibleCount = 3;
   ['b1','b2','a1','a2'].forEach(resetSlider);
   renderThemeScreen();

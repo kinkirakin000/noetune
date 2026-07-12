@@ -72,6 +72,7 @@ var currentSituationCategoryId = null;
 
 var cur = 's-landing';
 var navHistory = [];
+var navPageStateHistory = [];
 var landingLang = 'en';
 
 var _trialConsumedThisSession = false;
@@ -118,6 +119,7 @@ Object.assign(window, {
   currentSituationCategoryId: currentSituationCategoryId,
   cur: cur,
   navHistory: navHistory,
+  navPageStateHistory: navPageStateHistory,
   landingLang: landingLang,
   _trialConsumedThisSession: _trialConsumedThisSession,
   _doorSentences: _doorSentences,

@@ -618,7 +618,8 @@ input[type=range]::-moz-range-thumb{background:#8FB8A4}
 .sc-note-wrap{border-top-color:rgba(245,239,230,.1)}
 .btn-save-image{border-color:rgba(143,184,164,.35);color:#8FB8A4}
 .btn-save-image:active{background:rgba(143,184,164,.08)}
-.result-home-screen-wrap{margin-top:.85rem;display:flex;flex-direction:column;align-items:center}
+.result-home-screen-wrap{width:100%;margin-top:.85rem;display:flex;flex-direction:column;align-items:center;box-sizing:border-box;padding:0 1rem}
+.btn-home-screen-add{display:inline-flex;align-items:center;justify-content:center;max-width:calc(100% - 32px);margin-left:auto;margin-right:auto;box-sizing:border-box}
 .save-preview-wrap img{border-color:rgba(245,239,230,.14)}
 .btn-secondary-result{color:#B8B2A8}
 .btn-secondary-result:active{color:#8FB8A4}
@@ -5741,7 +5742,7 @@ function v17LocaleValue(path) {
     'flow.result.idealTheme': 'result.selectedIdeal',
     'flow.result.currentState': 'result.currentState',
     'flow.result.idealState': 'result.idealState',
-    'flow.result.happiness': 'result.scoreSuffix',
+    'flow.result.happiness': 'result.happinessLabel',
     'flow.result.before': 'result.before',
     'flow.result.after': 'result.after',
     'flow.result.image': 'result.imageSave',
