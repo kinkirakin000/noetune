@@ -229,7 +229,7 @@
     "saved": "保存済み",
     "removed": "しおりを外しました",
     "loginRequired": "しおりを挟むにはログインしてください",
-    "proRequired": "複数のしおりを残すにはProが必要です",
+    "proRequired": "しおりを挟むにはProが必要です",
     "loading": "処理中…",
     "error": "うまく保存できませんでした"
   },

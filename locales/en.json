@@ -229,7 +229,7 @@
     "saved": "Saved",
     "removed": "Bookmark removed",
     "loginRequired": "Log in to add a bookmark",
-    "proRequired": "Pro is required for multiple bookmarks",
+    "proRequired": "Pro is required to add a bookmark.",
     "loading": "Loading…",
     "error": "Could not save this bookmark"
   },

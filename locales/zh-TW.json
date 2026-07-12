@@ -229,7 +229,7 @@
     "saved": "已儲存",
     "removed": "已移除書籤",
     "loginRequired": "請登入後加入書籤",
-    "proRequired": "若要儲存多個書籤，需要使用 Pro",
+    "proRequired": "加入書籤需要 Pro。",
     "loading": "載入中…",
     "error": "無法儲存這個書籤"
   },
