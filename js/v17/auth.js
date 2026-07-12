@@ -11,15 +11,108 @@ var v17SupabaseSdkPromise = null;
 var v17AuthBusy = false;
 var v17PendingSavePromise = null;
 
+var V17_PENDING_BOOKMARK_STORAGE_KEY = 'noetunePendingBookmark';
+
 function syncV17AuthCompatibilityState() {
   if (typeof currentUser !== 'undefined') currentUser = v17AuthState.user || null;
   if (typeof currentProfile !== 'undefined') currentProfile = v17AuthState.profile || null;
   if (typeof supabaseClient !== 'undefined') supabaseClient = v17SupabaseClient || null;
 }
 
+function getV17BillingNormalizer() {
+  if (typeof window !== 'undefined' && typeof window.normalizeV17BillingProfile === 'function') {
+    return window.normalizeV17BillingProfile;
+  }
+  return null;
+}
+
+function getV17PendingAccessSnapshot() {
+  if (typeof window === 'undefined' || typeof window.getV17AccessSnapshot !== 'function') return null;
+  try {
+    return window.getV17AccessSnapshot();
+  } catch (error) {
+    return null;
+  }
+}
+
+function canFlushV17PendingSavedData() {
+  try {
+    var snapshot = getV17PendingAccessSnapshot();
+    if (snapshot && snapshot.billingState === 'unknown') return false;
+    if (snapshot && snapshot.billingState === 'guest') return false;
+    if (snapshot && snapshot.canWriteProData === true) return true;
+    if (snapshot && snapshot.canWriteProData === false) return false;
+    if (typeof window !== 'undefined' && typeof window.canV17WriteSavedProData === 'function') {
+      return window.canV17WriteSavedProData() === true;
+    }
+    if (typeof window !== 'undefined' && typeof window.canV17WriteProData === 'function') {
+      return window.canV17WriteProData() === true;
+    }
+    return false;
+  } catch (error) {
+    return false;
+  }
+}
+
+function shouldDiscardV17PendingSavedData() {
+  if (v17AuthState && v17AuthState.user && v17AuthState.status === 'free' && !v17AuthState.profile) {
+    return true;
+  }
+  var snapshot = getV17PendingAccessSnapshot();
+  if (!snapshot) return false;
+  if (snapshot.billingState === 'guest' || snapshot.billingState === 'unknown') return false;
+  return snapshot.canWriteProData === false;
+}
+
+function clearV17PendingCloudSaveState() {
+  try {
+    if (typeof clearPendingResult === 'function') clearPendingResult();
+  } catch (error) {}
+  try {
+    if (typeof clearPendingProgress === 'function') clearPendingProgress();
+  } catch (error) {}
+  try {
+    if (typeof sessionStorage !== 'undefined') sessionStorage.removeItem(V17_PENDING_BOOKMARK_STORAGE_KEY);
+  } catch (error) {}
+  v17PendingSavePromise = null;
+}
+
+function syncV17AuthBillingAndAccess(loggedIn, profile) {
+  var client = v17SupabaseClient || null;
+  if (client && typeof window !== 'undefined' && typeof window.setV17BillingClient === 'function') {
+    try {
+      window.setV17BillingClient(client);
+    } catch (error) {}
+  }
+
+  var normalizedBilling = null;
+  var normalizer = getV17BillingNormalizer();
+  if (normalizer) {
+    try {
+      normalizedBilling = normalizer(profile, { loggedIn: !!loggedIn });
+    } catch (error) {
+      normalizedBilling = null;
+    }
+  }
+
+  if (typeof window !== 'undefined' && typeof window.setV17AccessContext === 'function') {
+    try {
+      window.setV17AccessContext({ loggedIn: !!loggedIn, profile: profile || null });
+    } catch (error) {}
+  }
+
+  v17AuthState.billing = normalizedBilling || null;
+  if (normalizedBilling) {
+    v17AuthState.billingSnapshot = normalizedBilling;
+  } else {
+    delete v17AuthState.billingSnapshot;
+  }
+}
+
 function setV17AuthState(patch) {
   v17AuthState = Object.assign({}, v17AuthState, patch || {});
   syncV17AuthCompatibilityState();
+  syncV17AuthBillingAndAccess(!!v17AuthState.user, v17AuthState.profile || null);
   renderV17AccountUI();
   refreshV17BillingUI();
   if (typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(false);
@@ -28,6 +121,12 @@ function setV17AuthState(patch) {
 
 function runV17PendingSavesIfNeeded() {
   if (!v17AuthState.user || v17AuthState.status === 'guest' || v17AuthState.status === 'idle') {
+    return Promise.resolve(false);
+  }
+  if (!canFlushV17PendingSavedData()) {
+    if (shouldDiscardV17PendingSavedData()) {
+      clearV17PendingCloudSaveState();
+    }
     return Promise.resolve(false);
   }
   if (v17PendingSavePromise) return v17PendingSavePromise;
@@ -51,7 +150,9 @@ function runV17PendingSavesIfNeeded() {
       return null;
     })
     .catch(function(error) {
-      console.warn('v17 pending save failed', error);
+      if (error && error.status === 403) {
+        clearV17PendingCloudSaveState();
+      }
       return false;
     })
     .then(function(result) {
@@ -165,8 +266,12 @@ function ensureV17SupabaseReady() {
           try {
             v17SupabaseClient = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
             syncV17AuthCompatibilityState();
+            syncV17AuthBillingAndAccess(!!v17AuthState.user, v17AuthState.profile || null);
             v17SupabaseClient.auth.onAuthStateChange(function(event, session) {
               if (session && session.user) {
+                if (v17AuthState.user && v17AuthState.user.id && v17AuthState.user.id !== session.user.id) {
+                  clearV17PendingCloudSaveState();
+                }
                 setV17AuthState({
                   status: 'loading',
                   user: session.user,
@@ -178,6 +283,7 @@ function ensureV17SupabaseReady() {
                   return runV17PendingSavesIfNeeded();
                 });
               } else {
+                if (v17AuthState.user) clearV17PendingCloudSaveState();
                 setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
               }
             });
@@ -206,7 +312,7 @@ function isV17ProfilePlus(profile) {
 
 async function fetchV17Profile() {
   if (!v17SupabaseClient || !v17SupabaseClient.auth) {
-    setV17AuthState({ status: 'guest', profile: null, error: null });
+    setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
     return null;
   }
   try {
@@ -214,7 +320,7 @@ async function fetchV17Profile() {
     var session = sessionResult && sessionResult.data ? sessionResult.data.session : null;
     var token = session ? session.access_token : null;
     if (!token) {
-      setV17AuthState({ status: 'guest', profile: null, error: null });
+      setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
       return null;
     }
     var response = await fetch('/api/me', {
@@ -222,10 +328,11 @@ async function fetchV17Profile() {
     });
     if (!response.ok) {
       if (response.status === 401) {
-        setV17AuthState({ status: 'guest', profile: null, error: null });
+        if (v17AuthState.user) clearV17PendingCloudSaveState();
+        setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
         return null;
       }
-      setV17AuthState({ status: 'error', error: 'profile' });
+      setV17AuthState({ status: 'error', user: session && session.user ? session.user : null, profile: null, error: 'profile' });
       return null;
     }
     var data = await response.json();
@@ -237,12 +344,15 @@ async function fetchV17Profile() {
         user: session && session.user ? session.user : v17AuthState.user,
         error: null
       });
+      if (!profile) {
+        clearV17PendingCloudSaveState();
+      }
       return profile;
     }
-    setV17AuthState({ status: 'guest', profile: null, error: null });
+    setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
     return null;
   } catch (e) {
-    setV17AuthState({ status: 'error', error: 'profile' });
+    setV17AuthState({ status: 'error', user: v17AuthState.user || null, profile: null, error: 'profile' });
     return null;
   }
 }
@@ -314,8 +424,8 @@ async function logoutV17User() {
       await v17SupabaseClient.auth.signOut();
     }
   } catch (e) {}
-  v17PendingSavePromise = null;
-  setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
+  clearV17PendingCloudSaveState();
+  setV17AuthState({ status: 'guest', user: null, profile: null, error: null, billing: null });
   return true;
 }
 
@@ -373,12 +483,21 @@ function showV17AuthError(message) {
   setV17AuthState({ status: 'error', error: message || 'error' });
 }
 
+function refreshV17AuthBillingContext() {
+  syncV17AuthCompatibilityState();
+  syncV17AuthBillingAndAccess(!!v17AuthState.user, v17AuthState.profile || null);
+  return v17AuthState;
+}
+
 window.initV17Auth = initV17Auth;
 window.loginV17WithGoogle = loginV17WithGoogle;
 window.logoutV17User = logoutV17User;
 window.openV17AuthModal = openV17AuthModal;
 window.closeV17AuthModal = closeV17AuthModal;
 window.restoreV17Session = restoreV17Session;
+window.refreshV17AuthBillingContext = refreshV17AuthBillingContext;
+
+syncV17AuthBillingAndAccess(false, null);
 
 async function initV17Auth() {
   try {

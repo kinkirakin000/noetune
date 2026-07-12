@@ -28,6 +28,47 @@ function getV17BookmarkUser() {
   return currentUser || (v17AuthState && v17AuthState.user) || null;
 }
 
+function getV17BookmarkAccessSnapshot() {
+  if (typeof window === 'undefined' || typeof window.getV17AccessSnapshot !== 'function') return null;
+  try {
+    return window.getV17AccessSnapshot();
+  } catch (e) {
+    return null;
+  }
+}
+
+function canV17ReadBookmarkData() {
+  if (typeof window !== 'undefined' && typeof window.canV17ReadSavedProData === 'function') {
+    try {
+      return !!window.canV17ReadSavedProData();
+    } catch (e) {}
+  }
+  return !!getV17BookmarkUser();
+}
+
+function canV17WriteBookmarkData() {
+  if (typeof window !== 'undefined' && typeof window.canV17WriteSavedProData === 'function') {
+    try {
+      return !!window.canV17WriteSavedProData();
+    } catch (e) {}
+  }
+  return !!getV17BookmarkUser();
+}
+
+function readV17ResponseErrorCode(body) {
+  if (!body || typeof body !== 'object') return null;
+  return typeof body.error === 'string' && body.error ? body.error : null;
+}
+
+async function readV17ResponseBody(response) {
+  if (!response || typeof response.json !== 'function') return null;
+  try {
+    return await response.json();
+  } catch (e) {
+    return null;
+  }
+}
+
 function getV17BookmarkThemeSnapshot() {
   if (typeof getV17QuestionSnapshot !== 'function') return null;
   var snapshot = getV17QuestionSnapshot();
@@ -157,17 +198,25 @@ async function requestV17Bookmarks() {
   var response = await fetch('/api/bookmarks', {
     headers: { Authorization: 'Bearer ' + token }
   });
+  var body = response.ok ? null : await readV17ResponseBody(response);
   if (response.status === 401) {
     var unauthorized = new Error('unauthorized');
     unauthorized.status = 401;
     throw unauthorized;
+  }
+  if (response.status === 403) {
+    var denied = new Error(readV17ResponseErrorCode(body) || 'saved_data_read_not_allowed');
+    denied.status = 403;
+    denied.code = readV17ResponseErrorCode(body) || 'saved_data_read_not_allowed';
+    denied.billingState = body && body.billingState ? body.billingState : 'unknown';
+    throw denied;
   }
   if (!response.ok) {
     var error = new Error('bookmark fetch failed');
     error.status = response.status;
     throw error;
   }
-  var data = await response.json();
+  var data = await readV17ResponseBody(response);
   return Array.isArray(data && data.bookmarks) ? data.bookmarks : [];
 }
 
@@ -177,6 +226,13 @@ async function createV17Bookmark(payload) {
     var missing = new Error('missing session');
     missing.status = 401;
     throw missing;
+  }
+  if (!canV17WriteBookmarkData()) {
+    var denied = new Error('saved_data_write_not_allowed');
+    denied.status = 403;
+    denied.code = 'saved_data_write_not_allowed';
+    denied.billingState = (getV17BookmarkAccessSnapshot() && getV17BookmarkAccessSnapshot().billingState) || 'unknown';
+    throw denied;
   }
   var response = await fetch('/api/bookmarks', {
     method: 'POST',
@@ -195,9 +251,11 @@ async function createV17Bookmark(payload) {
     throw unauthorized;
   }
   if (response.status === 403) {
-    var limit = new Error('bookmark_limit_reached');
+    var body = await readV17ResponseBody(response);
+    var limit = new Error(readV17ResponseErrorCode(body) || 'saved_data_write_not_allowed');
     limit.status = 403;
-    limit.code = 'bookmark_limit_reached';
+    limit.code = readV17ResponseErrorCode(body) || 'saved_data_write_not_allowed';
+    limit.billingState = body && body.billingState ? body.billingState : 'unknown';
     throw limit;
   }
   if (!response.ok) {
@@ -215,6 +273,13 @@ async function deleteV17Bookmark(payload) {
     missing.status = 401;
     throw missing;
   }
+  if (!canV17WriteBookmarkData()) {
+    var denied = new Error('saved_data_delete_not_allowed');
+    denied.status = 403;
+    denied.code = 'saved_data_delete_not_allowed';
+    denied.billingState = (getV17BookmarkAccessSnapshot() && getV17BookmarkAccessSnapshot().billingState) || 'unknown';
+    throw denied;
+  }
   var response = await fetch('/api/bookmarks', {
     method: 'DELETE',
     headers: {
@@ -227,6 +292,14 @@ async function deleteV17Bookmark(payload) {
     var unauthorized = new Error('unauthorized');
     unauthorized.status = 401;
     throw unauthorized;
+  }
+  if (response.status === 403) {
+    var body = await readV17ResponseBody(response);
+    var denied = new Error(readV17ResponseErrorCode(body) || 'saved_data_delete_not_allowed');
+    denied.status = 403;
+    denied.code = readV17ResponseErrorCode(body) || 'saved_data_delete_not_allowed';
+    denied.billingState = body && body.billingState ? body.billingState : 'unknown';
+    throw denied;
   }
   if (!response.ok) {
     var error = new Error('bookmark delete failed');
@@ -263,6 +336,7 @@ async function refreshV17BookmarkState(force) {
     return false;
   }
   var user = getV17BookmarkUser();
+  var canWrite = canV17WriteBookmarkData();
   v17BookmarkState.currentThemeKey = ctx.stableThemeKey;
   v17BookmarkState.currentThemeSnapshot = ctx.themeSnapshot;
   if (!user) {
@@ -276,7 +350,7 @@ async function refreshV17BookmarkState(force) {
     return false;
   }
   if (!force && v17BookmarkState.loadedUserId === user.id && v17BookmarkState.loadedThemeKey === ctx.stableThemeKey && !v17BookmarkState.loadingPromise) {
-    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
+    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
     if (!v17BookmarkState.statusText) setV17BookmarkStatus('', true);
     return !!v17BookmarkState.currentBookmark;
   }
@@ -295,7 +369,7 @@ async function refreshV17BookmarkState(force) {
       v17BookmarkState.loadedUserId = user.id;
       v17BookmarkState.loadedThemeKey = ctx.stableThemeKey;
       v17BookmarkState.error = null;
-      setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
+      setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
       setV17BookmarkStatus('', true);
       return !!v17BookmarkState.currentBookmark;
     })
@@ -305,12 +379,22 @@ async function refreshV17BookmarkState(force) {
         v17BookmarkState.bookmarks = [];
         v17BookmarkState.loadedUserId = '';
         v17BookmarkState.loadedThemeKey = '';
-        setV17BookmarkButtonState('bookmark.primaryCta', false, false);
+        setV17BookmarkButtonState('bookmark.primaryCta', !canWrite, false);
         setV17BookmarkStatus('', true);
         return false;
       }
+      if (error && error.status === 403) {
+        v17BookmarkState.error = error;
+        v17BookmarkState.loadedUserId = user.id;
+        v17BookmarkState.loadedThemeKey = ctx.stableThemeKey;
+        setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
+        if (!v17BookmarkState.statusText) {
+          setV17BookmarkStatus(error.code === 'profile_unavailable' ? 'bookmark.error' : '', false);
+        }
+        return false;
+      }
       v17BookmarkState.error = error;
-      setV17BookmarkButtonState('bookmark.primaryCta', false, false);
+      setV17BookmarkButtonState('bookmark.primaryCta', !canWrite, false);
       setV17BookmarkStatus('bookmark.error', false);
       return false;
     })
@@ -333,6 +417,17 @@ function renderV17BookmarkUI(force) {
     return false;
   }
   var user = getV17BookmarkUser();
+  var canWrite = canV17WriteBookmarkData();
+  if (!canV17ReadBookmarkData()) {
+    v17BookmarkState.currentBookmark = null;
+    v17BookmarkState.bookmarks = [];
+    v17BookmarkState.loadedUserId = '';
+    v17BookmarkState.loadedThemeKey = v17BookmarkState.currentThemeKey || '';
+    v17BookmarkState.loading = false;
+    setV17BookmarkButtonState('bookmark.primaryCta', false, false);
+    if (!v17BookmarkState.statusText) setV17BookmarkStatus('', true);
+    return false;
+  }
   if (!user) {
     v17BookmarkState.currentBookmark = null;
     v17BookmarkState.bookmarks = [];
@@ -352,14 +447,23 @@ function renderV17BookmarkUI(force) {
     refreshV17BookmarkState(true);
     return true;
   }
-  setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', false, !!v17BookmarkState.currentBookmark);
+  setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', !canWrite, !!v17BookmarkState.currentBookmark);
   if (!v17BookmarkState.statusText) setV17BookmarkStatus('', true);
   return !!v17BookmarkState.currentBookmark;
+}
+
+function loadV17Bookmarks(force) {
+  return refreshV17BookmarkState(force);
 }
 
 async function savePendingBookmarkIfNeeded() {
   var pending = getV17PendingBookmarkPayload();
   if (!pending || !getV17BookmarkUser()) return false;
+  if (!canV17WriteBookmarkData()) {
+    clearV17PendingBookmarkPayload();
+    v17BookmarkState.pendingPayload = null;
+    return false;
+  }
   if (v17BookmarkState.pendingSavePromise) return v17BookmarkState.pendingSavePromise;
 
   v17BookmarkState.pendingSavePromise = (async function() {
@@ -381,8 +485,14 @@ async function savePendingBookmarkIfNeeded() {
       }
       return !!(result && result.bookmark);
     } catch (error) {
-      if (error && error.status === 403 && error.code === 'bookmark_limit_reached') {
-        setV17BookmarkStatus('bookmark.proRequired', false);
+      if (error && error.status === 403) {
+        if (error.code === 'profile_unavailable') {
+          setV17BookmarkStatus('bookmark.error', false);
+        } else {
+          setV17BookmarkStatus('bookmark.proRequired', false);
+        }
+        clearV17PendingBookmarkPayload();
+        v17BookmarkState.pendingPayload = null;
       } else if (error && error.status === 401) {
         openV17AuthModal();
         setEl('auth-modal-title', v17Copy('bookmark.loginRequired'));
@@ -407,6 +517,11 @@ async function toggleCurrentThemeBookmark() {
   }
 
   var user = getV17BookmarkUser();
+  if (user && !canV17WriteBookmarkData()) {
+    setV17BookmarkStatus('bookmark.proRequired', false);
+    setV17BookmarkButtonState(v17BookmarkState.currentBookmark ? 'bookmark.saved' : 'bookmark.primaryCta', true, !!v17BookmarkState.currentBookmark);
+    return false;
+  }
   if (!user) {
     v17BookmarkState.pendingPayload = ctx;
     setV17PendingBookmarkPayload(ctx);
@@ -510,6 +625,7 @@ async function isCurrentThemeBookmarked() {
 }
 
 window.fetchBookmarks = requestV17Bookmarks;
+window.loadV17Bookmarks = loadV17Bookmarks;
 window.createBookmark = createV17Bookmark;
 window.deleteBookmark = deleteV17Bookmark;
 window.isCurrentThemeBookmarked = isCurrentThemeBookmarked;

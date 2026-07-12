@@ -2,6 +2,7 @@
 // Stores one resumable V13 progress record per authenticated user.
 
 const { getSupabaseAdmin } = require('../lib/supabase-admin');
+const { getV17SavedDataEntitlements } = require('../lib/v17-entitlements');
 
 function text(value, max) {
   if (value == null) return null;
@@ -48,6 +49,23 @@ async function authenticatedUser(admin, req) {
   return error || !data ? null : data.user;
 }
 
+async function loadProgressProfile(admin, userId) {
+  const { data: profile, error } = await admin
+    .from('profiles')
+    .select('plan_status, stripe_subscription_status, cancel_at_period_end, stripe_customer_id')
+    .eq('id', userId)
+    .single();
+
+  if (error) {
+    if (error.code === 'PGRST116' || error.code === 'PGRST117' || /No rows found/i.test(String(error.message || ''))) {
+      return { profile: null, notFound: true };
+    }
+    return { profile: null, error };
+  }
+
+  return { profile };
+}
+
 module.exports = async (req, res) => {
   const admin = getSupabaseAdmin();
   if (!admin) return res.status(503).json({ saved: false, error: 'Storage unavailable' });
@@ -56,7 +74,19 @@ module.exports = async (req, res) => {
     const user = await authenticatedUser(admin, req);
     if (!user) return res.status(401).json({ saved: false, error: 'Authentication required' });
 
+    const profileResult = await loadProgressProfile(admin, user.id);
+    if (profileResult.error) throw profileResult.error;
+    if (profileResult.notFound || !profileResult.profile) {
+      return res.status(403).json({ saved: false, error: 'profile_unavailable', billingState: 'unknown' });
+    }
+
+    const entitlements = getV17SavedDataEntitlements(profileResult.profile);
+    const billingState = entitlements.billingState;
+
     if (req.method === 'GET') {
+      if (!entitlements.canRead) {
+        return res.status(403).json({ saved: false, error: 'saved_data_read_not_allowed', billingState });
+      }
       const { data, error } = await admin
         .from('saved_progress')
         .select('*')
@@ -69,6 +99,13 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'POST') {
+      if (!entitlements.canWrite) {
+        return res.status(403).json({
+          saved: false,
+          error: 'saved_data_write_not_allowed',
+          billingState,
+        });
+      }
       const body = object(req.body);
       const progressData = object(body.progressData);
       const nonidealAnswers = array(body.nonidealAnswers).map(value => text(value, 500));
@@ -116,6 +153,13 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'DELETE') {
+      if (!entitlements.canDelete) {
+        return res.status(403).json({
+          cleared: false,
+          error: 'saved_data_delete_not_allowed',
+          billingState,
+        });
+      }
       const { error } = await admin.from('saved_progress').delete().eq('user_id', user.id);
       if (error && !missingTable(error)) throw error;
       const metadata = Object.assign({}, user.user_metadata || {});

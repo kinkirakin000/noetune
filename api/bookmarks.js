@@ -5,10 +5,11 @@
 // Bookmark MVP API:
 // - auth token required
 // - bookmark is tied to a stable_theme_key
-// - Free users may keep one bookmark; Pro users may keep multiple
+// - Saved data read is allowed for any authenticated profile; writes are gated by entitlement
 // - Bookmarks are theme references only and do not restore session text
 
 const { getSupabaseAdmin } = require('../lib/supabase-admin');
+const { getV17SavedDataEntitlements } = require('../lib/v17-entitlements');
 
 var ALLOWED_PREFIXES = ['hcq:', 'theme:', 'spiritual:', 'free:'];
 var SNAPSHOT_FIELD_LIMITS = {
@@ -98,6 +99,12 @@ function sendInternalError(res) {
   return res.status(500).json({ ok: false, error: 'internal_error' });
 }
 
+function isMissingProfileError(error) {
+  if (!error) return false;
+  const message = String(error.message || '');
+  return error.code === 'PGRST116' || error.code === 'PGRST117' || /No rows found/i.test(message);
+}
+
 async function getAuthedUser(admin, req) {
   var token = getBearerToken(req);
   if (!token) return null;
@@ -109,11 +116,14 @@ async function getAuthedUser(admin, req) {
 async function getPlanStatus(admin, userId) {
   const { data, error } = await admin
     .from('profiles')
-    .select('plan_status')
+    .select('plan_status, stripe_subscription_status, cancel_at_period_end')
     .eq('id', userId)
     .maybeSingle();
-  if (error) throw error;
-  return data && data.plan_status === 'plus' ? 'plus' : 'free';
+  if (error) {
+    if (isMissingProfileError(error)) return null;
+    throw error;
+  }
+  return data || null;
 }
 
 async function listBookmarks(admin, userId) {
@@ -145,7 +155,16 @@ module.exports = async (req, res) => {
       return sendUnauthorized(res);
     }
 
+    const profile = await getPlanStatus(supabaseAdmin, user.id);
+    if (!profile) {
+      return res.status(403).json({ ok: false, error: 'profile_unavailable', billingState: 'unknown' });
+    }
+    const entitlements = getV17SavedDataEntitlements(profile);
+
     if (req.method === 'GET') {
+      if (!entitlements.canRead) {
+        return res.status(403).json({ ok: false, error: 'saved_data_read_not_allowed', billingState: entitlements.billingState });
+      }
       const { data, error } = await supabaseAdmin
         .from('bookmarks')
         .select('id, stable_theme_key, theme_snapshot, created_at, updated_at')
@@ -171,14 +190,12 @@ module.exports = async (req, res) => {
       if (!stableThemeKey || !themeSnapshot) {
         return sendInvalidRequest(res);
       }
-
-      var existingBookmarks = await listBookmarks(supabaseAdmin, user.id);
-      var alreadyHasTheme = existingBookmarks.some(function(row) {
-        return row && row.stable_theme_key === stableThemeKey;
-      });
-      var planStatus = await getPlanStatus(supabaseAdmin, user.id);
-      if (planStatus !== 'plus' && !alreadyHasTheme && existingBookmarks.length >= 1) {
-        return res.status(403).json({ ok: false, error: 'bookmark_limit_reached', limit: 1 });
+      if (!entitlements.canWrite) {
+        return res.status(403).json({
+          ok: false,
+          error: 'saved_data_write_not_allowed',
+          billingState: entitlements.billingState
+        });
       }
 
       var upsertRow = {
@@ -208,6 +225,14 @@ module.exports = async (req, res) => {
         return sendInvalidRequest(res);
       }
 
+      if (!entitlements.canDelete) {
+        return res.status(403).json({
+          ok: false,
+          error: 'saved_data_delete_not_allowed',
+          billingState: entitlements.billingState
+        });
+      }
+
       var query = supabaseAdmin.from('bookmarks').delete().eq('user_id', user.id);
       if (deleteKey) query = query.eq('stable_theme_key', deleteKey);
       if (deleteId) query = query.eq('id', deleteId);
@@ -219,11 +244,11 @@ module.exports = async (req, res) => {
 
     return sendMethodNotAllowed(res);
   } catch (error) {
-    console.error(error);
+    console.error('[bookmarks] internal error');
     return res.status(500).json({
       ok: false,
       error: 'internal_error',
-      message: error && error.message ? error.message : String(error)
+      message: 'internal_error'
     });
   }
 };

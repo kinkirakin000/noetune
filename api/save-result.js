@@ -5,6 +5,7 @@
 // feature remains available during rollout.
 
 const { getSupabaseAdmin } = require('../lib/supabase-admin');
+const { getV17SavedDataEntitlements } = require('../lib/v17-entitlements');
 
 function text(value, max) {
   if (value == null) return null;
@@ -13,6 +14,17 @@ function text(value, max) {
 
 function jsonObject(value) {
   return value && typeof value === 'object' && !Array.isArray(value) ? value : {};
+}
+
+function missingProfile(error) {
+  if (!error) return false;
+  const message = String(error.message || '');
+  return error.code === 'PGRST116' || error.code === 'PGRST117' || /No rows found/i.test(message);
+}
+
+function safeBillingState(profile) {
+  const entitlements = getV17SavedDataEntitlements(profile);
+  return entitlements && entitlements.billingState ? entitlements.billingState : 'unknown';
 }
 
 module.exports = async (req, res) => {
@@ -35,6 +47,29 @@ module.exports = async (req, res) => {
     const { data: { user }, error: userError } = await supabaseAdmin.auth.getUser(token);
     if (userError || !user) {
       return res.status(401).json({ saved: false, error: 'Authentication required' });
+    }
+
+    const { data: profile, error: profileError } = await supabaseAdmin
+      .from('profiles')
+      .select('plan_status, stripe_subscription_status, cancel_at_period_end')
+      .eq('id', user.id)
+      .single();
+
+    if (profileError) {
+      if (missingProfile(profileError)) {
+        return res.status(403).json({ saved: false, error: 'profile_unavailable', billingState: 'unknown' });
+      }
+      throw profileError;
+    }
+
+    const entitlements = getV17SavedDataEntitlements(profile);
+    const billingState = safeBillingState(profile);
+    if (!entitlements.canWrite) {
+      return res.status(403).json({
+        saved: false,
+        error: 'saved_data_write_not_allowed',
+        billingState,
+      });
     }
 
     const body = jsonObject(req.body);
@@ -65,11 +100,11 @@ module.exports = async (req, res) => {
       return res.status(400).json({ saved: false, error: 'Missing result reference' });
     }
 
-    const { data, error } = await supabaseAdmin
-      .from('saved_results')
-      .upsert(row, { onConflict: 'user_id,client_ref' })
-      .select('id, created_at')
-      .single();
+      const { data, error } = await supabaseAdmin
+        .from('saved_results')
+        .upsert(row, { onConflict: 'user_id,client_ref' })
+        .select('id, created_at')
+        .single();
 
     if (!error && data) {
       return res.status(200).json({ saved: true, result: { id: data.id, createdAt: data.created_at } });
@@ -89,10 +124,10 @@ module.exports = async (req, res) => {
       }
     }
 
-    console.error('[save-result]', error && error.message ? error.message : 'unknown storage error');
+    console.error('[save-result] storage error');
     return res.status(500).json({ saved: false, error: 'Could not save result' });
   } catch (e) {
-    console.error('[save-result]', e.message);
+    console.error('[save-result] storage error');
     return res.status(500).json({ saved: false, error: 'Could not save result' });
   }
 };
