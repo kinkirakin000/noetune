@@ -134,6 +134,17 @@ async function restoreV17AuthReturnIfNeeded() {
 
       var snapshot = readAndConsumeV17AuthReturnSnapshot();
       if (!snapshot) return false;
+
+      var returnLocale = snapshot && snapshot.resultState && snapshot.resultState.localeAtTime;
+      if (
+        (returnLocale === 'ja' || returnLocale === 'en' || returnLocale === 'zh-TW') &&
+        typeof setLandingLang === 'function'
+      ) {
+        try {
+          await setLandingLang(returnLocale);
+        } catch (localeError) {}
+      }
+
       if (!restoreV17AuthReturnResultState(snapshot.resultState)) return false;
 
       try {
