@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "和那樣的自己相比，\n一直以來的我是什麼狀態？",
+        "prompt": "在那件事不存在的世界裡，\n理想的我是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,7 +147,7 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "和那樣的自己相比，\n一直以來的我是什麼狀態？",
+        "prompt": "在那件事不存在的世界裡，\n理想的我是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
@@ -169,7 +169,7 @@
     },
     "deepDive": {
       "feel100": {
-        "prompt": "對此，\n感受100%幸福的狀態。\n呼吸一次。\n\n只要大概感受一下，\n幾秒鐘就可以。"
+        "prompt": "感受一下，\n一個它不存在的世界。\n深呼吸一次。"
       }
     },
     "step6": {

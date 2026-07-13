@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "Compared with that version of me,\nwhat state have I been in until now?",
+        "prompt": "In a world where it doesn’t exist,\nwhat is my ideal self like?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,7 +147,7 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "Compared with that version of me,\nwhat state have I been in until now?",
+        "prompt": "In a world where it doesn’t exist,\nwhat is my ideal self like?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
@@ -169,7 +169,7 @@
     },
     "deepDive": {
       "feel100": {
-        "prompt": "With this in mind,\nfeel what 100% happiness is like.\nTake one breath.\n\nA vague sense is enough.\nJust a few seconds."
+        "prompt": "Feel what it would be like\nin a world where it doesn’t exist.\nTake one breath."
       }
     },
     "step6": {

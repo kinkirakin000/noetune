@@ -1491,13 +1491,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <div class="v17-result-score-point"><span id="v17-result-after-label"></span><strong id="r-be-a"></strong></div>
       </div>
     </div>
-    <div class="v17-result-divider" id="v17-result-awareness-divider-top"></div>
-    <div class="sc-note-wrap" id="v17-result-awareness-wrap">
-      <div class="sc-section-label" id="v17-result-awareness-label"></div>
-      <div class="v17-result-awareness-list" id="v17-result-awareness-list"></div>
-      <button class="v17-result-awareness-toggle" id="btn-v17-awareness-toggle" type="button" onclick="toggleV17AwarenessTrail()"></button>
-    </div>
-    <div class="v17-result-divider" id="v17-result-awareness-divider-bottom"></div>
     <div class="v17-result-site" id="v17-result-site"></div>
     <span id="v17-result-step2-label" hidden></span>
     <span id="v17-result-step2" hidden></span>
@@ -7082,6 +7075,10 @@ function startV17RepeatedSubthemeSession(mode) {
   resetSlider('v17-before');
   resetSlider('v17-final');
   setV17CurrentStep('step2');
+  if (isV17DeepDiveSession()) {
+    startV17DeepDive();
+    return;
+  }
   openV17FirstResponse();
 }
 
@@ -7728,6 +7725,10 @@ function submitV17BeforeScore() {
   D.v17Flow.initialThemeScore = value;
   D.v17Flow.beforeEmotionPositive = value;
   setV17ThemeScoreTrailBefore(value);
+  if (isV17DeepDiveSession()) {
+    startV17DeepDive();
+    return;
+  }
   openV17FirstResponse();
 }
 
@@ -8383,7 +8384,6 @@ function renderV17Result() {
     ? v17Copy('flow.result.idealState') : v17Copy('flow.result.currentState'));
   setEl('v17-result-step3', step3Text ? v17Format('flow.result.quote', { text: step3Text }) : '—');
   setEl('v17-result-happiness-label', v17Copy('result.positiveSensation'));
-  setEl('v17-result-awareness-label', v17Copy('result.awarenessTitle'));
   setEl('v17-result-site', v17Copy('result.site'));
   setEl('t-result-sub', currentStateText);
   setEl('t-shift-note-display', idealStateText);
@@ -8396,19 +8396,6 @@ function renderV17Result() {
   if (scorePair) scorePair.hidden = false;
   if (scoreTrail) scoreTrail.hidden = true;
   if (scoreToggle) scoreToggle.hidden = true;
-  var awarenessWrap = document.getElementById('v17-result-awareness-wrap');
-  var awarenessDividerTop = document.getElementById('v17-result-awareness-divider-top');
-  var awarenessDividerBottom = document.getElementById('v17-result-awareness-divider-bottom');
-  var awarenessLabel = document.getElementById('v17-result-awareness-label');
-  var awarenessList = document.getElementById('v17-result-awareness-list');
-  var awarenessToggle = document.getElementById('btn-v17-awareness-toggle');
-  if (awarenessWrap) awarenessWrap.hidden = false;
-  if (awarenessDividerTop) awarenessDividerTop.hidden = true;
-  if (awarenessDividerBottom) awarenessDividerBottom.hidden = true;
-  if (awarenessLabel) awarenessLabel.hidden = false;
-  if (awarenessList) awarenessList.hidden = false;
-  if (awarenessToggle) awarenessToggle.hidden = false;
-  renderV17AwarenessTrail();
   setEl('btn-save-image', v17Copy('flow.result.image'));
   setEl('t-save-preview-note', v17Copy('flow.result.imagePreview'));
   setEl('btn-v17-restart-subtheme', v17Copy('flow.result.restartSubtheme'));

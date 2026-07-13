@@ -134,12 +134,12 @@
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "それに無縁の私は、\nどんな状態？",
+        "prompt": "それが存在しない世界の\n理想の私は、どんな状態？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "その私と比べて、\n今までの私はどんな状態ですか？",
+        "prompt": "その私と比べて、\n以前の私はどうでしたか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "その私と比べて、\n今までの私はどんな状態ですか？",
+        "prompt": "その私と比べて、\n以前の私はどうでしたか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "それに無縁の私は、\nどんな状態？",
+        "prompt": "それが存在しない世界の\n理想の私は、どんな状態？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       }
@@ -169,7 +169,7 @@
     },
     "deepDive": {
       "feel100": {
-        "prompt": "これについて、\n幸せ100％の状態を感じる。\n一呼吸。\n\nなんとなくで、\n数秒で大丈夫です。"
+        "prompt": "それが存在しない世界を、\n感じてください。\n一呼吸。"
       }
     },
     "step6": {
