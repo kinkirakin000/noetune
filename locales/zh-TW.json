@@ -109,7 +109,7 @@
   },
   "theme": {
     "freeInputCategory": "自由輸入",
-    "categoryGuide": "關於「{theme}」，\n從煩惱或理想開始，\n你想從哪裡開始？",
+    "categoryGuide": "關於「{theme}」，\n請從下方選擇煩惱或理想。",
     "problemGuide": "關於「{theme}」，\n寫下煩惱或問題。",
     "idealGuide": "關於「{theme}」，\n寫下理想狀態。",
     "freeInputPlaceholder": "自由輸入內容",
@@ -291,7 +291,8 @@
           "Session 次數不限",
           "不需要註冊",
           "沒有廣告",
-          "沒有 AI 分析"
+          "沒有 AI 分析",
+          "不包含長期紀錄、趨勢或比較"
         ],
         "cta": "開始 Free"
       },
@@ -809,437 +810,437 @@
         "problems": [
           {
             "id": "people_problem_ef848c88",
-            "label": "I feel all alone"
+            "label": "覺得自己孤單一人"
           },
           {
             "id": "people_problem_e45424fd",
-            "label": "孤独感覺"
+            "label": "感到孤獨"
           },
           {
             "id": "people_problem_a7d12b7b",
-            "label": "居場所沒有"
+            "label": "沒有歸屬感"
           },
           {
             "id": "people_problem_4a7c2d1d",
-            "label": "人害怕"
+            "label": "害怕與人相處"
           },
           {
             "id": "people_problem_bcabc106",
-            "label": "人無法相信"
+            "label": "無法相信別人"
           },
           {
             "id": "people_problem_fe173d62",
-            "label": "人信用無法"
+            "label": "無法信任別人"
           },
           {
             "id": "people_problem_31ce373c",
-            "label": "I can’t open my heart to people"
+            "label": "無法對別人敞開心扉"
           },
           {
             "id": "people_problem_f6292e7e",
-            "label": "I can’t get closer to people"
+            "label": "無法拉近與別人的距離"
           },
           {
             "id": "people_problem_aeb7a511",
-            "label": "Talking with people is hard"
+            "label": "不擅長和別人說話"
           },
           {
             "id": "people_problem_cfe5eaf5",
-            "label": "I get nervous in front of people"
+            "label": "在人前會緊張"
           },
           {
             "id": "people_problem_5e2dffd8",
-            "label": "I worry about people watching me"
+            "label": "在意別人的眼光"
           },
           {
             "id": "people_problem_cccfb7e6",
-            "label": "I worry what people think of me"
+            "label": "在意別人怎麼看自己"
           },
           {
             "id": "people_problem_b8de7d2f",
-            "label": "I’m afraid of being disliked"
+            "label": "害怕被討厭"
           },
           {
             "id": "people_problem_b2489a9c",
-            "label": "I’m afraid of being rejected"
+            "label": "害怕被否定"
           },
           {
             "id": "people_problem_abb8d89c",
-            "label": "I’m afraid of being refused"
+            "label": "害怕被拒絕"
           },
           {
             "id": "people_problem_cb43c9db",
-            "label": "I adjust too much to others"
+            "label": "過度配合別人"
           },
           {
             "id": "people_problem_979a7694",
-            "label": "I read the room too much"
+            "label": "過度察言觀色"
           },
           {
             "id": "people_problem_3ddbd999",
-            "label": "I can’t say my true feelings"
+            "label": "說不出真心話"
           },
           {
             "id": "people_problem_46995e39",
-            "label": "I can’t show myself"
+            "label": "無法展現自己"
           },
           {
             "id": "people_problem_10eb6e63",
-            "label": "I can’t say no"
+            "label": "說不出「不要」"
           },
           {
             "id": "people_problem_8d8ea30d",
-            "label": "I can’t refuse"
+            "label": "無法拒絕"
           },
           {
             "id": "people_problem_8c172861",
-            "label": "I can’t rely on others"
+            "label": "無法依靠別人"
           },
           {
             "id": "people_problem_00529d7c",
-            "label": "I can’t ask for help"
+            "label": "無法開口求助"
           },
           {
             "id": "people_problem_d566b85f",
-            "label": "I can’t lean on others"
+            "label": "無法向別人撒嬌或示弱"
           },
           {
             "id": "people_problem_ea5fa083",
-            "label": "I expect too much from people"
+            "label": "對別人期待太多"
           },
           {
             "id": "people_problem_8d874b48",
-            "label": "人對依存會"
+            "label": "會依賴別人"
           },
           {
             "id": "people_problem_66cf9182",
-            "label": "I want to control people"
+            "label": "想控制別人"
           },
           {
             "id": "people_problem_b6a6946d",
-            "label": "人無法原諒"
+            "label": "無法原諒別人"
           },
           {
             "id": "people_problem_92237076",
-            "label": "I blame people"
+            "label": "會責怪別人"
           },
           {
             "id": "people_problem_e0e7fe95",
-            "label": "I envy people"
+            "label": "羨慕別人"
           },
           {
             "id": "people_problem_e4d83bde",
-            "label": "人對嫉妬會"
+            "label": "會嫉妒別人"
           },
           {
             "id": "people_problem_96ccf5c6",
-            "label": "I compare myself with people"
+            "label": "會拿自己和別人比較"
           },
           {
             "id": "people_problem_16ca720e",
-            "label": "人見下會"
+            "label": "會看不起別人"
           },
           {
             "id": "people_problem_389bbf04",
-            "label": "I feel looked down on by people"
+            "label": "覺得被別人看不起"
           },
           {
             "id": "people_problem_df3e40aa",
-            "label": "People use me"
+            "label": "被別人利用"
           },
           {
             "id": "people_problem_ece6e39f",
-            "label": "People throw me off"
+            "label": "被別人牽著走"
           },
           {
             "id": "people_problem_0e3d1aeb",
-            "label": "I was hurt by someone"
+            "label": "曾被別人傷害"
           },
           {
             "id": "people_problem_af238b45",
-            "label": "I hurt someone"
+            "label": "曾傷害別人"
           },
           {
             "id": "people_problem_7c402d21",
-            "label": "I end up fighting with people"
+            "label": "會和別人吵架"
           },
           {
             "id": "people_problem_8b962360",
-            "label": "I can’t understand people mutually"
+            "label": "無法彼此理解"
           },
           {
             "id": "people_problem_8f3e54f9",
-            "label": "People don’t understand me"
+            "label": "不被別人理解"
           },
           {
             "id": "people_problem_ca9824a2",
-            "label": "人理解無法"
+            "label": "無法理解別人"
           },
           {
             "id": "people_problem_6b07a3bb",
-            "label": "I avoid people"
+            "label": "會逃避與人相處"
           },
           {
             "id": "people_problem_9026bc1a",
-            "label": "人和和疲憊"
+            "label": "和別人在一起很累"
           },
           {
             "id": "people_problem_47a0fb79",
-            "label": "I feel lonely when I’m alone"
+            "label": "一個人時感到寂寞"
           },
           {
             "id": "people_problem_248646cf",
-            "label": "I want people to recognize me"
+            "label": "想被別人認可"
           },
           {
             "id": "people_problem_652134d5",
-            "label": "I want people to praise me"
+            "label": "想被別人稱讚"
           },
           {
             "id": "people_problem_e50d7e62",
-            "label": "I want people to need me"
+            "label": "想被別人需要"
           },
           {
             "id": "people_problem_70e05975",
-            "label": "I want people to love me"
+            "label": "想被別人愛"
           },
           {
             "id": "people_problem_0c97a5ea",
-            "label": "I want people to care about me"
+            "label": "想被別人珍惜"
           },
           {
             "id": "people_problem_040c4ca6",
-            "label": "I want people to accept me"
+            "label": "想被別人接納"
           },
           {
             "id": "people_problem_5600d2a2",
-            "label": "People don’t recognize me"
+            "label": "得不到別人的認可"
           },
           {
             "id": "people_problem_76c14ca4",
-            "label": "People don’t value me"
+            "label": "不被別人珍惜"
           },
           {
             "id": "people_problem_e23d9e9f",
-            "label": "I was betrayed by someone"
+            "label": "曾被別人背叛"
           },
           {
             "id": "people_problem_685ed9d7",
-            "label": "I betrayed someone"
+            "label": "曾背叛別人"
           },
           {
             "id": "people_problem_02696faa",
-            "label": "I feel inferior when comparing myself with others"
+            "label": "和別人比較時感到自卑"
           },
           {
             "id": "people_problem_b43dfef1",
-            "label": "人的成功痛苦"
+            "label": "看到別人成功會難受"
           },
           {
             "id": "people_problem_9787b80b",
-            "label": "I can’t be happy for others’ happiness"
+            "label": "無法真心為別人的幸福高興"
           },
           {
             "id": "people_problem_e7eed0e1",
-            "label": "I keep meeting other people’s expectations"
+            "label": "一直在滿足別人的期待"
           },
           {
             "id": "people_problem_548ab990",
-            "label": "人和的距離感不知道"
+            "label": "不知道該和別人保持什麼距離"
           },
           {
             "id": "people_problem_ac88b311",
-            "label": "I can’t set boundaries with people"
+            "label": "無法和別人建立界線"
           },
           {
             "id": "people_problem_ba259313",
-            "label": "I can’t build deep relationships"
+            "label": "無法建立深厚的人際關係"
           },
           {
             "id": "people_problem_b4d9e879",
-            "label": "人間関係無法持續"
+            "label": "人際關係無法長久"
           },
           {
             "id": "people_problem_339bbd61",
-            "label": "I can’t end relationships"
+            "label": "無法結束一段關係"
           },
           {
             "id": "people_problem_41f51bf7",
-            "label": "人對執着會"
+            "label": "會執著於別人"
           },
           {
             "id": "people_problem_365e16da",
-            "label": "I can’t let people go"
+            "label": "無法放下某個人"
           },
           {
             "id": "people_problem_45a387a6",
-            "label": "I can’t like myself around people"
+            "label": "不喜歡和別人在一起時的自己"
           },
           {
             "id": "people_problem_943f9874",
-            "label": "人間関係對疲憊"
+            "label": "對人際關係感到疲憊"
           }
         ],
         "ideals": [
           {
             "id": "people_ideal_a39b736f",
-            "label": "人相信"
+            "label": "相信別人"
           },
           {
             "id": "people_ideal_88ae6639",
-            "label": "People trust me"
+            "label": "被別人信任"
           },
           {
             "id": "people_ideal_5418dbcc",
-            "label": "I trust people"
+            "label": "信任別人"
           },
           {
             "id": "people_ideal_1ad515ba",
-            "label": "I can relate to people safely"
+            "label": "能安心地與人相處"
           },
           {
             "id": "people_ideal_c89cf4e4",
-            "label": "I relate to people naturally"
+            "label": "自然地與人互動"
           },
           {
             "id": "people_ideal_b3ae3b8e",
-            "label": "I speak honestly"
+            "label": "能說出真心話"
           },
           {
             "id": "people_ideal_8d42dd38",
-            "label": "I relate to people as myself"
+            "label": "能以真實的自己與人相處"
           },
           {
             "id": "people_ideal_3daebe63",
-            "label": "人的面前也安心著"
+            "label": "在人前也感到安心"
           },
           {
             "id": "people_ideal_a0d83ef8",
-            "label": "I’m not worried about people watching me"
+            "label": "不在意別人的眼光"
           },
           {
             "id": "people_ideal_df221475",
-            "label": "I don’t compare myself with people"
+            "label": "不拿自己和別人比較"
           },
           {
             "id": "people_ideal_6bcb8eef",
-            "label": "I’m not jealous"
+            "label": "不嫉妒別人"
           },
           {
             "id": "people_ideal_57b1d304",
-            "label": "人肯定著"
+            "label": "肯定別人"
           },
           {
             "id": "people_ideal_c359ac66",
-            "label": "人尊重著"
+            "label": "尊重別人"
           },
           {
             "id": "people_ideal_6502fab9",
-            "label": "人原諒著"
+            "label": "原諒別人"
           },
           {
             "id": "people_ideal_40cd37a8",
-            "label": "人接納著"
+            "label": "接納別人"
           },
           {
             "id": "people_ideal_ac492b8b",
-            "label": "人珍惜著"
+            "label": "珍惜別人"
           },
           {
             "id": "people_ideal_0dcedd7c",
-            "label": "I’m connected with people I love"
+            "label": "與重要的人保持連結"
           },
           {
             "id": "people_ideal_0cb605a3",
-            "label": "信頼能夠人"
+            "label": "身邊有值得信任的人"
           },
           {
             "id": "people_ideal_727c2561",
-            "label": "安心能夠居場所有"
+            "label": "有讓自己安心的歸屬"
           },
           {
             "id": "people_ideal_bb0228d0",
-            "label": "一人以也安心著"
+            "label": "一個人也感到安心"
           },
           {
             "id": "people_ideal_fa038c73",
-            "label": "I feel safe with people"
+            "label": "和別人在一起也感到安心"
           },
           {
             "id": "people_ideal_039c1a4f",
-            "label": "I’m not afraid of being disliked"
+            "label": "不害怕被討厭"
           },
           {
             "id": "people_ideal_1fdf5dcd",
-            "label": "I don’t lose myself even if I’m rejected"
+            "label": "即使被否定也不失去自己"
           },
           {
             "id": "people_ideal_f5b6cb53",
-            "label": "I don’t over-adjust to people"
+            "label": "不過度配合別人"
           },
           {
             "id": "people_ideal_8d6c2674",
-            "label": "I express my opinion"
+            "label": "能表達自己的意見"
           },
           {
             "id": "people_ideal_206b9061",
-            "label": "I refuse what I don’t want"
+            "label": "能拒絕不想做的事"
           },
           {
             "id": "people_ideal_9c338da3",
-            "label": "I rely on others when needed"
+            "label": "需要時能依靠別人"
           },
           {
             "id": "people_ideal_fa86a571",
-            "label": "I help when needed"
+            "label": "需要時能幫助別人"
           },
           {
             "id": "people_ideal_2bc0cd9b",
-            "label": "My distance with people feels just right"
+            "label": "和別人保持剛好的距離"
           },
           {
             "id": "people_ideal_ca916cf2",
-            "label": "I’m building healthy relationships"
+            "label": "建立健康的人際關係"
           },
           {
             "id": "people_ideal_ba7a1fbc",
-            "label": "I laugh with people"
+            "label": "能和別人一起歡笑"
           },
           {
             "id": "people_ideal_dcd7ff3c",
-            "label": "人和的時間享受著"
+            "label": "享受與人相處的時光"
           },
           {
             "id": "people_ideal_e1d1e8b1",
-            "label": "I cooperate with people"
+            "label": "能和別人合作"
           },
           {
             "id": "people_ideal_ea07f9df",
-            "label": "I understand people mutually"
+            "label": "能彼此理解"
           },
           {
             "id": "people_ideal_c8c8ef4e",
-            "label": "I’m building loving relationships"
+            "label": "建立充滿愛的人際關係"
           },
           {
             "id": "people_ideal_b0bf5f2f",
-            "label": "I enjoy meeting people"
+            "label": "享受與人相遇"
           },
           {
             "id": "people_ideal_aecb4089",
-            "label": "人對感謝著"
+            "label": "感謝別人"
           },
           {
             "id": "people_ideal_b1363a28",
-            "label": "People are grateful to me"
+            "label": "被別人感謝"
           },
           {
             "id": "people_ideal_e0f3dba1",
-            "label": "I grow safely with people"
+            "label": "能安心地與別人一起成長"
           },
           {
             "id": "people_ideal_448675c4",
-            "label": "人和的関係對滿意"
+            "label": "對人際關係感到滿意"
           }
         ]
       },
@@ -1250,277 +1251,277 @@
         "problems": [
           {
             "id": "love_problem_4181bde6",
-            "label": "戀人無法"
+            "label": "交不到伴侶"
           },
           {
             "id": "love_problem_f09e7deb",
-            "label": "喜歡的人無法"
+            "label": "遇不到喜歡的人"
           },
           {
             "id": "love_problem_2e59af23",
-            "label": "The person I like doesn’t notice me"
+            "label": "喜歡的人沒有回應自己"
           },
           {
             "id": "love_problem_cafd9bd3",
-            "label": "告白無法"
+            "label": "無法告白"
           },
           {
             "id": "love_problem_bf737949",
-            "label": "I can’t express my feelings"
+            "label": "無法表達自己的感情"
           },
           {
             "id": "love_problem_316bec9d",
-            "label": "被愛著和感受不到"
+            "label": "感受不到被愛"
           },
           {
             "id": "love_problem_2bb57b4b",
-            "label": "I can’t love"
+            "label": "無法去愛"
           },
           {
             "id": "love_problem_d90018d5",
-            "label": "I don’t know how to love"
+            "label": "不知道怎麼愛一個人"
           },
           {
             "id": "love_problem_f560ef2b",
-            "label": "I don’t know how to be loved"
+            "label": "不知道怎麼接受愛"
           },
           {
             "id": "love_problem_2a988e13",
-            "label": "愛無法相信"
+            "label": "無法相信愛情"
           },
           {
             "id": "love_problem_832bd46b",
-            "label": "戀愛無法持續"
+            "label": "感情無法長久"
           },
           {
             "id": "love_problem_690a1015",
-            "label": "It doesn’t last"
+            "label": "關係無法長久"
           },
           {
             "id": "love_problem_73993159",
-            "label": "I’m still carrying a breakup"
+            "label": "還放不下一段分手"
           },
           {
             "id": "love_problem_4aa9cd8f",
-            "label": "There is someone I can’t forget"
+            "label": "有一個無法忘記的人"
           },
           {
             "id": "love_problem_c82c708c",
-            "label": "I can’t forget my ex"
+            "label": "無法忘記前任"
           },
           {
             "id": "love_problem_afdfdf6c",
-            "label": "I want to get back together"
+            "label": "想和前任復合"
           },
           {
             "id": "love_problem_dec4041d",
-            "label": "Being alone feels lonely"
+            "label": "一個人時很寂寞"
           },
           {
             "id": "love_problem_7db24217",
-            "label": "一人以的害怕"
+            "label": "害怕一個人"
           },
           {
             "id": "love_problem_a79d131b",
-            "label": "I hate myself without a partner"
+            "label": "沒有伴侶時會討厭自己"
           },
           {
             "id": "love_problem_c216212d",
-            "label": "I’m anxious about whether I can marry"
+            "label": "擔心自己能不能結婚"
           },
           {
             "id": "love_problem_2bf13488",
-            "label": "I don’t want to marry"
+            "label": "不想結婚"
           },
           {
             "id": "love_problem_2fff2989",
-            "label": "I can’t decide to marry"
+            "label": "無法決定是否結婚"
           },
           {
             "id": "love_problem_f28d40e9",
-            "label": "結婚生活痛苦"
+            "label": "婚姻生活很痛苦"
           },
           {
             "id": "love_problem_a7bc4326",
-            "label": "Things aren’t going well with my partner"
+            "label": "和伴侶相處不順利"
           },
           {
             "id": "love_problem_d048d66c",
-            "label": "I can’t talk things through with my partner"
+            "label": "無法和伴侶好好溝通"
           },
           {
             "id": "love_problem_016fa85f",
-            "label": "伴侶無法相信"
+            "label": "無法相信伴侶"
           },
           {
             "id": "love_problem_8a31088c",
-            "label": "My partner doesn’t trust me"
+            "label": "伴侶不信任自己"
           },
           {
             "id": "love_problem_0e2b65da",
-            "label": "I can’t tell my true feelings to my partner"
+            "label": "無法對伴侶說出真心話"
           },
           {
             "id": "love_problem_036018e9",
-            "label": "I can’t lean on my partner"
+            "label": "無法向伴侶撒嬌或示弱"
           },
           {
             "id": "love_problem_55536b45",
-            "label": "I can’t rely on my partner"
+            "label": "無法依靠伴侶"
           },
           {
             "id": "love_problem_63502fa2",
-            "label": "I expect too much from my partner"
+            "label": "對伴侶期待太多"
           },
           {
             "id": "love_problem_1d3a8b97",
-            "label": "伴侶對依存會"
+            "label": "會依賴伴侶"
           },
           {
             "id": "love_problem_a675e3b0",
-            "label": "伴侶束縛會"
+            "label": "會限制伴侶的自由"
           },
           {
             "id": "love_problem_59b9efcd",
-            "label": "My partner restricts me"
+            "label": "被伴侶限制自由"
           },
           {
             "id": "love_problem_845f7970",
-            "label": "My partner throws me off"
+            "label": "被伴侶牽著走"
           },
           {
             "id": "love_problem_2e7b0547",
-            "label": "I want to control my partner"
+            "label": "想控制伴侶"
           },
           {
             "id": "love_problem_7fec1071",
-            "label": "伴侶無法原諒"
+            "label": "無法原諒伴侶"
           },
           {
             "id": "love_problem_fad8734e",
-            "label": "My anger toward my partner won’t disappear"
+            "label": "對伴侶的怒氣無法消退"
           },
           {
             "id": "love_problem_2e5b02fc",
-            "label": "Frustration with my partner is building up"
+            "label": "對伴侶累積了很多不滿"
           },
           {
             "id": "love_problem_22f18100",
-            "label": "I hurt my partner"
+            "label": "曾傷害伴侶"
           },
           {
             "id": "love_problem_da37714b",
-            "label": "My partner hurt me"
+            "label": "曾被伴侶傷害"
           },
           {
             "id": "love_problem_4e424399",
-            "label": "浮気無法原諒"
+            "label": "無法原諒伴侶出軌"
           },
           {
             "id": "love_problem_87097d9f",
-            "label": "浮気不安"
+            "label": "擔心伴侶出軌"
           },
           {
             "id": "love_problem_c20fd5f4",
-            "label": "I’m afraid of being betrayed"
+            "label": "害怕被背叛"
           },
           {
             "id": "love_problem_bd948e2d",
-            "label": "I’m afraid of being abandoned"
+            "label": "害怕被拋棄"
           },
           {
             "id": "love_problem_618eab2f",
-            "label": "嫉妬會"
+            "label": "會嫉妒"
           },
           {
             "id": "love_problem_6314b116",
-            "label": "I want to possess them"
+            "label": "想獨占對方"
           },
           {
             "id": "love_problem_0136fca7",
-            "label": "I doubt the other person"
+            "label": "會懷疑對方"
           },
           {
             "id": "love_problem_09e38213",
-            "label": "I watch the other person’s mood too much"
+            "label": "會察言觀色看對方臉色"
           },
           {
             "id": "love_problem_944eb62b",
-            "label": "I adjust too much to the other person"
+            "label": "過度配合對方"
           },
           {
             "id": "love_problem_10eb6e63",
-            "label": "I can’t say no"
+            "label": "說不出「不要」"
           },
           {
             "id": "love_problem_a2cc1c1a",
-            "label": "I can’t bring up breaking up"
+            "label": "無法提出分手"
           },
           {
             "id": "love_problem_23154cef",
-            "label": "I can’t break up"
+            "label": "無法分手"
           },
           {
             "id": "love_problem_6c29110c",
-            "label": "I can’t leave"
+            "label": "無法離開對方"
           },
           {
             "id": "love_problem_72686975",
-            "label": "執着會"
+            "label": "會執著於對方"
           },
           {
             "id": "love_problem_fad81fee",
-            "label": "I feel I can’t live without them"
+            "label": "覺得沒有對方就活不下去"
           },
           {
             "id": "love_problem_d5cd819c",
-            "label": "I’m afraid of losing them"
+            "label": "害怕失去對方"
           },
           {
             "id": "love_problem_299e055b",
-            "label": "自己對魅力沒有和感覺"
+            "label": "覺得自己沒有魅力"
           },
           {
             "id": "love_problem_fe03f255",
-            "label": "自信沒有"
+            "label": "沒有自信"
           },
           {
             "id": "love_problem_2314c23b",
-            "label": "I lose myself in love"
+            "label": "在愛情裡失去自己"
           },
           {
             "id": "love_problem_a2e76f5a",
-            "label": "I’m afraid of getting hurt in love"
+            "label": "害怕在愛情裡受傷"
           },
           {
             "id": "love_problem_63dacac9",
-            "label": "戀愛面倒和感覺"
+            "label": "覺得談戀愛很麻煩"
           },
           {
             "id": "love_problem_f691fdc9",
-            "label": "異性苦手"
+            "label": "不擅長和異性相處"
           },
           {
             "id": "love_problem_fb77c522",
-            "label": "I’m afraid to fall in love"
+            "label": "害怕喜歡上一個人"
           },
           {
             "id": "love_problem_9d76fdbb",
-            "label": "I’m afraid to be happy"
+            "label": "害怕變得幸福"
           },
           {
             "id": "love_problem_8a04acb6",
-            "label": "I don’t feel happiness will last"
+            "label": "不覺得幸福能持續"
           },
           {
             "id": "love_problem_d56a32cf",
-            "label": "I have given up on love"
+            "label": "已經放棄愛情"
           }
         ],
         "ideals": [
           {
             "id": "love_ideal_fac55e43",
-            "label": "愛著"
+            "label": "愛著對方"
           },
           {
             "id": "love_ideal_0ca98fab",
@@ -1528,155 +1529,155 @@
           },
           {
             "id": "love_ideal_89e003eb",
-            "label": "We love each other"
+            "label": "彼此相愛"
           },
           {
             "id": "love_ideal_8f89debb",
-            "label": "I love with safety"
+            "label": "安心地去愛"
           },
           {
             "id": "love_ideal_f8d550eb",
-            "label": "I feel safely loved"
+            "label": "安心地接受愛"
           },
           {
             "id": "love_ideal_cee4ee8d",
-            "label": "We trust each other"
+            "label": "彼此信任"
           },
           {
             "id": "love_ideal_be48f61c",
-            "label": "We support each other"
+            "label": "彼此支持"
           },
           {
             "id": "love_ideal_c61d13b6",
-            "label": "We respect each other"
+            "label": "彼此尊重"
           },
           {
             "id": "love_ideal_963d14e9",
-            "label": "We care for each other"
+            "label": "彼此珍惜"
           },
           {
             "id": "love_ideal_83951182",
-            "label": "I can be myself"
+            "label": "能自然地做自己"
           },
           {
             "id": "love_ideal_b11eacbe",
-            "label": "I feel safe together"
+            "label": "在一起時感到安心"
           },
           {
             "id": "love_ideal_67b164e5",
-            "label": "Being together is fun"
+            "label": "享受在一起的時光"
           },
           {
             "id": "love_ideal_4bbc96c9",
-            "label": "Being together feels calm"
+            "label": "在一起時感到平靜"
           },
           {
             "id": "love_ideal_b3ae3b8e",
-            "label": "I speak honestly"
+            "label": "能說出真心話"
           },
           {
             "id": "love_ideal_f9122805",
-            "label": "I express my feelings"
+            "label": "能表達自己的感情"
           },
           {
             "id": "love_ideal_cd85b250",
-            "label": "We receive each other’s feelings"
+            "label": "能彼此接住對方的感受"
           },
           {
             "id": "love_ideal_0b1d6646",
-            "label": "We understand each other"
+            "label": "彼此理解"
           },
           {
             "id": "love_ideal_69df6a2c",
-            "label": "彼此接納著"
+            "label": "彼此接納"
           },
           {
             "id": "love_ideal_84b04685",
-            "label": "彼此原諒著"
+            "label": "彼此原諒"
           },
           {
             "id": "love_ideal_cd2bca45",
-            "label": "We trust each other"
+            "label": "彼此信任"
           },
           {
             "id": "love_ideal_1902680b",
-            "label": "彼此對自由以"
+            "label": "彼此保有自由"
           },
           {
             "id": "love_ideal_e33acdcb",
-            "label": "We support each other"
+            "label": "彼此支持對方"
           },
           {
             "id": "love_ideal_35296254",
-            "label": "We grow together"
+            "label": "彼此一起成長"
           },
           {
             "id": "love_ideal_54467840",
-            "label": "彼此對感謝著"
+            "label": "彼此心存感謝"
           },
           {
             "id": "love_ideal_cb55ce73",
-            "label": "彼此珍惜著"
+            "label": "彼此珍惜"
           },
           {
             "id": "love_ideal_e4960dc1",
-            "label": "I’m not controlled by jealousy"
+            "label": "不被嫉妒牽著走"
           },
           {
             "id": "love_ideal_c8d30aa0",
-            "label": "I’m not controlled by anxiety"
+            "label": "不被不安牽著走"
           },
           {
             "id": "love_ideal_b7ba3c1d",
-            "label": "I don’t restrict my partner"
+            "label": "不限制對方的自由"
           },
           {
             "id": "love_ideal_5fa4eacc",
-            "label": "I am not restricted either"
+            "label": "自己的自由也不受限制"
           },
           {
             "id": "love_ideal_befdf1ac",
-            "label": "I love as myself"
+            "label": "以真實的自己談戀愛"
           },
           {
             "id": "love_ideal_29192cb0",
-            "label": "My partner is also being themselves"
+            "label": "對方也能做真實的自己"
           },
           {
             "id": "love_ideal_edd7fdb3",
-            "label": "My heart feels fulfilled"
+            "label": "內心感到滿足"
           },
           {
             "id": "love_ideal_db7acb7d",
-            "label": "I feel happiness"
+            "label": "感受到幸福"
           },
           {
             "id": "love_ideal_8435d7b5",
-            "label": "Happiness continues"
+            "label": "幸福持續著"
           },
           {
             "id": "love_ideal_46375f7c",
-            "label": "I’m building a safe relationship"
+            "label": "建立令人安心的關係"
           },
           {
             "id": "love_ideal_40a3d67a",
-            "label": "I’m building a trusting relationship"
+            "label": "建立值得信任的關係"
           },
           {
             "id": "love_ideal_12d730fd",
-            "label": "I’m building a healthy relationship"
+            "label": "建立健康的關係"
           },
           {
             "id": "love_ideal_4a3b37f2",
-            "label": "We laugh together from the heart"
+            "label": "能真心一起歡笑"
           },
           {
             "id": "love_ideal_e7920da0",
-            "label": "We walk toward the future together"
+            "label": "一起走向未來"
           },
           {
             "id": "love_ideal_02686f38",
-            "label": "戀愛對滿意"
+            "label": "對愛情感到滿意"
           }
         ]
       },
@@ -1687,349 +1688,349 @@
         "problems": [
           {
             "id": "family_problem_91162456",
-            "label": "家人沉重"
+            "label": "覺得家人很沉重"
           },
           {
             "id": "family_problem_18ee6d38",
-            "label": "家人難受"
+            "label": "和家人相處很痛苦"
           },
           {
             "id": "family_problem_de48f3fc",
-            "label": "家人苦手"
+            "label": "不擅長和家人相處"
           },
           {
             "id": "family_problem_1fafc04a",
-            "label": "I don’t fit with my family"
+            "label": "和家人合不來"
           },
           {
             "id": "family_problem_b838a386",
-            "label": "家人對疲憊"
+            "label": "和家人相處很累"
           },
           {
             "id": "family_problem_ba1997a1",
-            "label": "I walk on eggshells around my family"
+            "label": "會顧慮家人的感受"
           },
           {
             "id": "family_problem_456ee578",
-            "label": "I can’t tell my true feelings to my family"
+            "label": "無法對家人說出真心話"
           },
           {
             "id": "family_problem_34690db2",
-            "label": "My family doesn’t understand me"
+            "label": "家人無法理解自己"
           },
           {
             "id": "family_problem_b350f467",
-            "label": "I can’t understand my family"
+            "label": "無法理解家人"
           },
           {
             "id": "family_problem_5582ea14",
-            "label": "My family rejects me"
+            "label": "被家人否定"
           },
           {
             "id": "family_problem_ff2a8494",
-            "label": "家人對不被認可"
+            "label": "得不到家人的認可"
           },
           {
             "id": "family_problem_017251bd",
-            "label": "My family expects too much from me"
+            "label": "家人對自己的期待太高"
           },
           {
             "id": "family_problem_f209f1c6",
-            "label": "家人的期待沉重"
+            "label": "家人的期待很沉重"
           },
           {
             "id": "family_problem_41dd6fa2",
-            "label": "I don’t want to disappoint my family"
+            "label": "不想讓家人失望"
           },
           {
             "id": "family_problem_5902fff3",
-            "label": "I have to help my family"
+            "label": "覺得自己必須幫助家人"
           },
           {
             "id": "family_problem_af1a19d1",
-            "label": "I have to protect my family"
+            "label": "覺得自己必須保護家人"
           },
           {
             "id": "family_problem_1b794695",
-            "label": "I carry my family"
+            "label": "背負著整個家庭"
           },
           {
             "id": "family_problem_96521df9",
-            "label": "I can’t leave my family"
+            "label": "無法離開家人"
           },
           {
             "id": "family_problem_c98f8298",
-            "label": "I’m bound by my family"
+            "label": "被家庭束縛"
           },
           {
             "id": "family_problem_5903fdce",
-            "label": "I’m controlled by my family"
+            "label": "被家人控制"
           },
           {
             "id": "family_problem_4c1cd849",
-            "label": "My family interferes with me"
+            "label": "受到家人干涉"
           },
           {
             "id": "family_problem_aef1b30f",
-            "label": "My family compares me"
+            "label": "被家人拿來比較"
           },
           {
             "id": "family_problem_6690a700",
-            "label": "I can’t be myself in front of my family"
+            "label": "在家人面前無法展現自己"
           },
           {
             "id": "family_problem_450c8f2b",
-            "label": "I play the good child in front of my family"
+            "label": "在家人面前扮演乖孩子"
           },
           {
             "id": "family_problem_4500eed4",
-            "label": "I act strong in front of my family"
+            "label": "在家人面前逞強"
           },
           {
             "id": "family_problem_4545da2d",
-            "label": "I can’t lean on my family"
+            "label": "無法向家人撒嬌或示弱"
           },
           {
             "id": "family_problem_02488d1b",
-            "label": "I can’t rely on my family"
+            "label": "無法依靠家人"
           },
           {
             "id": "family_problem_c952610b",
-            "label": "I don’t want to rely on my family"
+            "label": "不想依靠家人"
           },
           {
             "id": "family_problem_dd17f94b",
-            "label": "家人無法相信"
+            "label": "無法相信家人"
           },
           {
             "id": "family_problem_6ef7cac7",
-            "label": "家人無法原諒"
+            "label": "無法原諒家人"
           },
           {
             "id": "family_problem_a96a4285",
-            "label": "I feel anger toward my family"
+            "label": "對家人有怒氣"
           },
           {
             "id": "family_problem_0f1f762b",
-            "label": "家人對罪悪感有"
+            "label": "對家人感到內疚"
           },
           {
             "id": "family_problem_453bfe8f",
-            "label": "I feel sorry toward my family"
+            "label": "覺得對不起家人"
           },
           {
             "id": "family_problem_e8209593",
-            "label": "It hurts that I dislike my family"
+            "label": "因為討厭家人而感到痛苦"
           },
           {
             "id": "family_problem_6a4632fe",
-            "label": "家人大切對無法"
+            "label": "無法好好珍惜家人"
           },
           {
             "id": "family_problem_50e86be8",
-            "label": "I want distance from my family"
+            "label": "想和家人保持距離"
           },
           {
             "id": "family_problem_48c68c85",
-            "label": "I can’t take distance from my family"
+            "label": "無法和家人保持距離"
           },
           {
             "id": "family_problem_e7f44467",
-            "label": "Seeing my family tires me"
+            "label": "見到家人就很累"
           },
           {
             "id": "family_problem_6336eba7",
-            "label": "Talking with my family hurts"
+            "label": "和家人說話會受傷"
           },
           {
             "id": "family_problem_4c23323b",
-            "label": "With my family, I return to my old self"
+            "label": "和家人在一起時會變回過去的自己"
           },
           {
             "id": "family_problem_2f982c3c",
-            "label": "父母沉重"
+            "label": "覺得父母很沉重"
           },
           {
             "id": "family_problem_8e47b745",
-            "label": "父母害怕"
+            "label": "害怕父母"
           },
           {
             "id": "family_problem_e7bd45f7",
-            "label": "I want my parents to recognize me"
+            "label": "想得到父母認可"
           },
           {
             "id": "family_problem_891a0c23",
-            "label": "I want my parents to love me"
+            "label": "想被父母愛"
           },
           {
             "id": "family_problem_4073c6db",
-            "label": "I want my parents to praise me"
+            "label": "想被父母稱讚"
           },
           {
             "id": "family_problem_4c3d9d32",
-            "label": "I want my parents to understand me"
+            "label": "希望父母理解自己"
           },
           {
             "id": "family_problem_960b2573",
-            "label": "父母對反抗無法"
+            "label": "無法反抗父母"
           },
           {
             "id": "family_problem_65f3cac8",
-            "label": "I can’t go against my parents"
+            "label": "無法違背父母"
           },
           {
             "id": "family_problem_2ace87b2",
-            "label": "I can’t tell my true feelings to my parents"
+            "label": "無法對父母說出真心話"
           },
           {
             "id": "family_problem_53947854",
-            "label": "I watch my parents’ mood too much"
+            "label": "總是看父母的臉色"
           },
           {
             "id": "family_problem_c62ff3cc",
-            "label": "I keep meeting my parents’ expectations"
+            "label": "一直在滿足父母的期待"
           },
           {
             "id": "family_problem_81e50e1d",
-            "label": "I carry my parents’ life"
+            "label": "背負著父母的人生"
           },
           {
             "id": "family_problem_707a920d",
-            "label": "I want to reassure my parents"
+            "label": "想讓父母安心"
           },
           {
             "id": "family_problem_eb87c3ba",
-            "label": "I don’t want to make my parents sad"
+            "label": "不想讓父母難過"
           },
           {
             "id": "family_problem_5dbd68d5",
-            "label": "I don’t want to disappoint my parents"
+            "label": "不想讓父母失望"
           },
           {
             "id": "family_problem_56eec588",
-            "label": "I can’t abandon my parents"
+            "label": "無法拋下父母"
           },
           {
             "id": "family_problem_0704df77",
-            "label": "I can’t leave my parents"
+            "label": "無法離開父母"
           },
           {
             "id": "family_problem_bd5c4f7f",
-            "label": "父母無法原諒"
+            "label": "無法原諒父母"
           },
           {
             "id": "family_problem_3d32fb53",
-            "label": "My anger toward my parents won’t disappear"
+            "label": "對父母的怒氣無法消退"
           },
           {
             "id": "family_problem_bcf748ab",
-            "label": "I hold resentment toward my parents"
+            "label": "對父母懷有怨恨"
           },
           {
             "id": "family_problem_bee42bbf",
-            "label": "父母向的罪悪感有"
+            "label": "對父母感到內疚"
           },
           {
             "id": "family_problem_0780f565",
-            "label": "I’m not being a good child to my parents"
+            "label": "覺得自己沒有盡到孝道"
           },
           {
             "id": "family_problem_1caed5fc",
-            "label": "父母的老後擔心"
+            "label": "擔心父母的晚年"
           },
           {
             "id": "family_problem_a588465c",
-            "label": "父母的介護不安"
+            "label": "對照顧父母感到不安"
           },
           {
             "id": "family_problem_99153d33",
-            "label": "I feel sorry toward my child"
+            "label": "覺得對不起孩子"
           },
           {
             "id": "family_problem_59ac75d4",
-            "label": "I’m anxious about whether I can make my child happy"
+            "label": "擔心自己無法讓孩子幸福"
           },
           {
             "id": "family_problem_5d522491",
-            "label": "I’m anxious about raising my child well"
+            "label": "擔心自己無法好好養育孩子"
           },
           {
             "id": "family_problem_d656d49c",
-            "label": "I get too angry at my child"
+            "label": "常常對孩子發太大的脾氣"
           },
           {
             "id": "family_problem_a77bab9c",
-            "label": "I try to control my child"
+            "label": "會控制孩子"
           },
           {
             "id": "family_problem_90834b7b",
-            "label": "I expect too much from my child"
+            "label": "對孩子期待太高"
           },
           {
             "id": "family_problem_aa4e6ba5",
-            "label": "孩子的將來擔心"
+            "label": "擔心孩子的未來"
           },
           {
             "id": "family_problem_5376632e",
-            "label": "I’m afraid my child will dislike me"
+            "label": "害怕被孩子討厭"
           },
           {
             "id": "family_problem_378aadff",
-            "label": "I’m afraid I can’t protect my child"
+            "label": "害怕自己保護不了孩子"
           },
           {
             "id": "family_problem_332aa2a9",
-            "label": "I’m compared with my siblings"
+            "label": "被拿來和兄弟姊妹比較"
           },
           {
             "id": "family_problem_305a09ba",
-            "label": "I don’t get along with my siblings"
+            "label": "和兄弟姊妹合不來"
           },
           {
             "id": "family_problem_78067164",
-            "label": "I’m jealous of my siblings"
+            "label": "會嫉妒兄弟姊妹"
           },
           {
             "id": "family_problem_beabeb32",
-            "label": "手足無法原諒"
+            "label": "無法原諒兄弟姊妹"
           },
           {
             "id": "family_problem_2bd96493",
-            "label": "I blame myself for family problems"
+            "label": "把家庭問題都怪在自己身上"
           },
           {
             "id": "family_problem_a6720ea7",
-            "label": "I try not to ruin the family mood"
+            "label": "努力不讓家裡氣氛變差"
           },
           {
             "id": "family_problem_bc3a7960",
-            "label": "家人的中以居場所沒有"
+            "label": "在家裡沒有自己的位置"
           },
           {
             "id": "family_problem_5c175538",
-            "label": "I feel lonely even with family"
+            "label": "明明有家人卻感到孤獨"
           }
         ],
         "ideals": [
           {
             "id": "family_ideal_18f6cb86",
-            "label": "家人愛著"
+            "label": "愛著家人"
           },
           {
             "id": "family_ideal_46e9d537",
-            "label": "家人對被愛著"
+            "label": "被家人愛著"
           },
           {
             "id": "family_ideal_6bb14a49",
-            "label": "和家人安心地相處著"
+            "label": "和家人在一起感到安心"
           },
           {
             "id": "family_ideal_27eff0de",
-            "label": "和家人一起笑著"
+            "label": "能和家人一起歡笑"
           },
           {
             "id": "family_ideal_66db8702",
-            "label": "和家人真心地交談著"
+            "label": "能和家人說出真心話"
           },
           {
             "id": "family_ideal_2bd803b8",
@@ -2037,7 +2038,7 @@
           },
           {
             "id": "family_ideal_43266c72",
-            "label": "被家人信任著"
+            "label": "被家人信任"
           },
           {
             "id": "family_ideal_248d9714",
@@ -2045,87 +2046,87 @@
           },
           {
             "id": "family_ideal_9867e2ae",
-            "label": "被家人理解著"
+            "label": "被家人理解"
           },
           {
             "id": "family_ideal_4e628ca8",
-            "label": "家人接納著"
+            "label": "接納家人"
           },
           {
             "id": "family_ideal_5b008f45",
-            "label": "被家人接納著"
+            "label": "被家人接納"
           },
           {
             "id": "family_ideal_a0e8e26f",
-            "label": "家人原諒著"
+            "label": "原諒家人"
           },
           {
             "id": "family_ideal_01ca08fb",
-            "label": "被家人原諒著"
+            "label": "被家人原諒"
           },
           {
             "id": "family_ideal_c033340a",
-            "label": "家人珍惜著"
+            "label": "珍惜家人"
           },
           {
             "id": "family_ideal_5b40efb2",
-            "label": "被家人珍惜著"
+            "label": "被家人珍惜"
           },
           {
             "id": "family_ideal_a170783d",
-            "label": "和家人彼此支持著"
+            "label": "和家人彼此支持"
           },
           {
             "id": "family_ideal_25d39dc2",
-            "label": "和家人彼此幫助著"
+            "label": "和家人彼此幫助"
           },
           {
             "id": "family_ideal_eee51f33",
-            "label": "家人對感謝著"
+            "label": "感謝家人"
           },
           {
             "id": "family_ideal_cfa13645",
-            "label": "被家人感謝著"
+            "label": "被家人感謝"
           },
           {
             "id": "family_ideal_551f4cef",
-            "label": "家人和的時間享受著"
+            "label": "享受和家人相處的時光"
           },
           {
             "id": "family_ideal_fe71bb24",
-            "label": "家人和的時間對滿意"
+            "label": "對和家人相處的時光感到滿意"
           },
           {
             "id": "family_ideal_01f9a027",
-            "label": "和家人的心連在一起"
+            "label": "和家人心靈相連"
           },
           {
             "id": "family_ideal_4c1e46d3",
-            "label": "和家人保持著安心的距離"
+            "label": "和家人保持令人安心的距離"
           },
           {
             "id": "family_ideal_bce8745b",
-            "label": "自然地和家人相處著"
+            "label": "能自然地和家人相處"
           },
           {
             "id": "family_ideal_efa48814",
-            "label": "在家人面前也做自己"
+            "label": "在家人面前也能做自己"
           },
           {
             "id": "family_ideal_1fc32eb3",
-            "label": "家人尊重著"
+            "label": "尊重家人"
           },
           {
             "id": "family_ideal_1b76b228",
-            "label": "被家人尊重著"
+            "label": "被家人尊重"
           },
           {
             "id": "family_ideal_6aa2421f",
-            "label": "父母珍惜著"
+            "label": "珍惜父母"
           },
           {
             "id": "family_ideal_d61bdcad",
-            "label": "安心地和父母說話"
+            "label": "能安心地和父母說話"
           },
           {
             "id": "family_ideal_fe96758c",
@@ -2133,15 +2134,15 @@
           },
           {
             "id": "family_ideal_604581be",
-            "label": "被父母理解著"
+            "label": "被父母理解"
           },
           {
             "id": "family_ideal_d44246c8",
-            "label": "孩子相信"
+            "label": "相信孩子"
           },
           {
             "id": "family_ideal_c966d652",
-            "label": "被孩子信任著"
+            "label": "被孩子信任"
           },
           {
             "id": "family_ideal_0ac11ee4",
@@ -2149,31 +2150,31 @@
           },
           {
             "id": "family_ideal_81a31d47",
-            "label": "家人各自都活出自己"
+            "label": "每位家人都能活出自己"
           },
           {
             "id": "family_ideal_b75be9c3",
-            "label": "家人對安心感有"
+            "label": "家庭帶來安心感"
           },
           {
             "id": "family_ideal_b906a24d",
-            "label": "和家人平穩地生活著"
+            "label": "和家人平靜地生活"
           },
           {
             "id": "family_ideal_d4ba186e",
-            "label": "家人和的関係對滿意"
+            "label": "對家庭關係感到滿意"
           },
           {
             "id": "family_ideal_15417c69",
-            "label": "和家人感受到幸福"
+            "label": "和家人在一起感到幸福"
           },
           {
             "id": "family_ideal_495a3cb4",
-            "label": "家人和的絆感受到"
+            "label": "感受到家人之間的連結"
           },
           {
             "id": "family_ideal_5a1e8edd",
-            "label": "和家人的關係很和諧"
+            "label": "家庭關係和諧"
           }
         ]
       },
@@ -2184,43 +2185,43 @@
         "problems": [
           {
             "id": "work_problem_ec1a6d3e",
-            "label": "工作難受"
+            "label": "工作很痛苦"
           },
           {
             "id": "work_problem_2f43b74a",
-            "label": "work is something I dislike"
+            "label": "討厭自己的工作"
           },
           {
             "id": "work_problem_17da5491",
-            "label": "work is not enjoyable"
+            "label": "工作不快樂"
           },
           {
             "id": "work_problem_b74c404f",
-            "label": "work feels meaningless"
+            "label": "感受不到工作的意義"
           },
           {
             "id": "work_problem_cf214a3e",
-            "label": "work feels unrewarding"
+            "label": "工作沒有成就感"
           },
           {
             "id": "work_problem_dcfbfcb7",
-            "label": "工作無法持續"
+            "label": "工作做不久"
           },
           {
             "id": "work_problem_f722eb83",
-            "label": "work cannot be found"
+            "label": "找不到工作"
           },
           {
             "id": "work_problem_df2562a7",
-            "label": "work is not decided"
+            "label": "工作一直沒有著落"
           },
           {
             "id": "work_problem_8cb364ed",
-            "label": "work I want to quit"
+            "label": "想辭職"
           },
           {
             "id": "work_problem_8ab903f9",
-            "label": "work I can’t quit"
+            "label": "無法辭職"
           },
           {
             "id": "work_problem_ffd4a949",
@@ -2228,47 +2229,47 @@
           },
           {
             "id": "work_problem_269f56b0",
-            "label": "工作過度了"
+            "label": "工作過度"
           },
           {
             "id": "work_problem_16461bdb",
-            "label": "持續工作讓我痛苦"
+            "label": "持續工作很痛苦"
           },
           {
             "id": "work_problem_cdad6a46",
-            "label": "I can’t rest"
+            "label": "無法休息"
           },
           {
             "id": "work_problem_df29d6fa",
-            "label": "太努力了"
+            "label": "太過努力"
           },
           {
             "id": "work_problem_2d2e27b8",
-            "label": "I can’t relax"
+            "label": "無法放鬆"
           },
           {
             "id": "work_problem_fd9a8f96",
-            "label": "成果出沒有"
+            "label": "做不出成果"
           },
           {
             "id": "work_problem_a8c3778a",
-            "label": "結果出沒有"
+            "label": "看不到結果"
           },
           {
             "id": "work_problem_0faf7135",
-            "label": "評価 not being recognized"
+            "label": "得不到評價"
           },
           {
             "id": "work_problem_b1f31693",
-            "label": "不被認可"
+            "label": "得不到認可"
           },
           {
             "id": "work_problem_5312a995",
-            "label": "昇給 does not happen"
+            "label": "薪水沒有增加"
           },
           {
             "id": "work_problem_4bb014d2",
-            "label": "出世無法"
+            "label": "無法升遷"
           },
           {
             "id": "work_problem_23f44359",
@@ -2276,11 +2277,11 @@
           },
           {
             "id": "work_problem_8dca2fc8",
-            "label": "營業額沒有成長"
+            "label": "業績沒有成長"
           },
           {
             "id": "work_problem_e07dbb9c",
-            "label": "客人沒有來"
+            "label": "沒有客人上門"
           },
           {
             "id": "work_problem_7f200db8",
@@ -2288,7 +2289,7 @@
           },
           {
             "id": "work_problem_9b0cf74c",
-            "label": "集客無法"
+            "label": "無法招攬客人"
           },
           {
             "id": "work_problem_6a60dd2d",
@@ -2296,39 +2297,39 @@
           },
           {
             "id": "work_problem_3e344681",
-            "label": "無法變成收入"
+            "label": "工作無法帶來收入"
           },
           {
             "id": "work_problem_fe03f255",
-            "label": "自信沒有"
+            "label": "沒有自信"
           },
           {
             "id": "work_problem_cf05a717",
-            "label": "覺得實力不夠"
+            "label": "覺得自己的實力不足"
           },
           {
             "id": "work_problem_7e9aaea8",
-            "label": "覺得能力不夠"
+            "label": "覺得自己的能力不足"
           },
           {
             "id": "work_problem_a82a5a82",
-            "label": "才能沒有和感覺"
+            "label": "覺得自己沒有才華"
           },
           {
             "id": "work_problem_eb587c74",
-            "label": "覺得不適合"
+            "label": "覺得自己不適合這份工作"
           },
           {
             "id": "work_problem_c70607a3",
-            "label": "失敗害怕"
+            "label": "害怕失敗"
           },
           {
             "id": "work_problem_a4ed5064",
-            "label": "挑戦無法"
+            "label": "無法挑戰"
           },
           {
             "id": "work_problem_e8d6d79b",
-            "label": "行動無法"
+            "label": "無法行動"
           },
           {
             "id": "work_problem_f9c11eb6",
@@ -2336,7 +2337,7 @@
           },
           {
             "id": "work_problem_01942fcb",
-            "label": "決断無法"
+            "label": "無法做決定"
           },
           {
             "id": "work_problem_d1fd53ce",
@@ -2344,7 +2345,7 @@
           },
           {
             "id": "work_problem_3f2766e2",
-            "label": "感到厭倦"
+            "label": "很快就厭倦"
           },
           {
             "id": "work_problem_14e68180",
@@ -2352,15 +2353,15 @@
           },
           {
             "id": "work_problem_a6933301",
-            "label": "集中無法"
+            "label": "無法專心"
           },
           {
             "id": "work_problem_add14d5c",
-            "label": "總是拖延"
+            "label": "會拖延"
           },
           {
             "id": "work_problem_f8ac9fae",
-            "label": "太追求完美"
+            "label": "過度追求完美"
           },
           {
             "id": "work_problem_b5db8a6e",
@@ -2368,23 +2369,23 @@
           },
           {
             "id": "work_problem_7af1a645",
-            "label": "責任沉重"
+            "label": "責任太沉重"
           },
           {
             "id": "work_problem_d05e0c91",
-            "label": "壓力很大"
+            "label": "壓力太大"
           },
           {
             "id": "work_problem_f0bb6422",
-            "label": "將來不安"
+            "label": "對未來感到不安"
           },
           {
             "id": "work_problem_11318c00",
-            "label": "沒有轉職的勇氣"
+            "label": "沒有勇氣轉職"
           },
           {
             "id": "work_problem_5b0021e9",
-            "label": "沒有創業的勇氣"
+            "label": "沒有勇氣創業"
           },
           {
             "id": "work_problem_ea8a0cbe",
@@ -2396,15 +2397,15 @@
           },
           {
             "id": "work_problem_8d8ea30d",
-            "label": "I can’t refuse"
+            "label": "無法拒絕"
           },
           {
             "id": "work_problem_1b58af99",
-            "label": "承擔太多工作"
+            "label": "把太多工作攬在自己身上"
           },
           {
             "id": "work_problem_ee5bd158",
-            "label": "工作與生活失去平衡"
+            "label": "無法平衡工作與生活"
           },
           {
             "id": "work_problem_c4b8c5f6",
@@ -2412,11 +2413,11 @@
           },
           {
             "id": "work_problem_e983cf4e",
-            "label": "不知道自己想做什麼工作"
+            "label": "不知道自己真正想做什麼工作"
           },
           {
             "id": "work_problem_c85c3044",
-            "label": "喜歡的事工作對無法"
+            "label": "無法把喜歡的事變成工作"
           },
           {
             "id": "work_problem_0f676851",
@@ -2424,23 +2425,23 @@
           },
           {
             "id": "work_problem_009698b3",
-            "label": "持續做著討厭的工作"
+            "label": "一直做著不喜歡的工作"
           },
           {
             "id": "work_problem_f597ca64",
-            "label": "人間関係以工作難受"
+            "label": "因為人際關係而覺得工作很痛苦"
           },
           {
             "id": "work_problem_1a36b0a8",
-            "label": "工作的壓力很大"
+            "label": "工作壓力太大"
           },
           {
             "id": "work_problem_81c43c83",
-            "label": "被工作追著跑"
+            "label": "一直被工作追著跑"
           },
           {
             "id": "work_problem_2870223a",
-            "label": "人生變得只有工作"
+            "label": "人生只剩下工作"
           },
           {
             "id": "work_problem_5368ad2a",
@@ -2452,33 +2453,33 @@
           },
           {
             "id": "work_problem_74ce2b53",
-            "label": "放不下工作上的失敗"
+            "label": "一直放不下工作上的失敗"
           },
           {
             "id": "work_problem_e0ecd9d7",
-            "label": "因為工作而責備自己"
+            "label": "會因工作責怪自己"
           },
           {
             "id": "work_problem_d9e730cd",
-            "label": "對工作沒有自信"
+            "label": "對自己的工作沒有信心"
           },
           {
             "id": "work_problem_ba38fe49",
-            "label": "即使成功也不滿足"
+            "label": "即使成功也感到空虛"
           }
         ],
         "ideals": [
           {
             "id": "work_ideal_74894aa3",
-            "label": "工作享受著"
+            "label": "享受工作"
           },
           {
             "id": "work_ideal_1cd48149",
-            "label": "感受到工作的意義"
+            "label": "感受到工作的價值與成就感"
           },
           {
             "id": "work_ideal_2b1d2f29",
-            "label": "每天都很充實"
+            "label": "每天都過得充實"
           },
           {
             "id": "work_ideal_1bb2701a",
@@ -2490,67 +2491,67 @@
           },
           {
             "id": "work_ideal_71baae4d",
-            "label": "發揮自己擅長的事"
+            "label": "發揮自己的長處"
           },
           {
             "id": "work_ideal_61cebdfb",
-            "label": "發揮自己的力量"
+            "label": "發揮自己的能力"
           },
           {
             "id": "work_ideal_cf5faea5",
-            "label": "展現自己的價值"
+            "label": "透過工作展現自己的價值"
           },
           {
             "id": "work_ideal_a637a773",
-            "label": "正在成長"
+            "label": "持續成長"
           },
           {
             "id": "work_ideal_e057b9f7",
-            "label": "正在挑戰新的事"
+            "label": "挑戰新的事物"
           },
           {
             "id": "work_ideal_a0074103",
-            "label": "正在行動"
+            "label": "採取行動"
           },
           {
             "id": "work_ideal_ea4b4c89",
-            "label": "持續著"
+            "label": "持續做下去"
           },
           {
             "id": "work_ideal_2c29d20d",
-            "label": "正在專注"
+            "label": "能夠專心"
           },
           {
             "id": "work_ideal_1abfbaea",
-            "label": "由自己決定"
+            "label": "由自己做決定"
           },
           {
             "id": "work_ideal_f29e0f6f",
-            "label": "帶著自信工作"
+            "label": "有自信地工作"
           },
           {
             "id": "work_ideal_41d92a8e",
-            "label": "有成果出現"
+            "label": "做出成果"
           },
           {
             "id": "work_ideal_4fd15bc6",
-            "label": "被認可著"
+            "label": "得到認可"
           },
           {
             "id": "work_ideal_cf17495d",
-            "label": "被信任著"
+            "label": "受到信任"
           },
           {
             "id": "work_ideal_57a3efea",
-            "label": "被需要著"
+            "label": "被需要"
           },
           {
             "id": "work_ideal_9877063f",
-            "label": "正在幫助別人"
+            "label": "能幫助別人"
           },
           {
             "id": "work_ideal_0ac1e0dd",
-            "label": "被人喜悅著"
+            "label": "工作受到喜愛與肯定"
           },
           {
             "id": "work_ideal_19947bfd",
@@ -2562,7 +2563,7 @@
           },
           {
             "id": "work_ideal_cb0fa8df",
-            "label": "努力正在開花結果"
+            "label": "努力得到回報"
           },
           {
             "id": "work_ideal_f22a6df6",
@@ -2570,7 +2571,7 @@
           },
           {
             "id": "work_ideal_c6db07a4",
-            "label": "心對有餘裕"
+            "label": "內心有餘裕"
           },
           {
             "id": "work_ideal_cd23a6d2",
@@ -2578,19 +2579,19 @@
           },
           {
             "id": "work_ideal_d1584930",
-            "label": "和夥伴合作著"
+            "label": "和夥伴合作"
           },
           {
             "id": "work_ideal_65dd7ef3",
-            "label": "安心地工作著"
+            "label": "安心地工作"
           },
           {
             "id": "work_ideal_153352b5",
-            "label": "工作與生活取得平衡"
+            "label": "工作與生活保持平衡"
           },
           {
             "id": "work_ideal_12a9eea7",
-            "label": "在需要的時候休息"
+            "label": "需要時能休息"
           },
           {
             "id": "work_ideal_f70ba39b",
@@ -2598,15 +2599,15 @@
           },
           {
             "id": "work_ideal_0f402c6b",
-            "label": "自己的工作對滿意"
+            "label": "對自己的工作感到滿意"
           },
           {
             "id": "work_ideal_291b63ea",
-            "label": "真實感受到自己的成長"
+            "label": "感受到自己的成長"
           },
           {
             "id": "work_ideal_da48cb25",
-            "label": "以自己的樣子工作著"
+            "label": "以真實的自己工作"
           }
         ]
       },
@@ -2621,31 +2622,31 @@
           },
           {
             "id": "money_problem_28c80a44",
-            "label": "金錢沒有"
+            "label": "沒有錢"
           },
           {
             "id": "money_problem_a3453aeb",
-            "label": "存錢無法"
+            "label": "無法存錢"
           },
           {
             "id": "money_problem_73a79a7b",
-            "label": "債務有"
+            "label": "負債"
           },
           {
             "id": "money_problem_0c422b33",
-            "label": "付款痛苦"
+            "label": "付款很吃力"
           },
           {
             "id": "money_problem_34c2c191",
-            "label": "將來的金錢不安"
+            "label": "對未來的金錢感到不安"
           },
           {
             "id": "money_problem_bf8feab1",
-            "label": "老後的金錢擔心"
+            "label": "擔心退休後的金錢"
           },
           {
             "id": "money_problem_3160b820",
-            "label": "收入少沒有"
+            "label": "收入太少"
           },
           {
             "id": "money_problem_6a60dd2d",
@@ -2657,11 +2658,11 @@
           },
           {
             "id": "money_problem_1ac581d0",
-            "label": "無法如願賺錢"
+            "label": "無法賺到理想的收入"
           },
           {
             "id": "money_problem_a28e9255",
-            "label": "無法增加金錢"
+            "label": "無法讓資產增加"
           },
           {
             "id": "money_problem_4446c7f5",
@@ -2669,19 +2670,19 @@
           },
           {
             "id": "money_problem_d061bded",
-            "label": "錢很快就減少"
+            "label": "錢很快就花光"
           },
           {
             "id": "money_problem_00856510",
-            "label": "金錢無法持續"
+            "label": "錢留不久"
           },
           {
             "id": "money_problem_3632f329",
-            "label": "錢留不住"
+            "label": "錢存不下來"
           },
           {
             "id": "money_problem_05895132",
-            "label": "總是亂花錢"
+            "label": "會亂花錢"
           },
           {
             "id": "money_problem_ffc8ea2d",
@@ -2689,43 +2690,43 @@
           },
           {
             "id": "money_problem_29f9cf0c",
-            "label": "節約無法持續"
+            "label": "無法持續節省"
           },
           {
             "id": "money_problem_372b73e9",
-            "label": "金錢的管理苦手"
+            "label": "不擅長管理金錢"
           },
           {
             "id": "money_problem_2dec6321",
-            "label": "不懂金錢的事"
+            "label": "不了解金錢"
           },
           {
             "id": "money_problem_e9834fd8",
-            "label": "投資害怕"
+            "label": "害怕投資"
           },
           {
             "id": "money_problem_95cb9e20",
-            "label": "投資失敗了"
+            "label": "投資失敗過"
           },
           {
             "id": "money_problem_6e0c535b",
-            "label": "在金錢上失敗了"
+            "label": "曾在金錢上失敗"
           },
           {
             "id": "money_problem_4e27dc39",
-            "label": "正在為錢辛苦"
+            "label": "為金錢所苦"
           },
           {
             "id": "money_problem_77dc019b",
-            "label": "因為錢而疲憊"
+            "label": "因金錢問題感到疲憊"
           },
           {
             "id": "money_problem_28a008af",
-            "label": "腦子裡全是錢的事"
+            "label": "腦中全是金錢問題"
           },
           {
             "id": "money_problem_bea63f7e",
-            "label": "因為錢而睡不著"
+            "label": "因金錢問題而睡不著"
           },
           {
             "id": "money_problem_832a913c",
@@ -2733,7 +2734,7 @@
           },
           {
             "id": "money_problem_03e7dab5",
-            "label": "被金錢束縛著"
+            "label": "被金錢束縛"
           },
           {
             "id": "money_problem_994ae457",
@@ -2745,7 +2746,7 @@
           },
           {
             "id": "money_problem_b0999ffe",
-            "label": "金錢沒有和安心無法"
+            "label": "沒有錢就無法安心"
           },
           {
             "id": "money_problem_1ac51dc6",
@@ -2753,47 +2754,47 @@
           },
           {
             "id": "money_problem_ef6c02e2",
-            "label": "不擅長收下金錢"
+            "label": "不擅長接受金錢"
           },
           {
             "id": "money_problem_39bbc2e0",
-            "label": "對收下金錢有罪惡感"
+            "label": "接受金錢時會有罪惡感"
           },
           {
             "id": "money_problem_e52ab263",
-            "label": "害怕拿到錢"
+            "label": "害怕收下金錢"
           },
           {
             "id": "money_problem_013b55fb",
-            "label": "不擅長定價"
+            "label": "不擅長為自己的服務定價"
           },
           {
             "id": "money_problem_8451d8a5",
-            "label": "說不出高價格"
+            "label": "說不出較高的價格"
           },
           {
             "id": "money_problem_f492dba6",
-            "label": "把東西賣得太便宜"
+            "label": "總是賣得太便宜"
           },
           {
             "id": "money_problem_4a003763",
-            "label": "金錢請求無法"
+            "label": "無法開口收費"
           },
           {
             "id": "money_problem_102b16ba",
-            "label": "無法拒絕金錢上的請求"
+            "label": "無法拒絕別人的金錢要求"
           },
           {
             "id": "money_problem_71d13249",
-            "label": "金錢貸會"
+            "label": "會把錢借給別人"
           },
           {
             "id": "money_problem_3c291925",
-            "label": "錢要不回來"
+            "label": "借出去的錢收不回來"
           },
           {
             "id": "money_problem_d8e5a1ec",
-            "label": "為別人花太多錢"
+            "label": "在別人身上花太多錢"
           },
           {
             "id": "money_problem_80359a9a",
@@ -2801,15 +2802,15 @@
           },
           {
             "id": "money_problem_96dbdc3e",
-            "label": "對花錢有罪惡感"
+            "label": "花錢時會有罪惡感"
           },
           {
             "id": "money_problem_65ed7de7",
-            "label": "覺得自己沒有擁有金錢的價值"
+            "label": "覺得自己不值得擁有金錢"
           },
           {
             "id": "money_problem_1ef0c25c",
-            "label": "面對有錢人會感到自卑"
+            "label": "在有錢人面前感到自卑"
           },
           {
             "id": "money_problem_0ee277c5",
@@ -2821,11 +2822,11 @@
           },
           {
             "id": "money_problem_0fb2dcf4",
-            "label": "討厭有錢人"
+            "label": "會討厭有錢人"
           },
           {
             "id": "money_problem_f6393122",
-            "label": "用金錢和別人比較"
+            "label": "會用金錢和別人比較"
           },
           {
             "id": "money_problem_51e4eb58",
@@ -2837,99 +2838,99 @@
           },
           {
             "id": "money_problem_913b5996",
-            "label": "金錢原因以人間関係痛苦"
+            "label": "金錢使人際關係變得痛苦"
           },
           {
             "id": "money_problem_b66ce620",
-            "label": "和家人因為錢起衝突"
+            "label": "會和家人為金錢爭執"
           },
           {
             "id": "money_problem_daf0ba7d",
-            "label": "和伴侶因為錢起衝突"
+            "label": "會和伴侶為金錢爭執"
           },
           {
             "id": "money_problem_b17caf37",
-            "label": "父母的金錢擔心"
+            "label": "擔心父母的金錢問題"
           },
           {
             "id": "money_problem_73f3eda7",
-            "label": "孩子的金錢擔心"
+            "label": "擔心孩子的金錢問題"
           },
           {
             "id": "money_problem_b8796947",
-            "label": "為了錢而忍耐著"
+            "label": "因為金錢而忍耐"
           },
           {
             "id": "money_problem_7d984eaf",
-            "label": "因為錢，無法做喜歡的事"
+            "label": "因為金錢無法做喜歡的事"
           },
           {
             "id": "money_problem_2f025569",
-            "label": "為了錢而工作"
+            "label": "只為了金錢而工作"
           },
           {
             "id": "money_problem_40c0489b",
-            "label": "因為錢而無法辭掉工作"
+            "label": "因為金錢無法辭職"
           },
           {
             "id": "money_problem_09270baa",
-            "label": "因為錢而放棄夢想"
+            "label": "因為金錢放棄夢想"
           },
           {
             "id": "money_problem_4b693fc9",
-            "label": "金錢的自由沒有"
+            "label": "沒有財務自由"
           },
           {
             "id": "money_problem_3240d606",
-            "label": "被金錢支配人生"
+            "label": "人生被金錢支配"
           },
           {
             "id": "money_problem_b0104160",
-            "label": "認為只要有錢就能幸福"
+            "label": "認為有錢就會幸福"
           },
           {
             "id": "money_problem_c17ab299",
-            "label": "即使有錢也不滿足"
+            "label": "即使有錢也感到不滿足"
           },
           {
             "id": "money_problem_0e71ff0a",
-            "label": "太看重金錢的價值"
+            "label": "過度看重金錢"
           },
           {
             "id": "money_problem_68db2cde",
-            "label": "金錢無法相信"
+            "label": "無法相信金錢"
           },
           {
             "id": "money_problem_53728602",
-            "label": "金錢信用無法"
+            "label": "無法信任金錢"
           },
           {
             "id": "money_problem_054fffa1",
-            "label": "不擅長談錢"
+            "label": "不擅長談論金錢"
           },
           {
             "id": "money_problem_390237d4",
-            "label": "無法和別人商量金錢的事"
+            "label": "無法向別人商量金錢問題"
           },
           {
             "id": "money_problem_f79b6585",
-            "label": "因為錢而感到羞恥"
+            "label": "因金錢問題感到羞恥"
           },
           {
             "id": "money_problem_cacda8e3",
-            "label": "因為錢而責備自己"
+            "label": "因金錢問題責怪自己"
           },
           {
             "id": "money_problem_55a56c30",
-            "label": "金錢對自信沒有"
+            "label": "對處理金錢沒有自信"
           },
           {
             "id": "money_problem_686ba5c2",
-            "label": "金錢對余裕沒有"
+            "label": "金錢上沒有餘裕"
           },
           {
             "id": "money_problem_5a18413e",
-            "label": "被錢追著跑"
+            "label": "一直被金錢問題追著跑"
           },
           {
             "id": "money_problem_cd1b1583",
@@ -2941,61 +2942,61 @@
           },
           {
             "id": "money_problem_164ac387",
-            "label": "沒有持續擁有金錢的自信"
+            "label": "沒有信心能把錢留住"
           },
           {
             "id": "money_problem_4bdd58b7",
-            "label": "覺得自己沒有增加金錢的能力"
+            "label": "覺得自己沒有讓金錢增加的能力"
           },
           {
             "id": "money_problem_fcd62478",
-            "label": "覺得自己無法創造金錢"
+            "label": "覺得自己無法創造收入"
           },
           {
             "id": "money_problem_049617d1",
-            "label": "對金錢的不安消不掉"
+            "label": "對金錢的不安無法消失"
           }
         ],
         "ideals": [
           {
             "id": "money_ideal_461b4822",
-            "label": "金錢對安心著"
+            "label": "對金錢感到安心"
           },
           {
             "id": "money_ideal_88966166",
-            "label": "金錢對有餘裕"
+            "label": "金錢上有餘裕"
           },
           {
             "id": "money_ideal_1b6b0023",
-            "label": "有需要的金錢"
+            "label": "擁有需要的金錢"
           },
           {
             "id": "money_ideal_bbefe0e6",
-            "label": "money is not a problem"
+            "label": "不為金錢所困"
           },
           {
             "id": "money_ideal_8927528b",
-            "label": "安心地接收著"
+            "label": "安心地接受金錢"
           },
           {
             "id": "money_ideal_a872d139",
-            "label": "安心地支付著"
+            "label": "安心地付款"
           },
           {
             "id": "money_ideal_9c603fb0",
-            "label": "安心地使用著"
+            "label": "安心地花錢"
           },
           {
             "id": "money_ideal_0172311b",
-            "label": "金錢珍惜著"
+            "label": "珍惜金錢"
           },
           {
             "id": "money_ideal_e0186f58",
-            "label": "money is managed well"
+            "label": "妥善管理金錢"
           },
           {
             "id": "money_ideal_1f1dcaef",
-            "label": "money circulates naturally"
+            "label": "金錢自然地流動"
           },
           {
             "id": "money_ideal_8be5a300",
@@ -3003,15 +3004,15 @@
           },
           {
             "id": "money_ideal_c032a6b1",
-            "label": "充分地賺著錢"
+            "label": "賺得足夠"
           },
           {
             "id": "money_ideal_573733fa",
-            "label": "接收著自己的價值"
+            "label": "能收下自己所提供的價值"
           },
           {
             "id": "money_ideal_5b43241f",
-            "label": "一邊被喜悅著，一邊獲得收入"
+            "label": "在帶給別人喜悅的同時獲得收入"
           },
           {
             "id": "money_ideal_b3818c27",
@@ -3019,39 +3020,39 @@
           },
           {
             "id": "money_ideal_8e048eac",
-            "label": "一邊幫助別人，一邊獲得收入"
+            "label": "在幫助別人的同時獲得收入"
           },
           {
             "id": "money_ideal_86613586",
-            "label": "沒有失去金錢的不安"
+            "label": "不害怕失去金錢"
           },
           {
             "id": "money_ideal_40dba424",
-            "label": "將來的金錢對安心著"
+            "label": "對未來的金錢感到安心"
           },
           {
             "id": "money_ideal_b6e410e9",
-            "label": "有餘裕支撐家人"
+            "label": "有餘裕支持家人"
           },
           {
             "id": "money_ideal_2868e8cd",
-            "label": "能選擇自己需要的東西"
+            "label": "能選擇自己需要的事物"
           },
           {
             "id": "money_ideal_50bb46a7",
-            "label": "能把錢用在重要的事上"
+            "label": "能把錢花在重要的事情上"
           },
           {
             "id": "money_ideal_c6fc0309",
-            "label": "輕鬆地儲蓄著"
+            "label": "不勉強地存錢"
           },
           {
             "id": "money_ideal_440f05cc",
-            "label": "輕鬆地增加著"
+            "label": "不勉強地增加資產"
           },
           {
             "id": "money_ideal_68a3fac2",
-            "label": "輕鬆地守護著"
+            "label": "不勉強地守住資產"
           },
           {
             "id": "money_ideal_da7aff93",
@@ -3059,23 +3060,23 @@
           },
           {
             "id": "money_ideal_5cdd330d",
-            "label": "money is not controlling me"
+            "label": "不被金錢牽著走"
           },
           {
             "id": "money_ideal_c1c401e8",
-            "label": "money does not define my worth"
+            "label": "不用金錢決定自己的價值"
           },
           {
             "id": "money_ideal_17329580",
-            "label": "money is handled freely"
+            "label": "能自由地運用金錢"
           },
           {
             "id": "money_ideal_ca8767b8",
-            "label": "金錢對感謝著"
+            "label": "感謝金錢"
           },
           {
             "id": "money_ideal_50c4a40c",
-            "label": "金錢和的関係對滿意"
+            "label": "對自己與金錢的關係感到滿意"
           }
         ]
       },
@@ -3086,23 +3087,23 @@
         "problems": [
           {
             "id": "health_problem_3703de32",
-            "label": "身體難受"
+            "label": "身體很不舒服"
           },
           {
             "id": "health_problem_c43a3e00",
-            "label": "身體沉重"
+            "label": "身體很沉重"
           },
           {
             "id": "health_problem_5ced3473",
-            "label": "body feels sluggish"
+            "label": "身體很疲倦"
           },
           {
             "id": "health_problem_e31e6195",
-            "label": "身體力沒有"
+            "label": "體力不足"
           },
           {
             "id": "health_problem_aa81dc97",
-            "label": "疲勞消不掉"
+            "label": "疲勞無法消除"
           },
           {
             "id": "health_problem_8f7b84f1",
@@ -3114,15 +3115,15 @@
           },
           {
             "id": "health_problem_15720dcf",
-            "label": "疼痛有"
+            "label": "身體有疼痛"
           },
           {
             "id": "health_problem_98107fab",
-            "label": "疾病害怕"
+            "label": "害怕生病"
           },
           {
             "id": "health_problem_9be34c47",
-            "label": "老化害怕"
+            "label": "害怕老化"
           },
           {
             "id": "health_problem_79fd82e9",
@@ -3130,23 +3131,23 @@
           },
           {
             "id": "health_problem_48940ed3",
-            "label": "瘦不下來"
+            "label": "無法瘦下來"
           },
           {
             "id": "health_problem_5464eab1",
-            "label": "總是吃太多"
+            "label": "會吃太多"
           },
           {
             "id": "health_problem_0b6d95ed",
-            "label": "無法忍住不吃"
+            "label": "無法克制自己吃東西"
           },
           {
             "id": "health_problem_08718823",
-            "label": "運動無法持續"
+            "label": "無法持續運動"
           },
           {
             "id": "health_problem_ece583ff",
-            "label": "健康管理無法"
+            "label": "無法管理自己的健康"
           },
           {
             "id": "health_problem_ab9ce809",
@@ -3162,23 +3163,23 @@
           },
           {
             "id": "health_problem_219bd11b",
-            "label": "害怕被人看見"
+            "label": "害怕被別人看見"
           },
           {
             "id": "health_problem_9ce3a0f8",
-            "label": "身體對自信沒有"
+            "label": "對自己的身體沒有自信"
           },
           {
             "id": "health_problem_c7c379e1",
-            "label": "身體大切對無法"
+            "label": "無法好好照顧身體"
           },
           {
             "id": "health_problem_18a01677",
-            "label": "無理會"
+            "label": "會勉強自己"
           },
           {
             "id": "health_problem_cdad6a46",
-            "label": "I can’t rest"
+            "label": "無法休息"
           },
           {
             "id": "health_problem_db498f80",
@@ -3190,7 +3191,7 @@
           },
           {
             "id": "health_problem_4c90edf6",
-            "label": "不調無視會"
+            "label": "會忽略身體的不適"
           },
           {
             "id": "health_problem_2c6adfb8",
@@ -3198,35 +3199,35 @@
           },
           {
             "id": "health_problem_fb0bac02",
-            "label": "健康診断害怕"
+            "label": "害怕健康檢查"
           },
           {
             "id": "health_problem_52f25da9",
-            "label": "將來的身體不安"
+            "label": "對未來的身體狀況感到不安"
           },
           {
             "id": "health_problem_9a28b168",
-            "label": "家人的健康擔心"
+            "label": "擔心家人的健康"
           },
           {
             "id": "health_problem_c7c7570d",
-            "label": "孩子的健康擔心"
+            "label": "擔心孩子的健康"
           },
           {
             "id": "health_problem_16c7cbf4",
-            "label": "父母的健康擔心"
+            "label": "擔心父母的健康"
           },
           {
             "id": "health_problem_0f167be0",
-            "label": "責備生病的自己"
+            "label": "會因為生病而責怪自己"
           },
           {
             "id": "health_problem_66fcd8fa",
-            "label": "無法原諒身體狀況不好的自己"
+            "label": "無法原諒身體不舒服的自己"
           },
           {
             "id": "health_problem_9391c7b1",
-            "label": "覺得自己必須保持精神"
+            "label": "覺得自己必須保持健康"
           },
           {
             "id": "health_problem_f0761725",
@@ -3234,15 +3235,15 @@
           },
           {
             "id": "health_problem_79c55b9f",
-            "label": "不想造成別人的麻煩"
+            "label": "不想造成別人的負擔"
           },
           {
             "id": "health_problem_e2ce59b9",
-            "label": "無法展現脆弱的一面"
+            "label": "無法讓別人看見自己的脆弱"
           },
           {
             "id": "health_problem_d53fd0c9",
-            "label": "害怕被照護"
+            "label": "害怕需要別人照顧"
           },
           {
             "id": "health_problem_bd197076",
@@ -3250,21 +3251,21 @@
           },
           {
             "id": "health_problem_0565e626",
-            "label": "感覺生命力變弱了"
+            "label": "感覺生命力正在減弱"
           }
         ],
         "ideals": [
           {
             "id": "health_ideal_92b8be74",
-            "label": "body feels light"
+            "label": "身體感到輕盈"
           },
           {
             "id": "health_ideal_d7f596fe",
-            "label": "身體楽"
+            "label": "身體感到舒適"
           },
           {
             "id": "health_ideal_942ad9d2",
-            "label": "身體元気"
+            "label": "身體充滿活力"
           },
           {
             "id": "health_ideal_9b038826",
@@ -3276,19 +3277,19 @@
           },
           {
             "id": "health_ideal_b219c820",
-            "label": "疲勞已經恢復"
+            "label": "疲勞得到恢復"
           },
           {
             "id": "health_ideal_adf6772a",
-            "label": "breath is deep"
+            "label": "呼吸深而順暢"
           },
           {
             "id": "health_ideal_e1c814c7",
-            "label": "心很安定"
+            "label": "內心平靜"
           },
           {
             "id": "health_ideal_1521019c",
-            "label": "身體對安心著"
+            "label": "對自己的身體感到安心"
           },
           {
             "id": "health_ideal_539a94ce",
@@ -3296,27 +3297,27 @@
           },
           {
             "id": "health_ideal_06a4a2fd",
-            "label": "身體珍惜著"
+            "label": "珍惜自己的身體"
           },
           {
             "id": "health_ideal_54e791c5",
-            "label": "聽著身體的聲音"
+            "label": "傾聽身體的聲音"
           },
           {
             "id": "health_ideal_78e83f77",
-            "label": "沒有勉強自己"
+            "label": "不勉強自己"
           },
           {
             "id": "health_ideal_12a9eea7",
-            "label": "在需要的時候休息"
+            "label": "需要時能休息"
           },
           {
             "id": "health_ideal_ea98547f",
-            "label": "按照自己的步調行動"
+            "label": "按照自己的步調活動"
           },
           {
             "id": "health_ideal_1cc9588a",
-            "label": "飲食享受著"
+            "label": "享受飲食"
           },
           {
             "id": "health_ideal_be3dfc73",
@@ -3324,11 +3325,11 @@
           },
           {
             "id": "health_ideal_72607b03",
-            "label": "舒服地活動著"
+            "label": "舒服地活動身體"
           },
           {
             "id": "health_ideal_8febe9bd",
-            "label": "健康享受著"
+            "label": "享受健康的狀態"
           },
           {
             "id": "health_ideal_12c65e8c",
@@ -3336,11 +3337,11 @@
           },
           {
             "id": "health_ideal_b695a737",
-            "label": "自己的身體接納著"
+            "label": "接納自己的身體"
           },
           {
             "id": "health_ideal_29636ab8",
-            "label": "年齢接納著"
+            "label": "接納自己的年齡"
           },
           {
             "id": "health_ideal_a019d487",
@@ -3348,19 +3349,19 @@
           },
           {
             "id": "health_ideal_890fc2bb",
-            "label": "不過度害怕疾病"
+            "label": "不過度害怕生病"
           },
           {
             "id": "health_ideal_4ae92dfe",
-            "label": "平靜地面對身體狀況的變化"
+            "label": "能平靜地面對身體狀況的變化"
           },
           {
             "id": "health_ideal_c37eeca5",
-            "label": "心和身體連在一起"
+            "label": "身心相連"
           },
           {
             "id": "health_ideal_f537e332",
-            "label": "心和身體取得平衡"
+            "label": "身心保持平衡"
           },
           {
             "id": "health_ideal_408e192e",
@@ -3372,7 +3373,7 @@
           },
           {
             "id": "health_ideal_7137a6ec",
-            "label": "健康和的関係對滿意"
+            "label": "對自己與健康的關係感到滿意"
           }
         ]
       },
@@ -3383,7 +3384,7 @@
         "problems": [
           {
             "id": "time_problem_da61b38c",
-            "label": "時間沒有"
+            "label": "沒有時間"
           },
           {
             "id": "time_problem_aa688b87",
@@ -3391,15 +3392,15 @@
           },
           {
             "id": "time_problem_237e8162",
-            "label": "總是在趕"
+            "label": "總是在趕時間"
           },
           {
             "id": "time_problem_0fc4c2cd",
-            "label": "總是焦慮"
+            "label": "總是很焦急"
           },
           {
             "id": "time_problem_70a11dc9",
-            "label": "余裕沒有"
+            "label": "沒有餘裕"
           },
           {
             "id": "time_problem_8569735e",
@@ -3411,27 +3412,27 @@
           },
           {
             "id": "time_problem_adb2bf06",
-            "label": "自己的時間沒有"
+            "label": "沒有自己的時間"
           },
           {
             "id": "time_problem_34bcd136",
-            "label": "家人和的時間沒有"
+            "label": "沒有和家人相處的時間"
           },
           {
             "id": "time_problem_046668b3",
-            "label": "重要的人和的時間沒有"
+            "label": "沒有和重要的人相處的時間"
           },
           {
             "id": "time_problem_41601093",
-            "label": "沒有做喜歡的事的時間"
+            "label": "沒有做喜歡事情的時間"
           },
           {
             "id": "time_problem_ecf74051",
-            "label": "沒有做想做的事的時間"
+            "label": "沒有做想做事情的時間"
           },
           {
             "id": "time_problem_0b60d2dd",
-            "label": "該做的事太多"
+            "label": "要做的事情太多"
           },
           {
             "id": "time_problem_fac73119",
@@ -3439,7 +3440,7 @@
           },
           {
             "id": "time_problem_0df970ad",
-            "label": "浪費了一天"
+            "label": "浪費了一整天"
           },
           {
             "id": "time_problem_ac20270a",
@@ -3447,15 +3448,15 @@
           },
           {
             "id": "time_problem_bdf65624",
-            "label": "浪費了人生"
+            "label": "浪費了自己的人生"
           },
           {
             "id": "time_problem_6a4d4e0a",
-            "label": "無法好好運用時間"
+            "label": "無法善用時間"
           },
           {
             "id": "time_problem_3726b87c",
-            "label": "沒有照計畫前進"
+            "label": "事情沒有按照計畫進行"
           },
           {
             "id": "time_problem_f99cd69c",
@@ -3463,15 +3464,15 @@
           },
           {
             "id": "time_problem_add14d5c",
-            "label": "總是拖延"
+            "label": "會拖延"
           },
           {
             "id": "time_problem_38db61d8",
-            "label": "總是懶散下去"
+            "label": "會一直懶散下去"
           },
           {
             "id": "time_problem_a6933301",
-            "label": "集中無法"
+            "label": "無法專心"
           },
           {
             "id": "time_problem_d1fd53ce",
@@ -3479,15 +3480,15 @@
           },
           {
             "id": "time_problem_6b6eb8e3",
-            "label": "被期限追著跑"
+            "label": "被截止期限追著跑"
           },
           {
             "id": "time_problem_ee64cbc8",
-            "label": "總是到最後一刻才完成"
+            "label": "總是拖到最後一刻"
           },
           {
             "id": "time_problem_25eecbc8",
-            "label": "總是遲到"
+            "label": "會遲到"
           },
           {
             "id": "time_problem_ac25b6d2",
@@ -3495,27 +3496,27 @@
           },
           {
             "id": "time_problem_8fbda990",
-            "label": "總是讓別人等"
+            "label": "會讓別人等"
           },
           {
             "id": "time_problem_251b5954",
-            "label": "想快點看到結果"
+            "label": "想趕快看到結果"
           },
           {
             "id": "time_problem_c886110a",
-            "label": "想快點改變"
+            "label": "想趕快改變"
           },
           {
             "id": "time_problem_a6a1a4ae",
-            "label": "想快點成功"
+            "label": "想趕快成功"
           },
           {
             "id": "time_problem_ebaa409d",
-            "label": "想快點安心"
+            "label": "想趕快安心"
           },
           {
             "id": "time_problem_2d7410cb",
-            "label": "被過去拖住"
+            "label": "一直放不下過去"
           },
           {
             "id": "time_problem_80ba1f29",
@@ -3523,11 +3524,11 @@
           },
           {
             "id": "time_problem_522dc9e1",
-            "label": "想重來過去"
+            "label": "想重新來過"
           },
           {
             "id": "time_problem_2f68a099",
-            "label": "如果那時候那樣做就好了"
+            "label": "後悔當時沒有那樣做"
           },
           {
             "id": "time_problem_09da6620",
@@ -3535,11 +3536,11 @@
           },
           {
             "id": "time_problem_14a77392",
-            "label": "今對集中無法"
+            "label": "無法專注於當下"
           },
           {
             "id": "time_problem_2563134f",
-            "label": "未來不安"
+            "label": "對未來感到不安"
           },
           {
             "id": "time_problem_f5ea2f96",
@@ -3547,11 +3548,11 @@
           },
           {
             "id": "time_problem_fe74ddda",
-            "label": "害怕變老"
+            "label": "害怕年紀變大"
           },
           {
             "id": "time_problem_c52f8bac",
-            "label": "覺得錯過了機會"
+            "label": "覺得自己錯過了機會"
           },
           {
             "id": "time_problem_e35056cb",
@@ -3559,53 +3560,53 @@
           },
           {
             "id": "time_problem_84156799",
-            "label": "覺得來不及了"
+            "label": "覺得自己來不及"
           },
           {
             "id": "time_problem_1490db82",
-            "label": "覺得自己比別人落後"
+            "label": "覺得自己落後別人"
           },
           {
             "id": "time_problem_213fe1c3",
-            "label": "覺得人生沒有前進"
+            "label": "覺得人生沒有向前走"
           }
         ],
         "ideals": [
           {
             "id": "time_ideal_b24d1409",
-            "label": "時間對有餘裕"
+            "label": "時間上有餘裕"
           },
           {
             "id": "time_ideal_c6db07a4",
-            "label": "心對有餘裕"
+            "label": "內心有餘裕"
           },
           {
             "id": "time_ideal_0993d98f",
-            "label": "專注在當下"
+            "label": "專注於當下"
           },
           {
             "id": "time_ideal_e36cab98",
-            "label": "品味著當下"
+            "label": "細細感受當下"
           },
           {
             "id": "time_ideal_6f139cd7",
-            "label": "今天珍惜著"
+            "label": "珍惜今天"
           },
           {
             "id": "time_ideal_94a6d2b0",
-            "label": "細緻地度過每一天"
+            "label": "用心度過每一天"
           },
           {
             "id": "time_ideal_55ad07ab",
-            "label": "自己的時間有"
+            "label": "有自己的時間"
           },
           {
             "id": "time_ideal_324e0920",
-            "label": "重要的人和的時間有"
+            "label": "有和重要的人相處的時間"
           },
           {
             "id": "time_ideal_2b42f7d1",
-            "label": "有做喜歡的事的時間"
+            "label": "有做喜歡事情的時間"
           },
           {
             "id": "time_ideal_93b0ccb1",
@@ -3613,19 +3614,19 @@
           },
           {
             "id": "time_ideal_883a12d1",
-            "label": "推進著必要的事"
+            "label": "正在推進該做的事情"
           },
           {
             "id": "time_ideal_28d7a6d6",
-            "label": "優先順序很清楚"
+            "label": "清楚自己的優先順序"
           },
           {
             "id": "time_ideal_f0000031",
-            "label": "選擇著重要的事"
+            "label": "選擇真正重要的事"
           },
           {
             "id": "time_ideal_0deab867",
-            "label": "不拖延地行動著"
+            "label": "不拖延地採取行動"
           },
           {
             "id": "time_ideal_05fc114f",
@@ -3633,15 +3634,15 @@
           },
           {
             "id": "time_ideal_41ca7620",
-            "label": "沒有焦慮"
+            "label": "不感到焦急"
           },
           {
             "id": "time_ideal_52b8aa95",
-            "label": "沒有太急"
+            "label": "不過度匆忙"
           },
           {
             "id": "time_ideal_d4442189",
-            "label": "放下過去"
+            "label": "已經放下過去"
           },
           {
             "id": "time_ideal_84002ad7",
@@ -3649,15 +3650,15 @@
           },
           {
             "id": "time_ideal_29636ab8",
-            "label": "年齢接納著"
+            "label": "接納自己的年齡"
           },
           {
             "id": "time_ideal_af019741",
-            "label": "不和別人比較而焦慮"
+            "label": "不因和別人比較而焦急"
           },
           {
             "id": "time_ideal_26dce58b",
-            "label": "感覺自己來得及"
+            "label": "感覺一切都還來得及"
           },
           {
             "id": "time_ideal_73a9b408",
@@ -3665,19 +3666,19 @@
           },
           {
             "id": "time_ideal_76d5b9b7",
-            "label": "把時間當成自己的盟友"
+            "label": "讓時間成為自己的助力"
           },
           {
             "id": "time_ideal_98733f77",
-            "label": "時間和的関係對滿意"
+            "label": "對自己與時間的關係感到滿意"
           }
         ]
       }
     ]
   },
   "languages": {
-    "en": "English",
-    "ja": "日本語",
-    "zh-TW": "繁體中文"
+    "en": "🇺🇸English",
+    "ja": "🇯🇵日本語",
+    "zh-TW": "🇹🇼繁體中文"
   }
 }

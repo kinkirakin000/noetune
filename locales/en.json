@@ -109,7 +109,7 @@
   },
   "theme": {
     "freeInputCategory": "Free input",
-    "categoryGuide": "For “{theme}”,\nfrom concern or ideal,\nwhere would you like to begin?",
+    "categoryGuide": "For “{theme}”,\nchoose either a concern or an ideal below.",
     "problemGuide": "About “{theme}”,\nwrite the concern or problem.",
     "idealGuide": "About “{theme}”,\nwrite the ideal state.",
     "freeInputPlaceholder": "Enter freely",
@@ -291,7 +291,8 @@
           "Unlimited sessions",
           "Available without sign-up",
           "No AI analysis",
-          "No ads"
+          "No ads",
+          "No long-term history, trends, or comparisons"
         ],
         "cta": "Start Free"
       },
@@ -2013,167 +2014,167 @@
         "ideals": [
           {
             "id": "family_ideal_18f6cb86",
-            "label": "familyを愛している"
+            "label": "I love my family"
           },
           {
             "id": "family_ideal_46e9d537",
-            "label": "familyに愛されている"
+            "label": "My family loves me"
           },
           {
             "id": "family_ideal_6bb14a49",
-            "label": "familyと安heartして過ごしている"
+            "label": "I feel at ease with my family"
           },
           {
             "id": "family_ideal_27eff0de",
-            "label": "familyと笑い合っている"
+            "label": "I laugh with my family"
           },
           {
             "id": "family_ideal_66db8702",
-            "label": "familyと本音で話している"
+            "label": "I speak honestly with my family"
           },
           {
             "id": "family_ideal_2bd803b8",
-            "label": "familyを信頼している"
+            "label": "I trust my family"
           },
           {
             "id": "family_ideal_43266c72",
-            "label": "familyに信頼されている"
+            "label": "My family trusts me"
           },
           {
             "id": "family_ideal_248d9714",
-            "label": "familyを理解している"
+            "label": "I understand my family"
           },
           {
             "id": "family_ideal_9867e2ae",
-            "label": "familyに理解されている"
+            "label": "My family understands me"
           },
           {
             "id": "family_ideal_4e628ca8",
-            "label": "familyを受け入れている"
+            "label": "I accept my family"
           },
           {
             "id": "family_ideal_5b008f45",
-            "label": "familyに受け入れられている"
+            "label": "My family accepts me"
           },
           {
             "id": "family_ideal_a0e8e26f",
-            "label": "familyを許している"
+            "label": "I forgive my family"
           },
           {
             "id": "family_ideal_01ca08fb",
-            "label": "familyに許されている"
+            "label": "My family forgives me"
           },
           {
             "id": "family_ideal_c033340a",
-            "label": "family is being valued"
+            "label": "I care for my family"
           },
           {
             "id": "family_ideal_5b40efb2",
-            "label": "familyに大切にされている"
+            "label": "My family cares for me"
           },
           {
             "id": "family_ideal_a170783d",
-            "label": "familyと支え合っている"
+            "label": "My family and I support one another"
           },
           {
             "id": "family_ideal_25d39dc2",
-            "label": "familyと助け合っている"
+            "label": "My family and I help one another"
           },
           {
             "id": "family_ideal_eee51f33",
-            "label": "family is appreciated"
+            "label": "I am grateful to my family"
           },
           {
             "id": "family_ideal_cfa13645",
-            "label": "familyから感謝されている"
+            "label": "My family is grateful to me"
           },
           {
             "id": "family_ideal_551f4cef",
-            "label": "familyとのtimeを楽しんでいる"
+            "label": "I enjoy time with my family"
           },
           {
             "id": "family_ideal_fe71bb24",
-            "label": "familyとのtime feels satisfying"
+            "label": "I am satisfied with the time I spend with my family"
           },
           {
             "id": "family_ideal_01f9a027",
-            "label": "familyとheartがつながっている"
+            "label": "I feel emotionally connected to my family"
           },
           {
             "id": "family_ideal_4c1e46d3",
-            "label": "familyと安heartできる距離を保っている"
+            "label": "I keep a comfortable distance from my family"
           },
           {
             "id": "family_ideal_bce8745b",
-            "label": "familyと自然bodyで接している"
+            "label": "I can be natural around my family"
           },
           {
             "id": "family_ideal_efa48814",
-            "label": "familyの前でも自分らしくいる"
+            "label": "I can be myself around my family"
           },
           {
             "id": "family_ideal_1fc32eb3",
-            "label": "familyを尊重している"
+            "label": "I respect my family"
           },
           {
             "id": "family_ideal_1b76b228",
-            "label": "familyに尊重されている"
+            "label": "My family respects me"
           },
           {
             "id": "family_ideal_6aa2421f",
-            "label": "parents is being valued"
+            "label": "I care for my parents"
           },
           {
             "id": "family_ideal_d61bdcad",
-            "label": "parentsと安heartして話している"
+            "label": "I can talk with my parents and feel at ease"
           },
           {
             "id": "family_ideal_fe96758c",
-            "label": "parentsを理解している"
+            "label": "I understand my parents"
           },
           {
             "id": "family_ideal_604581be",
-            "label": "parentsに理解されている"
+            "label": "My parents understand me"
           },
           {
             "id": "family_ideal_d44246c8",
-            "label": "childを信じている"
+            "label": "I trust my children"
           },
           {
             "id": "family_ideal_c966d652",
-            "label": "childに信頼されている"
+            "label": "My children trust me"
           },
           {
             "id": "family_ideal_0ac11ee4",
-            "label": "childの成長を喜んでいる"
+            "label": "I am happy to see my children grow"
           },
           {
             "id": "family_ideal_81a31d47",
-            "label": "familyそれぞれが自分らしく生きている"
+            "label": "Each person in my family lives as themselves"
           },
           {
             "id": "family_ideal_b75be9c3",
-            "label": "familyに安heart感 exists"
+            "label": "There is a sense of safety in my family"
           },
           {
             "id": "family_ideal_b906a24d",
-            "label": "familyと穏やかに暮らしている"
+            "label": "I live peacefully with my family"
           },
           {
             "id": "family_ideal_d4ba186e",
-            "label": "familyとの関係 feels satisfying"
+            "label": "I am satisfied with my family relationships"
           },
           {
             "id": "family_ideal_15417c69",
-            "label": "familyと幸せを感じている"
+            "label": "I feel happy with my family"
           },
           {
             "id": "family_ideal_495a3cb4",
-            "label": "familyとの絆を感じている"
+            "label": "I feel a bond with my family"
           },
           {
             "id": "family_ideal_5a1e8edd",
-            "label": "familyとの関係が調和している"
+            "label": "My family relationships are harmonious"
           }
         ]
       },
@@ -2184,119 +2185,119 @@
         "problems": [
           {
             "id": "work_problem_ec1a6d3e",
-            "label": "work feels painful"
+            "label": "Work is painful"
           },
           {
             "id": "work_problem_2f43b74a",
-            "label": "work is something I dislike"
+            "label": "I hate my job"
           },
           {
             "id": "work_problem_17da5491",
-            "label": "work is not enjoyable"
+            "label": "I do not enjoy my work"
           },
           {
             "id": "work_problem_b74c404f",
-            "label": "work feels meaningless"
+            "label": "My work feels meaningless"
           },
           {
             "id": "work_problem_cf214a3e",
-            "label": "work feels unrewarding"
+            "label": "My work does not feel rewarding"
           },
           {
             "id": "work_problem_dcfbfcb7",
-            "label": "work does not last"
+            "label": "I cannot stay in a job"
           },
           {
             "id": "work_problem_f722eb83",
-            "label": "work cannot be found"
+            "label": "I cannot find a job"
           },
           {
             "id": "work_problem_df2562a7",
-            "label": "work is not decided"
+            "label": "I cannot get hired"
           },
           {
             "id": "work_problem_8cb364ed",
-            "label": "work I want to quit"
+            "label": "I want to quit my job"
           },
           {
             "id": "work_problem_8ab903f9",
-            "label": "work I can’t quit"
+            "label": "I cannot quit my job"
           },
           {
             "id": "work_problem_ffd4a949",
-            "label": "働き I don’t want to"
+            "label": "I do not want to work"
           },
           {
             "id": "work_problem_269f56b0",
-            "label": "働き too much"
+            "label": "I work too much"
           },
           {
             "id": "work_problem_16461bdb",
-            "label": "働き続けるの feels painful"
+            "label": "It is painful to keep working"
           },
           {
             "id": "work_problem_cdad6a46",
-            "label": "I can’t rest"
+            "label": "I cannot rest"
           },
           {
             "id": "work_problem_df29d6fa",
-            "label": "頑張り too much"
+            "label": "I try too hard"
           },
           {
             "id": "work_problem_2d2e27b8",
-            "label": "I can’t relax"
+            "label": "I cannot ease up"
           },
           {
             "id": "work_problem_fd9a8f96",
-            "label": "成果 doesn’t come"
+            "label": "I am not getting results"
           },
           {
             "id": "work_problem_a8c3778a",
-            "label": "結果 doesn’t come"
+            "label": "I am not seeing results"
           },
           {
             "id": "work_problem_0faf7135",
-            "label": "評価 not being recognized"
+            "label": "My work is not recognized"
           },
           {
             "id": "work_problem_b1f31693",
-            "label": "About 認められない"
+            "label": "I am not acknowledged"
           },
           {
             "id": "work_problem_5312a995",
-            "label": "昇給 does not happen"
+            "label": "I am not getting a raise"
           },
           {
             "id": "work_problem_4bb014d2",
-            "label": "出世 I can’t"
+            "label": "I cannot advance in my career"
           },
           {
             "id": "work_problem_23f44359",
-            "label": "About 稼げない"
+            "label": "I cannot earn enough"
           },
           {
             "id": "work_problem_8dca2fc8",
-            "label": "About 売上が伸びない"
+            "label": "Sales are not growing"
           },
           {
             "id": "work_problem_e07dbb9c",
-            "label": "About お客さんが来ない"
+            "label": "Customers are not coming"
           },
           {
             "id": "work_problem_7f200db8",
-            "label": "About お客さんが増えない"
+            "label": "I cannot attract more customers"
           },
           {
             "id": "work_problem_9b0cf74c",
-            "label": "集客 I can’t"
+            "label": "I cannot bring in customers"
           },
           {
             "id": "work_problem_6a60dd2d",
-            "label": "incomeが安定 does not happen"
+            "label": "My income is unstable"
           },
           {
             "id": "work_problem_3e344681",
-            "label": "moneyにならない"
+            "label": "My work does not make money"
           },
           {
             "id": "work_problem_fe03f255",
@@ -2304,309 +2305,309 @@
           },
           {
             "id": "work_problem_cf05a717",
-            "label": "About 実力が足りないと感じる"
+            "label": "I feel I do not have enough skill"
           },
           {
             "id": "work_problem_7e9aaea8",
-            "label": "About 能力が足りないと感じる"
+            "label": "I feel I do not have enough ability"
           },
           {
             "id": "work_problem_a82a5a82",
-            "label": "才能 is missingと感じる"
+            "label": "I feel I have no talent"
           },
           {
             "id": "work_problem_eb587c74",
-            "label": "About 向いていないと感じる"
+            "label": "I feel this work is not right for me"
           },
           {
             "id": "work_problem_c70607a3",
-            "label": "失敗 scares me"
+            "label": "I am afraid of failure"
           },
           {
             "id": "work_problem_a4ed5064",
-            "label": "挑戦 I can’t"
+            "label": "I cannot take on a challenge"
           },
           {
             "id": "work_problem_e8d6d79b",
-            "label": "行動 I can’t"
+            "label": "I cannot take action"
           },
           {
             "id": "work_problem_f9c11eb6",
-            "label": "About 一歩踏み出せない"
+            "label": "I cannot take the first step"
           },
           {
             "id": "work_problem_01942fcb",
-            "label": "決断 I can’t"
+            "label": "I cannot make a decision"
           },
           {
             "id": "work_problem_d1fd53ce",
-            "label": "About 続けられない"
+            "label": "I cannot keep going"
           },
           {
             "id": "work_problem_3f2766e2",
-            "label": "About 飽きてしまう"
+            "label": "I lose interest"
           },
           {
             "id": "work_problem_14e68180",
-            "label": "やる気 doesn’t come"
+            "label": "I cannot get motivated"
           },
           {
             "id": "work_problem_a6933301",
-            "label": "集中 I can’t"
+            "label": "I cannot concentrate"
           },
           {
             "id": "work_problem_add14d5c",
-            "label": "About 先延ばししてしまう"
+            "label": "I procrastinate"
           },
           {
             "id": "work_problem_f8ac9fae",
-            "label": "About 完璧を求めすぎる"
+            "label": "I demand too much perfection"
           },
           {
             "id": "work_problem_b5db8a6e",
-            "label": "About 自分を追い込みすぎる"
+            "label": "I push myself too hard"
           },
           {
             "id": "work_problem_7af1a645",
-            "label": "責任 feels heavy"
+            "label": "The responsibility feels too heavy"
           },
           {
             "id": "work_problem_d05e0c91",
-            "label": "About プレッシャーが大きい"
+            "label": "The pressure is too great"
           },
           {
             "id": "work_problem_f0bb6422",
-            "label": "future makes me anxious"
+            "label": "I am anxious about the future"
           },
           {
             "id": "work_problem_11318c00",
-            "label": "転職する勇気 is missing"
+            "label": "I do not have the courage to change jobs"
           },
           {
             "id": "work_problem_5b0021e9",
-            "label": "起業する勇気 is missing"
+            "label": "I do not have the courage to start a business"
           },
           {
             "id": "work_problem_ea8a0cbe",
-            "label": "workを任せられない"
+            "label": "I cannot delegate work"
           },
           {
             "id": "work_problem_c157fa5c",
-            "label": "About 人に頼れない"
+            "label": "I cannot rely on others"
           },
           {
             "id": "work_problem_8d8ea30d",
-            "label": "I can’t refuse"
+            "label": "I cannot say no"
           },
           {
             "id": "work_problem_1b58af99",
-            "label": "workを抱え込みすぎる"
+            "label": "I take on too much work by myself"
           },
           {
             "id": "work_problem_ee5bd158",
-            "label": "workと生活のバランスが取れない"
+            "label": "I cannot balance work and life"
           },
           {
             "id": "work_problem_c4b8c5f6",
-            "label": "every dayが同じでつまらない"
+            "label": "Every day feels the same and boring"
           },
           {
             "id": "work_problem_e983cf4e",
-            "label": "自分のやりたいworkがわからない"
+            "label": "I do not know what work I truly want to do"
           },
           {
             "id": "work_problem_c85c3044",
-            "label": "what I loveをworkに I can’t"
+            "label": "I cannot make a career out of what I love"
           },
           {
             "id": "work_problem_0f676851",
-            "label": "what I loveで稼げない"
+            "label": "I cannot earn money doing what I love"
           },
           {
             "id": "work_problem_009698b3",
-            "label": "嫌なworkを続けている"
+            "label": "I keep doing work I dislike"
           },
           {
             "id": "work_problem_f597ca64",
-            "label": "人間関係でwork feels painful"
+            "label": "Work relationships make my job painful"
           },
           {
             "id": "work_problem_1a36b0a8",
-            "label": "workのストレスが大きい"
+            "label": "My work stress is overwhelming"
           },
           {
             "id": "work_problem_81c43c83",
-            "label": "workに追われている"
+            "label": "I am constantly chased by work"
           },
           {
             "id": "work_problem_2870223a",
-            "label": "workばかりのlifeになっている"
+            "label": "My life has become all about work"
           },
           {
             "id": "work_problem_5368ad2a",
-            "label": "自分の価値をworkで決めてしまう"
+            "label": "I base my worth on my work"
           },
           {
             "id": "work_problem_86874e39",
-            "label": "workを失うの scares me"
+            "label": "I am afraid of losing my job"
           },
           {
             "id": "work_problem_74ce2b53",
-            "label": "workの失敗を引きずってしまう"
+            "label": "I cannot let go of a failure at work"
           },
           {
             "id": "work_problem_e0ecd9d7",
-            "label": "workで自分を責めてしまう"
+            "label": "I blame myself for work problems"
           },
           {
             "id": "work_problem_d9e730cd",
-            "label": "workに自信が持てない"
+            "label": "I cannot feel confident in my work"
           },
           {
             "id": "work_problem_ba38fe49",
-            "label": "成功しても満た not being recognized"
+            "label": "Even success does not fulfill me"
           }
         ],
         "ideals": [
           {
             "id": "work_ideal_74894aa3",
-            "label": "workを楽しんでいる"
+            "label": "I enjoy my work"
           },
           {
             "id": "work_ideal_1cd48149",
-            "label": "About やりがいを感じている"
+            "label": "My work feels rewarding"
           },
           {
             "id": "work_ideal_2b1d2f29",
-            "label": "every dayが充実している"
+            "label": "My days feel fulfilling"
           },
           {
             "id": "work_ideal_1bb2701a",
-            "label": "自分に合ったworkをしている"
+            "label": "I do work that suits me"
           },
           {
             "id": "work_ideal_3c15d29b",
-            "label": "好きなworkをしている"
+            "label": "I do work I love"
           },
           {
             "id": "work_ideal_71baae4d",
-            "label": "About 得意なことを活かしている"
+            "label": "I use what I am good at"
           },
           {
             "id": "work_ideal_61cebdfb",
-            "label": "About 自分の力を発揮している"
+            "label": "I make full use of my abilities"
           },
           {
             "id": "work_ideal_cf5faea5",
-            "label": "About 自分の価値を発揮している"
+            "label": "I express my value through my work"
           },
           {
             "id": "work_ideal_a637a773",
-            "label": "About 成長している"
+            "label": "I am growing"
           },
           {
             "id": "work_ideal_e057b9f7",
-            "label": "About 新しいことに挑戦している"
+            "label": "I take on new challenges"
           },
           {
             "id": "work_ideal_a0074103",
-            "label": "About 行動している"
+            "label": "I take action"
           },
           {
             "id": "work_ideal_ea4b4c89",
-            "label": "About 続けている"
+            "label": "I keep going"
           },
           {
             "id": "work_ideal_2c29d20d",
-            "label": "About 集中している"
+            "label": "I am focused"
           },
           {
             "id": "work_ideal_1abfbaea",
-            "label": "I decide for myself"
+            "label": "I make my own decisions"
           },
           {
             "id": "work_ideal_f29e0f6f",
-            "label": "About 自信を持って働いている"
+            "label": "I work with confidence"
           },
           {
             "id": "work_ideal_41d92a8e",
-            "label": "About 成果が出ている"
+            "label": "I am getting results"
           },
           {
             "id": "work_ideal_4fd15bc6",
-            "label": "About 認められている"
+            "label": "My work is recognized"
           },
           {
             "id": "work_ideal_cf17495d",
-            "label": "About 信頼されている"
+            "label": "I am trusted"
           },
           {
             "id": "work_ideal_57a3efea",
-            "label": "About 必要とされている"
+            "label": "I am needed"
           },
           {
             "id": "work_ideal_9877063f",
-            "label": "About 人の役に立っている"
+            "label": "My work helps others"
           },
           {
             "id": "work_ideal_0ac1e0dd",
-            "label": "About 喜ばれている"
+            "label": "People appreciate my work"
           },
           {
             "id": "work_ideal_19947bfd",
-            "label": "安定したincome exists"
+            "label": "I have a stable income"
           },
           {
             "id": "work_ideal_b3818c27",
-            "label": "what I loveでincomeを得ている"
+            "label": "I earn income doing what I love"
           },
           {
             "id": "work_ideal_cb0fa8df",
-            "label": "About 努力が実っている"
+            "label": "My efforts are bearing fruit"
           },
           {
             "id": "work_ideal_f22a6df6",
-            "label": "About 自分のペースで働いている"
+            "label": "I work at my own pace"
           },
           {
             "id": "work_ideal_c6db07a4",
-            "label": "heartに余裕 exists"
+            "label": "I have room to breathe"
           },
           {
             "id": "work_ideal_cd23a6d2",
-            "label": "About 楽しみながら働いている"
+            "label": "I enjoy the way I work"
           },
           {
             "id": "work_ideal_d1584930",
-            "label": "About 仲間と協力している"
+            "label": "I cooperate with my colleagues"
           },
           {
             "id": "work_ideal_65dd7ef3",
-            "label": "安heartして働いている"
+            "label": "I feel safe at work"
           },
           {
             "id": "work_ideal_153352b5",
-            "label": "workと生活のバランスが取れている"
+            "label": "I have a healthy work-life balance"
           },
           {
             "id": "work_ideal_12a9eea7",
-            "label": "About 必要なときに休んでいる"
+            "label": "I rest when I need to"
           },
           {
             "id": "work_ideal_f70ba39b",
-            "label": "futureに希望を持っている"
+            "label": "I feel hopeful about the future"
           },
           {
             "id": "work_ideal_0f402c6b",
-            "label": "自分のwork feels satisfying"
+            "label": "I am satisfied with my work"
           },
           {
             "id": "work_ideal_291b63ea",
-            "label": "About 自分の成長を実感している"
+            "label": "I can feel my own growth"
           },
           {
             "id": "work_ideal_da48cb25",
-            "label": "About 自分らしく働いている"
+            "label": "I work as myself"
           }
         ]
       },
@@ -2617,465 +2618,465 @@
         "problems": [
           {
             "id": "money_problem_51c3336e",
-            "label": "moneyが足りない"
+            "label": "I do not have enough money"
           },
           {
             "id": "money_problem_28c80a44",
-            "label": "money is missing"
+            "label": "I have no money"
           },
           {
             "id": "money_problem_a3453aeb",
-            "label": "savingsが I can’t"
+            "label": "I cannot save money"
           },
           {
             "id": "money_problem_73a79a7b",
-            "label": "debt exists"
+            "label": "I am in debt"
           },
           {
             "id": "money_problem_0c422b33",
-            "label": "paymentsが苦しい"
+            "label": "I struggle to make payments"
           },
           {
             "id": "money_problem_34c2c191",
-            "label": "futureのmoney makes me anxious"
+            "label": "I am anxious about money in the future"
           },
           {
             "id": "money_problem_bf8feab1",
-            "label": "老後のmoneyがheart配"
+            "label": "I worry about money in retirement"
           },
           {
             "id": "money_problem_3160b820",
-            "label": "incomeが少ない"
+            "label": "My income is too low"
           },
           {
             "id": "money_problem_6a60dd2d",
-            "label": "incomeが安定 does not happen"
+            "label": "My income is unstable"
           },
           {
             "id": "money_problem_711e7cc8",
-            "label": "salaryが上がらない"
+            "label": "My salary does not increase"
           },
           {
             "id": "money_problem_1ac581d0",
-            "label": "About 思うように稼げない"
+            "label": "I cannot earn as much as I want"
           },
           {
             "id": "money_problem_a28e9255",
-            "label": "moneyを増やせない"
+            "label": "I cannot grow my money"
           },
           {
             "id": "money_problem_4446c7f5",
-            "label": "moneyを失うの scares me"
+            "label": "I am afraid of losing money"
           },
           {
             "id": "money_problem_d061bded",
-            "label": "moneyがすぐ減る"
+            "label": "My money disappears quickly"
           },
           {
             "id": "money_problem_00856510",
-            "label": "money does not last"
+            "label": "My money never lasts"
           },
           {
             "id": "money_problem_3632f329",
-            "label": "moneyが残らない"
+            "label": "I cannot keep any money"
           },
           {
             "id": "money_problem_05895132",
-            "label": "About 無駄遣いしてしまう"
+            "label": "I spend money wastefully"
           },
           {
             "id": "money_problem_ffc8ea2d",
-            "label": "moneyを使いすぎる"
+            "label": "I spend too much money"
           },
           {
             "id": "money_problem_29f9cf0c",
-            "label": "節約 does not last"
+            "label": "I cannot keep saving consistently"
           },
           {
             "id": "money_problem_372b73e9",
-            "label": "moneyの管理 is hard for me"
+            "label": "I am not good at managing money"
           },
           {
             "id": "money_problem_2dec6321",
-            "label": "moneyのことがわからない"
+            "label": "I do not understand money"
           },
           {
             "id": "money_problem_e9834fd8",
-            "label": "investing scares me"
+            "label": "I am afraid to invest"
           },
           {
             "id": "money_problem_95cb9e20",
-            "label": "investingで失敗した"
+            "label": "I lost money investing"
           },
           {
             "id": "money_problem_6e0c535b",
-            "label": "moneyで失敗した"
+            "label": "I made a financial mistake"
           },
           {
             "id": "money_problem_4e27dc39",
-            "label": "moneyで苦労している"
+            "label": "I struggle with money"
           },
           {
             "id": "money_problem_77dc019b",
-            "label": "moneyのことで疲れている"
+            "label": "I am tired of worrying about money"
           },
           {
             "id": "money_problem_28a008af",
-            "label": "moneyのことで頭がいっぱい"
+            "label": "Money is always on my mind"
           },
           {
             "id": "money_problem_bea63f7e",
-            "label": "moneyのことで眠れない"
+            "label": "I cannot sleep because of money worries"
           },
           {
             "id": "money_problem_832a913c",
-            "label": "moneyに振り回される"
+            "label": "Money controls me"
           },
           {
             "id": "money_problem_03e7dab5",
-            "label": "moneyに縛られている"
+            "label": "I feel trapped by money"
           },
           {
             "id": "money_problem_994ae457",
-            "label": "moneyに依存している"
+            "label": "I depend on money"
           },
           {
             "id": "money_problem_d2e00ce8",
-            "label": "moneyに執着している"
+            "label": "I am attached to money"
           },
           {
             "id": "money_problem_b0999ffe",
-            "label": "money is missingと安heart I can’t"
+            "label": "I cannot feel safe without money"
           },
           {
             "id": "money_problem_1ac51dc6",
-            "label": "moneyがあっても安heart I can’t"
+            "label": "I cannot feel safe even when I have money"
           },
           {
             "id": "money_problem_ef6c02e2",
-            "label": "moneyを受け取るの is hard for me"
+            "label": "I have difficulty receiving money"
           },
           {
             "id": "money_problem_39bbc2e0",
-            "label": "moneyを受け取ることに罪悪感 exists"
+            "label": "I feel guilty about receiving money"
           },
           {
             "id": "money_problem_e52ab263",
-            "label": "moneyをもらうの scares me"
+            "label": "I am afraid to accept money"
           },
           {
             "id": "money_problem_013b55fb",
-            "label": "値段をつけるの is hard for me"
+            "label": "I have difficulty setting a price"
           },
           {
             "id": "money_problem_8451d8a5",
-            "label": "About 高い価格を言えない"
+            "label": "I cannot name a high price"
           },
           {
             "id": "money_problem_f492dba6",
-            "label": "About 安く売ってしまう"
+            "label": "I sell my work too cheaply"
           },
           {
             "id": "money_problem_4a003763",
-            "label": "moneyを請求 I can’t"
+            "label": "I cannot ask to be paid"
           },
           {
             "id": "money_problem_102b16ba",
-            "label": "moneyを断れない"
+            "label": "I cannot refuse money requests"
           },
           {
             "id": "money_problem_71d13249",
-            "label": "moneyを貸してしまう"
+            "label": "I lend money too easily"
           },
           {
             "id": "money_problem_3c291925",
-            "label": "moneyを返してもらえない"
+            "label": "People do not repay me"
           },
           {
             "id": "money_problem_d8e5a1ec",
-            "label": "人にmoneyを使いすぎる"
+            "label": "I spend too much money on other people"
           },
           {
             "id": "money_problem_80359a9a",
-            "label": "自分にmoneyを使えない"
+            "label": "I cannot spend money on myself"
           },
           {
             "id": "money_problem_96dbdc3e",
-            "label": "moneyを使うことに罪悪感 exists"
+            "label": "I feel guilty about spending money"
           },
           {
             "id": "money_problem_65ed7de7",
-            "label": "自分にはmoneyを持つ価値 is missingと感じる"
+            "label": "I feel I do not deserve to have money"
           },
           {
             "id": "money_problem_1ef0c25c",
-            "label": "money持ちに引け目を感じる"
+            "label": "I feel inferior around wealthy people"
           },
           {
             "id": "money_problem_0ee277c5",
-            "label": "money持ちをうらやましいと思う"
+            "label": "I envy wealthy people"
           },
           {
             "id": "money_problem_aa89616c",
-            "label": "money持ちに嫉妬する"
+            "label": "I feel jealous of wealthy people"
           },
           {
             "id": "money_problem_0fb2dcf4",
-            "label": "money持ちを嫌ってしまう"
+            "label": "I resent wealthy people"
           },
           {
             "id": "money_problem_f6393122",
-            "label": "moneyで人と比べてしまう"
+            "label": "I compare myself with others through money"
           },
           {
             "id": "money_problem_51e4eb58",
-            "label": "moneyで自分の価値を決めてしまう"
+            "label": "I measure my worth by money"
           },
           {
             "id": "money_problem_887f2b7d",
-            "label": "money exists人がうらやましい"
+            "label": "I envy people who have money"
           },
           {
             "id": "money_problem_913b5996",
-            "label": "moneyが原因で人間関係が苦しい"
+            "label": "Money causes pain in my relationships"
           },
           {
             "id": "money_problem_b66ce620",
-            "label": "familyとmoneyでもめる"
+            "label": "I argue with my family about money"
           },
           {
             "id": "money_problem_daf0ba7d",
-            "label": "パートナーとmoneyでもめる"
+            "label": "I argue with my partner about money"
           },
           {
             "id": "money_problem_b17caf37",
-            "label": "parentsのmoneyがheart配"
+            "label": "I worry about my parents' money"
           },
           {
             "id": "money_problem_73f3eda7",
-            "label": "childのmoneyがheart配"
+            "label": "I worry about my children's money"
           },
           {
             "id": "money_problem_b8796947",
-            "label": "moneyのために我慢している"
+            "label": "I endure things because of money"
           },
           {
             "id": "money_problem_7d984eaf",
-            "label": "moneyのためにwhat I loveが I can’t"
+            "label": "Money keeps me from doing what I love"
           },
           {
             "id": "money_problem_2f025569",
-            "label": "moneyのために働いている"
+            "label": "I work only for money"
           },
           {
             "id": "money_problem_40c0489b",
-            "label": "moneyのためにwork I can’t quit"
+            "label": "I cannot leave my job because of money"
           },
           {
             "id": "money_problem_09270baa",
-            "label": "moneyのために夢をあきらめている"
+            "label": "I give up my dreams because of money"
           },
           {
             "id": "money_problem_4b693fc9",
-            "label": "moneyの自由 is missing"
+            "label": "I have no financial freedom"
           },
           {
             "id": "money_problem_3240d606",
-            "label": "moneyにlifeを支配されている"
+            "label": "Money controls my life"
           },
           {
             "id": "money_problem_b0104160",
-            "label": "moneyがあれば幸せになれると思っている"
+            "label": "I believe money would make me happy"
           },
           {
             "id": "money_problem_c17ab299",
-            "label": "moneyがあっても満た not being recognized"
+            "label": "Even having money does not fulfill me"
           },
           {
             "id": "money_problem_0e71ff0a",
-            "label": "moneyに価値を感じすぎている"
+            "label": "I place too much value on money"
           },
           {
             "id": "money_problem_68db2cde",
-            "label": "moneyを信じられない"
+            "label": "I cannot trust money"
           },
           {
             "id": "money_problem_53728602",
-            "label": "moneyを信用 I can’t"
+            "label": "I do not feel money is reliable"
           },
           {
             "id": "money_problem_054fffa1",
-            "label": "moneyの話をするの is hard for me"
+            "label": "I have difficulty talking about money"
           },
           {
             "id": "money_problem_390237d4",
-            "label": "moneyのことを人に相談 I can’t"
+            "label": "I cannot ask others for advice about money"
           },
           {
             "id": "money_problem_f79b6585",
-            "label": "moneyのことで恥を感じている"
+            "label": "I feel ashamed about money"
           },
           {
             "id": "money_problem_cacda8e3",
-            "label": "moneyのことで自分を責めている"
+            "label": "I blame myself about money"
           },
           {
             "id": "money_problem_55a56c30",
-            "label": "moneyに自信 is missing"
+            "label": "I lack confidence with money"
           },
           {
             "id": "money_problem_686ba5c2",
-            "label": "moneyに余裕 is missing"
+            "label": "I have no financial breathing room"
           },
           {
             "id": "money_problem_5a18413e",
-            "label": "moneyに追われている"
+            "label": "I am constantly chased by money worries"
           },
           {
             "id": "money_problem_cd1b1583",
-            "label": "moneyで失敗するの scares me"
+            "label": "I am afraid of making a financial mistake"
           },
           {
             "id": "money_problem_78d59672",
-            "label": "moneyを失う自分を許せない"
+            "label": "I cannot forgive myself for losing money"
           },
           {
             "id": "money_problem_164ac387",
-            "label": "moneyを持ち続けられる自信 is missing"
+            "label": "I am not confident I can keep money"
           },
           {
             "id": "money_problem_4bdd58b7",
-            "label": "moneyを増やす力 is missingと感じる"
+            "label": "I feel I lack the ability to grow money"
           },
           {
             "id": "money_problem_fcd62478",
-            "label": "moneyを生み出せないと感じる"
+            "label": "I feel I cannot create money"
           },
           {
             "id": "money_problem_049617d1",
-            "label": "moneyの不安が消えない"
+            "label": "My anxiety about money never goes away"
           }
         ],
         "ideals": [
           {
             "id": "money_ideal_461b4822",
-            "label": "moneyに安heartしている"
+            "label": "I feel at ease with money"
           },
           {
             "id": "money_ideal_88966166",
-            "label": "moneyに余裕 exists"
+            "label": "I have financial breathing room"
           },
           {
             "id": "money_ideal_1b6b0023",
-            "label": "必要なmoney exists"
+            "label": "I have the money I need"
           },
           {
             "id": "money_ideal_bbefe0e6",
-            "label": "money is not a problem"
+            "label": "I am not struggling with money"
           },
           {
             "id": "money_ideal_8927528b",
-            "label": "安heartして受け取っている"
+            "label": "I receive money with ease"
           },
           {
             "id": "money_ideal_a872d139",
-            "label": "安heartして支払っている"
+            "label": "I make payments with ease"
           },
           {
             "id": "money_ideal_9c603fb0",
-            "label": "安heartして使っている"
+            "label": "I spend money with ease"
           },
           {
             "id": "money_ideal_0172311b",
-            "label": "money is being valued"
+            "label": "I value money"
           },
           {
             "id": "money_ideal_e0186f58",
-            "label": "money is managed well"
+            "label": "I manage money well"
           },
           {
             "id": "money_ideal_1f1dcaef",
-            "label": "money circulates naturally"
+            "label": "Money flows naturally through my life"
           },
           {
             "id": "money_ideal_8be5a300",
-            "label": "income is stable"
+            "label": "My income is stable"
           },
           {
             "id": "money_ideal_c032a6b1",
-            "label": "About 十分に稼いでいる"
+            "label": "I earn enough"
           },
           {
             "id": "money_ideal_573733fa",
-            "label": "About 自分の価値を受け取っている"
+            "label": "I receive the value of what I offer"
           },
           {
             "id": "money_ideal_5b43241f",
-            "label": "喜ばれながらincomeを得ている"
+            "label": "I earn income while making people happy"
           },
           {
             "id": "money_ideal_b3818c27",
-            "label": "what I loveでincomeを得ている"
+            "label": "I earn income doing what I love"
           },
           {
             "id": "money_ideal_8e048eac",
-            "label": "人の役に立ちながらincomeを得ている"
+            "label": "I earn income while helping others"
           },
           {
             "id": "money_ideal_86613586",
-            "label": "moneyを失う不安 is missing"
+            "label": "I am not afraid of losing money"
           },
           {
             "id": "money_ideal_40dba424",
-            "label": "futureのmoneyに安heartしている"
+            "label": "I feel secure about money in the future"
           },
           {
             "id": "money_ideal_b6e410e9",
-            "label": "familyを支えられる余裕 exists"
+            "label": "I have enough to support my family"
           },
           {
             "id": "money_ideal_2868e8cd",
-            "label": "About 自分に必要なものを選べる"
+            "label": "I can choose what I need"
           },
           {
             "id": "money_ideal_50bb46a7",
-            "label": "大切なことにmoneyを使えている"
+            "label": "I can spend money on what matters"
           },
           {
             "id": "money_ideal_c6fc0309",
-            "label": "About 無理なく貯めている"
+            "label": "I save without strain"
           },
           {
             "id": "money_ideal_440f05cc",
-            "label": "About 無理なく増やしている"
+            "label": "I grow my money without strain"
           },
           {
             "id": "money_ideal_68a3fac2",
-            "label": "About 無理なく守っている"
+            "label": "I protect my money without strain"
           },
           {
             "id": "money_ideal_da7aff93",
-            "label": "moneyとhealthな関係を築いている"
+            "label": "I have a healthy relationship with money"
           },
           {
             "id": "money_ideal_5cdd330d",
-            "label": "money is not controlling me"
+            "label": "Money does not control me"
           },
           {
             "id": "money_ideal_c1c401e8",
-            "label": "money does not define my worth"
+            "label": "I do not measure my worth by money"
           },
           {
             "id": "money_ideal_17329580",
-            "label": "money is handled freely"
+            "label": "I handle money freely"
           },
           {
             "id": "money_ideal_ca8767b8",
-            "label": "money is appreciated"
+            "label": "I am grateful for money"
           },
           {
             "id": "money_ideal_50c4a40c",
-            "label": "moneyとの関係 feels satisfying"
+            "label": "I am satisfied with my relationship with money"
           }
         ]
       },
@@ -3086,293 +3087,293 @@
         "problems": [
           {
             "id": "health_problem_3703de32",
-            "label": "body feels painful"
+            "label": "My body feels painful"
           },
           {
             "id": "health_problem_c43a3e00",
-            "label": "body feels heavy"
+            "label": "My body feels heavy"
           },
           {
             "id": "health_problem_5ced3473",
-            "label": "body feels sluggish"
+            "label": "My body feels sluggish"
           },
           {
             "id": "health_problem_e31e6195",
-            "label": "body力 is missing"
+            "label": "I lack physical strength"
           },
           {
             "id": "health_problem_aa81dc97",
-            "label": "About 疲れが取れない"
+            "label": "I cannot recover from fatigue"
           },
           {
             "id": "health_problem_8f7b84f1",
-            "label": "About 眠れない"
+            "label": "I cannot sleep"
           },
           {
             "id": "health_problem_f2948e96",
-            "label": "About 朝起きられない"
+            "label": "I cannot get up in the morning"
           },
           {
             "id": "health_problem_15720dcf",
-            "label": "pain exists"
+            "label": "I am in pain"
           },
           {
             "id": "health_problem_98107fab",
-            "label": "illness scares me"
+            "label": "I am afraid of illness"
           },
           {
             "id": "health_problem_9be34c47",
-            "label": "aging scares me"
+            "label": "I am afraid of aging"
           },
           {
             "id": "health_problem_79fd82e9",
-            "label": "太るの scares me"
+            "label": "I am afraid of gaining weight"
           },
           {
             "id": "health_problem_48940ed3",
-            "label": "About 痩せられない"
+            "label": "I cannot lose weight"
           },
           {
             "id": "health_problem_5464eab1",
-            "label": "食べ too much"
+            "label": "I overeat"
           },
           {
             "id": "health_problem_0b6d95ed",
-            "label": "食べることを我慢 I can’t"
+            "label": "I cannot stop myself from eating"
           },
           {
             "id": "health_problem_08718823",
-            "label": "exercise does not last"
+            "label": "I cannot keep exercising"
           },
           {
             "id": "health_problem_ece583ff",
-            "label": "health管理が I can’t"
+            "label": "I cannot manage my health"
           },
           {
             "id": "health_problem_ab9ce809",
-            "label": "自分のbody is something I dislike"
+            "label": "I dislike my body"
           },
           {
             "id": "health_problem_d3f39013",
-            "label": "自分の見た目 is something I dislike"
+            "label": "I dislike my appearance"
           },
           {
             "id": "health_problem_ff279166",
-            "label": "鏡を見るの feels painful"
+            "label": "Looking in the mirror is painful"
           },
           {
             "id": "health_problem_219bd11b",
-            "label": "人に見られるの scares me"
+            "label": "I am afraid of being seen"
           },
           {
             "id": "health_problem_9ce3a0f8",
-            "label": "bodyに自信 is missing"
+            "label": "I lack confidence in my body"
           },
           {
             "id": "health_problem_c7c379e1",
-            "label": "bodyを大切に I can’t"
+            "label": "I cannot care for my body"
           },
           {
             "id": "health_problem_18a01677",
-            "label": "About 無理をしてしまう"
+            "label": "I push myself too hard"
           },
           {
             "id": "health_problem_cdad6a46",
-            "label": "I can’t rest"
+            "label": "I cannot rest"
           },
           {
             "id": "health_problem_db498f80",
-            "label": "About 限界まで頑張ってしまう"
+            "label": "I keep going until I reach my limit"
           },
           {
             "id": "health_problem_524eae6b",
-            "label": "bodyの声を聞けない"
+            "label": "I cannot listen to my body"
           },
           {
             "id": "health_problem_4c90edf6",
-            "label": "About 不調を無視してしまう"
+            "label": "I ignore signs that something is wrong"
           },
           {
             "id": "health_problem_2c6adfb8",
-            "label": "病院に行くの scares me"
+            "label": "I am afraid to go to the hospital"
           },
           {
             "id": "health_problem_fb0bac02",
-            "label": "health診断 scares me"
+            "label": "I am afraid of health checkups"
           },
           {
             "id": "health_problem_52f25da9",
-            "label": "futureのbody makes me anxious"
+            "label": "I am anxious about my future health"
           },
           {
             "id": "health_problem_9a28b168",
-            "label": "familyのhealthがheart配"
+            "label": "I worry about my family's health"
           },
           {
             "id": "health_problem_c7c7570d",
-            "label": "childのhealthがheart配"
+            "label": "I worry about my child's health"
           },
           {
             "id": "health_problem_16c7cbf4",
-            "label": "parentsのhealthがheart配"
+            "label": "I worry about my parents' health"
           },
           {
             "id": "health_problem_0f167be0",
-            "label": "illnessになる自分を責めてしまう"
+            "label": "I blame myself for becoming ill"
           },
           {
             "id": "health_problem_66fcd8fa",
-            "label": "body調が悪い自分を許せない"
+            "label": "I cannot forgive myself for feeling unwell"
           },
           {
             "id": "health_problem_9391c7b1",
-            "label": "About 元気でいなければならない"
+            "label": "I feel I must always be healthy"
           },
           {
             "id": "health_problem_f0761725",
-            "label": "About 強くいなければならない"
+            "label": "I feel I must always be strong"
           },
           {
             "id": "health_problem_79c55b9f",
-            "label": "迷惑をかけ I don’t want to"
+            "label": "I do not want to burden others"
           },
           {
             "id": "health_problem_e2ce59b9",
-            "label": "About 弱いところを見せられない"
+            "label": "I cannot show weakness"
           },
           {
             "id": "health_problem_d53fd0c9",
-            "label": "介護されるの scares me"
+            "label": "I am afraid of needing care"
           },
           {
             "id": "health_problem_bd197076",
-            "label": "死ぬの scares me"
+            "label": "I am afraid of dying"
           },
           {
             "id": "health_problem_0565e626",
-            "label": "About 生きる力が弱っている"
+            "label": "My will to live feels weak"
           }
         ],
         "ideals": [
           {
             "id": "health_ideal_92b8be74",
-            "label": "body feels light"
+            "label": "My body feels light"
           },
           {
             "id": "health_ideal_d7f596fe",
-            "label": "body feels easy"
+            "label": "My body feels comfortable"
           },
           {
             "id": "health_ideal_942ad9d2",
-            "label": "body feels energetic"
+            "label": "My body feels energetic"
           },
           {
             "id": "health_ideal_9b038826",
-            "label": "About よく眠れている"
+            "label": "I sleep well"
           },
           {
             "id": "health_ideal_9597ee03",
-            "label": "About 朝すっきり起きている"
+            "label": "I wake up refreshed"
           },
           {
             "id": "health_ideal_b219c820",
-            "label": "About 疲れが取れている"
+            "label": "I recover from fatigue"
           },
           {
             "id": "health_ideal_adf6772a",
-            "label": "breath is deep"
+            "label": "I breathe deeply"
           },
           {
             "id": "health_ideal_e1c814c7",
-            "label": "heartが落ち着いている"
+            "label": "My mind is calm"
           },
           {
             "id": "health_ideal_1521019c",
-            "label": "bodyに安heartしている"
+            "label": "I feel safe in my body"
           },
           {
             "id": "health_ideal_539a94ce",
-            "label": "bodyを信頼している"
+            "label": "I trust my body"
           },
           {
             "id": "health_ideal_06a4a2fd",
-            "label": "body is being valued"
+            "label": "I care for my body"
           },
           {
             "id": "health_ideal_54e791c5",
-            "label": "bodyの声を聞いている"
+            "label": "I listen to my body"
           },
           {
             "id": "health_ideal_78e83f77",
-            "label": "About 無理をしていない"
+            "label": "I do not push myself too hard"
           },
           {
             "id": "health_ideal_12a9eea7",
-            "label": "About 必要なときに休んでいる"
+            "label": "I rest when I need to"
           },
           {
             "id": "health_ideal_ea98547f",
-            "label": "About 自分のペースで動いている"
+            "label": "I move at my own pace"
           },
           {
             "id": "health_ideal_1cc9588a",
-            "label": "mealsを楽しんでいる"
+            "label": "I enjoy eating"
           },
           {
             "id": "health_ideal_be3dfc73",
-            "label": "食べることに安heartしている"
+            "label": "I feel at ease with eating"
           },
           {
             "id": "health_ideal_72607b03",
-            "label": "About 気持ちよく動いている"
+            "label": "I move in ways that feel good"
           },
           {
             "id": "health_ideal_8febe9bd",
-            "label": "healthを楽しんでいる"
+            "label": "I enjoy being healthy"
           },
           {
             "id": "health_ideal_12c65e8c",
-            "label": "About 自分の見た目を受け入れている"
+            "label": "I accept my appearance"
           },
           {
             "id": "health_ideal_b695a737",
-            "label": "自分のbodyを受け入れている"
+            "label": "I accept my body"
           },
           {
             "id": "health_ideal_29636ab8",
-            "label": "About 年齢を受け入れている"
+            "label": "I accept my age"
           },
           {
             "id": "health_ideal_a019d487",
-            "label": "About 老いを恐れていない"
+            "label": "I am not afraid of aging"
           },
           {
             "id": "health_ideal_890fc2bb",
-            "label": "illnessを必要以上に恐れていない"
+            "label": "I do not fear illness more than necessary"
           },
           {
             "id": "health_ideal_4ae92dfe",
-            "label": "body調の変化に落ち着いて対応している"
+            "label": "I respond calmly to changes in my health"
           },
           {
             "id": "health_ideal_c37eeca5",
-            "label": "heartとbodyがつながっている"
+            "label": "My mind and body are connected"
           },
           {
             "id": "health_ideal_f537e332",
-            "label": "heartとbodyのバランスが取れている"
+            "label": "My mind and body are in balance"
           },
           {
             "id": "health_ideal_408e192e",
-            "label": "About 生きる力を感じている"
+            "label": "I feel the strength to live"
           },
           {
             "id": "health_ideal_213f20a8",
-            "label": "todayを気持ちよく生きている"
+            "label": "I live today feeling well"
           },
           {
             "id": "health_ideal_7137a6ec",
-            "label": "healthとの関係 feels satisfying"
+            "label": "I am satisfied with my relationship with health"
           }
         ]
       },
@@ -3383,301 +3384,301 @@
         "problems": [
           {
             "id": "time_problem_da61b38c",
-            "label": "time is missing"
+            "label": "I do not have enough time"
           },
           {
             "id": "time_problem_aa688b87",
-            "label": "About いつも忙しい"
+            "label": "I am always busy"
           },
           {
             "id": "time_problem_237e8162",
-            "label": "About いつも急いでいる"
+            "label": "I am always in a hurry"
           },
           {
             "id": "time_problem_0fc4c2cd",
-            "label": "About いつも焦っている"
+            "label": "I am always rushed"
           },
           {
             "id": "time_problem_70a11dc9",
-            "label": "余裕 is missing"
+            "label": "I have no breathing room"
           },
           {
             "id": "time_problem_8569735e",
-            "label": "ゆっくり I can’t"
+            "label": "I cannot slow down"
           },
           {
             "id": "time_problem_f36dbf52",
-            "label": "休むtime is missing"
+            "label": "I have no time to rest"
           },
           {
             "id": "time_problem_adb2bf06",
-            "label": "自分のtime is missing"
+            "label": "I have no time for myself"
           },
           {
             "id": "time_problem_34bcd136",
-            "label": "familyとのtime is missing"
+            "label": "I have no time with my family"
           },
           {
             "id": "time_problem_046668b3",
-            "label": "loved onesとのtime is missing"
+            "label": "I have no time with the people I care about"
           },
           {
             "id": "time_problem_41601093",
-            "label": "what I loveをするtime is missing"
+            "label": "I have no time to do what I love"
           },
           {
             "id": "time_problem_ecf74051",
-            "label": "やりたいことをするtime is missing"
+            "label": "I have no time to do what I want"
           },
           {
             "id": "time_problem_0b60d2dd",
-            "label": "About やるべきことが多すぎる"
+            "label": "I have too many things to do"
           },
           {
             "id": "time_problem_fac73119",
-            "label": "every dayがあっという間に終わる"
+            "label": "Every day ends before I know it"
           },
           {
             "id": "time_problem_0df970ad",
-            "label": "About 一日を無駄にしている"
+            "label": "I waste my days"
           },
           {
             "id": "time_problem_ac20270a",
-            "label": "About 休日を無駄にしている"
+            "label": "I waste my days off"
           },
           {
             "id": "time_problem_bdf65624",
-            "label": "lifeを無駄にしている"
+            "label": "I am wasting my life"
           },
           {
             "id": "time_problem_6a4d4e0a",
-            "label": "timeをうまく使えない"
+            "label": "I cannot use my time well"
           },
           {
             "id": "time_problem_3726b87c",
-            "label": "About 計画通りに進まない"
+            "label": "Things do not go according to plan"
           },
           {
             "id": "time_problem_f99cd69c",
-            "label": "About 予定を詰めすぎる"
+            "label": "I schedule too much"
           },
           {
             "id": "time_problem_add14d5c",
-            "label": "About 先延ばししてしまう"
+            "label": "I procrastinate"
           },
           {
             "id": "time_problem_38db61d8",
-            "label": "About だらだらしてしまう"
+            "label": "I waste time idly"
           },
           {
             "id": "time_problem_a6933301",
-            "label": "集中 I can’t"
+            "label": "I cannot concentrate"
           },
           {
             "id": "time_problem_d1fd53ce",
-            "label": "About 続けられない"
+            "label": "I cannot keep going"
           },
           {
             "id": "time_problem_6b6eb8e3",
-            "label": "About 締め切りに追われる"
+            "label": "I am chased by deadlines"
           },
           {
             "id": "time_problem_ee64cbc8",
-            "label": "About いつもギリギリになる"
+            "label": "I always leave things until the last minute"
           },
           {
             "id": "time_problem_25eecbc8",
-            "label": "About 遅れてしまう"
+            "label": "I am late"
           },
           {
             "id": "time_problem_ac25b6d2",
-            "label": "待つの is hard for me"
+            "label": "I have difficulty waiting"
           },
           {
             "id": "time_problem_8fbda990",
-            "label": "About 人を待たせてしまう"
+            "label": "I make people wait"
           },
           {
             "id": "time_problem_251b5954",
-            "label": "About 早く結果を出したい"
+            "label": "I want results quickly"
           },
           {
             "id": "time_problem_c886110a",
-            "label": "About 早く変わりたい"
+            "label": "I want to change quickly"
           },
           {
             "id": "time_problem_a6a1a4ae",
-            "label": "About 早く成功したい"
+            "label": "I want to succeed quickly"
           },
           {
             "id": "time_problem_ebaa409d",
-            "label": "早く安heartしたい"
+            "label": "I want to feel safe quickly"
           },
           {
             "id": "time_problem_2d7410cb",
-            "label": "pastを引きずっている"
+            "label": "I am still carrying the past"
           },
           {
             "id": "time_problem_80ba1f29",
-            "label": "pastに戻りたい"
+            "label": "I want to go back to the past"
           },
           {
             "id": "time_problem_522dc9e1",
-            "label": "pastをやり直したい"
+            "label": "I want to redo the past"
           },
           {
             "id": "time_problem_2f68a099",
-            "label": "About あの時こうすればよかった"
+            "label": "I wish I had acted differently then"
           },
           {
             "id": "time_problem_09da6620",
-            "label": "About 今を楽しめない"
+            "label": "I cannot enjoy the present"
           },
           {
             "id": "time_problem_14a77392",
-            "label": "今に集中 I can’t"
+            "label": "I cannot focus on the present"
           },
           {
             "id": "time_problem_2563134f",
-            "label": "future makes me anxious"
+            "label": "I am anxious about the future"
           },
           {
             "id": "time_problem_f5ea2f96",
-            "label": "futureを考えると怖い"
+            "label": "Thinking about the future scares me"
           },
           {
             "id": "time_problem_fe74ddda",
-            "label": "年を取るの scares me"
+            "label": "I am afraid of getting older"
           },
           {
             "id": "time_problem_c52f8bac",
-            "label": "About チャンスを逃した気がする"
+            "label": "I feel I missed my chance"
           },
           {
             "id": "time_problem_e35056cb",
-            "label": "About もう遅いと感じる"
+            "label": "I feel it is already too late"
           },
           {
             "id": "time_problem_84156799",
-            "label": "About 間に合わないと感じる"
+            "label": "I feel I will not make it in time"
           },
           {
             "id": "time_problem_1490db82",
-            "label": "About 人より遅れていると感じる"
+            "label": "I feel behind other people"
           },
           {
             "id": "time_problem_213fe1c3",
-            "label": "lifeが進んでいないと感じる"
+            "label": "I feel my life is not moving forward"
           }
         ],
         "ideals": [
           {
             "id": "time_ideal_b24d1409",
-            "label": "timeに余裕 exists"
+            "label": "I have enough time"
           },
           {
             "id": "time_ideal_c6db07a4",
-            "label": "heartに余裕 exists"
+            "label": "I have room to breathe"
           },
           {
             "id": "time_ideal_0993d98f",
-            "label": "About 今に集中している"
+            "label": "I am focused on the present"
           },
           {
             "id": "time_ideal_e36cab98",
-            "label": "About 今を味わっている"
+            "label": "I savor the present moment"
           },
           {
             "id": "time_ideal_6f139cd7",
-            "label": "today is being valued"
+            "label": "I value today"
           },
           {
             "id": "time_ideal_94a6d2b0",
-            "label": "every dayを丁寧に過ごしている"
+            "label": "I move through each day with care"
           },
           {
             "id": "time_ideal_55ad07ab",
-            "label": "自分のtime exists"
+            "label": "I have time for myself"
           },
           {
             "id": "time_ideal_324e0920",
-            "label": "loved onesとのtime exists"
+            "label": "I have time with the people I care about"
           },
           {
             "id": "time_ideal_2b42f7d1",
-            "label": "what I loveをするtime exists"
+            "label": "I have time to do what I love"
           },
           {
             "id": "time_ideal_93b0ccb1",
-            "label": "休むtime exists"
+            "label": "I have time to rest"
           },
           {
             "id": "time_ideal_883a12d1",
-            "label": "About 必要なことを進めている"
+            "label": "I am moving forward with what needs to be done"
           },
           {
             "id": "time_ideal_28d7a6d6",
-            "label": "About 優先順位がはっきりしている"
+            "label": "My priorities are clear"
           },
           {
             "id": "time_ideal_f0000031",
-            "label": "About 大切なことを選んでいる"
+            "label": "I choose what matters"
           },
           {
             "id": "time_ideal_0deab867",
-            "label": "About 先延ばしせず動いている"
+            "label": "I take action without procrastinating"
           },
           {
             "id": "time_ideal_05fc114f",
-            "label": "About 自分のペースで進んでいる"
+            "label": "I move at my own pace"
           },
           {
             "id": "time_ideal_41ca7620",
-            "label": "About 焦っていない"
+            "label": "I am not rushed"
           },
           {
             "id": "time_ideal_52b8aa95",
-            "label": "About 急ぎすぎていない"
+            "label": "I am not hurrying too much"
           },
           {
             "id": "time_ideal_d4442189",
-            "label": "pastを手放している"
+            "label": "I have let go of the past"
           },
           {
             "id": "time_ideal_84002ad7",
-            "label": "futureを信頼している"
+            "label": "I trust the future"
           },
           {
             "id": "time_ideal_29636ab8",
-            "label": "About 年齢を受け入れている"
+            "label": "I accept my age"
           },
           {
             "id": "time_ideal_af019741",
-            "label": "About 人と比べて焦らない"
+            "label": "I do not rush because of comparison with others"
           },
           {
             "id": "time_ideal_26dce58b",
-            "label": "About 間に合っていると感じている"
+            "label": "I feel I am on time"
           },
           {
             "id": "time_ideal_73a9b408",
-            "label": "lifeの流れを信頼している"
+            "label": "I trust the flow of my life"
           },
           {
             "id": "time_ideal_76d5b9b7",
-            "label": "timeを味方にしている"
+            "label": "Time is on my side"
           },
           {
             "id": "time_ideal_98733f77",
-            "label": "timeとの関係 feels satisfying"
+            "label": "I am satisfied with my relationship with time"
           }
         ]
       }
     ]
   },
   "languages": {
-    "en": "English",
-    "ja": "日本語",
-    "zh-TW": "繁體中文"
+    "en": "🇺🇸English",
+    "ja": "🇯🇵日本語",
+    "zh-TW": "🇹🇼繁體中文"
   }
 }
