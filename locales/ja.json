@@ -109,7 +109,7 @@
   },
   "theme": {
     "freeInputCategory": "自由入力",
-    "categoryGuide": "「{theme}」について、\n悩み・理想の\nどちらから始めますか。",
+    "categoryGuide": "「{theme}」について、\n悩み・理想のどちらかを下から選択。",
     "problemGuide": "「{theme}」について、\n悩み・問題を書く。",
     "idealGuide": "「{theme}」について、\n理想状態を書く。",
     "freeInputPlaceholder": "自由に入力",
@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "計測",
       "quoteSource": "theme",
-      "prompt": "それを意識したとき、\n充足感はどのくらい？",
+      "prompt": "それを思い浮かべたとき、\n今、どのくらい落ち着いていますか？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,11 +164,8 @@
       "kind": "measurement",
       "label": "再計測",
       "quoteSource": "theme",
-      "prompt": "それを意識したとき、\n充足感はどのくらい？",
+      "prompt": "それを思い浮かべたとき、\n今、どのくらい落ち着いていますか？",
       "rangeLabel": "0〜100"
-    },
-    "measurement": {
-      "negativePrompt": "それを意識したとき、\n欠乏感はどのくらい？"
     },
     "deepDive": {
       "feel100": {
@@ -197,9 +194,8 @@
     "cardTitle": "結果",
     "themeLabel": "テーマ",
     "subthemeLabel": "サブテーマ",
-    "happinessLabel": "充足感",
-    "positiveSensation": "充足感",
-    "negativeSensation": "欠乏感",
+    "happinessLabel": "落ち着き",
+    "positiveSensation": "落ち着き",
     "awarenessTitle": "気づいたこと",
     "showMoreAwareness": "もっと見る",
     "showRecentAwareness": "一部だけ見る",
@@ -208,7 +204,7 @@
     "selectedIdeal": "選択した理想",
     "currentState": "あなたが記入した今の状態",
     "idealState": "あなたが記入した幸せ100%の状態",
-    "scoreSuffix": "選択したテーマについての充足感",
+    "scoreSuffix": "選択したテーマについての落ち着き",
     "before": "前",
     "after": "後",
     "showAllScores": "すべて見る",
@@ -3677,8 +3673,8 @@
     ]
   },
   "languages": {
-    "en": "English",
-    "ja": "日本語",
-    "zh-TW": "繁體中文"
+    "en": "🇺🇸English",
+    "ja": "🇯🇵日本語",
+    "zh-TW": "🇹🇼繁體中文"
   }
 }

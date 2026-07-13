@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When I bring my attention to it,\nhow fulfilled do I feel?",
+      "prompt": "When I think about it,\nhow calm do I feel right now?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -164,11 +164,8 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When I bring my attention to it,\nhow fulfilled do I feel?",
+      "prompt": "When I think about it,\nhow calm do I feel right now?",
       "rangeLabel": "0–100"
-    },
-    "measurement": {
-      "negativePrompt": "When I bring my attention to it,\nhow strong is my sense of lack?"
     },
     "deepDive": {
       "feel100": {
@@ -197,9 +194,8 @@
     "cardTitle": "Result",
     "themeLabel": "Theme",
     "subthemeLabel": "Subtheme",
-    "happinessLabel": "Fulfillment",
-    "positiveSensation": "Fulfillment",
-    "negativeSensation": "Sense of lack",
+    "happinessLabel": "Calm",
+    "positiveSensation": "Calm",
     "awarenessTitle": "What I noticed",
     "showMoreAwareness": "Show more",
     "showRecentAwareness": "Show less",
@@ -208,7 +204,7 @@
     "selectedIdeal": "Selected ideal",
     "currentState": "The current state you wrote",
     "idealState": "The 100% happiness state you wrote",
-    "scoreSuffix": "Fulfillment score for the selected theme",
+    "scoreSuffix": "Calm score for the selected theme",
     "before": "Before",
     "after": "After",
     "showAllScores": "Show all",

@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "當我把注意力放在那件事上時，\n我的滿足感有多強？",
+      "prompt": "想到這件事時，\n你現在有多平靜？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,11 +164,8 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "當我把注意力放在那件事上時，\n我的滿足感有多強？",
+      "prompt": "想到這件事時，\n你現在有多平靜？",
       "rangeLabel": "0〜100"
-    },
-    "measurement": {
-      "negativePrompt": "當我把注意力放在那件事上時，\n我的匱乏感有多強？"
     },
     "deepDive": {
       "feel100": {
@@ -197,9 +194,8 @@
     "cardTitle": "結果",
     "themeLabel": "主題",
     "subthemeLabel": "子主題",
-    "happinessLabel": "充實感",
-    "positiveSensation": "充實感",
-    "negativeSensation": "匱乏感",
+    "happinessLabel": "平靜程度",
+    "positiveSensation": "平靜程度",
     "awarenessTitle": "注意到的事",
     "showMoreAwareness": "查看更多",
     "showRecentAwareness": "只看部分",
@@ -208,7 +204,7 @@
     "selectedIdeal": "你選擇的理想",
     "currentState": "你寫下的目前狀態",
     "idealState": "你寫下的幸福感達到 100% 時的狀態",
-    "scoreSuffix": "所選主題的充實感",
+    "scoreSuffix": "所選主題的平靜程度",
     "before": "前",
     "after": "後",
     "showAllScores": "查看全部",
