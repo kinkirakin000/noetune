@@ -10,8 +10,175 @@ var v17SupabaseReadyPromise = null;
 var v17SupabaseSdkPromise = null;
 var v17AuthBusy = false;
 var v17PendingSavePromise = null;
+var v17AuthReturnRestorePromise = null;
 
 var V17_PENDING_BOOKMARK_STORAGE_KEY = 'noetunePendingBookmark';
+var V17_AUTH_RETURN_STORAGE_KEY = 'noetuneV17AuthReturn';
+var V17_AUTH_RETURN_VERSION = 1;
+var V17_AUTH_RETURN_MAX_AGE_MS = 10 * 60 * 1000;
+
+function cloneV17AuthReturnValue(value) {
+  if (!value || typeof value !== 'object') return value;
+  try {
+    return JSON.parse(JSON.stringify(value));
+  } catch (error) {
+    return null;
+  }
+}
+
+function isV17AuthReturnSnapshotValid(snapshot) {
+  if (!snapshot || typeof snapshot !== 'object') return false;
+  if (snapshot.version !== V17_AUTH_RETURN_VERSION) return false;
+  if (snapshot.returnScreen !== 's-result') return false;
+  if (snapshot.action !== 'bookmark') return false;
+  if (!snapshot.resultState || typeof snapshot.resultState !== 'object') return false;
+  if (typeof snapshot.resultState.questionTextAtTime !== 'string' || !snapshot.resultState.questionTextAtTime.trim()) return false;
+  if (!snapshot.resultState.v17Flow || typeof snapshot.resultState.v17Flow !== 'object') return false;
+  if (!snapshot.pendingBookmark || typeof snapshot.pendingBookmark !== 'object') return false;
+  if (typeof snapshot.pendingBookmark.stableThemeKey !== 'string' || !snapshot.pendingBookmark.stableThemeKey.trim()) return false;
+  if (!snapshot.pendingBookmark.themeSnapshot || typeof snapshot.pendingBookmark.themeSnapshot !== 'object') return false;
+  var createdAt = Number(snapshot.createdAt);
+  if (!isFinite(createdAt) || createdAt <= 0) return false;
+  if (Date.now() - createdAt > V17_AUTH_RETURN_MAX_AGE_MS) return false;
+  return true;
+}
+
+function readAndConsumeV17AuthReturnSnapshot() {
+  try {
+    if (typeof sessionStorage === 'undefined') return null;
+    var raw = sessionStorage.getItem(V17_AUTH_RETURN_STORAGE_KEY);
+    if (!raw) return null;
+    var snapshot = JSON.parse(raw);
+    if (!isV17AuthReturnSnapshotValid(snapshot)) {
+      sessionStorage.removeItem(V17_AUTH_RETURN_STORAGE_KEY);
+      return null;
+    }
+    sessionStorage.removeItem(V17_AUTH_RETURN_STORAGE_KEY);
+    return snapshot;
+  } catch (error) {
+    try {
+      if (typeof sessionStorage !== 'undefined') sessionStorage.removeItem(V17_AUTH_RETURN_STORAGE_KEY);
+    } catch (removeError) {}
+    return null;
+  }
+}
+
+function restoreV17AuthReturnResultState(resultState) {
+  if (!resultState || typeof resultState !== 'object') return false;
+  var allowlist = [
+    'entryMode',
+    'v17SessionMode',
+    'questionId',
+    'themeId',
+    'themeKey',
+    'questionTextAtTime',
+    'localeAtTime',
+    'freeInputTheme',
+    'themeSource',
+    'themeCategoryId',
+    'themeCategoryLabelAtTime',
+    'themeTrackId',
+    'themeMeaning',
+    'theme',
+    'themePositive',
+    'themeNegative',
+    'firstThemeScore',
+    'initialThemeScore',
+    'finalThemeScore',
+    'deltaScore',
+    'beforeEmotionNegative',
+    'afterEmotionNegative',
+    'breathEaseBefore',
+    'breathEaseAfter',
+    'currentStateText',
+    'idealStateText',
+    'currentStateDraft',
+    'idealStateDraft',
+    'currentState',
+    'idealState',
+    'currentThemeScoreTrail',
+    'currentThemeAwarenessTrail',
+    'v17Flow'
+  ];
+  if (typeof D !== 'object' || !D) return false;
+  for (var i = 0; i < allowlist.length; i += 1) {
+    var key = allowlist[i];
+    if (!Object.prototype.hasOwnProperty.call(resultState, key)) continue;
+    var value = resultState[key];
+    if (value === undefined) continue;
+    if (Array.isArray(value) || (value && typeof value === 'object')) {
+      D[key] = cloneV17AuthReturnValue(value);
+    } else {
+      D[key] = value;
+    }
+  }
+  return true;
+}
+
+async function restoreV17AuthReturnIfNeeded() {
+  if (v17AuthReturnRestorePromise) return v17AuthReturnRestorePromise;
+  v17AuthReturnRestorePromise = (async function() {
+    try {
+      if (
+        typeof D !== 'object' || !D ||
+        typeof ensureV17SessionState !== 'function' ||
+        typeof renderV17Result !== 'function' ||
+        typeof showScreenDirect !== 'function' ||
+        typeof renderV17BookmarkUI !== 'function'
+      ) {
+        try {
+          if (typeof sessionStorage !== 'undefined') sessionStorage.removeItem(V17_AUTH_RETURN_STORAGE_KEY);
+        } catch (removeError) {}
+        return false;
+      }
+
+      var snapshot = readAndConsumeV17AuthReturnSnapshot();
+      if (!snapshot) return false;
+      if (!restoreV17AuthReturnResultState(snapshot.resultState)) return false;
+
+      try {
+        if (snapshot.pendingBookmark && typeof sessionStorage !== 'undefined') {
+          sessionStorage.setItem(V17_PENDING_BOOKMARK_STORAGE_KEY, JSON.stringify(snapshot.pendingBookmark));
+        }
+      } catch (bookmarkError) {}
+
+      try {
+        renderV17Result();
+      } catch (renderError) {
+        return false;
+      }
+
+      try {
+        showScreenDirect('s-result');
+      } catch (navError) {
+        return false;
+      }
+
+      try {
+        if (
+          typeof window !== 'undefined' &&
+          typeof window.finalizeV17BookmarkAuthReturn === 'function'
+        ) {
+          await window.finalizeV17BookmarkAuthReturn();
+        } else if (typeof renderV17BookmarkUI === 'function') {
+          renderV17BookmarkUI(true);
+        }
+      } catch (bookmarkUiError) {}
+
+      return true;
+    } catch (error) {
+      try {
+        if (typeof sessionStorage !== 'undefined') sessionStorage.removeItem(V17_AUTH_RETURN_STORAGE_KEY);
+      } catch (removeError) {}
+      return false;
+    }
+  })();
+  try {
+    return await v17AuthReturnRestorePromise;
+  } finally {
+    v17AuthReturnRestorePromise = null;
+  }
+}
 
 function syncV17AuthCompatibilityState() {
   if (typeof currentUser !== 'undefined') currentUser = v17AuthState.user || null;
@@ -344,6 +511,7 @@ async function fetchV17Profile() {
         user: session && session.user ? session.user : v17AuthState.user,
         error: null
       });
+      await restoreV17AuthReturnIfNeeded();
       if (!profile) {
         clearV17PendingCloudSaveState();
       }

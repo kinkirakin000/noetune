@@ -15,6 +15,124 @@ var v17BookmarkState = {
 };
 
 var V17_BOOKMARK_PENDING_KEY = 'noetunePendingBookmark';
+var V17_AUTH_RETURN_KEY = 'noetuneV17AuthReturn';
+var V17_AUTH_RETURN_VERSION = 1;
+var V17_AUTH_RETURN_MAX_AGE_MS = 10 * 60 * 1000;
+
+function cloneV17SerializableValue(value) {
+  if (!value || typeof value !== 'object') return value;
+  try {
+    return JSON.parse(JSON.stringify(value));
+  } catch (e) {
+    return null;
+  }
+}
+
+function buildV17AuthReturnResultState() {
+  if (typeof D !== 'object' || !D) return null;
+  var questionTextAtTime = typeof D.questionTextAtTime === 'string' ? D.questionTextAtTime : '';
+  if (!questionTextAtTime) return null;
+  return {
+    entryMode: typeof D.entryMode === 'undefined' ? null : D.entryMode,
+    v17SessionMode: typeof D.v17SessionMode === 'undefined' ? null : D.v17SessionMode,
+    questionId: typeof D.questionId === 'undefined' ? null : D.questionId,
+    themeId: typeof D.themeId === 'undefined' ? null : D.themeId,
+    themeKey: typeof D.themeKey === 'undefined' ? null : D.themeKey,
+    questionTextAtTime: questionTextAtTime,
+    localeAtTime: typeof D.localeAtTime === 'undefined' ? '' : D.localeAtTime,
+    freeInputTheme: typeof D.freeInputTheme === 'undefined' ? '' : D.freeInputTheme,
+    themeSource: typeof D.themeSource === 'undefined' ? '' : D.themeSource,
+    themeCategoryId: typeof D.themeCategoryId === 'undefined' ? '' : D.themeCategoryId,
+    themeCategoryLabelAtTime: typeof D.themeCategoryLabelAtTime === 'undefined' ? '' : D.themeCategoryLabelAtTime,
+    themeTrackId: typeof D.themeTrackId === 'undefined' ? '' : D.themeTrackId,
+    themeMeaning: typeof D.themeMeaning === 'undefined' ? '' : D.themeMeaning,
+    theme: typeof D.theme === 'undefined' ? '' : D.theme,
+    themePositive: typeof D.themePositive === 'undefined' ? '' : D.themePositive,
+    themeNegative: typeof D.themeNegative === 'undefined' ? '' : D.themeNegative,
+    firstThemeScore: typeof D.firstThemeScore === 'undefined' ? null : D.firstThemeScore,
+    initialThemeScore: typeof D.initialThemeScore === 'undefined' ? null : D.initialThemeScore,
+    finalThemeScore: typeof D.finalThemeScore === 'undefined' ? null : D.finalThemeScore,
+    deltaScore: typeof D.deltaScore === 'undefined' ? null : D.deltaScore,
+    beforeEmotionNegative: typeof D.beforeEmotionNegative === 'undefined' ? null : D.beforeEmotionNegative,
+    afterEmotionNegative: typeof D.afterEmotionNegative === 'undefined' ? null : D.afterEmotionNegative,
+    breathEaseBefore: typeof D.breathEaseBefore === 'undefined' ? null : D.breathEaseBefore,
+    breathEaseAfter: typeof D.breathEaseAfter === 'undefined' ? null : D.breathEaseAfter,
+    currentStateText: typeof D.currentStateText === 'undefined' ? '' : D.currentStateText,
+    idealStateText: typeof D.idealStateText === 'undefined' ? '' : D.idealStateText,
+    currentStateDraft: typeof D.currentStateDraft === 'undefined' ? '' : D.currentStateDraft,
+    idealStateDraft: typeof D.idealStateDraft === 'undefined' ? '' : D.idealStateDraft,
+    currentState: typeof D.currentState === 'undefined' ? '' : D.currentState,
+    idealState: typeof D.idealState === 'undefined' ? '' : D.idealState,
+    currentThemeScoreTrail: Array.isArray(D.currentThemeScoreTrail) ? cloneV17SerializableValue(D.currentThemeScoreTrail) : [],
+    currentThemeAwarenessTrail: Array.isArray(D.currentThemeAwarenessTrail) ? cloneV17SerializableValue(D.currentThemeAwarenessTrail) : [],
+    v17Flow: cloneV17SerializableValue(D.v17Flow)
+  };
+}
+
+function buildV17AuthReturnSnapshot(action, bookmarkContext) {
+  var resultState = buildV17AuthReturnResultState();
+  var pendingBookmark = bookmarkContext && typeof bookmarkContext === 'object'
+    ? {
+        stableThemeKey: typeof bookmarkContext.stableThemeKey === 'string' ? bookmarkContext.stableThemeKey : '',
+        themeSnapshot: cloneV17SerializableValue(bookmarkContext.themeSnapshot)
+      }
+    : null;
+  if (!resultState || !pendingBookmark || !pendingBookmark.stableThemeKey || !pendingBookmark.themeSnapshot) return null;
+  return {
+    version: V17_AUTH_RETURN_VERSION,
+    createdAt: Date.now(),
+    returnScreen: 's-result',
+    action: action || 'bookmark',
+    resultState: resultState,
+    pendingBookmark: pendingBookmark
+  };
+}
+
+function saveV17AuthReturnSnapshot(snapshot) {
+  try {
+    if (!snapshot) {
+      sessionStorage.removeItem(V17_AUTH_RETURN_KEY);
+      return false;
+    }
+    sessionStorage.setItem(V17_AUTH_RETURN_KEY, JSON.stringify(snapshot));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function saveV17AuthReturnSnapshotForBookmark(action, bookmarkContext) {
+  var snapshot = buildV17AuthReturnSnapshot(action || 'bookmark', bookmarkContext);
+  if (!snapshot) return false;
+  return saveV17AuthReturnSnapshot(snapshot);
+}
+
+async function finalizeV17BookmarkAuthReturn() {
+  var access = getV17BookmarkAccessSnapshot();
+  var billingState = access && access.billingState ? access.billingState : 'unknown';
+  var canWrite = !!(access && access.canWriteProData === true);
+
+  if (cur === 's-result') {
+    try {
+      await refreshV17BookmarkState(true);
+    } catch (error) {}
+  }
+
+  if (!canWrite) {
+    clearV17PendingBookmarkPayload();
+    v17BookmarkState.pendingPayload = null;
+    setV17BookmarkStatus('bookmark.proRequired', false);
+    return {
+      canWrite: false,
+      billingState: billingState
+    };
+  }
+
+  return {
+    canWrite: true,
+    billingState: billingState
+  };
+}
 
 function getV17BookmarkButton() {
   return document.getElementById('btn-save-result');
@@ -500,6 +618,7 @@ async function savePendingBookmarkIfNeeded() {
         clearV17PendingBookmarkPayload();
         v17BookmarkState.pendingPayload = null;
       } else if (error && error.status === 401) {
+        saveV17AuthReturnSnapshotForBookmark('bookmark', pending);
         openV17AuthModal();
         setEl('auth-modal-title', v17Copy('bookmark.loginRequired'));
         setEl('auth-modal-body', v17Copy('bookmark.loginRequired'));
@@ -531,6 +650,7 @@ async function toggleCurrentThemeBookmark() {
   if (!user) {
     v17BookmarkState.pendingPayload = ctx;
     setV17PendingBookmarkPayload(ctx);
+    saveV17AuthReturnSnapshotForBookmark('bookmark', ctx);
     openV17AuthModal();
     setEl('auth-modal-title', v17Copy('bookmark.loginRequired'));
     setEl('auth-modal-body', v17Copy('bookmark.loginRequired'));
@@ -607,6 +727,7 @@ async function toggleCurrentThemeBookmark() {
     if (error && error.status === 401) {
       v17BookmarkState.pendingPayload = ctx;
       setV17PendingBookmarkPayload(ctx);
+      saveV17AuthReturnSnapshotForBookmark('bookmark', ctx);
       openV17AuthModal();
       setEl('auth-modal-title', v17Copy('bookmark.loginRequired'));
       setEl('auth-modal-body', v17Copy('bookmark.loginRequired'));
@@ -638,3 +759,4 @@ window.isCurrentThemeBookmarked = isCurrentThemeBookmarked;
 window.toggleCurrentThemeBookmark = toggleCurrentThemeBookmark;
 window.renderV17BookmarkUI = renderV17BookmarkUI;
 window.savePendingBookmarkIfNeeded = savePendingBookmarkIfNeeded;
+window.finalizeV17BookmarkAuthReturn = finalizeV17BookmarkAuthReturn;
