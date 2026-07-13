@@ -17,7 +17,62 @@ var _progressSavePromise = null;
 var _savedProgress = null;
 var _savedProgressResumeActive = false;
 
-var lang = (function() { try { return localStorage.getItem('ntn_lang') || 'en'; } catch(e) { return 'en'; } })();
+function isV17SupportedLocale(locale) {
+  return locale === 'ja' || locale === 'en' || locale === 'zh-TW';
+}
+
+function normalizeV17PreferredLocale(value) {
+  var text = String(value || '').trim();
+  if (!text) return null;
+  var lower = text.toLowerCase();
+  if (lower === 'ja' || lower.indexOf('ja-') === 0) return 'ja';
+  if (lower === 'en' || lower.indexOf('en-') === 0) return 'en';
+  if (lower === 'zh' || lower.indexOf('zh-') === 0) {
+    if (lower === 'zh-tw' || lower === 'zh-hant' || lower === 'zh-hant-tw' || lower === 'zh-hk' || lower === 'zh-mo') {
+      return 'zh-TW';
+    }
+    return 'zh-TW';
+  }
+  return null;
+}
+
+function getStoredV17Language() {
+  try {
+    var source = localStorage.getItem('ntn_lang_source');
+    if (source !== 'manual') return null;
+    var stored = localStorage.getItem('ntn_lang');
+    return isV17SupportedLocale(stored) ? stored : null;
+  } catch(e) {
+    return null;
+  }
+}
+
+function getBrowserPreferredV17Language() {
+  var candidates = [];
+  try {
+    if (typeof navigator !== 'undefined' && navigator.languages && navigator.languages.length) {
+      candidates = Array.prototype.slice.call(navigator.languages);
+    } else if (typeof navigator !== 'undefined' && navigator.language) {
+      candidates = [navigator.language];
+    }
+  } catch(e) {}
+  for (var i = 0; i < candidates.length; i += 1) {
+    var locale = normalizeV17PreferredLocale(candidates[i]);
+    if (locale) return locale;
+  }
+  try {
+    if (typeof navigator !== 'undefined' && navigator.language) {
+      return normalizeV17PreferredLocale(navigator.language);
+    }
+  } catch(e) {}
+  return null;
+}
+
+function resolveV17InitialLanguage() {
+  return getStoredV17Language() || getBrowserPreferredV17Language() || 'en';
+}
+
+var lang = resolveV17InitialLanguage();
 var themeMode = (function() {
   try {
     var saved = localStorage.getItem('noetuneThemeMode');
@@ -50,7 +105,7 @@ var D = {
 
 var currentLocale = null;
 var fallbackLocale = null;
-var currentLang = 'ja';
+var currentLang = lang;
 var wishThemeVisibleCounts = {};
 
 var themeVisibleCount = 3;
@@ -73,7 +128,7 @@ var currentSituationCategoryId = null;
 var cur = 's-landing';
 var navHistory = [];
 var navPageStateHistory = [];
-var landingLang = 'en';
+var landingLang = lang;
 
 var _trialConsumedThisSession = false;
 var _doorSentences = {A:'', B:'', C:''};

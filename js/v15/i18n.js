@@ -3,7 +3,12 @@ async function selectInterfaceLanguage(code) {
   interfaceLanguagePending = true;
   try {
     await setLandingLang(code);
-    try { localStorage.setItem('ntn_lang', lang); } catch(e) {}
+    try {
+      if (isV17SupportedLocale && isV17SupportedLocale(lang)) {
+        localStorage.setItem('ntn_lang', lang);
+        localStorage.setItem('ntn_lang_source', 'manual');
+      }
+    } catch(e) {}
     updateLanguageControl();
     closeLanguageMenu();
     trackEvent('language_selected', { lang: lang });
@@ -165,7 +170,6 @@ function applyLang() {
 
 async function setLang(l, nextScreen) {
   await loadLocale(l);
-  try { localStorage.setItem('ntn_lang', lang); } catch(e) {}
   renderStaticTexts();
   trackEvent('language_selected', { lang: lang });
   fwd(nextScreen || 's-landing');
