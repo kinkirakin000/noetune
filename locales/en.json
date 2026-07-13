@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When you think about it,\nhow much inner clarity do you feel right now?",
+      "prompt": "When you think about it,\nhow much heaviness do you feel?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When you think about it,\nhow much inner clarity do you feel right now?",
+      "prompt": "When you think about it,\nhow much heaviness do you feel?",
       "rangeLabel": "0–100"
     },
     "deepDive": {
@@ -194,8 +194,8 @@
     "cardTitle": "Result",
     "themeLabel": "Theme",
     "subthemeLabel": "Subtheme",
-    "happinessLabel": "Inner clarity",
-    "positiveSensation": "Inner clarity",
+    "happinessLabel": "Heaviness",
+    "positiveSensation": "Heaviness",
     "awarenessTitle": "What I noticed",
     "showMoreAwareness": "Show more",
     "showRecentAwareness": "Show less",
@@ -204,7 +204,7 @@
     "selectedIdeal": "Selected ideal",
     "currentState": "The current state you wrote",
     "idealState": "The 100% happiness state you wrote",
-    "scoreSuffix": "Inner clarity",
+    "scoreSuffix": "Heaviness",
     "before": "Before",
     "after": "After",
     "showAllScores": "Show all",
