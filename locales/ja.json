@@ -128,18 +128,18 @@
       "kind": "measurement",
       "label": "計測",
       "quoteSource": "theme",
-      "prompt": "それに意識を向けたときの\n充足感はどのくらいですか？",
+      "prompt": "それを意識したとき、\n充足感はどのくらい？",
       "rangeLabel": "0〜100"
     },
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "これまでもこれからも、\nそれを経験することのない私は、\nどんな状態？",
+        "prompt": "それに無縁の私は、\nどんな状態？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "そういう人と比較し、\n私はどんな状態ですか？",
+        "prompt": "その私と比べて、\n今までの私はどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "そういう人と比較し、\n私はどんな状態ですか？",
+        "prompt": "その私と比べて、\n今までの私はどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "これまでもこれからも、\nそれを経験することのない私は、\nどんな状態？",
+        "prompt": "それに無縁の私は、\nどんな状態？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       }
@@ -164,11 +164,11 @@
       "kind": "measurement",
       "label": "再計測",
       "quoteSource": "theme",
-      "prompt": "それに意識を向けたときの\n充足感はどのくらいですか？",
+      "prompt": "それを意識したとき、\n充足感はどのくらい？",
       "rangeLabel": "0〜100"
     },
     "measurement": {
-      "negativePrompt": "それに意識を向けたときの\n欠乏感はどのくらいですか？"
+      "negativePrompt": "それを意識したとき、\n欠乏感はどのくらい？"
     },
     "deepDive": {
       "feel100": {

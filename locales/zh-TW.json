@@ -128,18 +128,18 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "當你把注意力放在這件事上時，\n你有多充實？",
+      "prompt": "當我把注意力放在那件事上時，\n我的滿足感有多強？",
       "rangeLabel": "0〜100"
     },
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "如果我從未經歷過那件事，\n今後也不會經歷，\n我會處於什麼狀態？",
+        "prompt": "與那件事無緣的我，\n會是什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "和那樣的人相比，\n我處於什麼狀態？",
+        "prompt": "和那樣的自己相比，\n一直以來的我是什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "和那樣的人相比，\n我處於什麼狀態？",
+        "prompt": "和那樣的自己相比，\n一直以來的我是什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "如果我從未經歷過那件事，\n今後也不會經歷，\n我會處於什麼狀態？",
+        "prompt": "與那件事無緣的我，\n會是什麼狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }
@@ -164,11 +164,11 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "當你把注意力放在這件事上時，\n你有多充實？",
+      "prompt": "當我把注意力放在那件事上時，\n我的滿足感有多強？",
       "rangeLabel": "0〜100"
     },
     "measurement": {
-      "negativePrompt": "當你把注意力放在這件事上時，\n你有多匱乏？"
+      "negativePrompt": "當我把注意力放在那件事上時，\n我的匱乏感有多強？"
     },
     "deepDive": {
       "feel100": {

@@ -128,18 +128,18 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When you bring your attention to it,\nhow much do you feel fulfilled?",
+      "prompt": "When I bring my attention to it,\nhow fulfilled do I feel?",
       "rangeLabel": "0–100"
     },
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "What state am I in\nif I have never experienced that\nand never will?",
+        "prompt": "When I am free from that,\nwhat state am I in?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "Compared with someone like that,\nwhat state am I in?",
+        "prompt": "Compared with that version of me,\nwhat state have I been in until now?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "Compared with someone like that,\nwhat state am I in?",
+        "prompt": "Compared with that version of me,\nwhat state have I been in until now?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "What state am I in\nif I have never experienced that\nand never will?",
+        "prompt": "When I am free from that,\nwhat state am I in?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }
@@ -164,11 +164,11 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When you bring your attention to it,\nhow much do you feel fulfilled?",
+      "prompt": "When I bring my attention to it,\nhow fulfilled do I feel?",
       "rangeLabel": "0–100"
     },
     "measurement": {
-      "negativePrompt": "When you bring your attention to it,\nhow much do you feel deprived?"
+      "negativePrompt": "When I bring my attention to it,\nhow strong is my sense of lack?"
     },
     "deepDive": {
       "feel100": {
