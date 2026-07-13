@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When I think about it,\nhow calm do I feel right now?",
+      "prompt": "When you think about it,\nhow much inner clarity do you feel right now?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When I think about it,\nhow calm do I feel right now?",
+      "prompt": "When you think about it,\nhow much inner clarity do you feel right now?",
       "rangeLabel": "0–100"
     },
     "deepDive": {

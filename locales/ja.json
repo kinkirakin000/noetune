@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "計測",
       "quoteSource": "theme",
-      "prompt": "それを思い浮かべたとき、\n今、どのくらい落ち着いていますか？",
+      "prompt": "それを思い浮かべたとき、\n今、自分の内側はどのくらいクリアですか？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再計測",
       "quoteSource": "theme",
-      "prompt": "それを思い浮かべたとき、\n今、どのくらい落ち着いていますか？",
+      "prompt": "それを思い浮かべたとき、\n今、自分の内側はどのくらいクリアですか？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {

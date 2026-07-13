@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "想到這件事時，\n你現在有多平靜？",
+      "prompt": "想到這件事時，\n此刻，你的內在有多清晰？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "想到這件事時，\n你現在有多平靜？",
+      "prompt": "想到這件事時，\n此刻，你的內在有多清晰？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {
