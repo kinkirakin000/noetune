@@ -5,3252 +5,3332 @@
     {
       "id": "self",
       "label": "自分",
-      "emoji": "👤",
-      "problems": [
-        {
-          "id": "self_problem_519f2ce2",
-          "label": "自分が嫌い"
-        },
-        {
-          "id": "self_problem_f5b7349c",
-          "label": "自分が好きになれない"
-        },
-        {
-          "id": "self_problem_cbebfb3f",
-          "label": "自分を認められない"
-        },
-        {
-          "id": "self_problem_3eff6505",
-          "label": "自分を信じられない"
-        },
-        {
-          "id": "self_problem_e0d93916",
-          "label": "自分がわからない"
-        },
-        {
-          "id": "self_problem_2dd0f565",
-          "label": "自分を見失っている"
-        },
-        {
-          "id": "self_problem_21f2ab8f",
-          "label": "自分らしく生きられない"
-        },
-        {
-          "id": "self_problem_8d8387b3",
-          "label": "自分を隠している"
-        },
-        {
-          "id": "self_problem_3d711555",
-          "label": "自分を偽っている"
-        },
-        {
-          "id": "self_problem_7cfae9f5",
-          "label": "自分に自信がない"
-        },
-        {
-          "id": "self_problem_8a1562f9",
-          "label": "自分に価値を感じられない"
-        },
-        {
-          "id": "self_problem_53e2f626",
-          "label": "自分を大切にできない"
-        },
-        {
-          "id": "self_problem_4ea7da58",
-          "label": "自分を責めてしまう"
-        },
-        {
-          "id": "self_problem_1b234f2b",
-          "label": "自分を許せない"
-        },
-        {
-          "id": "self_problem_43d70343",
-          "label": "自分を受け入れられない"
-        },
-        {
-          "id": "self_problem_dcb375bd",
-          "label": "自分に厳しすぎる"
-        },
-        {
-          "id": "self_problem_e7dc2c9c",
-          "label": "自分に優しくできない"
-        },
-        {
-          "id": "self_problem_4083b933",
-          "label": "自分を後回しにしてしまう"
-        },
-        {
-          "id": "self_problem_ecf72dd9",
-          "label": "自分を犠牲にしてしまう"
-        },
-        {
-          "id": "self_problem_3c9bf7ff",
-          "label": "自分を守れない"
-        },
-        {
-          "id": "self_problem_722400e3",
-          "label": "自分を変えられない"
-        },
-        {
-          "id": "self_problem_0b9217d9",
-          "label": "自分をコントロールできない"
-        },
-        {
-          "id": "self_problem_2e8eebdb",
-          "label": "自分に負けてしまう"
-        },
-        {
-          "id": "self_problem_b31e477b",
-          "label": "自分が情けない"
-        },
-        {
-          "id": "self_problem_b268595e",
-          "label": "自分が弱いと感じる"
-        },
-        {
-          "id": "self_problem_8bc2e913",
-          "label": "自分が嫌になる"
-        },
-        {
-          "id": "self_problem_4910ca2c",
-          "label": "自分が恥ずかしい"
-        },
-        {
-          "id": "self_problem_7c00b2ba",
-          "label": "自分が普通ではないと感じる"
-        },
-        {
-          "id": "self_problem_3d393824",
-          "label": "自分が劣っていると感じる"
-        },
-        {
-          "id": "self_problem_35b1adb4",
-          "label": "自分を人と比べてしまう"
-        },
-        {
-          "id": "self_problem_9a2a11ab",
-          "label": "自分に満足できない"
-        },
-        {
-          "id": "self_problem_7e0c31db",
-          "label": "自分に期待できない"
-        },
-        {
-          "id": "self_problem_8bc59268",
-          "label": "自分に未来を感じられない"
-        },
-        {
-          "id": "self_problem_9e1989fa",
-          "label": "自分の気持ちがわからない"
-        },
-        {
-          "id": "self_problem_d72e809f",
-          "label": "自分の本音がわからない"
-        },
-        {
-          "id": "self_problem_694a664c",
-          "label": "自分のやりたいことがわからない"
-        },
-        {
-          "id": "self_problem_9ce83d6e",
-          "label": "自分の強みがわからない"
-        },
-        {
-          "id": "self_problem_4297a0c4",
-          "label": "自分の居場所がないと感じる"
-        },
-        {
-          "id": "self_problem_d70a2cdb",
-          "label": "自分には才能がないと感じる"
-        },
-        {
-          "id": "self_problem_62e10e93",
-          "label": "自分には魅力がないと感じる"
-        },
-        {
-          "id": "self_problem_d04d894c",
-          "label": "自分には何もないと感じる"
-        },
-        {
-          "id": "self_problem_7e3f7daa",
-          "label": "自分は愛されないと感じる"
-        },
-        {
-          "id": "self_problem_b336dfbd",
-          "label": "自分は必要とされていないと感じる"
-        },
-        {
-          "id": "self_problem_b9f87678",
-          "label": "自分は認められていないと感じる"
-        },
-        {
-          "id": "self_problem_86a6e564",
-          "label": "自分は理解されていないと感じる"
-        },
-        {
-          "id": "self_problem_776b261d",
-          "label": "自分は一人だと感じる"
-        },
-        {
-          "id": "self_problem_4385e3ab",
-          "label": "自分は幸せになれないと感じる"
-        },
-        {
-          "id": "self_problem_7097bd5f",
-          "label": "自分は変われないと感じる"
-        },
-        {
-          "id": "self_problem_cfeb13ba",
-          "label": "自分は成功できないと感じる"
-        },
-        {
-          "id": "self_problem_02cffa67",
-          "label": "自分は失敗ばかりだと感じる"
-        },
-        {
-          "id": "self_problem_f3f58b96",
-          "label": "自分は何をやってもだめだと感じる"
-        },
-        {
-          "id": "self_problem_28e41173",
-          "label": "自分は期待に応えられないと感じる"
-        },
-        {
-          "id": "self_problem_b2f97707",
-          "label": "自分は迷ってばかりいる"
-        },
-        {
-          "id": "self_problem_4d3062e6",
-          "label": "自分は決められない"
-        },
-        {
-          "id": "self_problem_78966940",
-          "label": "自分は続けられない"
-        },
-        {
-          "id": "self_problem_be4b64e4",
-          "label": "自分は行動できない"
-        },
-        {
-          "id": "self_problem_b3950cc6",
-          "label": "自分は逃げてしまう"
-        },
-        {
-          "id": "self_problem_715f6656",
-          "label": "自分は諦めてしまう"
-        },
-        {
-          "id": "self_problem_5f604a82",
-          "label": "自分は頑張りすぎてしまう"
-        },
-        {
-          "id": "self_problem_d97b8847",
-          "label": "自分は無理をしてしまう"
-        },
-        {
-          "id": "self_problem_7b07862d",
-          "label": "自分は我慢してしまう"
-        },
-        {
-          "id": "self_problem_761a9f5d",
-          "label": "自分は本当の気持ちを言えない"
-        },
-        {
-          "id": "self_problem_44b29ac2",
-          "label": "自分は本音を隠してしまう"
-        },
-        {
-          "id": "self_problem_3a144f01",
-          "label": "自分は人に合わせすぎてしまう"
-        },
-        {
-          "id": "self_problem_e4ed12d4",
-          "label": "自分は嫌と言えない"
-        },
-        {
-          "id": "self_problem_bcf07f31",
-          "label": "自分は断れない"
-        },
-        {
-          "id": "self_problem_e42a8e70",
-          "label": "自分は心が休まらない"
-        },
-        {
-          "id": "self_problem_9ca1d83e",
-          "label": "自分はいつも不安だ"
-        },
-        {
-          "id": "self_problem_7a203f52",
-          "label": "自分はいつも焦っている"
-        },
-        {
-          "id": "self_problem_201d58d0",
-          "label": "自分はいつも疲れている"
-        },
-        {
-          "id": "self_problem_a70d0c18",
-          "label": "自分は空っぽだと感じる"
-        },
-        {
-          "id": "self_problem_84092b48",
-          "label": "自分は満たされない"
-        },
-        {
-          "id": "self_problem_7269800b",
-          "label": "自分は何のために生きているかわからない"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "self_ideal_fea952eb",
-          "label": "自分が好き"
-        },
-        {
-          "id": "self_ideal_c6e3c6f2",
-          "label": "自分を信じている"
-        },
-        {
-          "id": "self_ideal_6a3ef1bc",
-          "label": "自分を認めている"
-        },
-        {
-          "id": "self_ideal_26b2bd2f",
-          "label": "自分らしく生きている"
-        },
-        {
-          "id": "self_ideal_dd1092ed",
-          "label": "自分を大切にしている"
-        },
-        {
-          "id": "self_ideal_a19bc47e",
-          "label": "自分を許している"
-        },
-        {
-          "id": "self_ideal_9a73a4ca",
-          "label": "自信がある"
-        },
-        {
-          "id": "self_ideal_cedf2d5e",
-          "label": "自分に誇りがある"
-        },
-        {
-          "id": "self_ideal_e7e83fef",
-          "label": "自分の人生を生きている"
-        },
-        {
-          "id": "self_ideal_dd3e2f15",
-          "label": "自分の本音で生きている"
-        },
-        {
-          "id": "self_ideal_322bd573",
-          "label": "自分に満足している"
-        },
-        {
-          "id": "self_ideal_8d670088",
-          "label": "自分を責めない"
-        },
-        {
-          "id": "self_ideal_5d56982f",
-          "label": "自分を受け入れている"
-        },
-        {
-          "id": "self_ideal_21da6155",
-          "label": "自分に価値を感じている"
-        },
-        {
-          "id": "self_ideal_c3d18c0c",
-          "label": "自分のことがわかっている"
-        },
-        {
-          "id": "self_ideal_accfa594",
-          "label": "心が穏やか"
-        },
-        {
-          "id": "self_ideal_61bc1101",
-          "label": "安心している"
-        },
-        {
-          "id": "self_ideal_e2de0cd6",
-          "label": "自然体でいる"
-        },
-        {
-          "id": "self_ideal_1abfbaea",
-          "label": "自分で決めている"
-        },
-        {
-          "id": "self_ideal_5d1ab9cf",
-          "label": "自分を愛している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "self_problem_519f2ce2",
+              "label": "自分が嫌い"
+            },
+            {
+              "id": "self_problem_f5b7349c",
+              "label": "自分が好きになれない"
+            },
+            {
+              "id": "self_problem_cbebfb3f",
+              "label": "自分を認められない"
+            },
+            {
+              "id": "self_problem_3eff6505",
+              "label": "自分を信じられない"
+            },
+            {
+              "id": "self_problem_e0d93916",
+              "label": "自分がわからない"
+            },
+            {
+              "id": "self_problem_2dd0f565",
+              "label": "自分を見失っている"
+            },
+            {
+              "id": "self_problem_21f2ab8f",
+              "label": "自分らしく生きられない"
+            },
+            {
+              "id": "self_problem_8d8387b3",
+              "label": "自分を隠している"
+            },
+            {
+              "id": "self_problem_3d711555",
+              "label": "自分を偽っている"
+            },
+            {
+              "id": "self_problem_7cfae9f5",
+              "label": "自分に自信がない"
+            },
+            {
+              "id": "self_problem_8a1562f9",
+              "label": "自分に価値を感じられない"
+            },
+            {
+              "id": "self_problem_53e2f626",
+              "label": "自分を大切にできない"
+            },
+            {
+              "id": "self_problem_4ea7da58",
+              "label": "自分を責めてしまう"
+            },
+            {
+              "id": "self_problem_1b234f2b",
+              "label": "自分を許せない"
+            },
+            {
+              "id": "self_problem_43d70343",
+              "label": "自分を受け入れられない"
+            },
+            {
+              "id": "self_problem_dcb375bd",
+              "label": "自分に厳しすぎる"
+            },
+            {
+              "id": "self_problem_e7dc2c9c",
+              "label": "自分に優しくできない"
+            },
+            {
+              "id": "self_problem_4083b933",
+              "label": "自分を後回しにしてしまう"
+            },
+            {
+              "id": "self_problem_ecf72dd9",
+              "label": "自分を犠牲にしてしまう"
+            },
+            {
+              "id": "self_problem_3c9bf7ff",
+              "label": "自分を守れない"
+            },
+            {
+              "id": "self_problem_722400e3",
+              "label": "自分を変えられない"
+            },
+            {
+              "id": "self_problem_0b9217d9",
+              "label": "自分をコントロールできない"
+            },
+            {
+              "id": "self_problem_2e8eebdb",
+              "label": "自分に負けてしまう"
+            },
+            {
+              "id": "self_problem_b31e477b",
+              "label": "自分が情けない"
+            },
+            {
+              "id": "self_problem_b268595e",
+              "label": "自分が弱いと感じる"
+            },
+            {
+              "id": "self_problem_8bc2e913",
+              "label": "自分が嫌になる"
+            },
+            {
+              "id": "self_problem_4910ca2c",
+              "label": "自分が恥ずかしい"
+            },
+            {
+              "id": "self_problem_7c00b2ba",
+              "label": "自分が普通ではないと感じる"
+            },
+            {
+              "id": "self_problem_3d393824",
+              "label": "自分が劣っていると感じる"
+            },
+            {
+              "id": "self_problem_35b1adb4",
+              "label": "自分を人と比べてしまう"
+            },
+            {
+              "id": "self_problem_9a2a11ab",
+              "label": "自分に満足できない"
+            },
+            {
+              "id": "self_problem_7e0c31db",
+              "label": "自分に期待できない"
+            },
+            {
+              "id": "self_problem_8bc59268",
+              "label": "自分に未来を感じられない"
+            },
+            {
+              "id": "self_problem_9e1989fa",
+              "label": "自分の気持ちがわからない"
+            },
+            {
+              "id": "self_problem_d72e809f",
+              "label": "自分の本音がわからない"
+            },
+            {
+              "id": "self_problem_694a664c",
+              "label": "自分のやりたいことがわからない"
+            },
+            {
+              "id": "self_problem_9ce83d6e",
+              "label": "自分の強みがわからない"
+            },
+            {
+              "id": "self_problem_4297a0c4",
+              "label": "自分の居場所がないと感じる"
+            },
+            {
+              "id": "self_problem_d70a2cdb",
+              "label": "自分には才能がないと感じる"
+            },
+            {
+              "id": "self_problem_62e10e93",
+              "label": "自分には魅力がないと感じる"
+            },
+            {
+              "id": "self_problem_d04d894c",
+              "label": "自分には何もないと感じる"
+            },
+            {
+              "id": "self_problem_7e3f7daa",
+              "label": "自分は愛されないと感じる"
+            },
+            {
+              "id": "self_problem_b336dfbd",
+              "label": "自分は必要とされていないと感じる"
+            },
+            {
+              "id": "self_problem_b9f87678",
+              "label": "自分は認められていないと感じる"
+            },
+            {
+              "id": "self_problem_86a6e564",
+              "label": "自分は理解されていないと感じる"
+            },
+            {
+              "id": "self_problem_776b261d",
+              "label": "自分は一人だと感じる"
+            },
+            {
+              "id": "self_problem_4385e3ab",
+              "label": "自分は幸せになれないと感じる"
+            },
+            {
+              "id": "self_problem_7097bd5f",
+              "label": "自分は変われないと感じる"
+            },
+            {
+              "id": "self_problem_cfeb13ba",
+              "label": "自分は成功できないと感じる"
+            },
+            {
+              "id": "self_problem_02cffa67",
+              "label": "自分は失敗ばかりだと感じる"
+            },
+            {
+              "id": "self_problem_f3f58b96",
+              "label": "自分は何をやってもだめだと感じる"
+            },
+            {
+              "id": "self_problem_28e41173",
+              "label": "自分は期待に応えられないと感じる"
+            },
+            {
+              "id": "self_problem_b2f97707",
+              "label": "自分は迷ってばかりいる"
+            },
+            {
+              "id": "self_problem_4d3062e6",
+              "label": "自分は決められない"
+            },
+            {
+              "id": "self_problem_78966940",
+              "label": "自分は続けられない"
+            },
+            {
+              "id": "self_problem_be4b64e4",
+              "label": "自分は行動できない"
+            },
+            {
+              "id": "self_problem_b3950cc6",
+              "label": "自分は逃げてしまう"
+            },
+            {
+              "id": "self_problem_715f6656",
+              "label": "自分は諦めてしまう"
+            },
+            {
+              "id": "self_problem_5f604a82",
+              "label": "自分は頑張りすぎてしまう"
+            },
+            {
+              "id": "self_problem_d97b8847",
+              "label": "自分は無理をしてしまう"
+            },
+            {
+              "id": "self_problem_7b07862d",
+              "label": "自分は我慢してしまう"
+            },
+            {
+              "id": "self_problem_761a9f5d",
+              "label": "自分は本当の気持ちを言えない"
+            },
+            {
+              "id": "self_problem_44b29ac2",
+              "label": "自分は本音を隠してしまう"
+            },
+            {
+              "id": "self_problem_3a144f01",
+              "label": "自分は人に合わせすぎてしまう"
+            },
+            {
+              "id": "self_problem_e4ed12d4",
+              "label": "自分は嫌と言えない"
+            },
+            {
+              "id": "self_problem_bcf07f31",
+              "label": "自分は断れない"
+            },
+            {
+              "id": "self_problem_e42a8e70",
+              "label": "自分は心が休まらない"
+            },
+            {
+              "id": "self_problem_9ca1d83e",
+              "label": "自分はいつも不安だ"
+            },
+            {
+              "id": "self_problem_7a203f52",
+              "label": "自分はいつも焦っている"
+            },
+            {
+              "id": "self_problem_201d58d0",
+              "label": "自分はいつも疲れている"
+            },
+            {
+              "id": "self_problem_a70d0c18",
+              "label": "自分は空っぽだと感じる"
+            },
+            {
+              "id": "self_problem_84092b48",
+              "label": "自分は満たされない"
+            },
+            {
+              "id": "self_problem_7269800b",
+              "label": "自分は何のために生きているかわからない"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "self_ideal_fea952eb",
+              "label": "自分が好き"
+            },
+            {
+              "id": "self_ideal_c6e3c6f2",
+              "label": "自分を信じている"
+            },
+            {
+              "id": "self_ideal_6a3ef1bc",
+              "label": "自分を認めている"
+            },
+            {
+              "id": "self_ideal_26b2bd2f",
+              "label": "自分らしく生きている"
+            },
+            {
+              "id": "self_ideal_dd1092ed",
+              "label": "自分を大切にしている"
+            },
+            {
+              "id": "self_ideal_a19bc47e",
+              "label": "自分を許している"
+            },
+            {
+              "id": "self_ideal_9a73a4ca",
+              "label": "自信がある"
+            },
+            {
+              "id": "self_ideal_cedf2d5e",
+              "label": "自分に誇りがある"
+            },
+            {
+              "id": "self_ideal_e7e83fef",
+              "label": "自分の人生を生きている"
+            },
+            {
+              "id": "self_ideal_dd3e2f15",
+              "label": "自分の本音で生きている"
+            },
+            {
+              "id": "self_ideal_322bd573",
+              "label": "自分に満足している"
+            },
+            {
+              "id": "self_ideal_8d670088",
+              "label": "自分を責めない"
+            },
+            {
+              "id": "self_ideal_5d56982f",
+              "label": "自分を受け入れている"
+            },
+            {
+              "id": "self_ideal_21da6155",
+              "label": "自分に価値を感じている"
+            },
+            {
+              "id": "self_ideal_c3d18c0c",
+              "label": "自分のことがわかっている"
+            },
+            {
+              "id": "self_ideal_accfa594",
+              "label": "心が穏やか"
+            },
+            {
+              "id": "self_ideal_61bc1101",
+              "label": "安心している"
+            },
+            {
+              "id": "self_ideal_e2de0cd6",
+              "label": "自然体でいる"
+            },
+            {
+              "id": "self_ideal_1abfbaea",
+              "label": "自分で決めている"
+            },
+            {
+              "id": "self_ideal_5d1ab9cf",
+              "label": "自分を愛している"
+            }
+          ]
         }
       ]
     },
     {
       "id": "people",
       "label": "人",
-      "emoji": "👥",
-      "problems": [
-        {
-          "id": "people_problem_ef848c88",
-          "label": "一人ぼっちだと感じる"
-        },
-        {
-          "id": "people_problem_e45424fd",
-          "label": "孤独を感じる"
-        },
-        {
-          "id": "people_problem_a7d12b7b",
-          "label": "居場所がない"
-        },
-        {
-          "id": "people_problem_4a7c2d1d",
-          "label": "人が怖い"
-        },
-        {
-          "id": "people_problem_bcabc106",
-          "label": "人を信じられない"
-        },
-        {
-          "id": "people_problem_fe173d62",
-          "label": "人を信用できない"
-        },
-        {
-          "id": "people_problem_31ce373c",
-          "label": "人に心を開けない"
-        },
-        {
-          "id": "people_problem_f6292e7e",
-          "label": "人と距離を縮められない"
-        },
-        {
-          "id": "people_problem_aeb7a511",
-          "label": "人と話すのが苦手"
-        },
-        {
-          "id": "people_problem_cfe5eaf5",
-          "label": "人前で緊張する"
-        },
-        {
-          "id": "people_problem_5e2dffd8",
-          "label": "人の目が気になる"
-        },
-        {
-          "id": "people_problem_cccfb7e6",
-          "label": "人にどう思われるか気になる"
-        },
-        {
-          "id": "people_problem_b8de7d2f",
-          "label": "嫌われるのが怖い"
-        },
-        {
-          "id": "people_problem_b2489a9c",
-          "label": "否定されるのが怖い"
-        },
-        {
-          "id": "people_problem_abb8d89c",
-          "label": "断られるのが怖い"
-        },
-        {
-          "id": "people_problem_cb43c9db",
-          "label": "人に合わせすぎる"
-        },
-        {
-          "id": "people_problem_979a7694",
-          "label": "空気を読みすぎる"
-        },
-        {
-          "id": "people_problem_3ddbd999",
-          "label": "本音を言えない"
-        },
-        {
-          "id": "people_problem_46995e39",
-          "label": "自分を出せない"
-        },
-        {
-          "id": "people_problem_10eb6e63",
-          "label": "嫌と言えない"
-        },
-        {
-          "id": "people_problem_8d8ea30d",
-          "label": "断れない"
-        },
-        {
-          "id": "people_problem_8c172861",
-          "label": "頼れない"
-        },
-        {
-          "id": "people_problem_00529d7c",
-          "label": "助けを求められない"
-        },
-        {
-          "id": "people_problem_d566b85f",
-          "label": "甘えられない"
-        },
-        {
-          "id": "people_problem_ea5fa083",
-          "label": "人に期待しすぎる"
-        },
-        {
-          "id": "people_problem_8d874b48",
-          "label": "人に依存してしまう"
-        },
-        {
-          "id": "people_problem_66cf9182",
-          "label": "人をコントロールしたい"
-        },
-        {
-          "id": "people_problem_b6a6946d",
-          "label": "人を許せない"
-        },
-        {
-          "id": "people_problem_92237076",
-          "label": "人を責めてしまう"
-        },
-        {
-          "id": "people_problem_e0e7fe95",
-          "label": "人をうらやましいと思う"
-        },
-        {
-          "id": "people_problem_e4d83bde",
-          "label": "人に嫉妬してしまう"
-        },
-        {
-          "id": "people_problem_96ccf5c6",
-          "label": "人と比べてしまう"
-        },
-        {
-          "id": "people_problem_16ca720e",
-          "label": "人を見下してしまう"
-        },
-        {
-          "id": "people_problem_389bbf04",
-          "label": "人に見下されていると感じる"
-        },
-        {
-          "id": "people_problem_df3e40aa",
-          "label": "人に利用される"
-        },
-        {
-          "id": "people_problem_ece6e39f",
-          "label": "人に振り回される"
-        },
-        {
-          "id": "people_problem_0e3d1aeb",
-          "label": "人に傷つけられた"
-        },
-        {
-          "id": "people_problem_af238b45",
-          "label": "人を傷つけてしまった"
-        },
-        {
-          "id": "people_problem_7c402d21",
-          "label": "人とケンカしてしまう"
-        },
-        {
-          "id": "people_problem_8b962360",
-          "label": "人と分かり合えない"
-        },
-        {
-          "id": "people_problem_8f3e54f9",
-          "label": "人に理解されない"
-        },
-        {
-          "id": "people_problem_ca9824a2",
-          "label": "人を理解できない"
-        },
-        {
-          "id": "people_problem_6b07a3bb",
-          "label": "人を避けてしまう"
-        },
-        {
-          "id": "people_problem_9026bc1a",
-          "label": "人といると疲れる"
-        },
-        {
-          "id": "people_problem_47a0fb79",
-          "label": "一人でいると寂しい"
-        },
-        {
-          "id": "people_problem_248646cf",
-          "label": "人に認められたい"
-        },
-        {
-          "id": "people_problem_652134d5",
-          "label": "人に褒められたい"
-        },
-        {
-          "id": "people_problem_e50d7e62",
-          "label": "人に必要とされたい"
-        },
-        {
-          "id": "people_problem_70e05975",
-          "label": "人に愛されたい"
-        },
-        {
-          "id": "people_problem_0c97a5ea",
-          "label": "人に大切にされたい"
-        },
-        {
-          "id": "people_problem_040c4ca6",
-          "label": "人に受け入れられたい"
-        },
-        {
-          "id": "people_problem_5600d2a2",
-          "label": "人に認めてもらえない"
-        },
-        {
-          "id": "people_problem_76c14ca4",
-          "label": "人に大切にされない"
-        },
-        {
-          "id": "people_problem_e23d9e9f",
-          "label": "人に裏切られた"
-        },
-        {
-          "id": "people_problem_685ed9d7",
-          "label": "人を裏切ってしまった"
-        },
-        {
-          "id": "people_problem_02696faa",
-          "label": "人と比べて劣等感を感じる"
-        },
-        {
-          "id": "people_problem_b43dfef1",
-          "label": "人の成功が苦しい"
-        },
-        {
-          "id": "people_problem_9787b80b",
-          "label": "人の幸せを喜べない"
-        },
-        {
-          "id": "people_problem_e7eed0e1",
-          "label": "人の期待に応え続けている"
-        },
-        {
-          "id": "people_problem_548ab990",
-          "label": "人との距離感がわからない"
-        },
-        {
-          "id": "people_problem_ac88b311",
-          "label": "人との境界線を引けない"
-        },
-        {
-          "id": "people_problem_ba259313",
-          "label": "人と深い関係を築けない"
-        },
-        {
-          "id": "people_problem_b4d9e879",
-          "label": "人間関係が続かない"
-        },
-        {
-          "id": "people_problem_339bbd61",
-          "label": "人間関係を終わらせられない"
-        },
-        {
-          "id": "people_problem_41f51bf7",
-          "label": "人に執着してしまう"
-        },
-        {
-          "id": "people_problem_365e16da",
-          "label": "人を手放せない"
-        },
-        {
-          "id": "people_problem_45a387a6",
-          "label": "人といる自分が好きになれない"
-        },
-        {
-          "id": "people_problem_943f9874",
-          "label": "人間関係に疲れている"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "people_ideal_a39b736f",
-          "label": "人を信じている"
-        },
-        {
-          "id": "people_ideal_88ae6639",
-          "label": "人に信頼されている"
-        },
-        {
-          "id": "people_ideal_5418dbcc",
-          "label": "人を信頼している"
-        },
-        {
-          "id": "people_ideal_1ad515ba",
-          "label": "安心して人と関われる"
-        },
-        {
-          "id": "people_ideal_c89cf4e4",
-          "label": "自然体で人と接している"
-        },
-        {
-          "id": "people_ideal_b3ae3b8e",
-          "label": "本音で話している"
-        },
-        {
-          "id": "people_ideal_8d42dd38",
-          "label": "自分らしく人と関わっている"
-        },
-        {
-          "id": "people_ideal_3daebe63",
-          "label": "人の前でも安心している"
-        },
-        {
-          "id": "people_ideal_a0d83ef8",
-          "label": "人の目が気にならない"
-        },
-        {
-          "id": "people_ideal_df221475",
-          "label": "人と比べない"
-        },
-        {
-          "id": "people_ideal_6bcb8eef",
-          "label": "嫉妬しない"
-        },
-        {
-          "id": "people_ideal_57b1d304",
-          "label": "人を認めている"
-        },
-        {
-          "id": "people_ideal_c359ac66",
-          "label": "人を尊重している"
-        },
-        {
-          "id": "people_ideal_6502fab9",
-          "label": "人を許している"
-        },
-        {
-          "id": "people_ideal_40cd37a8",
-          "label": "人を受け入れている"
-        },
-        {
-          "id": "people_ideal_ac492b8b",
-          "label": "人を大切にしている"
-        },
-        {
-          "id": "people_ideal_0dcedd7c",
-          "label": "大切な人とつながっている"
-        },
-        {
-          "id": "people_ideal_0cb605a3",
-          "label": "信頼できる人がいる"
-        },
-        {
-          "id": "people_ideal_727c2561",
-          "label": "安心できる居場所がある"
-        },
-        {
-          "id": "people_ideal_bb0228d0",
-          "label": "一人でも安心している"
-        },
-        {
-          "id": "people_ideal_fa038c73",
-          "label": "人といても安心している"
-        },
-        {
-          "id": "people_ideal_039c1a4f",
-          "label": "嫌われることを恐れない"
-        },
-        {
-          "id": "people_ideal_1fdf5dcd",
-          "label": "否定されても自分を失わない"
-        },
-        {
-          "id": "people_ideal_f5b6cb53",
-          "label": "必要以上に人に合わせない"
-        },
-        {
-          "id": "people_ideal_8d6c2674",
-          "label": "自分の意見を伝えている"
-        },
-        {
-          "id": "people_ideal_206b9061",
-          "label": "嫌なことは断っている"
-        },
-        {
-          "id": "people_ideal_9c338da3",
-          "label": "必要なときは頼っている"
-        },
-        {
-          "id": "people_ideal_fa86a571",
-          "label": "必要なときは助けている"
-        },
-        {
-          "id": "people_ideal_2bc0cd9b",
-          "label": "人との距離感がちょうどいい"
-        },
-        {
-          "id": "people_ideal_ca916cf2",
-          "label": "健康な人間関係を築いている"
-        },
-        {
-          "id": "people_ideal_ba7a1fbc",
-          "label": "人と笑い合っている"
-        },
-        {
-          "id": "people_ideal_dcd7ff3c",
-          "label": "人との時間を楽しんでいる"
-        },
-        {
-          "id": "people_ideal_e1d1e8b1",
-          "label": "人と協力している"
-        },
-        {
-          "id": "people_ideal_ea07f9df",
-          "label": "人と分かり合えている"
-        },
-        {
-          "id": "people_ideal_c8c8ef4e",
-          "label": "愛のある人間関係を築いている"
-        },
-        {
-          "id": "people_ideal_b0bf5f2f",
-          "label": "人との出会いを楽しんでいる"
-        },
-        {
-          "id": "people_ideal_aecb4089",
-          "label": "人に感謝している"
-        },
-        {
-          "id": "people_ideal_b1363a28",
-          "label": "人から感謝されている"
-        },
-        {
-          "id": "people_ideal_e0f3dba1",
-          "label": "人と安心して成長している"
-        },
-        {
-          "id": "people_ideal_448675c4",
-          "label": "人との関係に満足している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "people_problem_ef848c88",
+              "label": "一人ぼっちだと感じる"
+            },
+            {
+              "id": "people_problem_e45424fd",
+              "label": "孤独を感じる"
+            },
+            {
+              "id": "people_problem_a7d12b7b",
+              "label": "居場所がない"
+            },
+            {
+              "id": "people_problem_4a7c2d1d",
+              "label": "人が怖い"
+            },
+            {
+              "id": "people_problem_bcabc106",
+              "label": "人を信じられない"
+            },
+            {
+              "id": "people_problem_fe173d62",
+              "label": "人を信用できない"
+            },
+            {
+              "id": "people_problem_31ce373c",
+              "label": "人に心を開けない"
+            },
+            {
+              "id": "people_problem_f6292e7e",
+              "label": "人と距離を縮められない"
+            },
+            {
+              "id": "people_problem_aeb7a511",
+              "label": "人と話すのが苦手"
+            },
+            {
+              "id": "people_problem_cfe5eaf5",
+              "label": "人前で緊張する"
+            },
+            {
+              "id": "people_problem_5e2dffd8",
+              "label": "人の目が気になる"
+            },
+            {
+              "id": "people_problem_cccfb7e6",
+              "label": "人にどう思われるか気になる"
+            },
+            {
+              "id": "people_problem_b8de7d2f",
+              "label": "嫌われるのが怖い"
+            },
+            {
+              "id": "people_problem_b2489a9c",
+              "label": "否定されるのが怖い"
+            },
+            {
+              "id": "people_problem_abb8d89c",
+              "label": "断られるのが怖い"
+            },
+            {
+              "id": "people_problem_cb43c9db",
+              "label": "人に合わせすぎる"
+            },
+            {
+              "id": "people_problem_979a7694",
+              "label": "空気を読みすぎる"
+            },
+            {
+              "id": "people_problem_3ddbd999",
+              "label": "本音を言えない"
+            },
+            {
+              "id": "people_problem_46995e39",
+              "label": "自分を出せない"
+            },
+            {
+              "id": "people_problem_10eb6e63",
+              "label": "嫌と言えない"
+            },
+            {
+              "id": "people_problem_8d8ea30d",
+              "label": "断れない"
+            },
+            {
+              "id": "people_problem_8c172861",
+              "label": "頼れない"
+            },
+            {
+              "id": "people_problem_00529d7c",
+              "label": "助けを求められない"
+            },
+            {
+              "id": "people_problem_d566b85f",
+              "label": "甘えられない"
+            },
+            {
+              "id": "people_problem_ea5fa083",
+              "label": "人に期待しすぎる"
+            },
+            {
+              "id": "people_problem_8d874b48",
+              "label": "人に依存してしまう"
+            },
+            {
+              "id": "people_problem_66cf9182",
+              "label": "人をコントロールしたい"
+            },
+            {
+              "id": "people_problem_b6a6946d",
+              "label": "人を許せない"
+            },
+            {
+              "id": "people_problem_92237076",
+              "label": "人を責めてしまう"
+            },
+            {
+              "id": "people_problem_e0e7fe95",
+              "label": "人をうらやましいと思う"
+            },
+            {
+              "id": "people_problem_e4d83bde",
+              "label": "人に嫉妬してしまう"
+            },
+            {
+              "id": "people_problem_96ccf5c6",
+              "label": "人と比べてしまう"
+            },
+            {
+              "id": "people_problem_16ca720e",
+              "label": "人を見下してしまう"
+            },
+            {
+              "id": "people_problem_389bbf04",
+              "label": "人に見下されていると感じる"
+            },
+            {
+              "id": "people_problem_df3e40aa",
+              "label": "人に利用される"
+            },
+            {
+              "id": "people_problem_ece6e39f",
+              "label": "人に振り回される"
+            },
+            {
+              "id": "people_problem_0e3d1aeb",
+              "label": "人に傷つけられた"
+            },
+            {
+              "id": "people_problem_af238b45",
+              "label": "人を傷つけてしまった"
+            },
+            {
+              "id": "people_problem_7c402d21",
+              "label": "人とケンカしてしまう"
+            },
+            {
+              "id": "people_problem_8b962360",
+              "label": "人と分かり合えない"
+            },
+            {
+              "id": "people_problem_8f3e54f9",
+              "label": "人に理解されない"
+            },
+            {
+              "id": "people_problem_ca9824a2",
+              "label": "人を理解できない"
+            },
+            {
+              "id": "people_problem_6b07a3bb",
+              "label": "人を避けてしまう"
+            },
+            {
+              "id": "people_problem_9026bc1a",
+              "label": "人といると疲れる"
+            },
+            {
+              "id": "people_problem_47a0fb79",
+              "label": "一人でいると寂しい"
+            },
+            {
+              "id": "people_problem_248646cf",
+              "label": "人に認められたい"
+            },
+            {
+              "id": "people_problem_652134d5",
+              "label": "人に褒められたい"
+            },
+            {
+              "id": "people_problem_e50d7e62",
+              "label": "人に必要とされたい"
+            },
+            {
+              "id": "people_problem_70e05975",
+              "label": "人に愛されたい"
+            },
+            {
+              "id": "people_problem_0c97a5ea",
+              "label": "人に大切にされたい"
+            },
+            {
+              "id": "people_problem_040c4ca6",
+              "label": "人に受け入れられたい"
+            },
+            {
+              "id": "people_problem_5600d2a2",
+              "label": "人に認めてもらえない"
+            },
+            {
+              "id": "people_problem_76c14ca4",
+              "label": "人に大切にされない"
+            },
+            {
+              "id": "people_problem_e23d9e9f",
+              "label": "人に裏切られた"
+            },
+            {
+              "id": "people_problem_685ed9d7",
+              "label": "人を裏切ってしまった"
+            },
+            {
+              "id": "people_problem_02696faa",
+              "label": "人と比べて劣等感を感じる"
+            },
+            {
+              "id": "people_problem_b43dfef1",
+              "label": "人の成功が苦しい"
+            },
+            {
+              "id": "people_problem_9787b80b",
+              "label": "人の幸せを喜べない"
+            },
+            {
+              "id": "people_problem_e7eed0e1",
+              "label": "人の期待に応え続けている"
+            },
+            {
+              "id": "people_problem_548ab990",
+              "label": "人との距離感がわからない"
+            },
+            {
+              "id": "people_problem_ac88b311",
+              "label": "人との境界線を引けない"
+            },
+            {
+              "id": "people_problem_ba259313",
+              "label": "人と深い関係を築けない"
+            },
+            {
+              "id": "people_problem_b4d9e879",
+              "label": "人間関係が続かない"
+            },
+            {
+              "id": "people_problem_339bbd61",
+              "label": "人間関係を終わらせられない"
+            },
+            {
+              "id": "people_problem_41f51bf7",
+              "label": "人に執着してしまう"
+            },
+            {
+              "id": "people_problem_365e16da",
+              "label": "人を手放せない"
+            },
+            {
+              "id": "people_problem_45a387a6",
+              "label": "人といる自分が好きになれない"
+            },
+            {
+              "id": "people_problem_943f9874",
+              "label": "人間関係に疲れている"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "people_ideal_a39b736f",
+              "label": "人を信じている"
+            },
+            {
+              "id": "people_ideal_88ae6639",
+              "label": "人に信頼されている"
+            },
+            {
+              "id": "people_ideal_5418dbcc",
+              "label": "人を信頼している"
+            },
+            {
+              "id": "people_ideal_1ad515ba",
+              "label": "安心して人と関われる"
+            },
+            {
+              "id": "people_ideal_c89cf4e4",
+              "label": "自然体で人と接している"
+            },
+            {
+              "id": "people_ideal_b3ae3b8e",
+              "label": "本音で話している"
+            },
+            {
+              "id": "people_ideal_8d42dd38",
+              "label": "自分らしく人と関わっている"
+            },
+            {
+              "id": "people_ideal_3daebe63",
+              "label": "人の前でも安心している"
+            },
+            {
+              "id": "people_ideal_a0d83ef8",
+              "label": "人の目が気にならない"
+            },
+            {
+              "id": "people_ideal_df221475",
+              "label": "人と比べない"
+            },
+            {
+              "id": "people_ideal_6bcb8eef",
+              "label": "嫉妬しない"
+            },
+            {
+              "id": "people_ideal_57b1d304",
+              "label": "人を認めている"
+            },
+            {
+              "id": "people_ideal_c359ac66",
+              "label": "人を尊重している"
+            },
+            {
+              "id": "people_ideal_6502fab9",
+              "label": "人を許している"
+            },
+            {
+              "id": "people_ideal_40cd37a8",
+              "label": "人を受け入れている"
+            },
+            {
+              "id": "people_ideal_ac492b8b",
+              "label": "人を大切にしている"
+            },
+            {
+              "id": "people_ideal_0dcedd7c",
+              "label": "大切な人とつながっている"
+            },
+            {
+              "id": "people_ideal_0cb605a3",
+              "label": "信頼できる人がいる"
+            },
+            {
+              "id": "people_ideal_727c2561",
+              "label": "安心できる居場所がある"
+            },
+            {
+              "id": "people_ideal_bb0228d0",
+              "label": "一人でも安心している"
+            },
+            {
+              "id": "people_ideal_fa038c73",
+              "label": "人といても安心している"
+            },
+            {
+              "id": "people_ideal_039c1a4f",
+              "label": "嫌われることを恐れない"
+            },
+            {
+              "id": "people_ideal_1fdf5dcd",
+              "label": "否定されても自分を失わない"
+            },
+            {
+              "id": "people_ideal_f5b6cb53",
+              "label": "必要以上に人に合わせない"
+            },
+            {
+              "id": "people_ideal_8d6c2674",
+              "label": "自分の意見を伝えている"
+            },
+            {
+              "id": "people_ideal_206b9061",
+              "label": "嫌なことは断っている"
+            },
+            {
+              "id": "people_ideal_9c338da3",
+              "label": "必要なときは頼っている"
+            },
+            {
+              "id": "people_ideal_fa86a571",
+              "label": "必要なときは助けている"
+            },
+            {
+              "id": "people_ideal_2bc0cd9b",
+              "label": "人との距離感がちょうどいい"
+            },
+            {
+              "id": "people_ideal_ca916cf2",
+              "label": "健康な人間関係を築いている"
+            },
+            {
+              "id": "people_ideal_ba7a1fbc",
+              "label": "人と笑い合っている"
+            },
+            {
+              "id": "people_ideal_dcd7ff3c",
+              "label": "人との時間を楽しんでいる"
+            },
+            {
+              "id": "people_ideal_e1d1e8b1",
+              "label": "人と協力している"
+            },
+            {
+              "id": "people_ideal_ea07f9df",
+              "label": "人と分かり合えている"
+            },
+            {
+              "id": "people_ideal_c8c8ef4e",
+              "label": "愛のある人間関係を築いている"
+            },
+            {
+              "id": "people_ideal_b0bf5f2f",
+              "label": "人との出会いを楽しんでいる"
+            },
+            {
+              "id": "people_ideal_aecb4089",
+              "label": "人に感謝している"
+            },
+            {
+              "id": "people_ideal_b1363a28",
+              "label": "人から感謝されている"
+            },
+            {
+              "id": "people_ideal_e0f3dba1",
+              "label": "人と安心して成長している"
+            },
+            {
+              "id": "people_ideal_448675c4",
+              "label": "人との関係に満足している"
+            }
+          ]
         }
       ]
     },
     {
       "id": "love",
       "label": "恋愛",
-      "emoji": "❤️",
-      "problems": [
-        {
-          "id": "love_problem_4181bde6",
-          "label": "恋人ができない"
-        },
-        {
-          "id": "love_problem_f09e7deb",
-          "label": "好きな人ができない"
-        },
-        {
-          "id": "love_problem_2e59af23",
-          "label": "好きな人に振り向いてもらえない"
-        },
-        {
-          "id": "love_problem_cafd9bd3",
-          "label": "告白できない"
-        },
-        {
-          "id": "love_problem_bf737949",
-          "label": "気持ちを伝えられない"
-        },
-        {
-          "id": "love_problem_316bec9d",
-          "label": "愛されていると感じられない"
-        },
-        {
-          "id": "love_problem_2bb57b4b",
-          "label": "愛せない"
-        },
-        {
-          "id": "love_problem_d90018d5",
-          "label": "愛し方がわからない"
-        },
-        {
-          "id": "love_problem_f560ef2b",
-          "label": "愛され方がわからない"
-        },
-        {
-          "id": "love_problem_2a988e13",
-          "label": "愛を信じられない"
-        },
-        {
-          "id": "love_problem_832bd46b",
-          "label": "恋愛が続かない"
-        },
-        {
-          "id": "love_problem_690a1015",
-          "label": "長続きしない"
-        },
-        {
-          "id": "love_problem_73993159",
-          "label": "別れを引きずっている"
-        },
-        {
-          "id": "love_problem_4aa9cd8f",
-          "label": "忘れられない人がいる"
-        },
-        {
-          "id": "love_problem_c82c708c",
-          "label": "元恋人を忘れられない"
-        },
-        {
-          "id": "love_problem_afdfdf6c",
-          "label": "復縁したい"
-        },
-        {
-          "id": "love_problem_dec4041d",
-          "label": "一人が寂しい"
-        },
-        {
-          "id": "love_problem_7db24217",
-          "label": "一人でいるのが怖い"
-        },
-        {
-          "id": "love_problem_a79d131b",
-          "label": "恋人がいない自分が嫌だ"
-        },
-        {
-          "id": "love_problem_c216212d",
-          "label": "結婚できるか不安"
-        },
-        {
-          "id": "love_problem_2bf13488",
-          "label": "結婚したくない"
-        },
-        {
-          "id": "love_problem_2fff2989",
-          "label": "結婚を決められない"
-        },
-        {
-          "id": "love_problem_f28d40e9",
-          "label": "結婚生活が苦しい"
-        },
-        {
-          "id": "love_problem_a7bc4326",
-          "label": "パートナーとうまくいかない"
-        },
-        {
-          "id": "love_problem_d048d66c",
-          "label": "パートナーと話し合えない"
-        },
-        {
-          "id": "love_problem_016fa85f",
-          "label": "パートナーを信じられない"
-        },
-        {
-          "id": "love_problem_8a31088c",
-          "label": "パートナーに信じてもらえない"
-        },
-        {
-          "id": "love_problem_0e2b65da",
-          "label": "パートナーに本音を言えない"
-        },
-        {
-          "id": "love_problem_036018e9",
-          "label": "パートナーに甘えられない"
-        },
-        {
-          "id": "love_problem_55536b45",
-          "label": "パートナーに頼れない"
-        },
-        {
-          "id": "love_problem_63502fa2",
-          "label": "パートナーに期待しすぎる"
-        },
-        {
-          "id": "love_problem_1d3a8b97",
-          "label": "パートナーに依存してしまう"
-        },
-        {
-          "id": "love_problem_a675e3b0",
-          "label": "パートナーを束縛してしまう"
-        },
-        {
-          "id": "love_problem_59b9efcd",
-          "label": "パートナーに束縛される"
-        },
-        {
-          "id": "love_problem_845f7970",
-          "label": "パートナーに振り回される"
-        },
-        {
-          "id": "love_problem_2e7b0547",
-          "label": "パートナーをコントロールしたい"
-        },
-        {
-          "id": "love_problem_7fec1071",
-          "label": "パートナーを許せない"
-        },
-        {
-          "id": "love_problem_fad8734e",
-          "label": "パートナーへの怒りが消えない"
-        },
-        {
-          "id": "love_problem_2e5b02fc",
-          "label": "パートナーへの不満がたまっている"
-        },
-        {
-          "id": "love_problem_22f18100",
-          "label": "パートナーを傷つけてしまう"
-        },
-        {
-          "id": "love_problem_da37714b",
-          "label": "パートナーに傷つけられた"
-        },
-        {
-          "id": "love_problem_4e424399",
-          "label": "浮気が許せない"
-        },
-        {
-          "id": "love_problem_87097d9f",
-          "label": "浮気が不安"
-        },
-        {
-          "id": "love_problem_c20fd5f4",
-          "label": "裏切られるのが怖い"
-        },
-        {
-          "id": "love_problem_bd948e2d",
-          "label": "捨てられるのが怖い"
-        },
-        {
-          "id": "love_problem_618eab2f",
-          "label": "嫉妬してしまう"
-        },
-        {
-          "id": "love_problem_6314b116",
-          "label": "独占したくなる"
-        },
-        {
-          "id": "love_problem_0136fca7",
-          "label": "相手を疑ってしまう"
-        },
-        {
-          "id": "love_problem_09e38213",
-          "label": "相手の顔色をうかがってしまう"
-        },
-        {
-          "id": "love_problem_944eb62b",
-          "label": "相手に合わせすぎる"
-        },
-        {
-          "id": "love_problem_10eb6e63",
-          "label": "嫌と言えない"
-        },
-        {
-          "id": "love_problem_a2cc1c1a",
-          "label": "別れを切り出せない"
-        },
-        {
-          "id": "love_problem_23154cef",
-          "label": "別れられない"
-        },
-        {
-          "id": "love_problem_6c29110c",
-          "label": "離れられない"
-        },
-        {
-          "id": "love_problem_72686975",
-          "label": "執着してしまう"
-        },
-        {
-          "id": "love_problem_fad81fee",
-          "label": "相手なしでは生きられないと感じる"
-        },
-        {
-          "id": "love_problem_d5cd819c",
-          "label": "相手を失うのが怖い"
-        },
-        {
-          "id": "love_problem_299e055b",
-          "label": "自分に魅力がないと感じる"
-        },
-        {
-          "id": "love_problem_fe03f255",
-          "label": "自信がない"
-        },
-        {
-          "id": "love_problem_2314c23b",
-          "label": "恋愛で自分を見失う"
-        },
-        {
-          "id": "love_problem_a2e76f5a",
-          "label": "恋愛で傷つくのが怖い"
-        },
-        {
-          "id": "love_problem_63dacac9",
-          "label": "恋愛が面倒だと感じる"
-        },
-        {
-          "id": "love_problem_f691fdc9",
-          "label": "異性が苦手"
-        },
-        {
-          "id": "love_problem_fb77c522",
-          "label": "人を好きになるのが怖い"
-        },
-        {
-          "id": "love_problem_9d76fdbb",
-          "label": "幸せになるのが怖い"
-        },
-        {
-          "id": "love_problem_8a04acb6",
-          "label": "幸せが続く気がしない"
-        },
-        {
-          "id": "love_problem_d56a32cf",
-          "label": "恋愛をあきらめている"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "love_ideal_fac55e43",
-          "label": "愛している"
-        },
-        {
-          "id": "love_ideal_0ca98fab",
-          "label": "愛されている"
-        },
-        {
-          "id": "love_ideal_89e003eb",
-          "label": "愛し合っている"
-        },
-        {
-          "id": "love_ideal_8f89debb",
-          "label": "安心して愛している"
-        },
-        {
-          "id": "love_ideal_f8d550eb",
-          "label": "安心して愛されている"
-        },
-        {
-          "id": "love_ideal_cee4ee8d",
-          "label": "信じ合っている"
-        },
-        {
-          "id": "love_ideal_be48f61c",
-          "label": "支え合っている"
-        },
-        {
-          "id": "love_ideal_c61d13b6",
-          "label": "尊重し合っている"
-        },
-        {
-          "id": "love_ideal_963d14e9",
-          "label": "大切にし合っている"
-        },
-        {
-          "id": "love_ideal_83951182",
-          "label": "自然体でいられる"
-        },
-        {
-          "id": "love_ideal_b11eacbe",
-          "label": "一緒にいて安心している"
-        },
-        {
-          "id": "love_ideal_67b164e5",
-          "label": "一緒にいて楽しい"
-        },
-        {
-          "id": "love_ideal_4bbc96c9",
-          "label": "一緒にいて落ち着く"
-        },
-        {
-          "id": "love_ideal_b3ae3b8e",
-          "label": "本音で話している"
-        },
-        {
-          "id": "love_ideal_f9122805",
-          "label": "気持ちを伝えている"
-        },
-        {
-          "id": "love_ideal_cd85b250",
-          "label": "気持ちを受け止め合っている"
-        },
-        {
-          "id": "love_ideal_0b1d6646",
-          "label": "お互いを理解している"
-        },
-        {
-          "id": "love_ideal_69df6a2c",
-          "label": "お互いを受け入れている"
-        },
-        {
-          "id": "love_ideal_84b04685",
-          "label": "お互いを許している"
-        },
-        {
-          "id": "love_ideal_cd2bca45",
-          "label": "お互いを信頼している"
-        },
-        {
-          "id": "love_ideal_1902680b",
-          "label": "お互いに自由でいる"
-        },
-        {
-          "id": "love_ideal_e33acdcb",
-          "label": "お互いを応援している"
-        },
-        {
-          "id": "love_ideal_35296254",
-          "label": "お互いに成長している"
-        },
-        {
-          "id": "love_ideal_54467840",
-          "label": "お互いに感謝している"
-        },
-        {
-          "id": "love_ideal_cb55ce73",
-          "label": "お互いを大切にしている"
-        },
-        {
-          "id": "love_ideal_e4960dc1",
-          "label": "嫉妬に振り回されない"
-        },
-        {
-          "id": "love_ideal_c8d30aa0",
-          "label": "不安に振り回されない"
-        },
-        {
-          "id": "love_ideal_b7ba3c1d",
-          "label": "相手を束縛しない"
-        },
-        {
-          "id": "love_ideal_5fa4eacc",
-          "label": "自分も束縛されない"
-        },
-        {
-          "id": "love_ideal_befdf1ac",
-          "label": "自分らしく恋愛している"
-        },
-        {
-          "id": "love_ideal_29192cb0",
-          "label": "相手も自分らしくいる"
-        },
-        {
-          "id": "love_ideal_edd7fdb3",
-          "label": "心が満たされている"
-        },
-        {
-          "id": "love_ideal_db7acb7d",
-          "label": "幸せを感じている"
-        },
-        {
-          "id": "love_ideal_8435d7b5",
-          "label": "幸せが続いている"
-        },
-        {
-          "id": "love_ideal_46375f7c",
-          "label": "安心できる関係を築いている"
-        },
-        {
-          "id": "love_ideal_40a3d67a",
-          "label": "信頼できる関係を築いている"
-        },
-        {
-          "id": "love_ideal_12d730fd",
-          "label": "健康な関係を築いている"
-        },
-        {
-          "id": "love_ideal_4a3b37f2",
-          "label": "心から笑い合っている"
-        },
-        {
-          "id": "love_ideal_e7920da0",
-          "label": "一緒に未来を歩んでいる"
-        },
-        {
-          "id": "love_ideal_02686f38",
-          "label": "恋愛に満足している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "love_problem_4181bde6",
+              "label": "恋人ができない"
+            },
+            {
+              "id": "love_problem_f09e7deb",
+              "label": "好きな人ができない"
+            },
+            {
+              "id": "love_problem_2e59af23",
+              "label": "好きな人に振り向いてもらえない"
+            },
+            {
+              "id": "love_problem_cafd9bd3",
+              "label": "告白できない"
+            },
+            {
+              "id": "love_problem_bf737949",
+              "label": "気持ちを伝えられない"
+            },
+            {
+              "id": "love_problem_316bec9d",
+              "label": "愛されていると感じられない"
+            },
+            {
+              "id": "love_problem_2bb57b4b",
+              "label": "愛せない"
+            },
+            {
+              "id": "love_problem_d90018d5",
+              "label": "愛し方がわからない"
+            },
+            {
+              "id": "love_problem_f560ef2b",
+              "label": "愛され方がわからない"
+            },
+            {
+              "id": "love_problem_2a988e13",
+              "label": "愛を信じられない"
+            },
+            {
+              "id": "love_problem_832bd46b",
+              "label": "恋愛が続かない"
+            },
+            {
+              "id": "love_problem_690a1015",
+              "label": "長続きしない"
+            },
+            {
+              "id": "love_problem_73993159",
+              "label": "別れを引きずっている"
+            },
+            {
+              "id": "love_problem_4aa9cd8f",
+              "label": "忘れられない人がいる"
+            },
+            {
+              "id": "love_problem_c82c708c",
+              "label": "元恋人を忘れられない"
+            },
+            {
+              "id": "love_problem_afdfdf6c",
+              "label": "復縁したい"
+            },
+            {
+              "id": "love_problem_dec4041d",
+              "label": "一人が寂しい"
+            },
+            {
+              "id": "love_problem_7db24217",
+              "label": "一人でいるのが怖い"
+            },
+            {
+              "id": "love_problem_a79d131b",
+              "label": "恋人がいない自分が嫌だ"
+            },
+            {
+              "id": "love_problem_c216212d",
+              "label": "結婚できるか不安"
+            },
+            {
+              "id": "love_problem_2bf13488",
+              "label": "結婚したくない"
+            },
+            {
+              "id": "love_problem_2fff2989",
+              "label": "結婚を決められない"
+            },
+            {
+              "id": "love_problem_f28d40e9",
+              "label": "結婚生活が苦しい"
+            },
+            {
+              "id": "love_problem_a7bc4326",
+              "label": "パートナーとうまくいかない"
+            },
+            {
+              "id": "love_problem_d048d66c",
+              "label": "パートナーと話し合えない"
+            },
+            {
+              "id": "love_problem_016fa85f",
+              "label": "パートナーを信じられない"
+            },
+            {
+              "id": "love_problem_8a31088c",
+              "label": "パートナーに信じてもらえない"
+            },
+            {
+              "id": "love_problem_0e2b65da",
+              "label": "パートナーに本音を言えない"
+            },
+            {
+              "id": "love_problem_036018e9",
+              "label": "パートナーに甘えられない"
+            },
+            {
+              "id": "love_problem_55536b45",
+              "label": "パートナーに頼れない"
+            },
+            {
+              "id": "love_problem_63502fa2",
+              "label": "パートナーに期待しすぎる"
+            },
+            {
+              "id": "love_problem_1d3a8b97",
+              "label": "パートナーに依存してしまう"
+            },
+            {
+              "id": "love_problem_a675e3b0",
+              "label": "パートナーを束縛してしまう"
+            },
+            {
+              "id": "love_problem_59b9efcd",
+              "label": "パートナーに束縛される"
+            },
+            {
+              "id": "love_problem_845f7970",
+              "label": "パートナーに振り回される"
+            },
+            {
+              "id": "love_problem_2e7b0547",
+              "label": "パートナーをコントロールしたい"
+            },
+            {
+              "id": "love_problem_7fec1071",
+              "label": "パートナーを許せない"
+            },
+            {
+              "id": "love_problem_fad8734e",
+              "label": "パートナーへの怒りが消えない"
+            },
+            {
+              "id": "love_problem_2e5b02fc",
+              "label": "パートナーへの不満がたまっている"
+            },
+            {
+              "id": "love_problem_22f18100",
+              "label": "パートナーを傷つけてしまう"
+            },
+            {
+              "id": "love_problem_da37714b",
+              "label": "パートナーに傷つけられた"
+            },
+            {
+              "id": "love_problem_4e424399",
+              "label": "浮気が許せない"
+            },
+            {
+              "id": "love_problem_87097d9f",
+              "label": "浮気が不安"
+            },
+            {
+              "id": "love_problem_c20fd5f4",
+              "label": "裏切られるのが怖い"
+            },
+            {
+              "id": "love_problem_bd948e2d",
+              "label": "捨てられるのが怖い"
+            },
+            {
+              "id": "love_problem_618eab2f",
+              "label": "嫉妬してしまう"
+            },
+            {
+              "id": "love_problem_6314b116",
+              "label": "独占したくなる"
+            },
+            {
+              "id": "love_problem_0136fca7",
+              "label": "相手を疑ってしまう"
+            },
+            {
+              "id": "love_problem_09e38213",
+              "label": "相手の顔色をうかがってしまう"
+            },
+            {
+              "id": "love_problem_944eb62b",
+              "label": "相手に合わせすぎる"
+            },
+            {
+              "id": "love_problem_10eb6e63",
+              "label": "嫌と言えない"
+            },
+            {
+              "id": "love_problem_a2cc1c1a",
+              "label": "別れを切り出せない"
+            },
+            {
+              "id": "love_problem_23154cef",
+              "label": "別れられない"
+            },
+            {
+              "id": "love_problem_6c29110c",
+              "label": "離れられない"
+            },
+            {
+              "id": "love_problem_72686975",
+              "label": "執着してしまう"
+            },
+            {
+              "id": "love_problem_fad81fee",
+              "label": "相手なしでは生きられないと感じる"
+            },
+            {
+              "id": "love_problem_d5cd819c",
+              "label": "相手を失うのが怖い"
+            },
+            {
+              "id": "love_problem_299e055b",
+              "label": "自分に魅力がないと感じる"
+            },
+            {
+              "id": "love_problem_fe03f255",
+              "label": "自信がない"
+            },
+            {
+              "id": "love_problem_2314c23b",
+              "label": "恋愛で自分を見失う"
+            },
+            {
+              "id": "love_problem_a2e76f5a",
+              "label": "恋愛で傷つくのが怖い"
+            },
+            {
+              "id": "love_problem_63dacac9",
+              "label": "恋愛が面倒だと感じる"
+            },
+            {
+              "id": "love_problem_f691fdc9",
+              "label": "異性が苦手"
+            },
+            {
+              "id": "love_problem_fb77c522",
+              "label": "人を好きになるのが怖い"
+            },
+            {
+              "id": "love_problem_9d76fdbb",
+              "label": "幸せになるのが怖い"
+            },
+            {
+              "id": "love_problem_8a04acb6",
+              "label": "幸せが続く気がしない"
+            },
+            {
+              "id": "love_problem_d56a32cf",
+              "label": "恋愛をあきらめている"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "love_ideal_fac55e43",
+              "label": "愛している"
+            },
+            {
+              "id": "love_ideal_0ca98fab",
+              "label": "愛されている"
+            },
+            {
+              "id": "love_ideal_89e003eb",
+              "label": "愛し合っている"
+            },
+            {
+              "id": "love_ideal_8f89debb",
+              "label": "安心して愛している"
+            },
+            {
+              "id": "love_ideal_f8d550eb",
+              "label": "安心して愛されている"
+            },
+            {
+              "id": "love_ideal_cee4ee8d",
+              "label": "信じ合っている"
+            },
+            {
+              "id": "love_ideal_be48f61c",
+              "label": "支え合っている"
+            },
+            {
+              "id": "love_ideal_c61d13b6",
+              "label": "尊重し合っている"
+            },
+            {
+              "id": "love_ideal_963d14e9",
+              "label": "大切にし合っている"
+            },
+            {
+              "id": "love_ideal_83951182",
+              "label": "自然体でいられる"
+            },
+            {
+              "id": "love_ideal_b11eacbe",
+              "label": "一緒にいて安心している"
+            },
+            {
+              "id": "love_ideal_67b164e5",
+              "label": "一緒にいて楽しい"
+            },
+            {
+              "id": "love_ideal_4bbc96c9",
+              "label": "一緒にいて落ち着く"
+            },
+            {
+              "id": "love_ideal_b3ae3b8e",
+              "label": "本音で話している"
+            },
+            {
+              "id": "love_ideal_f9122805",
+              "label": "気持ちを伝えている"
+            },
+            {
+              "id": "love_ideal_cd85b250",
+              "label": "気持ちを受け止め合っている"
+            },
+            {
+              "id": "love_ideal_0b1d6646",
+              "label": "お互いを理解している"
+            },
+            {
+              "id": "love_ideal_69df6a2c",
+              "label": "お互いを受け入れている"
+            },
+            {
+              "id": "love_ideal_84b04685",
+              "label": "お互いを許している"
+            },
+            {
+              "id": "love_ideal_cd2bca45",
+              "label": "お互いを信頼している"
+            },
+            {
+              "id": "love_ideal_1902680b",
+              "label": "お互いに自由でいる"
+            },
+            {
+              "id": "love_ideal_e33acdcb",
+              "label": "お互いを応援している"
+            },
+            {
+              "id": "love_ideal_35296254",
+              "label": "お互いに成長している"
+            },
+            {
+              "id": "love_ideal_54467840",
+              "label": "お互いに感謝している"
+            },
+            {
+              "id": "love_ideal_cb55ce73",
+              "label": "お互いを大切にしている"
+            },
+            {
+              "id": "love_ideal_e4960dc1",
+              "label": "嫉妬に振り回されない"
+            },
+            {
+              "id": "love_ideal_c8d30aa0",
+              "label": "不安に振り回されない"
+            },
+            {
+              "id": "love_ideal_b7ba3c1d",
+              "label": "相手を束縛しない"
+            },
+            {
+              "id": "love_ideal_5fa4eacc",
+              "label": "自分も束縛されない"
+            },
+            {
+              "id": "love_ideal_befdf1ac",
+              "label": "自分らしく恋愛している"
+            },
+            {
+              "id": "love_ideal_29192cb0",
+              "label": "相手も自分らしくいる"
+            },
+            {
+              "id": "love_ideal_edd7fdb3",
+              "label": "心が満たされている"
+            },
+            {
+              "id": "love_ideal_db7acb7d",
+              "label": "幸せを感じている"
+            },
+            {
+              "id": "love_ideal_8435d7b5",
+              "label": "幸せが続いている"
+            },
+            {
+              "id": "love_ideal_46375f7c",
+              "label": "安心できる関係を築いている"
+            },
+            {
+              "id": "love_ideal_40a3d67a",
+              "label": "信頼できる関係を築いている"
+            },
+            {
+              "id": "love_ideal_12d730fd",
+              "label": "健康な関係を築いている"
+            },
+            {
+              "id": "love_ideal_4a3b37f2",
+              "label": "心から笑い合っている"
+            },
+            {
+              "id": "love_ideal_e7920da0",
+              "label": "一緒に未来を歩んでいる"
+            },
+            {
+              "id": "love_ideal_02686f38",
+              "label": "恋愛に満足している"
+            }
+          ]
         }
       ]
     },
     {
       "id": "family",
       "label": "家族",
-      "emoji": "👨‍👩‍👧",
-      "problems": [
-        {
-          "id": "family_problem_91162456",
-          "label": "家族が重い"
-        },
-        {
-          "id": "family_problem_18ee6d38",
-          "label": "家族がつらい"
-        },
-        {
-          "id": "family_problem_de48f3fc",
-          "label": "家族が苦手"
-        },
-        {
-          "id": "family_problem_1fafc04a",
-          "label": "家族と合わない"
-        },
-        {
-          "id": "family_problem_b838a386",
-          "label": "家族に疲れる"
-        },
-        {
-          "id": "family_problem_ba1997a1",
-          "label": "家族に気を使う"
-        },
-        {
-          "id": "family_problem_456ee578",
-          "label": "家族に本音を言えない"
-        },
-        {
-          "id": "family_problem_34690db2",
-          "label": "家族にわかってもらえない"
-        },
-        {
-          "id": "family_problem_b350f467",
-          "label": "家族をわかってあげられない"
-        },
-        {
-          "id": "family_problem_5582ea14",
-          "label": "家族に否定される"
-        },
-        {
-          "id": "family_problem_ff2a8494",
-          "label": "家族に認められない"
-        },
-        {
-          "id": "family_problem_017251bd",
-          "label": "家族に期待されすぎる"
-        },
-        {
-          "id": "family_problem_f209f1c6",
-          "label": "家族の期待が重い"
-        },
-        {
-          "id": "family_problem_41dd6fa2",
-          "label": "家族をがっかりさせたくない"
-        },
-        {
-          "id": "family_problem_5902fff3",
-          "label": "家族を助けなければならない"
-        },
-        {
-          "id": "family_problem_af1a19d1",
-          "label": "家族を守らなければならない"
-        },
-        {
-          "id": "family_problem_1b794695",
-          "label": "家族を背負っている"
-        },
-        {
-          "id": "family_problem_96521df9",
-          "label": "家族から離れられない"
-        },
-        {
-          "id": "family_problem_c98f8298",
-          "label": "家族に縛られている"
-        },
-        {
-          "id": "family_problem_5903fdce",
-          "label": "家族に支配されている"
-        },
-        {
-          "id": "family_problem_4c1cd849",
-          "label": "家族に干渉される"
-        },
-        {
-          "id": "family_problem_aef1b30f",
-          "label": "家族に比べられる"
-        },
-        {
-          "id": "family_problem_6690a700",
-          "label": "家族の前で自分を出せない"
-        },
-        {
-          "id": "family_problem_450c8f2b",
-          "label": "家族の前でいい子を演じている"
-        },
-        {
-          "id": "family_problem_4500eed4",
-          "label": "家族の前で強がっている"
-        },
-        {
-          "id": "family_problem_4545da2d",
-          "label": "家族に甘えられない"
-        },
-        {
-          "id": "family_problem_02488d1b",
-          "label": "家族に頼れない"
-        },
-        {
-          "id": "family_problem_c952610b",
-          "label": "家族を頼りたくない"
-        },
-        {
-          "id": "family_problem_dd17f94b",
-          "label": "家族を信じられない"
-        },
-        {
-          "id": "family_problem_6ef7cac7",
-          "label": "家族を許せない"
-        },
-        {
-          "id": "family_problem_a96a4285",
-          "label": "家族に怒りがある"
-        },
-        {
-          "id": "family_problem_0f1f762b",
-          "label": "家族に罪悪感がある"
-        },
-        {
-          "id": "family_problem_453bfe8f",
-          "label": "家族に申し訳ない"
-        },
-        {
-          "id": "family_problem_e8209593",
-          "label": "家族を嫌いな自分が苦しい"
-        },
-        {
-          "id": "family_problem_6a4632fe",
-          "label": "家族を大切にできない"
-        },
-        {
-          "id": "family_problem_50e86be8",
-          "label": "家族と距離を取りたい"
-        },
-        {
-          "id": "family_problem_48c68c85",
-          "label": "家族と距離を取れない"
-        },
-        {
-          "id": "family_problem_e7f44467",
-          "label": "家族と会うと疲れる"
-        },
-        {
-          "id": "family_problem_6336eba7",
-          "label": "家族と話すと傷つく"
-        },
-        {
-          "id": "family_problem_4c23323b",
-          "label": "家族といると昔の自分に戻る"
-        },
-        {
-          "id": "family_problem_2f982c3c",
-          "label": "親が重い"
-        },
-        {
-          "id": "family_problem_8e47b745",
-          "label": "親が怖い"
-        },
-        {
-          "id": "family_problem_e7bd45f7",
-          "label": "親に認められたい"
-        },
-        {
-          "id": "family_problem_891a0c23",
-          "label": "親に愛されたい"
-        },
-        {
-          "id": "family_problem_4073c6db",
-          "label": "親に褒められたい"
-        },
-        {
-          "id": "family_problem_4c3d9d32",
-          "label": "親にわかってほしい"
-        },
-        {
-          "id": "family_problem_960b2573",
-          "label": "親に反抗できない"
-        },
-        {
-          "id": "family_problem_65f3cac8",
-          "label": "親に逆らえない"
-        },
-        {
-          "id": "family_problem_2ace87b2",
-          "label": "親に本音を言えない"
-        },
-        {
-          "id": "family_problem_53947854",
-          "label": "親の顔色を見てしまう"
-        },
-        {
-          "id": "family_problem_c62ff3cc",
-          "label": "親の期待に応え続けている"
-        },
-        {
-          "id": "family_problem_81e50e1d",
-          "label": "親の人生を背負っている"
-        },
-        {
-          "id": "family_problem_707a920d",
-          "label": "親を安心させたい"
-        },
-        {
-          "id": "family_problem_eb87c3ba",
-          "label": "親を悲しませたくない"
-        },
-        {
-          "id": "family_problem_5dbd68d5",
-          "label": "親をがっかりさせたくない"
-        },
-        {
-          "id": "family_problem_56eec588",
-          "label": "親を見捨てられない"
-        },
-        {
-          "id": "family_problem_0704df77",
-          "label": "親から離れられない"
-        },
-        {
-          "id": "family_problem_bd5c4f7f",
-          "label": "親を許せない"
-        },
-        {
-          "id": "family_problem_3d32fb53",
-          "label": "親への怒りが消えない"
-        },
-        {
-          "id": "family_problem_bcf748ab",
-          "label": "親への恨みがある"
-        },
-        {
-          "id": "family_problem_bee42bbf",
-          "label": "親への罪悪感がある"
-        },
-        {
-          "id": "family_problem_0780f565",
-          "label": "親孝行できていない"
-        },
-        {
-          "id": "family_problem_1caed5fc",
-          "label": "親の老後が心配"
-        },
-        {
-          "id": "family_problem_a588465c",
-          "label": "親の介護が不安"
-        },
-        {
-          "id": "family_problem_99153d33",
-          "label": "子どもに申し訳ない"
-        },
-        {
-          "id": "family_problem_59ac75d4",
-          "label": "子どもを幸せにできるか不安"
-        },
-        {
-          "id": "family_problem_5d522491",
-          "label": "子どもをちゃんと育てられるか不安"
-        },
-        {
-          "id": "family_problem_d656d49c",
-          "label": "子どもに怒りすぎてしまう"
-        },
-        {
-          "id": "family_problem_a77bab9c",
-          "label": "子どもをコントロールしてしまう"
-        },
-        {
-          "id": "family_problem_90834b7b",
-          "label": "子どもに期待しすぎてしまう"
-        },
-        {
-          "id": "family_problem_aa4e6ba5",
-          "label": "子どもの将来が心配"
-        },
-        {
-          "id": "family_problem_5376632e",
-          "label": "子どもに嫌われるのが怖い"
-        },
-        {
-          "id": "family_problem_378aadff",
-          "label": "子どもを守れないのが怖い"
-        },
-        {
-          "id": "family_problem_332aa2a9",
-          "label": "きょうだいと比べられる"
-        },
-        {
-          "id": "family_problem_305a09ba",
-          "label": "きょうだいと合わない"
-        },
-        {
-          "id": "family_problem_78067164",
-          "label": "きょうだいに嫉妬する"
-        },
-        {
-          "id": "family_problem_beabeb32",
-          "label": "きょうだいを許せない"
-        },
-        {
-          "id": "family_problem_2bd96493",
-          "label": "家族の問題を自分のせいにしている"
-        },
-        {
-          "id": "family_problem_a6720ea7",
-          "label": "家族の空気を悪くしないようにしている"
-        },
-        {
-          "id": "family_problem_bc3a7960",
-          "label": "家族の中で居場所がない"
-        },
-        {
-          "id": "family_problem_5c175538",
-          "label": "家族なのに孤独を感じる"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "family_ideal_18f6cb86",
-          "label": "家族を愛している"
-        },
-        {
-          "id": "family_ideal_46e9d537",
-          "label": "家族に愛されている"
-        },
-        {
-          "id": "family_ideal_6bb14a49",
-          "label": "家族と安心して過ごしている"
-        },
-        {
-          "id": "family_ideal_27eff0de",
-          "label": "家族と笑い合っている"
-        },
-        {
-          "id": "family_ideal_66db8702",
-          "label": "家族と本音で話している"
-        },
-        {
-          "id": "family_ideal_2bd803b8",
-          "label": "家族を信頼している"
-        },
-        {
-          "id": "family_ideal_43266c72",
-          "label": "家族に信頼されている"
-        },
-        {
-          "id": "family_ideal_248d9714",
-          "label": "家族を理解している"
-        },
-        {
-          "id": "family_ideal_9867e2ae",
-          "label": "家族に理解されている"
-        },
-        {
-          "id": "family_ideal_4e628ca8",
-          "label": "家族を受け入れている"
-        },
-        {
-          "id": "family_ideal_5b008f45",
-          "label": "家族に受け入れられている"
-        },
-        {
-          "id": "family_ideal_a0e8e26f",
-          "label": "家族を許している"
-        },
-        {
-          "id": "family_ideal_01ca08fb",
-          "label": "家族に許されている"
-        },
-        {
-          "id": "family_ideal_c033340a",
-          "label": "家族を大切にしている"
-        },
-        {
-          "id": "family_ideal_5b40efb2",
-          "label": "家族に大切にされている"
-        },
-        {
-          "id": "family_ideal_a170783d",
-          "label": "家族と支え合っている"
-        },
-        {
-          "id": "family_ideal_25d39dc2",
-          "label": "家族と助け合っている"
-        },
-        {
-          "id": "family_ideal_eee51f33",
-          "label": "家族に感謝している"
-        },
-        {
-          "id": "family_ideal_cfa13645",
-          "label": "家族から感謝されている"
-        },
-        {
-          "id": "family_ideal_551f4cef",
-          "label": "家族との時間を楽しんでいる"
-        },
-        {
-          "id": "family_ideal_fe71bb24",
-          "label": "家族との時間に満足している"
-        },
-        {
-          "id": "family_ideal_01f9a027",
-          "label": "家族と心がつながっている"
-        },
-        {
-          "id": "family_ideal_4c1e46d3",
-          "label": "家族と安心できる距離を保っている"
-        },
-        {
-          "id": "family_ideal_bce8745b",
-          "label": "家族と自然体で接している"
-        },
-        {
-          "id": "family_ideal_efa48814",
-          "label": "家族の前でも自分らしくいる"
-        },
-        {
-          "id": "family_ideal_1fc32eb3",
-          "label": "家族を尊重している"
-        },
-        {
-          "id": "family_ideal_1b76b228",
-          "label": "家族に尊重されている"
-        },
-        {
-          "id": "family_ideal_6aa2421f",
-          "label": "親を大切にしている"
-        },
-        {
-          "id": "family_ideal_d61bdcad",
-          "label": "親と安心して話している"
-        },
-        {
-          "id": "family_ideal_fe96758c",
-          "label": "親を理解している"
-        },
-        {
-          "id": "family_ideal_604581be",
-          "label": "親に理解されている"
-        },
-        {
-          "id": "family_ideal_d44246c8",
-          "label": "子どもを信じている"
-        },
-        {
-          "id": "family_ideal_c966d652",
-          "label": "子どもに信頼されている"
-        },
-        {
-          "id": "family_ideal_0ac11ee4",
-          "label": "子どもの成長を喜んでいる"
-        },
-        {
-          "id": "family_ideal_81a31d47",
-          "label": "家族それぞれが自分らしく生きている"
-        },
-        {
-          "id": "family_ideal_b75be9c3",
-          "label": "家族に安心感がある"
-        },
-        {
-          "id": "family_ideal_b906a24d",
-          "label": "家族と穏やかに暮らしている"
-        },
-        {
-          "id": "family_ideal_d4ba186e",
-          "label": "家族との関係に満足している"
-        },
-        {
-          "id": "family_ideal_15417c69",
-          "label": "家族と幸せを感じている"
-        },
-        {
-          "id": "family_ideal_495a3cb4",
-          "label": "家族との絆を感じている"
-        },
-        {
-          "id": "family_ideal_5a1e8edd",
-          "label": "家族との関係が調和している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "family_problem_91162456",
+              "label": "家族が重い"
+            },
+            {
+              "id": "family_problem_18ee6d38",
+              "label": "家族がつらい"
+            },
+            {
+              "id": "family_problem_de48f3fc",
+              "label": "家族が苦手"
+            },
+            {
+              "id": "family_problem_1fafc04a",
+              "label": "家族と合わない"
+            },
+            {
+              "id": "family_problem_b838a386",
+              "label": "家族に疲れる"
+            },
+            {
+              "id": "family_problem_ba1997a1",
+              "label": "家族に気を使う"
+            },
+            {
+              "id": "family_problem_456ee578",
+              "label": "家族に本音を言えない"
+            },
+            {
+              "id": "family_problem_34690db2",
+              "label": "家族にわかってもらえない"
+            },
+            {
+              "id": "family_problem_b350f467",
+              "label": "家族をわかってあげられない"
+            },
+            {
+              "id": "family_problem_5582ea14",
+              "label": "家族に否定される"
+            },
+            {
+              "id": "family_problem_ff2a8494",
+              "label": "家族に認められない"
+            },
+            {
+              "id": "family_problem_017251bd",
+              "label": "家族に期待されすぎる"
+            },
+            {
+              "id": "family_problem_f209f1c6",
+              "label": "家族の期待が重い"
+            },
+            {
+              "id": "family_problem_41dd6fa2",
+              "label": "家族をがっかりさせたくない"
+            },
+            {
+              "id": "family_problem_5902fff3",
+              "label": "家族を助けなければならない"
+            },
+            {
+              "id": "family_problem_af1a19d1",
+              "label": "家族を守らなければならない"
+            },
+            {
+              "id": "family_problem_1b794695",
+              "label": "家族を背負っている"
+            },
+            {
+              "id": "family_problem_96521df9",
+              "label": "家族から離れられない"
+            },
+            {
+              "id": "family_problem_c98f8298",
+              "label": "家族に縛られている"
+            },
+            {
+              "id": "family_problem_5903fdce",
+              "label": "家族に支配されている"
+            },
+            {
+              "id": "family_problem_4c1cd849",
+              "label": "家族に干渉される"
+            },
+            {
+              "id": "family_problem_aef1b30f",
+              "label": "家族に比べられる"
+            },
+            {
+              "id": "family_problem_6690a700",
+              "label": "家族の前で自分を出せない"
+            },
+            {
+              "id": "family_problem_450c8f2b",
+              "label": "家族の前でいい子を演じている"
+            },
+            {
+              "id": "family_problem_4500eed4",
+              "label": "家族の前で強がっている"
+            },
+            {
+              "id": "family_problem_4545da2d",
+              "label": "家族に甘えられない"
+            },
+            {
+              "id": "family_problem_02488d1b",
+              "label": "家族に頼れない"
+            },
+            {
+              "id": "family_problem_c952610b",
+              "label": "家族を頼りたくない"
+            },
+            {
+              "id": "family_problem_dd17f94b",
+              "label": "家族を信じられない"
+            },
+            {
+              "id": "family_problem_6ef7cac7",
+              "label": "家族を許せない"
+            },
+            {
+              "id": "family_problem_a96a4285",
+              "label": "家族に怒りがある"
+            },
+            {
+              "id": "family_problem_0f1f762b",
+              "label": "家族に罪悪感がある"
+            },
+            {
+              "id": "family_problem_453bfe8f",
+              "label": "家族に申し訳ない"
+            },
+            {
+              "id": "family_problem_e8209593",
+              "label": "家族を嫌いな自分が苦しい"
+            },
+            {
+              "id": "family_problem_6a4632fe",
+              "label": "家族を大切にできない"
+            },
+            {
+              "id": "family_problem_50e86be8",
+              "label": "家族と距離を取りたい"
+            },
+            {
+              "id": "family_problem_48c68c85",
+              "label": "家族と距離を取れない"
+            },
+            {
+              "id": "family_problem_e7f44467",
+              "label": "家族と会うと疲れる"
+            },
+            {
+              "id": "family_problem_6336eba7",
+              "label": "家族と話すと傷つく"
+            },
+            {
+              "id": "family_problem_4c23323b",
+              "label": "家族といると昔の自分に戻る"
+            },
+            {
+              "id": "family_problem_2f982c3c",
+              "label": "親が重い"
+            },
+            {
+              "id": "family_problem_8e47b745",
+              "label": "親が怖い"
+            },
+            {
+              "id": "family_problem_e7bd45f7",
+              "label": "親に認められたい"
+            },
+            {
+              "id": "family_problem_891a0c23",
+              "label": "親に愛されたい"
+            },
+            {
+              "id": "family_problem_4073c6db",
+              "label": "親に褒められたい"
+            },
+            {
+              "id": "family_problem_4c3d9d32",
+              "label": "親にわかってほしい"
+            },
+            {
+              "id": "family_problem_960b2573",
+              "label": "親に反抗できない"
+            },
+            {
+              "id": "family_problem_65f3cac8",
+              "label": "親に逆らえない"
+            },
+            {
+              "id": "family_problem_2ace87b2",
+              "label": "親に本音を言えない"
+            },
+            {
+              "id": "family_problem_53947854",
+              "label": "親の顔色を見てしまう"
+            },
+            {
+              "id": "family_problem_c62ff3cc",
+              "label": "親の期待に応え続けている"
+            },
+            {
+              "id": "family_problem_81e50e1d",
+              "label": "親の人生を背負っている"
+            },
+            {
+              "id": "family_problem_707a920d",
+              "label": "親を安心させたい"
+            },
+            {
+              "id": "family_problem_eb87c3ba",
+              "label": "親を悲しませたくない"
+            },
+            {
+              "id": "family_problem_5dbd68d5",
+              "label": "親をがっかりさせたくない"
+            },
+            {
+              "id": "family_problem_56eec588",
+              "label": "親を見捨てられない"
+            },
+            {
+              "id": "family_problem_0704df77",
+              "label": "親から離れられない"
+            },
+            {
+              "id": "family_problem_bd5c4f7f",
+              "label": "親を許せない"
+            },
+            {
+              "id": "family_problem_3d32fb53",
+              "label": "親への怒りが消えない"
+            },
+            {
+              "id": "family_problem_bcf748ab",
+              "label": "親への恨みがある"
+            },
+            {
+              "id": "family_problem_bee42bbf",
+              "label": "親への罪悪感がある"
+            },
+            {
+              "id": "family_problem_0780f565",
+              "label": "親孝行できていない"
+            },
+            {
+              "id": "family_problem_1caed5fc",
+              "label": "親の老後が心配"
+            },
+            {
+              "id": "family_problem_a588465c",
+              "label": "親の介護が不安"
+            },
+            {
+              "id": "family_problem_99153d33",
+              "label": "子どもに申し訳ない"
+            },
+            {
+              "id": "family_problem_59ac75d4",
+              "label": "子どもを幸せにできるか不安"
+            },
+            {
+              "id": "family_problem_5d522491",
+              "label": "子どもをちゃんと育てられるか不安"
+            },
+            {
+              "id": "family_problem_d656d49c",
+              "label": "子どもに怒りすぎてしまう"
+            },
+            {
+              "id": "family_problem_a77bab9c",
+              "label": "子どもをコントロールしてしまう"
+            },
+            {
+              "id": "family_problem_90834b7b",
+              "label": "子どもに期待しすぎてしまう"
+            },
+            {
+              "id": "family_problem_aa4e6ba5",
+              "label": "子どもの将来が心配"
+            },
+            {
+              "id": "family_problem_5376632e",
+              "label": "子どもに嫌われるのが怖い"
+            },
+            {
+              "id": "family_problem_378aadff",
+              "label": "子どもを守れないのが怖い"
+            },
+            {
+              "id": "family_problem_332aa2a9",
+              "label": "きょうだいと比べられる"
+            },
+            {
+              "id": "family_problem_305a09ba",
+              "label": "きょうだいと合わない"
+            },
+            {
+              "id": "family_problem_78067164",
+              "label": "きょうだいに嫉妬する"
+            },
+            {
+              "id": "family_problem_beabeb32",
+              "label": "きょうだいを許せない"
+            },
+            {
+              "id": "family_problem_2bd96493",
+              "label": "家族の問題を自分のせいにしている"
+            },
+            {
+              "id": "family_problem_a6720ea7",
+              "label": "家族の空気を悪くしないようにしている"
+            },
+            {
+              "id": "family_problem_bc3a7960",
+              "label": "家族の中で居場所がない"
+            },
+            {
+              "id": "family_problem_5c175538",
+              "label": "家族なのに孤独を感じる"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "family_ideal_18f6cb86",
+              "label": "家族を愛している"
+            },
+            {
+              "id": "family_ideal_46e9d537",
+              "label": "家族に愛されている"
+            },
+            {
+              "id": "family_ideal_6bb14a49",
+              "label": "家族と安心して過ごしている"
+            },
+            {
+              "id": "family_ideal_27eff0de",
+              "label": "家族と笑い合っている"
+            },
+            {
+              "id": "family_ideal_66db8702",
+              "label": "家族と本音で話している"
+            },
+            {
+              "id": "family_ideal_2bd803b8",
+              "label": "家族を信頼している"
+            },
+            {
+              "id": "family_ideal_43266c72",
+              "label": "家族に信頼されている"
+            },
+            {
+              "id": "family_ideal_248d9714",
+              "label": "家族を理解している"
+            },
+            {
+              "id": "family_ideal_9867e2ae",
+              "label": "家族に理解されている"
+            },
+            {
+              "id": "family_ideal_4e628ca8",
+              "label": "家族を受け入れている"
+            },
+            {
+              "id": "family_ideal_5b008f45",
+              "label": "家族に受け入れられている"
+            },
+            {
+              "id": "family_ideal_a0e8e26f",
+              "label": "家族を許している"
+            },
+            {
+              "id": "family_ideal_01ca08fb",
+              "label": "家族に許されている"
+            },
+            {
+              "id": "family_ideal_c033340a",
+              "label": "家族を大切にしている"
+            },
+            {
+              "id": "family_ideal_5b40efb2",
+              "label": "家族に大切にされている"
+            },
+            {
+              "id": "family_ideal_a170783d",
+              "label": "家族と支え合っている"
+            },
+            {
+              "id": "family_ideal_25d39dc2",
+              "label": "家族と助け合っている"
+            },
+            {
+              "id": "family_ideal_eee51f33",
+              "label": "家族に感謝している"
+            },
+            {
+              "id": "family_ideal_cfa13645",
+              "label": "家族から感謝されている"
+            },
+            {
+              "id": "family_ideal_551f4cef",
+              "label": "家族との時間を楽しんでいる"
+            },
+            {
+              "id": "family_ideal_fe71bb24",
+              "label": "家族との時間に満足している"
+            },
+            {
+              "id": "family_ideal_01f9a027",
+              "label": "家族と心がつながっている"
+            },
+            {
+              "id": "family_ideal_4c1e46d3",
+              "label": "家族と安心できる距離を保っている"
+            },
+            {
+              "id": "family_ideal_bce8745b",
+              "label": "家族と自然体で接している"
+            },
+            {
+              "id": "family_ideal_efa48814",
+              "label": "家族の前でも自分らしくいる"
+            },
+            {
+              "id": "family_ideal_1fc32eb3",
+              "label": "家族を尊重している"
+            },
+            {
+              "id": "family_ideal_1b76b228",
+              "label": "家族に尊重されている"
+            },
+            {
+              "id": "family_ideal_6aa2421f",
+              "label": "親を大切にしている"
+            },
+            {
+              "id": "family_ideal_d61bdcad",
+              "label": "親と安心して話している"
+            },
+            {
+              "id": "family_ideal_fe96758c",
+              "label": "親を理解している"
+            },
+            {
+              "id": "family_ideal_604581be",
+              "label": "親に理解されている"
+            },
+            {
+              "id": "family_ideal_d44246c8",
+              "label": "子どもを信じている"
+            },
+            {
+              "id": "family_ideal_c966d652",
+              "label": "子どもに信頼されている"
+            },
+            {
+              "id": "family_ideal_0ac11ee4",
+              "label": "子どもの成長を喜んでいる"
+            },
+            {
+              "id": "family_ideal_81a31d47",
+              "label": "家族それぞれが自分らしく生きている"
+            },
+            {
+              "id": "family_ideal_b75be9c3",
+              "label": "家族に安心感がある"
+            },
+            {
+              "id": "family_ideal_b906a24d",
+              "label": "家族と穏やかに暮らしている"
+            },
+            {
+              "id": "family_ideal_d4ba186e",
+              "label": "家族との関係に満足している"
+            },
+            {
+              "id": "family_ideal_15417c69",
+              "label": "家族と幸せを感じている"
+            },
+            {
+              "id": "family_ideal_495a3cb4",
+              "label": "家族との絆を感じている"
+            },
+            {
+              "id": "family_ideal_5a1e8edd",
+              "label": "家族との関係が調和している"
+            }
+          ]
         }
       ]
     },
     {
       "id": "work",
       "label": "仕事",
-      "emoji": "💼",
-      "problems": [
-        {
-          "id": "work_problem_ec1a6d3e",
-          "label": "仕事がつらい"
-        },
-        {
-          "id": "work_problem_2f43b74a",
-          "label": "仕事が嫌い"
-        },
-        {
-          "id": "work_problem_17da5491",
-          "label": "仕事が楽しくない"
-        },
-        {
-          "id": "work_problem_b74c404f",
-          "label": "仕事に意味を感じない"
-        },
-        {
-          "id": "work_problem_cf214a3e",
-          "label": "仕事にやりがいがない"
-        },
-        {
-          "id": "work_problem_dcfbfcb7",
-          "label": "仕事が続かない"
-        },
-        {
-          "id": "work_problem_f722eb83",
-          "label": "仕事が見つからない"
-        },
-        {
-          "id": "work_problem_df2562a7",
-          "label": "仕事が決まらない"
-        },
-        {
-          "id": "work_problem_8cb364ed",
-          "label": "仕事を辞めたい"
-        },
-        {
-          "id": "work_problem_8ab903f9",
-          "label": "仕事を辞められない"
-        },
-        {
-          "id": "work_problem_ffd4a949",
-          "label": "働きたくない"
-        },
-        {
-          "id": "work_problem_269f56b0",
-          "label": "働きすぎてしまう"
-        },
-        {
-          "id": "work_problem_16461bdb",
-          "label": "働き続けるのがつらい"
-        },
-        {
-          "id": "work_problem_cdad6a46",
-          "label": "休めない"
-        },
-        {
-          "id": "work_problem_df29d6fa",
-          "label": "頑張りすぎてしまう"
-        },
-        {
-          "id": "work_problem_2d2e27b8",
-          "label": "力を抜けない"
-        },
-        {
-          "id": "work_problem_fd9a8f96",
-          "label": "成果が出ない"
-        },
-        {
-          "id": "work_problem_a8c3778a",
-          "label": "結果が出ない"
-        },
-        {
-          "id": "work_problem_0faf7135",
-          "label": "評価されない"
-        },
-        {
-          "id": "work_problem_b1f31693",
-          "label": "認められない"
-        },
-        {
-          "id": "work_problem_5312a995",
-          "label": "昇給しない"
-        },
-        {
-          "id": "work_problem_4bb014d2",
-          "label": "出世できない"
-        },
-        {
-          "id": "work_problem_23f44359",
-          "label": "稼げない"
-        },
-        {
-          "id": "work_problem_8dca2fc8",
-          "label": "売上が伸びない"
-        },
-        {
-          "id": "work_problem_e07dbb9c",
-          "label": "お客さんが来ない"
-        },
-        {
-          "id": "work_problem_7f200db8",
-          "label": "お客さんが増えない"
-        },
-        {
-          "id": "work_problem_9b0cf74c",
-          "label": "集客できない"
-        },
-        {
-          "id": "work_problem_6a60dd2d",
-          "label": "収入が安定しない"
-        },
-        {
-          "id": "work_problem_3e344681",
-          "label": "お金にならない"
-        },
-        {
-          "id": "work_problem_fe03f255",
-          "label": "自信がない"
-        },
-        {
-          "id": "work_problem_cf05a717",
-          "label": "実力が足りないと感じる"
-        },
-        {
-          "id": "work_problem_7e9aaea8",
-          "label": "能力が足りないと感じる"
-        },
-        {
-          "id": "work_problem_a82a5a82",
-          "label": "才能がないと感じる"
-        },
-        {
-          "id": "work_problem_eb587c74",
-          "label": "向いていないと感じる"
-        },
-        {
-          "id": "work_problem_c70607a3",
-          "label": "失敗が怖い"
-        },
-        {
-          "id": "work_problem_a4ed5064",
-          "label": "挑戦できない"
-        },
-        {
-          "id": "work_problem_e8d6d79b",
-          "label": "行動できない"
-        },
-        {
-          "id": "work_problem_f9c11eb6",
-          "label": "一歩踏み出せない"
-        },
-        {
-          "id": "work_problem_01942fcb",
-          "label": "決断できない"
-        },
-        {
-          "id": "work_problem_d1fd53ce",
-          "label": "続けられない"
-        },
-        {
-          "id": "work_problem_3f2766e2",
-          "label": "飽きてしまう"
-        },
-        {
-          "id": "work_problem_14e68180",
-          "label": "やる気が出ない"
-        },
-        {
-          "id": "work_problem_a6933301",
-          "label": "集中できない"
-        },
-        {
-          "id": "work_problem_add14d5c",
-          "label": "先延ばししてしまう"
-        },
-        {
-          "id": "work_problem_f8ac9fae",
-          "label": "完璧を求めすぎる"
-        },
-        {
-          "id": "work_problem_b5db8a6e",
-          "label": "自分を追い込みすぎる"
-        },
-        {
-          "id": "work_problem_7af1a645",
-          "label": "責任が重い"
-        },
-        {
-          "id": "work_problem_d05e0c91",
-          "label": "プレッシャーが大きい"
-        },
-        {
-          "id": "work_problem_f0bb6422",
-          "label": "将来が不安"
-        },
-        {
-          "id": "work_problem_11318c00",
-          "label": "転職する勇気がない"
-        },
-        {
-          "id": "work_problem_5b0021e9",
-          "label": "起業する勇気がない"
-        },
-        {
-          "id": "work_problem_ea8a0cbe",
-          "label": "仕事を任せられない"
-        },
-        {
-          "id": "work_problem_c157fa5c",
-          "label": "人に頼れない"
-        },
-        {
-          "id": "work_problem_8d8ea30d",
-          "label": "断れない"
-        },
-        {
-          "id": "work_problem_1b58af99",
-          "label": "仕事を抱え込みすぎる"
-        },
-        {
-          "id": "work_problem_ee5bd158",
-          "label": "仕事と生活のバランスが取れない"
-        },
-        {
-          "id": "work_problem_c4b8c5f6",
-          "label": "毎日が同じでつまらない"
-        },
-        {
-          "id": "work_problem_e983cf4e",
-          "label": "自分のやりたい仕事がわからない"
-        },
-        {
-          "id": "work_problem_c85c3044",
-          "label": "好きなことを仕事にできない"
-        },
-        {
-          "id": "work_problem_0f676851",
-          "label": "好きなことで稼げない"
-        },
-        {
-          "id": "work_problem_009698b3",
-          "label": "嫌な仕事を続けている"
-        },
-        {
-          "id": "work_problem_f597ca64",
-          "label": "人間関係で仕事がつらい"
-        },
-        {
-          "id": "work_problem_1a36b0a8",
-          "label": "仕事のストレスが大きい"
-        },
-        {
-          "id": "work_problem_81c43c83",
-          "label": "仕事に追われている"
-        },
-        {
-          "id": "work_problem_2870223a",
-          "label": "仕事ばかりの人生になっている"
-        },
-        {
-          "id": "work_problem_5368ad2a",
-          "label": "自分の価値を仕事で決めてしまう"
-        },
-        {
-          "id": "work_problem_86874e39",
-          "label": "仕事を失うのが怖い"
-        },
-        {
-          "id": "work_problem_74ce2b53",
-          "label": "仕事の失敗を引きずってしまう"
-        },
-        {
-          "id": "work_problem_e0ecd9d7",
-          "label": "仕事で自分を責めてしまう"
-        },
-        {
-          "id": "work_problem_d9e730cd",
-          "label": "仕事に自信が持てない"
-        },
-        {
-          "id": "work_problem_ba38fe49",
-          "label": "成功しても満たされない"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "work_ideal_74894aa3",
-          "label": "仕事を楽しんでいる"
-        },
-        {
-          "id": "work_ideal_1cd48149",
-          "label": "やりがいを感じている"
-        },
-        {
-          "id": "work_ideal_2b1d2f29",
-          "label": "毎日が充実している"
-        },
-        {
-          "id": "work_ideal_1bb2701a",
-          "label": "自分に合った仕事をしている"
-        },
-        {
-          "id": "work_ideal_3c15d29b",
-          "label": "好きな仕事をしている"
-        },
-        {
-          "id": "work_ideal_71baae4d",
-          "label": "得意なことを活かしている"
-        },
-        {
-          "id": "work_ideal_61cebdfb",
-          "label": "自分の力を発揮している"
-        },
-        {
-          "id": "work_ideal_cf5faea5",
-          "label": "自分の価値を発揮している"
-        },
-        {
-          "id": "work_ideal_a637a773",
-          "label": "成長している"
-        },
-        {
-          "id": "work_ideal_e057b9f7",
-          "label": "新しいことに挑戦している"
-        },
-        {
-          "id": "work_ideal_a0074103",
-          "label": "行動している"
-        },
-        {
-          "id": "work_ideal_ea4b4c89",
-          "label": "続けている"
-        },
-        {
-          "id": "work_ideal_2c29d20d",
-          "label": "集中している"
-        },
-        {
-          "id": "work_ideal_1abfbaea",
-          "label": "自分で決めている"
-        },
-        {
-          "id": "work_ideal_f29e0f6f",
-          "label": "自信を持って働いている"
-        },
-        {
-          "id": "work_ideal_41d92a8e",
-          "label": "成果が出ている"
-        },
-        {
-          "id": "work_ideal_4fd15bc6",
-          "label": "認められている"
-        },
-        {
-          "id": "work_ideal_cf17495d",
-          "label": "信頼されている"
-        },
-        {
-          "id": "work_ideal_57a3efea",
-          "label": "必要とされている"
-        },
-        {
-          "id": "work_ideal_9877063f",
-          "label": "人の役に立っている"
-        },
-        {
-          "id": "work_ideal_0ac1e0dd",
-          "label": "喜ばれている"
-        },
-        {
-          "id": "work_ideal_19947bfd",
-          "label": "安定した収入がある"
-        },
-        {
-          "id": "work_ideal_b3818c27",
-          "label": "好きなことで収入を得ている"
-        },
-        {
-          "id": "work_ideal_cb0fa8df",
-          "label": "努力が実っている"
-        },
-        {
-          "id": "work_ideal_f22a6df6",
-          "label": "自分のペースで働いている"
-        },
-        {
-          "id": "work_ideal_c6db07a4",
-          "label": "心に余裕がある"
-        },
-        {
-          "id": "work_ideal_cd23a6d2",
-          "label": "楽しみながら働いている"
-        },
-        {
-          "id": "work_ideal_d1584930",
-          "label": "仲間と協力している"
-        },
-        {
-          "id": "work_ideal_65dd7ef3",
-          "label": "安心して働いている"
-        },
-        {
-          "id": "work_ideal_153352b5",
-          "label": "仕事と生活のバランスが取れている"
-        },
-        {
-          "id": "work_ideal_12a9eea7",
-          "label": "必要なときに休んでいる"
-        },
-        {
-          "id": "work_ideal_f70ba39b",
-          "label": "将来に希望を持っている"
-        },
-        {
-          "id": "work_ideal_0f402c6b",
-          "label": "自分の仕事に満足している"
-        },
-        {
-          "id": "work_ideal_291b63ea",
-          "label": "自分の成長を実感している"
-        },
-        {
-          "id": "work_ideal_da48cb25",
-          "label": "自分らしく働いている"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "work_problem_ec1a6d3e",
+              "label": "仕事がつらい"
+            },
+            {
+              "id": "work_problem_2f43b74a",
+              "label": "仕事が嫌い"
+            },
+            {
+              "id": "work_problem_17da5491",
+              "label": "仕事が楽しくない"
+            },
+            {
+              "id": "work_problem_b74c404f",
+              "label": "仕事に意味を感じない"
+            },
+            {
+              "id": "work_problem_cf214a3e",
+              "label": "仕事にやりがいがない"
+            },
+            {
+              "id": "work_problem_dcfbfcb7",
+              "label": "仕事が続かない"
+            },
+            {
+              "id": "work_problem_f722eb83",
+              "label": "仕事が見つからない"
+            },
+            {
+              "id": "work_problem_df2562a7",
+              "label": "仕事が決まらない"
+            },
+            {
+              "id": "work_problem_8cb364ed",
+              "label": "仕事を辞めたい"
+            },
+            {
+              "id": "work_problem_8ab903f9",
+              "label": "仕事を辞められない"
+            },
+            {
+              "id": "work_problem_ffd4a949",
+              "label": "働きたくない"
+            },
+            {
+              "id": "work_problem_269f56b0",
+              "label": "働きすぎてしまう"
+            },
+            {
+              "id": "work_problem_16461bdb",
+              "label": "働き続けるのがつらい"
+            },
+            {
+              "id": "work_problem_cdad6a46",
+              "label": "休めない"
+            },
+            {
+              "id": "work_problem_df29d6fa",
+              "label": "頑張りすぎてしまう"
+            },
+            {
+              "id": "work_problem_2d2e27b8",
+              "label": "力を抜けない"
+            },
+            {
+              "id": "work_problem_fd9a8f96",
+              "label": "成果が出ない"
+            },
+            {
+              "id": "work_problem_a8c3778a",
+              "label": "結果が出ない"
+            },
+            {
+              "id": "work_problem_0faf7135",
+              "label": "評価されない"
+            },
+            {
+              "id": "work_problem_b1f31693",
+              "label": "認められない"
+            },
+            {
+              "id": "work_problem_5312a995",
+              "label": "昇給しない"
+            },
+            {
+              "id": "work_problem_4bb014d2",
+              "label": "出世できない"
+            },
+            {
+              "id": "work_problem_23f44359",
+              "label": "稼げない"
+            },
+            {
+              "id": "work_problem_8dca2fc8",
+              "label": "売上が伸びない"
+            },
+            {
+              "id": "work_problem_e07dbb9c",
+              "label": "お客さんが来ない"
+            },
+            {
+              "id": "work_problem_7f200db8",
+              "label": "お客さんが増えない"
+            },
+            {
+              "id": "work_problem_9b0cf74c",
+              "label": "集客できない"
+            },
+            {
+              "id": "work_problem_6a60dd2d",
+              "label": "収入が安定しない"
+            },
+            {
+              "id": "work_problem_3e344681",
+              "label": "お金にならない"
+            },
+            {
+              "id": "work_problem_fe03f255",
+              "label": "自信がない"
+            },
+            {
+              "id": "work_problem_cf05a717",
+              "label": "実力が足りないと感じる"
+            },
+            {
+              "id": "work_problem_7e9aaea8",
+              "label": "能力が足りないと感じる"
+            },
+            {
+              "id": "work_problem_a82a5a82",
+              "label": "才能がないと感じる"
+            },
+            {
+              "id": "work_problem_eb587c74",
+              "label": "向いていないと感じる"
+            },
+            {
+              "id": "work_problem_c70607a3",
+              "label": "失敗が怖い"
+            },
+            {
+              "id": "work_problem_a4ed5064",
+              "label": "挑戦できない"
+            },
+            {
+              "id": "work_problem_e8d6d79b",
+              "label": "行動できない"
+            },
+            {
+              "id": "work_problem_f9c11eb6",
+              "label": "一歩踏み出せない"
+            },
+            {
+              "id": "work_problem_01942fcb",
+              "label": "決断できない"
+            },
+            {
+              "id": "work_problem_d1fd53ce",
+              "label": "続けられない"
+            },
+            {
+              "id": "work_problem_3f2766e2",
+              "label": "飽きてしまう"
+            },
+            {
+              "id": "work_problem_14e68180",
+              "label": "やる気が出ない"
+            },
+            {
+              "id": "work_problem_a6933301",
+              "label": "集中できない"
+            },
+            {
+              "id": "work_problem_add14d5c",
+              "label": "先延ばししてしまう"
+            },
+            {
+              "id": "work_problem_f8ac9fae",
+              "label": "完璧を求めすぎる"
+            },
+            {
+              "id": "work_problem_b5db8a6e",
+              "label": "自分を追い込みすぎる"
+            },
+            {
+              "id": "work_problem_7af1a645",
+              "label": "責任が重い"
+            },
+            {
+              "id": "work_problem_d05e0c91",
+              "label": "プレッシャーが大きい"
+            },
+            {
+              "id": "work_problem_f0bb6422",
+              "label": "将来が不安"
+            },
+            {
+              "id": "work_problem_11318c00",
+              "label": "転職する勇気がない"
+            },
+            {
+              "id": "work_problem_5b0021e9",
+              "label": "起業する勇気がない"
+            },
+            {
+              "id": "work_problem_ea8a0cbe",
+              "label": "仕事を任せられない"
+            },
+            {
+              "id": "work_problem_c157fa5c",
+              "label": "人に頼れない"
+            },
+            {
+              "id": "work_problem_8d8ea30d",
+              "label": "断れない"
+            },
+            {
+              "id": "work_problem_1b58af99",
+              "label": "仕事を抱え込みすぎる"
+            },
+            {
+              "id": "work_problem_ee5bd158",
+              "label": "仕事と生活のバランスが取れない"
+            },
+            {
+              "id": "work_problem_c4b8c5f6",
+              "label": "毎日が同じでつまらない"
+            },
+            {
+              "id": "work_problem_e983cf4e",
+              "label": "自分のやりたい仕事がわからない"
+            },
+            {
+              "id": "work_problem_c85c3044",
+              "label": "好きなことを仕事にできない"
+            },
+            {
+              "id": "work_problem_0f676851",
+              "label": "好きなことで稼げない"
+            },
+            {
+              "id": "work_problem_009698b3",
+              "label": "嫌な仕事を続けている"
+            },
+            {
+              "id": "work_problem_f597ca64",
+              "label": "人間関係で仕事がつらい"
+            },
+            {
+              "id": "work_problem_1a36b0a8",
+              "label": "仕事のストレスが大きい"
+            },
+            {
+              "id": "work_problem_81c43c83",
+              "label": "仕事に追われている"
+            },
+            {
+              "id": "work_problem_2870223a",
+              "label": "仕事ばかりの人生になっている"
+            },
+            {
+              "id": "work_problem_5368ad2a",
+              "label": "自分の価値を仕事で決めてしまう"
+            },
+            {
+              "id": "work_problem_86874e39",
+              "label": "仕事を失うのが怖い"
+            },
+            {
+              "id": "work_problem_74ce2b53",
+              "label": "仕事の失敗を引きずってしまう"
+            },
+            {
+              "id": "work_problem_e0ecd9d7",
+              "label": "仕事で自分を責めてしまう"
+            },
+            {
+              "id": "work_problem_d9e730cd",
+              "label": "仕事に自信が持てない"
+            },
+            {
+              "id": "work_problem_ba38fe49",
+              "label": "成功しても満たされない"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "work_ideal_74894aa3",
+              "label": "仕事を楽しんでいる"
+            },
+            {
+              "id": "work_ideal_1cd48149",
+              "label": "やりがいを感じている"
+            },
+            {
+              "id": "work_ideal_2b1d2f29",
+              "label": "毎日が充実している"
+            },
+            {
+              "id": "work_ideal_1bb2701a",
+              "label": "自分に合った仕事をしている"
+            },
+            {
+              "id": "work_ideal_3c15d29b",
+              "label": "好きな仕事をしている"
+            },
+            {
+              "id": "work_ideal_71baae4d",
+              "label": "得意なことを活かしている"
+            },
+            {
+              "id": "work_ideal_61cebdfb",
+              "label": "自分の力を発揮している"
+            },
+            {
+              "id": "work_ideal_cf5faea5",
+              "label": "自分の価値を発揮している"
+            },
+            {
+              "id": "work_ideal_a637a773",
+              "label": "成長している"
+            },
+            {
+              "id": "work_ideal_e057b9f7",
+              "label": "新しいことに挑戦している"
+            },
+            {
+              "id": "work_ideal_a0074103",
+              "label": "行動している"
+            },
+            {
+              "id": "work_ideal_ea4b4c89",
+              "label": "続けている"
+            },
+            {
+              "id": "work_ideal_2c29d20d",
+              "label": "集中している"
+            },
+            {
+              "id": "work_ideal_1abfbaea",
+              "label": "自分で決めている"
+            },
+            {
+              "id": "work_ideal_f29e0f6f",
+              "label": "自信を持って働いている"
+            },
+            {
+              "id": "work_ideal_41d92a8e",
+              "label": "成果が出ている"
+            },
+            {
+              "id": "work_ideal_4fd15bc6",
+              "label": "認められている"
+            },
+            {
+              "id": "work_ideal_cf17495d",
+              "label": "信頼されている"
+            },
+            {
+              "id": "work_ideal_57a3efea",
+              "label": "必要とされている"
+            },
+            {
+              "id": "work_ideal_9877063f",
+              "label": "人の役に立っている"
+            },
+            {
+              "id": "work_ideal_0ac1e0dd",
+              "label": "喜ばれている"
+            },
+            {
+              "id": "work_ideal_19947bfd",
+              "label": "安定した収入がある"
+            },
+            {
+              "id": "work_ideal_b3818c27",
+              "label": "好きなことで収入を得ている"
+            },
+            {
+              "id": "work_ideal_cb0fa8df",
+              "label": "努力が実っている"
+            },
+            {
+              "id": "work_ideal_f22a6df6",
+              "label": "自分のペースで働いている"
+            },
+            {
+              "id": "work_ideal_c6db07a4",
+              "label": "心に余裕がある"
+            },
+            {
+              "id": "work_ideal_cd23a6d2",
+              "label": "楽しみながら働いている"
+            },
+            {
+              "id": "work_ideal_d1584930",
+              "label": "仲間と協力している"
+            },
+            {
+              "id": "work_ideal_65dd7ef3",
+              "label": "安心して働いている"
+            },
+            {
+              "id": "work_ideal_153352b5",
+              "label": "仕事と生活のバランスが取れている"
+            },
+            {
+              "id": "work_ideal_12a9eea7",
+              "label": "必要なときに休んでいる"
+            },
+            {
+              "id": "work_ideal_f70ba39b",
+              "label": "将来に希望を持っている"
+            },
+            {
+              "id": "work_ideal_0f402c6b",
+              "label": "自分の仕事に満足している"
+            },
+            {
+              "id": "work_ideal_291b63ea",
+              "label": "自分の成長を実感している"
+            },
+            {
+              "id": "work_ideal_da48cb25",
+              "label": "自分らしく働いている"
+            }
+          ]
         }
       ]
     },
     {
       "id": "money",
       "label": "お金",
-      "emoji": "💰",
-      "problems": [
-        {
-          "id": "money_problem_51c3336e",
-          "label": "お金が足りない"
-        },
-        {
-          "id": "money_problem_28c80a44",
-          "label": "お金がない"
-        },
-        {
-          "id": "money_problem_a3453aeb",
-          "label": "貯金ができない"
-        },
-        {
-          "id": "money_problem_73a79a7b",
-          "label": "借金がある"
-        },
-        {
-          "id": "money_problem_0c422b33",
-          "label": "支払いが苦しい"
-        },
-        {
-          "id": "money_problem_34c2c191",
-          "label": "将来のお金が不安"
-        },
-        {
-          "id": "money_problem_bf8feab1",
-          "label": "老後のお金が心配"
-        },
-        {
-          "id": "money_problem_3160b820",
-          "label": "収入が少ない"
-        },
-        {
-          "id": "money_problem_6a60dd2d",
-          "label": "収入が安定しない"
-        },
-        {
-          "id": "money_problem_711e7cc8",
-          "label": "給料が上がらない"
-        },
-        {
-          "id": "money_problem_1ac581d0",
-          "label": "思うように稼げない"
-        },
-        {
-          "id": "money_problem_a28e9255",
-          "label": "お金を増やせない"
-        },
-        {
-          "id": "money_problem_4446c7f5",
-          "label": "お金を失うのが怖い"
-        },
-        {
-          "id": "money_problem_d061bded",
-          "label": "お金がすぐ減る"
-        },
-        {
-          "id": "money_problem_00856510",
-          "label": "お金が続かない"
-        },
-        {
-          "id": "money_problem_3632f329",
-          "label": "お金が残らない"
-        },
-        {
-          "id": "money_problem_05895132",
-          "label": "無駄遣いしてしまう"
-        },
-        {
-          "id": "money_problem_ffc8ea2d",
-          "label": "お金を使いすぎる"
-        },
-        {
-          "id": "money_problem_29f9cf0c",
-          "label": "節約が続かない"
-        },
-        {
-          "id": "money_problem_372b73e9",
-          "label": "お金の管理が苦手"
-        },
-        {
-          "id": "money_problem_2dec6321",
-          "label": "お金のことがわからない"
-        },
-        {
-          "id": "money_problem_e9834fd8",
-          "label": "投資が怖い"
-        },
-        {
-          "id": "money_problem_95cb9e20",
-          "label": "投資で失敗した"
-        },
-        {
-          "id": "money_problem_6e0c535b",
-          "label": "お金で失敗した"
-        },
-        {
-          "id": "money_problem_4e27dc39",
-          "label": "お金で苦労している"
-        },
-        {
-          "id": "money_problem_77dc019b",
-          "label": "お金のことで疲れている"
-        },
-        {
-          "id": "money_problem_28a008af",
-          "label": "お金のことで頭がいっぱい"
-        },
-        {
-          "id": "money_problem_bea63f7e",
-          "label": "お金のことで眠れない"
-        },
-        {
-          "id": "money_problem_832a913c",
-          "label": "お金に振り回される"
-        },
-        {
-          "id": "money_problem_03e7dab5",
-          "label": "お金に縛られている"
-        },
-        {
-          "id": "money_problem_994ae457",
-          "label": "お金に依存している"
-        },
-        {
-          "id": "money_problem_d2e00ce8",
-          "label": "お金に執着している"
-        },
-        {
-          "id": "money_problem_b0999ffe",
-          "label": "お金がないと安心できない"
-        },
-        {
-          "id": "money_problem_1ac51dc6",
-          "label": "お金があっても安心できない"
-        },
-        {
-          "id": "money_problem_ef6c02e2",
-          "label": "お金を受け取るのが苦手"
-        },
-        {
-          "id": "money_problem_39bbc2e0",
-          "label": "お金を受け取ることに罪悪感がある"
-        },
-        {
-          "id": "money_problem_e52ab263",
-          "label": "お金をもらうのが怖い"
-        },
-        {
-          "id": "money_problem_013b55fb",
-          "label": "値段をつけるのが苦手"
-        },
-        {
-          "id": "money_problem_8451d8a5",
-          "label": "高い価格を言えない"
-        },
-        {
-          "id": "money_problem_f492dba6",
-          "label": "安く売ってしまう"
-        },
-        {
-          "id": "money_problem_4a003763",
-          "label": "お金を請求できない"
-        },
-        {
-          "id": "money_problem_102b16ba",
-          "label": "お金を断れない"
-        },
-        {
-          "id": "money_problem_71d13249",
-          "label": "お金を貸してしまう"
-        },
-        {
-          "id": "money_problem_3c291925",
-          "label": "お金を返してもらえない"
-        },
-        {
-          "id": "money_problem_d8e5a1ec",
-          "label": "人にお金を使いすぎる"
-        },
-        {
-          "id": "money_problem_80359a9a",
-          "label": "自分にお金を使えない"
-        },
-        {
-          "id": "money_problem_96dbdc3e",
-          "label": "お金を使うことに罪悪感がある"
-        },
-        {
-          "id": "money_problem_65ed7de7",
-          "label": "自分にはお金を持つ価値がないと感じる"
-        },
-        {
-          "id": "money_problem_1ef0c25c",
-          "label": "お金持ちに引け目を感じる"
-        },
-        {
-          "id": "money_problem_0ee277c5",
-          "label": "お金持ちをうらやましいと思う"
-        },
-        {
-          "id": "money_problem_aa89616c",
-          "label": "お金持ちに嫉妬する"
-        },
-        {
-          "id": "money_problem_0fb2dcf4",
-          "label": "お金持ちを嫌ってしまう"
-        },
-        {
-          "id": "money_problem_f6393122",
-          "label": "お金で人と比べてしまう"
-        },
-        {
-          "id": "money_problem_51e4eb58",
-          "label": "お金で自分の価値を決めてしまう"
-        },
-        {
-          "id": "money_problem_887f2b7d",
-          "label": "お金がある人がうらやましい"
-        },
-        {
-          "id": "money_problem_913b5996",
-          "label": "お金が原因で人間関係が苦しい"
-        },
-        {
-          "id": "money_problem_b66ce620",
-          "label": "家族とお金でもめる"
-        },
-        {
-          "id": "money_problem_daf0ba7d",
-          "label": "パートナーとお金でもめる"
-        },
-        {
-          "id": "money_problem_b17caf37",
-          "label": "親のお金が心配"
-        },
-        {
-          "id": "money_problem_73f3eda7",
-          "label": "子どものお金が心配"
-        },
-        {
-          "id": "money_problem_b8796947",
-          "label": "お金のために我慢している"
-        },
-        {
-          "id": "money_problem_7d984eaf",
-          "label": "お金のために好きなことができない"
-        },
-        {
-          "id": "money_problem_2f025569",
-          "label": "お金のために働いている"
-        },
-        {
-          "id": "money_problem_40c0489b",
-          "label": "お金のために仕事を辞められない"
-        },
-        {
-          "id": "money_problem_09270baa",
-          "label": "お金のために夢をあきらめている"
-        },
-        {
-          "id": "money_problem_4b693fc9",
-          "label": "お金の自由がない"
-        },
-        {
-          "id": "money_problem_3240d606",
-          "label": "お金に人生を支配されている"
-        },
-        {
-          "id": "money_problem_b0104160",
-          "label": "お金があれば幸せになれると思っている"
-        },
-        {
-          "id": "money_problem_c17ab299",
-          "label": "お金があっても満たされない"
-        },
-        {
-          "id": "money_problem_0e71ff0a",
-          "label": "お金に価値を感じすぎている"
-        },
-        {
-          "id": "money_problem_68db2cde",
-          "label": "お金を信じられない"
-        },
-        {
-          "id": "money_problem_53728602",
-          "label": "お金を信用できない"
-        },
-        {
-          "id": "money_problem_054fffa1",
-          "label": "お金の話をするのが苦手"
-        },
-        {
-          "id": "money_problem_390237d4",
-          "label": "お金のことを人に相談できない"
-        },
-        {
-          "id": "money_problem_f79b6585",
-          "label": "お金のことで恥を感じている"
-        },
-        {
-          "id": "money_problem_cacda8e3",
-          "label": "お金のことで自分を責めている"
-        },
-        {
-          "id": "money_problem_55a56c30",
-          "label": "お金に自信がない"
-        },
-        {
-          "id": "money_problem_686ba5c2",
-          "label": "お金に余裕がない"
-        },
-        {
-          "id": "money_problem_5a18413e",
-          "label": "お金に追われている"
-        },
-        {
-          "id": "money_problem_cd1b1583",
-          "label": "お金で失敗するのが怖い"
-        },
-        {
-          "id": "money_problem_78d59672",
-          "label": "お金を失う自分を許せない"
-        },
-        {
-          "id": "money_problem_164ac387",
-          "label": "お金を持ち続けられる自信がない"
-        },
-        {
-          "id": "money_problem_4bdd58b7",
-          "label": "お金を増やす力がないと感じる"
-        },
-        {
-          "id": "money_problem_fcd62478",
-          "label": "お金を生み出せないと感じる"
-        },
-        {
-          "id": "money_problem_049617d1",
-          "label": "お金の不安が消えない"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "money_ideal_461b4822",
-          "label": "お金に安心している"
-        },
-        {
-          "id": "money_ideal_88966166",
-          "label": "お金に余裕がある"
-        },
-        {
-          "id": "money_ideal_1b6b0023",
-          "label": "必要なお金がある"
-        },
-        {
-          "id": "money_ideal_bbefe0e6",
-          "label": "お金に困っていない"
-        },
-        {
-          "id": "money_ideal_8927528b",
-          "label": "安心して受け取っている"
-        },
-        {
-          "id": "money_ideal_a872d139",
-          "label": "安心して支払っている"
-        },
-        {
-          "id": "money_ideal_9c603fb0",
-          "label": "安心して使っている"
-        },
-        {
-          "id": "money_ideal_0172311b",
-          "label": "お金を大切にしている"
-        },
-        {
-          "id": "money_ideal_e0186f58",
-          "label": "お金を上手に管理している"
-        },
-        {
-          "id": "money_ideal_1f1dcaef",
-          "label": "お金が自然に循環している"
-        },
-        {
-          "id": "money_ideal_8be5a300",
-          "label": "収入が安定している"
-        },
-        {
-          "id": "money_ideal_c032a6b1",
-          "label": "十分に稼いでいる"
-        },
-        {
-          "id": "money_ideal_573733fa",
-          "label": "自分の価値を受け取っている"
-        },
-        {
-          "id": "money_ideal_5b43241f",
-          "label": "喜ばれながら収入を得ている"
-        },
-        {
-          "id": "money_ideal_b3818c27",
-          "label": "好きなことで収入を得ている"
-        },
-        {
-          "id": "money_ideal_8e048eac",
-          "label": "人の役に立ちながら収入を得ている"
-        },
-        {
-          "id": "money_ideal_86613586",
-          "label": "お金を失う不安がない"
-        },
-        {
-          "id": "money_ideal_40dba424",
-          "label": "将来のお金に安心している"
-        },
-        {
-          "id": "money_ideal_b6e410e9",
-          "label": "家族を支えられる余裕がある"
-        },
-        {
-          "id": "money_ideal_2868e8cd",
-          "label": "自分に必要なものを選べる"
-        },
-        {
-          "id": "money_ideal_50bb46a7",
-          "label": "大切なことにお金を使えている"
-        },
-        {
-          "id": "money_ideal_c6fc0309",
-          "label": "無理なく貯めている"
-        },
-        {
-          "id": "money_ideal_440f05cc",
-          "label": "無理なく増やしている"
-        },
-        {
-          "id": "money_ideal_68a3fac2",
-          "label": "無理なく守っている"
-        },
-        {
-          "id": "money_ideal_da7aff93",
-          "label": "お金と健康な関係を築いている"
-        },
-        {
-          "id": "money_ideal_5cdd330d",
-          "label": "お金に振り回されていない"
-        },
-        {
-          "id": "money_ideal_c1c401e8",
-          "label": "お金で自分の価値を決めていない"
-        },
-        {
-          "id": "money_ideal_17329580",
-          "label": "お金を自由に扱っている"
-        },
-        {
-          "id": "money_ideal_ca8767b8",
-          "label": "お金に感謝している"
-        },
-        {
-          "id": "money_ideal_50c4a40c",
-          "label": "お金との関係に満足している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "money_problem_51c3336e",
+              "label": "お金が足りない"
+            },
+            {
+              "id": "money_problem_28c80a44",
+              "label": "お金がない"
+            },
+            {
+              "id": "money_problem_a3453aeb",
+              "label": "貯金ができない"
+            },
+            {
+              "id": "money_problem_73a79a7b",
+              "label": "借金がある"
+            },
+            {
+              "id": "money_problem_0c422b33",
+              "label": "支払いが苦しい"
+            },
+            {
+              "id": "money_problem_34c2c191",
+              "label": "将来のお金が不安"
+            },
+            {
+              "id": "money_problem_bf8feab1",
+              "label": "老後のお金が心配"
+            },
+            {
+              "id": "money_problem_3160b820",
+              "label": "収入が少ない"
+            },
+            {
+              "id": "money_problem_6a60dd2d",
+              "label": "収入が安定しない"
+            },
+            {
+              "id": "money_problem_711e7cc8",
+              "label": "給料が上がらない"
+            },
+            {
+              "id": "money_problem_1ac581d0",
+              "label": "思うように稼げない"
+            },
+            {
+              "id": "money_problem_a28e9255",
+              "label": "お金を増やせない"
+            },
+            {
+              "id": "money_problem_4446c7f5",
+              "label": "お金を失うのが怖い"
+            },
+            {
+              "id": "money_problem_d061bded",
+              "label": "お金がすぐ減る"
+            },
+            {
+              "id": "money_problem_00856510",
+              "label": "お金が続かない"
+            },
+            {
+              "id": "money_problem_3632f329",
+              "label": "お金が残らない"
+            },
+            {
+              "id": "money_problem_05895132",
+              "label": "無駄遣いしてしまう"
+            },
+            {
+              "id": "money_problem_ffc8ea2d",
+              "label": "お金を使いすぎる"
+            },
+            {
+              "id": "money_problem_29f9cf0c",
+              "label": "節約が続かない"
+            },
+            {
+              "id": "money_problem_372b73e9",
+              "label": "お金の管理が苦手"
+            },
+            {
+              "id": "money_problem_2dec6321",
+              "label": "お金のことがわからない"
+            },
+            {
+              "id": "money_problem_e9834fd8",
+              "label": "投資が怖い"
+            },
+            {
+              "id": "money_problem_95cb9e20",
+              "label": "投資で失敗した"
+            },
+            {
+              "id": "money_problem_6e0c535b",
+              "label": "お金で失敗した"
+            },
+            {
+              "id": "money_problem_4e27dc39",
+              "label": "お金で苦労している"
+            },
+            {
+              "id": "money_problem_77dc019b",
+              "label": "お金のことで疲れている"
+            },
+            {
+              "id": "money_problem_28a008af",
+              "label": "お金のことで頭がいっぱい"
+            },
+            {
+              "id": "money_problem_bea63f7e",
+              "label": "お金のことで眠れない"
+            },
+            {
+              "id": "money_problem_832a913c",
+              "label": "お金に振り回される"
+            },
+            {
+              "id": "money_problem_03e7dab5",
+              "label": "お金に縛られている"
+            },
+            {
+              "id": "money_problem_994ae457",
+              "label": "お金に依存している"
+            },
+            {
+              "id": "money_problem_d2e00ce8",
+              "label": "お金に執着している"
+            },
+            {
+              "id": "money_problem_b0999ffe",
+              "label": "お金がないと安心できない"
+            },
+            {
+              "id": "money_problem_1ac51dc6",
+              "label": "お金があっても安心できない"
+            },
+            {
+              "id": "money_problem_ef6c02e2",
+              "label": "お金を受け取るのが苦手"
+            },
+            {
+              "id": "money_problem_39bbc2e0",
+              "label": "お金を受け取ることに罪悪感がある"
+            },
+            {
+              "id": "money_problem_e52ab263",
+              "label": "お金をもらうのが怖い"
+            },
+            {
+              "id": "money_problem_013b55fb",
+              "label": "値段をつけるのが苦手"
+            },
+            {
+              "id": "money_problem_8451d8a5",
+              "label": "高い価格を言えない"
+            },
+            {
+              "id": "money_problem_f492dba6",
+              "label": "安く売ってしまう"
+            },
+            {
+              "id": "money_problem_4a003763",
+              "label": "お金を請求できない"
+            },
+            {
+              "id": "money_problem_102b16ba",
+              "label": "お金を断れない"
+            },
+            {
+              "id": "money_problem_71d13249",
+              "label": "お金を貸してしまう"
+            },
+            {
+              "id": "money_problem_3c291925",
+              "label": "お金を返してもらえない"
+            },
+            {
+              "id": "money_problem_d8e5a1ec",
+              "label": "人にお金を使いすぎる"
+            },
+            {
+              "id": "money_problem_80359a9a",
+              "label": "自分にお金を使えない"
+            },
+            {
+              "id": "money_problem_96dbdc3e",
+              "label": "お金を使うことに罪悪感がある"
+            },
+            {
+              "id": "money_problem_65ed7de7",
+              "label": "自分にはお金を持つ価値がないと感じる"
+            },
+            {
+              "id": "money_problem_1ef0c25c",
+              "label": "お金持ちに引け目を感じる"
+            },
+            {
+              "id": "money_problem_0ee277c5",
+              "label": "お金持ちをうらやましいと思う"
+            },
+            {
+              "id": "money_problem_aa89616c",
+              "label": "お金持ちに嫉妬する"
+            },
+            {
+              "id": "money_problem_0fb2dcf4",
+              "label": "お金持ちを嫌ってしまう"
+            },
+            {
+              "id": "money_problem_f6393122",
+              "label": "お金で人と比べてしまう"
+            },
+            {
+              "id": "money_problem_51e4eb58",
+              "label": "お金で自分の価値を決めてしまう"
+            },
+            {
+              "id": "money_problem_887f2b7d",
+              "label": "お金がある人がうらやましい"
+            },
+            {
+              "id": "money_problem_913b5996",
+              "label": "お金が原因で人間関係が苦しい"
+            },
+            {
+              "id": "money_problem_b66ce620",
+              "label": "家族とお金でもめる"
+            },
+            {
+              "id": "money_problem_daf0ba7d",
+              "label": "パートナーとお金でもめる"
+            },
+            {
+              "id": "money_problem_b17caf37",
+              "label": "親のお金が心配"
+            },
+            {
+              "id": "money_problem_73f3eda7",
+              "label": "子どものお金が心配"
+            },
+            {
+              "id": "money_problem_b8796947",
+              "label": "お金のために我慢している"
+            },
+            {
+              "id": "money_problem_7d984eaf",
+              "label": "お金のために好きなことができない"
+            },
+            {
+              "id": "money_problem_2f025569",
+              "label": "お金のために働いている"
+            },
+            {
+              "id": "money_problem_40c0489b",
+              "label": "お金のために仕事を辞められない"
+            },
+            {
+              "id": "money_problem_09270baa",
+              "label": "お金のために夢をあきらめている"
+            },
+            {
+              "id": "money_problem_4b693fc9",
+              "label": "お金の自由がない"
+            },
+            {
+              "id": "money_problem_3240d606",
+              "label": "お金に人生を支配されている"
+            },
+            {
+              "id": "money_problem_b0104160",
+              "label": "お金があれば幸せになれると思っている"
+            },
+            {
+              "id": "money_problem_c17ab299",
+              "label": "お金があっても満たされない"
+            },
+            {
+              "id": "money_problem_0e71ff0a",
+              "label": "お金に価値を感じすぎている"
+            },
+            {
+              "id": "money_problem_68db2cde",
+              "label": "お金を信じられない"
+            },
+            {
+              "id": "money_problem_53728602",
+              "label": "お金を信用できない"
+            },
+            {
+              "id": "money_problem_054fffa1",
+              "label": "お金の話をするのが苦手"
+            },
+            {
+              "id": "money_problem_390237d4",
+              "label": "お金のことを人に相談できない"
+            },
+            {
+              "id": "money_problem_f79b6585",
+              "label": "お金のことで恥を感じている"
+            },
+            {
+              "id": "money_problem_cacda8e3",
+              "label": "お金のことで自分を責めている"
+            },
+            {
+              "id": "money_problem_55a56c30",
+              "label": "お金に自信がない"
+            },
+            {
+              "id": "money_problem_686ba5c2",
+              "label": "お金に余裕がない"
+            },
+            {
+              "id": "money_problem_5a18413e",
+              "label": "お金に追われている"
+            },
+            {
+              "id": "money_problem_cd1b1583",
+              "label": "お金で失敗するのが怖い"
+            },
+            {
+              "id": "money_problem_78d59672",
+              "label": "お金を失う自分を許せない"
+            },
+            {
+              "id": "money_problem_164ac387",
+              "label": "お金を持ち続けられる自信がない"
+            },
+            {
+              "id": "money_problem_4bdd58b7",
+              "label": "お金を増やす力がないと感じる"
+            },
+            {
+              "id": "money_problem_fcd62478",
+              "label": "お金を生み出せないと感じる"
+            },
+            {
+              "id": "money_problem_049617d1",
+              "label": "お金の不安が消えない"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "money_ideal_461b4822",
+              "label": "お金に安心している"
+            },
+            {
+              "id": "money_ideal_88966166",
+              "label": "お金に余裕がある"
+            },
+            {
+              "id": "money_ideal_1b6b0023",
+              "label": "必要なお金がある"
+            },
+            {
+              "id": "money_ideal_bbefe0e6",
+              "label": "お金に困っていない"
+            },
+            {
+              "id": "money_ideal_8927528b",
+              "label": "安心して受け取っている"
+            },
+            {
+              "id": "money_ideal_a872d139",
+              "label": "安心して支払っている"
+            },
+            {
+              "id": "money_ideal_9c603fb0",
+              "label": "安心して使っている"
+            },
+            {
+              "id": "money_ideal_0172311b",
+              "label": "お金を大切にしている"
+            },
+            {
+              "id": "money_ideal_e0186f58",
+              "label": "お金を上手に管理している"
+            },
+            {
+              "id": "money_ideal_1f1dcaef",
+              "label": "お金が自然に循環している"
+            },
+            {
+              "id": "money_ideal_8be5a300",
+              "label": "収入が安定している"
+            },
+            {
+              "id": "money_ideal_c032a6b1",
+              "label": "十分に稼いでいる"
+            },
+            {
+              "id": "money_ideal_573733fa",
+              "label": "自分の価値を受け取っている"
+            },
+            {
+              "id": "money_ideal_5b43241f",
+              "label": "喜ばれながら収入を得ている"
+            },
+            {
+              "id": "money_ideal_b3818c27",
+              "label": "好きなことで収入を得ている"
+            },
+            {
+              "id": "money_ideal_8e048eac",
+              "label": "人の役に立ちながら収入を得ている"
+            },
+            {
+              "id": "money_ideal_86613586",
+              "label": "お金を失う不安がない"
+            },
+            {
+              "id": "money_ideal_40dba424",
+              "label": "将来のお金に安心している"
+            },
+            {
+              "id": "money_ideal_b6e410e9",
+              "label": "家族を支えられる余裕がある"
+            },
+            {
+              "id": "money_ideal_2868e8cd",
+              "label": "自分に必要なものを選べる"
+            },
+            {
+              "id": "money_ideal_50bb46a7",
+              "label": "大切なことにお金を使えている"
+            },
+            {
+              "id": "money_ideal_c6fc0309",
+              "label": "無理なく貯めている"
+            },
+            {
+              "id": "money_ideal_440f05cc",
+              "label": "無理なく増やしている"
+            },
+            {
+              "id": "money_ideal_68a3fac2",
+              "label": "無理なく守っている"
+            },
+            {
+              "id": "money_ideal_da7aff93",
+              "label": "お金と健康な関係を築いている"
+            },
+            {
+              "id": "money_ideal_5cdd330d",
+              "label": "お金に振り回されていない"
+            },
+            {
+              "id": "money_ideal_c1c401e8",
+              "label": "お金で自分の価値を決めていない"
+            },
+            {
+              "id": "money_ideal_17329580",
+              "label": "お金を自由に扱っている"
+            },
+            {
+              "id": "money_ideal_ca8767b8",
+              "label": "お金に感謝している"
+            },
+            {
+              "id": "money_ideal_50c4a40c",
+              "label": "お金との関係に満足している"
+            }
+          ]
         }
       ]
     },
     {
       "id": "health",
       "label": "健康",
-      "emoji": "🩺",
-      "problems": [
-        {
-          "id": "health_problem_3703de32",
-          "label": "体がつらい"
-        },
-        {
-          "id": "health_problem_c43a3e00",
-          "label": "体が重い"
-        },
-        {
-          "id": "health_problem_5ced3473",
-          "label": "体がだるい"
-        },
-        {
-          "id": "health_problem_e31e6195",
-          "label": "体力がない"
-        },
-        {
-          "id": "health_problem_aa81dc97",
-          "label": "疲れが取れない"
-        },
-        {
-          "id": "health_problem_8f7b84f1",
-          "label": "眠れない"
-        },
-        {
-          "id": "health_problem_f2948e96",
-          "label": "朝起きられない"
-        },
-        {
-          "id": "health_problem_15720dcf",
-          "label": "痛みがある"
-        },
-        {
-          "id": "health_problem_98107fab",
-          "label": "病気が怖い"
-        },
-        {
-          "id": "health_problem_9be34c47",
-          "label": "老化が怖い"
-        },
-        {
-          "id": "health_problem_79fd82e9",
-          "label": "太るのが怖い"
-        },
-        {
-          "id": "health_problem_48940ed3",
-          "label": "痩せられない"
-        },
-        {
-          "id": "health_problem_5464eab1",
-          "label": "食べすぎてしまう"
-        },
-        {
-          "id": "health_problem_0b6d95ed",
-          "label": "食べることを我慢できない"
-        },
-        {
-          "id": "health_problem_08718823",
-          "label": "運動が続かない"
-        },
-        {
-          "id": "health_problem_ece583ff",
-          "label": "健康管理ができない"
-        },
-        {
-          "id": "health_problem_ab9ce809",
-          "label": "自分の体が嫌い"
-        },
-        {
-          "id": "health_problem_d3f39013",
-          "label": "自分の見た目が嫌い"
-        },
-        {
-          "id": "health_problem_ff279166",
-          "label": "鏡を見るのがつらい"
-        },
-        {
-          "id": "health_problem_219bd11b",
-          "label": "人に見られるのが怖い"
-        },
-        {
-          "id": "health_problem_9ce3a0f8",
-          "label": "体に自信がない"
-        },
-        {
-          "id": "health_problem_c7c379e1",
-          "label": "体を大切にできない"
-        },
-        {
-          "id": "health_problem_18a01677",
-          "label": "無理をしてしまう"
-        },
-        {
-          "id": "health_problem_cdad6a46",
-          "label": "休めない"
-        },
-        {
-          "id": "health_problem_db498f80",
-          "label": "限界まで頑張ってしまう"
-        },
-        {
-          "id": "health_problem_524eae6b",
-          "label": "体の声を聞けない"
-        },
-        {
-          "id": "health_problem_4c90edf6",
-          "label": "不調を無視してしまう"
-        },
-        {
-          "id": "health_problem_2c6adfb8",
-          "label": "病院に行くのが怖い"
-        },
-        {
-          "id": "health_problem_fb0bac02",
-          "label": "健康診断が怖い"
-        },
-        {
-          "id": "health_problem_52f25da9",
-          "label": "将来の体が不安"
-        },
-        {
-          "id": "health_problem_9a28b168",
-          "label": "家族の健康が心配"
-        },
-        {
-          "id": "health_problem_c7c7570d",
-          "label": "子どもの健康が心配"
-        },
-        {
-          "id": "health_problem_16c7cbf4",
-          "label": "親の健康が心配"
-        },
-        {
-          "id": "health_problem_0f167be0",
-          "label": "病気になる自分を責めてしまう"
-        },
-        {
-          "id": "health_problem_66fcd8fa",
-          "label": "体調が悪い自分を許せない"
-        },
-        {
-          "id": "health_problem_9391c7b1",
-          "label": "元気でいなければならない"
-        },
-        {
-          "id": "health_problem_f0761725",
-          "label": "強くいなければならない"
-        },
-        {
-          "id": "health_problem_79c55b9f",
-          "label": "迷惑をかけたくない"
-        },
-        {
-          "id": "health_problem_e2ce59b9",
-          "label": "弱いところを見せられない"
-        },
-        {
-          "id": "health_problem_d53fd0c9",
-          "label": "介護されるのが怖い"
-        },
-        {
-          "id": "health_problem_bd197076",
-          "label": "死ぬのが怖い"
-        },
-        {
-          "id": "health_problem_0565e626",
-          "label": "生きる力が弱っている"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "health_ideal_92b8be74",
-          "label": "体が軽い"
-        },
-        {
-          "id": "health_ideal_d7f596fe",
-          "label": "体が楽"
-        },
-        {
-          "id": "health_ideal_942ad9d2",
-          "label": "体が元気"
-        },
-        {
-          "id": "health_ideal_9b038826",
-          "label": "よく眠れている"
-        },
-        {
-          "id": "health_ideal_9597ee03",
-          "label": "朝すっきり起きている"
-        },
-        {
-          "id": "health_ideal_b219c820",
-          "label": "疲れが取れている"
-        },
-        {
-          "id": "health_ideal_adf6772a",
-          "label": "呼吸が深い"
-        },
-        {
-          "id": "health_ideal_e1c814c7",
-          "label": "心が落ち着いている"
-        },
-        {
-          "id": "health_ideal_1521019c",
-          "label": "体に安心している"
-        },
-        {
-          "id": "health_ideal_539a94ce",
-          "label": "体を信頼している"
-        },
-        {
-          "id": "health_ideal_06a4a2fd",
-          "label": "体を大切にしている"
-        },
-        {
-          "id": "health_ideal_54e791c5",
-          "label": "体の声を聞いている"
-        },
-        {
-          "id": "health_ideal_78e83f77",
-          "label": "無理をしていない"
-        },
-        {
-          "id": "health_ideal_12a9eea7",
-          "label": "必要なときに休んでいる"
-        },
-        {
-          "id": "health_ideal_ea98547f",
-          "label": "自分のペースで動いている"
-        },
-        {
-          "id": "health_ideal_1cc9588a",
-          "label": "食事を楽しんでいる"
-        },
-        {
-          "id": "health_ideal_be3dfc73",
-          "label": "食べることに安心している"
-        },
-        {
-          "id": "health_ideal_72607b03",
-          "label": "気持ちよく動いている"
-        },
-        {
-          "id": "health_ideal_8febe9bd",
-          "label": "健康を楽しんでいる"
-        },
-        {
-          "id": "health_ideal_12c65e8c",
-          "label": "自分の見た目を受け入れている"
-        },
-        {
-          "id": "health_ideal_b695a737",
-          "label": "自分の体を受け入れている"
-        },
-        {
-          "id": "health_ideal_29636ab8",
-          "label": "年齢を受け入れている"
-        },
-        {
-          "id": "health_ideal_a019d487",
-          "label": "老いを恐れていない"
-        },
-        {
-          "id": "health_ideal_890fc2bb",
-          "label": "病気を必要以上に恐れていない"
-        },
-        {
-          "id": "health_ideal_4ae92dfe",
-          "label": "体調の変化に落ち着いて対応している"
-        },
-        {
-          "id": "health_ideal_c37eeca5",
-          "label": "心と体がつながっている"
-        },
-        {
-          "id": "health_ideal_f537e332",
-          "label": "心と体のバランスが取れている"
-        },
-        {
-          "id": "health_ideal_408e192e",
-          "label": "生きる力を感じている"
-        },
-        {
-          "id": "health_ideal_213f20a8",
-          "label": "今日を気持ちよく生きている"
-        },
-        {
-          "id": "health_ideal_7137a6ec",
-          "label": "健康との関係に満足している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "health_problem_3703de32",
+              "label": "体がつらい"
+            },
+            {
+              "id": "health_problem_c43a3e00",
+              "label": "体が重い"
+            },
+            {
+              "id": "health_problem_5ced3473",
+              "label": "体がだるい"
+            },
+            {
+              "id": "health_problem_e31e6195",
+              "label": "体力がない"
+            },
+            {
+              "id": "health_problem_aa81dc97",
+              "label": "疲れが取れない"
+            },
+            {
+              "id": "health_problem_8f7b84f1",
+              "label": "眠れない"
+            },
+            {
+              "id": "health_problem_f2948e96",
+              "label": "朝起きられない"
+            },
+            {
+              "id": "health_problem_15720dcf",
+              "label": "痛みがある"
+            },
+            {
+              "id": "health_problem_98107fab",
+              "label": "病気が怖い"
+            },
+            {
+              "id": "health_problem_9be34c47",
+              "label": "老化が怖い"
+            },
+            {
+              "id": "health_problem_79fd82e9",
+              "label": "太るのが怖い"
+            },
+            {
+              "id": "health_problem_48940ed3",
+              "label": "痩せられない"
+            },
+            {
+              "id": "health_problem_5464eab1",
+              "label": "食べすぎてしまう"
+            },
+            {
+              "id": "health_problem_0b6d95ed",
+              "label": "食べることを我慢できない"
+            },
+            {
+              "id": "health_problem_08718823",
+              "label": "運動が続かない"
+            },
+            {
+              "id": "health_problem_ece583ff",
+              "label": "健康管理ができない"
+            },
+            {
+              "id": "health_problem_ab9ce809",
+              "label": "自分の体が嫌い"
+            },
+            {
+              "id": "health_problem_d3f39013",
+              "label": "自分の見た目が嫌い"
+            },
+            {
+              "id": "health_problem_ff279166",
+              "label": "鏡を見るのがつらい"
+            },
+            {
+              "id": "health_problem_219bd11b",
+              "label": "人に見られるのが怖い"
+            },
+            {
+              "id": "health_problem_9ce3a0f8",
+              "label": "体に自信がない"
+            },
+            {
+              "id": "health_problem_c7c379e1",
+              "label": "体を大切にできない"
+            },
+            {
+              "id": "health_problem_18a01677",
+              "label": "無理をしてしまう"
+            },
+            {
+              "id": "health_problem_cdad6a46",
+              "label": "休めない"
+            },
+            {
+              "id": "health_problem_db498f80",
+              "label": "限界まで頑張ってしまう"
+            },
+            {
+              "id": "health_problem_524eae6b",
+              "label": "体の声を聞けない"
+            },
+            {
+              "id": "health_problem_4c90edf6",
+              "label": "不調を無視してしまう"
+            },
+            {
+              "id": "health_problem_2c6adfb8",
+              "label": "病院に行くのが怖い"
+            },
+            {
+              "id": "health_problem_fb0bac02",
+              "label": "健康診断が怖い"
+            },
+            {
+              "id": "health_problem_52f25da9",
+              "label": "将来の体が不安"
+            },
+            {
+              "id": "health_problem_9a28b168",
+              "label": "家族の健康が心配"
+            },
+            {
+              "id": "health_problem_c7c7570d",
+              "label": "子どもの健康が心配"
+            },
+            {
+              "id": "health_problem_16c7cbf4",
+              "label": "親の健康が心配"
+            },
+            {
+              "id": "health_problem_0f167be0",
+              "label": "病気になる自分を責めてしまう"
+            },
+            {
+              "id": "health_problem_66fcd8fa",
+              "label": "体調が悪い自分を許せない"
+            },
+            {
+              "id": "health_problem_9391c7b1",
+              "label": "元気でいなければならない"
+            },
+            {
+              "id": "health_problem_f0761725",
+              "label": "強くいなければならない"
+            },
+            {
+              "id": "health_problem_79c55b9f",
+              "label": "迷惑をかけたくない"
+            },
+            {
+              "id": "health_problem_e2ce59b9",
+              "label": "弱いところを見せられない"
+            },
+            {
+              "id": "health_problem_d53fd0c9",
+              "label": "介護されるのが怖い"
+            },
+            {
+              "id": "health_problem_bd197076",
+              "label": "死ぬのが怖い"
+            },
+            {
+              "id": "health_problem_0565e626",
+              "label": "生きる力が弱っている"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "health_ideal_92b8be74",
+              "label": "体が軽い"
+            },
+            {
+              "id": "health_ideal_d7f596fe",
+              "label": "体が楽"
+            },
+            {
+              "id": "health_ideal_942ad9d2",
+              "label": "体が元気"
+            },
+            {
+              "id": "health_ideal_9b038826",
+              "label": "よく眠れている"
+            },
+            {
+              "id": "health_ideal_9597ee03",
+              "label": "朝すっきり起きている"
+            },
+            {
+              "id": "health_ideal_b219c820",
+              "label": "疲れが取れている"
+            },
+            {
+              "id": "health_ideal_adf6772a",
+              "label": "呼吸が深い"
+            },
+            {
+              "id": "health_ideal_e1c814c7",
+              "label": "心が落ち着いている"
+            },
+            {
+              "id": "health_ideal_1521019c",
+              "label": "体に安心している"
+            },
+            {
+              "id": "health_ideal_539a94ce",
+              "label": "体を信頼している"
+            },
+            {
+              "id": "health_ideal_06a4a2fd",
+              "label": "体を大切にしている"
+            },
+            {
+              "id": "health_ideal_54e791c5",
+              "label": "体の声を聞いている"
+            },
+            {
+              "id": "health_ideal_78e83f77",
+              "label": "無理をしていない"
+            },
+            {
+              "id": "health_ideal_12a9eea7",
+              "label": "必要なときに休んでいる"
+            },
+            {
+              "id": "health_ideal_ea98547f",
+              "label": "自分のペースで動いている"
+            },
+            {
+              "id": "health_ideal_1cc9588a",
+              "label": "食事を楽しんでいる"
+            },
+            {
+              "id": "health_ideal_be3dfc73",
+              "label": "食べることに安心している"
+            },
+            {
+              "id": "health_ideal_72607b03",
+              "label": "気持ちよく動いている"
+            },
+            {
+              "id": "health_ideal_8febe9bd",
+              "label": "健康を楽しんでいる"
+            },
+            {
+              "id": "health_ideal_12c65e8c",
+              "label": "自分の見た目を受け入れている"
+            },
+            {
+              "id": "health_ideal_b695a737",
+              "label": "自分の体を受け入れている"
+            },
+            {
+              "id": "health_ideal_29636ab8",
+              "label": "年齢を受け入れている"
+            },
+            {
+              "id": "health_ideal_a019d487",
+              "label": "老いを恐れていない"
+            },
+            {
+              "id": "health_ideal_890fc2bb",
+              "label": "病気を必要以上に恐れていない"
+            },
+            {
+              "id": "health_ideal_4ae92dfe",
+              "label": "体調の変化に落ち着いて対応している"
+            },
+            {
+              "id": "health_ideal_c37eeca5",
+              "label": "心と体がつながっている"
+            },
+            {
+              "id": "health_ideal_f537e332",
+              "label": "心と体のバランスが取れている"
+            },
+            {
+              "id": "health_ideal_408e192e",
+              "label": "生きる力を感じている"
+            },
+            {
+              "id": "health_ideal_213f20a8",
+              "label": "今日を気持ちよく生きている"
+            },
+            {
+              "id": "health_ideal_7137a6ec",
+              "label": "健康との関係に満足している"
+            }
+          ]
         }
       ]
     },
     {
       "id": "time",
       "label": "時間",
-      "emoji": "⏰",
-      "problems": [
-        {
-          "id": "time_problem_da61b38c",
-          "label": "時間がない"
-        },
-        {
-          "id": "time_problem_aa688b87",
-          "label": "いつも忙しい"
-        },
-        {
-          "id": "time_problem_237e8162",
-          "label": "いつも急いでいる"
-        },
-        {
-          "id": "time_problem_0fc4c2cd",
-          "label": "いつも焦っている"
-        },
-        {
-          "id": "time_problem_70a11dc9",
-          "label": "余裕がない"
-        },
-        {
-          "id": "time_problem_8569735e",
-          "label": "ゆっくりできない"
-        },
-        {
-          "id": "time_problem_f36dbf52",
-          "label": "休む時間がない"
-        },
-        {
-          "id": "time_problem_adb2bf06",
-          "label": "自分の時間がない"
-        },
-        {
-          "id": "time_problem_34bcd136",
-          "label": "家族との時間がない"
-        },
-        {
-          "id": "time_problem_046668b3",
-          "label": "大切な人との時間がない"
-        },
-        {
-          "id": "time_problem_41601093",
-          "label": "好きなことをする時間がない"
-        },
-        {
-          "id": "time_problem_ecf74051",
-          "label": "やりたいことをする時間がない"
-        },
-        {
-          "id": "time_problem_0b60d2dd",
-          "label": "やるべきことが多すぎる"
-        },
-        {
-          "id": "time_problem_fac73119",
-          "label": "毎日があっという間に終わる"
-        },
-        {
-          "id": "time_problem_0df970ad",
-          "label": "一日を無駄にしている"
-        },
-        {
-          "id": "time_problem_ac20270a",
-          "label": "休日を無駄にしている"
-        },
-        {
-          "id": "time_problem_bdf65624",
-          "label": "人生を無駄にしている"
-        },
-        {
-          "id": "time_problem_6a4d4e0a",
-          "label": "時間をうまく使えない"
-        },
-        {
-          "id": "time_problem_3726b87c",
-          "label": "計画通りに進まない"
-        },
-        {
-          "id": "time_problem_f99cd69c",
-          "label": "予定を詰めすぎる"
-        },
-        {
-          "id": "time_problem_add14d5c",
-          "label": "先延ばししてしまう"
-        },
-        {
-          "id": "time_problem_38db61d8",
-          "label": "だらだらしてしまう"
-        },
-        {
-          "id": "time_problem_a6933301",
-          "label": "集中できない"
-        },
-        {
-          "id": "time_problem_d1fd53ce",
-          "label": "続けられない"
-        },
-        {
-          "id": "time_problem_6b6eb8e3",
-          "label": "締め切りに追われる"
-        },
-        {
-          "id": "time_problem_ee64cbc8",
-          "label": "いつもギリギリになる"
-        },
-        {
-          "id": "time_problem_25eecbc8",
-          "label": "遅れてしまう"
-        },
-        {
-          "id": "time_problem_ac25b6d2",
-          "label": "待つのが苦手"
-        },
-        {
-          "id": "time_problem_8fbda990",
-          "label": "人を待たせてしまう"
-        },
-        {
-          "id": "time_problem_251b5954",
-          "label": "早く結果を出したい"
-        },
-        {
-          "id": "time_problem_c886110a",
-          "label": "早く変わりたい"
-        },
-        {
-          "id": "time_problem_a6a1a4ae",
-          "label": "早く成功したい"
-        },
-        {
-          "id": "time_problem_ebaa409d",
-          "label": "早く安心したい"
-        },
-        {
-          "id": "time_problem_2d7410cb",
-          "label": "過去を引きずっている"
-        },
-        {
-          "id": "time_problem_80ba1f29",
-          "label": "過去に戻りたい"
-        },
-        {
-          "id": "time_problem_522dc9e1",
-          "label": "過去をやり直したい"
-        },
-        {
-          "id": "time_problem_2f68a099",
-          "label": "あの時こうすればよかった"
-        },
-        {
-          "id": "time_problem_09da6620",
-          "label": "今を楽しめない"
-        },
-        {
-          "id": "time_problem_14a77392",
-          "label": "今に集中できない"
-        },
-        {
-          "id": "time_problem_2563134f",
-          "label": "未来が不安"
-        },
-        {
-          "id": "time_problem_f5ea2f96",
-          "label": "未来を考えると怖い"
-        },
-        {
-          "id": "time_problem_fe74ddda",
-          "label": "年を取るのが怖い"
-        },
-        {
-          "id": "time_problem_c52f8bac",
-          "label": "チャンスを逃した気がする"
-        },
-        {
-          "id": "time_problem_e35056cb",
-          "label": "もう遅いと感じる"
-        },
-        {
-          "id": "time_problem_84156799",
-          "label": "間に合わないと感じる"
-        },
-        {
-          "id": "time_problem_1490db82",
-          "label": "人より遅れていると感じる"
-        },
-        {
-          "id": "time_problem_213fe1c3",
-          "label": "人生が進んでいないと感じる"
-        }
-      ],
-      "ideals": [
-        {
-          "id": "time_ideal_b24d1409",
-          "label": "時間に余裕がある"
-        },
-        {
-          "id": "time_ideal_c6db07a4",
-          "label": "心に余裕がある"
-        },
-        {
-          "id": "time_ideal_0993d98f",
-          "label": "今に集中している"
-        },
-        {
-          "id": "time_ideal_e36cab98",
-          "label": "今を味わっている"
-        },
-        {
-          "id": "time_ideal_6f139cd7",
-          "label": "今日を大切にしている"
-        },
-        {
-          "id": "time_ideal_94a6d2b0",
-          "label": "毎日を丁寧に過ごしている"
-        },
-        {
-          "id": "time_ideal_55ad07ab",
-          "label": "自分の時間がある"
-        },
-        {
-          "id": "time_ideal_324e0920",
-          "label": "大切な人との時間がある"
-        },
-        {
-          "id": "time_ideal_2b42f7d1",
-          "label": "好きなことをする時間がある"
-        },
-        {
-          "id": "time_ideal_93b0ccb1",
-          "label": "休む時間がある"
-        },
-        {
-          "id": "time_ideal_883a12d1",
-          "label": "必要なことを進めている"
-        },
-        {
-          "id": "time_ideal_28d7a6d6",
-          "label": "優先順位がはっきりしている"
-        },
-        {
-          "id": "time_ideal_f0000031",
-          "label": "大切なことを選んでいる"
-        },
-        {
-          "id": "time_ideal_0deab867",
-          "label": "先延ばしせず動いている"
-        },
-        {
-          "id": "time_ideal_05fc114f",
-          "label": "自分のペースで進んでいる"
-        },
-        {
-          "id": "time_ideal_41ca7620",
-          "label": "焦っていない"
-        },
-        {
-          "id": "time_ideal_52b8aa95",
-          "label": "急ぎすぎていない"
-        },
-        {
-          "id": "time_ideal_d4442189",
-          "label": "過去を手放している"
-        },
-        {
-          "id": "time_ideal_84002ad7",
-          "label": "未来を信頼している"
-        },
-        {
-          "id": "time_ideal_29636ab8",
-          "label": "年齢を受け入れている"
-        },
-        {
-          "id": "time_ideal_af019741",
-          "label": "人と比べて焦らない"
-        },
-        {
-          "id": "time_ideal_26dce58b",
-          "label": "間に合っていると感じている"
-        },
-        {
-          "id": "time_ideal_73a9b408",
-          "label": "人生の流れを信頼している"
-        },
-        {
-          "id": "time_ideal_76d5b9b7",
-          "label": "時間を味方にしている"
-        },
-        {
-          "id": "time_ideal_98733f77",
-          "label": "時間との関係に満足している"
+      "emoji": null,
+      "tracks": [
+        {
+          "id": "problems",
+          "label": "悩み",
+          "themes": [
+            {
+              "id": "time_problem_da61b38c",
+              "label": "時間がない"
+            },
+            {
+              "id": "time_problem_aa688b87",
+              "label": "いつも忙しい"
+            },
+            {
+              "id": "time_problem_237e8162",
+              "label": "いつも急いでいる"
+            },
+            {
+              "id": "time_problem_0fc4c2cd",
+              "label": "いつも焦っている"
+            },
+            {
+              "id": "time_problem_70a11dc9",
+              "label": "余裕がない"
+            },
+            {
+              "id": "time_problem_8569735e",
+              "label": "ゆっくりできない"
+            },
+            {
+              "id": "time_problem_f36dbf52",
+              "label": "休む時間がない"
+            },
+            {
+              "id": "time_problem_adb2bf06",
+              "label": "自分の時間がない"
+            },
+            {
+              "id": "time_problem_34bcd136",
+              "label": "家族との時間がない"
+            },
+            {
+              "id": "time_problem_046668b3",
+              "label": "大切な人との時間がない"
+            },
+            {
+              "id": "time_problem_41601093",
+              "label": "好きなことをする時間がない"
+            },
+            {
+              "id": "time_problem_ecf74051",
+              "label": "やりたいことをする時間がない"
+            },
+            {
+              "id": "time_problem_0b60d2dd",
+              "label": "やるべきことが多すぎる"
+            },
+            {
+              "id": "time_problem_fac73119",
+              "label": "毎日があっという間に終わる"
+            },
+            {
+              "id": "time_problem_0df970ad",
+              "label": "一日を無駄にしている"
+            },
+            {
+              "id": "time_problem_ac20270a",
+              "label": "休日を無駄にしている"
+            },
+            {
+              "id": "time_problem_bdf65624",
+              "label": "人生を無駄にしている"
+            },
+            {
+              "id": "time_problem_6a4d4e0a",
+              "label": "時間をうまく使えない"
+            },
+            {
+              "id": "time_problem_3726b87c",
+              "label": "計画通りに進まない"
+            },
+            {
+              "id": "time_problem_f99cd69c",
+              "label": "予定を詰めすぎる"
+            },
+            {
+              "id": "time_problem_add14d5c",
+              "label": "先延ばししてしまう"
+            },
+            {
+              "id": "time_problem_38db61d8",
+              "label": "だらだらしてしまう"
+            },
+            {
+              "id": "time_problem_a6933301",
+              "label": "集中できない"
+            },
+            {
+              "id": "time_problem_d1fd53ce",
+              "label": "続けられない"
+            },
+            {
+              "id": "time_problem_6b6eb8e3",
+              "label": "締め切りに追われる"
+            },
+            {
+              "id": "time_problem_ee64cbc8",
+              "label": "いつもギリギリになる"
+            },
+            {
+              "id": "time_problem_25eecbc8",
+              "label": "遅れてしまう"
+            },
+            {
+              "id": "time_problem_ac25b6d2",
+              "label": "待つのが苦手"
+            },
+            {
+              "id": "time_problem_8fbda990",
+              "label": "人を待たせてしまう"
+            },
+            {
+              "id": "time_problem_251b5954",
+              "label": "早く結果を出したい"
+            },
+            {
+              "id": "time_problem_c886110a",
+              "label": "早く変わりたい"
+            },
+            {
+              "id": "time_problem_a6a1a4ae",
+              "label": "早く成功したい"
+            },
+            {
+              "id": "time_problem_ebaa409d",
+              "label": "早く安心したい"
+            },
+            {
+              "id": "time_problem_2d7410cb",
+              "label": "過去を引きずっている"
+            },
+            {
+              "id": "time_problem_80ba1f29",
+              "label": "過去に戻りたい"
+            },
+            {
+              "id": "time_problem_522dc9e1",
+              "label": "過去をやり直したい"
+            },
+            {
+              "id": "time_problem_2f68a099",
+              "label": "あの時こうすればよかった"
+            },
+            {
+              "id": "time_problem_09da6620",
+              "label": "今を楽しめない"
+            },
+            {
+              "id": "time_problem_14a77392",
+              "label": "今に集中できない"
+            },
+            {
+              "id": "time_problem_2563134f",
+              "label": "未来が不安"
+            },
+            {
+              "id": "time_problem_f5ea2f96",
+              "label": "未来を考えると怖い"
+            },
+            {
+              "id": "time_problem_fe74ddda",
+              "label": "年を取るのが怖い"
+            },
+            {
+              "id": "time_problem_c52f8bac",
+              "label": "チャンスを逃した気がする"
+            },
+            {
+              "id": "time_problem_e35056cb",
+              "label": "もう遅いと感じる"
+            },
+            {
+              "id": "time_problem_84156799",
+              "label": "間に合わないと感じる"
+            },
+            {
+              "id": "time_problem_1490db82",
+              "label": "人より遅れていると感じる"
+            },
+            {
+              "id": "time_problem_213fe1c3",
+              "label": "人生が進んでいないと感じる"
+            }
+          ]
+        },
+        {
+          "id": "ideals",
+          "label": "理想",
+          "themes": [
+            {
+              "id": "time_ideal_b24d1409",
+              "label": "時間に余裕がある"
+            },
+            {
+              "id": "time_ideal_c6db07a4",
+              "label": "心に余裕がある"
+            },
+            {
+              "id": "time_ideal_0993d98f",
+              "label": "今に集中している"
+            },
+            {
+              "id": "time_ideal_e36cab98",
+              "label": "今を味わっている"
+            },
+            {
+              "id": "time_ideal_6f139cd7",
+              "label": "今日を大切にしている"
+            },
+            {
+              "id": "time_ideal_94a6d2b0",
+              "label": "毎日を丁寧に過ごしている"
+            },
+            {
+              "id": "time_ideal_55ad07ab",
+              "label": "自分の時間がある"
+            },
+            {
+              "id": "time_ideal_324e0920",
+              "label": "大切な人との時間がある"
+            },
+            {
+              "id": "time_ideal_2b42f7d1",
+              "label": "好きなことをする時間がある"
+            },
+            {
+              "id": "time_ideal_93b0ccb1",
+              "label": "休む時間がある"
+            },
+            {
+              "id": "time_ideal_883a12d1",
+              "label": "必要なことを進めている"
+            },
+            {
+              "id": "time_ideal_28d7a6d6",
+              "label": "優先順位がはっきりしている"
+            },
+            {
+              "id": "time_ideal_f0000031",
+              "label": "大切なことを選んでいる"
+            },
+            {
+              "id": "time_ideal_0deab867",
+              "label": "先延ばしせず動いている"
+            },
+            {
+              "id": "time_ideal_05fc114f",
+              "label": "自分のペースで進んでいる"
+            },
+            {
+              "id": "time_ideal_41ca7620",
+              "label": "焦っていない"
+            },
+            {
+              "id": "time_ideal_52b8aa95",
+              "label": "急ぎすぎていない"
+            },
+            {
+              "id": "time_ideal_d4442189",
+              "label": "過去を手放している"
+            },
+            {
+              "id": "time_ideal_84002ad7",
+              "label": "未来を信頼している"
+            },
+            {
+              "id": "time_ideal_29636ab8",
+              "label": "年齢を受け入れている"
+            },
+            {
+              "id": "time_ideal_af019741",
+              "label": "人と比べて焦らない"
+            },
+            {
+              "id": "time_ideal_26dce58b",
+              "label": "間に合っていると感じている"
+            },
+            {
+              "id": "time_ideal_73a9b408",
+              "label": "人生の流れを信頼している"
+            },
+            {
+              "id": "time_ideal_76d5b9b7",
+              "label": "時間を味方にしている"
+            },
+            {
+              "id": "time_ideal_98733f77",
+              "label": "時間との関係に満足している"
+            }
+          ]
         }
       ]
     }
