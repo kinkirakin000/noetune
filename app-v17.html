@@ -1630,6 +1630,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <script src="./js/v17/billing-ui.js"></script>
 <script src="./js/v17/auth.js"></script>
 <script src="./js/v17/bookmarks.js"></script>
+<script src="./js/v17/session-snapshot.js"></script>
 <script src="./js/v15/result-save.js"></script>
 <script src="./js/v15/result-image-save.js"></script>
 <!-- ── AUTH MODAL ── -->
@@ -4454,12 +4455,14 @@ function onSlider(key, v) {
   if (D && D.v17Flow) {
     var score = Number(v);
     if (key === 'v17-before') {
+      setV17MeasurementState('before', 'scored', score, true);
       D.firstThemeScore = score;
       D.initialThemeScore = score;
       D.beforeEmotionPositive = score;
       D.v17Flow.initialThemeScore = score;
       D.v17Flow.beforeEmotionPositive = score;
     } else if (key === 'v17-final') {
+      setV17MeasurementState('after', 'scored', score, true);
       D.finalThemeScore = score;
       D.afterEmotionPositive = score;
       D.v17Flow.finalThemeScore = score;
@@ -4484,12 +4487,14 @@ function selectV17NotAProblem(key) {
   }
   if (button) button.disabled = false;
   if (key === 'v17-before') {
+    setV17MeasurementState('before', 'not_a_problem', null, true);
     D.firstThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.beforeEmotionPositive = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.initialThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.beforeEmotionPositive = V17_SCORE_NOT_A_PROBLEM;
   } else if (key === 'v17-final') {
+    setV17MeasurementState('after', 'not_a_problem', null, true);
     D.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
     D.afterEmotionPositive = V17_SCORE_NOT_A_PROBLEM;
     D.v17Flow.finalThemeScore = V17_SCORE_NOT_A_PROBLEM;
@@ -5758,6 +5763,12 @@ function ensureV17SessionState() {
   if (typeof D.afterEmotionPositive === 'undefined') D.afterEmotionPositive = null;
   if (typeof D.deltaScore === 'undefined') D.deltaScore = null;
   if (typeof D.v17Flow === 'undefined') D.v17Flow = null;
+  if (typeof D.v17MeasurementState === 'undefined' || !D.v17MeasurementState || typeof D.v17MeasurementState !== 'object') {
+    D.v17MeasurementState = {
+      before: { state: 'unset', value: null, touched: false },
+      after: { state: 'unset', value: null, touched: false }
+    };
+  }
   if (!Array.isArray(D.currentThemeScoreTrail)) {
     D.currentThemeScoreTrail = D.v17Flow && Array.isArray(D.v17Flow.currentThemeScoreTrail)
       ? D.v17Flow.currentThemeScoreTrail.slice() : [];
@@ -5786,9 +5797,80 @@ function resetV17SessionState(preserveThemeScoreTrail) {
   D.afterEmotionPositive = null;
   D.deltaScore = null;
   D.v17Flow = null;
+  D.v17MeasurementState = {
+    before: { state: 'unset', value: null, touched: false },
+    after: { state: 'unset', value: null, touched: false }
+  };
+  v17MeasurementSkipPhase = null;
   D.currentThemeScoreTrail = scoreTrail;
   D.currentThemeAwarenessTrail = awarenessTrail;
 }
+
+function createV17MeasurementStatePhase(state, value, touched) {
+  return {
+    state: state || 'unset',
+    value: typeof value === 'number' ? value : null,
+    touched: !!touched
+  };
+}
+
+function ensureV17MeasurementState() {
+  ensureV17SessionState();
+  if (!D.v17MeasurementState || typeof D.v17MeasurementState !== 'object') {
+    D.v17MeasurementState = {
+      before: createV17MeasurementStatePhase('unset', null, false),
+      after: createV17MeasurementStatePhase('unset', null, false)
+    };
+  }
+  if (!D.v17MeasurementState.before || typeof D.v17MeasurementState.before !== 'object') {
+    D.v17MeasurementState.before = createV17MeasurementStatePhase('unset', null, false);
+  }
+  if (!D.v17MeasurementState.after || typeof D.v17MeasurementState.after !== 'object') {
+    D.v17MeasurementState.after = createV17MeasurementStatePhase('unset', null, false);
+  }
+  ['before', 'after'].forEach(function(kind) {
+    var entry = D.v17MeasurementState[kind];
+    if (typeof entry.state !== 'string') entry.state = 'unset';
+    if (entry.state !== 'scored') {
+      entry.value = null;
+    } else if (typeof entry.value !== 'number' || Number.isNaN(entry.value)) {
+      entry.value = null;
+    }
+    entry.touched = !!entry.touched;
+  });
+  return D.v17MeasurementState;
+}
+
+function resetV17MeasurementState() {
+  D.v17MeasurementState = {
+    before: createV17MeasurementStatePhase('unset', null, false),
+    after: createV17MeasurementStatePhase('unset', null, false)
+  };
+  return D.v17MeasurementState;
+}
+
+function setV17MeasurementState(kind, state, value, touched) {
+  var measurementState = ensureV17MeasurementState();
+  if (!measurementState[kind]) {
+    measurementState[kind] = createV17MeasurementStatePhase('unset', null, false);
+  }
+  measurementState[kind].state = state || 'unset';
+  measurementState[kind].value = typeof value === 'number' ? value : null;
+  measurementState[kind].touched = !!touched;
+  return measurementState[kind];
+}
+
+function syncV17MeasurementStateFromValue(kind, value) {
+  if (value === V17_SCORE_NOT_A_PROBLEM) {
+    return setV17MeasurementState(kind, 'not_a_problem', null, true);
+  }
+  if (typeof value === 'number' && !Number.isNaN(value)) {
+    return setV17MeasurementState(kind, 'scored', value, true);
+  }
+  return ensureV17MeasurementState()[kind];
+}
+
+var v17MeasurementSkipPhase = null;
 
 function clearV17QuestionState() {
   ensureV17QuestionState();
@@ -7704,6 +7786,11 @@ function startV17Session(replaceHistory) {
   D.breathEaseAfter = null;
   D.beforeEmotionPositive = null;
   D.afterEmotionPositive = null;
+  D.v17MeasurementState = {
+    before: { state: 'unset', value: null, touched: false },
+    after: { state: 'unset', value: null, touched: false }
+  };
+  v17MeasurementSkipPhase = null;
   D.v13OriginalTheme = '';
   D.v13History = [];
   D.v17Flow = createV17FlowState();
@@ -7718,6 +7805,11 @@ function startV17Session(replaceHistory) {
 function submitV17BeforeScore() {
   ensureV17SessionState();
   var value = arguments.length ? arguments[0] : getSliderVal('v17-before');
+  var skipPhase = v17MeasurementSkipPhase;
+  v17MeasurementSkipPhase = null;
+  if (skipPhase !== 'before') {
+    syncV17MeasurementStateFromValue('before', value);
+  }
   D.firstThemeScore = value;
   D.initialThemeScore = value;
   D.beforeEmotionPositive = value;
@@ -8346,6 +8438,11 @@ function openV17FinalMeasurement() {
 
 function submitV17FinalScore() {
   var value = arguments.length ? arguments[0] : getSliderVal('v17-final');
+  var skipPhase = v17MeasurementSkipPhase;
+  v17MeasurementSkipPhase = null;
+  if (skipPhase !== 'after') {
+    syncV17MeasurementStateFromValue('after', value);
+  }
   D.finalThemeScore = value;
   D.afterEmotionPositive = value;
   D.breathEaseAfter = value;
@@ -8615,13 +8712,23 @@ function handleV17Skip() {
   if (cur === 's-v17-start-category') { openV17LifeThemeEntry(); return; }
   if (cur === 's-v17-entry-choice') { skipV17ThemeSelection(); return; }
   if (cur === 's-v17-spiritual-wisdom') { skipV17ThemeSelection(); return; }
-  if (cur === 's-v17-before') { submitV17BeforeScore(getV17SkipScore(D.initialThemeScore)); return; }
+  if (cur === 's-v17-before') {
+    v17MeasurementSkipPhase = 'before';
+    setV17MeasurementState('before', 'skipped', null, true);
+    submitV17BeforeScore(getV17SkipScore(D.initialThemeScore));
+    return;
+  }
   if (cur === 's-v17-first-response') { submitV17FirstResponse(true); return; }
   if (cur === 's-v17-second-response') { submitV17SecondResponse(true); return; }
   if (cur === 's-v17-deep-response') { submitV17DeepDiveResponse(true); return; }
   if (cur === 's-v17-deep-feel-100') { submitV17DeepDiveFeel100(); return; }
   if (cur === 's-v17-breath') { completeV17BreathFlow(); return; }
-  if (cur === 's-v17-final-measure') { submitV17FinalScore(getV17SkipScore(D.finalThemeScore)); return; }
+  if (cur === 's-v17-final-measure') {
+    v17MeasurementSkipPhase = 'after';
+    setV17MeasurementState('after', 'skipped', null, true);
+    submitV17FinalScore(getV17SkipScore(D.finalThemeScore));
+    return;
+  }
   if (cur === 's-result') { skipV17ResultChoice(); return; }
   showScreenDirect('s-v17-entry-choice');
 }
