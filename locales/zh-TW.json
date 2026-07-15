@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "想到這件事時，\n你感覺有多沉重？",
+      "prompt": "在那個狀態下，\n你有多像真正的自己？",
       "rangeLabel": "0〜100"
     },
     "step2": {
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "想到這件事時，\n你感覺有多沉重？",
+      "prompt": "在那個狀態下，\n你有多像真正的自己？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {
@@ -194,8 +194,8 @@
     "cardTitle": "結果",
     "themeLabel": "主題",
     "subthemeLabel": "子主題",
-    "happinessLabel": "沉重感",
-    "positiveSensation": "沉重感",
+    "happinessLabel": "做自己的感覺",
+    "positiveSensation": "做自己的感覺",
     "awarenessTitle": "注意到的事",
     "showMoreAwareness": "查看更多",
     "showRecentAwareness": "只看部分",
@@ -204,7 +204,7 @@
     "selectedIdeal": "你選擇的理想",
     "currentState": "你寫下的目前狀態",
     "idealState": "你寫下的幸福感達到 100% 時的狀態",
-    "scoreSuffix": "沉重感",
+    "scoreSuffix": "做自己的感覺",
     "before": "前",
     "after": "後",
     "showAllScores": "查看全部",
