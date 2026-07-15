@@ -128,7 +128,7 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "When you think about it,\nhow much heaviness do you feel?",
+      "prompt": "In that state,\nhow much do you feel like yourself?",
       "rangeLabel": "0–100"
     },
     "step2": {
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "When you think about it,\nhow much heaviness do you feel?",
+      "prompt": "In that state,\nhow much do you feel like yourself?",
       "rangeLabel": "0–100"
     },
     "deepDive": {
@@ -194,8 +194,8 @@
     "cardTitle": "Result",
     "themeLabel": "Theme",
     "subthemeLabel": "Subtheme",
-    "happinessLabel": "Heaviness",
-    "positiveSensation": "Heaviness",
+    "happinessLabel": "Feeling like yourself",
+    "positiveSensation": "Feeling like yourself",
     "awarenessTitle": "What I noticed",
     "showMoreAwareness": "Show more",
     "showRecentAwareness": "Show less",
@@ -204,7 +204,7 @@
     "selectedIdeal": "Selected ideal",
     "currentState": "The current state you wrote",
     "idealState": "The 100% happiness state you wrote",
-    "scoreSuffix": "Heaviness",
+    "scoreSuffix": "Feeling like yourself",
     "before": "Before",
     "after": "After",
     "showAllScores": "Show all",
