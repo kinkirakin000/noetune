@@ -5179,6 +5179,9 @@ function selectV17SpiritualWisdomTheme(group, theme) {
   D.themeNegative = '';
   D.themeMeaning = theme.description || '';
   themeChosen = true;
+  if (window.NoetuneV17SessionSnapshot && typeof NoetuneV17SessionSnapshot.startNewV17SessionIdentity === 'function') {
+    NoetuneV17SessionSnapshot.startNewV17SessionIdentity();
+  }
   trackEvent('theme_selected', {
     themeKey: theme.id,
     lang: lang,
@@ -5229,6 +5232,9 @@ function startV17TrackFreeInput(category, track, value) {
   D.themeNegative = '';
   D.themeMeaning = '';
   themeChosen = true;
+  if (window.NoetuneV17SessionSnapshot && typeof NoetuneV17SessionSnapshot.startNewV17SessionIdentity === 'function') {
+    NoetuneV17SessionSnapshot.startNewV17SessionIdentity();
+  }
   trackEvent('theme_selected', {
     themeKey: null,
     lang: lang,
@@ -5565,6 +5571,9 @@ function selectV17LibraryTheme(category, track, theme) {
   D.themeNegative = '';
   D.themeMeaning = '';
   themeChosen = true;
+  if (window.NoetuneV17SessionSnapshot && typeof NoetuneV17SessionSnapshot.startNewV17SessionIdentity === 'function') {
+    NoetuneV17SessionSnapshot.startNewV17SessionIdentity();
+  }
   trackEvent('theme_selected', { themeKey: theme.id, lang: lang, source: 'themeLibrary' });
   resetV17SessionModeSelection();
   openV17SessionModeSelection();
@@ -5796,6 +5805,13 @@ function resetV17SessionState(preserveThemeScoreTrail) {
   D.finalThemeScore = null;
   D.afterEmotionPositive = null;
   D.deltaScore = null;
+  if (D.v17Flow) {
+    D.v17Flow.currentScreen = null;
+    D.v17Flow.responseStates = {
+      current: 'unset',
+      ideal: 'unset'
+    };
+  }
   D.v17Flow = null;
   D.v17MeasurementState = {
     before: { state: 'unset', value: null, touched: false },
@@ -7209,6 +7225,11 @@ function createV17FlowState() {
     breathPhase: 'first',
     breathStep: 1,
     initialThemeScore: null,
+    currentScreen: null,
+    responseStates: {
+      current: 'unset',
+      ideal: 'unset'
+    },
     step2Text: '',
     step2Draft: '',
     step3Text: '',
@@ -7289,13 +7310,15 @@ function setV17SemanticResponse(kind, value) {
     D.idealStateDraft = value;
     D.ideal = value;
     D.idealAnswer = value;
-    if (D.v17Flow) {
-      D.v17Flow.idealState = value;
-      D.v17Flow.idealStateText = value;
-      D.v17Flow.idealStateDraft = value;
-    }
-    return;
+  if (D.v17Flow) {
+    D.v17Flow.idealState = value;
+    D.v17Flow.idealStateText = value;
+    D.v17Flow.idealStateDraft = value;
+    if (!D.v17Flow.responseStates) D.v17Flow.responseStates = { current: 'unset', ideal: 'unset' };
+    D.v17Flow.responseStates.ideal = value ? 'answered' : 'unset';
   }
+  return;
+}
   D.currentState = value;
   D.currentStateText = value;
   D.currentStateDraft = value;
@@ -7304,6 +7327,8 @@ function setV17SemanticResponse(kind, value) {
     D.v17Flow.currentState = value;
     D.v17Flow.currentStateText = value;
     D.v17Flow.currentStateDraft = value;
+    if (!D.v17Flow.responseStates) D.v17Flow.responseStates = { current: 'unset', ideal: 'unset' };
+    D.v17Flow.responseStates.current = value ? 'answered' : 'unset';
   }
 }
 
@@ -7858,6 +7883,9 @@ function submitV17FirstResponse(allowEmpty) {
     D.v17Flow.step2Text = value;
     D.v17Flow.step2Draft = value;
     setV17SemanticResponse(getV17ResponseKind('first'), value);
+  } else if (allowEmpty && D.v17Flow) {
+    if (!D.v17Flow.responseStates) D.v17Flow.responseStates = { current: 'unset', ideal: 'unset' };
+    D.v17Flow.responseStates[getV17ResponseKind('first') === 'idealState' ? 'ideal' : 'current'] = 'skipped';
   }
   openV17SecondResponse();
 }
@@ -7876,6 +7904,9 @@ function submitV17SecondResponse(allowEmpty) {
     D.v17Flow.step3Text = value;
     D.v17Flow.step3Draft = value;
     setV17SemanticResponse(getV17ResponseKind('second'), value);
+  } else if (allowEmpty && D.v17Flow) {
+    if (!D.v17Flow.responseStates) D.v17Flow.responseStates = { current: 'unset', ideal: 'unset' };
+    D.v17Flow.responseStates[getV17ResponseKind('second') === 'idealState' ? 'ideal' : 'current'] = 'skipped';
   }
   openV17Breath();
 }
@@ -9707,6 +9738,38 @@ function wrapV17SavePayloadBuilders() {
     };
     window.resumeSavedProgress._v17Wrapped = true;
   }
+
+  function resumeV17RegularSnapshotToScreen(snapshot) {
+    if (!window.NoetuneV17SessionSnapshot || typeof window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot !== 'function') {
+      return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: 'snapshot' } };
+    }
+    var validated = window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot(snapshot);
+    if (!validated.ok) return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: validated.error && validated.error.path ? validated.error.path : 'snapshot' } };
+    snapshot = validated.snapshot;
+    if (!snapshot || !snapshot.summary || snapshot.summary.sessionMode !== 'regular') {
+      return { ok: false, error: { code: 'RESTORE_SCREEN_NOT_SUPPORTED', path: 'summary.sessionMode' } };
+    }
+    if (['s-v17-session-mode', 's-v17-before', 's-v17-first-response', 's-v17-second-response'].indexOf(snapshot.currentScreen) < 0) {
+      return { ok: false, error: { code: 'RESTORE_SCREEN_NOT_SUPPORTED', path: 'currentScreen' } };
+    }
+    var restoreResult = window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(snapshot);
+    if (!restoreResult.ok) return restoreResult;
+    if (snapshot.currentScreen === 's-v17-session-mode') {
+      renderV17SessionModeScreen();
+    } else {
+      renderV17Screen(snapshot.currentScreen);
+    }
+    setV17ScreenDirectWithoutHistoryReset(snapshot.currentScreen);
+    if (D && D.v17Flow) D.v17Flow.currentScreen = snapshot.currentScreen;
+    return {
+      ok: true,
+      sessionId: snapshot.sessionId,
+      currentScreen: snapshot.currentScreen,
+      sessionMode: 'regular'
+    };
+  }
+
+  window.resumeV17RegularSnapshotToScreen = resumeV17RegularSnapshotToScreen;
 }
 
 document.addEventListener('keydown', function(e){

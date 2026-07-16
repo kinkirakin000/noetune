@@ -11,10 +11,12 @@
     's-v17-first-response',
     's-v17-second-response'
   ];
+  var ALLOWED_SESSION_STATUSES = ['active', 'completed', 'discarded'];
   var ALLOWED_ENTRY_TYPES = ['life_theme', 'free_input', 'spiritual_wisdom'];
   var ALLOWED_ROUTE_TYPES = ['problem', 'ideal', 'spiritual'];
   var ALLOWED_MEASUREMENT_STATES = ['scored', 'not_a_problem', 'skipped', 'unset'];
-  var ALLOWED_RESPONSE_STATES = ['answered', 'unset'];
+  var ALLOWED_RESPONSE_STATES = ['answered', 'skipped', 'unset'];
+  var ALLOWED_FLOW_RESPONSE_STATES = ['answered', 'skipped', 'unset'];
   var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3'];
   var FORBIDDEN_KEYS = [
     'navHistory',
@@ -129,7 +131,10 @@
   }
 
   function getRuntimeScreenId() {
-    var value = typeof global.cur === 'string' ? global.cur : '';
+    var flow = getRuntimeFlow();
+    var value = flow && typeof flow.currentScreen === 'string' && flow.currentScreen
+      ? flow.currentScreen
+      : typeof global.cur === 'string' ? global.cur : '';
     return value || 's-v17-session-mode';
   }
 
@@ -157,7 +162,9 @@
   function getEntryType() {
     var themeSource = global.D && typeof global.D.themeSource === 'string' ? global.D.themeSource : '';
     if (themeSource === 'themeLibrary') return 'life_theme';
-    if (themeSource === 'freeInput') return 'free_input';
+    if (themeSource === 'freeInput' || themeSource === 'categoryFreeInput' || themeSource === 'customCategoryFreeInput') {
+      return 'free_input';
+    }
     if (themeSource === 'spiritual-wisdom') return 'spiritual_wisdom';
     return null;
   }
@@ -236,12 +243,127 @@
     };
   }
 
+  function getRandomUuid() {
+    if (global.crypto && typeof global.crypto.randomUUID === 'function') {
+      return global.crypto.randomUUID();
+    }
+    return null;
+  }
+
+  function createV17SessionIdentity(now) {
+    var createdAt = toIsoOrNull(now) || nowIso();
+    var sessionId = getRandomUuid();
+    var cycleId = getRandomUuid();
+    if (!sessionId || !cycleId) return null;
+    return {
+      sessionId: sessionId,
+      status: 'active',
+      createdAt: createdAt,
+      savedAt: null,
+      updatedAt: createdAt,
+      revision: 0,
+      cycleId: cycleId,
+      cycleIndex: 0,
+      cycleStartedAt: createdAt,
+      resultReachedAt: null,
+      resultEventSent: false
+    };
+  }
+
+  function getV17SessionIdentity() {
+    return isPlainObject(global.D) && isPlainObject(global.D.v17SessionIdentity) ? global.D.v17SessionIdentity : null;
+  }
+
+  function startNewV17SessionIdentity(now) {
+    var identity = createV17SessionIdentity(now);
+    if (!identity) return null;
+    if (!isPlainObject(global.D)) return null;
+    global.D.v17SessionIdentity = identity;
+    return identity;
+  }
+
+  function buildEntryState(entryType, themeId, questionId, themeLabel, themeDescription, categoryId, categoryLabel, trackId, themeMeaning, freeInputTheme, questionTextAtTime, selectionLocale) {
+    return {
+      entryType: entryType,
+      themeId: themeId,
+      questionId: questionId,
+      themeLabel: themeLabel,
+      themeDescription: themeDescription,
+      categoryId: categoryId,
+      categoryLabel: categoryLabel,
+      trackId: trackId,
+      themeMeaning: themeMeaning,
+      freeInputTheme: freeInputTheme,
+      questionTextAtTime: questionTextAtTime,
+      localeAtSelection: selectionLocale
+    };
+  }
+
   function normalizeV17Locale(value) {
     return value === 'ja' || value === 'en' || value === 'zh-TW' ? value : null;
   }
 
   function getActiveScreenBucket(screenId) {
     return screenId === 's-v17-second-response' ? 'second' : 'first';
+  }
+
+  function deriveV17RegularFlow(currentScreen, routeType) {
+    if (currentScreen === 's-v17-session-mode' || currentScreen === 's-v17-before') return null;
+    if (currentScreen !== 's-v17-first-response' && currentScreen !== 's-v17-second-response' && currentScreen !== 's-v17-breath' && currentScreen !== 's-v17-final-measure' && currentScreen !== 's-result') {
+      return null;
+    }
+    var activeScreen = currentScreen === 's-v17-first-response'
+      ? 'first'
+      : currentScreen === 's-v17-second-response'
+        ? 'second'
+        : 'completed';
+    var firstResponseRole = routeType === 'problem' ? 'ideal' : 'current';
+    var secondResponseRole = routeType === 'problem' ? 'current' : 'ideal';
+    if (routeType !== 'problem' && routeType !== 'ideal' && routeType !== 'spiritual') return null;
+    return {
+      activeScreen: activeScreen,
+      firstResponseRole: firstResponseRole,
+      secondResponseRole: secondResponseRole
+    };
+  }
+
+  function normalizeV17ResponseState(value, path) {
+    if (typeof value === 'undefined') return { state: 'unset' };
+    if (typeof value !== 'string') return null;
+    if (ALLOWED_FLOW_RESPONSE_STATES.indexOf(value) < 0) return null;
+    return { state: value };
+  }
+
+  function getRuntimeResponseState(role, flow, semanticValue, semanticDraft) {
+    var flowStates = flow && isPlainObject(flow.responseStates) ? flow.responseStates : null;
+    var flowState = flowStates && typeof flowStates[role] === 'string' ? flowStates[role] : null;
+    var normalizedFlowState = normalizeV17ResponseState(flowState, 'responseStates.' + role);
+    if (normalizedFlowState) {
+      return {
+        state: normalizedFlowState.state,
+        text: normalizeText(semanticValue),
+        draft: normalizeText(semanticDraft)
+      };
+    }
+    var text = normalizeText(semanticValue);
+    var draft = normalizeText(semanticDraft);
+    return {
+      state: text || draft ? 'answered' : 'unset',
+      text: text,
+      draft: draft
+    };
+  }
+
+  function validateRuntimeResponseStates(flow, path) {
+    if (!isPlainObject(flow.responseStates)) return createError('RESPONSE_STATE_INVALID', path);
+    var responseStateKeys = ['current', 'ideal'];
+    var responseStateShapeError = validateExactObjectKeys(flow.responseStates, responseStateKeys, path, 'RESPONSE_STATE_INVALID');
+    if (responseStateShapeError) return responseStateShapeError;
+    var currentError = validateFlowResponseState(flow.responseStates.current, path + '.current');
+    if (currentError) return currentError;
+    var idealError = validateFlowResponseState(flow.responseStates.ideal, path + '.ideal');
+    if (idealError) return idealError;
+    return null;
   }
 
   function buildSnapshot(identity, savedAt, now) {
@@ -253,14 +375,19 @@
     var currentStep = getCurrentStep(screenId, flow);
     var currentLocale = normalizeV17Locale(typeof global.lang === 'string' && global.lang ? global.lang : '');
     var selectionLocale = normalizeV17Locale(global.D && global.D.localeAtTime);
-    var themeId = global.D && global.D.themeId ? global.D.themeId : null;
-    var questionId = global.D && global.D.questionId ? global.D.questionId : null;
+    var themeId = normalizeNullableText(global.D && global.D.themeId);
+    var questionId = normalizeNullableText(global.D && global.D.questionId);
     var questionTextAtTime = normalizeNullableText(global.D && global.D.questionTextAtTime);
     var categoryId = normalizeNullableText(global.D && global.D.themeCategoryId);
     var categoryLabel = normalizeNullableText(global.D && global.D.themeCategoryLabelAtTime);
     var track = normalizeNullableText(global.D && global.D.themeTrackId);
     var themeDescription = normalizeNullableText(global.D && global.D.themeMeaning);
     var freeInputTheme = normalizeNullableText(global.D && global.D.freeInputTheme);
+    var themeLabel = normalizeNullableText(
+      entryType === 'free_input'
+        ? (global.D && (global.D.freeInputTheme || global.D.theme || global.D.questionTextAtTime))
+        : (global.D && (global.D.theme || global.D.questionTextAtTime))
+    );
     var entrySummary = normalizeEntrySummary(entryType, categoryLabel, questionTextAtTime, questionTextAtTime, freeInputTheme);
     var responseRoles = getResponseRoles(routeType);
     var currentStateValue = normalizeNullableText(global.D && global.D.currentState);
@@ -273,14 +400,15 @@
       ? clone(global.D.currentThemeAwarenessTrail) : [];
     var firstPair = getResponsePair('first', responseRoles.first, flow);
     var secondPair = getResponsePair('second', responseRoles.second, flow);
-    var currentResponse = responseRoles.first === 'current' ? firstPair : secondPair;
-    var idealResponse = responseRoles.first === 'ideal' ? firstPair : secondPair;
+    var currentResponse = getRuntimeResponseState('current', flow, global.D && global.D.currentState, global.D && global.D.currentStateDraft);
+    var idealResponse = getRuntimeResponseState('ideal', flow, global.D && global.D.idealState, global.D && global.D.idealStateDraft);
+    var regularFlow = deriveV17RegularFlow(flow && typeof flow.currentScreen === 'string' && flow.currentScreen ? flow.currentScreen : screenId, routeType);
     var currentCycle = {
       cycleId: identity.cycleId,
       cycleIndex: identity.cycleIndex,
       startedAt: identity.cycleStartedAt,
-      resultReachedAt: null,
-      resultEventSent: false
+      resultReachedAt: identity.resultReachedAt === null ? null : identity.resultReachedAt,
+      resultEventSent: !!identity.resultEventSent
     };
     var currentState = {
       currentScreen: screenId,
@@ -288,9 +416,20 @@
       routeType: routeType,
       entryType: entryType,
       locale: currentLocale,
-      entry: {
-        localeAtSelection: selectionLocale
-      },
+      entry: buildEntryState(
+        entryType,
+        themeId,
+        questionId,
+        themeLabel,
+        themeDescription,
+        categoryId,
+        categoryLabel,
+        track,
+        themeDescription,
+        freeInputTheme,
+        questionTextAtTime,
+        selectionLocale
+      ),
       measurement: {
         before: beforeMeasurement,
         after: afterMeasurement
@@ -303,11 +442,7 @@
         current: currentStateValue,
         ideal: idealStateValue
       },
-      regularFlow: {
-        activeScreen: getActiveScreenBucket(screenId),
-        firstResponseRole: responseRoles.first,
-        secondResponseRole: responseRoles.second
-      },
+      regularFlow: regularFlow,
       scoreTrail: scoreTrail,
       awarenessTrail: awarenessTrail,
       deepFlow: null
@@ -316,13 +451,13 @@
       snapshotSchemaVersion: SCHEMA_VERSION,
       appVersion: APP_VERSION,
       sessionId: identity.sessionId,
-      status: 'active',
+      status: identity.status || 'active',
       createdAt: identity.createdAt,
-      savedAt: savedAt,
+      savedAt: identity.savedAt || savedAt,
       updatedAt: now,
       completedAt: null,
       discardedAt: null,
-      revision: 0,
+      revision: identity.revision,
       currentScreen: screenId,
       summary: {
         locale: selectionLocale,
@@ -369,6 +504,25 @@
     return null;
   }
 
+  function validateFlowResponseState(value, path) {
+    if (typeof value !== 'string') return createError('RESPONSE_STATE_INVALID', path);
+    if (ALLOWED_FLOW_RESPONSE_STATES.indexOf(value) < 0) return createError('RESPONSE_STATE_INVALID', path);
+    return null;
+  }
+
+  function validateRegularFlowMetadata(flow, routeType, path) {
+    if (!isPlainObject(flow)) return createError('INVALID_CURRENT_STATE', path);
+    if (flow.currentScreen !== null && (typeof flow.currentScreen !== 'string' || !flow.currentScreen || ALLOWED_SCREENS.indexOf(flow.currentScreen) < 0)) {
+      return createError('RUNTIME_SCREEN_INVALID', path + '.currentScreen');
+    }
+    var expectedRegularFlow = deriveV17RegularFlow(flow.currentScreen, routeType);
+    if (expectedRegularFlow === null) return createError('RUNTIME_SCREEN_INVALID', path + '.currentScreen');
+    if (flow.activeScreen !== expectedRegularFlow.activeScreen) return createError('RUNTIME_SCREEN_INVALID', path + '.activeScreen');
+    if (flow.firstResponseRole !== expectedRegularFlow.firstResponseRole) return createError('INVALID_CURRENT_STATE', path + '.firstResponseRole');
+    if (flow.secondResponseRole !== expectedRegularFlow.secondResponseRole) return createError('INVALID_CURRENT_STATE', path + '.secondResponseRole');
+    return null;
+  }
+
   function validateRouteType(routeType, path) {
     if (ALLOWED_ROUTE_TYPES.indexOf(routeType) < 0) return createError('UNKNOWN_ROUTE_TYPE', path);
     return null;
@@ -376,6 +530,22 @@
 
   function validateEntryType(entryType, path) {
     if (ALLOWED_ENTRY_TYPES.indexOf(entryType) < 0) return createError('UNSUPPORTED_ENTRY_TYPE', path);
+    return null;
+  }
+
+  function validateSessionIdentity(identity) {
+    if (!isPlainObject(identity)) return createError('SESSION_IDENTITY_REQUIRED', 'identity');
+    if (!isUuid(identity.sessionId)) return createError('SESSION_IDENTITY_INVALID', 'identity.sessionId');
+    if (ALLOWED_SESSION_STATUSES.indexOf(identity.status) < 0) return createError('SESSION_STATUS_INVALID', 'identity.status');
+    if (toIsoOrNull(identity.createdAt) === null) return createError('SESSION_TIMESTAMP_INVALID', 'identity.createdAt');
+    if (identity.savedAt !== null && toIsoOrNull(identity.savedAt) === null) return createError('SESSION_TIMESTAMP_INVALID', 'identity.savedAt');
+    if (identity.updatedAt !== null && toIsoOrNull(identity.updatedAt) === null) return createError('SESSION_TIMESTAMP_INVALID', 'identity.updatedAt');
+    if (!Number.isInteger(identity.revision) || identity.revision < 0) return createError('SESSION_REVISION_INVALID', 'identity.revision');
+    if (!isUuid(identity.cycleId)) return createError('CYCLE_ID_INVALID', 'identity.cycleId');
+    if (!Number.isInteger(identity.cycleIndex) || identity.cycleIndex < 0) return createError('CYCLE_INDEX_INVALID', 'identity.cycleIndex');
+    if (toIsoOrNull(identity.cycleStartedAt) === null) return createError('CYCLE_TIMESTAMP_INVALID', 'identity.cycleStartedAt');
+    if (identity.resultReachedAt !== null && toIsoOrNull(identity.resultReachedAt) === null) return createError('CYCLE_TIMESTAMP_INVALID', 'identity.resultReachedAt');
+    if (typeof identity.resultEventSent !== 'boolean') return createError('CYCLE_EVENT_STATE_INVALID', 'identity.resultEventSent');
     return null;
   }
 
@@ -444,6 +614,70 @@
     if (state.entry.localeAtSelection !== 'ja' && state.entry.localeAtSelection !== 'en' && state.entry.localeAtSelection !== 'zh-TW') {
       return createError('LOCALE_AT_SELECTION_REQUIRED', 'currentState.entry.localeAtSelection');
     }
+    var entry = state.entry;
+    var entryKeys = [
+      'entryType',
+      'themeId',
+      'questionId',
+      'themeLabel',
+      'themeDescription',
+      'categoryId',
+      'categoryLabel',
+      'trackId',
+      'themeMeaning',
+      'freeInputTheme',
+      'questionTextAtTime',
+      'localeAtSelection'
+    ];
+    var entryFieldError;
+    for (var entryKeyIndex = 0; entryKeyIndex < entryKeys.length; entryKeyIndex += 1) {
+      if (!Object.prototype.hasOwnProperty.call(entry, entryKeys[entryKeyIndex])) {
+        return createError('ENTRY_STATE_INCOMPLETE', 'currentState.entry.' + entryKeys[entryKeyIndex]);
+      }
+    }
+    var entryShapeError = validateExactObjectKeys(entry, entryKeys, 'currentState.entry', 'ENTRY_STATE_INCOMPLETE');
+    if (entryShapeError) return entryShapeError;
+    entryFieldError = validateEntryType(entry.entryType, 'currentState.entry.entryType');
+    if (entryFieldError) return entryFieldError;
+    if (typeof entry.themeLabel !== 'string' || !entry.themeLabel.trim()) return createError('ENTRY_THEME_LABEL_INVALID', 'currentState.entry.themeLabel');
+    if (entry.localeAtSelection !== 'ja' && entry.localeAtSelection !== 'en' && entry.localeAtSelection !== 'zh-TW') {
+      return createError('ENTRY_LOCALE_INVALID', 'currentState.entry.localeAtSelection');
+    }
+    var nullableEntryFields = ['themeId', 'questionId', 'themeDescription', 'categoryId', 'categoryLabel', 'trackId', 'themeMeaning', 'freeInputTheme', 'questionTextAtTime'];
+    for (var nullableIndex = 0; nullableIndex < nullableEntryFields.length; nullableIndex += 1) {
+      var fieldName = nullableEntryFields[nullableIndex];
+      if (entry[fieldName] !== null && typeof entry[fieldName] !== 'string') {
+        return createError('ENTRY_FIELD_TYPE_INVALID', 'currentState.entry.' + fieldName);
+      }
+    }
+    if (entry.entryType === 'free_input') {
+      if (entry.themeId !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeId');
+      if (entry.questionId !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.questionId');
+      if (entry.themeDescription !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeDescription');
+      if (entry.themeMeaning !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeMeaning');
+      if (typeof entry.freeInputTheme !== 'string' || !entry.freeInputTheme.trim()) {
+        return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.freeInputTheme');
+      }
+      if (typeof entry.questionTextAtTime !== 'string' || !entry.questionTextAtTime.trim()) {
+        return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.questionTextAtTime');
+      }
+    } else if (entry.entryType === 'life_theme') {
+      if (typeof entry.themeId !== 'string' || !entry.themeId.trim()) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeId');
+      if (entry.questionId !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.questionId');
+      if (entry.freeInputTheme !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.freeInputTheme');
+      if (entry.themeDescription !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeDescription');
+      if (entry.themeMeaning !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeMeaning');
+      if (typeof entry.questionTextAtTime !== 'string' || !entry.questionTextAtTime.trim()) {
+        return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.questionTextAtTime');
+      }
+    } else if (entry.entryType === 'spiritual_wisdom') {
+      if (typeof entry.themeId !== 'string' || !entry.themeId.trim()) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.themeId');
+      if (entry.questionId !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.questionId');
+      if (entry.freeInputTheme !== null) return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.freeInputTheme');
+      if (typeof entry.questionTextAtTime !== 'string' || !entry.questionTextAtTime.trim()) {
+        return createError('ENTRY_CONTEXT_MISMATCH', 'currentState.entry.questionTextAtTime');
+      }
+    }
     var stateBefore = validateMeasurementObject(state.measurement.before, 'currentState.measurement.before');
     if (stateBefore) return stateBefore;
     var stateAfter = validateMeasurementObject(state.measurement.after, 'currentState.measurement.after');
@@ -482,26 +716,37 @@
 
   function serializeV17SessionSnapshot(options) {
     options = options && typeof options === 'object' ? options : {};
-    var identity = options.identity && typeof options.identity === 'object' ? options.identity : null;
-    if (!identity || !isUuid(identity.sessionId) || !isUuid(identity.cycleId) || !Number.isInteger(identity.cycleIndex) || identity.cycleIndex < 0) {
-      return { ok: false, error: createError('IDENTITY_REQUIRED', 'identity') };
-    }
-    if (toIsoOrNull(identity.createdAt) === null || toIsoOrNull(identity.cycleStartedAt) === null) {
-      return { ok: false, error: createError('IDENTITY_REQUIRED', 'identity') };
-    }
+    var identity = getV17SessionIdentity();
+    var identityError = validateSessionIdentity(identity);
+    if (identityError) return { ok: false, error: identityError };
     if (getRuntimeSessionMode() === 'deep') {
       return { ok: false, error: createError('UNSUPPORTED_SESSION_MODE_PHASE_4A', 'sessionMode') };
     }
+    if (global.D && global.D.v17Flow) {
+      if (global.D.v17Flow.currentScreen !== null && (typeof global.D.v17Flow.currentScreen !== 'string' || !global.D.v17Flow.currentScreen || ALLOWED_SCREENS.indexOf(global.D.v17Flow.currentScreen) < 0)) {
+        return { ok: false, error: createError('RUNTIME_SCREEN_INVALID', 'v17Flow.currentScreen') };
+      }
+      if (global.D.v17Flow.currentScreen === null) {
+        return { ok: false, error: createError('RUNTIME_SCREEN_INVALID', 'v17Flow.currentScreen') };
+      }
+      var responseStateError = validateRuntimeResponseStates(global.D.v17Flow, 'v17Flow.responseStates');
+      if (responseStateError) return { ok: false, error: responseStateError };
+      var regularFlowError = validateRegularFlowMetadata({
+        currentScreen: global.D.v17Flow.currentScreen,
+        activeScreen: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).activeScreen,
+        firstResponseRole: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).firstResponseRole,
+        secondResponseRole: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).secondResponseRole
+      }, getRuntimeRouteType(), 'v17Flow');
+      if (regularFlowError) return { ok: false, error: regularFlowError };
+    }
     var savedAt = toIsoOrNull(options.savedAt) || nowIso();
     var now = toIsoOrNull(options.now) || savedAt;
-    var snapshot = buildSnapshot({
-      sessionId: identity.sessionId,
-      cycleId: identity.cycleId,
-      cycleIndex: identity.cycleIndex,
-      createdAt: toIsoOrNull(identity.createdAt),
-      cycleStartedAt: toIsoOrNull(identity.cycleStartedAt)
-    }, savedAt, now);
-    return validateV17SessionSnapshot(snapshot);
+    var snapshot = buildSnapshot(identity, savedAt, now);
+    var validated = validateV17SessionSnapshot(snapshot);
+    if (!validated.ok) return validated;
+    if (!identity.savedAt) identity.savedAt = validated.snapshot.savedAt;
+    identity.updatedAt = validated.snapshot.updatedAt;
+    return validated;
   }
 
   function migrateV17SessionSnapshot(input) {
@@ -583,6 +828,208 @@
     }
   }
 
+  function restoreV17SessionRuntime(snapshot) {
+    var validatedSnapshot = validateV17SessionSnapshot(snapshot);
+    if (!validatedSnapshot.ok) {
+      return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', validatedSnapshot.error ? validatedSnapshot.error.path : '') };
+    }
+    snapshot = validatedSnapshot.snapshot;
+    if (!isPlainObject(snapshot.summary) || snapshot.summary.sessionMode !== 'regular') {
+      return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
+    }
+    if (!isPlainObject(snapshot.currentState)) {
+      return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState') };
+    }
+    var routeType = snapshot.currentState.routeType;
+    var regularFlow = deriveV17RegularFlow(snapshot.currentScreen, routeType);
+    var isSessionModeOrBefore = snapshot.currentScreen === 's-v17-session-mode' || snapshot.currentScreen === 's-v17-before';
+    if (!regularFlow && !isSessionModeOrBefore) {
+      return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'currentScreen') };
+    }
+    var regularFlowSnapshot = snapshot.currentState.regularFlow;
+    if (regularFlow && (!isPlainObject(regularFlowSnapshot) ||
+      regularFlowSnapshot.activeScreen !== regularFlow.activeScreen ||
+      regularFlowSnapshot.firstResponseRole !== regularFlow.firstResponseRole ||
+      regularFlowSnapshot.secondResponseRole !== regularFlow.secondResponseRole)) {
+      return { ok: false, error: createError('RESTORE_REGULAR_FLOW_MISMATCH', 'currentState.regularFlow') };
+    }
+    var entry = snapshot.currentState.entry;
+    if (!isPlainObject(entry)) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState.entry') };
+    var responseCurrent = snapshot.currentState.responses && snapshot.currentState.responses.current;
+    var responseIdeal = snapshot.currentState.responses && snapshot.currentState.responses.ideal;
+    if (!isPlainObject(snapshot.currentCycle)) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentCycle') };
+    var staged = {};
+    var stagedFlow = {};
+    staged.v17SessionIdentity = deepClone(snapshot.currentCycle);
+    staged.v17SessionIdentity.sessionId = snapshot.sessionId;
+    staged.v17SessionIdentity.status = snapshot.status;
+    staged.v17SessionIdentity.createdAt = snapshot.createdAt;
+    staged.v17SessionIdentity.savedAt = snapshot.savedAt;
+    staged.v17SessionIdentity.updatedAt = snapshot.updatedAt;
+    staged.v17SessionIdentity.revision = snapshot.revision;
+    staged.v17SessionIdentity.cycleId = snapshot.currentCycle.cycleId;
+    staged.v17SessionIdentity.cycleIndex = snapshot.currentCycle.cycleIndex;
+    staged.v17SessionIdentity.cycleStartedAt = snapshot.currentCycle.startedAt;
+    staged.v17SessionIdentity.resultReachedAt = snapshot.currentCycle.resultReachedAt;
+    staged.v17SessionIdentity.resultEventSent = snapshot.currentCycle.resultEventSent;
+    staged.v17SessionIdentity.status = 'active';
+    staged.currentScreen = snapshot.currentScreen;
+    staged.v17SessionMode = snapshot.summary.sessionMode || null;
+    staged.themeSource = entry.entryType === 'free_input'
+      ? (entry.categoryId === 'custom' ? 'customCategoryFreeInput' : 'categoryFreeInput')
+      : entry.entryType === 'life_theme'
+        ? 'themeLibrary'
+        : entry.entryType === 'spiritual_wisdom'
+          ? 'spiritual-wisdom'
+          : null;
+    if (!staged.themeSource) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState.entry.entryType') };
+    staged.themeId = entry.themeId;
+    staged.questionId = entry.questionId;
+    staged.theme = entry.themeLabel;
+    staged.themeMeaning = entry.themeMeaning;
+    staged.themeCategoryId = entry.categoryId;
+    staged.themeCategoryLabelAtTime = entry.categoryLabel;
+    staged.themeTrackId = entry.trackId;
+    staged.freeInputTheme = entry.freeInputTheme;
+    staged.questionTextAtTime = entry.questionTextAtTime;
+    staged.localeAtTime = entry.localeAtSelection;
+    staged.v17MeasurementState = {
+      before: deepClone(snapshot.currentState.measurement.before),
+      after: deepClone(snapshot.currentState.measurement.after)
+    };
+    staged.initialThemeScore = snapshot.currentState.measurement.before.state === 'scored' ? snapshot.currentState.measurement.before.value : null;
+    staged.finalThemeScore = snapshot.currentState.measurement.after.state === 'scored' ? snapshot.currentState.measurement.after.value : null;
+    staged.currentState = responseCurrent && typeof responseCurrent.text === 'string' ? responseCurrent.text : '';
+    staged.currentStateText = responseCurrent && typeof responseCurrent.text === 'string' ? responseCurrent.text : '';
+    staged.currentStateDraft = responseCurrent && typeof responseCurrent.draft === 'string' ? responseCurrent.draft : '';
+    staged.idealState = responseIdeal && typeof responseIdeal.text === 'string' ? responseIdeal.text : '';
+    staged.idealStateText = responseIdeal && typeof responseIdeal.text === 'string' ? responseIdeal.text : '';
+    staged.idealStateDraft = responseIdeal && typeof responseIdeal.draft === 'string' ? responseIdeal.draft : '';
+    staged.responseStates = {
+      current: responseCurrent && responseCurrent.state ? responseCurrent.state : 'unset',
+      ideal: responseIdeal && responseIdeal.state ? responseIdeal.state : 'unset'
+    };
+    stagedFlow.currentScreen = snapshot.currentScreen;
+    stagedFlow.routeType = routeType;
+    stagedFlow.responseStates = {
+      current: staged.responseStates.current,
+      ideal: staged.responseStates.ideal
+    };
+    stagedFlow.step2Text = staged.currentState;
+    stagedFlow.step2Draft = staged.currentStateDraft;
+    stagedFlow.step3Text = staged.idealState;
+    stagedFlow.step3Draft = staged.idealStateDraft;
+    stagedFlow.currentState = staged.currentState;
+    stagedFlow.currentStateText = staged.currentStateText;
+    stagedFlow.currentStateDraft = staged.currentStateDraft;
+    stagedFlow.idealState = staged.idealState;
+    stagedFlow.idealStateText = staged.idealStateText;
+    stagedFlow.idealStateDraft = staged.idealStateDraft;
+    stagedFlow.activeScreen = regularFlow ? regularFlow.activeScreen : null;
+    stagedFlow.firstResponseRole = regularFlow ? regularFlow.firstResponseRole : null;
+    stagedFlow.secondResponseRole = regularFlow ? regularFlow.secondResponseRole : null;
+    staged.v17Flow = stagedFlow;
+    if (!global.D || typeof global.D !== 'object') {
+      return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'runtime') };
+    }
+    global.D.v17SessionIdentity = staged.v17SessionIdentity;
+    global.D.v17SessionMode = staged.v17SessionMode;
+    global.D.themeSource = staged.themeSource;
+    global.D.themeId = staged.themeId;
+    global.D.questionId = staged.questionId;
+    global.D.theme = staged.theme;
+    global.D.themeMeaning = staged.themeMeaning;
+    global.D.themeCategoryId = staged.themeCategoryId;
+    global.D.themeCategoryLabelAtTime = staged.themeCategoryLabelAtTime;
+    global.D.themeTrackId = staged.themeTrackId;
+    global.D.freeInputTheme = staged.freeInputTheme;
+    global.D.questionTextAtTime = staged.questionTextAtTime;
+    global.D.localeAtTime = staged.localeAtTime;
+    global.D.v17MeasurementState = staged.v17MeasurementState;
+    global.D.initialThemeScore = staged.initialThemeScore;
+    global.D.finalThemeScore = staged.finalThemeScore;
+    global.D.currentState = staged.currentState;
+    global.D.currentStateText = staged.currentStateText;
+    global.D.currentStateDraft = staged.currentStateDraft;
+    global.D.idealState = staged.idealState;
+    global.D.idealStateText = staged.idealStateText;
+    global.D.idealStateDraft = staged.idealStateDraft;
+    global.D.v17Flow = global.D.v17Flow && typeof global.D.v17Flow === 'object' ? global.D.v17Flow : {};
+    global.D.v17Flow.currentScreen = stagedFlow.currentScreen;
+    global.D.v17Flow.routeType = stagedFlow.routeType;
+    global.D.v17Flow.responseStates = stagedFlow.responseStates;
+    global.D.v17Flow.step2Text = stagedFlow.step2Text;
+    global.D.v17Flow.step2Draft = stagedFlow.step2Draft;
+    global.D.v17Flow.step3Text = stagedFlow.step3Text;
+    global.D.v17Flow.step3Draft = stagedFlow.step3Draft;
+    global.D.v17Flow.currentState = stagedFlow.currentState;
+    global.D.v17Flow.currentStateText = stagedFlow.currentStateText;
+    global.D.v17Flow.currentStateDraft = stagedFlow.currentStateDraft;
+    global.D.v17Flow.idealState = stagedFlow.idealState;
+    global.D.v17Flow.idealStateText = stagedFlow.idealStateText;
+    global.D.v17Flow.idealStateDraft = stagedFlow.idealStateDraft;
+    global.D.v17Flow.activeScreen = stagedFlow.activeScreen;
+    global.D.v17Flow.firstResponseRole = stagedFlow.firstResponseRole;
+    global.D.v17Flow.secondResponseRole = stagedFlow.secondResponseRole;
+    return {
+      ok: true,
+      sessionId: snapshot.sessionId,
+      currentScreen: snapshot.currentScreen,
+      sessionMode: snapshot.summary.sessionMode,
+      appliedGroups: ['identity', 'entry', 'mode_route_screen', 'measurement', 'responses', 'regularFlow']
+    };
+  }
+
+  function resumeGuestV17RegularFromLocalRecord() {
+    var readResult = readV17LocalSessionRecord();
+    if (!readResult.ok) {
+      if (readResult.error && readResult.error.code === 'LOCAL_STORAGE_READ_FAILED') {
+        return { ok: false, error: createError('LOCAL_RECORD_INVALID', readResult.error.path || 'storage') };
+      }
+      return { ok: false, error: createError('LOCAL_RECORD_INVALID', readResult.error && readResult.error.path ? readResult.error.path : 'storage') };
+    }
+    if (!readResult.record) return { ok: false, error: createError('LOCAL_RECORD_NOT_FOUND', 'storage') };
+    var validatedRecord = validateV17LocalSessionRecord(readResult.record);
+    if (!validatedRecord.ok) {
+      if (validatedRecord.error && validatedRecord.error.code === 'UNSUPPORTED_SCHEMA_VERSION') {
+        return { ok: false, error: createError('LOCAL_STORAGE_SCHEMA_UNSUPPORTED', validatedRecord.error.path || 'storageSchemaVersion') };
+      }
+      if (validatedRecord.error && validatedRecord.error.code === 'MISSING_SCHEMA_VERSION') {
+        return { ok: false, error: createError('LOCAL_STORAGE_SCHEMA_UNSUPPORTED', validatedRecord.error.path || 'storageSchemaVersion') };
+      }
+      return { ok: false, error: createError('LOCAL_RECORD_INVALID', validatedRecord.error ? validatedRecord.error.path : 'storage') };
+    }
+    if (validatedRecord.record.sync.ownerUserId !== null) {
+      return { ok: false, error: createError('LOCAL_RECORD_NOT_GUEST', 'sync.ownerUserId') };
+    }
+    if (validatedRecord.record.snapshot.status !== 'active') {
+      return { ok: false, error: createError('LOCAL_RECORD_NOT_ACTIVE', 'snapshot.status') };
+    }
+    var migrated = migrateV17SessionSnapshot(validatedRecord.record.snapshot);
+    if (!migrated.ok) {
+      if (migrated.error && migrated.error.code === 'UNSUPPORTED_SCHEMA_VERSION') {
+        return { ok: false, error: createError('LOCAL_STORAGE_SCHEMA_UNSUPPORTED', migrated.error.path || 'snapshotSchemaVersion') };
+      }
+      if (migrated.error && migrated.error.code === 'UNSUPPORTED_SCREEN_PHASE_4A') {
+        return { ok: false, error: createError('RESTORE_SCREEN_NOT_SUPPORTED', migrated.error.path || 'currentScreen') };
+      }
+      if (migrated.error && migrated.error.code === 'UNSUPPORTED_SESSION_MODE_PHASE_4A') {
+        return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', migrated.error.path || 'summary.sessionMode') };
+      }
+      return { ok: false, error: createError('LOCAL_RECORD_INVALID', migrated.error ? migrated.error.path : 'snapshot') };
+    }
+    var resumeResult = global.resumeV17RegularSnapshotToScreen(migrated.snapshot);
+    return resumeResult && resumeResult.ok
+      ? {
+        ok: true,
+        source: 'guest-local',
+        sessionId: resumeResult.sessionId,
+        currentScreen: resumeResult.currentScreen,
+        sessionMode: resumeResult.sessionMode
+      }
+      : resumeResult;
+  }
+
   function writeV17LocalSessionRecord(record) {
     var validated = validateV17LocalSessionRecord(record);
     if (!validated.ok) return validated;
@@ -617,6 +1064,9 @@
 
   global.NoetuneV17SessionSnapshot = Object.freeze({
     constants: constants,
+    createV17SessionIdentity: createV17SessionIdentity,
+    getV17SessionIdentity: getV17SessionIdentity,
+    startNewV17SessionIdentity: startNewV17SessionIdentity,
     serializeV17SessionSnapshot: serializeV17SessionSnapshot,
     validateV17SessionSnapshot: validateV17SessionSnapshot,
     migrateV17SessionSnapshot: migrateV17SessionSnapshot,
@@ -625,6 +1075,8 @@
     readV17LocalSessionRecord: readV17LocalSessionRecord,
     writeV17LocalSessionRecord: writeV17LocalSessionRecord,
     removeV17LocalSessionRecord: removeV17LocalSessionRecord,
-    getV17SnapshotByteSize: getSnapshotByteSize
+    getV17SnapshotByteSize: getSnapshotByteSize,
+    restoreV17SessionRuntime: restoreV17SessionRuntime,
+    resumeGuestV17RegularFromLocalRecord: resumeGuestV17RegularFromLocalRecord
   });
 })(window);
