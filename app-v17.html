@@ -40,10 +40,13 @@ body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;backg
 .btn-back.visible{opacity:1;pointer-events:auto}
 .btn-back svg{display:block}
 .btn-back:active svg path{stroke:#6B9080}
-.v17-session-bookmark{position:fixed;top:calc(1rem + env(safe-area-inset-top));right:1rem;min-width:40px;height:40px;padding:0 .75rem;background:rgba(250,250,247,.72);border:1px solid rgba(107,144,128,.12);border-radius:20px;color:#77736E;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.04em;cursor:default;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s,background .2s,border-color .2s;z-index:220;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.v17-session-bookmark{position:fixed;top:calc(1rem + env(safe-area-inset-top));right:1rem;min-width:40px;height:40px;padding:0 .75rem;background:rgba(250,250,247,.72);border:1px solid rgba(107,144,128,.12);border-radius:20px;color:#77736E;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.04em;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s,background .2s,border-color .2s;z-index:220;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .v17-session-bookmark.visible{opacity:1;pointer-events:auto}
+.v17-session-bookmark[hidden]{display:none}
+.v17-session-bookmark:disabled{cursor:default;opacity:.55}
 .v17-session-bookmark:focus-visible{outline:2px solid #6B9080;outline-offset:3px}
 .v17-session-bookmark[aria-pressed="true"]{border-color:#6B9080;background:rgba(107,144,128,.12);color:#1A1A1A}
+.v17-session-bookmark-status{position:fixed;top:calc(3.65rem + env(safe-area-inset-top));right:1rem;color:#77736E;font-size:.68rem;letter-spacing:.02em;z-index:220;pointer-events:none}
 .btn-v17-skip{
   display:none;
   width:fit-content;
@@ -817,7 +820,8 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
-<button class="v17-session-bookmark" id="v17-session-bookmark" type="button" hidden aria-pressed="false" aria-label="" title=""></button>
+<button class="v17-session-bookmark" id="v17-session-bookmark" type="button" hidden aria-pressed="false" aria-label="" title="" onclick="handleV17SessionBookmarkClick()"></button>
+<div class="v17-session-bookmark-status" id="v17-session-bookmark-status" role="status" aria-live="polite" hidden></div>
 <button class="btn-v17-skip" id="btn-v17-skip" type="button" onclick="handleV17Skip()"></button>
 <div class="settings-cluster">
   <button class="theme-mode-btn" id="btn-theme-mode" type="button" onclick="cycleThemeMode()" aria-label=""></button>
@@ -9060,6 +9064,7 @@ window.updateBackBtn = updateBackBtn;
 
 function updateV17SessionBookmarkVisibility() {
   var button = document.getElementById('v17-session-bookmark');
+  var status = document.getElementById('v17-session-bookmark-status');
   if (!button) return;
   var supportedScreens = [
     's-v17-session-mode',
@@ -9070,9 +9075,96 @@ function updateV17SessionBookmarkVisibility() {
   var flow = D && D.v17Flow;
   var themeReady = !!(D && D.questionTextAtTime && D.v17SessionIdentity && flow);
   var isRegular = !!(D && D.v17SessionMode === 'regular');
-  var eligible = supportedScreens.indexOf(cur) >= 0 && themeReady && isRegular;
+  var apiReady = typeof readV17LocalSessionRecord === 'function'
+    && typeof serializeV17SessionSnapshot === 'function'
+    && typeof createV17LocalSessionRecord === 'function'
+    && typeof writeV17LocalSessionRecord === 'function';
+  var eligible = supportedScreens.indexOf(cur) >= 0 && themeReady && isRegular && apiReady;
   button.classList.toggle('visible', eligible);
-  button.hidden = true;
+  button.hidden = !eligible;
+  if (status) {
+    status.hidden = true;
+    status.textContent = '';
+  }
+  if (!eligible) {
+    button.disabled = false;
+    button.classList.remove('saved');
+    button.setAttribute('aria-pressed', 'false');
+    return;
+  }
+  var readResult = readV17LocalSessionRecord();
+  if (!readResult.ok) {
+    button.hidden = true;
+    button.classList.remove('visible', 'saved');
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return;
+  }
+  var currentSessionId = D.v17SessionIdentity.sessionId;
+  var recordSessionId = readResult.record && readResult.record.snapshot && readResult.record.snapshot.sessionId;
+  if (readResult.record && recordSessionId !== currentSessionId) {
+    button.classList.remove('saved');
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.existingJourney');
+    return;
+  }
+  var saved = !!(readResult.record && recordSessionId === currentSessionId);
+  button.classList.toggle('saved', saved);
+  button.setAttribute('aria-pressed', saved ? 'true' : 'false');
+}
+
+function setV17SessionBookmarkStatus(key) {
+  var status = document.getElementById('v17-session-bookmark-status');
+  if (!status) return;
+  status.textContent = t(key);
+  status.hidden = false;
+}
+
+function handleV17SessionBookmarkClick() {
+  var button = document.getElementById('v17-session-bookmark');
+  if (!button || button.hidden || button.disabled) return;
+  button.disabled = true;
+  setV17SessionBookmarkStatus('sessionBookmark.saving');
+  var readResult = readV17LocalSessionRecord();
+  if (!readResult.ok) {
+    button.disabled = false;
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return;
+  }
+  var currentSessionId = D && D.v17SessionIdentity && D.v17SessionIdentity.sessionId;
+  var recordSessionId = readResult.record && readResult.record.snapshot && readResult.record.snapshot.sessionId;
+  if (readResult.record && recordSessionId !== currentSessionId) {
+    button.disabled = false;
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.existingJourney');
+    return;
+  }
+  var serialized = serializeV17SessionSnapshot();
+  if (!serialized.ok) {
+    button.disabled = false;
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return;
+  }
+  var recordResult = createV17LocalSessionRecord(serialized.snapshot);
+  if (!recordResult.ok) {
+    button.disabled = false;
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return;
+  }
+  var writeResult = writeV17LocalSessionRecord(recordResult.record);
+  if (!writeResult.ok) {
+    button.disabled = false;
+    button.setAttribute('aria-pressed', 'false');
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return;
+  }
+  button.disabled = false;
+  button.classList.add('saved');
+  button.setAttribute('aria-pressed', 'true');
+  setV17SessionBookmarkStatus('sessionBookmark.saved');
 }
 
 function submitIssue() {

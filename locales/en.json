@@ -236,7 +236,11 @@
   },
   "sessionBookmark": {
     "label": "Bookmark",
-    "ariaLabel": "Bookmark this session"
+    "ariaLabel": "Bookmark this session",
+    "saving": "Saving",
+    "saved": "Session bookmarked",
+    "error": "Could not save",
+    "existingJourney": "Another bookmarked session already exists"
   },
   "buttons": {
     "next": "Next",

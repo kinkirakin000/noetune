@@ -236,7 +236,11 @@
   },
   "sessionBookmark": {
     "label": "しおり",
-    "ariaLabel": "このセッションにしおりを挟む"
+    "ariaLabel": "このセッションにしおりを挟む",
+    "saving": "保存しています",
+    "saved": "しおりを挟みました",
+    "error": "保存できませんでした",
+    "existingJourney": "別のしおりが残っています"
   },
   "buttons": {
     "next": "次へ",

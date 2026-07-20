@@ -236,7 +236,11 @@
   },
   "sessionBookmark": {
     "label": "書籤",
-    "ariaLabel": "為這次歷程加入書籤"
+    "ariaLabel": "為這次歷程加入書籤",
+    "saving": "正在儲存",
+    "saved": "已加入書籤",
+    "error": "無法儲存",
+    "existingJourney": "已有另一段歷程的書籤"
   },
   "buttons": {
     "next": "下一步",
