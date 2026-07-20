@@ -132,14 +132,19 @@
       "rangeLabel": "0–100"
     },
     "step2": {
+      "variantLabel": "Question choice",
       "quoteSource": "theme",
       "problems": {
         "prompt": "When I am free from that,\nwhat state am I in?",
+        "variantA": "What state does someone like that\nwant to be in?",
+        "variantB": "What am I like when I am\ncompletely free from that?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       },
       "ideals": {
         "prompt": "In a world where it doesn’t exist,\nwhat is my ideal self like?",
+        "variantA": "Compared with this ideal state,\nwhat state am I in when I am the complete opposite of that?",
+        "variantB": "Compared with this ideal state,\nwhat was I like before?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +152,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "In a world where it doesn’t exist,\nwhat is my ideal self like?",
+        "prompt": "What state am I in when I am\nthe complete opposite of that?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "When I am free from that,\nwhat state am I in?",
+        "prompt": "What state does someone like that\nwant to be in?",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }

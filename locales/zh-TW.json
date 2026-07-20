@@ -132,14 +132,19 @@
       "rangeLabel": "0〜100"
     },
     "step2": {
+      "variantLabel": "問題選擇",
       "quoteSource": "theme",
       "problems": {
         "prompt": "與那件事無緣的我，\n會是什麼狀態？",
+        "variantA": "這樣的人，\n想處在什麼樣的狀態？",
+        "variantB": "與這些無關的我，\n是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       },
       "ideals": {
         "prompt": "在那件事不存在的世界裡，\n理想的我是什麼樣子？",
+        "variantA": "處在完全相反狀態的我，\n是什麼樣子？",
+        "variantB": "和這樣的自己相比，\n以前的我是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +152,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "在那件事不存在的世界裡，\n理想的我是什麼樣子？",
+        "prompt": "處在完全相反狀態的我，\n是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "與那件事無緣的我，\n會是什麼狀態？",
+        "prompt": "這樣的人，\n想處在什麼樣的狀態？",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }

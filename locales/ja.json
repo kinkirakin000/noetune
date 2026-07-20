@@ -132,14 +132,19 @@
       "rangeLabel": "0〜100"
     },
     "step2": {
+      "variantLabel": "質問の選択",
       "quoteSource": "theme",
       "problems": {
         "prompt": "それが存在しない世界の\n理想の私は、どんな状態？",
+        "variantA": "そうである人は、\nどんな状態を望んでいますか？",
+        "variantB": "それに無縁の私は、\nどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       },
       "ideals": {
         "prompt": "その私と比べて、\n以前の私はどうでしたか？",
+        "variantA": "それと正反対の状態の私は、\nどんな状態ですか？",
+        "variantB": "その私と比べて、\n以前の私はどうでしたか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +152,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "その私と比べて、\n以前の私はどうでしたか？",
+        "prompt": "それと正反対の状態の私は、\nどんな状態ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "それが存在しない世界の\n理想の私は、どんな状態？",
+        "prompt": "そうである人は、\nどんな状態を望んでいますか？",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       }

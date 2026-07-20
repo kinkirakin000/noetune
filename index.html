@@ -449,6 +449,10 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .door-radio-option.selected .door-radio-circle::after{transform:translate(-50%,-50%) scale(1)}
 .door-radio-text{font-family:'Noto Serif JP',serif;font-size:.9rem;font-weight:300;color:#555550;line-height:1.7;letter-spacing:.05em;white-space:pre-line}
 .door-radio-option.selected .door-radio-text{color:#1A1A1A}
+.v17-question-variant{display:flex;justify-content:center;gap:.45rem;margin:0 0 1.15rem}
+.v17-question-variant-btn{min-width:2.6rem;padding:.42rem .7rem;border:1px solid rgba(107,144,128,.3);border-radius:999px;background:transparent;color:#77736E;font-family:'Noto Serif JP',serif;font-size:.78rem;line-height:1;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:color .2s,background .2s,border-color .2s}
+.v17-question-variant-btn[aria-pressed="true"]{background:rgba(107,144,128,.12);border-color:#6B9080;color:#1A1A1A}
+.v17-question-variant-btn:focus-visible{outline:2px solid #6B9080;outline-offset:3px}
 #door-cta-wrap{width:100%;margin:.75rem 0 .25rem;text-align:center;opacity:0;pointer-events:none;transition:opacity .25s}
 /* ── LANDING SCREEN ── */
 #s-landing{display:block;overflow-y:auto;}
@@ -1207,6 +1211,10 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="v17-theme-block" id="v17-first-response-theme-block">
       <div class="v17-theme-quote" id="v17-first-response-quote"></div>
       <div class="v17-theme-meaning" id="v17-first-response-meaning"></div>
+    </div>
+    <div class="v17-question-variant" id="v17-question-variant" role="group">
+      <button class="v17-question-variant-btn" id="v17-question-variant-a" type="button" aria-pressed="true" onclick="selectV17QuestionVariant('A')">A</button>
+      <button class="v17-question-variant-btn" id="v17-question-variant-b" type="button" aria-pressed="false" onclick="selectV17QuestionVariant('B')">B</button>
     </div>
     <div class="v17-step-copy v17-support-primary" id="v17-first-response-prompt"></div>
     <textarea class="v17-writing" id="in-v17-first-response" maxlength="600" oninput="onV17RouteInput('first',this.value)"></textarea>
@@ -6803,6 +6811,7 @@ function createV17FlowState() {
     awarenessTrailIndex: null,
     awarenessTrailExpanded: false,
     breathPhase: 'first',
+    questionVariant: 'A',
     initialThemeScore: null,
     step2Text: '',
     step2Draft: '',
@@ -6834,7 +6843,7 @@ function getV17IdealStateText() {
 function getV17ThemeRoute() {
   var trackId = D && D.themeTrackId ? D.themeTrackId
     : D && D.v17Flow && D.v17Flow.themeTrackId ? D.v17Flow.themeTrackId : '';
-  return trackId === 'ideals' ? 'ideals' : 'problems';
+  return trackId === 'ideals' || (D && D.themeSource === 'spiritual-wisdom') ? 'ideals' : 'problems';
 }
 
 function getV17ThemeMeaning() {
@@ -7201,13 +7210,24 @@ function renderV17Screen(screenId) {
   } else if (screenId === 's-v17-first-response') {
     var firstRoute = getV17ThemeRoute();
     var firstPath = 'flow.step2.' + firstRoute;
+    var firstVariant = flow && (flow.questionVariant === 'B' || flow.questionVariant === 'A')
+      ? flow.questionVariant : 'A';
     renderV17ThemeBlock(
       'v17-first-response-theme-block',
       'v17-first-response-quote',
       'v17-first-response-meaning',
       v17Format('flow.step2.quote', { theme: D.questionTextAtTime })
     );
-    setEl('v17-first-response-prompt', v17Copy(firstPath + '.prompt'));
+    setEl('v17-first-response-prompt', v17Copy(firstPath + '.variant' + firstVariant));
+    var variantWrap = document.getElementById('v17-question-variant');
+    if (variantWrap) {
+      variantWrap.hidden = false;
+      variantWrap.setAttribute('aria-label', v17Copy('flow.step2.variantLabel'));
+    }
+    ['A', 'B'].forEach(function(variant) {
+      var variantButton = document.getElementById('v17-question-variant-' + variant.toLowerCase());
+      if (variantButton) variantButton.setAttribute('aria-pressed', variant === firstVariant ? 'true' : 'false');
+    });
     setEl('next-v17-first-response', v17Copy('flow.common.continue'));
     var firstInput = document.getElementById('in-v17-first-response');
     if (firstInput) {
@@ -7217,6 +7237,8 @@ function renderV17Screen(screenId) {
     var firstButton = document.getElementById('next-v17-first-response');
     if (firstButton) firstButton.disabled = !firstInput || !firstInput.value.trim();
   } else if (screenId === 's-v17-second-response') {
+    var variantWrapForSecond = document.getElementById('v17-question-variant');
+    if (variantWrapForSecond) variantWrapForSecond.hidden = true;
     var secondRoute = getV17ThemeRoute();
     var secondPath = 'flow.step3.' + secondRoute;
     var step2Text = flow && flow.step2Text
@@ -7346,6 +7368,12 @@ function submitV17FirstResponse(allowEmpty) {
     setV17SemanticResponse(getV17ResponseKind('first'), value);
   }
   openV17SecondResponse();
+}
+
+function selectV17QuestionVariant(variant) {
+  if (!D.v17Flow || (variant !== 'A' && variant !== 'B')) return;
+  D.v17Flow.questionVariant = variant;
+  renderV17Screen('s-v17-first-response');
 }
 
 function openV17SecondResponse() {
