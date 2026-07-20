@@ -7052,6 +7052,7 @@ var v17RepeatReturnPending = false;
 var v17RepeatModeSelectionPending = false;
 var v17RepeatBeforeScore = null;
 var v17RepeatCycleCount = null;
+var v17PendingSavedSnapshotUpdateReason = null;
 
 function cloneV17State(state) {
   return JSON.parse(JSON.stringify(state || {}));
@@ -7856,6 +7857,7 @@ function startV17Session(replaceHistory) {
   D.v13OriginalTheme = '';
   D.v13History = [];
   D.v17Flow = createV17FlowState();
+  v17PendingSavedSnapshotUpdateReason = null;
   resetSlider('v17-before');
   resetSlider('v17-final');
   renderV17Screen('s-v17-before');
@@ -7883,6 +7885,7 @@ function submitV17BeforeScore() {
     startV17DeepDive();
     return;
   }
+  v17PendingSavedSnapshotUpdateReason = 'BEFORE_CONFIRMED';
   openV17FirstResponse();
 }
 
@@ -7924,6 +7927,7 @@ function submitV17FirstResponse(allowEmpty) {
     if (!D.v17Flow.responseStates) D.v17Flow.responseStates = { current: 'unset', ideal: 'unset' };
     D.v17Flow.responseStates[getV17ResponseKind('first') === 'idealState' ? 'ideal' : 'current'] = 'skipped';
   }
+  v17PendingSavedSnapshotUpdateReason = 'FIRST_RESPONSE_CONFIRMED';
   openV17SecondResponse();
 }
 
@@ -7931,6 +7935,7 @@ function selectV17QuestionVariant(variant) {
   if (!D.v17Flow || (variant !== 'A' && variant !== 'B')) return;
   D.v17Flow.questionVariant = variant;
   renderV17Screen('s-v17-first-response');
+  updateV17SavedSessionSnapshot('QUESTION_VARIANT_CHANGED');
 }
 
 function openV17SecondResponse() {
@@ -7951,6 +7956,7 @@ function submitV17SecondResponse(allowEmpty) {
     if (!D.v17Flow.responseStates) D.v17Flow.responseStates = { current: 'unset', ideal: 'unset' };
     D.v17Flow.responseStates[getV17ResponseKind('second') === 'idealState' ? 'ideal' : 'current'] = 'skipped';
   }
+  updateV17SavedSessionSnapshot('SECOND_RESPONSE_CONFIRMED');
   openV17Breath();
 }
 
@@ -9058,6 +9064,11 @@ updateBackBtn = function() {
   var button = document.getElementById('btn-back');
   if (button) button.classList.add('visible');
   updateV17SessionBookmarkVisibility();
+  if (v17PendingSavedSnapshotUpdateReason) {
+    var reason = v17PendingSavedSnapshotUpdateReason;
+    v17PendingSavedSnapshotUpdateReason = null;
+    updateV17SavedSessionSnapshot(reason);
+  }
 };
 window.goBack = goBack;
 window.updateBackBtn = updateBackBtn;
@@ -9092,25 +9103,74 @@ function updateV17SessionBookmarkVisibility() {
     button.setAttribute('aria-pressed', 'false');
     return;
   }
-  var readResult = readV17LocalSessionRecord();
-  if (!readResult.ok) {
+  var recordState = getV17CurrentLocalSessionRecordState();
+  if (!recordState.ok) {
     button.hidden = true;
     button.classList.remove('visible', 'saved');
     button.setAttribute('aria-pressed', 'false');
     setV17SessionBookmarkStatus('sessionBookmark.error');
     return;
   }
-  var currentSessionId = D.v17SessionIdentity.sessionId;
-  var recordSessionId = readResult.record && readResult.record.snapshot && readResult.record.snapshot.sessionId;
-  if (readResult.record && recordSessionId !== currentSessionId) {
+  if (recordState.state === 'DIFFERENT_SESSION') {
     button.classList.remove('saved');
     button.setAttribute('aria-pressed', 'false');
     setV17SessionBookmarkStatus('sessionBookmark.existingJourney');
     return;
   }
-  var saved = !!(readResult.record && recordSessionId === currentSessionId);
+  var saved = recordState.state === 'SAME_SESSION';
   button.classList.toggle('saved', saved);
   button.setAttribute('aria-pressed', saved ? 'true' : 'false');
+}
+
+function getV17CurrentLocalSessionRecordState() {
+  if (typeof readV17LocalSessionRecord !== 'function') {
+    return { ok: false, state: 'API_UNAVAILABLE', error: { code: 'SNAPSHOT_API_UNAVAILABLE' } };
+  }
+  var readResult = readV17LocalSessionRecord();
+  if (!readResult.ok) {
+    return { ok: false, state: 'READ_FAILED', error: readResult.error };
+  }
+  if (!readResult.record) return { ok: true, state: 'NOT_SAVED', record: null };
+  var currentSessionId = D && D.v17SessionIdentity && D.v17SessionIdentity.sessionId;
+  var recordSessionId = readResult.record.snapshot && readResult.record.snapshot.sessionId;
+  if (currentSessionId && recordSessionId === currentSessionId) {
+    return { ok: true, state: 'SAME_SESSION', record: readResult.record };
+  }
+  return { ok: true, state: 'DIFFERENT_SESSION', record: readResult.record };
+}
+
+function writeCurrentV17SessionSnapshot() {
+  var serialized = serializeV17SessionSnapshot();
+  if (!serialized.ok) return serialized;
+  var recordResult = createV17LocalSessionRecord(serialized.snapshot);
+  if (!recordResult.ok) return recordResult;
+  return writeV17LocalSessionRecord(recordResult.record);
+}
+
+function updateV17SavedSessionSnapshot(reason) {
+  var recordState = getV17CurrentLocalSessionRecordState();
+  if (!recordState.ok) {
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return recordState;
+  }
+  if (recordState.state === 'NOT_SAVED') {
+    return { ok: true, updated: false, reason: 'NOT_SAVED' };
+  }
+  if (recordState.state === 'DIFFERENT_SESSION') {
+    setV17SessionBookmarkStatus('sessionBookmark.existingJourney');
+    return { ok: true, updated: false, reason: 'DIFFERENT_SESSION' };
+  }
+  var writeResult = writeCurrentV17SessionSnapshot();
+  if (!writeResult.ok) {
+    setV17SessionBookmarkStatus('sessionBookmark.error');
+    return writeResult;
+  }
+  var button = document.getElementById('v17-session-bookmark');
+  if (button) {
+    button.classList.add('saved');
+    button.setAttribute('aria-pressed', 'true');
+  }
+  return { ok: true, updated: true };
 }
 
 function setV17SessionBookmarkStatus(key) {
@@ -9132,29 +9192,15 @@ function handleV17SessionBookmarkClick() {
     setV17SessionBookmarkStatus('sessionBookmark.error');
     return;
   }
-  var currentSessionId = D && D.v17SessionIdentity && D.v17SessionIdentity.sessionId;
   var recordSessionId = readResult.record && readResult.record.snapshot && readResult.record.snapshot.sessionId;
+  var currentSessionId = D && D.v17SessionIdentity && D.v17SessionIdentity.sessionId;
   if (readResult.record && recordSessionId !== currentSessionId) {
     button.disabled = false;
     button.setAttribute('aria-pressed', 'false');
     setV17SessionBookmarkStatus('sessionBookmark.existingJourney');
     return;
   }
-  var serialized = serializeV17SessionSnapshot();
-  if (!serialized.ok) {
-    button.disabled = false;
-    button.setAttribute('aria-pressed', 'false');
-    setV17SessionBookmarkStatus('sessionBookmark.error');
-    return;
-  }
-  var recordResult = createV17LocalSessionRecord(serialized.snapshot);
-  if (!recordResult.ok) {
-    button.disabled = false;
-    button.setAttribute('aria-pressed', 'false');
-    setV17SessionBookmarkStatus('sessionBookmark.error');
-    return;
-  }
-  var writeResult = writeV17LocalSessionRecord(recordResult.record);
+  var writeResult = writeCurrentV17SessionSnapshot();
   if (!writeResult.ok) {
     button.disabled = false;
     button.setAttribute('aria-pressed', 'false');
