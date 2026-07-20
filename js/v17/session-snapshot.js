@@ -910,6 +910,7 @@
       ideal: responseIdeal && responseIdeal.state ? responseIdeal.state : 'unset'
     };
     stagedFlow.currentScreen = snapshot.currentScreen;
+    stagedFlow.currentStep = snapshot.currentState.currentStep;
     stagedFlow.routeType = routeType;
     stagedFlow.responseStates = {
       current: staged.responseStates.current,
@@ -956,6 +957,7 @@
     global.D.idealStateDraft = staged.idealStateDraft;
     global.D.v17Flow = global.D.v17Flow && typeof global.D.v17Flow === 'object' ? global.D.v17Flow : {};
     global.D.v17Flow.currentScreen = stagedFlow.currentScreen;
+    global.D.v17Flow.currentStep = stagedFlow.currentStep;
     global.D.v17Flow.routeType = stagedFlow.routeType;
     global.D.v17Flow.responseStates = stagedFlow.responseStates;
     global.D.v17Flow.step2Text = stagedFlow.step2Text;
