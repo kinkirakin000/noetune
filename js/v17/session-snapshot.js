@@ -17,6 +17,7 @@
   var ALLOWED_MEASUREMENT_STATES = ['scored', 'not_a_problem', 'skipped', 'unset'];
   var ALLOWED_RESPONSE_STATES = ['answered', 'skipped', 'unset'];
   var ALLOWED_FLOW_RESPONSE_STATES = ['answered', 'skipped', 'unset'];
+  var ALLOWED_QUESTION_VARIANTS = ['A', 'B'];
   var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3'];
   var FORBIDDEN_KEYS = [
     'navHistory',
@@ -303,6 +304,10 @@
     return value === 'ja' || value === 'en' || value === 'zh-TW' ? value : null;
   }
 
+  function normalizeV17QuestionVariant(value) {
+    return ALLOWED_QUESTION_VARIANTS.indexOf(value) >= 0 ? value : 'A';
+  }
+
   function getActiveScreenBucket(screenId) {
     return screenId === 's-v17-second-response' ? 'second' : 'first';
   }
@@ -403,6 +408,7 @@
     var currentResponse = getRuntimeResponseState('current', flow, global.D && global.D.currentState, global.D && global.D.currentStateDraft);
     var idealResponse = getRuntimeResponseState('ideal', flow, global.D && global.D.idealState, global.D && global.D.idealStateDraft);
     var regularFlow = deriveV17RegularFlow(flow && typeof flow.currentScreen === 'string' && flow.currentScreen ? flow.currentScreen : screenId, routeType);
+    if (regularFlow) regularFlow.questionVariant = normalizeV17QuestionVariant(flow && flow.questionVariant);
     var currentCycle = {
       cycleId: identity.cycleId,
       cycleIndex: identity.cycleIndex,
@@ -520,6 +526,9 @@
     if (flow.activeScreen !== expectedRegularFlow.activeScreen) return createError('RUNTIME_SCREEN_INVALID', path + '.activeScreen');
     if (flow.firstResponseRole !== expectedRegularFlow.firstResponseRole) return createError('INVALID_CURRENT_STATE', path + '.firstResponseRole');
     if (flow.secondResponseRole !== expectedRegularFlow.secondResponseRole) return createError('INVALID_CURRENT_STATE', path + '.secondResponseRole');
+    if (Object.prototype.hasOwnProperty.call(flow, 'questionVariant') && ALLOWED_QUESTION_VARIANTS.indexOf(flow.questionVariant) < 0) {
+      return createError('INVALID_QUESTION_VARIANT', path + '.questionVariant');
+    }
     return null;
   }
 
@@ -696,6 +705,12 @@
     if (entryError) return entryError;
     if (!Array.isArray(state.scoreTrail) || !Array.isArray(state.awarenessTrail)) return createError('INVALID_TRAIL', 'currentState');
     if (state.deepFlow !== null) return createError('INVALID_DEEP_FLOW', 'currentState.deepFlow');
+    if (state.regularFlow !== null) {
+      if (!isPlainObject(state.regularFlow)) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
+      if (Object.prototype.hasOwnProperty.call(state.regularFlow, 'questionVariant') && ALLOWED_QUESTION_VARIANTS.indexOf(state.regularFlow.questionVariant) < 0) {
+        return createError('INVALID_QUESTION_VARIANT', 'currentState.regularFlow.questionVariant');
+      }
+    }
     return null;
   }
 
@@ -757,7 +772,12 @@
     if (input.snapshotSchemaVersion !== SCHEMA_VERSION) {
       return { ok: false, error: createError('UNSUPPORTED_SCHEMA_VERSION', 'snapshotSchemaVersion') };
     }
-    return validateV17SessionSnapshot(input);
+    var migrated = deepClone(input);
+    if (migrated.currentState && isPlainObject(migrated.currentState.regularFlow)
+        && !Object.prototype.hasOwnProperty.call(migrated.currentState.regularFlow, 'questionVariant')) {
+      migrated.currentState.regularFlow.questionVariant = 'A';
+    }
+    return validateV17SessionSnapshot(migrated);
   }
 
   function createV17LocalSessionRecord(snapshot, sync) {
@@ -853,6 +873,7 @@
       regularFlowSnapshot.secondResponseRole !== regularFlow.secondResponseRole)) {
       return { ok: false, error: createError('RESTORE_REGULAR_FLOW_MISMATCH', 'currentState.regularFlow') };
     }
+    var questionVariant = regularFlow ? normalizeV17QuestionVariant(regularFlowSnapshot.questionVariant) : 'A';
     var entry = snapshot.currentState.entry;
     if (!isPlainObject(entry)) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState.entry') };
     var responseCurrent = snapshot.currentState.responses && snapshot.currentState.responses.current;
@@ -911,6 +932,7 @@
     };
     stagedFlow.currentScreen = snapshot.currentScreen;
     stagedFlow.currentStep = snapshot.currentState.currentStep;
+    stagedFlow.questionVariant = questionVariant;
     stagedFlow.routeType = routeType;
     stagedFlow.responseStates = {
       current: staged.responseStates.current,
@@ -958,6 +980,7 @@
     global.D.v17Flow = global.D.v17Flow && typeof global.D.v17Flow === 'object' ? global.D.v17Flow : {};
     global.D.v17Flow.currentScreen = stagedFlow.currentScreen;
     global.D.v17Flow.currentStep = stagedFlow.currentStep;
+    global.D.v17Flow.questionVariant = stagedFlow.questionVariant;
     global.D.v17Flow.routeType = stagedFlow.routeType;
     global.D.v17Flow.responseStates = stagedFlow.responseStates;
     global.D.v17Flow.step2Text = stagedFlow.step2Text;
