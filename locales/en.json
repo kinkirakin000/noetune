@@ -234,6 +234,10 @@
     "loading": "Loading…",
     "error": "Could not save this bookmark"
   },
+  "sessionBookmark": {
+    "label": "Bookmark",
+    "ariaLabel": "Bookmark this session"
+  },
   "buttons": {
     "next": "Next",
     "skip": "Skip",

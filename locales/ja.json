@@ -234,6 +234,10 @@
     "loading": "処理中…",
     "error": "うまく保存できませんでした"
   },
+  "sessionBookmark": {
+    "label": "しおり",
+    "ariaLabel": "このセッションにしおりを挟む"
+  },
   "buttons": {
     "next": "次へ",
     "skip": "スキップ",

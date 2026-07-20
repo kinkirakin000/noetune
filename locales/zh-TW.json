@@ -234,6 +234,10 @@
     "loading": "載入中…",
     "error": "無法儲存這個書籤"
   },
+  "sessionBookmark": {
+    "label": "書籤",
+    "ariaLabel": "為這次歷程加入書籤"
+  },
   "buttons": {
     "next": "下一步",
     "skip": "跳過",
