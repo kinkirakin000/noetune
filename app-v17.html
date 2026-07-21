@@ -7053,6 +7053,8 @@ var v17RepeatModeSelectionPending = false;
 var v17RepeatBeforeScore = null;
 var v17RepeatCycleCount = null;
 var v17PendingSavedSnapshotUpdateReason = null;
+var v17SavedDraftSnapshotTimer = null;
+var v17SavedDraftSnapshotReason = null;
 
 function cloneV17State(state) {
   return JSON.parse(JSON.stringify(state || {}));
@@ -7913,9 +7915,11 @@ function onV17RouteInput(position, value) {
   var buttonId = position === 'first' ? 'next-v17-first-response' : 'next-v17-second-response';
   var button = document.getElementById(buttonId);
   if (button) button.disabled = !text.trim();
+  if (position === 'first') scheduleV17SavedDraftSnapshotUpdate('FIRST_RESPONSE_DRAFT_CHANGED');
 }
 
 function submitV17FirstResponse(allowEmpty) {
+  cancelV17SavedDraftSnapshotUpdate();
   var input = document.getElementById('in-v17-first-response');
   var value = input ? input.value.trim() : '';
   if (!value && !allowEmpty) return;
@@ -7933,6 +7937,7 @@ function submitV17FirstResponse(allowEmpty) {
 
 function selectV17QuestionVariant(variant) {
   if (!D.v17Flow || (variant !== 'A' && variant !== 'B')) return;
+  cancelV17SavedDraftSnapshotUpdate();
   D.v17Flow.questionVariant = variant;
   renderV17Screen('s-v17-first-response');
   updateV17SavedSessionSnapshot('QUESTION_VARIANT_CHANGED');
@@ -9137,6 +9142,32 @@ function getV17CurrentLocalSessionRecordState() {
     return { ok: true, state: 'SAME_SESSION', record: readResult.record };
   }
   return { ok: true, state: 'DIFFERENT_SESSION', record: readResult.record };
+}
+
+function scheduleV17SavedDraftSnapshotUpdate(reason) {
+  if (v17SavedDraftSnapshotTimer !== null) clearTimeout(v17SavedDraftSnapshotTimer);
+  v17SavedDraftSnapshotReason = reason;
+  v17SavedDraftSnapshotTimer = setTimeout(function() {
+    var pendingReason = v17SavedDraftSnapshotReason;
+    v17SavedDraftSnapshotTimer = null;
+    v17SavedDraftSnapshotReason = null;
+    if (pendingReason) updateV17SavedSessionSnapshot(pendingReason);
+  }, 700);
+}
+
+function cancelV17SavedDraftSnapshotUpdate() {
+  if (v17SavedDraftSnapshotTimer !== null) clearTimeout(v17SavedDraftSnapshotTimer);
+  v17SavedDraftSnapshotTimer = null;
+  v17SavedDraftSnapshotReason = null;
+}
+
+function flushV17SavedDraftSnapshotUpdate() {
+  if (v17SavedDraftSnapshotTimer === null) return { ok: true, updated: false, reason: 'NO_PENDING_DRAFT' };
+  clearTimeout(v17SavedDraftSnapshotTimer);
+  v17SavedDraftSnapshotTimer = null;
+  var pendingReason = v17SavedDraftSnapshotReason;
+  v17SavedDraftSnapshotReason = null;
+  return pendingReason ? updateV17SavedSessionSnapshot(pendingReason) : { ok: true, updated: false, reason: 'NO_PENDING_DRAFT' };
 }
 
 function writeCurrentV17SessionSnapshot() {
