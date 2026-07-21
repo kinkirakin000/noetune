@@ -10013,6 +10013,38 @@ function wrapV17SavePayloadBuilders() {
     return frame;
   }
 
+  function buildV17ResumeQuestionOneNavigationFrame() {
+    if (typeof captureV17NavigationSnapshot !== 'function') return null;
+    var frame = captureV17NavigationSnapshot('s-v17-first-response');
+    if (!frame || !frame.D || !frame.D.v17Flow) return null;
+    var flow = frame.D.v17Flow;
+    var firstRole = flow.firstResponseRole;
+    var secondRole = flow.secondResponseRole;
+    if ((firstRole !== 'current' && firstRole !== 'ideal')
+        || (secondRole !== 'current' && secondRole !== 'ideal')
+        || firstRole === secondRole) return null;
+    var responseStates = flow.responseStates;
+    var firstState = responseStates && responseStates[firstRole];
+    var secondState = responseStates && responseStates[secondRole];
+    if ((firstState !== 'answered' && firstState !== 'skipped')
+        || (secondState !== 'answered' && secondState !== 'skipped' && secondState !== 'unset')) return null;
+    frame.screenId = 's-v17-first-response';
+    flow.currentStep = 'step3';
+    flow.step3Text = '';
+    flow.step3Draft = '';
+    if (secondRole === 'current') {
+      if (Object.prototype.hasOwnProperty.call(frame.D, 'currentState')) frame.D.currentState = '';
+      if (Object.prototype.hasOwnProperty.call(frame.D, 'currentStateText')) frame.D.currentStateText = '';
+      if (Object.prototype.hasOwnProperty.call(frame.D, 'currentStateDraft')) frame.D.currentStateDraft = '';
+    } else {
+      if (Object.prototype.hasOwnProperty.call(frame.D, 'idealState')) frame.D.idealState = '';
+      if (Object.prototype.hasOwnProperty.call(frame.D, 'idealStateText')) frame.D.idealStateText = '';
+      if (Object.prototype.hasOwnProperty.call(frame.D, 'idealStateDraft')) frame.D.idealStateDraft = '';
+    }
+    if (responseStates) responseStates[secondRole] = 'unset';
+    return frame;
+  }
+
   function resumeV17RegularSnapshotToScreen(snapshot) {
     if (!window.NoetuneV17SessionSnapshot || typeof window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot !== 'function') {
       return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: 'snapshot' } };
@@ -10047,6 +10079,25 @@ function wrapV17SavePayloadBuilders() {
         if (backButton) {
           backButton.hidden = true;
           backButton.classList.remove('visible');
+        }
+      }
+      updateBackBtn();
+    }
+    if (snapshot.currentScreen === 's-v17-second-response' && D && D.v17SessionMode === 'regular') {
+      var beforeFrameForQ2 = buildV17ResumeBeforeNavigationFrame();
+      var questionOneFrameForQ2 = buildV17ResumeQuestionOneNavigationFrame();
+      navHistory.length = 0;
+      navPageStateHistory.length = 0;
+      if (beforeFrameForQ2 && questionOneFrameForQ2) {
+        navPageStateHistory.push(beforeFrameForQ2);
+        navHistory.push('s-v17-before');
+        navPageStateHistory.push(questionOneFrameForQ2);
+        navHistory.push('s-v17-first-response');
+      } else {
+        var q2BackButton = document.getElementById('btn-back');
+        if (q2BackButton) {
+          q2BackButton.hidden = true;
+          q2BackButton.classList.remove('visible');
         }
       }
       updateBackBtn();
