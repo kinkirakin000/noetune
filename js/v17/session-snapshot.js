@@ -6,6 +6,7 @@
   var SCHEMA_VERSION = CURRENT_SNAPSHOT_SCHEMA_VERSION;
   var APP_VERSION = 'v17';
   var MAX_BYTES = 1024 * 1024;
+  var MAX_RESUME_BACK_FRAMES = 3;
   var SCHEMA_KNOWN_SCREENS = [
     's-v17-session-mode',
     's-v17-before',
@@ -135,6 +136,45 @@
       if (allowedKeys.indexOf(keys[i]) < 0) {
         return createError(code, path ? path + '.' + keys[i] : keys[i]);
       }
+    }
+    return null;
+  }
+
+  function isV17StrictPlainObject(value) {
+    if (value === null || typeof value !== 'object' || Array.isArray(value)) return false;
+    var prototype = Object.getPrototypeOf(value);
+    return prototype === Object.prototype || prototype === null;
+  }
+
+  function validateV17ResumeBackFrameEnvelope(frame, path) {
+    path = path || 'resumeBackFrames';
+    if (!isV17StrictPlainObject(frame)) return createError('INVALID_RESUME_BACK_FRAME', path);
+    var requiredKeys = ['screenId', 'state', 'repeatState'];
+    for (var r = 0; r < requiredKeys.length; r += 1) {
+      if (!Object.prototype.hasOwnProperty.call(frame, requiredKeys[r])) {
+        return createError('INVALID_RESUME_BACK_FRAME', path + '.' + requiredKeys[r]);
+      }
+    }
+    var keysError = validateExactObjectKeys(frame, ['screenId', 'state', 'repeatState'], path, 'INVALID_RESUME_BACK_FRAME');
+    if (keysError) return keysError;
+    if (typeof frame.screenId !== 'string' || SCHEMA_KNOWN_SCREENS.indexOf(frame.screenId) < 0) {
+      return createError('INVALID_RESUME_BACK_FRAME_SCREEN', path + '.screenId');
+    }
+    if (!isV17StrictPlainObject(frame.state)) return createError('INVALID_RESUME_BACK_FRAME_STATE', path + '.state');
+    if (frame.repeatState !== null) return createError('INVALID_RESUME_BACK_FRAME_REPEAT_STATE', path + '.repeatState');
+    return null;
+  }
+
+  function validateV17ResumeBackFrames(frames, options) {
+    options = isPlainObject(options) ? options : {};
+    var path = typeof options.path === 'string' && options.path ? options.path : 'resumeBackFrames';
+    var allowNonEmpty = options.allowNonEmpty === true;
+    if (!Array.isArray(frames)) return createError('INVALID_RESUME_BACK_FRAMES', path);
+    if (frames.length > MAX_RESUME_BACK_FRAMES) return createError('INVALID_RESUME_BACK_FRAMES', path);
+    if (!allowNonEmpty && frames.length !== 0) return createError('INVALID_RESUME_BACK_FRAMES', path);
+    for (var i = 0; i < frames.length; i += 1) {
+      var frameError = validateV17ResumeBackFrameEnvelope(frames[i], path + '[' + i + ']');
+      if (frameError) return frameError;
     }
     return null;
   }
@@ -597,9 +637,8 @@
     if (!isPlainObject(snapshot.currentCycle)) return createError('INVALID_CURRENT_CYCLE', 'currentCycle');
     if (!isPlainObject(snapshot.currentState)) return createError('INVALID_CURRENT_STATE', 'currentState');
     if (snapshot.repeatState !== null) return createError('INVALID_REPEAT_STATE', 'repeatState');
-    if (!Array.isArray(snapshot.resumeBackFrames) || snapshot.resumeBackFrames.length !== 0) {
-      return createError('INVALID_RESUME_BACK_FRAMES', 'resumeBackFrames');
-    }
+    var resumeBackFramesError = validateV17ResumeBackFrames(snapshot.resumeBackFrames, { allowNonEmpty: false });
+    if (resumeBackFramesError) return resumeBackFramesError;
     var unsafe = hasForbiddenOrUnsafeValue(snapshot, '', new WeakSet());
     if (unsafe) return unsafe;
 
