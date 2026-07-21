@@ -7915,7 +7915,8 @@ function onV17RouteInput(position, value) {
   var buttonId = position === 'first' ? 'next-v17-first-response' : 'next-v17-second-response';
   var button = document.getElementById(buttonId);
   if (button) button.disabled = !text.trim();
-  if (position === 'first') scheduleV17SavedDraftSnapshotUpdate('FIRST_RESPONSE_DRAFT_CHANGED');
+  if (position === 'first') scheduleV17SavedDraftSnapshot('FIRST_RESPONSE_DRAFT_CHANGED');
+  else if (position === 'second') scheduleV17SavedDraftSnapshot('SECOND_RESPONSE_DRAFT_CHANGED');
 }
 
 function submitV17FirstResponse(allowEmpty) {
@@ -7950,6 +7951,7 @@ function openV17SecondResponse() {
 }
 
 function submitV17SecondResponse(allowEmpty) {
+  cancelV17SavedDraftSnapshotUpdate();
   var input = document.getElementById('in-v17-second-response');
   var value = input ? input.value.trim() : '';
   if (!value && !allowEmpty) return;
