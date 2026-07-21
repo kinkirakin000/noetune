@@ -10013,6 +10013,14 @@ function wrapV17SavePayloadBuilders() {
     return frame;
   }
 
+  function buildV17ResumeSessionModeNavigationFrame() {
+    if (typeof captureV17NavigationSnapshot !== 'function') return null;
+    var frame = captureV17NavigationSnapshot('s-v17-session-mode');
+    if (!frame || !frame.D || !frame.D.v17Flow) return null;
+    frame.screenId = 's-v17-session-mode';
+    return frame;
+  }
+
   function buildV17ResumeQuestionOneNavigationFrame() {
     if (typeof captureV17NavigationSnapshot !== 'function') return null;
     var frame = captureV17NavigationSnapshot('s-v17-first-response');
@@ -10067,6 +10075,16 @@ function wrapV17SavePayloadBuilders() {
     }
     setV17ScreenDirectWithoutHistoryReset(snapshot.currentScreen);
     if (D && D.v17Flow) D.v17Flow.currentScreen = snapshot.currentScreen;
+    if (snapshot.currentScreen === 's-v17-before') {
+      var sessionModeFrame = buildV17ResumeSessionModeNavigationFrame();
+      navHistory.length = 0;
+      navPageStateHistory.length = 0;
+      if (sessionModeFrame) {
+        navPageStateHistory.push(sessionModeFrame);
+        navHistory.push('s-v17-session-mode');
+      }
+      updateBackBtn();
+    }
     if (snapshot.currentScreen === 's-v17-first-response' && D && D.v17SessionMode === 'regular') {
       navHistory.length = 0;
       navPageStateHistory.length = 0;
