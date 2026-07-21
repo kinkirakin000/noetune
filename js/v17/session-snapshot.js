@@ -2,10 +2,28 @@
   'use strict';
 
   var STORAGE_KEY = 'noetune:v17:active-session:v1';
-  var SCHEMA_VERSION = 1;
+  var CURRENT_SNAPSHOT_SCHEMA_VERSION = 1;
+  var SCHEMA_VERSION = CURRENT_SNAPSHOT_SCHEMA_VERSION;
   var APP_VERSION = 'v17';
   var MAX_BYTES = 1024 * 1024;
-  var ALLOWED_SCREENS = [
+  var SCHEMA_KNOWN_SCREENS = [
+    's-v17-session-mode',
+    's-v17-before',
+    's-v17-first-response',
+    's-v17-second-response',
+    's-v17-deep-response',
+    's-v17-deep-feel-100',
+    's-v17-breath',
+    's-v17-final-measure',
+    's-result'
+  ];
+  var SERIALIZABLE_SCREENS = [
+    's-v17-session-mode',
+    's-v17-before',
+    's-v17-first-response',
+    's-v17-second-response'
+  ];
+  var RESTORABLE_SCREENS = [
     's-v17-session-mode',
     's-v17-before',
     's-v17-first-response',
@@ -518,7 +536,7 @@
 
   function validateRegularFlowMetadata(flow, routeType, path) {
     if (!isPlainObject(flow)) return createError('INVALID_CURRENT_STATE', path);
-    if (flow.currentScreen !== null && (typeof flow.currentScreen !== 'string' || !flow.currentScreen || ALLOWED_SCREENS.indexOf(flow.currentScreen) < 0)) {
+    if (flow.currentScreen !== null && (typeof flow.currentScreen !== 'string' || !flow.currentScreen || SERIALIZABLE_SCREENS.indexOf(flow.currentScreen) < 0)) {
       return createError('RUNTIME_SCREEN_INVALID', path + '.currentScreen');
     }
     var expectedRegularFlow = deriveV17RegularFlow(flow.currentScreen, routeType);
@@ -560,7 +578,7 @@
 
   function validateSnapshotStructure(snapshot) {
     if (!isPlainObject(snapshot)) return createError('INVALID_SNAPSHOT', '');
-    if (snapshot.snapshotSchemaVersion !== SCHEMA_VERSION) {
+    if (snapshot.snapshotSchemaVersion !== CURRENT_SNAPSHOT_SCHEMA_VERSION) {
       return snapshot.snapshotSchemaVersion === undefined || snapshot.snapshotSchemaVersion === null
         ? createError('MISSING_SCHEMA_VERSION', 'snapshotSchemaVersion')
         : createError('UNSUPPORTED_SCHEMA_VERSION', 'snapshotSchemaVersion');
@@ -574,7 +592,7 @@
     if (snapshot.completedAt !== null) return createError('INVALID_COMPLETED_AT', 'completedAt');
     if (snapshot.discardedAt !== null) return createError('INVALID_DISCARDED_AT', 'discardedAt');
     if (snapshot.revision !== 0) return createError('INVALID_REVISION', 'revision');
-    if (ALLOWED_SCREENS.indexOf(snapshot.currentScreen) < 0) return createError('UNSUPPORTED_SCREEN_PHASE_4A', 'currentScreen');
+    if (SERIALIZABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) return createError('UNSUPPORTED_SCREEN_PHASE_4A', 'currentScreen');
     if (!isPlainObject(snapshot.summary)) return createError('INVALID_SUMMARY', 'summary');
     if (!isPlainObject(snapshot.currentCycle)) return createError('INVALID_CURRENT_CYCLE', 'currentCycle');
     if (!isPlainObject(snapshot.currentState)) return createError('INVALID_CURRENT_STATE', 'currentState');
@@ -738,7 +756,7 @@
       return { ok: false, error: createError('UNSUPPORTED_SESSION_MODE_PHASE_4A', 'sessionMode') };
     }
     if (global.D && global.D.v17Flow) {
-      if (global.D.v17Flow.currentScreen !== null && (typeof global.D.v17Flow.currentScreen !== 'string' || !global.D.v17Flow.currentScreen || ALLOWED_SCREENS.indexOf(global.D.v17Flow.currentScreen) < 0)) {
+      if (global.D.v17Flow.currentScreen !== null && (typeof global.D.v17Flow.currentScreen !== 'string' || !global.D.v17Flow.currentScreen || SERIALIZABLE_SCREENS.indexOf(global.D.v17Flow.currentScreen) < 0)) {
         return { ok: false, error: createError('RUNTIME_SCREEN_INVALID', 'v17Flow.currentScreen') };
       }
       if (global.D.v17Flow.currentScreen === null) {
@@ -769,7 +787,7 @@
     if (!Object.prototype.hasOwnProperty.call(input, 'snapshotSchemaVersion') || input.snapshotSchemaVersion === null || typeof input.snapshotSchemaVersion === 'undefined') {
       return { ok: false, error: createError('MISSING_SCHEMA_VERSION', 'snapshotSchemaVersion') };
     }
-    if (input.snapshotSchemaVersion !== SCHEMA_VERSION) {
+    if (input.snapshotSchemaVersion !== CURRENT_SNAPSHOT_SCHEMA_VERSION) {
       return { ok: false, error: createError('UNSUPPORTED_SCHEMA_VERSION', 'snapshotSchemaVersion') };
     }
     var migrated = deepClone(input);
@@ -854,6 +872,9 @@
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', validatedSnapshot.error ? validatedSnapshot.error.path : '') };
     }
     snapshot = validatedSnapshot.snapshot;
+    if (RESTORABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) {
+      return { ok: false, error: createError('RESTORE_SCREEN_NOT_SUPPORTED', 'currentScreen') };
+    }
     if (!isPlainObject(snapshot.summary) || snapshot.summary.sessionMode !== 'regular') {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
     }
@@ -1083,10 +1104,14 @@
 
   var constants = Object.freeze({
     STORAGE_KEY: STORAGE_KEY,
+    CURRENT_SNAPSHOT_SCHEMA_VERSION: CURRENT_SNAPSHOT_SCHEMA_VERSION,
     SCHEMA_VERSION: SCHEMA_VERSION,
     APP_VERSION: APP_VERSION,
     MAX_BYTES: MAX_BYTES,
-    ALLOWED_SCREENS: ALLOWED_SCREENS.slice(),
+    SCHEMA_KNOWN_SCREENS: SCHEMA_KNOWN_SCREENS.slice(),
+    SERIALIZABLE_SCREENS: SERIALIZABLE_SCREENS.slice(),
+    RESTORABLE_SCREENS: RESTORABLE_SCREENS.slice(),
+    ALLOWED_SCREENS: SERIALIZABLE_SCREENS.slice(),
     ALLOWED_ENTRY_TYPES: ALLOWED_ENTRY_TYPES.slice(),
     ALLOWED_ROUTE_TYPES: ALLOWED_ROUTE_TYPES.slice(),
     ALLOWED_MEASUREMENT_STATES: ALLOWED_MEASUREMENT_STATES.slice(),
