@@ -938,10 +938,16 @@
       current: staged.responseStates.current,
       ideal: staged.responseStates.ideal
     };
-    stagedFlow.step2Text = staged.currentState;
-    stagedFlow.step2Draft = staged.currentStateDraft;
-    stagedFlow.step3Text = staged.idealState;
-    stagedFlow.step3Draft = staged.idealStateDraft;
+    var step2Response = responseCurrent;
+    var step3Response = responseIdeal;
+    if (regularFlow) {
+      step2Response = regularFlowSnapshot.firstResponseRole === 'ideal' ? responseIdeal : responseCurrent;
+      step3Response = regularFlowSnapshot.secondResponseRole === 'ideal' ? responseIdeal : responseCurrent;
+    }
+    stagedFlow.step2Text = step2Response && typeof step2Response.text === 'string' ? step2Response.text : '';
+    stagedFlow.step2Draft = step2Response && typeof step2Response.draft === 'string' ? step2Response.draft : '';
+    stagedFlow.step3Text = step3Response && typeof step3Response.text === 'string' ? step3Response.text : '';
+    stagedFlow.step3Draft = step3Response && typeof step3Response.draft === 'string' ? step3Response.draft : '';
     stagedFlow.currentState = staged.currentState;
     stagedFlow.currentStateText = staged.currentStateText;
     stagedFlow.currentStateDraft = staged.currentStateDraft;
