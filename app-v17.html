@@ -7053,6 +7053,7 @@ var v17RepeatModeSelectionPending = false;
 var v17RepeatBeforeScore = null;
 var v17RepeatCycleCount = null;
 var v17PendingSavedSnapshotUpdateReason = null;
+var v17PendingBackSnapshotUpdate = false;
 var v17SavedDraftSnapshotTimer = null;
 var v17SavedDraftSnapshotReason = null;
 
@@ -9057,6 +9058,8 @@ goBack = function() {
   }
   if (cur === 's-v17-breath') resetV17BreathScreen();
   if (navHistory.length) {
+    cancelV17SavedDraftSnapshotUpdate();
+    if (D && D.v17SessionMode === 'regular') v17PendingBackSnapshotUpdate = true;
     v17BaseGoBack();
     setTimeout(function() {
       if (cur === 's-v17-breath') resetV17BreathScreen();
@@ -9071,6 +9074,10 @@ updateBackBtn = function() {
   var button = document.getElementById('btn-back');
   if (button) button.classList.add('visible');
   updateV17SessionBookmarkVisibility();
+  if (v17PendingBackSnapshotUpdate) {
+    v17PendingBackSnapshotUpdate = false;
+    if (button && !button.hidden) updateV17SavedSessionSnapshot('BACK_NAVIGATION_COMPLETED');
+  }
   if (v17PendingSavedSnapshotUpdateReason) {
     var reason = v17PendingSavedSnapshotUpdateReason;
     v17PendingSavedSnapshotUpdateReason = null;
