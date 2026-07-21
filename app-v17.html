@@ -9990,6 +9990,29 @@ function wrapV17SavePayloadBuilders() {
 
   window.handleV17ResumeProgressClick = handleV17ResumeProgressClick;
 
+  function buildV17ResumeBeforeNavigationFrame() {
+    if (typeof captureV17NavigationSnapshot !== 'function') return null;
+    var frame = captureV17NavigationSnapshot('s-v17-before');
+    if (!frame || !frame.D || !frame.D.v17Flow) return null;
+    frame.screenId = 's-v17-before';
+    frame.D.v17Flow.currentStep = 'step2';
+    frame.D.v17Flow.step2Text = '';
+    frame.D.v17Flow.step2Draft = '';
+    frame.D.v17Flow.step3Text = '';
+    frame.D.v17Flow.step3Draft = '';
+    if (Object.prototype.hasOwnProperty.call(frame.D, 'currentState')) frame.D.currentState = '';
+    if (Object.prototype.hasOwnProperty.call(frame.D, 'currentStateText')) frame.D.currentStateText = '';
+    if (Object.prototype.hasOwnProperty.call(frame.D, 'currentStateDraft')) frame.D.currentStateDraft = '';
+    if (Object.prototype.hasOwnProperty.call(frame.D, 'idealState')) frame.D.idealState = '';
+    if (Object.prototype.hasOwnProperty.call(frame.D, 'idealStateText')) frame.D.idealStateText = '';
+    if (Object.prototype.hasOwnProperty.call(frame.D, 'idealStateDraft')) frame.D.idealStateDraft = '';
+    if (frame.D.v17Flow.responseStates && typeof frame.D.v17Flow.responseStates === 'object') {
+      frame.D.v17Flow.responseStates.current = 'unset';
+      frame.D.v17Flow.responseStates.ideal = 'unset';
+    }
+    return frame;
+  }
+
   function resumeV17RegularSnapshotToScreen(snapshot) {
     if (!window.NoetuneV17SessionSnapshot || typeof window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot !== 'function') {
       return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: 'snapshot' } };
@@ -10012,6 +10035,22 @@ function wrapV17SavePayloadBuilders() {
     }
     setV17ScreenDirectWithoutHistoryReset(snapshot.currentScreen);
     if (D && D.v17Flow) D.v17Flow.currentScreen = snapshot.currentScreen;
+    if (snapshot.currentScreen === 's-v17-first-response' && D && D.v17SessionMode === 'regular') {
+      navHistory.length = 0;
+      navPageStateHistory.length = 0;
+      var beforeFrame = buildV17ResumeBeforeNavigationFrame();
+      if (beforeFrame) {
+        navPageStateHistory.push(beforeFrame);
+        navHistory.push('s-v17-before');
+      } else {
+        var backButton = document.getElementById('btn-back');
+        if (backButton) {
+          backButton.hidden = true;
+          backButton.classList.remove('visible');
+        }
+      }
+      updateBackBtn();
+    }
     return {
       ok: true,
       sessionId: snapshot.sessionId,
