@@ -568,3 +568,34 @@ root `currentState`とhistorical ResumeBackFrame `state`は共通leaf validator�
 Next:
 
 確定済みleaf shapeだけを対象にpure validator foundationを追加する。trail、screen-state整合、Breath / Result、Deep、Repeatの未確定契約を推測で有効化しない。文書化されたcurrent contractとfuture proposalの再確認後に、Schema v2 / migrationとnon-empty frame保存を別Unitとして扱う。
+
+## 19. Decision record — SessionSummaryV1 canonical contract reconciliation
+
+Decision date: `2026-07-22`
+
+Repositoryの現行serializer outputを確認し、Snapshot Schema v1の`summary`は実装上14-keyのcanonical contractであると決定する。以前の5-key記載は、Snapshot保存Schemaとしては古い記載であり、現行保存shapeを置き換えない。
+
+決定事項:
+
+- Schema v1では14-key `SessionSummaryV1`を維持する
+- 新しいsummary/context objectへ分割しない
+- 5-key shapeは将来のSession list projection候補としてのみ扱う
+- `subthemeLabel`は保存時点の補助表示文脈であり、stable IDではない
+- `subthemeLabel`にはquestion text等のfallbackが含まれ得る
+- summaryはHigh Confidentiality User Contentを含み得る
+- summary fieldをanalytics、console、server log、error payload、一般metadataへ無条件に出さない
+- `currentState.entry`との重複は保存時点の表示文脈を保持するため意図的に許可する
+- restoreの正本は原則として`currentState.entry`とcurrent stateであり、現行restoreがsummaryから直接利用する主要fieldは`sessionMode`である
+- serializer、validator、migration、restoreは変更しない
+- exact-key validationは導入しない
+- Schema version 1を維持する
+- 既存14-key recordのfield削除・rename・自動書換えを行わない
+- 後続validator foundationはこの14-key `SessionSummaryV1` contractを前提とする
+
+Runtime behavior:
+
+```text
+canonical contract reconciled in documentation
+runtime behavior unchanged
+structural validator foundation not yet implemented
+```

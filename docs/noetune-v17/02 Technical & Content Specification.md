@@ -381,11 +381,21 @@ deep.feel100
 
 ```ts
 interface SessionSummaryV1 {
-  themeLabel: string;
-  subthemeLabel: string | null;
+  locale: "ja" | "en" | "zh-TW" | null;
+  sessionMode: "regular";
+  routeType: "problem" | "ideal" | "spiritual";
   entryType: "free_input" | "life_theme" | "spiritual_wisdom";
-  sessionMode: "regular" | "deep";
-  locale: "ja" | "en" | "zh-TW";
+
+  themeId: string | null;
+  themeLabel: string | null;
+  subthemeLabel: string | null;
+  themeDescription: string | null;
+  categoryId: string | null;
+  categoryLabel: string | null;
+  track: string | null;
+  freeInputTheme: string | null;
+  questionId: string | null;
+  questionTextAtTime: string | null;
 }
 
 interface EntryStateV1 {
@@ -405,6 +415,32 @@ interface EntryStateV1 {
 ```
 
 保存時の表示文脈を保持し、将来JSONが変更されても元Journeyの意味を壊さない。
+
+`SessionSummaryV1`は、現行Schema v1 serializerが実際に出力する14-keyのsummary/context snapshotをcanonical保存contractとして扱う。`currentState.entry`と一部fieldが重複するが、保存時点のtheme／entry表示文脈を保持するための意図的な重複である。restoreの正本は原則として`currentState.entry`とcurrent stateであり、現行restoreがsummaryから直接利用する主要fieldは`sessionMode`である。Schema v1の途中でこのsummary fieldを削除・renameしてはならず、将来の一覧projectionやstorage normalizationは独立した判断とする。
+
+以前の次の5-key shapeは、Snapshot Schema v1の保存shapeではない。
+
+```text
+themeLabel
+subthemeLabel
+entryType
+sessionMode
+locale
+```
+
+これは将来の`Session list projection`候補であり、独立interfaceとしては未実装である。Snapshotへ追加せず、serializer outputを狭めず、既存14-key summaryを置換せず、Schema versionも変更しない。
+
+`subthemeLabel`は保存時点の補助表示文脈であり、安定したtaxonomy IDではない。独立した正式subtheme sourceが常に存在するとは限らず、現行生成ではquestion text等のfallbackを含み得る。現行生成規則は変更せず、一覧UIでの正式利用方法は未決定であり、IDとして扱わない。
+
+`SessionSummaryV1`全体を一般的なprivacy-safe metadataとして扱ってはならない。`themeLabel`、`subthemeLabel`、`themeDescription`、`categoryLabel`、`freeInputTheme`、`questionTextAtTime`はHigh Confidentiality User Contentを含み得るため、analytics、console、server log、error payload、support／coding tool、一般検索indexまたは非保護metadataへ値を出してはならない。`themeId`や`entryType`等の識別fieldも、組み合わせによる推測可能性があるため、Snapshot境界外へ無条件に出してはならない。Cloud利用時もowner-only accessと既存privacy gateに従う。
+
+Schema v1 compatibility rule:
+
+```text
+snapshotSchemaVersion = 1
+```
+
+既存14-key Schema v1 recordを維持し、field削除・field rename・exact-key validator導入・serializer narrowing・migration追加・Schema v2・既存recordの自動書換えは行わない。
 
 ## 14. Measurement and response
 
