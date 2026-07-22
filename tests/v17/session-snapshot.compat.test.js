@@ -17,7 +17,22 @@ function storageStub() {
 const source = fs.readFileSync(path.join(__dirname, '../../js/v17/session-snapshot.js'), 'utf8');
 const localStorage = storageStub();
 const sessionStorage = storageStub();
-const context = { window: {}, TextEncoder, localStorage, sessionStorage };
+const sideEffects = { dom: 0, network: 0, uuid: 0, analytics: 0 };
+const context = {
+  window: {}, TextEncoder, localStorage, sessionStorage,
+  document: { getElementById() { sideEffects.dom += 1; } },
+  fetch() { sideEffects.network += 1; },
+  XMLHttpRequest: function XMLHttpRequest() { sideEffects.network += 1; },
+  crypto: { randomUUID() { sideEffects.uuid += 1; return '33333333-3333-4333-8333-333333333333'; } },
+  analytics: { track() { sideEffects.analytics += 1; } },
+  gtag() { sideEffects.analytics += 1; }
+};
+context.window.document = context.document;
+context.window.fetch = context.fetch;
+context.window.XMLHttpRequest = context.XMLHttpRequest;
+context.window.crypto = context.crypto;
+context.window.analytics = context.analytics;
+context.window.gtag = context.gtag;
 vm.runInNewContext(source, context, { filename: 'js/v17/session-snapshot.js' });
 const validate = context.window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot;
 
@@ -74,6 +89,75 @@ function accepted(value) { assert.equal(result(value).ok, true); }
 function rejected(value) { assert.equal(result(value).ok, false); }
 
 test('accepts the canonical valid snapshot', () => accepted(fixture()));
+
+test('characterizes CurrentCycleV1 public-root validation boundaries', () => {
+  accepted(fixture());
+
+  for (const value of [undefined, null, '', 'not-a-uuid', '22222222-2222-4222-8222-22222222222z', 1, [], {}]) {
+    const invalid = fixture();
+    invalid.currentCycle.cycleId = value;
+    rejected(invalid);
+  }
+
+  for (const value of [undefined, '0', 0.5, -1, NaN, Infinity, -Infinity, null, true, []]) {
+    const invalid = fixture();
+    if (value === undefined) delete invalid.currentCycle.cycleIndex;
+    else invalid.currentCycle.cycleIndex = value;
+    rejected(invalid);
+  }
+  const numericString = fixture();
+  numericString.currentCycle.cycleIndex = '1';
+  rejected(numericString);
+
+  for (const value of [undefined, null, '', 'not-a-timestamp', 1, true, [], {}]) {
+    const invalid = fixture();
+    if (value === undefined) delete invalid.currentCycle.startedAt;
+    else invalid.currentCycle.startedAt = value;
+    rejected(invalid);
+  }
+
+  for (const value of ['2026-01-01T00:03:00.000Z', null]) {
+    const valid = fixture();
+    valid.currentCycle.resultReachedAt = value;
+    accepted(valid);
+  }
+  for (const value of ['', 1, true, [], {}]) {
+    const invalid = fixture();
+    invalid.currentCycle.resultReachedAt = value;
+    rejected(invalid);
+  }
+
+  for (const value of [true, false]) {
+    const valid = fixture();
+    valid.currentCycle.resultEventSent = value;
+    accepted(valid);
+  }
+  const missingEventState = fixture();
+  delete missingEventState.currentCycle.resultEventSent;
+  rejected(missingEventState);
+  for (const value of ['true', 'false', 0, 1, null, [], {}]) {
+    const invalid = fixture();
+    invalid.currentCycle.resultEventSent = value;
+    rejected(invalid);
+  }
+
+  for (const value of [Object.assign({}, fixture().currentCycle, { extra: true }), [], null, 'cycle', 1, true]) {
+    const invalid = fixture();
+    invalid.currentCycle = value;
+    rejected(invalid);
+  }
+});
+
+test('CurrentCycleV1 validation does not mutate fixtures or cause external side effects', () => {
+  const value = fixture();
+  const before = JSON.stringify(value);
+  const storageBefore = JSON.stringify({ localStorage: localStorage.calls, sessionStorage: sessionStorage.calls });
+  const sideEffectsBefore = JSON.stringify(sideEffects);
+  assert.equal(validate(value).ok, true);
+  assert.equal(JSON.stringify(value), before);
+  assert.equal(JSON.stringify({ localStorage: localStorage.calls, sessionStorage: sessionStorage.calls }), storageBefore);
+  assert.equal(JSON.stringify(sideEffects), sideEffectsBefore);
+});
 
 test('accepts measurement extra keys and rejects invalid measurement boundaries', () => {
   const extra = fixture();
