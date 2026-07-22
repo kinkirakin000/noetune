@@ -140,6 +140,55 @@
     return null;
   }
 
+  function isV17LocaleLeaf(value) {
+    return typeof value === 'string' && ['ja', 'en', 'zh-TW'].indexOf(value) >= 0;
+  }
+
+  function isV17RouteTypeLeaf(value) {
+    return typeof value === 'string' && ALLOWED_ROUTE_TYPES.indexOf(value) >= 0;
+  }
+
+  function isV17EntryTypeLeaf(value) {
+    return typeof value === 'string' && ALLOWED_ENTRY_TYPES.indexOf(value) >= 0;
+  }
+
+  function isV17FiniteNumberLeaf(value) {
+    return typeof value === 'number' && Number.isFinite(value);
+  }
+
+  function isV17NullableFiniteNumberLeaf(value) {
+    return value === null || isV17FiniteNumberLeaf(value);
+  }
+
+  function isV17BooleanLeaf(value) {
+    return typeof value === 'boolean';
+  }
+
+  function isV17MeasurementV1Leaf(value) {
+    if (!isPlainObject(value)) return false;
+    if (!Object.prototype.hasOwnProperty.call(value, 'state') ||
+        !Object.prototype.hasOwnProperty.call(value, 'value') ||
+        !Object.prototype.hasOwnProperty.call(value, 'touched')) return false;
+    if (validateExactObjectKeys(value, ['state', 'value', 'touched'], '', 'INVALID_MEASUREMENT_OBJECT')) return false;
+    if (ALLOWED_MEASUREMENT_STATES.indexOf(value.state) < 0) return false;
+    if (!isV17BooleanLeaf(value.touched)) return false;
+    if (value.state === 'scored') return isV17FiniteNumberLeaf(value.value);
+    return value.value === null;
+  }
+
+  function isV17ResponseValueV1Leaf(value) {
+    if (!isPlainObject(value)) return false;
+    if (!Object.prototype.hasOwnProperty.call(value, 'state') ||
+        !Object.prototype.hasOwnProperty.call(value, 'text') ||
+        !Object.prototype.hasOwnProperty.call(value, 'draft')) return false;
+    if (validateExactObjectKeys(value, ['state', 'text', 'draft'], '', 'INVALID_RESPONSE_OBJECT')) return false;
+    if (ALLOWED_RESPONSE_STATES.indexOf(value.state) < 0) return false;
+    if (typeof value.text !== 'string' || typeof value.draft !== 'string') return false;
+    if (value.state === 'answered') return !!value.text || !!value.draft;
+    if (value.state === 'unset') return !value.text && !value.draft;
+    return true;
+  }
+
   function isV17StrictPlainObject(value) {
     if (value === null || typeof value !== 'object' || Array.isArray(value)) return false;
     var prototype = Object.getPrototypeOf(value);
