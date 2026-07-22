@@ -205,6 +205,21 @@
     return true;
   }
 
+  function isV17CurrentCycleV1Leaf(value) {
+    if (!isPlainObject(value)) return false;
+    var requiredKeys = ['cycleId', 'cycleIndex', 'startedAt', 'resultReachedAt', 'resultEventSent'];
+    for (var i = 0; i < requiredKeys.length; i += 1) {
+      if (!Object.prototype.hasOwnProperty.call(value, requiredKeys[i])) return false;
+    }
+    if (validateExactObjectKeys(value, requiredKeys, '', 'INVALID_CURRENT_CYCLE')) return false;
+    if (!isUuid(value.cycleId)) return false;
+    if (!Number.isInteger(value.cycleIndex) || value.cycleIndex < 0) return false;
+    if (typeof value.startedAt !== 'string' || toIsoOrNull(value.startedAt) === null) return false;
+    if (value.resultReachedAt !== null && (typeof value.resultReachedAt !== 'string' || toIsoOrNull(value.resultReachedAt) === null)) return false;
+    if (!isV17BooleanLeaf(value.resultEventSent)) return false;
+    return true;
+  }
+
   function isV17StrictPlainObject(value) {
     if (value === null || typeof value !== 'object' || Array.isArray(value)) return false;
     var prototype = Object.getPrototypeOf(value);
