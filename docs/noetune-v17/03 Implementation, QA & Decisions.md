@@ -4,7 +4,7 @@
 # Noetune v17 Implementation, QA & Decisions
 
 **Status:** Canonical implementation decisions and QA record
-**Updated:** 2026-07-20
+**Updated:** 2026-07-22
 **Implementation baseline:** Local repository is the runtime source of truth. Obsidian is the decision source of truth.
 
 ## 1. Operating model
@@ -482,56 +482,65 @@ Repository facts:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: 98931af
-tracked working tree: clean
+HEAD: 84b59da1d5182d13bcf78d9b38af4cfdfa7d77a6
+tracked working tree at accepted HEAD 84b59da1d5182d13bcf78d9b38af4cfdfa7d77a6: clean
 push: not performed
+deploy: not performed
 ```
 
 | Work unit | Status |
 |---|---|
 | Snapshot serializer / validator / migration foundation | Complete |
 | Guest local Regular runtime restore foundation | Complete |
-| `currentStep` restore fix (`453862f`) | Complete |
-| New Regular A/B flow Unit 1 (`98931af`) | Complete |
-| Unit 2: `questionVariant` Snapshot persistence | Next |
+| `currentStep` restore | Complete |
+| Regular Question A/B flow | Complete |
+| `questionVariant` Snapshot persistence / migration / restore | Complete |
+| Resume Back reconstruction: Session mode / Before / Q1 / Q2 | Complete |
+| Snapshot screen responsibility separation | Complete |
+| ResumeBackFrame validation foundation | Complete |
+| Snapshot semantic state contract reconciliation | Complete |
+| Unit 3A-2d-3d-0b-2a: Defined leaf validator foundation | Next |
 | New Deep A/B alternating flow | Approved, not started |
-| Breath / Final / Result / Repeat exact resume | Not started |
+| Breath / Final / Result exact resume | Not started |
+| Deep Resume | Not started |
+| Repeat Resume | Not started |
+| Schema v2 | Not started |
+| non-empty `resumeBackFrames` / semantic frame serializer | Not started |
+| atomic runtime history rebuild | Not started |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |
 | Cloud / RLS | Blocked by privacy gate |
-| Shared UI / list | Not started |
-| Explicit completion | Not started |
+| Shared Bookmark UI | Not started |
+| Explicit Journey completion | Not started |
 | Full QA / release | Not started |
+
+Recent accepted commits:
+
+```text
+5a9c7d4 refactor(v17): separate snapshot screen responsibilities
+c1bc4d6 feat(v17): add safe resume back frame validation foundation
+84b59da docs(v17): reconcile snapshot semantic state contracts
+```
 
 ## 17. Next approved Codex scope
 
-Unit 2 must remain narrow:
+Unit 3A-2d-3d-0b-2a must remain narrow:
 
 ```text
 branch: feature/v17-session-resume
-base HEAD: 98931af
-Regular only
-questionVariant Snapshot serialize
-questionVariant validator allowlist
-missing-field migration/default behavior
-questionVariant runtime restore
-no visible UI change
-no Deep
-no Back redesign
-no auth / billing / history / Bookmark / analytics
-no push / deploy until reviewed
+js/v17/session-snapshot.js only
+pure internal validator helper foundation only
+defined leaf shapes only
+Schema version 1
+no serializer change
+no migration change
+no restore change
+no public API change
+allowNonEmpty: false
+non-empty resumeBackFrames remain rejected
+no Breath / Final / Result enablement
+no Deep / Repeat enablement
+preserve valid Schema v1 validation results
 ```
-
-Required verification:
-
-- A and B both round-trip through serializer → validator → restore
-- invalid variant is rejected without overwriting a valid snapshot
-- old snapshot without the field follows the documented migration/default rule
-- currentStep two-line restore remains intact
-- three locale JSON files remain valid
-- JavaScript syntax and `git diff --check` pass
-- backup files remain untracked and untouched
-
-After Unit 2 acceptance, define the Deep state migration as a separate implementation unit.
 
 ## 18. Snapshot semantic state contract reconciliation
 
