@@ -2,8 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-22
-> Current repository facts: branch `feature/v17-session-resume`, accepted HEAD `8be86bf599d907e22f0cc979de1bf606480c42c9`, tracked working tree at accepted HEAD: clean, push not performed, deploy not performed
-> Current execution point: Unit 3A-2d-3d-0b-2a — Defined leaf validator foundation (Next)
+> Current execution point: New Flow Unit 2 — questionVariant Snapshot persistence
 
 ## 1. Objective
 
@@ -69,7 +68,7 @@ Gate:
 
 ### Phase 4B — Guest local Regular restore
 
-**Status:** Complete
+**Status:** In progress
 
 Completed foundation:
 
@@ -80,8 +79,8 @@ Completed foundation:
 
 Remaining:
 
-- release-level real-browser save → reload → resume QA
-- complete Back matrix QA remains tracked under Phase 5B / Phase 14
+- real-browser save → reload → resume QA
+- minimal Regular Back after resume
 
 Deliverables:
 
@@ -115,7 +114,7 @@ Accepted scope:
 
 ### New Flow Unit 2 — questionVariant Snapshot persistence
 
-**Status:** Complete
+**Status:** Next
 
 Deliverables:
 
@@ -133,36 +132,6 @@ Forbidden:
 - auth, billing, history, Bookmark, analytics
 
 Gate: save/reload/resume reopens the exact A or B prompt without losing draft or currentStep.
-
-### Current Session Resume status
-
-Completed:
-
-- Snapshot screen responsibility separation
-- ResumeBackFrame validation foundation
-- Snapshot semantic state contract reconciliation
-- Implementation status synchronization
-
-Accepted commits:
-
-```text
-5a9c7d4 refactor(v17): separate snapshot screen responsibilities
-c1bc4d6 feat(v17): add safe resume back frame validation foundation
-84b59da docs(v17): reconcile snapshot semantic state contracts
-8be86bf docs(v17): synchronize session resume implementation status
-```
-
-Next:
-
-```text
-Unit 3A-2d-3d-0b-2a
-Defined leaf validator foundation
-Status: Next
-```
-
-Target file: `js/v17/session-snapshot.js` only
-
-Constraints: pure internal helpers, confirmed leaf shapes only, Schema version 1, no serializer/migration/restore/public API change, `allowNonEmpty: false`, non-empty `resumeBackFrames` reject, Breath / Final / Result / Deep / Repeat remain unsupported, and valid Schema v1 Snapshot results remain unchanged.
 
 ### New Flow Unit 3 — Deep alternating flow
 
@@ -385,6 +354,10 @@ Refer to [[06 Current Billing & Auth Snapshot]] for current facts and [[02 Techn
 
 ## 5. Codex rules
 
+The permanent operating contract is defined in [[03 Implementation, QA & Decisions]].
+
+Repository execution rules are defined by root `AGENTS.md`; executable role and model settings are defined by `.codex/config.toml` and `.codex/agents/*.toml`.
+
 Every task must specify:
 
 - exact files
@@ -394,9 +367,23 @@ Every task must specify:
 
 Default:
 
-- GPT-5.4 mini
-- low reasoning
-- one work unit
+- Codex Leader plus only the minimum necessary roles
+- `gpt-5.6-luna / low` for Leader and all roles
+- one narrow work unit
+- implementer as the normal sole writer
+- researcher / qa / reviewer as read-only
+- no automatic model or reasoning upgrade
+
+`one narrow work unit` defines the approved product and implementation scope. It does not require a single agent and does not permit scope expansion when more agents are used.
+
+Credit Mode controls investigation and QA depth:
+
+- `CONSERVE`
+- `NORMAL`
+- `QUALITY`
+- `USE-IT`
+
+Without a usage screenshot, use `NORMAL`. If the screenshot or its used/remaining meaning is unclear, do not guess; ask the user.
 
 Mandatory instruction:
 
@@ -407,8 +394,12 @@ Do not rename existing functions unless required.
 Do not change question order or meaning.
 Do not change database schema unless explicitly instructed.
 Do not guess missing API fields; report them.
+Do not assign multiple writers to the same file.
+Do not automatically upgrade model or reasoning.
+Do not include private Session content in agent prompts, logs, or reports.
 Run syntax checks and git diff --check.
 Report changed files, reasons, tests, and remaining risks.
+Commit, push, and deploy only after explicit approval.
 ```
 
 ## 6. Release blockers

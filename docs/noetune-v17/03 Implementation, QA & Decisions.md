@@ -9,25 +9,120 @@
 
 ## 1. Operating model
 
-### ChatGPT
+### Commander ChatGPT
 
 - product and architecture decisions
-- scope and implementation order
-- Codex prompt creation
-- result review and pass/fail judgment
-- release decision
+- implementation scope and order
+- Codex Leader instruction creation
+- integrated report review
+- PASS / STOP judgment
+- commit / push / deploy / release decision
 
-### Codex
+### Codex Leader
 
-Default:
+- the only Codex agent that communicates directly with the user
+- runs preflight and confirms repository facts
+- evaluates Unit difficulty, risk, and affected scope
+- selects the Credit Mode
+- starts only the minimum necessary subagents
+- compares results, resolves contradictions where possible, and returns one integrated report
+- does not return large volumes of raw subagent logs to the user
 
-- GPT-5.4 mini
-- low reasoning
-- one narrow work unit
+### Formal subagent roles
+
+#### researcher
+
+- read-only
+- investigates repository facts, canonical documents, dependencies, and affected scope
+
+#### implementer
+
+- workspace-write
+- normally the only writer
+- changes only the approved scope and keeps the diff minimal
+
+#### qa
+
+- read-only
+- checks regression, boundaries, error paths, privacy, and required verification
+
+#### reviewer
+
+- read-only
+- independently audits the diff, scope, contracts, and safety rules
+
+### Fixed execution rules
+
+- default model and reasoning for Leader and all roles: `gpt-5.6-luna / low`
+- no automatic model or reasoning upgrade from Luna Low
+- when escalation appears necessary, STOP and request Commander ChatGPT approval
+- never assign multiple writers to the same file
+- avoid unnecessary duplicate investigation
+- retain one narrow work unit per execution
+- one work unit defines the product and implementation scope, not the number of agents
 - no unrelated refactor
-- exact files and verification required
+- exact files, objective, forbidden changes, and verification are required
+- commit / push / deploy occur only after explicit approval
+- never include private Session content in subagent prompts, logs, or reports
 
-Increase reasoning only for security, RLS, webhook, auth, billing contract, or unresolved cross-file state contradictions.
+### Credit Mode
+
+- `CONSERVE`: Leader-centered; start a subagent only when necessary
+- `NORMAL`: default; use the minimum writer and read-only support required by the Unit
+- `QUALITY`: use independent research, implementation, and review; add QA only when justified
+- `USE-IT`: near weekly reset, spend remaining capacity on useful independent QA or read-only preparation, never on redundant agents
+
+If no usage screenshot is provided, use `NORMAL`.
+
+If a screenshot is unclear, or it is not possible to distinguish used percentage from remaining percentage, do not guess and ask the user.
+
+Agent count is determined by Unit complexity, security/privacy risk, affected scope, and Credit Mode. Credit Mode never justifies unnecessary scope expansion.
+
+### Source of truth
+
+- permanent operating decisions: `03 Implementation, QA & Decisions.md`
+- repository execution contract: root `AGENTS.md`
+- executable Codex configuration: `.codex/config.toml` and `.codex/agents/*.toml`
+
+Do not duplicate the full TOML configuration in Obsidian.
+
+## 1A. Decision record — Adaptive multi-agent Codex workflow
+
+**Decision date:** 2026-07-22
+
+### Confirmed capability
+
+- Codex CLI `v0.145.0-alpha.27`
+- multi-agent v2
+- `spawn_agent` / `wait_agent`
+- `features.multi_agent_v2`
+- formal roles: researcher / implementer / qa / reviewer
+- all roles fixed to `gpt-5.6-luna / low`
+- strict config validation passed
+- researcher subagent connectivity check passed without file changes
+
+### Adopted workflow
+
+```text
+User
+↕
+Commander ChatGPT
+↕
+Codex Leader
+├─ researcher
+├─ implementer
+├─ qa
+└─ reviewer
+↓
+One integrated Leader report
+```
+
+- the user communicates only with Commander ChatGPT and Codex Leader
+- subagents remain internal to the Leader workflow
+- the Leader selects only the roles required by each Unit
+- implementer is normally the only writer
+- unresolved agent disagreement is reported explicitly rather than hidden
+- infrastructure commit: `d7dead6 chore(codex): add adaptive multi-agent leader workflow`
 
 ## 2. Stop line
 
@@ -482,120 +577,53 @@ Repository facts:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: 84b59da1d5182d13bcf78d9b38af4cfdfa7d77a6
-tracked working tree at accepted HEAD 84b59da1d5182d13bcf78d9b38af4cfdfa7d77a6: clean
+HEAD: 98931af
+tracked working tree: clean
 push: not performed
-deploy: not performed
 ```
 
 | Work unit | Status |
 |---|---|
 | Snapshot serializer / validator / migration foundation | Complete |
 | Guest local Regular runtime restore foundation | Complete |
-| `currentStep` restore | Complete |
-| Regular Question A/B flow | Complete |
-| `questionVariant` Snapshot persistence / migration / restore | Complete |
-| Resume Back reconstruction: Session mode / Before / Q1 / Q2 | Complete |
-| Snapshot screen responsibility separation | Complete |
-| ResumeBackFrame validation foundation | Complete |
-| Snapshot semantic state contract reconciliation | Complete |
-| Unit 3A-2d-3d-0b-2a: Defined leaf validator foundation | Next |
+| `currentStep` restore fix (`453862f`) | Complete |
+| New Regular A/B flow Unit 1 (`98931af`) | Complete |
+| Unit 2: `questionVariant` Snapshot persistence | Next |
 | New Deep A/B alternating flow | Approved, not started |
-| Breath / Final / Result exact resume | Not started |
-| Deep Resume | Not started |
-| Repeat Resume | Not started |
-| Schema v2 | Not started |
-| non-empty `resumeBackFrames` / semantic frame serializer | Not started |
-| atomic runtime history rebuild | Not started |
+| Breath / Final / Result / Repeat exact resume | Not started |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |
 | Cloud / RLS | Blocked by privacy gate |
-| Shared Bookmark UI | Not started |
-| Explicit Journey completion | Not started |
+| Shared UI / list | Not started |
+| Explicit completion | Not started |
 | Full QA / release | Not started |
-
-Recent accepted commits:
-
-```text
-5a9c7d4 refactor(v17): separate snapshot screen responsibilities
-c1bc4d6 feat(v17): add safe resume back frame validation foundation
-84b59da docs(v17): reconcile snapshot semantic state contracts
-```
 
 ## 17. Next approved Codex scope
 
-Unit 3A-2d-3d-0b-2a must remain narrow:
+Unit 2 must remain narrow:
 
 ```text
 branch: feature/v17-session-resume
-js/v17/session-snapshot.js only
-pure internal validator helper foundation only
-defined leaf shapes only
-Schema version 1
-no serializer change
-no migration change
-no restore change
-no public API change
-allowNonEmpty: false
-non-empty resumeBackFrames remain rejected
-no Breath / Final / Result enablement
-no Deep / Repeat enablement
-preserve valid Schema v1 validation results
+base HEAD: 98931af
+Regular only
+questionVariant Snapshot serialize
+questionVariant validator allowlist
+missing-field migration/default behavior
+questionVariant runtime restore
+no visible UI change
+no Deep
+no Back redesign
+no auth / billing / history / Bookmark / analytics
+no push / deploy until reviewed
 ```
 
-## 18. Snapshot semantic state contract reconciliation
+Required verification:
 
-Decision:
+- A and B both round-trip through serializer → validator → restore
+- invalid variant is rejected without overwriting a valid snapshot
+- old snapshot without the field follows the documented migration/default rule
+- currentStep two-line restore remains intact
+- three locale JSON files remain valid
+- JavaScript syntax and `git diff --check` pass
+- backup files remain untracked and untouched
 
-現行Schema v1のSerialized currentStateと、将来のsemantic ResumeBackFrame target stateを分離する。
-
-Reason:
-
-実serializer shapeと旧SessionFrameState記述が一致していないため。現行serializerのcanonical shapeは`CurrentStateV1`として記録し、将来のframe shapeは`ProposedSessionFrameStateV2`として未実装扱いにする。
-
-Current behavior:
-
-- Schema versionは1のまま
-- `resumeBackFrames`は`[]`のみvalidで、non-emptyはreject
-- Breath / Final / Result / Deep / Repeatは未対応
-- `SCHEMA_KNOWN_SCREENS`、`SERIALIZABLE_SCREENS`、`RESTORABLE_SCREENS`は別責務
-- `ScoreTrailStateV1`と`AwarenessTrailStateV1`の具体的shapeは未確定
-- currentStepのruntime値とSchema v1 allowlistは完全には一致しない
-
-Validator boundary:
-
-root `currentState`とhistorical ResumeBackFrame `state`は共通leaf validatorを共有できるが、root currentScreenまたはframe screenIdに依存するscreen-state consistency validatorは分離する。
-
-Next:
-
-確定済みleaf shapeだけを対象にpure validator foundationを追加する。trail、screen-state整合、Breath / Result、Deep、Repeatの未確定契約を推測で有効化しない。文書化されたcurrent contractとfuture proposalの再確認後に、Schema v2 / migrationとnon-empty frame保存を別Unitとして扱う。
-
-## 19. Decision record — SessionSummaryV1 canonical contract reconciliation
-
-Decision date: `2026-07-22`
-
-Repositoryの現行serializer outputを確認し、Snapshot Schema v1の`summary`は実装上14-keyのcanonical contractであると決定する。以前の5-key記載は、Snapshot保存Schemaとしては古い記載であり、現行保存shapeを置き換えない。
-
-決定事項:
-
-- Schema v1では14-key `SessionSummaryV1`を維持する
-- 新しいsummary/context objectへ分割しない
-- 5-key shapeは将来のSession list projection候補としてのみ扱う
-- `subthemeLabel`は保存時点の補助表示文脈であり、stable IDではない
-- `subthemeLabel`にはquestion text等のfallbackが含まれ得る
-- summaryはHigh Confidentiality User Contentを含み得る
-- summary fieldをanalytics、console、server log、error payload、一般metadataへ無条件に出さない
-- `currentState.entry`との重複は保存時点の表示文脈を保持するため意図的に許可する
-- restoreの正本は原則として`currentState.entry`とcurrent stateであり、現行restoreがsummaryから直接利用する主要fieldは`sessionMode`である
-- serializer、validator、migration、restoreは変更しない
-- exact-key validationは導入しない
-- Schema version 1を維持する
-- 既存14-key recordのfield削除・rename・自動書換えを行わない
-- 後続validator foundationはこの14-key `SessionSummaryV1` contractを前提とする
-
-Runtime behavior:
-
-```text
-canonical contract reconciled in documentation
-runtime behavior unchanged
-structural validator foundation not yet implemented
-```
+After Unit 2 acceptance, define the Deep state migration as a separate implementation unit.
