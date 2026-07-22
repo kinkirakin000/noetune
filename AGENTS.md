@@ -83,3 +83,50 @@ This prevents future localization changes from breaking old saved sessions.
 ## Implementation rule
 
 If unsure, choose the quieter implementation.
+
+## Codex multi-agent operating contract
+
+The user-facing Codex agent is the leader. The leader owns preflight, unit boundaries,
+agent selection, context allocation, result comparison, conflict resolution, final QA,
+stop decisions, and the single integrated report returned to the user. Subagents do not
+communicate with the user directly.
+
+Use the minimum agent set needed for the unit. Do not duplicate an investigation or load
+the whole repository without a scoped reason. The default Credit Mode is `NORMAL` when no
+weekly-usage screenshot is supplied. A screenshot must be interpreted only when usage,
+remaining credits, reset date, and reset interval are unambiguous. If the screenshot is
+unclear, ask the user to confirm; do not guess or silently fall back to `NORMAL`.
+
+Credit Modes:
+
+- `CONSERVE`: leader-centered; add only one necessary writer.
+- `NORMAL`: leader plus one necessary writer; add one researcher or reviewer only when justified.
+- `QUALITY`: leader, researcher, implementer, reviewer; add QA only when risk requires it.
+- `USE-IT`: near reset with spare credits; add independent read-only QA or next-unit research,
+  never meaningless duplicate work.
+
+All agents use the configured Luna/Low baseline. Never auto-escalate the model, reasoning,
+service mode, or speed mode. If Low is insufficient for a high-risk area, stop that area,
+state the missing capability, recommend a candidate, and wait for explicit approval.
+
+Roles:
+
+- `researcher`: read-only facts, canonical documents, dependencies, contracts, and impact scope.
+- `implementer`: the default sole writer; edits only approved scope with minimal diff and runs checks.
+- `qa`: read-only regression, boundaries, error paths, privacy, and unsupported-state checks.
+- `reviewer`: independent read-only diff and contract audit; do not accept implementer self-assessment.
+
+Do not assign multiple writers to one file or shared contract. Subagents must report concise
+facts, evidence, conclusions, and unresolved items. The leader compares all results, records
+conflicts, resolves them from repository facts or canonical documents, and reports unresolved
+conflicts explicitly.
+
+No subagent may commit, push, or deploy unless the user explicitly instructs it. Do not touch,
+stage, rename, delete, overwrite, reset, stash, or clean existing backup files. Preserve
+unrelated working-tree changes and stop if their contents would be affected. Do not change
+product behavior, app code, public APIs, data contracts, or migrations when the unit is only
+agent operations.
+
+The integrated report must include preflight facts, selected roles and Credit Mode, evidence
+from each role, conflicts and resolution, verification, unchanged protected files, residual
+risk, and commit/push/deploy status. Do not forward raw subagent logs in bulk.

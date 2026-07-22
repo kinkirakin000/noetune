@@ -1,0 +1,24 @@
+# Repository-local Codex settings. Keys are supported by the installed Codex CLI.
+[features]
+multi_agent_v2 = true
+
+[agents]
+max_concurrent_threads_per_session = 4
+default_subagent_model = "gpt-5.6-luna"
+default_subagent_reasoning_effort = "low"
+
+[agents.researcher]
+description = "Read-only repository and canonical-document investigation."
+config_file = "agents/researcher.toml"
+
+[agents.implementer]
+description = "Sole default writer for an explicitly approved, minimal scope."
+config_file = "agents/implementer.toml"
+
+[agents.qa]
+description = "Read-only regression and boundary verification."
+config_file = "agents/qa.toml"
+
+[agents.reviewer]
+description = "Independent read-only diff and contract audit."
+config_file = "agents/reviewer.toml"
