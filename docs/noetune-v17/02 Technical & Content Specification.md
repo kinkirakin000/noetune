@@ -261,7 +261,7 @@ interface SessionSnapshotV1 {
   currentScreen: CanonicalSessionScreen;
   summary: SessionSummaryV1;
   currentCycle: CurrentCycleV1;
-  currentState: SessionFrameStateV1;
+  currentState: CurrentStateV1;
   repeatState: RepeatStateV1 | null;
   resumeBackFrames: ResumeBackFrameV1[];
 }
@@ -300,6 +300,82 @@ type CanonicalSessionScreen =
 ```
 
 Landing、theme未確定画面、Auth、Pricing、Membership、Settings、Aboutは途中しおり対象外。
+
+### Current screen responsibilities
+
+The current implementation keeps these responsibilities separate:
+
+```text
+SCHEMA_KNOWN_SCREENS
+SERIALIZABLE_SCREENS
+RESTORABLE_SCREENS
+```
+
+Schema v1 currently serializes, validates, and restores only:
+
+```text
+s-v17-session-mode
+s-v17-before
+s-v17-first-response
+s-v17-second-response
+```
+
+The following are schema-known but not currently serializable, validatable as supported snapshots, or restorable:
+
+```text
+s-v17-deep-response
+s-v17-deep-feel-100
+s-v17-breath
+s-v17-final-measure
+s-result
+```
+
+Being schema-known does not make a screen valid, serializable, or restorable.
+
+### Current step classification
+
+The current Schema v1 validator allowlist is:
+
+```text
+session-mode
+before
+first-response
+second-response
+step1
+step2
+step3
+```
+
+Runtime values that exist but are not accepted by the current Schema v1 validator are:
+
+```text
+step4.first
+step4.second
+step5
+step6
+deep.current
+deep.ideal
+deep.feel100
+```
+
+| currentStep | runtime exists | Schema v1 accepted | restore supported |
+|---|---:|---:|---:|
+| session-mode | yes | yes | yes |
+| before | yes | yes | yes |
+| first-response | yes | yes | yes |
+| second-response | yes | yes | yes |
+| step1 | yes | yes | supported screen dependent |
+| step2 | yes | yes | supported screen dependent |
+| step3 | yes | yes | supported screen dependent |
+| step4.first | yes | no | no |
+| step4.second | yes | no | no |
+| step5 | yes | no | no |
+| step6 | yes | no | no |
+| deep.current | yes | no | no |
+| deep.ideal | yes | no | no |
+| deep.feel100 | yes | no | no |
+
+`step1`, `step2`, and `step3` are runtime-dependent and are not documented as a one-to-one canonical screen mapping.
 
 ## 13. Summary and entry
 
@@ -353,10 +429,52 @@ interface ResponseValueV1 {
 - `text`は確定値、`draft`は現在textarea値
 - `text`と`draft`が異なることを許可
 
-## 15. Frame state
+## 15. Current Schema v1 state
+
+The following interface describes the exact `currentState` shape emitted by the current Schema v1 serializer. It is the implemented current contract, not the future semantic frame proposal below.
 
 ```ts
-interface SessionFrameStateV1 {
+interface CurrentStateV1 {
+  currentScreen: string;
+  currentStep: string | null;
+  routeType: "problem" | "ideal" | "spiritual";
+  entryType: string;
+  locale: "ja" | "en" | "zh-TW" | null;
+
+  entry: EntryStateV1;
+
+  measurement: {
+    before: MeasurementV1;
+    after: MeasurementV1;
+  };
+
+  responses: {
+    current: ResponseValueV1;
+    ideal: ResponseValueV1;
+  };
+
+  semanticState: {
+    current: string | null;
+    ideal: string | null;
+  };
+
+  regularFlow: RegularFlowV1 | null;
+  scoreTrail: unknown[];
+  awarenessTrail: unknown[];
+  deepFlow: null;
+}
+```
+
+The current serializer also normalizes and clones the two trail arrays, but their element contracts are not yet defined. `entry` preserves display context, and `responses.current.text`, `responses.current.draft`, `responses.ideal.text`, `responses.ideal.draft`, and awareness trail elements may contain private user-provided content. Error results and console output must never include those values.
+
+The current `CurrentStateV1` does not contain `sessionMode`, root-level `before` or `after`, `deltaScore`, `breath`, or `resultView`. The implemented shape additionally contains `currentScreen`, `entryType`, `measurement`, and `semanticState`, which must not be omitted from current-contract documentation.
+
+## 16. Proposed / Not Yet Implemented: semantic frame state
+
+The following is a future target for semantic `ResumeBackFrame` state. It is not the current Schema v1 serializer output, and Schema v2 does not yet exist.
+
+```ts
+interface ProposedSessionFrameStateV2 {
   currentStep: string;
   locale: "ja" | "en" | "zh-TW";
   sessionMode: "regular" | "deep";
@@ -378,9 +496,45 @@ interface SessionFrameStateV1 {
 }
 ```
 
-runtimeの`D`全体は保存しない。serializerが必要fieldだけを正規化する。
+This proposed shape is not implemented. Non-empty `resumeBackFrames` are currently rejected, the field composition must be re-confirmed before implementation, and root current state and historical frame state are not assumed to be identical.
 
-## 16. Regular flow
+Runtimeの`D`全体は保存しない。将来のsemantic frame serializerも必要fieldだけを正規化する。
+
+`ScoreTrailStateV1`は名称のみ確定しており、exact element type、object shape、nullable rule、maximum length、ordering、duplicate rule、frame stateでの必須性は未確定である。現行runtime sourceは`currentThemeScoreTrail`系、serializer outputはcloneされたArrayであり、before/after score表示とResult UIで利用される。lengthが5を超える場合はexpand UIが関係するが、これをschema上限とは扱わない。
+
+`AwarenessTrailStateV1`も未確定である。現行runtime sourceは`currentThemeAwarenessTrail`系、serializer outputはcloneされたArrayで、Result UIでは文字列一覧として扱われる。private response由来本文を含み得るため、将来validatorのfailure resultやconsoleへ要素内容を出してはならない。canonical element type、maximum length、normalization、duplicate rule、frame stateでの必要性は未確定である。
+
+### Root state and historical frame validator boundary
+
+判定は **B** とする。root `currentState`とResumeBackFrame `state`は共通leaf validatorを共有できるが、screen-state consistency validatorは別に必要である。
+
+- root currentStateはroot currentScreenとの一致が必要
+- frame stateは過去screenのsemantic stateであり、frame screenIdとroot currentScreenは異なり得る
+- currentStep、regularFlow、breath、resultViewの整合条件はscreenごとに異なる
+- 現行CurrentStateV1と将来frame target shapeはまだ完全一致していない
+
+### Implementation order
+
+```text
+1. 現行Schema v1 currentState契約を文書化
+2. 未確定trail/currentStep/screen整合を明示
+3. 共通leaf validator foundation
+4. frame state envelope validator
+5. RegularFlow validator
+6. Breath / Result state契約
+7. screen-state consistency validator
+8. Schema v2 / migration
+9. non-empty resumeBackFrames serializer
+10. atomic restore history rebuild
+```
+
+Deep / Repeatは別トラックとして後回しにする。
+
+### Hardening note
+
+Current Snapshot trust boundary is JSON.parse-compatible data. Custom accessor/getter objects are not expected in normal persisted Snapshot input. Before accepting non-JSON object sources or enabling a broader external ingestion path, validator hardening must prevent throwing accessors from escaping validation.
+
+## 17. Regular flow
 
 ```ts
 interface RegularFlowV1 {
@@ -396,7 +550,7 @@ interface RegularFlowV1 {
 - old snapshot migrationでは欠落時のみ`A`へ補完する
 - 回答は画面順とsemantic roleの両方を壊さず保持する
 
-## 17. Deep flow
+## 18. Deep flow
 
 ```ts
 type DeepPhase = "current" | "ideal" | "feel100";
@@ -427,7 +581,7 @@ interface DeepRoundV1 {
 - No More Words後も未完了roundは`pendingRound`
 - `finished`はDeep終了でありJourney完了ではない
 
-## 18. Breath
+## 19. Breath
 
 ```ts
 interface BreathStateV1 {
@@ -442,7 +596,7 @@ interface BreathStateV1 {
 
 resume時は保存されたStepの開始状態から表示し、`isAnimating = false`で初期化する。
 
-## 19. Current cycle and Result
+## 20. Current cycle and Result
 
 ```ts
 interface CurrentCycleV1 {
@@ -462,13 +616,13 @@ interface ResultViewStateV1 {
 
 `currentScreen = s-result`かつ`status = active`を正規状態として許可する。
 
-## 20. Repeat state
+## 21. Repeat state
 
 ```ts
 interface RepeatStateV1 {
   active: boolean;
-  resultState: SessionFrameStateV1 | null;
-  cycleState: SessionFrameStateV1 | null;
+  resultState: ProposedSessionFrameStateV2 | null;
+  cycleState: ProposedSessionFrameStateV2 | null;
   returnPending: boolean;
   modeSelectionPending: boolean;
   beforeScore: MeasurementV1 | null;
@@ -487,12 +641,12 @@ runtime対応：
 
 Repeat state内に別のrepeat stateやresume frameを入れない。
 
-## 21. Resume Back Frames
+## 22. Resume Back Frames
 
 ```ts
 interface ResumeBackFrameV1 {
   screenId: CanonicalSessionScreen;
-  state: SessionFrameStateV1;
+  state: ProposedSessionFrameStateV2;
   repeatState: RepeatStateV1 | null;
 }
 ```
@@ -512,7 +666,7 @@ Back: Result → Final → Breath → Response
 
 No More Words後のBreathでは、遷移直前のDeep Response frameが必須。現在stateから押下前の`deep.finished`や`pendingRound.incomplete`を完全には逆算できない。
 
-## 22. Local storage envelope
+## 23. Local storage envelope
 
 ```ts
 interface LocalSessionRecordV1 {

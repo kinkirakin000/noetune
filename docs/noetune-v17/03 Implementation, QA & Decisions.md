@@ -532,3 +532,30 @@ Required verification:
 - backup files remain untracked and untouched
 
 After Unit 2 acceptance, define the Deep state migration as a separate implementation unit.
+
+## 18. Snapshot semantic state contract reconciliation
+
+Decision:
+
+現行Schema v1のSerialized currentStateと、将来のsemantic ResumeBackFrame target stateを分離する。
+
+Reason:
+
+実serializer shapeと旧SessionFrameState記述が一致していないため。現行serializerのcanonical shapeは`CurrentStateV1`として記録し、将来のframe shapeは`ProposedSessionFrameStateV2`として未実装扱いにする。
+
+Current behavior:
+
+- Schema versionは1のまま
+- `resumeBackFrames`は`[]`のみvalidで、non-emptyはreject
+- Breath / Final / Result / Deep / Repeatは未対応
+- `SCHEMA_KNOWN_SCREENS`、`SERIALIZABLE_SCREENS`、`RESTORABLE_SCREENS`は別責務
+- `ScoreTrailStateV1`と`AwarenessTrailStateV1`の具体的shapeは未確定
+- currentStepのruntime値とSchema v1 allowlistは完全には一致しない
+
+Validator boundary:
+
+root `currentState`とhistorical ResumeBackFrame `state`は共通leaf validatorを共有できるが、root currentScreenまたはframe screenIdに依存するscreen-state consistency validatorは分離する。
+
+Next:
+
+確定済みleaf shapeだけを対象にpure validator foundationを追加する。trail、screen-state整合、Breath / Result、Deep、Repeatの未確定契約を推測で有効化しない。文書化されたcurrent contractとfuture proposalの再確認後に、Schema v2 / migrationとnon-empty frame保存を別Unitとして扱う。
