@@ -37,6 +37,8 @@
   var ALLOWED_RESPONSE_STATES = ['answered', 'skipped', 'unset'];
   var ALLOWED_FLOW_RESPONSE_STATES = ['answered', 'skipped', 'unset'];
   var ALLOWED_QUESTION_VARIANTS = ['A', 'B'];
+  var ALLOWED_REGULAR_FLOW_ACTIVE_SCREENS = ['first', 'second', 'completed'];
+  var ALLOWED_REGULAR_FLOW_RESPONSE_ROLES = ['current', 'ideal'];
   var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3'];
   var FORBIDDEN_KEYS = [
     'navHistory',
@@ -186,6 +188,20 @@
     if (typeof value.text !== 'string' || typeof value.draft !== 'string') return false;
     if (value.state === 'answered') return !!value.text || !!value.draft;
     if (value.state === 'unset') return !value.text && !value.draft;
+    return true;
+  }
+
+  function isV17RegularFlowV1Leaf(value) {
+    if (!isPlainObject(value)) return false;
+    var requiredKeys = ['activeScreen', 'questionVariant', 'firstResponseRole', 'secondResponseRole'];
+    for (var i = 0; i < requiredKeys.length; i += 1) {
+      if (!Object.prototype.hasOwnProperty.call(value, requiredKeys[i])) return false;
+    }
+    if (validateExactObjectKeys(value, requiredKeys, '', 'INVALID_REGULAR_FLOW')) return false;
+    if (ALLOWED_REGULAR_FLOW_ACTIVE_SCREENS.indexOf(value.activeScreen) < 0) return false;
+    if (ALLOWED_QUESTION_VARIANTS.indexOf(value.questionVariant) < 0) return false;
+    if (ALLOWED_REGULAR_FLOW_RESPONSE_ROLES.indexOf(value.firstResponseRole) < 0) return false;
+    if (ALLOWED_REGULAR_FLOW_RESPONSE_ROLES.indexOf(value.secondResponseRole) < 0) return false;
     return true;
   }
 
