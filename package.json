@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=18"
   },
+  "scripts": {
+    "test:v17-session-snapshot": "node --test tests/v17/session-snapshot.compat.test.js"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.0",
     "stripe": "^16.0.0"
