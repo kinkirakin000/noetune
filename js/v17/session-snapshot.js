@@ -220,6 +220,47 @@
     return true;
   }
 
+  function isV17EntryStateV1Leaf(value) {
+    if (!isPlainObject(value)) return false;
+    var requiredKeys = [
+      'entryType',
+      'themeId',
+      'questionId',
+      'themeLabel',
+      'themeDescription',
+      'categoryId',
+      'categoryLabel',
+      'trackId',
+      'themeMeaning',
+      'freeInputTheme',
+      'questionTextAtTime',
+      'localeAtSelection'
+    ];
+    for (var i = 0; i < requiredKeys.length; i += 1) {
+      if (!Object.prototype.hasOwnProperty.call(value, requiredKeys[i])) return false;
+    }
+    if (validateExactObjectKeys(value, requiredKeys, '', 'INVALID_ENTRY_STATE')) return false;
+    if (!isV17EntryTypeLeaf(value.entryType)) return false;
+    if (typeof value.themeLabel !== 'string' || !value.themeLabel.trim()) return false;
+    if (!isV17LocaleLeaf(value.localeAtSelection)) return false;
+    var nullableStringKeys = [
+      'themeId',
+      'questionId',
+      'themeDescription',
+      'categoryId',
+      'categoryLabel',
+      'trackId',
+      'themeMeaning',
+      'freeInputTheme',
+      'questionTextAtTime'
+    ];
+    for (var nullableIndex = 0; nullableIndex < nullableStringKeys.length; nullableIndex += 1) {
+      var fieldName = nullableStringKeys[nullableIndex];
+      if (value[fieldName] !== null && typeof value[fieldName] !== 'string') return false;
+    }
+    return true;
+  }
+
   function isV17StrictPlainObject(value) {
     if (value === null || typeof value !== 'object' || Array.isArray(value)) return false;
     var prototype = Object.getPrototypeOf(value);
