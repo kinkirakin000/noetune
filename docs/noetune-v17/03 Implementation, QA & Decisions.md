@@ -4,52 +4,125 @@
 # Noetune v17 Implementation, QA & Decisions
 
 **Status:** Canonical implementation decisions and QA record
-**Updated:** 2026-07-22
+**Updated:** 2026-07-23
 **Implementation baseline:** Local repository is the runtime source of truth. Obsidian is the decision source of truth.
 
 ## 1. Operating model
 
-### Commander ChatGPT
+### Sole command authority — Commander ChatGPT
 
-- product and architecture decisions
-- implementation scope and order
+Commander ChatGPT in the current project thread is the sole strategic and decision-making authority for Noetune development.
+
+The Commander performs as much reasoning and judgment as possible before delegating work. Its responsibilities include:
+
+- product, UX, data, privacy, security, and architecture decisions
+- canonical contract interpretation
+- conflict resolution between repository facts, Obsidian decisions, and older plans
+- implementation priority, Phase order, Unit boundaries, and dependency decisions
+- acceptance criteria, stop conditions, and verdict interpretation
 - Codex Leader instruction creation
-- integrated report review
-- PASS / STOP judgment
-- commit / push / deploy / release decision
+- integrated evidence review
+- PASS / BLOCKED / STOP judgment
+- commit / push / deploy / release authorization
 
-### Codex Leader
+No Codex agent is a second commander.
 
-- the only Codex agent that communicates directly with the user
-- runs preflight and confirms repository facts
-- evaluates Unit difficulty, risk, and affected scope
-- selects the Credit Mode
-- starts only the minimum necessary subagents
-- compares results, resolves contradictions where possible, and returns one integrated report
-- does not return large volumes of raw subagent logs to the user
+### Codex Leader — execution coordinator
+
+The Codex Leader receives a Unit contract already defined by Commander ChatGPT and coordinates its execution.
+
+Its responsibilities are limited to:
+
+- run preflight and report exact repository facts
+- confirm that the commanded Unit can be executed from the current repository state
+- start only the minimum necessary subagents within the approved Unit
+- divide investigation, implementation, QA, and review work without expanding scope
+- integrate subagent evidence into one concise report
+- preserve the working tree, backup files, private-content boundary, and forbidden-change list
+- run the required tests and diff checks
+- report contradictions, missing prerequisites, or ambiguous repository facts to Commander ChatGPT
+
+The Codex Leader must not independently:
+
+- change product contracts, UX decisions, schema meaning, architecture, or Phase order
+- redefine the Unit, acceptance criteria, or release gate
+- select a different strategic direction
+- resolve a contradiction that requires product or architecture judgment
+- upgrade model or reasoning level without Commander approval
+- continue repeated execution after the same prerequisite has been proven missing
+
+When instructions conflict with repository facts or canonical decisions, the Leader stops the affected execution, preserves evidence, and returns the conflict to Commander ChatGPT. It may identify factual options, but Commander ChatGPT chooses among them.
 
 ### Formal subagent roles
+
+All subagents are execution agents. They do not make product, architecture, Phase-order, or release decisions.
 
 #### researcher
 
 - read-only
 - investigates repository facts, canonical documents, dependencies, and affected scope
+- returns evidence, not strategic decisions
 
 #### implementer
 
 - workspace-write
 - normally the only writer
-- changes only the approved scope and keeps the diff minimal
+- changes only the Commander-approved scope and keeps the diff minimal
+- does not redesign adjacent code or contracts
 
 #### qa
 
 - read-only
 - checks regression, boundaries, error paths, privacy, and required verification
+- distinguishes product failure from blocked prerequisites or test-harness failure
 
 #### reviewer
 
 - read-only
 - independently audits the diff, scope, contracts, and safety rules
+- reports contradictions without silently reconciling them
+
+### Execution Feasibility Gate
+
+Before implementation or browser acceptance begins, the Codex Leader must verify the factual prerequisites of the commanded Unit:
+
+- required files, UI, handlers, APIs, and selectors exist
+- required state can be created through the permitted production path
+- persistence and resume entrypoints are reachable when the Unit depends on them
+- prerequisite implementation has already landed
+- required test data can be produced without forbidden direct injection
+- the requested browser path is not blocked by hidden, disabled, or unimplemented controls
+
+This Gate does not authorize the Leader to choose a new Phase or Unit. If a prerequisite is missing, it reports `BLOCKED` with evidence and returns control to Commander ChatGPT.
+
+### Browser QA precondition
+
+Before browser QA, statically confirm:
+
+- exact entry file, URL, protocol, and local-server requirements
+- exact selector or active-screen-scoped selector
+- visibility and eligibility guards
+- save / flush / resume trigger
+- required runtime state
+- persistence key and read/write path
+- whether the production UI can generate the acceptance record
+
+Do not use a broad role locator or page-wide `first()` when an exact ID or active-screen-scoped selector exists.
+
+### Repetition stop rule
+
+If two attempts are blocked by the same missing prerequisite, stop repeating the browser or implementation attempt. Return the evidence to Commander ChatGPT for a sequencing decision.
+
+### Verdict taxonomy
+
+- `PASS`: the executable approved contract was verified
+- `PASS WITH NOTE`: the contract passed and only non-blocking, out-of-scope notes remain
+- `FAIL`: the contract was executable and observed product behavior contradicted the expected behavior
+- `BLOCKED`: a required prerequisite, path, Phase, environment, or control is missing, so the contract cannot yet be executed
+- `INCONCLUSIVE`: sufficient investigation was performed but evidence remains genuinely conflicting or unobtainable
+- `STOP`: a product, schema, architecture, privacy, security, legal, billing, or release decision must return to Commander ChatGPT
+
+`FAIL` must not be used for a Unit that could not begin because a prerequisite was absent.
 
 ### Fixed execution rules
 
@@ -62,23 +135,34 @@
 - one work unit defines the product and implementation scope, not the number of agents
 - no unrelated refactor
 - exact files, objective, forbidden changes, and verification are required
-- commit / push / deploy occur only after explicit approval
-- never include private Session content in subagent prompts, logs, or reports
+- commit / push / deploy occur only after explicit Commander approval
+- never include private Session content in subagent prompts, logs, reports, screenshots, analytics, or network diagnostics
+- Codex agents may report implementation facts; they may not silently convert them into new product decisions
 
 ### Credit Mode
+
+Commander ChatGPT may specify the Credit Mode for a Unit.
 
 - `CONSERVE`: Leader-centered; start a subagent only when necessary
 - `NORMAL`: default; use the minimum writer and read-only support required by the Unit
 - `QUALITY`: use independent research, implementation, and review; add QA only when justified
 - `USE-IT`: near weekly reset, spend remaining capacity on useful independent QA or read-only preparation, never on redundant agents
 
-If no usage screenshot is provided, use `NORMAL`.
+If Commander does not specify a mode, the Leader uses `NORMAL`. Credit Mode may change execution depth and agent count inside the approved Unit, but never product scope, Phase order, model level, or acceptance criteria.
 
-If a screenshot is unclear, or it is not possible to distinguish used percentage from remaining percentage, do not guess and ask the user.
+If a usage screenshot is unclear, do not guess. Report the ambiguity to Commander ChatGPT.
 
-Agent count is determined by Unit complexity, security/privacy risk, affected scope, and Credit Mode. Credit Mode never justifies unnecessary scope expansion.
+### Evidence and source hierarchy
 
-### Source of truth
+- local repository runtime facts: implementation source of truth
+- canonical Obsidian documents: product and decision source of truth
+- commit history: evidence of state changes
+- `05 Release Implementation Plan`: temporary execution order, subordinate to current Commander decisions and repository facts
+- older chat summaries and superseded plans: historical context only
+
+Repository facts do not independently redefine product intent. When repository implementation and canonical decisions conflict, Codex reports the conflict; Commander ChatGPT decides the resolution.
+
+### Source of truth files
 
 - permanent operating decisions: `03 Implementation, QA & Decisions.md`
 - repository execution contract: root `AGENTS.md`
@@ -89,6 +173,7 @@ Do not duplicate the full TOML configuration in Obsidian.
 ## 1A. Decision record — Adaptive multi-agent Codex workflow
 
 **Decision date:** 2026-07-22
+**Authority boundary amended:** 2026-07-23
 
 ### Confirmed capability
 
@@ -106,29 +191,69 @@ Do not duplicate the full TOML configuration in Obsidian.
 ```text
 User
 ↕
-Commander ChatGPT
-↕
-Codex Leader
+Commander ChatGPT — sole command, reasoning, and decision authority
+↓ approved Unit contract
+Codex Leader — execution coordinator
 ├─ researcher
 ├─ implementer
 ├─ qa
 └─ reviewer
-↓
-One integrated Leader report
+↓ one integrated evidence report
+Commander ChatGPT — interpretation and next decision
 ```
 
-- the user communicates only with Commander ChatGPT and Codex Leader
+- the user conducts strategic development through Commander ChatGPT
+- Commander ChatGPT completes product reasoning, priority, sequencing, and contract decisions before delegation
+- Codex Leader and subagents act as the execution layer
 - subagents remain internal to the Leader workflow
-- the Leader selects only the roles required by each Unit
+- the Leader selects only the minimum roles needed to execute the already-approved Unit
 - implementer is normally the only writer
-- unresolved agent disagreement is reported explicitly rather than hidden
+- unresolved evidence conflicts are reported explicitly, not hidden or strategically resolved by Codex
 - infrastructure commit: `d7dead6 chore(codex): add adaptive multi-agent leader workflow`
+
+## 1B. Decision record — Single Commander and execution-only Codex boundary
+
+**Decision date:** 2026-07-23
+
+### Decision
+
+Commander ChatGPT in this project thread is the only commander.
+
+Codex Leader and all subagents are hands of the Commander. Their purpose is to inspect, implement, test, and report within the scope already fixed by the Commander.
+
+### Required behavior
+
+- Codex does not determine the product direction or next Phase
+- Codex does not reinterpret a canonical contract to make a requested test pass
+- Codex does not change acceptance criteria after execution begins
+- Codex does not independently resolve product, schema, architecture, privacy, security, billing, or release contradictions
+- Codex returns exact repository facts and evidence when a contradiction is found
+- Commander ChatGPT decides whether to continue, change sequence, split the Unit, modify a contract, or stop
+
+### Practical consequence
+
+A Codex report may say:
+
+```text
+BLOCKED: the production first-save control is not reachable in the current runtime.
+Evidence: ...
+```
+
+It must not independently conclude:
+
+```text
+Therefore Phase 7 must be implemented before Phase 4B.
+```
+
+Phase-order decisions belong to Commander ChatGPT.
 
 ## 2. Stop line
 
-Do not implement when any of the following is unclear:
+Codex must stop the affected Unit and return evidence to Commander ChatGPT when any of the following is unclear or requires judgment:
 
 - canonical runtime field mapping
+- product contract or Phase-order conflict
+- missing prerequisite implementation
 - data ownership / RLS
 - destructive migration
 - Journey boundary
@@ -138,8 +263,11 @@ Do not implement when any of the following is unclear:
 - vendor contract / DPA / subprocessor suitability
 - Account deletion and backup behavior
 - legal operator / data controller identity before Cloud or paid release
+- acceptance criteria that cannot be executed through the permitted production path
 
 For Guest local implementation, product decisions and Snapshot Schema v1 are complete. Cloud Session content work must not begin before the Global Privacy & Security Gate.
+
+A blocked prerequisite is reported as `BLOCKED`, not `FAIL`. A product or contract decision is reported as `STOP`. Commander ChatGPT decides the next Unit.
 
 ## 3. Decision record — In-progress Session Bookmark
 
@@ -243,7 +371,7 @@ Before Cloud Session content or paid Cloud release:
 - existing v17 UI/UX/auth/billing/history/resume/bookmark/localization foundations remain
 - only the new question flow is adopted incrementally
 
-### Regular Unit 1
+### Regular Unit 1 — Question 1 A/B flow
 
 Implemented and accepted:
 
@@ -252,7 +380,7 @@ Implemented and accepted:
 98931af feat(v17): add regular question variants
 ```
 
-`98931af` includes only:
+Accepted scope:
 
 - Question 1 A/B UI
 - initial `questionVariant: 'A'`
@@ -264,11 +392,42 @@ Implemented and accepted:
 - three-language locale keys
 - localized selector aria-label
 
-It does not include Snapshot persistence, Deep, Back redesign, auth, billing, history, Bookmark, analytics, or v16 changes.
+It does not include Deep, Back redesign, auth, billing, history, Bookmark, analytics, or v16 changes.
 
-### Next unit
+### Regular Unit 2 — `questionVariant` Snapshot persistence
 
-Unit 2 is limited to `questionVariant` Snapshot serialize / validate / migrate / restore. Deep implementation starts only after Unit 2 is accepted.
+**Status:** Complete and pushed by current repository HEAD `df1cefa0007a477a6d0cf3869ed781bf553c44d4`.
+
+Accepted repository facts reported through the current implementation line:
+
+- `questionVariant` is included in Regular Snapshot serialization
+- validator accepts only canonical A / B values
+- older valid records without the field follow the documented default / migration behavior
+- restore re-establishes the exact variant before rendering the Regular prompt
+- existing `currentStep` restoration remains intact
+- characterization and validator coverage pass 9/9
+- local and remote branch heads match
+
+### Phase 4B acceptance sequencing decision
+
+**Decision date:** 2026-07-23
+
+Current runtime evidence:
+
+- Guest production navigation reaches `s-v17-session-mode` and `s-v17-before`
+- `#v17-session-bookmark` exists in the DOM but is not reachable as a production first-save control on those screens in the current runtime
+- therefore a valid production snapshot cannot yet be created from those acceptance positions without forbidden direct injection
+- direct snapshot injection, direct serializer invocation, and direct restore invocation do not count as production UI acceptance
+
+Commander interpretation:
+
+- the Regular restore foundation and validator tests are not failed by this observation
+- production UI `save → reload → resume` acceptance is currently `BLOCKED` by the missing reachable first-save path
+- repeated browser attempts against the same missing prerequisite must stop
+- `s-v17-session-mode` remains a canonical restore screen unless a later Commander decision changes the schema or allowlist
+- minimal Regular Back after resume does not begin until a valid production resume case can be created and verified
+
+The release-plan dependency between Phase 4B and the shared Bookmark / manual first-save work must be resolved by Commander ChatGPT before the next product-code Unit is authorized.
 
 ## 5. Completed investigation record
 
@@ -366,7 +525,9 @@ Internal same-screen Back behavior must not consume unrelated canonical frames. 
 
 ## 8. Canonical save triggers
 
-| Screen | Trigger |
+Manual first save is initiated by the shared Session Bookmark control. The trigger table below defines automatic update / flush behavior after the bookmark has been enabled; it does not replace the requirement for a reachable manual first-save path.
+
+| Screen | Trigger after bookmark enablement |
 |---|---|
 | Session mode | mode selection |
 | Before | slider debounce + Next flush |
@@ -379,7 +540,7 @@ Internal same-screen Back behavior must not consume unrelated canonical frames. 
 | Result | arrival, without completion |
 | Repeat | start, mode selection, response, Result return |
 
-Only a Session with an enabled bookmark is auto-updated.
+Only a Session with an enabled bookmark is auto-updated. Until the shared control and manual first-save path are reachable in production UI, browser acceptance that requires a newly created valid record is `BLOCKED`.
 
 ## 9. Analytics decision
 
@@ -573,13 +734,17 @@ Do not release when:
 
 ## 16. Current status
 
-Repository facts:
+Repository facts reported at the latest accepted checkpoint:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: 98931af
+HEAD: df1cefa0007a477a6d0cf3869ed781bf553c44d4
 tracked working tree: clean
-push: not performed
+staged changes: none
+remote: synchronized with local HEAD
+push: complete
+deploy: not performed
+untracked backup files: 5, preserved and untouched
 ```
 
 | Work unit | Status |
@@ -588,42 +753,55 @@ push: not performed
 | Guest local Regular runtime restore foundation | Complete |
 | `currentStep` restore fix (`453862f`) | Complete |
 | New Regular A/B flow Unit 1 (`98931af`) | Complete |
-| Unit 2: `questionVariant` Snapshot persistence | Next |
+| Unit 2: `questionVariant` Snapshot persistence | Complete and pushed |
+| Snapshot validator / characterization suite | 9/9 PASS |
+| Guest production navigation to Session mode / Before | Confirmed |
+| Phase 4B production UI first save | `BLOCKED` — Bookmark control not reachable on tested canonical positions |
+| Phase 4B real-browser save → reload → resume | `BLOCKED` by first-save prerequisite |
+| minimal Regular Back after resume | Not started |
 | New Deep A/B alternating flow | Approved, not started |
 | Breath / Final / Result / Repeat exact resume | Not started |
+| Shared Session header Bookmark UI | Not completed |
+| Manual first save / automatic update flow | Not completed |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |
 | Cloud / RLS | Blocked by privacy gate |
-| Shared UI / list | Not started |
+| Active Journey list | Not started |
 | Explicit completion | Not started |
 | Full QA / release | Not started |
 
-## 17. Next approved Codex scope
+## 17. Current Commander gate and next authorized work
 
-Unit 2 must remain narrow:
+### Current gate
 
-```text
-branch: feature/v17-session-resume
-base HEAD: 98931af
-Regular only
-questionVariant Snapshot serialize
-questionVariant validator allowlist
-missing-field migration/default behavior
-questionVariant runtime restore
-no visible UI change
-no Deep
-no Back redesign
-no auth / billing / history / Bookmark / analytics
-no push / deploy until reviewed
-```
+Do not continue repeated production browser acceptance for `s-v17-session-mode`, `s-v17-before`, or later Regular screens until Commander ChatGPT authorizes a reachable production first-save path or explicitly separates runtime acceptance from production UI acceptance.
 
-Required verification:
+Do not independently:
 
-- A and B both round-trip through serializer → validator → restore
-- invalid variant is rejected without overwriting a valid snapshot
-- old snapshot without the field follows the documented migration/default rule
-- currentStep two-line restore remains intact
-- three locale JSON files remain valid
-- JavaScript syntax and `git diff --check` pass
-- backup files remain untracked and untouched
+- expose `#v17-session-bookmark`
+- remove `s-v17-session-mode` from the canonical allowlist
+- change Snapshot Schema v1
+- reorder Phase 4B / 7 / 8
+- count direct serializer, localStorage injection, or direct restore as production acceptance
+- begin minimal Regular Back acceptance without a valid resumed production case
 
-After Unit 2 acceptance, define the Deep state migration as a separate implementation unit.
+### Next administrative alignment Unit
+
+Before further Codex-led execution, align the repository operating contract with Section 1 and Decision 1B:
+
+- inspect root `AGENTS.md`, `.codex/config.toml`, and the actual `.codex/agents/*.toml`
+- update only the minimum execution-role wording required to preserve Commander ChatGPT as sole decision authority
+- keep Leader and all subagents on `gpt-5.6-luna / low`
+- do not change product code, Session Snapshot code, Bookmark behavior, tests, auth, billing, or deployment
+- return any conflict between executable Codex configuration and this canonical decision to Commander ChatGPT
+
+This administrative Unit requires a separate Commander-authored instruction and review before commit or push.
+
+### Product-code sequencing after alignment
+
+Commander ChatGPT will choose one of the following only after reviewing repository evidence:
+
+1. implement the smallest Guest-local manual first-save / shared Bookmark slice needed for production acceptance
+2. formally split Phase 4B into runtime integration acceptance and later production UI acceptance
+3. authorize another evidence-gathering Unit
+
+Codex must not select among these options independently.

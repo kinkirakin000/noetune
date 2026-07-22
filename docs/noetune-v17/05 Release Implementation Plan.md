@@ -1,8 +1,8 @@
 # Noetune v17 Release Implementation Plan
 
 > Status: Temporary execution document
-> Updated: 2026-07-22
-> Current execution point: New Flow Unit 2 — questionVariant Snapshot persistence
+> Updated: 2026-07-23
+> Current execution point: Operating contract alignment before the next Phase 4B sequencing decision
 
 ## 1. Objective
 
@@ -68,28 +68,45 @@ Gate:
 
 ### Phase 4B — Guest local Regular restore
 
-**Status:** In progress
+**Status:** Foundation complete; production UI acceptance BLOCKED
 
-Completed foundation:
+#### Completed foundation
 
-- identity, EntryStateV1, response-state round trip
+- identity / EntryStateV1 / response-state round trip
 - atomic Regular runtime restore
-- Session mode / Before / First / Second screen restore
-- guest local record read-to-resume entrypoint
+- Session mode / Before / First / Second restore support
+- Guest local record read-to-resume entrypoint
+- `currentStep` restore
+- `questionVariant` restore
+- Session Snapshot validator tests 9/9 PASS
 
-Remaining:
+#### BLOCKED production UI acceptance
 
-- real-browser save → reload → resume QA
+The production UI `save → reload → resume` acceptance is currently `BLOCKED`.
+
+Reason:
+
+- a reachable manual first-save path is not available in the tested production runtime
+- `#v17-session-bookmark` exists in the DOM but is hidden or unreachable at the tested Session mode and Before positions
+- direct localStorage injection, direct serializer invocation, and direct restore invocation do not count as production UI acceptance
+- this missing prerequisite does not make the completed restore foundation `FAIL`
+- repeated browser attempts against the same missing prerequisite must stop
+
+#### Deferred
+
 - minimal Regular Back after resume
+- production UI acceptance at the four canonical Regular positions
 
-Deliverables:
+These items must not begin until a valid production snapshot can be created through the production UI and resumed through the production entrypoint.
 
-- restore theme / entry / mode / measurement / responses
-- restore draft
-- restore current canonical screen
-- minimal Regular Back behavior
+#### Relationship to Phase 7 / Phase 8
 
-Gate: reload and resume pass on all Regular canonical response positions.
+- full Phase 7 and Phase 8 are not automatically moved ahead of Phase 4B
+- only the production UI acceptance portion of Phase 4B is blocked by the missing first-save prerequisite
+- Commander ChatGPT must define the minimal Guest-local first-save prerequisite Unit
+- Codex must not independently decide whether that prerequisite is implemented as a narrow pre-Phase-7 slice, part of Phase 7, part of Phase 8, or another Commander-defined Unit
+
+Gate: after the Commander-defined first-save prerequisite exists, production UI save, reload, and resume must pass at all four canonical Regular positions before Phase 4B production acceptance is complete.
 
 ### New Flow Unit 1 — Regular A/B questions
 
@@ -114,24 +131,29 @@ Accepted scope:
 
 ### New Flow Unit 2 — questionVariant Snapshot persistence
 
-**Status:** Next
+**Status:** Complete
 
-Deliverables:
+Accepted implementation facts:
 
-- serialize `questionVariant`
-- validate A/B allowlist
-- migrate or default an older snapshot with no field
-- restore the exact variant before rendering Question 1
-- test A and B round trips and invalid-value rejection
+- `questionVariant` serialization complete
+- validator A / B allowlist complete
+- missing-field compatibility and migration behavior complete
+- restore-before-render complete
+- `currentStep` restore maintained
+- A / B round trips and invalid-value rejection covered
+- Session Snapshot validator tests 9/9 PASS
+- implementation HEAD: `df1cefa0007a477a6d0cf3869ed781bf553c44d4`
+- local / remote sync complete
+- deploy not performed
 
-Forbidden:
+Forbidden scope remained unchanged:
 
-- visible UI changes
-- Deep changes
-- Back redesign
-- auth, billing, history, Bookmark, analytics
+- no visible UI changes
+- no Deep changes
+- no Back redesign
+- no auth, billing, history, Bookmark, or analytics changes
 
-Gate: save/reload/resume reopens the exact A or B prompt without losing draft or currentStep.
+Gate result: implementation and validator acceptance complete. Production UI save/reload/resume acceptance remains separately blocked under Phase 4B by the missing manual first-save prerequisite.
 
 ### New Flow Unit 3 — Deep alternating flow
 

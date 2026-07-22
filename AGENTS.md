@@ -86,6 +86,45 @@ If unsure, choose the quieter implementation.
 
 ## Codex multi-agent operating contract
 
+### Commander authority
+
+Commander ChatGPT is the sole strategic and decision-making authority. The Codex Leader
+and subagents execute the Unit defined by Commander ChatGPT. Codex must not independently
+change product contracts, UX, schema meaning, architecture, Phase order, Unit boundaries,
+or acceptance criteria. When repository facts conflict with the instruction or canonical
+decision, preserve the evidence and return it to Commander ChatGPT.
+
+### Execution Feasibility Gate
+
+Before implementation or browser QA, verify that required files, handlers, selectors, and
+APIs exist; eligibility guards can be satisfied; required state can be created through the
+production path; persistence and resume entrypoints are reachable; prerequisite implementation
+is complete; and an acceptance record can be created without forbidden direct injection.
+If any prerequisite is missing, do not start the Unit. Report `BLOCKED` with the missing
+prerequisite and evidence. Codex must not independently start another Phase or Unit.
+
+### Browser QA precondition
+
+Before browser operations, confirm the entry file, URL, protocol, server, exact selectors,
+visibility and eligibility guards, save/flush/resume triggers, persistence key, and required
+production state. When an exact ID exists, do not use an ambiguous role locator or page-wide
+`first()`.
+
+### Repetition stop rule
+
+If the same missing prerequisite blocks two attempts, stop repeating the same browser or
+implementation attempt. Return sequencing evidence to Commander ChatGPT and do not start
+another Phase independently.
+
+### Verdict taxonomy
+
+- `PASS`: executable contract verified
+- `PASS WITH NOTE`: passed with a non-blocking out-of-scope note
+- `FAIL`: executable contract produced an expected/actual mismatch
+- `BLOCKED`: a missing prerequisite prevents execution
+- `INCONCLUSIVE`: evidence remains genuinely unavailable or conflicting after investigation
+- `STOP`: a Commander decision is required
+
 The user-facing Codex agent is the leader. The leader owns preflight, unit boundaries,
 agent selection, context allocation, result comparison, conflict resolution, final QA,
 stop decisions, and the single integrated report returned to the user. Subagents do not
