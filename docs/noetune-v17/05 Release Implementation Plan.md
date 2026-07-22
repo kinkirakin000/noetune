@@ -1,8 +1,9 @@
 # Noetune v17 Release Implementation Plan
 
 > Status: Temporary execution document
-> Updated: 2026-07-20
-> Current execution point: New Flow Unit 2 — questionVariant Snapshot persistence
+> Updated: 2026-07-22
+> Current repository facts: branch `feature/v17-session-resume`, accepted HEAD `8be86bf599d907e22f0cc979de1bf606480c42c9`, tracked working tree at accepted HEAD: clean, push not performed, deploy not performed
+> Current execution point: Unit 3A-2d-3d-0b-2a — Defined leaf validator foundation (Next)
 
 ## 1. Objective
 
@@ -68,7 +69,7 @@ Gate:
 
 ### Phase 4B — Guest local Regular restore
 
-**Status:** In progress
+**Status:** Complete
 
 Completed foundation:
 
@@ -79,8 +80,8 @@ Completed foundation:
 
 Remaining:
 
-- real-browser save → reload → resume QA
-- minimal Regular Back after resume
+- release-level real-browser save → reload → resume QA
+- complete Back matrix QA remains tracked under Phase 5B / Phase 14
 
 Deliverables:
 
@@ -114,7 +115,7 @@ Accepted scope:
 
 ### New Flow Unit 2 — questionVariant Snapshot persistence
 
-**Status:** Next
+**Status:** Complete
 
 Deliverables:
 
@@ -132,6 +133,36 @@ Forbidden:
 - auth, billing, history, Bookmark, analytics
 
 Gate: save/reload/resume reopens the exact A or B prompt without losing draft or currentStep.
+
+### Current Session Resume status
+
+Completed:
+
+- Snapshot screen responsibility separation
+- ResumeBackFrame validation foundation
+- Snapshot semantic state contract reconciliation
+- Implementation status synchronization
+
+Accepted commits:
+
+```text
+5a9c7d4 refactor(v17): separate snapshot screen responsibilities
+c1bc4d6 feat(v17): add safe resume back frame validation foundation
+84b59da docs(v17): reconcile snapshot semantic state contracts
+8be86bf docs(v17): synchronize session resume implementation status
+```
+
+Next:
+
+```text
+Unit 3A-2d-3d-0b-2a
+Defined leaf validator foundation
+Status: Next
+```
+
+Target file: `js/v17/session-snapshot.js` only
+
+Constraints: pure internal helpers, confirmed leaf shapes only, Schema version 1, no serializer/migration/restore/public API change, `allowNonEmpty: false`, non-empty `resumeBackFrames` reject, Breath / Final / Result / Deep / Repeat remain unsupported, and valid Schema v1 Snapshot results remain unchanged.
 
 ### New Flow Unit 3 — Deep alternating flow
 
