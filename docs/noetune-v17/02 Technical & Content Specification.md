@@ -5,7 +5,7 @@
 
 **Status:** Canonical technical and content specification
 **Implementation baseline:** `app-v17(15).html`
-**Updated:** 2026-07-20
+**Updated:** 2026-07-23
 
 ## 1. Scope
 
@@ -331,6 +331,23 @@ s-result
 ```
 
 Being schema-known does not make a screen valid, serializable, or restorable.
+
+### Before snapshot / Guest-local resume contract
+
+`s-v17-before` is a canonical Snapshot Schema v1 and resume screen. Its implemented Before snapshot contract is:
+
+```ts
+currentScreen: "s-v17-before";
+currentState.regularFlow: null;
+```
+
+- Before must not be represented as First or as a completed Regular flow merely to satisfy Regular Flow metadata validation.
+- At Before, validation must not require in-progress Regular Flow metadata.
+- The existing Snapshot API, serializer, validator, repository, and restore path remain the Schema v1 contract; this Before support does not change the schema.
+- Guest-local manual first save is reachable from the production UI at Before. The first save remains manual; later automatic-update behavior is a separate contract and is not accepted by this Before-only Unit.
+- Landing shows the existing Resume control (`#btn-resume-progress`) only when a valid Guest Regular local record is eligible. It is hidden for no record, invalid, unsupported, or corrupt records. Eligibility fails closed.
+- Auto Resume is prohibited. An eligible user explicitly chooses Resume, which uses the existing resume path.
+- Eligibility checks and their console, analytics, and error paths must not expose private Session content.
 
 ### Current step classification
 

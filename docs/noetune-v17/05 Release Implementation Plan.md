@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-23
-> Current execution point: Operating contract alignment before the next Phase 4B sequencing decision
+> Current execution point: Phase 4B — Before manual first-save accepted; remaining Regular production resume and Back sequencing
 
 ## 1. Objective
 
@@ -68,9 +68,9 @@ Gate:
 
 ### Phase 4B — Guest local Regular restore
 
-**Status:** Foundation complete; production UI acceptance BLOCKED
+**Status:** In Progress — Before manual first-save accepted; remaining Regular production resume and Back sequencing
 
-#### Completed foundation
+#### Completed
 
 - identity / EntryStateV1 / response-state round trip
 - atomic Regular runtime restore
@@ -78,35 +78,23 @@ Gate:
 - Guest local record read-to-resume entrypoint
 - `currentStep` restore
 - `questionVariant` restore
-- Session Snapshot validator tests 9/9 PASS
+- Before manual first save
+- Before save → reload → explicit Resume → Before restore
+- valid-record Resume control eligibility
+- Session Snapshot validator tests 10/10 PASS
 
-#### BLOCKED production UI acceptance
+The accepted Before-only implementation is `de3a2df6e8dbfe5921c80939862325131f46322d`. It reuses Snapshot Schema v1, the existing serializer, validator, repository, restore path, and the existing Resume control. It does not complete Phase 4B as a whole.
 
-The production UI `save → reload → resume` acceptance is currently `BLOCKED`.
+#### Remaining
 
-Reason:
-
-- a reachable manual first-save path is not available in the tested production runtime
-- `#v17-session-bookmark` exists in the DOM but is hidden or unreachable at the tested Session mode and Before positions
-- direct localStorage injection, direct serializer invocation, and direct restore invocation do not count as production UI acceptance
-- this missing prerequisite does not make the completed restore foundation `FAIL`
-- repeated browser attempts against the same missing prerequisite must stop
-
-#### Deferred
-
+- Session Mode / First / Second production UI acceptance
+- Guest-local automatic updates after first save
 - minimal Regular Back after resume
-- production UI acceptance at the four canonical Regular positions
+- final Phase 4B Gate
 
-These items must not begin until a valid production snapshot can be created through the production UI and resumed through the production entrypoint.
+The earlier Before first-save blocker is resolved. Phase 7, Phase 8, Deep, and Cloud are not complete or implicitly advanced by this narrow acceptance.
 
-#### Relationship to Phase 7 / Phase 8
-
-- full Phase 7 and Phase 8 are not automatically moved ahead of Phase 4B
-- only the production UI acceptance portion of Phase 4B is blocked by the missing first-save prerequisite
-- Commander ChatGPT must define the minimal Guest-local first-save prerequisite Unit
-- Codex must not independently decide whether that prerequisite is implemented as a narrow pre-Phase-7 slice, part of Phase 7, part of Phase 8, or another Commander-defined Unit
-
-Gate: after the Commander-defined first-save prerequisite exists, production UI save, reload, and resume must pass at all four canonical Regular positions before Phase 4B production acceptance is complete.
+Gate: production UI save, reload, and explicit Resume must pass at Session Mode, Before, First, and Second; automatic-update and minimal Regular Back contracts must also be accepted before Phase 4B is complete.
 
 ### New Flow Unit 1 — Regular A/B questions
 
@@ -131,9 +119,9 @@ Accepted scope:
 
 ### New Flow Unit 2 — questionVariant Snapshot persistence
 
-**Status:** Complete
+**Status:** Complete (historical Unit 2 checkpoint)
 
-Accepted implementation facts:
+The following facts are the historical Unit 2 acceptance record at `df1cefa0007a477a6d0cf3869ed781bf553c44d4`; they do not state the current repository HEAD, current test count, or current push state:
 
 - `questionVariant` serialization complete
 - validator A / B allowlist complete
@@ -141,9 +129,9 @@ Accepted implementation facts:
 - restore-before-render complete
 - `currentStep` restore maintained
 - A / B round trips and invalid-value rejection covered
-- Session Snapshot validator tests 9/9 PASS
-- implementation HEAD: `df1cefa0007a477a6d0cf3869ed781bf553c44d4`
-- local / remote sync complete
+- Session Snapshot validator tests 9/9 PASS at the Unit 2 checkpoint
+- historical acceptance HEAD: `df1cefa0007a477a6d0cf3869ed781bf553c44d4`
+- local / remote sync was complete at that historical checkpoint
 - deploy not performed
 
 Forbidden scope remained unchanged:
@@ -153,7 +141,7 @@ Forbidden scope remained unchanged:
 - no Back redesign
 - no auth, billing, history, Bookmark, or analytics changes
 
-Gate result: implementation and validator acceptance complete. Production UI save/reload/resume acceptance remains separately blocked under Phase 4B by the missing manual first-save prerequisite.
+Gate result: Unit 2 implementation and validator acceptance completed at its historical checkpoint. The current Accepted implementation is `de3a2df6e8dbfe5921c80939862325131f46322d` on repository HEAD `f2bee8207f466b2bfbdad16fa7ed4517fa77d245`; snapshot tests are 10/10 PASS and push has not been performed for that accepted implementation. The Before-only production UI save/reload/explicit-Resume acceptance is complete under Phase 4B; remaining Regular-position acceptance and Back sequencing remain in progress.
 
 ### New Flow Unit 3 — Deep alternating flow
 
