@@ -90,6 +90,45 @@ function rejected(value) { assert.equal(result(value).ok, false); }
 
 test('accepts the canonical valid snapshot', () => accepted(fixture()));
 
+test('serializes Guest Regular Before without Regular Flow metadata', () => {
+  context.window.D = {
+    v17SessionMode: 'regular',
+    v17SessionIdentity: context.window.NoetuneV17SessionSnapshot.createV17SessionIdentity('2026-01-01T00:00:00.000Z'),
+    v17Flow: {
+      currentScreen: 's-v17-before',
+      currentStep: 'before',
+      responseStates: { current: 'unset', ideal: 'unset' },
+      questionVariant: 'A'
+    },
+    themeSource: 'themeLibrary',
+    themeTrackId: 'problems',
+    localeAtTime: 'en',
+    questionTextAtTime: 'Question',
+    theme: 'Theme',
+    themeId: 'theme-1',
+    questionId: null,
+    initialThemeScore: null,
+    finalThemeScore: null,
+    currentThemeScoreTrail: [],
+    currentThemeAwarenessTrail: []
+  };
+  context.window.lang = 'en';
+  context.window.localStorage = localStorage;
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const serialized = api.serializeV17SessionSnapshot({
+    savedAt: '2026-01-01T00:01:00.000Z',
+    now: '2026-01-01T00:02:00.000Z'
+  });
+  assert.equal(serialized.ok, true);
+  assert.equal(serialized.snapshot.currentScreen, 's-v17-before');
+  assert.equal(serialized.snapshot.currentState.regularFlow, null);
+  assert.equal(api.validateV17SessionSnapshot(serialized.snapshot).ok, true);
+  const record = api.createV17LocalSessionRecord(serialized.snapshot);
+  assert.equal(record.ok, true);
+  assert.equal(api.writeV17LocalSessionRecord(record.record).ok, true);
+  assert.equal(localStorage.calls.set > 0, true);
+});
+
 test('characterizes CurrentCycleV1 public-root validation boundaries', () => {
   accepted(fixture());
 

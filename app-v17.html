@@ -7371,6 +7371,7 @@ function renderV17StaticCopy() {
   setEl('account-manage', v17Copy('flow.app.manage'));
   setEl('account-logout', v17Copy('flow.app.logout'));
   setEl('btn-resume-progress', v17Copy('flow.result.resume'));
+  updateV17ResumeControlVisibility();
   setEl('btn-v17-skip', v17Copy('flow.app.skip'));
   renderHomeScreenInstallCopy();
   renderV17NotAProblemCopy();
@@ -7385,6 +7386,24 @@ function renderV17StaticCopy() {
   if (cur === 's-v17-session-mode') renderV17SessionModeScreen();
   if (cur === 's-v17-spiritual-wisdom') renderV17SpiritualWisdomScreen();
   renderCurrentV17Screen();
+}
+
+function updateV17ResumeControlVisibility() {
+  var button = document.getElementById('btn-resume-progress');
+  if (!button) return;
+  button.style.display = 'none';
+  var snapshotApi = window.NoetuneV17SessionSnapshot;
+  if (!snapshotApi || typeof snapshotApi.readV17LocalSessionRecord !== 'function') return;
+  var readResult = snapshotApi.readV17LocalSessionRecord();
+  if (!readResult || !readResult.ok || !readResult.record) return;
+  var record = readResult.record;
+  var snapshot = record.snapshot;
+  var constants = snapshotApi.constants || {};
+  var restorableScreens = Array.isArray(constants.RESTORABLE_SCREENS) ? constants.RESTORABLE_SCREENS : [];
+  var isGuest = record.sync && record.sync.ownerUserId === null;
+  var isRegular = snapshot && snapshot.summary && snapshot.summary.sessionMode === 'regular';
+  var isRestorable = !!(snapshot && restorableScreens.indexOf(snapshot.currentScreen) >= 0);
+  if (isGuest && isRegular && isRestorable) button.style.display = '';
 }
 
 var V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
@@ -9092,18 +9111,17 @@ function updateV17SessionBookmarkVisibility() {
   var status = document.getElementById('v17-session-bookmark-status');
   if (!button) return;
   var supportedScreens = [
-    's-v17-session-mode',
-    's-v17-before',
-    's-v17-first-response',
-    's-v17-second-response'
+    's-v17-before'
   ];
   var flow = D && D.v17Flow;
   var themeReady = !!(D && D.questionTextAtTime && D.v17SessionIdentity && flow);
   var isRegular = !!(D && D.v17SessionMode === 'regular');
-  var apiReady = typeof readV17LocalSessionRecord === 'function'
-    && typeof serializeV17SessionSnapshot === 'function'
-    && typeof createV17LocalSessionRecord === 'function'
-    && typeof writeV17LocalSessionRecord === 'function';
+  var snapshotApi = window.NoetuneV17SessionSnapshot;
+  var apiReady = !!(snapshotApi
+    && typeof snapshotApi.readV17LocalSessionRecord === 'function'
+    && typeof snapshotApi.serializeV17SessionSnapshot === 'function'
+    && typeof snapshotApi.createV17LocalSessionRecord === 'function'
+    && typeof snapshotApi.writeV17LocalSessionRecord === 'function');
   var eligible = supportedScreens.indexOf(cur) >= 0 && themeReady && isRegular && apiReady;
   button.classList.toggle('visible', eligible);
   button.hidden = !eligible;
@@ -9137,10 +9155,11 @@ function updateV17SessionBookmarkVisibility() {
 }
 
 function getV17CurrentLocalSessionRecordState() {
-  if (typeof readV17LocalSessionRecord !== 'function') {
+  var snapshotApi = window.NoetuneV17SessionSnapshot;
+  if (!snapshotApi || typeof snapshotApi.readV17LocalSessionRecord !== 'function') {
     return { ok: false, state: 'API_UNAVAILABLE', error: { code: 'SNAPSHOT_API_UNAVAILABLE' } };
   }
-  var readResult = readV17LocalSessionRecord();
+  var readResult = snapshotApi.readV17LocalSessionRecord();
   if (!readResult.ok) {
     return { ok: false, state: 'READ_FAILED', error: readResult.error };
   }
@@ -9180,11 +9199,14 @@ function flushV17SavedDraftSnapshotUpdate() {
 }
 
 function writeCurrentV17SessionSnapshot() {
-  var serialized = serializeV17SessionSnapshot();
+  var snapshotApi = window.NoetuneV17SessionSnapshot;
+  if (!snapshotApi) return { ok: false, error: { code: 'SNAPSHOT_API_UNAVAILABLE', path: 'snapshot' } };
+  if (D && D.v17Flow && typeof cur === 'string') D.v17Flow.currentScreen = cur;
+  var serialized = snapshotApi.serializeV17SessionSnapshot();
   if (!serialized.ok) return serialized;
-  var recordResult = createV17LocalSessionRecord(serialized.snapshot);
+  var recordResult = snapshotApi.createV17LocalSessionRecord(serialized.snapshot);
   if (!recordResult.ok) return recordResult;
-  return writeV17LocalSessionRecord(recordResult.record);
+  return snapshotApi.writeV17LocalSessionRecord(recordResult.record);
 }
 
 function updateV17SavedSessionSnapshot(reason) {
@@ -9225,7 +9247,10 @@ function handleV17SessionBookmarkClick() {
   if (!button || button.hidden || button.disabled) return;
   button.disabled = true;
   setV17SessionBookmarkStatus('sessionBookmark.saving');
-  var readResult = readV17LocalSessionRecord();
+  var snapshotApi = window.NoetuneV17SessionSnapshot;
+  var readResult = snapshotApi && typeof snapshotApi.readV17LocalSessionRecord === 'function'
+    ? snapshotApi.readV17LocalSessionRecord()
+    : { ok: false, error: { code: 'SNAPSHOT_API_UNAVAILABLE', path: 'snapshot' } };
   if (!readResult.ok) {
     button.disabled = false;
     button.setAttribute('aria-pressed', 'false');

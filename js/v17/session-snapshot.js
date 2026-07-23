@@ -924,13 +924,15 @@
       }
       var responseStateError = validateRuntimeResponseStates(global.D.v17Flow, 'v17Flow.responseStates');
       if (responseStateError) return { ok: false, error: responseStateError };
-      var regularFlowError = validateRegularFlowMetadata({
-        currentScreen: global.D.v17Flow.currentScreen,
-        activeScreen: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).activeScreen,
-        firstResponseRole: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).firstResponseRole,
-        secondResponseRole: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).secondResponseRole
-      }, getRuntimeRouteType(), 'v17Flow');
-      if (regularFlowError) return { ok: false, error: regularFlowError };
+      if (global.D.v17Flow.currentScreen !== 's-v17-before') {
+        var regularFlowError = validateRegularFlowMetadata({
+          currentScreen: global.D.v17Flow.currentScreen,
+          activeScreen: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).activeScreen,
+          firstResponseRole: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).firstResponseRole,
+          secondResponseRole: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).secondResponseRole
+        }, getRuntimeRouteType(), 'v17Flow');
+        if (regularFlowError) return { ok: false, error: regularFlowError };
+      }
     }
     var savedAt = toIsoOrNull(options.savedAt) || nowIso();
     var now = toIsoOrNull(options.now) || savedAt;
