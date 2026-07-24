@@ -40,13 +40,15 @@ body{font-family:'Noto Serif JP','Helvetica Neue',-apple-system,sans-serif;backg
 .btn-back.visible{opacity:1;pointer-events:auto}
 .btn-back svg{display:block}
 .btn-back:active svg path{stroke:#6B9080}
-.v17-session-bookmark{position:fixed;top:calc(1rem + env(safe-area-inset-top));right:1rem;min-width:40px;height:40px;padding:0 .75rem;background:rgba(250,250,247,.72);border:1px solid rgba(107,144,128,.12);border-radius:20px;color:#77736E;font-family:'Noto Serif JP',serif;font-size:.7rem;letter-spacing:.04em;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s,background .2s,border-color .2s;z-index:220;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
-.v17-session-bookmark.visible{opacity:1;pointer-events:auto}
+.v17-session-bookmark-host{width:100%;max-width:320px;margin:1.25rem auto 0}
+.v17-session-bookmark-action{display:flex;flex-direction:column;align-items:stretch;gap:.65rem;width:100%}
+.v17-session-bookmark{width:100%;min-height:48px;padding:.85rem 1rem;background:rgba(107,144,128,.1);border:1px solid rgba(107,144,128,.34);border-radius:14px;color:#36584b;font-family:'Noto Serif JP',serif;font-size:.82rem;letter-spacing:.05em;line-height:1.5;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;transition:background .2s,border-color .2s,color .2s}
+.v17-session-bookmark.visible{pointer-events:auto}
 .v17-session-bookmark[hidden]{display:none}
 .v17-session-bookmark:disabled{cursor:default;opacity:.55}
 .v17-session-bookmark:focus-visible{outline:2px solid #6B9080;outline-offset:3px}
 .v17-session-bookmark[aria-pressed="true"]{border-color:#6B9080;background:rgba(107,144,128,.12);color:#1A1A1A}
-.v17-session-bookmark-status{position:fixed;top:calc(3.65rem + env(safe-area-inset-top));right:1rem;color:#77736E;font-size:.68rem;letter-spacing:.02em;z-index:220;pointer-events:none}
+.v17-session-bookmark-status{min-height:1.4em;color:#77736E;font-size:.72rem;letter-spacing:.02em;line-height:1.5;text-align:center;pointer-events:none}
 .btn-v17-skip{
   display:none;
   width:fit-content;
@@ -820,8 +822,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <path d="M14 5L8 11L14 17" stroke="#999" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </button>
-<button class="v17-session-bookmark" id="v17-session-bookmark" type="button" hidden aria-pressed="false" aria-label="" title="" onclick="handleV17SessionBookmarkClick()"></button>
-<div class="v17-session-bookmark-status" id="v17-session-bookmark-status" role="status" aria-live="polite" hidden></div>
 <button class="btn-v17-skip" id="btn-v17-skip" type="button" onclick="handleV17Skip()"></button>
 <div class="settings-cluster">
   <button class="theme-mode-btn" id="btn-theme-mode" type="button" onclick="cycleThemeMode()" aria-label=""></button>
@@ -908,6 +908,12 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <span class="v17-start-option-title" id="v17-session-mode-deep-title"></span>
         <span class="v17-start-option-desc" id="v17-session-mode-deep-desc"></span>
       </button>
+    </div>
+    <div class="v17-session-bookmark-host" id="v17-session-bookmark-host-session-mode">
+      <div class="v17-session-bookmark-action" id="v17-session-bookmark-action">
+        <button class="v17-session-bookmark" id="v17-session-bookmark" type="button" hidden aria-pressed="false" aria-label="" onclick="handleV17SessionBookmarkClick()"></button>
+        <div class="v17-session-bookmark-status" id="v17-session-bookmark-status" role="status" aria-live="polite" hidden></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1245,6 +1251,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
       <span class="v17-not-a-problem-hint" id="nm-hint-v17-before"></span>
     </button>
     <button class="btn" id="next-v17-before" type="button" onclick="submitV17BeforeScore()" disabled></button>
+    <div class="v17-session-bookmark-host" id="v17-session-bookmark-host-before"></div>
   </div>
 </div>
 
@@ -1261,6 +1268,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="v17-step-copy v17-support-primary" id="v17-first-response-prompt"></div>
     <textarea class="v17-writing" id="in-v17-first-response" maxlength="600" oninput="onV17RouteInput('first',this.value)"></textarea>
     <button class="btn" id="next-v17-first-response" type="button" onclick="submitV17FirstResponse()" disabled></button>
+    <div class="v17-session-bookmark-host" id="v17-session-bookmark-host-first-response"></div>
   </div>
 </div>
 
@@ -1273,6 +1281,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="v17-step-copy v17-support-primary" id="v17-second-response-prompt"></div>
     <textarea class="v17-writing" id="in-v17-second-response" maxlength="600" oninput="onV17RouteInput('second',this.value)"></textarea>
     <button class="btn" id="next-v17-second-response" type="button" onclick="submitV17SecondResponse()" disabled></button>
+    <div class="v17-session-bookmark-host" id="v17-session-bookmark-host-second-response"></div>
   </div>
 </div>
 
@@ -4180,7 +4189,6 @@ function renderV17LandingCopy() {
   if (sessionBookmark) {
     sessionBookmark.textContent = t('sessionBookmark.label');
     sessionBookmark.setAttribute('aria-label', t('sessionBookmark.ariaLabel'));
-    sessionBookmark.setAttribute('title', t('sessionBookmark.ariaLabel'));
   }
 
   var sectionWrap = document.getElementById('lp-sections');
@@ -7370,7 +7378,7 @@ function renderV17StaticCopy() {
   setEl('account-professional', v17Copy('flow.app.pricing'));
   setEl('account-manage', v17Copy('flow.app.manage'));
   setEl('account-logout', v17Copy('flow.app.logout'));
-  setEl('btn-resume-progress', v17Copy('flow.result.resume'));
+  setEl('btn-resume-progress', t('sessionBookmark.resumeAction'));
   updateV17ResumeControlVisibility();
   setEl('btn-v17-skip', v17Copy('flow.app.skip'));
   renderHomeScreenInstallCopy();
@@ -7402,8 +7410,10 @@ function updateV17ResumeControlVisibility() {
   var restorableScreens = Array.isArray(constants.RESTORABLE_SCREENS) ? constants.RESTORABLE_SCREENS : [];
   var isGuest = record.sync && record.sync.ownerUserId === null;
   var isRegular = snapshot && snapshot.summary && snapshot.summary.sessionMode === 'regular';
+  var isUnselectedSessionMode = snapshot && snapshot.summary && snapshot.summary.sessionMode === null
+    && snapshot.currentScreen === 's-v17-session-mode';
   var isRestorable = !!(snapshot && restorableScreens.indexOf(snapshot.currentScreen) >= 0);
-  if (isGuest && isRegular && isRestorable) button.style.display = '';
+  if (isGuest && (isRegular || isUnselectedSessionMode) && isRestorable) button.style.display = '';
 }
 
 var V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
@@ -9110,19 +9120,26 @@ function updateV17SessionBookmarkVisibility() {
   var button = document.getElementById('v17-session-bookmark');
   var status = document.getElementById('v17-session-bookmark-status');
   if (!button) return;
+  moveV17SessionBookmarkAction();
   var supportedScreens = [
-    's-v17-before'
+    's-v17-session-mode',
+    's-v17-before',
+    's-v17-first-response',
+    's-v17-second-response'
   ];
   var flow = D && D.v17Flow;
-  var themeReady = !!(D && D.questionTextAtTime && D.v17SessionIdentity && flow);
+  var hasSessionIdentity = !!(D && D.v17SessionIdentity && D.v17SessionIdentity.sessionId && D.v17SessionIdentity.cycleId);
+  var themeReady = !!(D && D.questionTextAtTime && hasSessionIdentity);
   var isRegular = !!(D && D.v17SessionMode === 'regular');
+  var isUnselectedSessionMode = !!(D && D.v17SessionMode === null && !flow);
   var snapshotApi = window.NoetuneV17SessionSnapshot;
   var apiReady = !!(snapshotApi
     && typeof snapshotApi.readV17LocalSessionRecord === 'function'
     && typeof snapshotApi.serializeV17SessionSnapshot === 'function'
     && typeof snapshotApi.createV17LocalSessionRecord === 'function'
     && typeof snapshotApi.writeV17LocalSessionRecord === 'function');
-  var eligible = supportedScreens.indexOf(cur) >= 0 && themeReady && isRegular && apiReady;
+  var eligible = supportedScreens.indexOf(cur) >= 0 && themeReady && apiReady
+    && (cur === 's-v17-session-mode' ? isUnselectedSessionMode : (isRegular && !!flow));
   button.classList.toggle('visible', eligible);
   button.hidden = !eligible;
   if (status) {
@@ -9152,6 +9169,19 @@ function updateV17SessionBookmarkVisibility() {
   var saved = recordState.state === 'SAME_SESSION';
   button.classList.toggle('saved', saved);
   button.setAttribute('aria-pressed', saved ? 'true' : 'false');
+}
+
+function moveV17SessionBookmarkAction() {
+  var action = document.getElementById('v17-session-bookmark-action');
+  var hostIds = {
+    's-v17-session-mode': 'v17-session-bookmark-host-session-mode',
+    's-v17-before': 'v17-session-bookmark-host-before',
+    's-v17-first-response': 'v17-session-bookmark-host-first-response',
+    's-v17-second-response': 'v17-session-bookmark-host-second-response'
+  };
+  var hostId = hostIds[cur] || 'v17-session-bookmark-host-session-mode';
+  var host = document.getElementById(hostId);
+  if (action && host && action.parentNode !== host) host.appendChild(action);
 }
 
 function getV17CurrentLocalSessionRecordState() {
@@ -10085,7 +10115,9 @@ function wrapV17SavePayloadBuilders() {
     var validated = window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot(snapshot);
     if (!validated.ok) return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: validated.error && validated.error.path ? validated.error.path : 'snapshot' } };
     snapshot = validated.snapshot;
-    if (!snapshot || !snapshot.summary || snapshot.summary.sessionMode !== 'regular') {
+    var isUnselectedSessionMode = snapshot && snapshot.summary && snapshot.summary.sessionMode === null
+      && snapshot.currentScreen === 's-v17-session-mode';
+    if (!snapshot || !snapshot.summary || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode)) {
       return { ok: false, error: { code: 'RESTORE_SCREEN_NOT_SUPPORTED', path: 'summary.sessionMode' } };
     }
     if (['s-v17-session-mode', 's-v17-before', 's-v17-first-response', 's-v17-second-response'].indexOf(snapshot.currentScreen) < 0) {
@@ -10149,7 +10181,7 @@ function wrapV17SavePayloadBuilders() {
       ok: true,
       sessionId: snapshot.sessionId,
       currentScreen: snapshot.currentScreen,
-      sessionMode: 'regular'
+      sessionMode: snapshot.summary.sessionMode
     };
   }
 

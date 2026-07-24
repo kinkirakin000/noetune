@@ -129,6 +129,90 @@ test('serializes Guest Regular Before without Regular Flow metadata', () => {
   assert.equal(localStorage.calls.set > 0, true);
 });
 
+function unselectedSessionModeFixture() {
+  const value = fixture();
+  value.currentScreen = 's-v17-session-mode';
+  value.summary.sessionMode = null;
+  value.currentState.currentScreen = 's-v17-session-mode';
+  value.currentState.currentStep = 'session-mode';
+  value.currentState.sessionMode = null;
+  value.currentState.regularFlow = null;
+  value.currentState.deepFlow = null;
+  value.resumeBackFrames = [];
+  return value;
+}
+
+test('serializes and validates the canonical unselected Session Mode snapshot', () => {
+  context.window.D = {
+    v17SessionMode: null,
+    v17SessionIdentity: context.window.NoetuneV17SessionSnapshot.createV17SessionIdentity('2026-01-01T00:00:00.000Z'),
+    v17Flow: null,
+    themeSource: 'themeLibrary',
+    themeTrackId: 'problems',
+    localeAtTime: 'en',
+    questionTextAtTime: 'Question',
+    theme: 'Theme',
+    themeId: 'theme-1',
+    questionId: null,
+    initialThemeScore: null,
+    finalThemeScore: null,
+    currentThemeScoreTrail: [],
+    currentThemeAwarenessTrail: []
+  };
+  context.window.cur = 's-v17-session-mode';
+  context.window.lang = 'en';
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const serialized = api.serializeV17SessionSnapshot({
+    savedAt: '2026-01-01T00:01:00.000Z',
+    now: '2026-01-01T00:02:00.000Z'
+  });
+  assert.equal(serialized.ok, true);
+  assert.equal(serialized.snapshot.currentScreen, 's-v17-session-mode');
+  assert.equal(serialized.snapshot.summary.sessionMode, null);
+  assert.equal(serialized.snapshot.currentState.sessionMode, null);
+  assert.equal(serialized.snapshot.currentState.currentStep, 'session-mode');
+  assert.equal(serialized.snapshot.currentState.regularFlow, null);
+  assert.equal(serialized.snapshot.currentState.deepFlow, null);
+  assert.equal(serialized.snapshot.resumeBackFrames.length, 0);
+  assert.equal(api.validateV17SessionSnapshot(serialized.snapshot).ok, true);
+});
+
+test('fails closed for invalid Session Mode contracts and null mode outside Session Mode', () => {
+  for (const sessionMode of ['regular', 'deep']) {
+    const invalid = unselectedSessionModeFixture();
+    invalid.summary.sessionMode = sessionMode;
+    rejected(invalid);
+  }
+  const mismatch = unselectedSessionModeFixture();
+  mismatch.currentState.sessionMode = 'regular';
+  rejected(mismatch);
+  const regularFlow = unselectedSessionModeFixture();
+  regularFlow.currentState.regularFlow = fixture().currentState.regularFlow;
+  rejected(regularFlow);
+  const deepFlow = unselectedSessionModeFixture();
+  deepFlow.currentState.deepFlow = {};
+  rejected(deepFlow);
+  const before = fixture();
+  before.currentScreen = 's-v17-before';
+  before.currentState.currentScreen = 's-v17-before';
+  before.currentState.currentStep = 'before';
+  before.currentState.regularFlow = null;
+  before.summary.sessionMode = null;
+  before.currentState.sessionMode = null;
+  rejected(before);
+});
+
+test('restores unselected Session Mode without creating or selecting a flow', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { currentScreen: 's-v17-before' } };
+  const restored = api.restoreV17SessionRuntime(unselectedSessionModeFixture());
+  assert.equal(restored.ok, true);
+  assert.equal(restored.sessionMode, null);
+  assert.equal(context.window.D.v17SessionMode, null);
+  assert.equal(context.window.D.v17Flow, null);
+  assert.equal(context.window.D.v17SessionIdentity.sessionId, '11111111-1111-4111-8111-111111111111');
+});
+
 test('characterizes CurrentCycleV1 public-root validation boundaries', () => {
   accepted(fixture());
 

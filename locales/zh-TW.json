@@ -235,12 +235,13 @@
     "error": "無法儲存這個書籤"
   },
   "sessionBookmark": {
-    "label": "書籤",
-    "ariaLabel": "為這次歷程加入書籤",
-    "saving": "正在儲存",
-    "saved": "已加入書籤",
+    "label": "儲存到這裡，稍後繼續",
+    "ariaLabel": "儲存到這裡，稍後繼續",
+    "saving": "儲存中…",
+    "saved": "已儲存在此裝置",
     "error": "無法儲存",
-    "existingJourney": "已有另一段歷程的書籤"
+    "existingJourney": "已有另一段歷程的書籤",
+    "resumeAction": "從上次儲存的位置繼續"
   },
   "buttons": {
     "next": "下一步",

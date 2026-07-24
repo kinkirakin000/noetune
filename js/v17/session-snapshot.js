@@ -598,6 +598,7 @@
     var currentState = {
       currentScreen: screenId,
       currentStep: currentStep,
+      sessionMode: screenId === 's-v17-session-mode' ? null : undefined,
       routeType: routeType,
       entryType: entryType,
       locale: currentLocale,
@@ -773,7 +774,12 @@
     if (summary.locale !== null && summary.locale !== 'ja' && summary.locale !== 'en' && summary.locale !== 'zh-TW') {
       return createError('INVALID_LOCALE', 'summary.locale');
     }
-    if (summary.sessionMode !== 'regular') return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
+    var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode';
+    if (isUnselectedSessionMode) {
+      if (summary.sessionMode !== null) return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
+    } else if (summary.sessionMode !== 'regular') {
+      return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
+    }
     if (typeof summary.themeLabel !== 'string' && summary.themeLabel !== null) return createError('INVALID_THEME_LABEL', 'summary.themeLabel');
     if (typeof summary.subthemeLabel !== 'string' && summary.subthemeLabel !== null) return createError('INVALID_SUBTHEME_LABEL', 'summary.subthemeLabel');
     if (typeof summary.themeDescription !== 'string' && summary.themeDescription !== null) return createError('INVALID_THEME_DESCRIPTION', 'summary.themeDescription');
@@ -877,12 +883,21 @@
     if (typeof state.semanticState.ideal !== 'string' && state.semanticState.ideal !== null) return createError('INVALID_CURRENT_STATE', 'currentState.semanticState.ideal');
     if (state.currentScreen !== snapshot.currentScreen) return createError('INVALID_CURRENT_SCREEN', 'currentState.currentScreen');
     if (ALLOWED_CURRENT_STEPS.indexOf(state.currentStep) < 0) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
+    if (isUnselectedSessionMode) {
+      if (!Object.prototype.hasOwnProperty.call(state, 'sessionMode') || state.sessionMode !== null) {
+        return createError('INVALID_SESSION_MODE', 'currentState.sessionMode');
+      }
+      if (state.currentStep !== 'session-mode') return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
+    } else if (Object.prototype.hasOwnProperty.call(state, 'sessionMode') && state.sessionMode !== summary.sessionMode) {
+      return createError('INVALID_SESSION_MODE', 'currentState.sessionMode');
+    }
     routeError = validateRouteType(state.routeType, 'currentState.routeType');
     if (routeError) return routeError;
     entryError = validateEntryType(state.entryType, 'currentState.entryType');
     if (entryError) return entryError;
     if (!Array.isArray(state.scoreTrail) || !Array.isArray(state.awarenessTrail)) return createError('INVALID_TRAIL', 'currentState');
     if (state.deepFlow !== null) return createError('INVALID_DEEP_FLOW', 'currentState.deepFlow');
+    if (isUnselectedSessionMode && state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
     if (state.regularFlow !== null) {
       if (!isPlainObject(state.regularFlow)) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
       if (Object.prototype.hasOwnProperty.call(state.regularFlow, 'questionVariant') && ALLOWED_QUESTION_VARIANTS.indexOf(state.regularFlow.questionVariant) < 0) {
@@ -915,6 +930,10 @@
     if (getRuntimeSessionMode() === 'deep') {
       return { ok: false, error: createError('UNSUPPORTED_SESSION_MODE_PHASE_4A', 'sessionMode') };
     }
+    var runtimeScreenId = getRuntimeScreenId();
+    if (runtimeScreenId === 's-v17-session-mode' && getRuntimeSessionMode() !== null) {
+      return { ok: false, error: createError('INVALID_SESSION_MODE', 'sessionMode') };
+    }
     if (global.D && global.D.v17Flow) {
       if (global.D.v17Flow.currentScreen !== null && (typeof global.D.v17Flow.currentScreen !== 'string' || !global.D.v17Flow.currentScreen || SERIALIZABLE_SCREENS.indexOf(global.D.v17Flow.currentScreen) < 0)) {
         return { ok: false, error: createError('RUNTIME_SCREEN_INVALID', 'v17Flow.currentScreen') };
@@ -924,7 +943,7 @@
       }
       var responseStateError = validateRuntimeResponseStates(global.D.v17Flow, 'v17Flow.responseStates');
       if (responseStateError) return { ok: false, error: responseStateError };
-      if (global.D.v17Flow.currentScreen !== 's-v17-before') {
+      if (global.D.v17Flow.currentScreen !== 's-v17-before' && global.D.v17Flow.currentScreen !== 's-v17-session-mode') {
         var regularFlowError = validateRegularFlowMetadata({
           currentScreen: global.D.v17Flow.currentScreen,
           activeScreen: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).activeScreen,
@@ -1037,7 +1056,8 @@
     if (RESTORABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) {
       return { ok: false, error: createError('RESTORE_SCREEN_NOT_SUPPORTED', 'currentScreen') };
     }
-    if (!isPlainObject(snapshot.summary) || snapshot.summary.sessionMode !== 'regular') {
+    var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode' && snapshot.summary && snapshot.summary.sessionMode === null;
+    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode)) {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
     }
     if (!isPlainObject(snapshot.currentState)) {
@@ -1113,6 +1133,9 @@
       current: responseCurrent && responseCurrent.state ? responseCurrent.state : 'unset',
       ideal: responseIdeal && responseIdeal.state ? responseIdeal.state : 'unset'
     };
+    if (isUnselectedSessionMode) {
+      staged.v17Flow = null;
+    }
     stagedFlow.currentScreen = snapshot.currentScreen;
     stagedFlow.currentStep = snapshot.currentState.currentStep;
     stagedFlow.questionVariant = questionVariant;
@@ -1140,7 +1163,7 @@
     stagedFlow.activeScreen = regularFlow ? regularFlow.activeScreen : null;
     stagedFlow.firstResponseRole = regularFlow ? regularFlow.firstResponseRole : null;
     stagedFlow.secondResponseRole = regularFlow ? regularFlow.secondResponseRole : null;
-    staged.v17Flow = stagedFlow;
+    if (!isUnselectedSessionMode) staged.v17Flow = stagedFlow;
     if (!global.D || typeof global.D !== 'object') {
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'runtime') };
     }
@@ -1166,6 +1189,16 @@
     global.D.idealState = staged.idealState;
     global.D.idealStateText = staged.idealStateText;
     global.D.idealStateDraft = staged.idealStateDraft;
+    if (isUnselectedSessionMode) {
+      global.D.v17Flow = null;
+      return {
+        ok: true,
+        sessionId: snapshot.sessionId,
+        currentScreen: snapshot.currentScreen,
+        sessionMode: null,
+        appliedGroups: ['identity', 'entry', 'mode_route_screen', 'measurement', 'responses']
+      };
+    }
     global.D.v17Flow = global.D.v17Flow && typeof global.D.v17Flow === 'object' ? global.D.v17Flow : {};
     global.D.v17Flow.currentScreen = stagedFlow.currentScreen;
     global.D.v17Flow.currentStep = stagedFlow.currentStep;

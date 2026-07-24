@@ -235,12 +235,13 @@
     "error": "うまく保存できませんでした"
   },
   "sessionBookmark": {
-    "label": "しおり",
-    "ariaLabel": "このセッションにしおりを挟む",
-    "saving": "保存しています",
-    "saved": "しおりを挟みました",
+    "label": "ここまで保存して、あとで続ける",
+    "ariaLabel": "ここまで保存して、あとで続ける",
+    "saving": "保存中…",
+    "saved": "この端末に保存しました",
     "error": "保存できませんでした",
-    "existingJourney": "別のしおりが残っています"
+    "existingJourney": "別のしおりが残っています",
+    "resumeAction": "保存したところから続ける"
   },
   "buttons": {
     "next": "次へ",

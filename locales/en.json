@@ -235,12 +235,13 @@
     "error": "Could not save this bookmark"
   },
   "sessionBookmark": {
-    "label": "Bookmark",
-    "ariaLabel": "Bookmark this session",
-    "saving": "Saving",
-    "saved": "Session bookmarked",
-    "error": "Could not save",
-    "existingJourney": "Another bookmarked session already exists"
+    "label": "Save here and continue later",
+    "ariaLabel": "Save here and continue later",
+    "saving": "Saving…",
+    "saved": "Saved on this device",
+    "error": "Couldn’t save",
+    "existingJourney": "Another bookmarked session already exists",
+    "resumeAction": "Continue from where you saved"
   },
   "buttons": {
     "next": "Next",
