@@ -408,9 +408,9 @@ The following facts describe the Unit 2 acceptance checkpoint at `df1cefa0007a47
 - characterization and validator coverage passed 9/9 at that checkpoint
 - local and remote branch heads matched at that checkpoint
 
-The current accepted implementation facts are recorded under Phase 4B: repository HEAD is `f2bee8207f466b2bfbdad16fa7ed4517fa77d245`, the accepted Before-only implementation is `de3a2df6e8dbfe5921c80939862325131f46322d`, snapshot tests pass 10/10, and push has not been performed for that accepted implementation.
+The following Before-only facts are a historical checkpoint, superseded by the current Phase 4B acceptance record below: repository HEAD was `f2bee8207f466b2bfbdad16fa7ed4517fa77d245`, the accepted implementation was `de3a2df6e8dbfe5921c80939862325131f46322d`, and snapshot tests passed 10/10.
 
-### Phase 4B acceptance sequencing decision
+### Phase 4B acceptance record
 
 **Decision date:** 2026-07-23
 
@@ -418,7 +418,7 @@ The current accepted implementation facts are recorded under Phase 4B: repositor
 
 The earlier Before first-save `BLOCKED` record was based on a runtime where a reachable production first-save control was unavailable. It is retained as historical evidence only; it is not the current state.
 
-#### Accepted Before-only implementation
+#### Historical Before-only implementation
 
 Accepted implementation commit: `de3a2df6e8dbfe5921c80939862325131f46322d` (`de3a2df feat(v17): enable guest before bookmark resume`). Snapshot tests: **10/10 PASS**.
 
@@ -435,7 +435,19 @@ Human real-browser QA accepted the following Before-only Guest-local path:
 - There is no Auto Resume. The existing `#btn-resume-progress` route explicitly resumes the saved session, preserving theme, session identity, currentStep, `s-v17-before`, and the saved Bookmark state.
 - Private Session content is absent from console, analytics, and error output.
 
-This completes the narrow **Before manual first-save prerequisite Unit**, not Phase 4B as a whole. Session Mode, First, and Second production UI acceptance; minimal Regular Back after resume; Guest-local automatic updates after first save; and the final Phase 4B Gate remain in progress. The next Unit and acceptance authority remain with Commander ChatGPT.
+This completed the narrow **Before manual first-save prerequisite Unit**. It is retained as the historical checkpoint that preceded the wider production acceptance below.
+
+#### Current accepted Bookmark / Resume implementation
+
+Accepted implementation commit: `67ea52d7e1b83ffbf78972d527191e2b17d060da` (`feat(v17): resume guest sessions from regular screens`). Snapshot tests: **13/13 PASS**; syntax and ja / en / zh-TW JSON parsing passed.
+
+Safari Human real-browser QA accepted Session Mode (including its unselected state), Before, First Response, and Second Response production save / reload / explicit-Resume paths. The first save is manual; after it, automatic updates correctly maintain the same Guest-local `sessionId` / `cycleId` record so explicit Resume returns to the newest valid canonical screen. Auto Resume remains absent.
+
+The accepted automatic-update write path is `submitV17BeforeScore()` → pending saved-snapshot update reason → canonical navigation → `updateBackBtn()` → `updateV17SavedSessionSnapshot()` → `writeCurrentV17SessionSnapshot()` → serializer → Guest Local Repository write. This is the accepted continuation behavior after first save, not an implicit first save.
+
+The Bookmark UI is in the body action flow, with in-flow save status, and locale JSON is the sole source for Bookmark, Resume, and status copy. Human QA found missing First / Second Bookmark hosts; the placement was corrected, with no duplicate control IDs. First-answer quotation and context were retained through Second exact Resume. Private Session content was not exposed in console, analytics, or generic errors.
+
+Phase 4B remains **In Progress**. Only minimal Regular Back after resume and the final Phase 4B Gate remain. The next Unit and acceptance authority remain with Commander ChatGPT.
 
 ## 5. Completed investigation record
 
@@ -548,7 +560,7 @@ Manual first save is initiated by the shared Session Bookmark control. The trigg
 | Result | arrival, without completion |
 | Repeat | start, mode selection, response, Result return |
 
-Only a Session with an enabled bookmark is auto-updated. The Before-only manual first-save acceptance is complete; automatic updates after the first save remain unaccepted outside this narrow Unit.
+Only a Session with an enabled bookmark is auto-updated. Automatic updates after the manual first save are accepted for the currently supported Regular production positions; Deep and later-screen behavior remains outside this accepted scope.
 
 ## 9. Analytics decision
 
@@ -742,15 +754,15 @@ Do not release when:
 
 ## 16. Current status
 
-Repository facts reported at the latest accepted checkpoint:
+Repository facts reported at the current accepted checkpoint:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: f2bee8207f466b2bfbdad16fa7ed4517fa77d245
+HEAD: 67ea52d7e1b83ffbf78972d527191e2b17d060da
 tracked working tree: clean
 staged changes: none
-latest accepted implementation: de3a2df6e8dbfe5921c80939862325131f46322d
-push: not performed for the accepted implementation
+latest accepted implementation: 67ea52d7e1b83ffbf78972d527191e2b17d060da
+push: not performed
 deploy: not performed
 untracked backup files: 5, preserved and untouched
 ```
@@ -762,17 +774,16 @@ untracked backup files: 5, preserved and untouched
 | `currentStep` restore fix (`453862f`) | Complete |
 | New Regular A/B flow Unit 1 (`98931af`) | Complete |
 | Unit 2: `questionVariant` Snapshot persistence | Complete and pushed |
-| Snapshot validator / characterization suite | 10/10 PASS |
+| Snapshot validator / characterization suite | 13/13 PASS |
 | Guest production navigation to Session mode / Before | Confirmed |
-| Before manual first-save prerequisite | Complete — accepted at `s-v17-before` |
-| Before save → reload → explicit Resume → Before restore | Complete — Human real-browser QA accepted |
-| Landing Resume control eligibility | Complete — valid Guest Regular local record only; fail closed otherwise |
-| Phase 4B | In Progress — Before-only Unit complete; remaining Regular positions and Back sequencing pending |
+| Session Mode / Before / First / Second production save and Resume | Complete — Safari Human real-browser QA accepted |
+| Manual first save / automatic update flow | Complete — manual first save, then accepted automatic updates for supported Regular positions |
+| Landing Resume control eligibility | Complete — valid Guest-local record only; fail closed otherwise |
+| Phase 4B | In Progress — Regular production save / resume accepted; minimal Back and final Gate pending |
 | minimal Regular Back after resume | Not started |
 | New Deep A/B alternating flow | Approved, not started |
 | Breath / Final / Result / Repeat exact resume | Not started |
-| Shared Session header Bookmark UI | Not completed as a Phase 7 whole |
-| Manual first save / automatic update flow | Before manual first save complete; later automatic updates not completed |
+| Bookmark / Resume three-language in-flow UX | Complete — accepted at the four supported production screens |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |
 | Cloud / RLS | Blocked by privacy gate |
 | Active Journey list | Not started |
@@ -783,6 +794,6 @@ untracked backup files: 5, preserved and untouched
 
 ### Current gate
 
-Phase 4B remains in progress. Do not treat the accepted Before-only path as acceptance for Session Mode, First, Second, minimal Regular Back, automatic updates after first save, Phase 7, Phase 8, Deep, or Cloud. Commander ChatGPT chooses the next Unit and grants its acceptance authority.
+Phase 4B remains in progress. Its Session Mode, Before, First, and Second production save / resume scope is accepted; minimal Regular Back after resume and the final Phase 4B Gate remain. Phase 7, Phase 8, Deep, Cloud, auth, and billing are not complete or implicitly advanced. Commander ChatGPT chooses the next Unit and grants its acceptance authority.
 
 Codex must not independently change Snapshot Schema v1, reorder phases, count direct serializer/localStorage/restore calls as production acceptance, or start remaining acceptance without a Commander-approved Unit.

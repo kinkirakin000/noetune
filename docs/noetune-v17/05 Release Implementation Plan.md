@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-23
-> Current execution point: Phase 4B — Before manual first-save accepted; remaining Regular production resume and Back sequencing
+> Current execution point: Phase 4B — Regular production save / resume accepted; minimal Back and final Gate remain
 
 ## 1. Objective
 
@@ -68,7 +68,7 @@ Gate:
 
 ### Phase 4B — Guest local Regular restore
 
-**Status:** In Progress — Before manual first-save accepted; remaining Regular production resume and Back sequencing
+**Status:** In Progress — Regular production save / resume accepted; minimal Back and final Gate remain
 
 #### Completed
 
@@ -78,23 +78,26 @@ Gate:
 - Guest local record read-to-resume entrypoint
 - `currentStep` restore
 - `questionVariant` restore
-- Before manual first save
-- Before save → reload → explicit Resume → Before restore
+- Session Mode unselected snapshot / validation / restore
+- Session Mode / Before / First / Second production UI acceptance
+- manual first save
+- automatic updates after first save
+- explicit Resume; Auto Resume remains absent
+- Bookmark / Resume three-language in-flow UX
+- Safari Human real-browser QA
 - valid-record Resume control eligibility
-- Session Snapshot validator tests 10/10 PASS
+- Session Snapshot validator tests 13/13 PASS
 
-The accepted Before-only implementation is `de3a2df6e8dbfe5921c80939862325131f46322d`. It reuses Snapshot Schema v1, the existing serializer, validator, repository, restore path, and the existing Resume control. It does not complete Phase 4B as a whole.
+The accepted implementation is `67ea52d7e1b83ffbf78972d527191e2b17d060da`. It retains Snapshot Schema v1 and accepts Guest-local manual first save, later automatic updates, valid-record eligibility, and explicit Resume across the supported Regular production positions. It does not complete Phase 4B as a whole.
 
 #### Remaining
 
-- Session Mode / First / Second production UI acceptance
-- Guest-local automatic updates after first save
 - minimal Regular Back after resume
 - final Phase 4B Gate
 
-The earlier Before first-save blocker is resolved. Phase 7, Phase 8, Deep, and Cloud are not complete or implicitly advanced by this narrow acceptance.
+The earlier Before first-save blocker is resolved. Phase 7, Phase 8, Deep, Cloud, auth, and billing are not complete or implicitly advanced by this acceptance.
 
-Gate: production UI save, reload, and explicit Resume must pass at Session Mode, Before, First, and Second; automatic-update and minimal Regular Back contracts must also be accepted before Phase 4B is complete.
+Gate: production UI save, reload, explicit Resume, and automatic-update acceptance have passed at Session Mode, Before, First, and Second; minimal Regular Back and the final Phase 4B Gate must still be accepted before Phase 4B is complete.
 
 ### New Flow Unit 1 — Regular A/B questions
 
@@ -141,7 +144,7 @@ Forbidden scope remained unchanged:
 - no Back redesign
 - no auth, billing, history, Bookmark, or analytics changes
 
-Gate result: Unit 2 implementation and validator acceptance completed at its historical checkpoint. The current Accepted implementation is `de3a2df6e8dbfe5921c80939862325131f46322d` on repository HEAD `f2bee8207f466b2bfbdad16fa7ed4517fa77d245`; snapshot tests are 10/10 PASS and push has not been performed for that accepted implementation. The Before-only production UI save/reload/explicit-Resume acceptance is complete under Phase 4B; remaining Regular-position acceptance and Back sequencing remain in progress.
+Gate result: Unit 2 implementation and validator acceptance completed at its historical checkpoint. The current Accepted implementation is `67ea52d7e1b83ffbf78972d527191e2b17d060da`; snapshot tests are 13/13 PASS and push has not been performed. Regular production save / resume is accepted under Phase 4B; minimal Back and final Gate remain in progress.
 
 ### New Flow Unit 3 — Deep alternating flow
 

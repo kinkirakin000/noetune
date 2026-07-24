@@ -89,7 +89,7 @@ activeJourneys
 D.v17SessionMode
 ```
 
-有効値：
+選択済みの有効値：
 
 ```text
 regular
@@ -98,10 +98,11 @@ deep
 
 ルール：
 
-- Session開始前に正規化
-- `deep`以外は`regular`
+- `s-v17-session-mode`でユーザーがまだ選択していない間だけ`null`を許可する
+- `null`はRegularへの正規化や選択済みの証拠として扱わない
+- Session開始後およびSession Mode以外のsupported screenでは`regular`または`deep`を要求する
 - plan stateと混同しない
-- save payloadへ含める
+- save payloadへ含める。未選択Session ModeではSchema v1の条件付き`null`契約に従う
 
 ## 6. Entry Model
 
@@ -332,9 +333,33 @@ s-result
 
 Being schema-known does not make a screen valid, serializable, or restorable.
 
-### Before snapshot / Guest-local resume contract
+### Guest-local save and resume contract
 
-`s-v17-before` is a canonical Snapshot Schema v1 and resume screen. Its implemented Before snapshot contract is:
+The following four screens are the accepted Guest-local Snapshot Schema v1 save and resume positions:
+
+```text
+s-v17-session-mode
+s-v17-before
+s-v17-first-response
+s-v17-second-response
+```
+
+`s-v17-session-mode` is a conditional canonical resume screen. Only while Session Mode is still unselected may Schema v1 use the following shape:
+
+```ts
+currentScreen: "s-v17-session-mode";
+summary.sessionMode: null;
+currentState.sessionMode: null;
+currentState.currentStep: "session-mode";
+currentState.regularFlow: null;
+currentState.deepFlow: null;
+resumeBackFrames: [];
+```
+
+- `null` session mode is valid only for `s-v17-session-mode`; all other supported screens retain their existing mode contract.
+- Restore of this conditional Session Mode snapshot preserves the unselected state. It must not infer Regular, start Regular or Deep, or substitute Before, First, or a completed flow.
+
+`s-v17-before` is also a canonical Snapshot Schema v1 and resume screen. Its implemented Before snapshot contract is:
 
 ```ts
 currentScreen: "s-v17-before";
@@ -344,10 +369,12 @@ currentState.regularFlow: null;
 - Before must not be represented as First or as a completed Regular flow merely to satisfy Regular Flow metadata validation.
 - At Before, validation must not require in-progress Regular Flow metadata.
 - The existing Snapshot API, serializer, validator, repository, and restore path remain the Schema v1 contract; this Before support does not change the schema.
-- Guest-local manual first save is reachable from the production UI at Before. The first save remains manual; later automatic-update behavior is a separate contract and is not accepted by this Before-only Unit.
-- Landing shows the existing Resume control (`#btn-resume-progress`) only when a valid Guest Regular local record is eligible. It is hidden for no record, invalid, unsupported, or corrupt records. Eligibility fails closed.
+- The first Guest-local save is a deliberate production UI action. After that save, the same `sessionId` / `cycleId` record may be automatically updated by canonical navigation, Back, response confirmation, and supported response changes; Resume restores the newest valid canonical screen.
+- Bookmark is placed in each supported screen's in-flow content area: below Regular / Deep on Session Mode, and below the primary action and step-skip action on Before, First Response, and Second Response. Its saving, saved, and failure state is displayed in the same flow rather than overlaying other controls.
+- Landing shows the existing Resume control (`#btn-resume-progress`) only when a valid Guest-local record is eligible. It is hidden for no record, invalid, unsupported, or corrupt records. Eligibility fails closed.
 - Auto Resume is prohibited. An eligible user explicitly chooses Resume, which uses the existing resume path.
-- Eligibility checks and their console, analytics, and error paths must not expose private Session content.
+- Display copy, including Bookmark, Resume, and save-status text and assistive labels, has locale JSON as its sole source of truth.
+- Eligibility checks and save / restore console, analytics, and generic error paths must not expose private Session content.
 
 ### Current step classification
 
@@ -399,7 +426,7 @@ deep.feel100
 ```ts
 interface SessionSummaryV1 {
   locale: "ja" | "en" | "zh-TW" | null;
-  sessionMode: "regular";
+  sessionMode: "regular" | null;
   routeType: "problem" | "ideal" | "spiritual";
   entryType: "free_input" | "life_theme" | "spiritual_wisdom";
 
@@ -430,6 +457,8 @@ interface EntryStateV1 {
   localeAtSelection: "ja" | "en" | "zh-TW";
 }
 ```
+
+`sessionMode: null` is the conditional unselected Session Mode value described in Section 12; it is invalid for every other supported snapshot screen. The current supported Regular snapshots otherwise use `"regular"`.
 
 保存時の表示文脈を保持し、将来JSONが変更されても元Journeyの意味を壊さない。
 
