@@ -1,11 +1,11 @@
 # AGENTS.md — Noetune v17
 
-**Updated:** 2026-07-23
+**Updated:** 2026-07-24
 **Purpose:** Persistent repository execution contract for every new Codex thread and every new Commander-approved Unit.
 
-## Canonical context to read first
+## Canonical context and minimum-source rule
 
-Before substantive investigation, implementation, testing, or review, read the current project context in:
+The canonical Noetune v17 document set is:
 
 - `docs/noetune-v17/00 Noetune v17 Master.md`
 - `docs/noetune-v17/01 Product, Monetization & Journey.md`
@@ -16,7 +16,19 @@ Before substantive investigation, implementation, testing, or review, read the c
 - `docs/noetune-v17/06 Current Billing & Auth Snapshot.md`
 - `docs/noetune-v17/07 追加予定機能.md`
 
-When a Commander instruction names a narrower source set, read that set plus the minimum canonical files required to interpret the Unit correctly.
+This list is an authority map, not a requirement to reread every file for every Unit.
+
+Before substantive investigation, implementation, testing, or review, the Leader must identify and read only:
+
+- the current Commander Unit instruction
+- the applicable parts of this `AGENTS.md`
+- the minimum canonical files or sections required to interpret the Unit
+- the target files and their direct dependencies
+- the directly relevant tests
+
+When a Commander instruction names a source set, use that set plus only the minimum additional canonical context needed to resolve the Unit safely.
+
+Do not reread documents `00–07` in full by default. Expand the source set only when repository evidence, contract ambiguity, or risk requires it.
 
 ### Evidence and authority hierarchy
 
@@ -66,82 +78,64 @@ Do not add a question paywall. Pro is for continuity, history, review, compariso
 
 If unsure, choose the quieter implementation and return unresolved contract questions to Commander ChatGPT.
 
-# Codex multi-agent operating contract
+# Risk-based agent operating contract
 
-## Mandatory new-thread and new-Unit bootstrap
+## Core rule
 
-Every new Codex thread and every new Commander-approved Unit must begin in **Multi-Agent Mode**.
+Multi-Agent Mode is not mandatory for every substantive Unit. The Leader must classify each Unit by risk and use only the agents that provide meaningful independent value. Do not spawn an agent merely to satisfy process.
 
-Previous-thread subagents are not inherited. The Leader must inspect the current agent tree and create a new scoped agent set for the current Unit.
+Commander ChatGPT remains the sole authority for product intent, scope, Phase order, acceptance criteria, and commit / push / deploy authorization.
 
-Before substantive repository investigation, editing, testing, or browser QA, the Leader must:
+## Risk Tier classification
 
-1. read this `AGENTS.md`
-2. read the required canonical context
-3. run minimal repository preflight
-4. classify the Unit
-5. select the Credit Mode
-6. select the required roles
-7. report the startup plan
-8. actually call `spawn_agent` for every selected subagent
+### Tier 0 — Mechanical
 
-A written plan without an actual `spawn_agent` call is not Multi-Agent Mode.
+Examples: Git status, branch, HEAD, or diff reporting; exact stage / commit / push already authorized by Commander; rerunning specified tests; applying exact Commander-supplied wording; stopping for a missing prerequisite.
 
-### Mandatory startup report
+Default: Leader only; no subagent required.
 
-The first execution report for each Unit must state:
+### Tier 1 — Low-risk localized change
 
-- `multi-agent bootstrap`: `PASS`, `BLOCKED`, or `LEADER-ONLY EXCEPTION`
-- branch / HEAD / working-tree facts
-- Unit classification
-- selected Credit Mode
-- selected subagent roles
-- each role's scoped responsibility
-- model / reasoning baseline
-- why each role is necessary
-- if no subagent is started, the exact allowed exception
+Examples: CSS or layout, locale copy, aria-label, narrow DOM adjustment, narrow documentation update, small existing-test addition, or UI adjustment that does not change handlers, state, schema, auth, billing, or persistence.
 
-Do not begin substantive work before this report and the required agent spawn are complete.
+Default: Leader only or one implementer. No researcher, reviewer, or QA unless a concrete risk requires one. Human real-browser QA may serve as independent acceptance for visual or device-specific behavior.
 
-## Default spawn rule
+### Tier 2 — State, navigation, and persistence
 
-For every substantive Unit, the Leader must start at least one subagent.
+Examples: Back, Snapshot serializer / validator / migration / restore, Bookmark, Resume, Repeat, Deep round state, or multi-screen runtime state.
 
-A Unit is substantive when it includes any of the following:
+Default: one implementer; add one QA or reviewer only when automated tests and Human QA cannot cover a concrete boundary. Use researcher only when the implementation boundary is genuinely unclear. Do not automatically start both QA and reviewer.
 
-- repository or canonical-document investigation
-- root-cause analysis
-- product code, docs, tests, locale, configuration, or schema changes
-- regression analysis or QA
-- diff or contract review
-- Session Resume, Bookmark, persistence, navigation, or state restoration
-- authentication, billing, RLS, privacy, security, or migration work
-- multi-file impact
-- acceptance preparation or independent verification
+### Tier 3 — High-risk trust boundary
 
-Minimum role mapping:
+Examples: authentication, billing, Stripe, webhook, entitlement, Supabase RLS, Cloud Session content, cross-user authorization, Account deletion, privacy, security, or data migration.
 
-- read-only investigation: start `researcher`
-- any approved file edit: start `implementer`; the implementer is normally the sole writer
-- independent contract or diff audit: start `reviewer`
-- regression, boundary, privacy, unsupported-state, or error-path verification: start `qa`
+Default: use the necessary independent roles. Researcher, implementer, QA, or reviewer may be combined as justified. Do not reduce required independent verification merely to save credits.
 
-The Leader may combine only the minimum roles justified by the Unit. Do not create meaningless duplicate work.
+## Agent selection
 
-### Narrow Leader-only exceptions
+- Tier 0: zero subagents.
+- Tier 1: zero or one subagent.
+- Tier 2: normally one subagent; at most two when a concrete independent boundary exists.
+- Tier 3: minimum roles justified by risk.
 
-Leader-only execution is allowed only for a fully mechanical action that changes no product or document content, such as:
+No-subagent execution for Tier 0 or Tier 1 is normal operation and does not require a Leader-only exception. Do not create duplicate agents that read the same files and perform the same checks.
 
-- `git status`, branch, HEAD, or diff-state reporting only
-- an exact commit of already accepted files with a Commander-specified message
-- an exact push after explicit Commander authorization
-- stopping and reporting a missing prerequisite without modifying files
+## Same-Unit rework
 
-Any investigation, content edit, code edit, test edit, docs synchronization, review, or QA falls outside these exceptions and requires at least one subagent.
+A Human QA failure, test failure, or narrow correction remains the same Unit when the goal, acceptance criteria, and scope are unchanged and the correction addresses evidence from that Unit. Reuse an active appropriate agent; when the prior agent has ended, start only the role required for the correction.
 
-When using a Leader-only exception, the Leader must explicitly report the exception before acting.
+## Human QA substitution
 
-If the multi-agent feature, required role, role configuration, `spawn_agent`, or `wait_agent` is unavailable or malformed, do not silently continue as Leader-only. Return `BLOCKED` or `STOP` with exact evidence.
+Human real-browser QA may serve as independent acceptance for Safari or mobile layout, touch behavior, visual overlap or clipping, browser chrome and safe-area behavior, Appearance / Language / Account controls, native sharing, and device-specific UI. Do not duplicate Human QA with QA subagent unless a separate code, state, privacy, or regression boundary requires it.
+
+## Context minimization
+
+The Leader and every started agent must use the minimum relevant context.
+
+Required context is limited to the current Commander Unit instruction, applicable `AGENTS.md` rules, the canonical sections needed for that Unit, the target files, direct dependencies, and directly relevant tests.
+
+Do not require the Leader or agents to reread canonical documents `00–07` for every Unit. The Leader must identify the minimum source set before substantive work and expand it only when evidence or risk requires it.
 
 ## Commander authority
 
@@ -165,10 +159,12 @@ No Codex agent is a second commander.
 The user-facing Codex agent is the Leader. The Leader owns:
 
 - minimal preflight
+- Risk Tier classification
 - Unit-boundary enforcement
+- minimum-source selection
 - agent selection and context allocation
-- `spawn_agent` and `wait_agent`
-- result comparison and conflict detection
+- `spawn_agent` and `wait_agent` only when subagents are actually used
+- result comparison and conflict detection when multiple results exist
 - integration of evidence
 - final verification
 - stop decisions
@@ -210,55 +206,53 @@ The Leader should coordinate rather than duplicate subagent work. When a file ed
 
 Subagents must return concise facts, evidence, conclusions, and unresolved items. Do not forward raw subagent logs in bulk.
 
-## Credit Mode
+## Model and credit rule
+
+### Fixed model baseline
+
+The Codex Leader and every subagent must use:
+
+```text
+gpt-5.6-luna / low
+```
+
+Do not automatically select or fall back to Terra, Sol, another model, a higher reasoning effort, another service mode, or a faster paid mode.
+
+Before substantive work, confirm that the required Leader and subagent roles can use `gpt-5.6-luna / low`.
+
+If Luna / Low is unavailable for a role required by the Unit, stop that work and report:
+
+```text
+BLOCKED — Luna unavailable
+```
+
+Do not silently continue with Terra or Sol.
+
+Commander ChatGPT may explicitly authorize `gpt-5.6-terra / low`, `gpt-5.6-sol / low`, or another model for one named Unit. That authorization:
+
+- applies only to the named Unit and role
+- does not change the default for later Units
+- does not authorize a higher reasoning effort
+- must be stated in the startup and final reports
+
+Never increase reasoning above `low`, change service mode, or enable a faster paid mode without explicit Commander authorization.
+
+### Credit Mode
 
 Commander ChatGPT may specify the Credit Mode. If none is specified, use `NORMAL`.
 
-- `CONSERVE`: for a substantive Unit, start exactly one necessary subagent unless safety requires more; use a Leader-only exception only when the Unit qualifies above.
-- `NORMAL`: start the minimum required writer or researcher; add one independent reviewer or QA role when risk or acceptance requires it.
-- `QUALITY`: use independent research, implementation, and review; add QA when regression or safety risk requires it.
-- `USE-IT`: near weekly reset with spare credits, add useful independent QA or next-Unit read-only preparation; never create redundant work.
+- `CONSERVE`: use the fewest agents and the narrowest useful investigation permitted by the Risk Tier.
+- `NORMAL`: apply the default agent count defined by the Risk Tier.
+- `QUALITY`: add independent work only when Commander requests it or a concrete Tier 3 safety boundary requires it.
+- `USE-IT`: may increase useful independent coverage only within the approved Unit; it must not create duplicate work.
 
-A usage screenshot may be interpreted only when usage, remaining credits, reset date, and reset interval are unambiguous. If unclear, ask the user to confirm; do not guess.
+Credit Mode changes depth and agent count inside the approved scope. It never changes product scope, Phase order, model baseline, safety requirements, or acceptance criteria.
 
-Credit Mode may change agent count and investigation depth inside the approved Unit. It must never change product scope, Phase order, model level, or acceptance criteria.
+## Reporting
 
-## Model and reasoning baseline
+Tier 0–2 startup report: branch / HEAD / working tree, Risk Tier, Credit Mode, selected agents, scope, and protected files.
 
-Before spawning subagents, the Leader must inspect which models are actually available
-in the current Codex environment.
-
-For ordinary Noetune Units, select the lowest-cost available model in this order:
-
-1. `gpt-5.6-luna / low`
-2. `gpt-5.6-terra / low`
-3. `gpt-5.6-sol / low`
-
-If Luna is unavailable, using Terra / Low is an availability fallback and does not require
-separate Commander approval.
-
-If both Luna and Terra are unavailable, using Sol / Low is an availability fallback and
-does not require separate Commander approval.
-
-Never select Sol when Terra is available unless Commander ChatGPT explicitly authorizes it
-for capability reasons.
-
-Every startup report and final report must state:
-
-- models reported as available
-- selected model
-- reasoning effort
-- whether an availability fallback occurred
-- why the preferred lower-cost model was unavailable
-
-Never increase reasoning effort above `low`, change service mode, enable a faster paid mode,
-or select a higher-cost model for quality reasons without explicit Commander approval.
-
-If the selected available model at `low` is insufficient for a high-risk area, stop that area,
-state the missing capability, recommend a candidate escalation, and wait for explicit approval.
-
-If none of the allowed models can be used by `spawn_agent`, return `BLOCKED`.
-Do not silently continue as Leader-only.
+Tier 0–2 final report: changed files, implementation result, verification, remaining tracked / staged state, backup-file state, commit / push / deploy state, and residual risk or Human QA requirement. Tier 3 retains detailed reporting appropriate to its risk.
 
 ## Execution Feasibility Gate
 
@@ -326,25 +320,24 @@ Resolve factual conflicts only from repository evidence or canonical documents. 
 
 Do not hide disagreement between researcher, implementer, QA, or reviewer.
 
-## Mandatory final report
+## Final report and agent-state check
 
-Every final integrated report must include:
+Use the Risk Tier reporting rules above. Do not add a separate mandatory multi-agent report when no subagent was used.
 
-- preflight facts
-- `multi-agent bootstrap` result
-- selected Credit Mode
-- every started subagent's name / role
-- model / reasoning baseline
-- scoped responsibility
-- result and evidence
-- Leader adoption or rejection of each result
-- conflicts and resolution
-- verification and tests
-- unchanged protected files
-- residual risk
-- working-tree and staged state
+For Tier 0–2, report only the required concise facts:
+
+- changed files or read-only result
+- implementation or investigation outcome
+- verification performed
+- remaining tracked and staged state
 - backup-file state
 - commit / push / deploy state
-- current running-agent count
+- residual risk or Human QA requirement
+- selected agents, including `none`
+- model / reasoning used for every started agent
 
-Before finishing, call or inspect the agent tree and confirm that no unnecessary subagent remains active in the background.
+Tier 3 reports must additionally include the independent roles used, trust-boundary evidence, negative or error-path verification, conflicts, and residual security or privacy risk.
+
+If subagents were started, wait for or stop unnecessary agents and confirm the final running-agent count is `0`.
+
+If no subagent was started, do not call or inspect the agent tree solely to prove that fact; report `selected agents: none`.
