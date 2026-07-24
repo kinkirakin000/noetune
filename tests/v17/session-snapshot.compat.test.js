@@ -15,6 +15,7 @@ function storageStub() {
 }
 
 const source = fs.readFileSync(path.join(__dirname, '../../js/v17/session-snapshot.js'), 'utf8');
+const appSource = fs.readFileSync(path.join(__dirname, '../../app-v17.html'), 'utf8');
 const localStorage = storageStub();
 const sessionStorage = storageStub();
 const sideEffects = { dom: 0, network: 0, uuid: 0, analytics: 0 };
@@ -211,6 +212,13 @@ test('restores unselected Session Mode without creating or selecting a flow', ()
   assert.equal(context.window.D.v17SessionMode, null);
   assert.equal(context.window.D.v17Flow, null);
   assert.equal(context.window.D.v17SessionIdentity.sessionId, '11111111-1111-4111-8111-111111111111');
+});
+
+test('resume Back runtime frames reset stale history and preserve an unselected Session Mode frame', () => {
+  assert.match(appSource, /function resetV17ResumeNavigationHistory\(\)[\s\S]*?navHistory\.length = 0;[\s\S]*?navPageStateHistory\.length = 0;/);
+  assert.match(appSource, /frame\.D\.v17SessionMode = null;[\s\S]*?frame\.D\.v17Flow = null;/);
+  assert.match(appSource, /var sessionModeFrameForQ1 = buildV17ResumeSessionModeNavigationFrame\(\);[\s\S]*?appendV17ResumeNavigationFrame\(sessionModeFrameForQ1\);[\s\S]*?appendV17ResumeNavigationFrame\(beforeFrame\);/);
+  assert.match(appSource, /var sessionModeFrameForQ2 = buildV17ResumeSessionModeNavigationFrame\(\);[\s\S]*?appendV17ResumeNavigationFrame\(sessionModeFrameForQ2\);[\s\S]*?appendV17ResumeNavigationFrame\(beforeFrameForQ2\);[\s\S]*?appendV17ResumeNavigationFrame\(questionOneFrameForQ2\);/);
 });
 
 test('characterizes CurrentCycleV1 public-root validation boundaries', () => {
