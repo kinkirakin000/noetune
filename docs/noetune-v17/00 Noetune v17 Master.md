@@ -4,7 +4,7 @@
 # Noetune v17 Master
 
 **Status:** Canonical product constitution
-**Updated:** 2026-07-20
+**Updated:** 2026-07-25
 **Scope:** Noetune v17の哲学、最上位原則、優先順位。詳細な画面・schema・実装手順は他の正本へ委ねる。
 
 ## 1. Noetuneとは
@@ -28,11 +28,13 @@ Noetune v17を唯一の正式な開発・公開ラインとする。
 
 - v18を別製品・別runtimeとして完成させる方針は中止する
 - Flow Engine、Versioned Flow Cartridge、独立navigation再設計などのv18専用Architectureは採用しない
-- v17で完成しているUI、UX、認証、課金、履歴、Session Resume、Bookmark、Localization、Result、Appearanceを維持する
+- v17で完成しているUI、UX、認証、課金、履歴、Session Resume、Localization、Result、Appearanceを維持する
+- Session Snapshot、Resume、Bookmarkの既存技術基盤は、authenticated Cloudしおりへ再利用できる資産として保持する
+- Guest localしおりは製品権利として廃止し、公開対象から外す
 - v18検討から採用するのは、問いの新しいフロー設計だけである
 - 新フローはv17へ小さなUnit単位で導入し、既存基盤を無断で再設計しない
 
-この決定より古い「v18を正式ラインとする」記録は履歴であり、現在の仕様ではない。
+この決定より古い「v18を正式ラインとする」記録、およびGuest localしおりを正式公開対象とする記録は履歴であり、現在の仕様ではない。
 
 ## 3. Primary Experience
 
@@ -98,42 +100,56 @@ Deepは同じテーマを固定してA → Question 2 → B → Question 2を交
 
 途中しおりはテーマのお気に入りではない。
 
-> 現在のSessionを、入力、位置、Deep round、Breath、Result、Back文脈ごと残し、同じSessionとして再開する機能。
+> ログイン済みユーザーが、現在のSessionを入力、位置、Deep round、Breath、Result、Back文脈ごとCloudへ残し、同じSessionとして端末を越えて再開する機能。
 
 原則：
 
-- 共通Sessionヘッダー右側に置く
-- Theme context確定後から明示的終了まで表示
-- 最初は手動でしおりを挟む
-- 一度保存したSessionは以後自動更新
+- Guestにはしおりを提供せず、本人の文章を永続保存しない
+- Guestはブラウザやタブを閉じた後のresumeを保証しない
+- Free loginはCloud active Journey 1件
+- ProはCloud active Journey最大50件
+- 最初のCloud保存は本人の明示操作から始める
+- LoginしただけではGuest runtime本文をCloudへ送信しない
+- 一度保存したSessionは同じ`sessionId`で以後自動更新する
 - 保存後も現在画面に留まる
 - raw navigation履歴を保存しない
 - 最大3件の`resumeBackFrames`で必要なBack文脈だけを保持
 - Breathはアニメーション途中秒数ではなく、そのStepの開始状態から再開
+- Cloud公開前にGlobal Privacy & Security Gateを通す
 
-## 7. Free / Pro
+## 7. Guest / Free / Pro
 
 NoetuneはSessionへのアクセスを課金しない。
 
 ```text
-Free = 今日の完全な体験 + 現在のJourney 1件の継続
-Pro  = 複数Journey、履歴、時間と端末を越えた個人アーカイブ
+Guest = ログインなしで、完全なSessionを何度でも使える。保存はしない
+Free  = Guestの全体験 + Cloud active Journey 1件
+Pro   = Cloud active Journey最大50件 + 完了履歴と個人アーカイブ
 ```
 
-### Free
+### Guest
 
+- ログイン不要
 - 全テーマ
 - 自由入力
 - Regular / Deep
 - 無制限の完全Session
-- Guest local途中しおり1件
-- ログイン後cloud active Journey 1件
-- その1件の別端末resume
+- しおりなし
+- 本人の文章を永続保存しない
+- ブラウザやタブを閉じた後のresumeを保証しない
+
+### Free login
+
+- Guestの全機能
+- Googleログイン
+- Cloud active Journey 1件
+- その1件を同じアカウントの別端末からresume
 - 完了済み全文履歴は残さない
+- LoginだけではCloud本文保存を開始しない
 
 ### Pro
 
-- active Journey最大20件
+- Cloud active Journey最大50件
 - 完了Journey archive
 - テーマ別履歴
 - 複数端末
@@ -145,7 +161,7 @@ Proは「より深いSession」ではない。継続と文脈保持に対する�
 
 Noetuneは世界を対象とする。ただし、世界向けであることを、全地域へ同時にCloud本文保存と課金を公開することと混同しない。
 
-### 7.1 High Confidentiality User Content
+### 8.1 High Confidentiality User Content
 
 次を一律に**High Confidentiality User Content**として扱う。
 
@@ -156,28 +172,28 @@ Noetuneは世界を対象とする。ただし、世界向けであることを�
 
 内容を解析して機密性を分類するのではなく、最初から高機密として扱う。
 
-### 7.2 不変原則
+### 8.2 不変原則
 
-- しおりを押すまで本人の文章を永続保存しない
-- 保存開始と保存先は本人の明示的な意思から始める
-- Loginだけを理由にGuest local本文をCloudへ自動送信しない
+- Guestの本人文章を永続保存しない
+- Cloud保存開始と保存先は本人の明示的な意思から始める
+- Loginだけを理由にGuest runtime本文をCloudへ自動送信しない
 - 本人の文章を広告、販売、AI学習、プロファイリング、marketing、A/B本文分析へ使用しない
 - 本人の文章をanalytics、console、server log、error monitoringへ出さない
-- GuestはlocalStorage 1件を正本とする
-- localStorageを秘密保管場所とはみなさず、共有端末の注意と削除手段を示す
+- authenticated local cacheを使う場合もGuest entitlementや永続正本として扱わない
+- localStorageを秘密保管場所とはみなさず、authenticated cacheには共有端末の注意と削除手段を示す
 - CloudはRLSと認証済みidentityで本人所有を強制し、client supplied `user_id`を信用しない
 - 壊れたsnapshot、競合データ、上限超過データを自動削除・自動上書きしない
-- Cloud失敗前後でlocal copyを失わない
-- Account削除時はactive、completed、旧bookmarkを削除する
+- Cloud失敗前後で認証済みユーザーの安全なpending copyを失わない
+- Account削除時はactive、completed、旧bookmark、authenticated cacheを削除する
 - 実装していないend-to-end encryptionや「運営者も読めない」を約束しない
 - Session保存層は特定vendorへ密結合せず、交換可能なadapter境界を持つ
 
-### 7.3 Global release principle
+### 8.3 Global release principle
 
 ```text
-Stage 1: worldwide Guest local
-Stage 2: approved regions / contractsでFree cloud 1件
-Stage 3: Pro multiple active / completed archive
+Stage 1: worldwide Guest — 完全Session、永続保存なし
+Stage 2: approved regions / contractsでFree cloud active 1件
+Stage 3: Pro cloud active最大50件 / completed archive
 Stage 4: region expansion
 ```
 
@@ -187,10 +203,11 @@ Cloud本文保存、cross-device resume、Pro archive、世界向け有料Cloud�
 
 ## 9. 完了と保存
 
-- Result到達時はactive snapshotを維持する
+- Guestはruntime memory上でSessionを進め、明示的完了または離脱後に永続記録を残さない
+- Cloudしおり利用中はResult到達時もactive snapshotを維持する
 - `v17_result_reached`はcycleごとに1回
 - `v17_journey_completed`はsessionIdごとに1回
-- 明示的完了時にGuest / Freeはactive全文を削除
+- 明示的完了時にFreeはactive全文を削除
 - Proはcompleted archiveへ移す
 - しおりを外すこととJourneyを完了することを混同しない
 
@@ -210,9 +227,9 @@ Cloud本文保存、cross-device resume、Pro archive、世界向け有料Cloud�
 
 1. 新しい問いのフローをv17基盤上で完成させる
 2. v17基本フローと既存UXを壊さない
-3. Guest local途中しおりの正確な保存・復元
+3. Guest localしおりを公開対象から安全に無効化する
 4. Global Privacy & Security GateをCloudより先に通す
-5. 認証・課金・RLSの安全性
+5. Free cloud 1件 / Pro cloud 50件の認証・RLS・削除・上限契約を実装する
 6. 3言語とmobile QA
 7. 段階的な公開・販売・外部検証
 

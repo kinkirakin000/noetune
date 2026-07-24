@@ -1,17 +1,17 @@
 # Noetune v17 Release Implementation Plan
 
 > Status: Temporary execution document
-> Updated: 2026-07-23
-> Current execution point: Phase 4B — Regular production save / resume accepted; minimal Back and final Gate remain
+> Updated: 2026-07-25
+> Current execution point: Guest local bookmark retirement documented; next code sequence awaits Commander authorization
 
 ## 1. Objective
 
 Release Noetune v17 with:
 
 1. stable Regular / Deep Session flow
-2. exact in-progress Session bookmark and resume
+2. authenticated Cloud Session bookmark and exact resume
 3. explicit Journey completion
-4. safe Guest / Free / Pro continuity
+4. clear Guest no-save / Free 1 / Pro 50 continuity
 5. v17-owned authentication, membership, and billing state
 6. global privacy, vendor, deletion, and incident-response readiness
 7. three-language and mobile QA
@@ -20,16 +20,19 @@ Permanent decisions belong in files `00–03`. This file owns order and release 
 
 ## 2. Fixed continuity scope
 
-- first save is manual
-- later updates are automatic
-- Guest local active 1
-- Free cloud active 1
-- Pro cloud active maximum 20
+- Guest persistent bookmark: 0
+- Guest remains able to use complete Sessions without Login and without usage limits
+- Free cloud active: 1
+- Pro cloud active: maximum 50
+- first Cloud save is manual and explicit
+- later updates to the same `sessionId` are automatic
+- Login alone does not create or upload a Cloud record
 - Result remains active
 - Repeat uses same sessionId and new cycleId
 - maximum three resumeBackFrames
 - revision optimistic locking
 - old theme bookmark is not migrated
+- Cloud remains feature-flagged off until the Global Privacy & Security Gate passes
 
 ## 3. Execution phases
 
@@ -41,18 +44,18 @@ Deliverable: Snapshot Schema v1 in [[02 Technical & Content Specification]].
 
 ### Phase 4A — Serializer / validator foundation
 
-**Status:** Complete
+**Status:** Complete historical foundation
 
-Scope:
+Original scope:
 
-- Guest only
-- localStorage only
-- Regular only
+- Guest
+- localStorage
+- Regular
 - one active snapshot
 - no visible UI
 - no cloud
 
-Deliverables:
+Delivered:
 
 - `serializeV17SessionSnapshot()`
 - `validateV17SessionSnapshot()`
@@ -60,17 +63,18 @@ Deliverables:
 - local record read/write helpers
 - privacy-safe errors
 
-Gate:
+Current interpretation:
 
-- current flow unchanged
-- syntax and existing smoke checks pass
-- invalid output cannot overwrite valid snapshot
+- this implementation remains repository history and may inform authenticated Cloud continuity
+- it is not a current Guest entitlement
+- Guest persistent writes must be disabled or made unreachable before release
+- Snapshot Schema and validator work may be reused under authenticated Cloud contracts
 
 ### Phase 4B — Guest local Regular restore
 
-**Status:** In Progress — Regular production save / resume accepted; minimal Back and final Gate remain
+**Status:** `SUPERSEDED BY PRODUCT DECISION`
 
-#### Completed
+Historical foundation completed:
 
 - identity / EntryStateV1 / response-state round trip
 - atomic Regular runtime restore
@@ -78,26 +82,26 @@ Gate:
 - Guest local record read-to-resume entrypoint
 - `currentStep` restore
 - `questionVariant` restore
-- Session Mode unselected snapshot / validation / restore
-- Session Mode / Before / First / Second production UI acceptance
-- manual first save
-- automatic updates after first save
-- explicit Resume; Auto Resume remains absent
-- Bookmark / Resume three-language in-flow UX
-- Safari Human real-browser QA
-- valid-record Resume control eligibility
-- Session Snapshot validator tests 13/13 PASS
+- navigation-frame regression coverage
+- latest reported test suite: 14/14 PASS
 
-The accepted implementation is `67ea52d7e1b83ffbf78972d527191e2b17d060da`. It retains Snapshot Schema v1 and accepts Guest-local manual first save, later automatic updates, valid-record eligibility, and explicit Resume across the supported Regular production positions. It does not complete Phase 4B as a whole.
+Human QA record:
 
-#### Remaining
+- Before value persistence was observed
+- First Response screen and A/B variant restoration were observed
+- unconfirmed First Response draft restoration did not match the expected Guest-local behavior
 
-- minimal Regular Back after resume
-- final Phase 4B Gate
+Disposition:
 
-The earlier Before first-save blocker is resolved. Phase 7, Phase 8, Deep, Cloud, auth, and billing are not complete or implicitly advanced by this acceptance.
+- no further Guest-local draft fix
+- no further Guest-local Human QA
+- Phase 4B is not accepted as release PASS
+- Phase 4B is not retained as an active release-blocking FAIL
+- Guest-local Bookmark, Resume entry, and persistent writes are outside the target product
+- existing code remains historical foundation until a separate Commander-authorized removal / disablement Unit
+- authenticated Cloud resume will receive its own acceptance path after Phase 5C
 
-Gate: production UI save, reload, explicit Resume, and automatic-update acceptance have passed at Session Mode, Before, First, and Second; minimal Regular Back and the final Phase 4B Gate must still be accepted before Phase 4B is complete.
+Gate: none for Guest-local release. The feature has been retired. Later Cloud acceptance must be executed through the authenticated production path.
 
 ### New Flow Unit 1 — Regular A/B questions
 
@@ -122,9 +126,9 @@ Accepted scope:
 
 ### New Flow Unit 2 — questionVariant Snapshot persistence
 
-**Status:** Complete (historical Unit 2 checkpoint)
+**Status:** Complete
 
-The following facts are the historical Unit 2 acceptance record at `df1cefa0007a477a6d0cf3869ed781bf553c44d4`; they do not state the current repository HEAD, current test count, or current push state:
+Accepted implementation facts:
 
 - `questionVariant` serialization complete
 - validator A / B allowlist complete
@@ -132,9 +136,9 @@ The following facts are the historical Unit 2 acceptance record at `df1cefa0007a
 - restore-before-render complete
 - `currentStep` restore maintained
 - A / B round trips and invalid-value rejection covered
-- Session Snapshot validator tests 9/9 PASS at the Unit 2 checkpoint
-- historical acceptance HEAD: `df1cefa0007a477a6d0cf3869ed781bf553c44d4`
-- local / remote sync was complete at that historical checkpoint
+- Session Snapshot validator tests 9/9 PASS
+- implementation HEAD: `df1cefa0007a477a6d0cf3869ed781bf553c44d4`
+- local / remote sync complete
 - deploy not performed
 
 Forbidden scope remained unchanged:
@@ -144,7 +148,7 @@ Forbidden scope remained unchanged:
 - no Back redesign
 - no auth, billing, history, Bookmark, or analytics changes
 
-Gate result: Unit 2 implementation and validator acceptance completed at its historical checkpoint. The current Accepted implementation is `67ea52d7e1b83ffbf78972d527191e2b17d060da`; snapshot tests are 13/13 PASS and push has not been performed. Regular production save / resume is accepted under Phase 4B; minimal Back and final Gate remain in progress.
+Gate result: implementation and validator foundation remains accepted as historical code. Guest-local production acceptance is superseded and no longer blocks release sequencing.
 
 ### New Flow Unit 3 — Deep alternating flow
 
@@ -191,7 +195,7 @@ Gate: complete Back matrix passes.
 
 Purpose:
 
-Cloud Session content, Pro archive, cross-device resume, and paid Cloud features may not proceed until the data lifecycle is explainable, testable, and contractually supported.
+Cloud Session content, Free cross-device resume, Pro archive, and paid Cloud features may not proceed until the data lifecycle is explainable, testable, and contractually supported.
 
 Deliverables:
 
@@ -211,7 +215,9 @@ Deliverables:
 
 Fixed rules:
 
-- Login does not auto-upload Guest local writing
+- Guest writing is not persistently stored
+- Login does not auto-upload Guest runtime writing
+- explicit save intent is required before Cloud record creation
 - Session content is not used for ads, sale, AI training, profiling, marketing, or text analytics
 - Session content is not sent to console, analytics, logs, error monitoring, support, or AI coding tools
 - Vercel remains static/content-free for the Session-content path until vendor review approves otherwise
@@ -229,37 +235,46 @@ Deliverables:
 
 - `session_snapshots` storage
 - owner-only RLS
-- Free 1 / Pro 20 enforcement
+- Free 1 / Pro 50 enforcement
 - status and timestamps
 - expected revision / 409 conflict
 - account deletion integration
 
 Gate: User A cannot read, update, or delete User B data.
 
-### Phase 7 — Shared Session header UI
+### Phase 7 — Authenticated Cloud Bookmark entry UI
+
+**Status:** Awaiting separate Commander UX decision
 
 Deliverables:
 
-- one quiet bookmark control
-- Back left / bookmark right
-- all canonical Session pages
-- saved / syncing / local / error states
-- no forced login for Guest local save
+- no Guest persistent Bookmark entitlement
+- no automatic Login interruption during ordinary Session use
+- one quiet authenticated Cloud Bookmark control after explicit save intent
+- clear Login requirement and Cloud save explanation
+- Back and Bookmark placement consistent across canonical Session pages
+- saved / syncing / Cloud unavailable / error states
+- feature flag off before Phase 5C approval
 
-Gate: no layout regression on mobile Safari and Android Chrome.
+The exact Guest save CTA location, Google Login screen, and final copy are not fixed by this plan.
 
-### Phase 8 — Save flow and synchronization
+Gate: no layout regression on mobile Safari and Android Chrome; Guest can complete Sessions without Login; Login alone does not save.
+
+### Phase 8 — Authenticated Cloud save and synchronization
 
 Deliverables:
 
-- manual first save
-- automatic update after save
-- debounce and transition flush
+- explicit first Cloud save
+- no Login-only upload
+- automatic update after the first save
+- authenticated cache debounce and transition flush
 - offline pending queue
-- Guest → login migration
-- conflict resolution UI
+- revision conflict resolution UI
+- Free active 1 enforcement
+- Pro active 50 enforcement
+- no silent deletion at either limit
 
-Gate: network and auth failure never destroy the current Session.
+Gate: network and auth failure never destroy the runtime Session or the only authenticated pending copy.
 
 ### Phase 9 — Active Journey list
 
@@ -269,7 +284,7 @@ Deliverables:
 - mode / position / updated time
 - resume / delete
 - Free one active behavior
-- Pro multiple active behavior
+- Pro up to 50 active behavior
 
 Gate: cards never start a new Session or discard previous answers.
 
@@ -290,10 +305,12 @@ Deliverables:
 
 - Result secondary completion action
 - `v17_result_reached` vs `v17_journey_completed`
-- active → completed / delete behavior by plan
-- move `clearPendingProgress()`
+- Guest completion leaves no persistent record
+- Free active → delete behavior
+- Pro active → completed archive behavior
+- move `clearPendingProgress()` away from Result arrival
 
-Gate: Result arrival alone never removes the active Journey.
+Gate: Result arrival alone never completes a Journey or removes a Cloud active record.
 
 ### Phase 12 — Old bookmark retirement
 
@@ -317,12 +334,12 @@ Languages:
 Surfaces:
 
 - save states
-- migration
+- Login / Cloud consent
 - conflict
 - completion
 - fallback
 - deletion
-- Free / Pro limits
+- Guest 0 / Free 1 / Pro 50 limits
 
 ### Phase 14 — Regression / security QA
 
@@ -417,21 +434,25 @@ Commit, push, and deploy only after explicit approval.
 
 ## 6. Release blockers
 
-- saved Regular or Deep Session cannot restore exactly
-- Back chain fails after resume
+- Guest writing is persistently stored by Noetune
+- Guest Bookmark or Resume entitlement remains active
+- ordinary Guest Session use forces Login
+- Login alone creates or uploads a Cloud Session record
+- authenticated saved Regular or Deep Session cannot restore exactly
+- Back chain fails after authenticated Cloud resume
 - pendingRound is lost, duplicated, or reordered
 - Result arrival completes Journey automatically
 - private writing reaches logs or analytics
 - invalid snapshot overwrites valid data
-- local save is lost on cloud/auth failure
+- authenticated pending save is lost on Cloud or auth failure
 - cross-user access is possible
 - old and new bookmark flows conflict
-- Free / Pro limits silently delete data
+- Free 1 / Pro 50 limits silently delete data
+- Pro 20 remains in target code, copy, or tests
 - critical three-language copy is missing
 - billing entitlement or contracted price is incorrect
 - Cloud Session content is enabled before Phase 5C approval
 - legal operator / data controller is undefined for Cloud or paid release
-- Login silently uploads Guest local writing
 - vendor DPA / subprocessor / transfer suitability is unresolved
 - Journey or Account deletion is not verified end-to-end
 - private writing reaches support tools, coding tools, request logs, or error breadcrumbs

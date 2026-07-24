@@ -4,7 +4,7 @@
 # Noetune v17 Implementation, QA & Decisions
 
 **Status:** Canonical implementation decisions and QA record
-**Updated:** 2026-07-23
+**Updated:** 2026-07-25
 **Implementation baseline:** Local repository is the runtime source of truth. Obsidian is the decision source of truth.
 
 ## 1. Operating model
@@ -265,13 +265,15 @@ Codex must stop the affected Unit and return evidence to Commander ChatGPT when 
 - legal operator / data controller identity before Cloud or paid release
 - acceptance criteria that cannot be executed through the permitted production path
 
-For Guest local implementation, product decisions and Snapshot Schema v1 are complete. Cloud Session content work must not begin before the Global Privacy & Security Gate.
+Guest local bookmark is no longer a target product entitlement. Existing Snapshot Schema and restore code are historical foundations that may be reused for authenticated Cloud continuity. Cloud Session content work must not begin before the Global Privacy & Security Gate.
 
 A blocked prerequisite is reported as `BLOCKED`, not `FAIL`. A product or contract decision is reported as `STOP`. Commander ChatGPT decides the next Unit.
 
 ## 3. Decision record — In-progress Session Bookmark
 
 **Decision date:** 2026-07-15
+
+**Status:** Partially superseded on 2026-07-25. The shared snapshot model remains useful; Guest local 1 and Pro 20 are no longer current entitlements.
 
 ### Product
 
@@ -284,9 +286,9 @@ A blocked prerequisite is reported as `BLOCKED`, not `FAIL`. A product or contra
 
 ### Access
 
-- Guest: local 1 active
-- Free: cloud 1 active
-- Pro: cloud active maximum 20
+- Historical entitlement: Guest local 1 active — **superseded**
+- Current entitlement: Free cloud 1 active
+- Historical entitlement: Pro cloud active maximum 20 — **superseded by maximum 50**
 - Free can resume its one active Journey across devices after login
 - Pro adds multiple active Journeys and completed archive
 
@@ -295,7 +297,7 @@ A blocked prerequisite is reported as `BLOCKED`, not `FAIL`. A product or contra
 - Snapshot Schema v1
 - no raw runtime navigation history
 - maximum three resume back frames
-- local-first
+- historical local-first implementation foundation — Guest entitlement superseded; authenticated cache only
 - revision optimistic locking
 - corrupted snapshot is not auto-deleted or overwritten
 
@@ -314,8 +316,9 @@ A blocked prerequisite is reported as `BLOCKED`, not `FAIL`. A product or contra
 
 - Noetune remains a worldwide product target
 - worldwide target does not require simultaneous worldwide Cloud content launch
-- Guest local is the first continuity release stage
-- Free cloud, Pro archive, cross-device resume, and paid Cloud features are gated
+- Historical Guest-local continuity stage is **superseded**
+- Worldwide Guest release provides complete Sessions without persistence
+- Free cloud, Pro archive, cross-device resume, and paid Cloud features remain gated
 
 ### Content classification
 
@@ -359,6 +362,54 @@ Before Cloud Session content or paid Cloud release:
 - prepare incident response
 - review privacy notice, terms, and consent copy
 
+## 3B. Decision record — Guest local bookmark retirement and Cloud entitlement revision
+
+**Decision date:** 2026-07-25
+
+### Decision
+
+- Guest local bookmark is formally retired as a product entitlement
+- Guest can use complete Regular / Deep Sessions without login and without usage limits
+- Guest persistent bookmark count is 0
+- Guest writing is not persisted to localStorage or Cloud
+- Guest browser or tab close does not guarantee exact resume
+- Free login receives one active Cloud bookmark
+- Pro receives up to 50 active Cloud bookmarks
+- Pro completed archive and theme history remain unchanged
+- Login alone does not create or upload a Cloud record
+- the first Cloud save requires an explicit user action and clear save / deletion explanation
+- Cloud functionality remains disabled until the Global Privacy & Security Gate passes
+
+### Superseded decisions
+
+The following are historical and no longer define the target product:
+
+- Guest local active 1
+- Guest localStorage as the canonical bookmark source
+- Guest browser-restart exact resume as a release right
+- Pro active maximum 20
+- Guest local Phase 4B completion as a release prerequisite
+- worldwide Guest-local continuity as Stage 1
+
+### Phase 4B disposition
+
+- the Guest local serializer, validator, restore, navigation-frame, and test foundation remains in repository history
+- Human QA confirmed Before value persistence and First Response screen / variant restoration
+- Human QA also observed that the unconfirmed First Response draft was not restored
+- no additional Guest-local draft fix or Human QA is authorized because the entire Guest-local bookmark entitlement has been retired
+- Phase 4B is neither accepted as PASS nor left as an active FAIL-fix track
+- final verdict: `SUPERSEDED BY PRODUCT DECISION`
+- a later code Unit must disable or remove Guest bookmark UI, Guest resume entry, and Guest persistent writes from the target release
+- Snapshot Schema and restore logic may be reused only for authenticated Cloud bookmarks under the new entitlement and privacy contracts
+
+### Current product boundary
+
+```text
+Guest = unlimited complete Sessions, no persistent bookmark
+Free  = one active Cloud bookmark
+Pro   = up to 50 active Cloud bookmarks + completed archive / history
+```
+
 ## 4. Decision record — Official v17 line and new question flow
 
 **Decision date:** 2026-07-20
@@ -396,58 +447,38 @@ It does not include Deep, Back redesign, auth, billing, history, Bookmark, analy
 
 ### Regular Unit 2 — `questionVariant` Snapshot persistence
 
-**Status:** Complete (historical Unit 2 checkpoint).
+**Status:** Complete and pushed by current repository HEAD `df1cefa0007a477a6d0cf3869ed781bf553c44d4`.
 
-The following facts describe the Unit 2 acceptance checkpoint at `df1cefa0007a477a6d0cf3869ed781bf553c44d4`; they are not the current repository HEAD or current test-count report:
+Accepted repository facts reported through the current implementation line:
 
 - `questionVariant` is included in Regular Snapshot serialization
 - validator accepts only canonical A / B values
 - older valid records without the field follow the documented default / migration behavior
 - restore re-establishes the exact variant before rendering the Regular prompt
 - existing `currentStep` restoration remains intact
-- characterization and validator coverage passed 9/9 at that checkpoint
-- local and remote branch heads matched at that checkpoint
+- characterization and validator coverage pass 9/9
+- local and remote branch heads match
 
-The following Before-only facts are a historical checkpoint, superseded by the current Phase 4B acceptance record below: repository HEAD was `f2bee8207f466b2bfbdad16fa7ed4517fa77d245`, the accepted implementation was `de3a2df6e8dbfe5921c80939862325131f46322d`, and snapshot tests passed 10/10.
-
-### Phase 4B acceptance record
+### Phase 4B acceptance sequencing decision
 
 **Decision date:** 2026-07-23
+**Final status amended:** 2026-07-25 — `SUPERSEDED BY PRODUCT DECISION`
 
-#### Historical blocker — resolved
+Historical runtime evidence:
 
-The earlier Before first-save `BLOCKED` record was based on a runtime where a reachable production first-save control was unavailable. It is retained as historical evidence only; it is not the current state.
+- Guest production navigation reached the canonical Regular resume screens
+- a production first-save path was later exposed and Human QA proceeded
+- Before persistence and First Response screen / variant restore were observed
+- First Response unconfirmed draft restore did not match the expected Guest-local contract
 
-#### Historical Before-only implementation
+Final Commander interpretation:
 
-Accepted implementation commit: `de3a2df6e8dbfe5921c80939862325131f46322d` (`de3a2df feat(v17): enable guest before bookmark resume`). Snapshot tests: **10/10 PASS**.
-
-Root causes resolved by the accepted Unit:
-
-1. Before unconditionally performed Regular Flow metadata validation even though Before has no in-progress Regular Flow.
-2. The Resume control had no record-eligibility-linked visibility handling.
-
-Human real-browser QA accepted the following Before-only Guest-local path:
-
-- Bookmark is shown at Guest Regular Before; no localStorage record exists before the manual Bookmark action.
-- Without Bookmark, reload shows no Resume; Bookmark performs the manual first save and remains on Before.
-- After reload, the Guest local record remains; Landing displays Resume only for a valid eligible record and hides it for no record, invalid, unsupported, or corrupt records.
-- There is no Auto Resume. The existing `#btn-resume-progress` route explicitly resumes the saved session, preserving theme, session identity, currentStep, `s-v17-before`, and the saved Bookmark state.
-- Private Session content is absent from console, analytics, and error output.
-
-This completed the narrow **Before manual first-save prerequisite Unit**. It is retained as the historical checkpoint that preceded the wider production acceptance below.
-
-#### Current accepted Bookmark / Resume implementation
-
-Accepted implementation commit: `67ea52d7e1b83ffbf78972d527191e2b17d060da` (`feat(v17): resume guest sessions from regular screens`). Snapshot tests: **13/13 PASS**; syntax and ja / en / zh-TW JSON parsing passed.
-
-Safari Human real-browser QA accepted Session Mode (including its unselected state), Before, First Response, and Second Response production save / reload / explicit-Resume paths. The first save is manual; after it, automatic updates correctly maintain the same Guest-local `sessionId` / `cycleId` record so explicit Resume returns to the newest valid canonical screen. Auto Resume remains absent.
-
-The accepted automatic-update write path is `submitV17BeforeScore()` → pending saved-snapshot update reason → canonical navigation → `updateBackBtn()` → `updateV17SavedSessionSnapshot()` → `writeCurrentV17SessionSnapshot()` → serializer → Guest Local Repository write. This is the accepted continuation behavior after first save, not an implicit first save.
-
-The Bookmark UI is in the body action flow, with in-flow save status, and locale JSON is the sole source for Bookmark, Resume, and status copy. Human QA found missing First / Second Bookmark hosts; the placement was corrected, with no duplicate control IDs. First-answer quotation and context were retained through Second exact Resume. Private Session content was not exposed in console, analytics, or generic errors.
-
-Phase 4B remains **In Progress**. Only minimal Regular Back after resume and the final Phase 4B Gate remain. The next Unit and acceptance authority remain with Commander ChatGPT.
+- do not continue Guest-local bug fixing or acceptance
+- do not classify Phase 4B as release PASS
+- do not keep it as an active release-blocking FAIL
+- preserve the implementation and test history for possible authenticated Cloud reuse
+- the target release must remove or disable Guest bookmark UI, Guest resume entry, and Guest persistent writes
+- the next code sequence is a separate Commander decision after canonical documentation is aligned
 
 ## 5. Completed investigation record
 
@@ -537,15 +568,18 @@ Internal same-screen Back behavior must not consume unrelated canonical frames. 
 - appVersion mismatch alone does not delete data
 - old theme bookmark is not a Snapshot Schema migration source
 
-### Local-first
+### Authenticated cache and Cloud-first entitlement
 
-- local write success determines immediate “saved on this device” state
-- cloud failure does not block the Session
-- pending sync remains until success or explicit resolution
+- Guest runtime is memory-only and has no persistent bookmark entitlement
+- first Cloud save is explicit
+- authenticated local cache may support offline queue and failure recovery
+- authenticated cache is not a Guest feature or source of entitlement
+- no Cloud success path may delete the only safe pending copy
+- Cloud adapter remains replaceable
 
 ## 8. Canonical save triggers
 
-Manual first save is initiated by the shared Session Bookmark control. The trigger table below defines automatic update / flush behavior after the bookmark has been enabled; it does not replace the requirement for a reachable manual first-save path.
+Manual first Cloud save is initiated by an authenticated Session Bookmark action. The trigger table below defines automatic update / flush behavior after Cloud bookmark enablement. Guest runtime must not execute persistent save triggers.
 
 | Screen | Trigger after bookmark enablement |
 |---|---|
@@ -560,7 +594,7 @@ Manual first save is initiated by the shared Session Bookmark control. The trigg
 | Result | arrival, without completion |
 | Repeat | start, mode selection, response, Result return |
 
-Only a Session with an enabled bookmark is auto-updated. Automatic updates after the manual first save are accepted for the currently supported Regular production positions; Deep and later-screen behavior remains outside this accepted scope.
+Only an authenticated Session with an explicitly enabled Cloud bookmark is auto-updated. Guest Sessions are never persistently auto-updated.
 
 ## 9. Analytics decision
 
@@ -594,12 +628,14 @@ v17_journey_completed: once per session
 
 ## 10. Privacy and security QA
 
-### Guest local
+### Guest no-persistence
 
-- [ ] no persistent content before the user enables the bookmark
-- [ ] no Cloud request from Guest local save or resume
-- [ ] shared-device warning and local deletion behavior are accurate
-- [ ] corrupt local record remains undeleted and unmodified
+- [ ] Guest can complete Regular / Deep Sessions without login
+- [ ] Guest has no persistent bookmark control or resume entitlement
+- [ ] Guest writing is not written to localStorage, IndexedDB, Cloud, logs, analytics, or error payloads
+- [ ] closing and reopening the browser does not expose a Noetune-saved Guest resume record
+- [ ] ordinary Session navigation never forces Login
+- [ ] explicit save intent is the only allowed path toward Login / Cloud bookmark onboarding
 
 ### Cloud ownership and access
 
@@ -620,11 +656,12 @@ v17_journey_completed: once per session
 
 ### User control and lifecycle
 
-- [ ] Login does not auto-upload Guest local content
-- [ ] Cloud failure never removes the local copy
+- [ ] Login does not auto-upload Guest runtime content
+- [ ] explicit Cloud save is required before record creation
+- [ ] Cloud failure never removes the authenticated pending copy
 - [ ] Journey deletion removes the selected record
 - [ ] Account deletion removes active, completed, old bookmark, and authenticated cache
-- [ ] Logout removes authenticated local cache but not unmigrated Guest data
+- [ ] Logout removes authenticated local cache; Guest has no persistent data to migrate
 - [ ] data copy / correction / deletion requests have an operational procedure
 - [ ] retention and backup behavior match user-facing explanations
 
@@ -683,18 +720,22 @@ v17_journey_completed: once per session
 
 ## 12. Storage and sync QA
 
-- [ ] Guest local 1 active
-- [ ] browser reload resume
-- [ ] local quota error keeps runtime Session
-- [ ] offline save
-- [ ] online retry
-- [ ] token expiry keeps local copy
+- [ ] Guest persistent active count is 0
+- [ ] Guest writing does not survive through a Noetune persistent record
+- [ ] ordinary Guest browser reload does not expose a resume entitlement
+- [ ] Login alone creates no Cloud record
+- [ ] explicit first Cloud save creates one owner-bound record
+- [ ] authenticated cache quota error keeps the runtime Session
+- [ ] offline Cloud save keeps a pending authenticated copy
+- [ ] online retry preserves revision safety
+- [ ] token expiry keeps the authenticated pending copy
 - [ ] Free cloud 1 active replacement confirmation
-- [ ] Pro 20 active limit without silent deletion
-- [ ] same-session migration
+- [ ] Pro 50 active limit without silent deletion
+- [ ] same-session authenticated cache / Cloud reconciliation
 - [ ] different-session Free choice
 - [ ] revision conflict returns 409
 - [ ] old client cannot silently overwrite new cloud state
+- [ ] cross-device resume restores the exact saved state
 
 ## 13. Fallback QA
 
@@ -718,82 +759,120 @@ Required languages:
 
 Required concepts:
 
-- save on this device
+- save to your account
 - saved / syncing / synced
-- cloud unavailable
+- Cloud unavailable
 - resume
 - Journey completion
 - replace Free active Journey
+- Pro 50-item limit
 - conflict
 - partial recovery
 - corrupt snapshot
 - delete bookmark
+- Login alone does not save
+- Guest Sessions are not saved
 
-Copy must be quiet, clear, nonpromotional, and explicit around deletion and privacy.
+Copy must be quiet, clear, nonpromotional, and explicit around Login, Cloud save, deletion, and privacy.
 
 ## 15. Release blockers
 
 Do not release when:
 
-- exact Back chain fails after resume
+- Guest writing is persistently stored by Noetune
+- Guest bookmark or resume entitlement remains active
+- ordinary Session flow forces Login
+- Login alone creates or uploads a Cloud Session record
+- exact Back chain fails after authenticated Cloud resume
 - Deep round or pendingRound is lost or duplicated
 - invalid snapshot overwrites a valid one
 - Result automatically completes or removes an active Journey
 - cross-user read/update/delete is possible
-- Guest save triggers forced login
-- cloud failure destroys local state
-- Free / Pro count is enforced by silent deletion
+- Cloud failure destroys the authenticated pending state
+- Free 1 / Pro 50 count is enforced by silent deletion
+- Pro 20 remains in target entitlement enforcement
 - private writing appears in logs or analytics
 - old and new bookmark UI are both active
 - Cloud Session content is enabled before the Global Privacy & Security Gate
 - data controller / legal operator is not identified for Cloud or paid release
 - a Session-content vendor has not passed DPA / subprocessor / transfer review
-- Login silently uploads Guest local writing
 - Account deletion or Journey deletion is not verified end-to-end
 - user-facing privacy or encryption claims exceed the implemented controls
 
 ## 16. Current status
 
-Repository facts reported at the current accepted checkpoint:
+Latest Commander-known repository facts before this documentation revision:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: 67ea52d7e1b83ffbf78972d527191e2b17d060da
-tracked working tree: clean
+HEAD: 4e931a70e7463f16e39cdb182ada3e28b8b8437f
+tracked changes: docs 03 and 05 were already modified and protected
 staged changes: none
-latest accepted implementation: 67ea52d7e1b83ffbf78972d527191e2b17d060da
-push: not performed
+push: not performed for the protected documentation changes
 deploy: not performed
 untracked backup files: 5, preserved and untouched
 ```
 
 | Work unit | Status |
 |---|---|
-| Snapshot serializer / validator / migration foundation | Complete |
-| Guest local Regular runtime restore foundation | Complete |
-| `currentStep` restore fix (`453862f`) | Complete |
-| New Regular A/B flow Unit 1 (`98931af`) | Complete |
-| Unit 2: `questionVariant` Snapshot persistence | Complete and pushed |
-| Snapshot validator / characterization suite | 13/13 PASS |
-| Guest production navigation to Session mode / Before | Confirmed |
-| Session Mode / Before / First / Second production save and Resume | Complete — Safari Human real-browser QA accepted |
-| Manual first save / automatic update flow | Complete — manual first save, then accepted automatic updates for supported Regular positions |
-| Landing Resume control eligibility | Complete — valid Guest-local record only; fail closed otherwise |
-| Phase 4B | In Progress — Regular production save / resume accepted; minimal Back and final Gate pending |
-| minimal Regular Back after resume | Not started |
+| Snapshot serializer / validator / migration foundation | Complete; historical foundation retained |
+| Guest local Regular runtime restore foundation | Implemented; target entitlement retired |
+| `currentStep` restore fix | Complete |
+| New Regular A/B flow | Complete |
+| `questionVariant` Snapshot persistence | Complete |
+| Snapshot / navigation regression suite | 14/14 PASS at latest reported checkpoint |
+| Safari top-control stabilization | Complete |
+| Guest local Phase 4B Human QA | `SUPERSEDED BY PRODUCT DECISION` |
+| First Response Guest-local draft mismatch | Observed; no Guest-local fix authorized |
+| Guest bookmark UI / resume / persistent write removal | Required; not started |
 | New Deep A/B alternating flow | Approved, not started |
-| Breath / Final / Result / Repeat exact resume | Not started |
-| Bookmark / Resume three-language in-flow UX | Complete — accepted at the four supported production screens |
+| Authenticated Cloud bookmark | Not started |
+| Free cloud active 1 / Pro cloud active 50 | Canonical decision fixed; implementation not started |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |
 | Cloud / RLS | Blocked by privacy gate |
-| Active Journey list | Not started |
-| Explicit completion | Not started |
+| Explicit completion / Pro archive | Not started |
 | Full QA / release | Not started |
+
+Repository facts must be re-verified at the start of the next Codex Unit. This section records the latest accepted conversation checkpoint, not permission to modify Git state.
 
 ## 17. Current Commander gate and next authorized work
 
 ### Current gate
 
-Phase 4B remains in progress. Its Session Mode, Before, First, and Second production save / resume scope is accepted; minimal Regular Back after resume and the final Phase 4B Gate remain. Phase 7, Phase 8, Deep, Cloud, auth, and billing are not complete or implicitly advanced. Commander ChatGPT chooses the next Unit and grants its acceptance authority.
+Do not continue Guest-local bookmark bug fixing, Guest-local resume Human QA, or Guest-local release acceptance.
 
-Codex must not independently change Snapshot Schema v1, reorder phases, count direct serializer/localStorage/restore calls as production acceptance, or start remaining acceptance without a Commander-approved Unit.
+Do not independently:
+
+- preserve Guest bookmark UI as a release entitlement
+- create a new Guest persistent storage mechanism
+- upload Guest runtime content on Login
+- enable Cloud before the Global Privacy & Security Gate
+- change Free 1 / Pro 50 limits
+- remove Pro completed archive or theme history
+- begin Cloud DB / API / RLS implementation without a separate Commander Unit
+- commit, push, or deploy based only on this documentation decision
+
+### Next product-code sequencing decision
+
+Commander ChatGPT must separately define the smallest safe code sequence for:
+
+1. disabling or removing Guest bookmark controls
+2. disabling Guest resume entry and Guest persistent writes
+3. preserving ordinary Guest Session access without Login
+4. deciding the explicit save-intent → Google Login → Cloud consent UX
+5. implementing Global Privacy & Security Gate prerequisites
+6. implementing authenticated Free 1 / Pro 50 Cloud continuity
+
+Existing Guest-local code may remain temporarily as unreachable historical foundation, but it must not define public entitlement or silently persist Guest content.
+
+### Acceptance direction
+
+The next release-oriented QA must establish:
+
+- Guest has no Noetune persistent record
+- Guest can still use complete Sessions without Login
+- Login alone does not save
+- explicit Cloud save is required
+- Free enforces 1 active record
+- Pro enforces 50 active records
+- cross-device resume and owner-only RLS pass after the privacy gate

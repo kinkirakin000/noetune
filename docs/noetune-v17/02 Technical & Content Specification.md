@@ -5,7 +5,7 @@
 
 **Status:** Canonical technical and content specification
 **Implementation baseline:** `app-v17(15).html`
-**Updated:** 2026-07-23
+**Updated:** 2026-07-25
 
 ## 1. Scope
 
@@ -89,7 +89,7 @@ activeJourneys
 D.v17SessionMode
 ```
 
-選択済みの有効値：
+有効値：
 
 ```text
 regular
@@ -98,11 +98,10 @@ deep
 
 ルール：
 
-- `s-v17-session-mode`でユーザーがまだ選択していない間だけ`null`を許可する
-- `null`はRegularへの正規化や選択済みの証拠として扱わない
-- Session開始後およびSession Mode以外のsupported screenでは`regular`または`deep`を要求する
+- Session開始前に正規化
+- `deep`以外は`regular`
 - plan stateと混同しない
-- save payloadへ含める。未選択Session ModeではSchema v1の条件付き`null`契約に従う
+- save payloadへ含める
 
 ## 6. Entry Model
 
@@ -242,7 +241,7 @@ Question 2: answer1 → route-specific opposite side
 
 ## 11. Snapshot Schema v1
 
-途中しおりの正規保存形式は`SessionSnapshotV1`である。
+authenticated Cloudしおりの正規保存形式は`SessionSnapshotV1`である。Guestはこのschemaを永続保存権利として持たない。
 
 ```ts
 interface SessionSnapshotV1 {
@@ -262,7 +261,7 @@ interface SessionSnapshotV1 {
   currentScreen: CanonicalSessionScreen;
   summary: SessionSummaryV1;
   currentCycle: CurrentCycleV1;
-  currentState: CurrentStateV1;
+  currentState: SessionFrameStateV1;
   repeatState: RepeatStateV1 | null;
   resumeBackFrames: ResumeBackFrameV1[];
 }
@@ -272,7 +271,7 @@ interface SessionSnapshotV1 {
 
 - UTC ISO 8601
 - `createdAt`: Journey開始
-- `savedAt`: 初めてしおりを挟んだ時
+- `savedAt`: 初めてCloudしおりを明示保存した時
 - `updatedAt`: 内容の最終更新
 - `completedAt`: 明示的完了
 - `discardedAt`: 明示的破棄
@@ -300,146 +299,17 @@ type CanonicalSessionScreen =
   | "s-result";
 ```
 
-Landing、theme未確定画面、Auth、Pricing、Membership、Settings、Aboutは途中しおり対象外。
-
-### Current screen responsibilities
-
-The current implementation keeps these responsibilities separate:
-
-```text
-SCHEMA_KNOWN_SCREENS
-SERIALIZABLE_SCREENS
-RESTORABLE_SCREENS
-```
-
-Schema v1 currently serializes, validates, and restores only:
-
-```text
-s-v17-session-mode
-s-v17-before
-s-v17-first-response
-s-v17-second-response
-```
-
-The following are schema-known but not currently serializable, validatable as supported snapshots, or restorable:
-
-```text
-s-v17-deep-response
-s-v17-deep-feel-100
-s-v17-breath
-s-v17-final-measure
-s-result
-```
-
-Being schema-known does not make a screen valid, serializable, or restorable.
-
-### Guest-local save and resume contract
-
-The following four screens are the accepted Guest-local Snapshot Schema v1 save and resume positions:
-
-```text
-s-v17-session-mode
-s-v17-before
-s-v17-first-response
-s-v17-second-response
-```
-
-`s-v17-session-mode` is a conditional canonical resume screen. Only while Session Mode is still unselected may Schema v1 use the following shape:
-
-```ts
-currentScreen: "s-v17-session-mode";
-summary.sessionMode: null;
-currentState.sessionMode: null;
-currentState.currentStep: "session-mode";
-currentState.regularFlow: null;
-currentState.deepFlow: null;
-resumeBackFrames: [];
-```
-
-- `null` session mode is valid only for `s-v17-session-mode`; all other supported screens retain their existing mode contract.
-- Restore of this conditional Session Mode snapshot preserves the unselected state. It must not infer Regular, start Regular or Deep, or substitute Before, First, or a completed flow.
-
-`s-v17-before` is also a canonical Snapshot Schema v1 and resume screen. Its implemented Before snapshot contract is:
-
-```ts
-currentScreen: "s-v17-before";
-currentState.regularFlow: null;
-```
-
-- Before must not be represented as First or as a completed Regular flow merely to satisfy Regular Flow metadata validation.
-- At Before, validation must not require in-progress Regular Flow metadata.
-- The existing Snapshot API, serializer, validator, repository, and restore path remain the Schema v1 contract; this Before support does not change the schema.
-- The first Guest-local save is a deliberate production UI action. After that save, the same `sessionId` / `cycleId` record may be automatically updated by canonical navigation, Back, response confirmation, and supported response changes; Resume restores the newest valid canonical screen.
-- Bookmark is placed in each supported screen's in-flow content area: below Regular / Deep on Session Mode, and below the primary action and step-skip action on Before, First Response, and Second Response. Its saving, saved, and failure state is displayed in the same flow rather than overlaying other controls.
-- Landing shows the existing Resume control (`#btn-resume-progress`) only when a valid Guest-local record is eligible. It is hidden for no record, invalid, unsupported, or corrupt records. Eligibility fails closed.
-- Auto Resume is prohibited. An eligible user explicitly chooses Resume, which uses the existing resume path.
-- Display copy, including Bookmark, Resume, and save-status text and assistive labels, has locale JSON as its sole source of truth.
-- Eligibility checks and save / restore console, analytics, and generic error paths must not expose private Session content.
-
-### Current step classification
-
-The current Schema v1 validator allowlist is:
-
-```text
-session-mode
-before
-first-response
-second-response
-step1
-step2
-step3
-```
-
-Runtime values that exist but are not accepted by the current Schema v1 validator are:
-
-```text
-step4.first
-step4.second
-step5
-step6
-deep.current
-deep.ideal
-deep.feel100
-```
-
-| currentStep | runtime exists | Schema v1 accepted | restore supported |
-|---|---:|---:|---:|
-| session-mode | yes | yes | yes |
-| before | yes | yes | yes |
-| first-response | yes | yes | yes |
-| second-response | yes | yes | yes |
-| step1 | yes | yes | supported screen dependent |
-| step2 | yes | yes | supported screen dependent |
-| step3 | yes | yes | supported screen dependent |
-| step4.first | yes | no | no |
-| step4.second | yes | no | no |
-| step5 | yes | no | no |
-| step6 | yes | no | no |
-| deep.current | yes | no | no |
-| deep.ideal | yes | no | no |
-| deep.feel100 | yes | no | no |
-
-`step1`, `step2`, and `step3` are runtime-dependent and are not documented as a one-to-one canonical screen mapping.
+Landing、theme未確定画面、Auth、Pricing、Membership、Settings、AboutはCloudしおり対象外。Guestは全画面で永続しおり対象外。
 
 ## 13. Summary and entry
 
 ```ts
 interface SessionSummaryV1 {
-  locale: "ja" | "en" | "zh-TW" | null;
-  sessionMode: "regular" | null;
-  routeType: "problem" | "ideal" | "spiritual";
-  entryType: "free_input" | "life_theme" | "spiritual_wisdom";
-
-  themeId: string | null;
-  themeLabel: string | null;
+  themeLabel: string;
   subthemeLabel: string | null;
-  themeDescription: string | null;
-  categoryId: string | null;
-  categoryLabel: string | null;
-  track: string | null;
-  freeInputTheme: string | null;
-  questionId: string | null;
-  questionTextAtTime: string | null;
+  entryType: "free_input" | "life_theme" | "spiritual_wisdom";
+  sessionMode: "regular" | "deep";
+  locale: "ja" | "en" | "zh-TW";
 }
 
 interface EntryStateV1 {
@@ -458,35 +328,7 @@ interface EntryStateV1 {
 }
 ```
 
-`sessionMode: null` is the conditional unselected Session Mode value described in Section 12; it is invalid for every other supported snapshot screen. The current supported Regular snapshots otherwise use `"regular"`.
-
 保存時の表示文脈を保持し、将来JSONが変更されても元Journeyの意味を壊さない。
-
-`SessionSummaryV1`は、現行Schema v1 serializerが実際に出力する14-keyのsummary/context snapshotをcanonical保存contractとして扱う。`currentState.entry`と一部fieldが重複するが、保存時点のtheme／entry表示文脈を保持するための意図的な重複である。restoreの正本は原則として`currentState.entry`とcurrent stateであり、現行restoreがsummaryから直接利用する主要fieldは`sessionMode`である。Schema v1の途中でこのsummary fieldを削除・renameしてはならず、将来の一覧projectionやstorage normalizationは独立した判断とする。
-
-以前の次の5-key shapeは、Snapshot Schema v1の保存shapeではない。
-
-```text
-themeLabel
-subthemeLabel
-entryType
-sessionMode
-locale
-```
-
-これは将来の`Session list projection`候補であり、独立interfaceとしては未実装である。Snapshotへ追加せず、serializer outputを狭めず、既存14-key summaryを置換せず、Schema versionも変更しない。
-
-`subthemeLabel`は保存時点の補助表示文脈であり、安定したtaxonomy IDではない。独立した正式subtheme sourceが常に存在するとは限らず、現行生成ではquestion text等のfallbackを含み得る。現行生成規則は変更せず、一覧UIでの正式利用方法は未決定であり、IDとして扱わない。
-
-`SessionSummaryV1`全体を一般的なprivacy-safe metadataとして扱ってはならない。`themeLabel`、`subthemeLabel`、`themeDescription`、`categoryLabel`、`freeInputTheme`、`questionTextAtTime`はHigh Confidentiality User Contentを含み得るため、analytics、console、server log、error payload、support／coding tool、一般検索indexまたは非保護metadataへ値を出してはならない。`themeId`や`entryType`等の識別fieldも、組み合わせによる推測可能性があるため、Snapshot境界外へ無条件に出してはならない。Cloud利用時もowner-only accessと既存privacy gateに従う。
-
-Schema v1 compatibility rule:
-
-```text
-snapshotSchemaVersion = 1
-```
-
-既存14-key Schema v1 recordを維持し、field削除・field rename・exact-key validator導入・serializer narrowing・migration追加・Schema v2・既存recordの自動書換えは行わない。
 
 ## 14. Measurement and response
 
@@ -511,52 +353,10 @@ interface ResponseValueV1 {
 - `text`は確定値、`draft`は現在textarea値
 - `text`と`draft`が異なることを許可
 
-## 15. Current Schema v1 state
-
-The following interface describes the exact `currentState` shape emitted by the current Schema v1 serializer. It is the implemented current contract, not the future semantic frame proposal below.
+## 15. Frame state
 
 ```ts
-interface CurrentStateV1 {
-  currentScreen: string;
-  currentStep: string | null;
-  routeType: "problem" | "ideal" | "spiritual";
-  entryType: string;
-  locale: "ja" | "en" | "zh-TW" | null;
-
-  entry: EntryStateV1;
-
-  measurement: {
-    before: MeasurementV1;
-    after: MeasurementV1;
-  };
-
-  responses: {
-    current: ResponseValueV1;
-    ideal: ResponseValueV1;
-  };
-
-  semanticState: {
-    current: string | null;
-    ideal: string | null;
-  };
-
-  regularFlow: RegularFlowV1 | null;
-  scoreTrail: unknown[];
-  awarenessTrail: unknown[];
-  deepFlow: null;
-}
-```
-
-The current serializer also normalizes and clones the two trail arrays, but their element contracts are not yet defined. `entry` preserves display context, and `responses.current.text`, `responses.current.draft`, `responses.ideal.text`, `responses.ideal.draft`, and awareness trail elements may contain private user-provided content. Error results and console output must never include those values.
-
-The current `CurrentStateV1` does not contain `sessionMode`, root-level `before` or `after`, `deltaScore`, `breath`, or `resultView`. The implemented shape additionally contains `currentScreen`, `entryType`, `measurement`, and `semanticState`, which must not be omitted from current-contract documentation.
-
-## 16. Proposed / Not Yet Implemented: semantic frame state
-
-The following is a future target for semantic `ResumeBackFrame` state. It is not the current Schema v1 serializer output, and Schema v2 does not yet exist.
-
-```ts
-interface ProposedSessionFrameStateV2 {
+interface SessionFrameStateV1 {
   currentStep: string;
   locale: "ja" | "en" | "zh-TW";
   sessionMode: "regular" | "deep";
@@ -578,45 +378,9 @@ interface ProposedSessionFrameStateV2 {
 }
 ```
 
-This proposed shape is not implemented. Non-empty `resumeBackFrames` are currently rejected, the field composition must be re-confirmed before implementation, and root current state and historical frame state are not assumed to be identical.
+runtimeの`D`全体は保存しない。serializerが必要fieldだけを正規化する。
 
-Runtimeの`D`全体は保存しない。将来のsemantic frame serializerも必要fieldだけを正規化する。
-
-`ScoreTrailStateV1`は名称のみ確定しており、exact element type、object shape、nullable rule、maximum length、ordering、duplicate rule、frame stateでの必須性は未確定である。現行runtime sourceは`currentThemeScoreTrail`系、serializer outputはcloneされたArrayであり、before/after score表示とResult UIで利用される。lengthが5を超える場合はexpand UIが関係するが、これをschema上限とは扱わない。
-
-`AwarenessTrailStateV1`も未確定である。現行runtime sourceは`currentThemeAwarenessTrail`系、serializer outputはcloneされたArrayで、Result UIでは文字列一覧として扱われる。private response由来本文を含み得るため、将来validatorのfailure resultやconsoleへ要素内容を出してはならない。canonical element type、maximum length、normalization、duplicate rule、frame stateでの必要性は未確定である。
-
-### Root state and historical frame validator boundary
-
-判定は **B** とする。root `currentState`とResumeBackFrame `state`は共通leaf validatorを共有できるが、screen-state consistency validatorは別に必要である。
-
-- root currentStateはroot currentScreenとの一致が必要
-- frame stateは過去screenのsemantic stateであり、frame screenIdとroot currentScreenは異なり得る
-- currentStep、regularFlow、breath、resultViewの整合条件はscreenごとに異なる
-- 現行CurrentStateV1と将来frame target shapeはまだ完全一致していない
-
-### Implementation order
-
-```text
-1. 現行Schema v1 currentState契約を文書化
-2. 未確定trail/currentStep/screen整合を明示
-3. 共通leaf validator foundation
-4. frame state envelope validator
-5. RegularFlow validator
-6. Breath / Result state契約
-7. screen-state consistency validator
-8. Schema v2 / migration
-9. non-empty resumeBackFrames serializer
-10. atomic restore history rebuild
-```
-
-Deep / Repeatは別トラックとして後回しにする。
-
-### Hardening note
-
-Current Snapshot trust boundary is JSON.parse-compatible data. Custom accessor/getter objects are not expected in normal persisted Snapshot input. Before accepting non-JSON object sources or enabling a broader external ingestion path, validator hardening must prevent throwing accessors from escaping validation.
-
-## 17. Regular flow
+## 16. Regular flow
 
 ```ts
 interface RegularFlowV1 {
@@ -632,7 +396,7 @@ interface RegularFlowV1 {
 - old snapshot migrationでは欠落時のみ`A`へ補完する
 - 回答は画面順とsemantic roleの両方を壊さず保持する
 
-## 18. Deep flow
+## 17. Deep flow
 
 ```ts
 type DeepPhase = "current" | "ideal" | "feel100";
@@ -663,7 +427,7 @@ interface DeepRoundV1 {
 - No More Words後も未完了roundは`pendingRound`
 - `finished`はDeep終了でありJourney完了ではない
 
-## 19. Breath
+## 18. Breath
 
 ```ts
 interface BreathStateV1 {
@@ -678,7 +442,7 @@ interface BreathStateV1 {
 
 resume時は保存されたStepの開始状態から表示し、`isAnimating = false`で初期化する。
 
-## 20. Current cycle and Result
+## 19. Current cycle and Result
 
 ```ts
 interface CurrentCycleV1 {
@@ -698,13 +462,13 @@ interface ResultViewStateV1 {
 
 `currentScreen = s-result`かつ`status = active`を正規状態として許可する。
 
-## 21. Repeat state
+## 20. Repeat state
 
 ```ts
 interface RepeatStateV1 {
   active: boolean;
-  resultState: ProposedSessionFrameStateV2 | null;
-  cycleState: ProposedSessionFrameStateV2 | null;
+  resultState: SessionFrameStateV1 | null;
+  cycleState: SessionFrameStateV1 | null;
   returnPending: boolean;
   modeSelectionPending: boolean;
   beforeScore: MeasurementV1 | null;
@@ -723,12 +487,12 @@ runtime対応：
 
 Repeat state内に別のrepeat stateやresume frameを入れない。
 
-## 22. Resume Back Frames
+## 21. Resume Back Frames
 
 ```ts
 interface ResumeBackFrameV1 {
   screenId: CanonicalSessionScreen;
-  state: ProposedSessionFrameStateV2;
+  state: SessionFrameStateV1;
   repeatState: RepeatStateV1 | null;
 }
 ```
@@ -748,14 +512,16 @@ Back: Result → Final → Breath → Response
 
 No More Words後のBreathでは、遷移直前のDeep Response frameが必須。現在stateから押下前の`deep.finished`や`pendingRound.incomplete`を完全には逆算できない。
 
-## 23. Local storage envelope
+## 22. Authenticated local cache envelope
+
+Cloudしおりの信頼性向上のため、ログイン済みユーザーに限りwrite-through cache / offline queueを使うことができる。
 
 ```ts
 interface LocalSessionRecordV1 {
   storageSchemaVersion: 1;
   snapshot: SessionSnapshotV1;
   sync: {
-    ownerUserId: string | null;
+    ownerUserId: string;
     pendingSync: boolean;
     serverRevision: number;
     lastSyncedAt: string | null;
@@ -764,10 +530,14 @@ interface LocalSessionRecordV1 {
 }
 ```
 
-- Guest: localが正本、1件
-- Login後: localはwrite-through cache / offline queue
-- cloud成功後もlocal cacheを即削除しない
+- Guestは永続recordを作成しない
+- Guest runtime本文をlocalStorageへ保存しない
+- Login後のcacheはCloud正本の補助であり、Guest entitlementではない
+- cacheは認証済みownerUserIdへ結び付ける
+- cloud成功後も安全なcacheを即削除しない
 - Logout時にauthenticated local cacheを削除する
+- shared device warningとcache削除手段を提供する
+- localStorageを秘密保管場所とはみなさない
 
 ## 23. Cloud boundary
 
@@ -793,7 +563,7 @@ Server正本：`user_id`、`revision`、`updated_at`。
 
 - RLS必須
 - clientの`user_id`を信用しない
-- Guest snapshotはcloudへ保存しない
+- Guest runtime本文はcloudへ保存しない
 - service roleをbrowserへ公開しない
 
 
@@ -820,7 +590,7 @@ Session保存は次の責務を分離する。
 ```text
 serializer
 validator
-local repository
+authenticated cache repository
 cloud repository adapter
 sync coordinator
 ```
@@ -834,10 +604,12 @@ sync coordinator
 ### 23.3 Cloud opt-in boundary
 
 - LoginはCloud本文保存への同意ではない
-- Guest local snapshotをLogin時に自動uploadしない
+- Login時にGuest runtime本文を自動uploadしない
 - Cloud保存開始時に保存先、目的、削除方法を表示する
-- cloud成功前にlocal recordを削除しない
-- sync failure / token expiry / vendor outageでlocal正本を失わない
+- 本人の明示操作後に最初のCloud recordを作成する
+- authenticated cacheがある場合もCloud成功前に削除しない
+- sync failure / token expiry / vendor outageで認証済みユーザーのpending copyを失わない
+- Guestに永続resumeを暗黙提供しない
 
 ### 23.4 Global privacy gate
 
@@ -859,12 +631,12 @@ Gate未合格時、Cloud Session本文機能はfeature flagで無効のままに
 
 ## 24. Revision and conflict
 
-- Guestのrevisionは0
+- 未保存Guest runtimeには永続revisionを持たせない
 - cloud insert後は1
 - updateは`expectedRevision`一致時だけ`revision + 1`
 - 古いrevisionは409 Conflict
 - 自動上書き・自動text mergeをしない
-- conflict解決までlocal snapshotを保持
+- conflict解決までauthenticated cacheを保持
 - `updatedAt`は補助比較であり、revisionが主
 
 ## 25. Validation and fallback
@@ -896,16 +668,17 @@ Result → Final → Breath → Response → Before → Session mode
 
 ## 26. Save timing
 
-最初の保存はユーザーのしおり操作。
+最初の保存は、ログイン済みユーザーによる明示的なCloudしおり操作。
 
 保存後：
 
-- textarea: local 800ms / cloud 1500ms
-- slider: local 500ms / cloud 1000ms
+- textarea: authenticated cache 800ms / cloud 1500ms
+- slider: authenticated cache 500ms / cloud 1000ms
 - Next / Back: 即時flush
-- visibilitychange: local即時
-- beforeunload: localのみ
+- visibilitychange: authenticated cache即時、cloud best effort
+- beforeunload: authenticated cacheのみ
 - network失敗: pendingSyncを維持し再試行
+- Guest runtimeにはこれらの永続save triggerを適用しない
 
 ## 27. Journey lifecycle
 
@@ -923,13 +696,17 @@ Discard: status=discarded
 
 ## 28. Entitlement and retention
 
-- Guest local active 1件
+- Guest persistent active 0件
 - Free cloud active 1件
-- Pro cloud active最大20件
+- Pro cloud active最大50件
+- Guestはログインなしで完全Sessionを何度でも利用できる
+- Guestのbrowser close後exact resumeは非保証
 - Freeが別sessionIdを保存する時は既存activeの扱いを確認
+- Proが50件目を超えて保存する時は本人に削除・完了・置換を選ばせる
+- 上限超過を理由にsilent deletionしない
 - Pro終了後は削除せずread-only保持
 - active / archiveはユーザーの削除まで自動期限切れにしない
-- Account削除時は全snapshotと旧bookmarkを削除
+- Account削除時は全snapshot、旧bookmark、authenticated cacheを削除
 
 ## 29. Old bookmark boundary
 
@@ -1122,8 +899,9 @@ public.bookmarks
 
 ### Storage and deletion
 
-- localStorageを秘密保管場所とみなさない
-- 共有端末への注意とlocal削除手段を提供する
+- Guest本文をlocalStorageへ永続保存しない
+- authenticated local cacheを秘密保管場所とみなさない
+- 共有端末への注意とauthenticated cache削除手段を提供する
 - delete Journeyとdelete all account dataを実動作で検証する
 - active、completed、旧bookmark、authenticated local cacheをAccount削除対象に含める
 - backup保持期間と復旧範囲を文書化する
@@ -1144,12 +922,17 @@ public.bookmarks
 
 正規仕様から外す：
 
+- Guest local persistent bookmark
+- Guest local active 1件
+- Guest browser reload exact resumeを製品権利とすること
+- Guest本文をlocalStorage正本とすること
 - Human Core Questionsを現行入口にする
 - HCQ Search / Random
 - テーマidentityだけを保存するBookmarkを正規しおりとする
 - Result画面だけに大きなBookmark CTAを置く
 - Bookmarkから過去回答を捨てて新しいSessionを開始する
 - Result到達や数値変化でJourneyを自動完了する
+- Pro active最大20件
 - `currentLoop`
 - completionPercentage
 - resolved
@@ -1161,8 +944,7 @@ public.bookmarks
 - Legacy v12/v13/v16 flow stateを新記録へ混入
 - guest trial countをFree Session制限に使う
 
-`currentScreen`、stableな`currentStepKey`、Deepの`phase / round`は、途中しおりの正確な復元に必要な正規stateとして扱う。Legacyの曖昧なstep番号やDOM依存位置をそのまま保存することは禁止する。
-
+`currentScreen`、stableな`currentStepKey`、Deepの`phase / round`は、authenticated Cloudしおりの正確な復元に必要な正規stateとして扱う。Legacyの曖昧なstep番号やDOM依存位置をそのまま保存することは禁止する。
 
 ## 38. Billing State and Regional Price Specification
 

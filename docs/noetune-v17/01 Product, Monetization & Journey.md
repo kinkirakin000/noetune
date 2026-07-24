@@ -5,7 +5,7 @@
 
 **Status:** Canonical product and monetization specification
 **Baseline:** `app-v17(15).html` and current locale JSON
-**Updated:** 2026-07-20
+**Updated:** 2026-07-25
 
 ## 1. Product Experience Overview
 
@@ -350,11 +350,11 @@ Beforeより高くなることを要求しない。低下、変化なし、`数�
 - 前のSessionを見る
 - このテーマの続きを残す
 
-## 16. Free
+## 16. Guest and Free
 
-Freeは苦しい瞬間の完全なSessionを制限しない。
+Guestは、苦しい瞬間の完全なSessionをログインや回数制限で妨げない。
 
-### 含まれるもの
+### Guestに含まれるもの
 
 - All current themes
 - 自由入力
@@ -365,22 +365,30 @@ Freeは苦しい瞬間の完全なSessionを制限しない。
 - Before / After
 - Breath
 - Result Card / Result Image Save
-- Guest利用
+- ログイン不要
 - 広告なし
 - AI解釈なし
-- Guest local active Journey 1件
-- ログイン後cloud active Journey 1件
-- cloudに保存した1件の別端末resume
 
-### 含まれないもの
+### Guestに含まれないもの
 
-- 複数active Journey
+- しおり
+- 永続的なSession本文保存
+- ブラウザやタブを閉じた後のresume保証
+- 別端末resume
 - 完了Session全文履歴
 - 長期archive
-- テーマ別履歴
-- 一般データexport
 
-Freeに許可するcontinuityは、**現在進行中の1つのJourneyを失わずに続けること**である。
+Free loginはGuestの全機能に加えて、**現在進行中のCloud Journey 1件を失わずに続ける権利**を持つ。
+
+### Free loginに追加されるもの
+
+- Googleログイン
+- Cloud active Journey 1件
+- 同じアカウントでの別端末resume
+- accountからの削除
+- Cloud保存失敗時の安全な再試行
+
+Loginしただけでは本人の文章をCloudへ保存しない。Cloud保存は本人の明示的なしおり操作から始める。
 
 ## 17. Pro
 
@@ -390,7 +398,7 @@ Proの役割：
 
 ### Core value
 
-- active Journey最大20件
+- Cloud active Journey最大50件
 - exact resume
 - completed Journey archive
 - theme history
@@ -401,33 +409,36 @@ Proの役割：
 
 ProはSessionの深さ、呼吸の効果、テーマへのアクセスを販売しない。
 
-## 18. Free / Pro entitlement
+## 18. Guest / Free / Pro entitlement
 
 | 機能 | Guest | Free login | Pro |
 |---|---:|---:|---:|
-| 完全Session | 可 | 可 | 可 |
-| local active resume | 1件 | 1件cache | 複数cache |
-| cloud active resume | 不可 | 1件 | 最大20件 |
-| 別端末resume | 不可 | active 1件 | 複数active |
+| 完全Session | 可・無制限 | 可・無制限 | 可・無制限 |
+| 永続Bookmark | なし | Cloud 1件 | Cloud最大50件 |
+| 別端末resume | 不可 | active 1件 | active最大50件 |
 | completed全文履歴 | 不可 | 不可 | 可 |
+| テーマ別履歴 | 不可 | 不可 | 可 |
 | export | Result画像 | Result画像 | 将来の保存データexport |
 
-途中で中断し、現在の1件へ戻る基本権利をPro限定にしない。
+Sessionの利用自体は誰に対しても制限しない。継続保存は、Free loginから始まるauthenticated Cloud機能である。
 
 ## 19. Session Bookmark
 
 意味：
 
-> 現在のSessionを、その位置と内部状態ごと残し、あとで同じ位置から続ける。
+> ログイン済みユーザーが、現在のSessionをその位置と内部状態ごとCloudへ残し、あとで同じ位置から続ける。
 
 ### 保存開始
 
-- Theme context確定後、共通ヘッダーのしおりを本人が押す
-- 押す前は永続保存しない
-- 押した後は同じ`sessionId`を自動更新
-- Guestは最初にこの端末へ保存する
-- LoginだけではGuest local本文をCloudへ送らない
-- Cloud保存を利用する時は、保存先と削除方法を示し、本人の明示操作から始める
+- Guestには永続Bookmarkを提供しない
+- Session中にLoginやAuth modalを勝手に割り込ませない
+- 保存を選んだ本人に対してのみ、必要なLoginとCloud保存説明へ進む
+- Googleログインだけでは本人の文章をCloudへ保存しない
+- Cloud保存開始時に保存先、目的、削除方法を示す
+- 本人の明示操作後に最初のCloud recordを作成する
+- 保存後は同じ`sessionId`を自動更新する
+
+Guestに対する保存CTAの位置、Google Loginを要求する画面、最終文言は後続UI Unitで決定する。通常Session開始時のLogin強制は行わない。
 
 ### 対象
 
@@ -442,7 +453,7 @@ ProはSessionの深さ、呼吸の効果、テーマへのアクセスを販売�
 
 ### 対象外
 
-- Landing
+- Landing上の未確定Session
 - theme未確定の入口
 - Auth
 - Pricing
@@ -451,24 +462,28 @@ ProはSessionの深さ、呼吸の効果、テーマへのアクセスを販売�
 
 ### UI
 
-- Backを左、しおりを右
+- Backを左、authenticated Cloudしおりを右に置くことを基本案とする
 - 全対象画面で同じDOM責務と位置
 - Primary CTAより弱い階層
 - 保存後も現在画面に留まる
-- 未保存、保存中、端末保存、cloud同期、errorを静かに表示
+- 未保存、保存中、Cloud同期、errorを静かに表示
+- Cloud feature flagが無効な地域・段階ではBookmarkを公開しない
 
 ## 20. 保存更新
 
-一度しおりを有効にしたSessionだけを更新する。
+本人がCloudしおりを明示的に有効にしたSessionだけを更新する。
 
-- textarea: local 800ms / cloud 1500ms debounce
-- slider: local 500ms / cloud 1000ms debounce
+- textarea: authenticated cache 800ms / cloud 1500ms debounce
+- slider: authenticated cache 500ms / cloud 1000ms debounce
 - Next / Back: state変更後に即時flush
-- visibilitychange: local即時、cloud best effort
-- beforeunload: localのみ
+- visibilitychange: authenticated cache即時、cloud best effort
+- beforeunload: authenticated cacheのみ
 - Breath animation秒数は保存しない
+- Guest runtimeには永続writeを行わない
 
 ## 21. Resume
+
+Cloudしおりを持つFree / Proだけが永続resumeを利用する。
 
 - 同じ`sessionId`を復元する
 - 入力済み値とdraftを復元する
@@ -477,6 +492,7 @@ ProはSessionの深さ、呼吸の効果、テーマへのアクセスを販売�
 - ResultからFinal、Breath、Responseへ戻れる
 - 復元不能時は最も近い安全なcanonical screenへ戻す
 - 壊れたsnapshotを自動削除・自動上書きしない
+- Guestのブラウザ再起動resumeは製品保証しない
 
 一覧主表示：
 
@@ -496,13 +512,12 @@ Result下部に静かな副次操作を置く。
 
 押下時：
 
-1. stateをflush
-2. statusを`completed`
-3. `completedAt`を記録
-4. `v17_journey_completed`を1回送信
-5. active一覧から外す
-6. Guest / Freeは全文activeを削除
-7. Proはcompleted archiveへ移す
+1. runtime上でJourneyを完了状態にする
+2. `v17_journey_completed`をsessionIdごとに1回送信する
+3. Guestは永続recordを作らず、そのSessionを終了する
+4. FreeのCloudしおり利用中Journeyは、最終stateを安全にflushした後、active全文を削除する
+5. ProのCloudしおり利用中Journeyは、最終stateを安全にflushし、`status = completed`、`completedAt`を記録してcompleted archiveへ移す
+6. active一覧から外す
 
 ## 23. Result analytics
 
@@ -532,31 +547,35 @@ cycleIndex: +1
 
 - 新しいテーマで新しく始める時は新しい`sessionId`と`cycleId`
 - Resultからは「このJourneyを終えて、新しいテーマへ」と明示する
-- Guest / Freeで既存activeがある場合、警告なく上書きしない
-- Proは旧activeを残して新Journeyを開始できる
+- Guestは永続active recordを持たないため、そのまま新しいJourneyを開始できる
+- Freeで既存Cloud active 1件がある場合、警告なく上書きしない
+- Proは最大50件まで旧activeを残して新Journeyを開始できる
 - Landingへ戻る、タブを閉じる、LogoutはJourney完了ではない
+- Guestのタブ終了は永続保存を伴わない
 
-## 26. Guest / Login migration
+## 26. Login and Cloud save boundary
 
 ### Guest
 
-- localStorage 1件
-- ブラウザ再起動後も復元可能
-- しおり押下時にLoginを強制しない
+- runtime memoryだけでSessionを進める
+- 永続Bookmark recordを作成しない
+- ブラウザやタブを閉じた後のexact resumeを保証しない
 
 ### Login後
 
-- Loginだけを理由にGuest local本文を自動uploadしない
-- Cloud保存を選ぶ時に、端末保存とアカウント保存の違いを明示する
-- 同じsessionId: `revision`、次に`updatedAt`で新しい方を採用
-- 異なるsessionId + Pro: 両方保持
-- 異なるsessionId + Free: localかcloudかを一度選択
-- cloud成功前にlocalを削除しない
+- Loginだけを理由にGuest runtime本文を自動uploadしない
+- Cloud保存を本人が選ぶ時に、保存先、目的、削除方法を明示する
+- 本人の明示確認後、新しいCloud recordとして保存を開始する
+- authenticated cacheを使う場合も、Guest entitlementやGuest正本とは分離する
+- 同じsessionIdのCloud recordは`revision`、次に`updatedAt`で新しい方を採用
+- Proは最大50件まで複数activeを保持
+- Freeは新しいsessionIdを保存する前に既存1件の扱いを本人へ確認
+- cloud成功前にauthenticated pending copyを削除しない
 
 ## 27. Pro終了後
 
 - 保存データを自動削除しない
-- activeは更新可能な1件を選び、他はread-only
+- activeは更新可能な1件を選び、残り最大49件はread-only
 - completed archiveはread-onlyで保持
 - 再契約後に通常アクセスを回復
 - 削除はいつでも可能
@@ -581,8 +600,9 @@ cycleIndex: +1
 ## 29. Pricing principle
 
 ```text
-Free = experience + one active continuity
-Pro  = multiple continuity + archive
+Guest = unlimited experience without persistence
+Free  = one authenticated Cloud continuity
+Pro   = up to 50 active continuities + archive
 ```
 
 価格は市場検証で決める。契約後の価格・通貨・期間はStripe subscription / Priceを正本とし、言語や現在地から再計算しない。
@@ -595,7 +615,9 @@ Pro  = multiple continuity + archive
 
 ### 30.2 Use restrictions
 
-- 保存開始を本人の操作に限定
+- Guest本文を永続保存しない
+- Cloud保存開始を本人の明示操作に限定
+- LoginだけではCloud recordを作成しない
 - 本人の文章を広告、販売、AI学習、プロファイリング、marketing、A/B本文分析、一般analyticsへ使用しない
 - 本人の文章をconsole、server log、error monitoringへ送らない
 - 本文をNoetuneの改善目的で人手閲覧することを標準運用にしない
@@ -603,11 +625,11 @@ Pro  = multiple continuity + archive
 
 ### 30.3 User control
 
-- 端末保存とCloud保存を明確に区別する
-- local削除とcloud削除を別々に説明する
+- Cloud保存の有無、保存先、削除方法を明確に説明する
 - Journey単位削除とAccount全データ削除を提供する
+- authenticated local cacheがある場合はCloud recordとの違いと削除方法を説明する
 - データの閲覧、コピー、訂正、処理停止、削除の問い合わせ経路を持つ
-- Account削除時に全Session dataと旧bookmarkを削除する
+- Account削除時に全Session data、旧bookmark、authenticated cacheを削除する
 - backupから即時消去できない場合は保持期間とアクセス制限を説明する
 
 ### 30.4 Global rollout
@@ -615,9 +637,9 @@ Pro  = multiple continuity + archive
 Noetuneの製品対象は全世界。ただしCloud機能は段階的に公開する。
 
 ```text
-Stage 1: worldwide Guest local
-Stage 2: Privacy / vendor / RLS gate合格地域でFree cloud
-Stage 3: Pro multiple Journey / completed archive
+Stage 1: worldwide Guest — 完全Session、永続保存なし
+Stage 2: Privacy / vendor / RLS gate合格地域でFree cloud active 1件
+Stage 3: Pro cloud active最大50件 / completed archive
 Stage 4: supported regions expansion
 ```
 
@@ -629,24 +651,25 @@ Stage 4: supported regions expansion
 
 ## 31. Initial continuity MVP
 
-### Stage 1 — Guest local release
+### Stage 1 — Guest no-save release
 
-1. Guest local 1件
-2. 全canonical Sessionページの共通しおり
-3. Snapshot Schema v1
-4. exact local resume
-5. 明示的Journey完了
-6. 旧テーマbookmark UI停止
-7. 共有端末の注意と端末データ削除
+1. Guestはログインなしで完全Sessionを何度でも利用可能
+2. Guestの永続Bookmark UIを表示しない
+3. Guest本文をlocalStorageやCloudへ永続保存しない
+4. ブラウザやタブを閉じた後のresumeを保証しない
+5. 旧テーマbookmark UIと新Guest bookmark UIを混在させない
+6. Result画像保存は端末機能として維持
 
 ### Stage 2以降 — Gate後
 
 1. Free cloud active 1件
-2. Pro active最大20件
-3. active一覧
-4. cross-device resume
-5. Pro completed archiveの基礎
-6. Account全データ削除
+2. Pro cloud active最大50件
+3. authenticated Cloud bookmark UI
+4. active一覧
+5. cross-device resume
+6. Pro completed archiveの基礎
+7. Account全データ削除
+8. Free / Pro上限超過時の本人選択
 
 Stage 2以降はGlobal Privacy & Security Gate、RLS、vendor review、削除・incident対応が合格した後にのみ公開する。
 
@@ -662,10 +685,13 @@ Stage 2以降はGlobal Privacy & Security Gate、RLS、vendor review、削除・
 
 ## 32. Validation metrics
 
-1. Bookmark save rate
-2. Local / cloud save success rate
-3. Resume success rate
-4. Resumed Journey continuation rate
-5. Explicit Journey completion rate
-6. Conflict / fallback / data-loss rate
-7. Pro conversion after an explicit continuity action
+1. Save intent → Login completion rate
+2. Login completion → explicit Cloud save rate
+3. Cloud save success rate
+4. Cross-device Resume success rate
+5. Resumed Journey continuation rate
+6. Explicit Journey completion rate
+7. Conflict / fallback / data-loss rate
+8. Free 1件上限到達率
+9. Pro conversion after an explicit continuity action
+10. Pro active件数分布と50件上限到達率
