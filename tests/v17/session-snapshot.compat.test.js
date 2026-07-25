@@ -16,6 +16,21 @@ function storageStub() {
 
 const source = fs.readFileSync(path.join(__dirname, '../../js/v17/session-snapshot.js'), 'utf8');
 const appSource = fs.readFileSync(path.join(__dirname, '../../app-v17.html'), 'utf8');
+
+function extractAppFunction(name) {
+  const start = appSource.indexOf('function ' + name + '(');
+  assert.notEqual(start, -1, 'missing app function: ' + name);
+  const bodyStart = appSource.indexOf('{', start);
+  let depth = 0;
+  for (let index = bodyStart; index < appSource.length; index += 1) {
+    if (appSource[index] === '{') depth += 1;
+    if (appSource[index] === '}') {
+      depth -= 1;
+      if (depth === 0) return appSource.slice(start, index + 1);
+    }
+  }
+  throw new Error('unterminated app function: ' + name);
+}
 const localStorage = storageStub();
 const sessionStorage = storageStub();
 const sideEffects = { dom: 0, network: 0, uuid: 0, analytics: 0 };
@@ -219,6 +234,93 @@ test('resume Back runtime frames reset stale history and preserve an unselected 
   assert.match(appSource, /frame\.D\.v17SessionMode = null;[\s\S]*?frame\.D\.v17Flow = null;/);
   assert.match(appSource, /var sessionModeFrameForQ1 = buildV17ResumeSessionModeNavigationFrame\(\);[\s\S]*?appendV17ResumeNavigationFrame\(sessionModeFrameForQ1\);[\s\S]*?appendV17ResumeNavigationFrame\(beforeFrame\);/);
   assert.match(appSource, /var sessionModeFrameForQ2 = buildV17ResumeSessionModeNavigationFrame\(\);[\s\S]*?appendV17ResumeNavigationFrame\(sessionModeFrameForQ2\);[\s\S]*?appendV17ResumeNavigationFrame\(beforeFrameForQ2\);[\s\S]*?appendV17ResumeNavigationFrame\(questionOneFrameForQ2\);/);
+});
+
+test('retires Guest local bookmark public paths before Cloud bookmarks are available', () => {
+  assert.match(appSource, /function isV17GuestLocalBookmarkRetired\(\)[\s\S]*?return true;/);
+  assert.match(appSource, /function updateV17SessionBookmarkVisibility\(\)[\s\S]*?if \(isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?button\.hidden = true;/);
+  assert.match(appSource, /function writeCurrentV17SessionSnapshot\(\)\s*\{\s*if \(isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?written: false/);
+  assert.match(appSource, /function updateV17SavedSessionSnapshot\(reason\)\s*\{\s*if \(isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?updated: false/);
+  assert.match(appSource, /function handleV17SessionBookmarkClick\(\)\s*\{\s*if \(isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?written: false/);
+  assert.match(appSource, /function handleV17ResumeProgressClick\(\)\s*\{\s*if \(isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?resumed: false/);
+  assert.match(appSource, /function updateV17ResumeControlVisibility\(\)[\s\S]*?retireV17GuestLocalSessionRecord\(snapshotApi\);[\s\S]*?if \(isV17GuestLocalBookmarkRetired\(\)\) return;[\s\S]*?readV17LocalSessionRecord/);
+});
+
+test('retires the Result Bookmark CTA and keeps its write handler unreachable', () => {
+  assert.match(appSource, /id="btn-save-result" onclick="handleV17ResultBookmarkClick\(\)"/);
+  assert.match(appSource, /function updateV17ResultBookmarkAvailability\(\)[\s\S]*?if \(!isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?button\.hidden = true;[\s\S]*?button\.disabled = true;[\s\S]*?status\.hidden = true;/);
+  assert.match(appSource, /function renderResultSaveUI\(\)[\s\S]*?if \(updateV17ResultBookmarkAvailability\(\)\) return;/);
+  assert.match(appSource, /window\.renderV17BookmarkUI = function\(force\) \{[\s\S]*?if \(isV17GuestLocalBookmarkRetired\(\)\)[\s\S]*?return false;/);
+  assert.match(appSource, /function showV17Result\(\)[\s\S]*?if \(!isV17GuestLocalBookmarkRetired\(\) && typeof renderV17BookmarkUI === 'function'\) renderV17BookmarkUI\(true\);/);
+  assert.match(appSource, /id="btn-save-image"/);
+  assert.match(appSource, /id="btn-v17-restart-subtheme"/);
+  assert.match(appSource, /id="btn-v17-restart-theme"/);
+  assert.match(appSource, /id="btn-v17-choose-another-theme"/);
+
+  let oldBookmarkCalls = 0;
+  const handlerContext = {
+    window: {
+      toggleCurrentThemeBookmark() { oldBookmarkCalls += 1; }
+    },
+    isV17GuestLocalBookmarkRetired() { return true; }
+  };
+  vm.runInNewContext(extractAppFunction('handleV17ResultBookmarkClick'), handlerContext, {
+    filename: 'app-v17-result-bookmark-retirement.js'
+  });
+  assert.equal(handlerContext.handleV17ResultBookmarkClick(), false);
+  assert.equal(oldBookmarkCalls, 0);
+});
+
+test('retirement cleanup deletes only malformed or Guest local records and is idempotent', () => {
+  let raw = null;
+  let removals = 0;
+  const cleanupContext = {
+    window: {
+      localStorage: {
+        getItem() { return raw; }
+      }
+    },
+    JSON,
+    Array,
+    Object
+  };
+  const snapshotApi = {
+    removeV17LocalSessionRecord() {
+      removals += 1;
+      raw = null;
+      return { ok: true, removed: true };
+    }
+  };
+  vm.runInNewContext(
+    "var V17_LOCAL_SESSION_STORAGE_KEY = 'noetune:v17:active-session:v1';\n" + extractAppFunction('retireV17GuestLocalSessionRecord'),
+    cleanupContext,
+    { filename: 'app-v17-retirement-cleanup.js' }
+  );
+  const cleanup = cleanupContext.retireV17GuestLocalSessionRecord;
+  for (const value of [
+    '{',
+    '[]',
+    JSON.stringify({}),
+    JSON.stringify({ sync: {} }),
+    JSON.stringify({ sync: { ownerUserId: null } }),
+    JSON.stringify({ sync: { ownerUserId: '' } }),
+    JSON.stringify({ sync: { ownerUserId: '   ' } })
+  ]) {
+    raw = value;
+    const result = cleanup(snapshotApi);
+    assert.equal(result.ok, true);
+    assert.equal(raw, null);
+  }
+  const removalsAfterInvalidRecords = removals;
+  raw = JSON.stringify({ sync: { ownerUserId: 'cloud-owner' }, snapshot: null });
+  const preserved = cleanup(snapshotApi);
+  assert.equal(preserved.ok, true);
+  assert.equal(preserved.reason, 'OWNER_RECORD_PRESERVED');
+  assert.notEqual(raw, null);
+  raw = JSON.stringify({ sync: { ownerUserId: null } });
+  cleanup(snapshotApi);
+  cleanup(snapshotApi);
+  assert.equal(removals, removalsAfterInvalidRecords + 1);
 });
 
 test('characterizes CurrentCycleV1 public-root validation boundaries', () => {

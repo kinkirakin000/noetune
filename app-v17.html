@@ -1536,7 +1536,7 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
     <div class="save-fallback-note" id="t-save-preview-note"></div>
   </div>
   <div class="v17-result-actions" id="v17-result-actions">
-    <button class="v17-result-action primary" id="btn-save-result" onclick="toggleCurrentThemeBookmark()"></button>
+    <button class="v17-result-action primary" id="btn-save-result" onclick="handleV17ResultBookmarkClick()"></button>
     <button class="v17-result-action" id="btn-v17-restart-subtheme" type="button" onclick="restartCurrentSubtheme()"></button>
     <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartCurrentTheme()"></button>
     <button class="v17-result-action" id="btn-v17-choose-another-theme" type="button" onclick="chooseAnotherTheme()"></button>
@@ -1681,6 +1681,16 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 </div>
 <script>
 var homeScreenInstallPromptEvent = null;
+var renderV17BookmarkUIForCloud = typeof window.renderV17BookmarkUI === 'function'
+  ? window.renderV17BookmarkUI : null;
+
+window.renderV17BookmarkUI = function(force) {
+  if (isV17GuestLocalBookmarkRetired()) {
+    updateV17ResultBookmarkAvailability();
+    return false;
+  }
+  return renderV17BookmarkUIForCloud ? renderV17BookmarkUIForCloud(force) : false;
+};
 
 if (typeof window !== 'undefined') {
   window.addEventListener('beforeinstallprompt', function(event) {
@@ -7400,12 +7410,50 @@ function renderV17StaticCopy() {
   renderCurrentV17Screen();
 }
 
+var V17_LOCAL_SESSION_STORAGE_KEY = 'noetune:v17:active-session:v1';
+
+function isV17GuestLocalBookmarkRetired() {
+  // Guest local bookmarks are retired until authenticated Cloud bookmarks exist.
+  return true;
+}
+
+function retireV17GuestLocalSessionRecord(snapshotApi) {
+  if (!snapshotApi || typeof snapshotApi.removeV17LocalSessionRecord !== 'function') {
+    return { ok: false, removed: false, reason: 'SNAPSHOT_API_UNAVAILABLE' };
+  }
+  var raw;
+  try {
+    raw = window.localStorage.getItem(V17_LOCAL_SESSION_STORAGE_KEY);
+  } catch (e) {
+    return { ok: false, removed: false, reason: 'LOCAL_STORAGE_READ_FAILED' };
+  }
+  if (!raw) return { ok: true, removed: false, reason: 'NO_RECORD' };
+  var record;
+  try {
+    record = JSON.parse(raw);
+  } catch (e) {
+    return snapshotApi.removeV17LocalSessionRecord();
+  }
+  var hasOwner = !!(record && typeof record === 'object' && !Array.isArray(record)
+    && record.sync && typeof record.sync === 'object' && !Array.isArray(record.sync)
+    && Object.prototype.hasOwnProperty.call(record.sync, 'ownerUserId'));
+  if (!hasOwner) return snapshotApi.removeV17LocalSessionRecord();
+  var ownerUserId = record.sync.ownerUserId;
+  if (typeof ownerUserId === 'string' && ownerUserId.trim()) {
+    // A future authenticated Cloud record is never inspected or removed here.
+    return { ok: true, removed: false, reason: 'OWNER_RECORD_PRESERVED' };
+  }
+  return snapshotApi.removeV17LocalSessionRecord();
+}
+
 function updateV17ResumeControlVisibility() {
   var button = document.getElementById('btn-resume-progress');
   if (!button) return;
   button.style.display = 'none';
   var snapshotApi = window.NoetuneV17SessionSnapshot;
   if (!snapshotApi || typeof snapshotApi.readV17LocalSessionRecord !== 'function') return;
+  retireV17GuestLocalSessionRecord(snapshotApi);
+  if (isV17GuestLocalBookmarkRetired()) return;
   var readResult = snapshotApi.readV17LocalSessionRecord();
   if (!readResult || !readResult.ok || !readResult.record) return;
   var record = readResult.record;
@@ -8646,7 +8694,7 @@ function showV17Result() {
     delta: D.deltaScore
   });
   fwd('s-result');
-  if (typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(true);
+  if (!isV17GuestLocalBookmarkRetired() && typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(true);
 }
 
 function restartCurrentSubtheme() {
@@ -9124,6 +9172,17 @@ function updateV17SessionBookmarkVisibility() {
   var button = document.getElementById('v17-session-bookmark');
   var status = document.getElementById('v17-session-bookmark-status');
   if (!button) return;
+  if (isV17GuestLocalBookmarkRetired()) {
+    button.hidden = true;
+    button.disabled = false;
+    button.classList.remove('visible', 'saved');
+    button.setAttribute('aria-pressed', 'false');
+    if (status) {
+      status.hidden = true;
+      status.textContent = '';
+    }
+    return;
+  }
   moveV17SessionBookmarkAction();
   var supportedScreens = [
     's-v17-session-mode',
@@ -9207,6 +9266,10 @@ function getV17CurrentLocalSessionRecordState() {
 }
 
 function scheduleV17SavedDraftSnapshotUpdate(reason) {
+  if (isV17GuestLocalBookmarkRetired()) {
+    cancelV17SavedDraftSnapshotUpdate();
+    return;
+  }
   if (v17SavedDraftSnapshotTimer !== null) clearTimeout(v17SavedDraftSnapshotTimer);
   v17SavedDraftSnapshotReason = reason;
   v17SavedDraftSnapshotTimer = setTimeout(function() {
@@ -9233,6 +9296,9 @@ function flushV17SavedDraftSnapshotUpdate() {
 }
 
 function writeCurrentV17SessionSnapshot() {
+  if (isV17GuestLocalBookmarkRetired()) {
+    return { ok: true, written: false, reason: 'GUEST_LOCAL_BOOKMARK_RETIRED' };
+  }
   var snapshotApi = window.NoetuneV17SessionSnapshot;
   if (!snapshotApi) return { ok: false, error: { code: 'SNAPSHOT_API_UNAVAILABLE', path: 'snapshot' } };
   if (D && D.v17Flow && typeof cur === 'string') D.v17Flow.currentScreen = cur;
@@ -9244,6 +9310,9 @@ function writeCurrentV17SessionSnapshot() {
 }
 
 function updateV17SavedSessionSnapshot(reason) {
+  if (isV17GuestLocalBookmarkRetired()) {
+    return { ok: true, updated: false, reason: 'GUEST_LOCAL_BOOKMARK_RETIRED' };
+  }
   var recordState = getV17CurrentLocalSessionRecordState();
   if (!recordState.ok) {
     setV17SessionBookmarkStatus('sessionBookmark.error');
@@ -9277,6 +9346,9 @@ function setV17SessionBookmarkStatus(key) {
 }
 
 function handleV17SessionBookmarkClick() {
+  if (isV17GuestLocalBookmarkRetired()) {
+    return { ok: true, written: false, reason: 'GUEST_LOCAL_BOOKMARK_RETIRED' };
+  }
   var button = document.getElementById('v17-session-bookmark');
   if (!button || button.hidden || button.disabled) return;
   button.disabled = true;
@@ -9891,6 +9963,7 @@ function renderResultSaveUI() {
   var button = document.getElementById('btn-save-result');
   var status = document.getElementById('save-result-status');
   if (!button || !status) return;
+  if (updateV17ResultBookmarkAvailability()) return;
   var isV17 = !!D.v17Flow;
   var buttonKey = _resultSaveState === 'login' ? 'saveLogin'
     : _resultSaveState === 'saved' ? 'saved' : 'save';
@@ -9910,6 +9983,31 @@ function renderResultSaveUI() {
         : statusKey === 'saveLogin' ? 'saveResultLogin' : 'saveResultError'
     ))
     : '';
+}
+
+function updateV17ResultBookmarkAvailability() {
+  var button = document.getElementById('btn-save-result');
+  var status = document.getElementById('save-result-status');
+  if (!button || !status) return true;
+  if (!isV17GuestLocalBookmarkRetired()) {
+    button.hidden = false;
+    button.disabled = false;
+    button.removeAttribute('aria-hidden');
+    status.hidden = false;
+    return false;
+  }
+  button.hidden = true;
+  button.disabled = true;
+  button.setAttribute('aria-hidden', 'true');
+  status.hidden = true;
+  status.textContent = '';
+  return true;
+}
+
+function handleV17ResultBookmarkClick() {
+  if (isV17GuestLocalBookmarkRetired()) return false;
+  if (typeof window.toggleCurrentThemeBookmark !== 'function') return false;
+  return window.toggleCurrentThemeBookmark();
 }
 
 function setResultSaveState(state) {
@@ -10034,6 +10132,9 @@ function wrapV17SavePayloadBuilders() {
   }
 
   function handleV17ResumeProgressClick() {
+    if (isV17GuestLocalBookmarkRetired()) {
+      return { ok: true, resumed: false, reason: 'GUEST_LOCAL_BOOKMARK_RETIRED' };
+    }
     var snapshotApi = window.NoetuneV17SessionSnapshot;
     if (!snapshotApi || typeof snapshotApi.readV17LocalSessionRecord !== 'function'
         || typeof snapshotApi.resumeGuestV17RegularFromLocalRecord !== 'function') {
