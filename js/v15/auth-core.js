@@ -73,8 +73,7 @@ function submitAuthEmail() {
 function handleAuthenticatedSession(event, session) {
   currentUser    = session ? session.user : currentUser;
   currentProfile = null;
-  savePendingResultIfNeeded();
-  savePendingProgressIfNeeded().then(loadSavedProgress).then(claimGuestFirstSessionIfNeeded).then(function() {
+  Promise.resolve().then(function() {
     fetchProfile();
     if (session && session.user) closeAuthModal();
     if (_checkoutSuccessPending) refreshProfileAfterCheckout();

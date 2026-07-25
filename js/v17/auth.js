@@ -447,9 +447,6 @@ function ensureV17SupabaseReady() {
             syncV17AuthBillingAndAccess(!!v17AuthState.user, v17AuthState.profile || null);
             v17SupabaseClient.auth.onAuthStateChange(function(event, session) {
               if (session && session.user) {
-                if (v17AuthState.user && v17AuthState.user.id && v17AuthState.user.id !== session.user.id) {
-                  clearV17PendingCloudSaveState();
-                }
                 setV17AuthState({
                   status: 'loading',
                   user: session.user,
@@ -457,11 +454,8 @@ function ensureV17SupabaseReady() {
                   error: null
                 });
                 closeV17AuthModal();
-                fetchV17Profile().then(function() {
-                  return runV17PendingSavesIfNeeded();
-                });
+                fetchV17Profile();
               } else {
-                if (v17AuthState.user) clearV17PendingCloudSaveState();
                 setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
               }
             });
@@ -506,7 +500,6 @@ async function fetchV17Profile() {
     });
     if (!response.ok) {
       if (response.status === 401) {
-        if (v17AuthState.user) clearV17PendingCloudSaveState();
         setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
         return null;
       }
@@ -522,10 +515,6 @@ async function fetchV17Profile() {
         user: session && session.user ? session.user : v17AuthState.user,
         error: null
       });
-      await restoreV17AuthReturnIfNeeded();
-      if (!profile) {
-        clearV17PendingCloudSaveState();
-      }
       return profile;
     }
     setV17AuthState({ status: 'guest', user: null, profile: null, error: null });
@@ -552,7 +541,6 @@ async function restoreV17Session() {
     }
     setV17AuthState({ status: 'loading', user: session.user, profile: null, error: null });
     await fetchV17Profile();
-    await runV17PendingSavesIfNeeded();
     return true;
   } catch (e) {
     setV17AuthState({ status: 'error', user: null, profile: null, error: 'session' });
