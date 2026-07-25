@@ -520,6 +520,19 @@ Audited:
 
 ### Deep
 
+### New Flow Unit 3A acceptance
+
+**Status:** Complete in commit `c48e0e77a6f0970e620acfc5da3451291120c9da` (`feat(v17): add alternating deep flow`).
+
+- changed: `app-v17.html`, `tests/v17/deep-alternating-flow.test.js`
+- Deep test: 6/6 PASS
+- Snapshot regression: 17/17 PASS
+- inline JavaScript syntax: PASS
+- `git diff --check`: PASS
+- scope: live Deep A/B runtime, completed / pending round boundary, Deep Back, No More Words → Breath, Result adapter, Regular / Deep state isolation
+- Snapshot persistence remains unsupported; Breath exact resume and Cloud continuity remain future scope
+- an intermediate Result adapter failure was fixed before final acceptance; final validation passed
+
 Audited:
 
 - route-specific phase order
@@ -831,7 +844,7 @@ Latest Commander-known repository facts before this documentation revision:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: 048ce45290d9594a9f2bd1f125d813b59ad13906
+HEAD: c48e0e77a6f0970e620acfc5da3451291120c9da
 tracked working tree: clean
 staged changes: none
 snapshot regression tests: 17/17 PASS
@@ -853,7 +866,7 @@ untracked backup files: 5, preserved and untouched
 | Guest local Phase 4B Human QA | `SUPERSEDED BY PRODUCT DECISION` |
 | First Response Guest-local draft mismatch | Historical observation; superseded and no longer a target path |
 | Guest local Bookmark UI / Resume / persistent write disablement | Complete; commit `048ce452`; Human QA PASS |
-| New Deep A/B alternating flow | Approved, not started |
+| New Deep A/B alternating flow | Complete; commit `c48e0e77a6f0970e620acfc5da3451291120c9da`; tests 6/6 PASS |
 | Common small Cloud save-intent CTA / authenticated Bookmark onboarding | UX decision fixed; implementation boundary audit not started |
 | Free cloud active 1 / Pro cloud active 50 | Canonical decision fixed; implementation not started |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |

@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-25
-> Current execution point: Guest local Bookmark / Resume / persistent writes disabled and legacy Result CTA removed; next is the common small Cloud save-intent CTA boundary
+> Current execution point: New Flow Unit 3A live Deep A/B runtime accepted; next is New Flow Unit 3B Deep Snapshot serializer / validator / restore boundary
 
 ## 1. Objective
 
@@ -152,9 +152,9 @@ Forbidden scope remained unchanged:
 
 Gate result: implementation and validator foundation remains accepted as historical code. Guest-local production acceptance is superseded and no longer blocks release sequencing.
 
-### New Flow Unit 3 — Deep alternating flow
+### New Flow Unit 3A — Live Deep A/B alternating runtime
 
-**Status:** Approved specification; not started
+**Status:** Complete; commit `c48e0e77a6f0970e620acfc5da3451291120c9da`
 
 Deliverables:
 
@@ -163,10 +163,17 @@ Deliverables:
 - round and phase state
 - draft, pending round, and Back restoration
 - retirement of the old answer-chaining Deep semantics only within the approved scope
+- Deep Snapshot remains unsupported; Breath exact resume and Cloud continuity are not included
 
 Gate: no round loss, duplication, reorder, variant mismatch, or source-theme replacement.
 
-### Phase 5A — Deep serializer / restore (superseded by New Flow Unit 3)
+### New Flow Unit 3B — Deep Snapshot serializer / validator / restore
+
+**Status:** Next; pre-implementation boundary
+
+Deep Snapshot must be redesigned for the Unit 3A runtime. Do not reuse the old Deep schema by inference.
+
+### Phase 5A — Deep serializer / restore (superseded by New Flow Unit 3B)
 
 **Status:** Do not execute as written until rewritten for the approved alternating A/B Deep model.
 

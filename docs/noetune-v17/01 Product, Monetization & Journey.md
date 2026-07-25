@@ -231,7 +231,7 @@ Round 4: B Question 1 → Question 2
 
 ### 8.3 実装状態
 
-このDeep仕様は承認済みだが未実装。現在の実装完了範囲はRegular Unit 1までである。
+このDeep仕様のlive runtime実装はNew Flow Unit 3Aで完了した（commit `c48e0e77a6f0970e620acfc5da3451291120c9da`）。Deep Snapshot、Breath pre-frame、Breath / Final / Result exact resume、Cloud continuityは未実装である。Feel100はcanonical forward routeから外れているが、legacy DOM / functionは残る。
 
 ## 9. Breath
 

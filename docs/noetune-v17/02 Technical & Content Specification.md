@@ -160,7 +160,7 @@ Question 2: answer1 → route-specific opposite side
 
 ### 7.2 Snapshot boundary
 
-`questionVariant`はruntimeへ実装済みだが、Snapshot Schema v1への保存・validator・restoreはUnit 2で追加する。Unit 1完了時点では未実装であり、暗黙のdefaultだけに依存してresume完了とみなしてはならない。
+`questionVariant`はruntimeへ実装済みだが、Deep Snapshot Schemaへの保存・validator・restoreは未実装である。Unit 3Aではruntimeのみを扱い、Deep serializer / validator / restoreは明示的unsupportedのままUnit 3Bへ残す。
 
 ## 8. Deep Flow State
 
@@ -204,7 +204,9 @@ Question 2: answer1 → route-specific opposite side
 - No More Words後は`finished = true`としてBreathへ進む
 - AI要約を生成しない
 
-旧`current / ideal / feel100` phase設計は現行コードの履歴として残り得るが、新しいDeep実装の正本ではない。移行は独立Unitで行い、Unit 1と混ぜない。
+旧`current / ideal / feel100` phase設計は現行コードの履歴として残り得るが、新しいDeep runtimeの正本ではない。Unit 3Aでcanonical forward routeからFeel100を外したが、legacy DOM / functionは削除していない。
+
+Unit 3A runtime status: implemented. Result adapterは、確定pending roundを優先し、空pendingの場合は最新completed roundへfallbackし、route別にQuestion 1 / Question 2を既存current / ideal stateへmappingする。Deep SnapshotはUnit 3Bまでunsupportedとする。
 
 ## 9. Measurement Model
 
@@ -397,6 +399,8 @@ interface RegularFlowV1 {
 - 回答は画面順とsemantic roleの両方を壊さず保持する
 
 ## 17. Deep flow
+
+以下のDeep Snapshot型は旧・未対応の保存契約として保持する。Unit 3Aのlive runtime stateをこのschemaで保存してはならない。新runtimeに対応するserializer / validator / restoreはUnit 3Bで別途定義する。
 
 ```ts
 type DeepPhase = "current" | "ideal" | "feel100";

@@ -70,6 +70,8 @@ RegularはQuestion 1とQuestion 2からなる。Question 1にはA/Bの選択が�
 
 Deepは同じテーマを固定してA → Question 2 → B → Question 2を交互に繰り返す。前roundの回答を次roundのテーマへ置き換える旧連鎖方式は採用しない。
 
+New Flow Unit 3Aとして、Deep A/B交互runtimeを実装済み。Round 1はAで開始し、original theme固定、completed rounds / pendingRound、Deep内Back、No More WordsからBreath、既存Resultへの最小mappingを含む。Deep Snapshot保存、Breath exact resume、Cloud continuityは未実装で、別Unitに残る。
+
 現在のBreath、Final Measurement、Resultへの遷移は維持する。呼吸工程の削除はUnit 1の範囲ではなく、別の正式決定なしに変更しない。
 
 ## 4. UX原則
