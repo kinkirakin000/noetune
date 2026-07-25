@@ -299,7 +299,7 @@ type CanonicalSessionScreen =
   | "s-result";
 ```
 
-Landing、theme未確定画面、Auth、Pricing、Membership、Settings、AboutはCloudしおり対象外。Guestは全画面で永続しおり対象外。
+Landing、theme未確定画面、Auth、Pricing、Membership、Settings、AboutはCloudしおり対象外。Guestは全画面で永続しおり対象外だが、対象Session画面の共通小CTAをCloud保存意図の入口として表示できる。このCTAはGuest local recordを作らない。
 
 ## 13. Summary and entry
 
@@ -605,8 +605,11 @@ sync coordinator
 
 - LoginはCloud本文保存への同意ではない
 - Login時にGuest runtime本文を自動uploadしない
-- Cloud保存開始時に保存先、目的、削除方法を表示する
-- 本人の明示操作後に最初のCloud recordを作成する
+- Guestの小さなしおり押下はsave intentであり、record creationではない
+- 押下後はCloud保存説明 → Google Login → 元のSession画面復帰 → 最終保存確認の順に進む
+- OAuth / Login復帰時も、本人の最終確認前にGuest runtime本文をlocalStorage、Cloud、request bodyへ永続化しない
+- Cloud保存開始時に保存先、目的、Free 1件、削除方法を表示する
+- 本人の明示的な最終確認後に最初のCloud recordを作成する
 - authenticated cacheがある場合もCloud成功前に削除しない
 - sync failure / token expiry / vendor outageで認証済みユーザーのpending copyを失わない
 - Guestに永続resumeを暗黙提供しない
@@ -924,6 +927,8 @@ public.bookmarks
 
 - Guest local persistent bookmark
 - Guest local active 1件
+- Guestに共通の小さなしおりCTAを見せることを、Guest永続保存権利と解釈すること
+- Guestの小さなしおり押下だけでlocal record、Cloud record、Login-only uploadを開始すること
 - Guest browser reload exact resumeを製品権利とすること
 - Guest本文をlocalStorage正本とすること
 - Human Core Questionsを現行入口にする

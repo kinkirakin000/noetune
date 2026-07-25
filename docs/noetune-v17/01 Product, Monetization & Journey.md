@@ -371,7 +371,7 @@ Guestは、苦しい瞬間の完全なSessionをログインや回数制限で�
 
 ### Guestに含まれないもの
 
-- しおり
+- Guest local / Guest-ownedの永続Bookmark entitlement
 - 永続的なSession本文保存
 - ブラウザやタブを閉じた後のresume保証
 - 別端末resume
@@ -430,15 +430,17 @@ Sessionの利用自体は誰に対しても制限しない。継続保存は、F
 
 ### 保存開始
 
-- Guestには永続Bookmarkを提供しない
+- Guestは永続Bookmark entitlementを持たないが、対象Session画面には共通の小さなしおりCTAを表示する
+- 小さなしおりはGuest local保存ではなく、authenticated Cloud保存への入口である
 - Session中にLoginやAuth modalを勝手に割り込ませない
-- 保存を選んだ本人に対してのみ、必要なLoginとCloud保存説明へ進む
-- Googleログインだけでは本人の文章をCloudへ保存しない
-- Cloud保存開始時に保存先、目的、削除方法を示す
-- 本人の明示操作後に最初のCloud recordを作成する
+- Guest本人が小さなしおりを押した時だけ、Cloud保存の説明とGoogle Loginへ進む
+- Google Loginだけでは本人の文章をCloudへ保存しない
+- Login成功後は元のSessionと画面へ戻し、本人へ最終保存確認を行う
+- Cloud保存開始時に保存先、目的、Free 1件、削除方法を示す
+- 本人の明示的な最終確認後に最初のCloud recordを作成する
 - 保存後は同じ`sessionId`を自動更新する
 
-Guestに対する保存CTAの位置、Google Loginを要求する画面、最終文言は後続UI Unitで決定する。通常Session開始時のLogin強制は行わない。
+通常Session開始時のLogin強制は行わない。Cloud保存機能がPrivacy / Security Gate前または未実装の段階では、production feature flagをOFFにして未完の導線を公開しない。
 
 ### 対象
 
@@ -462,12 +464,15 @@ Guestに対する保存CTAの位置、Google Loginを要求する画面、最終
 
 ### UI
 
-- Backを左、authenticated Cloudしおりを右に置くことを基本案とする
-- 全対象画面で同じDOM責務と位置
+- Backを左、共通の小さなしおりを右に置く
+- Session Mode、Before、Regular / Deep、Breath、Final Measurement、Result、Repeatの対象画面で同じDOM責務と位置を使う
+- Result画面の旧大CTA`しおりを挟む`は廃止し、Resultも同じ小さなしおりだけを使う
+- Guest、Free、Proで同じ入口を使い、押下後の状態だけをentitlementと認証状態で分岐する
+- Guest押下時は保存せず、Cloud説明 → Google Login → 元画面復帰 → 最終保存確認の順に進む
 - Primary CTAより弱い階層
 - 保存後も現在画面に留まる
-- 未保存、保存中、Cloud同期、errorを静かに表示
-- Cloud feature flagが無効な地域・段階ではBookmarkを公開しない
+- 未保存、Login必要、保存確認、保存中、Cloud同期、errorを静かに表示
+- Cloud feature flagが無効な地域・段階ではproductionでBookmarkを公開しない
 
 ## 20. 保存更新
 
@@ -654,17 +659,18 @@ Stage 4: supported regions expansion
 ### Stage 1 — Guest no-save release
 
 1. Guestはログインなしで完全Sessionを何度でも利用可能
-2. Guestの永続Bookmark UIを表示しない
+2. Guest local Bookmark、Landing Resume、Result旧大Bookmark CTAを表示しない
 3. Guest本文をlocalStorageやCloudへ永続保存しない
 4. ブラウザやタブを閉じた後のresumeを保証しない
-5. 旧テーマbookmark UIと新Guest bookmark UIを混在させない
-6. Result画像保存は端末機能として維持
+5. 共通の小さなCloud保存CTAは開発可能だが、Cloud onboardingと明示保存経路が完成しGateを通るまではproduction feature flagをOFFにする
+6. 旧テーマbookmark UIと共通の小さなCloud保存CTAを混在させない
+7. Result画像保存は端末機能として維持
 
 ### Stage 2以降 — Gate後
 
 1. Free cloud active 1件
 2. Pro cloud active最大50件
-3. authenticated Cloud bookmark UI
+3. Guestにも見える共通の小さなauthenticated Cloud bookmark entry UI
 4. active一覧
 5. cross-device resume
 6. Pro completed archiveの基礎

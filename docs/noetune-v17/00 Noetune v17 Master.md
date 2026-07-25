@@ -104,7 +104,10 @@ Deepは同じテーマを固定してA → Question 2 → B → Question 2を交
 
 原則：
 
-- Guestにはしおりを提供せず、本人の文章を永続保存しない
+- Guestは永続Bookmark entitlementを持たず、本人の文章をlocalStorageやCloudへ永続保存しない
+- 対象Session画面には、Cloud保存の意思を示す共通の小さなしおりCTAをGuestにも表示できる
+- GuestがそのCTAを押しただけでは保存せず、まずCloud保存の説明とGoogle Loginへ進む
+- Google LoginだけではGuest runtime本文を送信せず、Login後に本人が改めて保存を確認した時だけ最初のCloud recordを作る
 - Guestはブラウザやタブを閉じた後のresumeを保証しない
 - Free loginはCloud active Journey 1件
 - ProはCloud active Journey最大50件
@@ -227,11 +230,12 @@ Cloud本文保存、cross-device resume、Pro archive、世界向け有料Cloud�
 
 1. 新しい問いのフローをv17基盤上で完成させる
 2. v17基本フローと既存UXを壊さない
-3. Guest localしおりを公開対象から安全に無効化する
-4. Global Privacy & Security GateをCloudより先に通す
-5. Free cloud 1件 / Pro cloud 50件の認証・RLS・削除・上限契約を実装する
-6. 3言語とmobile QA
-7. 段階的な公開・販売・外部検証
+3. Guest localしおり、Guest Resume、旧Result大Bookmark CTAを公開対象から無効化した状態を維持する
+4. Resultを含む対象Session画面へ共通の小さなCloud保存CTAを導入し、Guestの明示的保存意図からGoogle Loginへ進む静かな導線を完成させる
+5. Global Privacy & Security GateをCloud本文保存の有効化より先に通す
+6. Free cloud 1件 / Pro cloud 50件の認証・RLS・削除・上限契約を実装する
+7. 3言語とmobile QA
+8. 段階的な公開・販売・外部検証
 
 将来機能は、公開と外部検証を遅らせない。
 

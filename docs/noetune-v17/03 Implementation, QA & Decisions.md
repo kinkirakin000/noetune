@@ -410,6 +410,32 @@ Free  = one active Cloud bookmark
 Pro   = up to 50 active Cloud bookmarks + completed archive / history
 ```
 
+## 3C. Decision record — Guest-visible Cloud save intent CTA
+
+**Decision date:** 2026-07-25
+
+### Decision
+
+- Guest local bookmark entitlement remains retired
+- Guest persistent active count remains 0
+- the large legacy Result CTA `しおりを挟む` is retired
+- one common small bookmark CTA is the target UI on Session Mode, Before, Regular / Deep response pages, Breath, Final Measurement, Result, and Repeat
+- the same small CTA is visible to Guest, Free, and Pro when the authenticated Cloud Bookmark feature is enabled
+- for Guest, the CTA is a save-intent entry and does not itself create a local or Cloud record
+- Guest click flow is: Cloud save explanation → Google Login → return to the same Session screen → explicit final save confirmation
+- Google Login alone does not upload or persist Guest runtime writing
+- only the final explicit save confirmation may create the first owner-bound Cloud record
+- Free receives one active Cloud bookmark and Pro receives up to 50
+- ordinary Session use never forces Login
+- production exposure remains feature-flagged off until the Cloud onboarding path, Global Privacy & Security Gate, and required ownership / deletion controls are ready
+
+### Implementation sequencing
+
+- commit `048ce45290d9594a9f2bd1f125d813b59ad13906` disabled Guest local Bookmark / Resume / persistent writes and removed the legacy Result CTA
+- the next Bookmark UI work is a separate Unit for the common small CTA and save-intent / Login boundary
+- that Unit must not restore Guest local persistence or call legacy theme Bookmark APIs
+- authentication return-to-session feasibility and no-upload-before-confirmation must be verified before implementation acceptance
+
 ## 4. Decision record — Official v17 line and new question flow
 
 **Decision date:** 2026-07-20
@@ -805,10 +831,12 @@ Latest Commander-known repository facts before this documentation revision:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: 4e931a70e7463f16e39cdb182ada3e28b8b8437f
-tracked changes: docs 03 and 05 were already modified and protected
+HEAD: 048ce45290d9594a9f2bd1f125d813b59ad13906
+tracked working tree: clean
 staged changes: none
-push: not performed for the protected documentation changes
+snapshot regression tests: 17/17 PASS
+Human QA: PASS for Guest no-persistence, no Resume, no legacy Result CTA, and complete Guest Regular Session
+push: not performed
 deploy: not performed
 untracked backup files: 5, preserved and untouched
 ```
@@ -820,13 +848,13 @@ untracked backup files: 5, preserved and untouched
 | `currentStep` restore fix | Complete |
 | New Regular A/B flow | Complete |
 | `questionVariant` Snapshot persistence | Complete |
-| Snapshot / navigation regression suite | 14/14 PASS at latest reported checkpoint |
+| Snapshot / navigation regression suite | 17/17 PASS at latest reported checkpoint |
 | Safari top-control stabilization | Complete |
 | Guest local Phase 4B Human QA | `SUPERSEDED BY PRODUCT DECISION` |
-| First Response Guest-local draft mismatch | Observed; no Guest-local fix authorized |
-| Guest bookmark UI / resume / persistent write removal | Required; not started |
+| First Response Guest-local draft mismatch | Historical observation; superseded and no longer a target path |
+| Guest local Bookmark UI / Resume / persistent write disablement | Complete; commit `048ce452`; Human QA PASS |
 | New Deep A/B alternating flow | Approved, not started |
-| Authenticated Cloud bookmark | Not started |
+| Common small Cloud save-intent CTA / authenticated Bookmark onboarding | UX decision fixed; implementation boundary audit not started |
 | Free cloud active 1 / Pro cloud active 50 | Canonical decision fixed; implementation not started |
 | Global Privacy & Security Gate | Policy fixed; implementation not started |
 | Cloud / RLS | Blocked by privacy gate |
@@ -856,10 +884,10 @@ Do not independently:
 
 Commander ChatGPT must separately define the smallest safe code sequence for:
 
-1. disabling or removing Guest bookmark controls
-2. disabling Guest resume entry and Guest persistent writes
+1. auditing the common small Bookmark CTA, Google Login return-to-session path, and no-upload-before-confirmation boundary
+2. implementing the common small CTA on canonical Session pages without restoring Guest local persistence
 3. preserving ordinary Guest Session access without Login
-4. deciding the explicit save-intent → Google Login → Cloud consent UX
+4. implementing explicit save-intent → Cloud explanation → Google Login → original-screen return → final save confirmation
 5. implementing Global Privacy & Security Gate prerequisites
 6. implementing authenticated Free 1 / Pro 50 Cloud continuity
 
@@ -871,7 +899,8 @@ The next release-oriented QA must establish:
 
 - Guest has no Noetune persistent record
 - Guest can still use complete Sessions without Login
-- Login alone does not save
+- the common small Bookmark CTA does not call Guest local or legacy theme Bookmark writes
+- Guest click may open the explicit Cloud save / Login path, but Login alone does not save
 - explicit Cloud save is required
 - Free enforces 1 active record
 - Pro enforces 50 active records

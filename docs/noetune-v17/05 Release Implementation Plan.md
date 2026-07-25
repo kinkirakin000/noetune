@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-25
-> Current execution point: Guest local bookmark retirement documented; next code sequence awaits Commander authorization
+> Current execution point: Guest local Bookmark / Resume / persistent writes disabled and legacy Result CTA removed; next is the common small Cloud save-intent CTA boundary
 
 ## 1. Objective
 
@@ -67,7 +67,7 @@ Current interpretation:
 
 - this implementation remains repository history and may inform authenticated Cloud continuity
 - it is not a current Guest entitlement
-- Guest persistent writes must be disabled or made unreachable before release
+- Guest persistent writes are disabled and unreachable in the accepted runtime checkpoint
 - Snapshot Schema and validator work may be reused under authenticated Cloud contracts
 
 ### Phase 4B — Guest local Regular restore
@@ -98,7 +98,9 @@ Disposition:
 - Phase 4B is not accepted as release PASS
 - Phase 4B is not retained as an active release-blocking FAIL
 - Guest-local Bookmark, Resume entry, and persistent writes are outside the target product
-- existing code remains historical foundation until a separate Commander-authorized removal / disablement Unit
+- commit `048ce45290d9594a9f2bd1f125d813b59ad13906` disabled the Guest-local public paths and removed the legacy Result CTA
+- snapshot / navigation tests reached 17/17 PASS
+- Human QA passed: no Landing Resume, no Session-page Guest local Bookmark, no Guest snapshot key, no legacy Result CTA, browser restart returns to Landing, and Guest can complete a Regular Session
 - authenticated Cloud resume will receive its own acceptance path after Phase 5C
 
 Gate: none for Guest-local release. The feature has been retired. Later Cloud acceptance must be executed through the authenticated production path.
@@ -242,23 +244,25 @@ Deliverables:
 
 Gate: User A cannot read, update, or delete User B data.
 
-### Phase 7 — Authenticated Cloud Bookmark entry UI
+### Phase 7 — Common small Cloud Bookmark entry UI
 
-**Status:** Awaiting separate Commander UX decision
+**Status:** UX decision fixed; implementation boundary audit next
 
 Deliverables:
 
 - no Guest persistent Bookmark entitlement
+- one common small Bookmark CTA on Session Mode, Before, Regular / Deep response pages, Breath, Final Measurement, Result, and Repeat
+- Result uses the same small CTA; the legacy large Result CTA remains retired
+- Guest, Free, and Pro use the same visible entry when the feature flag is enabled
 - no automatic Login interruption during ordinary Session use
-- one quiet authenticated Cloud Bookmark control after explicit save intent
-- clear Login requirement and Cloud save explanation
+- Guest click shows a short Cloud save explanation, then offers Google Login
+- after Login, return to the same Session screen without uploading Guest runtime content
+- require a separate final save confirmation before creating the first Cloud record
 - Back and Bookmark placement consistent across canonical Session pages
-- saved / syncing / Cloud unavailable / error states
-- feature flag off before Phase 5C approval
+- Login required / confirm save / saved / syncing / Cloud unavailable / error states
+- production feature flag off before Phase 5C approval and before the full onboarding path is functional
 
-The exact Guest save CTA location, Google Login screen, and final copy are not fixed by this plan.
-
-Gate: no layout regression on mobile Safari and Android Chrome; Guest can complete Sessions without Login; Login alone does not save.
+Gate: no layout regression on mobile Safari and Android Chrome; Guest can complete Sessions without Login; CTA click creates no Guest local record; Login alone does not save or upload; original Session state survives the permitted auth return path.
 
 ### Phase 8 — Authenticated Cloud save and synchronization
 
@@ -435,9 +439,9 @@ Commit, push, and deploy only after explicit approval.
 ## 6. Release blockers
 
 - Guest writing is persistently stored by Noetune
-- Guest Bookmark or Resume entitlement remains active
+- Guest local Bookmark or Resume entitlement remains active
 - ordinary Guest Session use forces Login
-- Login alone creates or uploads a Cloud Session record
+- Guest CTA click or Login alone creates or uploads a Cloud Session record
 - authenticated saved Regular or Deep Session cannot restore exactly
 - Back chain fails after authenticated Cloud resume
 - pendingRound is lost, duplicated, or reordered
@@ -446,7 +450,7 @@ Commit, push, and deploy only after explicit approval.
 - invalid snapshot overwrites valid data
 - authenticated pending save is lost on Cloud or auth failure
 - cross-user access is possible
-- old and new bookmark flows conflict
+- the legacy large Result CTA reappears or old and new bookmark flows conflict
 - Free 1 / Pro 50 limits silently delete data
 - Pro 20 remains in target code, copy, or tests
 - critical three-language copy is missing
