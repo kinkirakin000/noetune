@@ -8511,6 +8511,289 @@ function finishV17DeepDive() {
   openV17Breath();
 }
 
+/* Canonical Deep flow (Unit 3A).  The legacy helpers above remain for the
+ * retired Feel100 route, but the live Deep path is deliberately redefined
+ * here as two questions per round. */
+function getV17DeepDivePromptPath(routeType, phase, variant) {
+  var route = routeType === 'problem' ? 'problems' : 'ideals';
+  return phase === 'question1'
+    ? 'flow.step2.' + route + '.variant' + (variant === 'B' ? 'B' : 'A')
+    : 'flow.step3.' + route;
+}
+
+function createV17DeepDiveRound(routeType, round, originalTheme, variant) {
+  return {
+    round: round,
+    questionVariant: variant === 'B' ? 'B' : 'A',
+    originalTheme: String(originalTheme || ''),
+    question1: { text: '', draft: '' },
+    question2: { text: '', draft: '' },
+    incomplete: false,
+    routeType: routeType
+  };
+}
+
+function initV17DeepDiveState() {
+  ensureV17SessionState();
+  var routeType = getV17DeepDiveRouteType();
+  var originalTheme = String(D.questionTextAtTime || D.theme || '');
+  var deep = {
+    routeType: routeType,
+    originalTheme: originalTheme,
+    round: 1,
+    questionVariant: 'A',
+    phase: 'question1',
+    rounds: [],
+    pendingRound: createV17DeepDiveRound(routeType, 1, originalTheme, 'A'),
+    nextPendingRound: null,
+    finished: false
+  };
+  D.v17Flow.deepDive = deep;
+  return deep;
+}
+
+function ensureV17DeepDiveState() {
+  ensureV17SessionState();
+  if (!D.v17Flow) D.v17Flow = createV17FlowState();
+  var deep = D.v17Flow.deepDive;
+  if (!deep || typeof deep !== 'object' || deep.phase === 'feel100' || !deep.originalTheme) {
+    deep = initV17DeepDiveState();
+  }
+  return deep;
+}
+
+function getV17DeepDiveDisplayQuote(deep) {
+  deep = deep || ensureV17DeepDiveState();
+  var pending = deep.pendingRound || {};
+  return deep.phase === 'question2'
+    ? String(pending.question1 && pending.question1.text || '').trim()
+    : String(deep.originalTheme || '').trim();
+}
+
+function syncV17DeepDiveDrafts() {
+  var deep = D.v17Flow && D.v17Flow.deepDive;
+  var pending = deep && deep.pendingRound;
+  if (!deep || !pending) return;
+  var q1 = pending.question1 || {};
+  var q2 = pending.question2 || {};
+  var current = deep.routeType === 'problem' ? q2.text : q1.text;
+  var ideal = deep.routeType === 'problem' ? q1.text : q2.text;
+  D.currentState = current || '';
+  D.currentStateText = current || '';
+  D.currentStateDraft = deep.routeType === 'problem' ? (q2.draft || '') : (q1.draft || '');
+  D.idealState = ideal || '';
+  D.idealStateText = ideal || '';
+  D.idealStateDraft = deep.routeType === 'problem' ? (q1.draft || '') : (q2.draft || '');
+  D.v17Flow.currentState = D.currentState;
+  D.v17Flow.currentStateText = D.currentStateText;
+  D.v17Flow.currentStateDraft = D.currentStateDraft;
+  D.v17Flow.idealState = D.idealState;
+  D.v17Flow.idealStateText = D.idealStateText;
+  D.v17Flow.idealStateDraft = D.idealStateDraft;
+  D.v17Flow.step2Text = q1.text || '';
+  D.v17Flow.step2Draft = q1.draft || '';
+  D.v17Flow.step3Text = q2.text || '';
+  D.v17Flow.step3Draft = q2.draft || '';
+}
+
+function onV17DeepDiveInput(value) {
+  var deep = ensureV17DeepDiveState();
+  var pending = deep.pendingRound;
+  if (!pending) return;
+  var question = deep.phase === 'question2' ? pending.question2 : pending.question1;
+  question.draft = String(value || '');
+  var button = document.getElementById('next-v17-deep-response');
+  if (button) button.disabled = !question.draft.trim();
+  syncV17DeepDiveDrafts();
+}
+
+function renderV17DeepDiveResponseScreen() {
+  var deep = ensureV17DeepDiveState();
+  var pending = deep.pendingRound;
+  var phase = deep.phase === 'question2' ? 'question2' : 'question1';
+  var question = phase === 'question2' ? pending.question2 : pending.question1;
+  renderV17DeepDiveSourceBlock('v17-deep-response-theme-block', 'v17-deep-response-quote',
+    'v17-deep-response-meaning', getV17DeepDiveDisplayQuote(deep),
+    deep.routeType === 'spiritual' && phase === 'question1');
+  setEl('v17-deep-response-prompt', v17Copy(getV17DeepDivePromptPath(deep.routeType, phase, deep.questionVariant)));
+  setEl('next-v17-deep-response', v17Copy('flow.common.continue'));
+  setEl('btn-v17-deep-no-more', v17Copy('buttons.deepDiveNoMoreWords'));
+  var input = document.getElementById('in-v17-deep-response');
+  if (input) input.value = question.draft || question.text || '';
+  var button = document.getElementById('next-v17-deep-response');
+  if (button) button.disabled = !String(question.draft || question.text || '').trim();
+  setV17CurrentStep('deep.' + phase);
+  syncV17DeepDiveDrafts();
+}
+
+function openV17DeepDiveScreen() {
+  renderV17Screen('s-v17-deep-response');
+  fwd('s-v17-deep-response');
+}
+
+function startV17DeepDive() {
+  ensureV17SessionState();
+  initV17DeepDiveState();
+  syncV17DeepDiveDrafts();
+  openV17DeepDiveScreen();
+}
+
+function commitV17DeepDiveCurrentInput(allowEmpty) {
+  var deep = ensureV17DeepDiveState();
+  var pending = deep.pendingRound;
+  var input = document.getElementById('in-v17-deep-response');
+  var value = input ? String(input.value || '').trim() : '';
+  var question = deep.phase === 'question2' ? pending.question2 : pending.question1;
+  question.draft = input ? String(input.value || '') : question.draft || '';
+  if (!value && !allowEmpty) return '';
+  if (value || allowEmpty) question.text = value;
+  syncV17DeepDiveDrafts();
+  return value;
+}
+
+function submitV17DeepDiveResponse(allowEmpty) {
+  var deep = ensureV17DeepDiveState();
+  var value = commitV17DeepDiveCurrentInput(!!allowEmpty);
+  if (!value && !allowEmpty) return;
+  if (deep.phase !== 'question2') {
+    deep.phase = 'question2';
+    openV17DeepDiveScreen();
+    return;
+  }
+  completeV17DeepDiveRound();
+}
+
+function completeV17DeepDiveRound() {
+  var deep = ensureV17DeepDiveState();
+  var completed = deep.pendingRound;
+  if (!completed || !String(completed.question1 && completed.question1.text || '').trim() ||
+      !String(completed.question2 && completed.question2.text || '').trim()) return;
+  if (!deep.rounds.some(function(round) { return round && round.round === completed.round; })) {
+    deep.rounds.push(cloneV17State(completed));
+  }
+  deep.round = completed.round + 1;
+  deep.questionVariant = completed.questionVariant === 'A' ? 'B' : 'A';
+  deep.phase = 'question1';
+  if (deep.nextPendingRound && deep.nextPendingRound.round === deep.round) {
+    deep.pendingRound = deep.nextPendingRound;
+    deep.nextPendingRound = null;
+  } else {
+    deep.pendingRound = createV17DeepDiveRound(deep.routeType, deep.round, deep.originalTheme, deep.questionVariant);
+  }
+  deep.finished = false;
+  syncV17DeepDiveDrafts();
+  openV17DeepDiveScreen();
+}
+
+function handleV17DeepDiveBack() {
+  var deep = D && D.v17Flow && D.v17Flow.deepDive;
+  if (!deep || cur !== 's-v17-deep-response') return false;
+  var input = document.getElementById('in-v17-deep-response');
+  if (input) onV17DeepDiveInput(input.value);
+  if (deep.phase === 'question2') {
+    deep.phase = 'question1';
+    deep.finished = false;
+    setV17ScreenDirectWithoutHistoryReset('s-v17-deep-response');
+    renderV17Screen(cur);
+    return true;
+  }
+  if (deep.round === 1) {
+    setV17ScreenDirectWithoutHistoryReset('s-v17-before');
+    renderV17Screen(cur);
+    return true;
+  }
+  var previous = deep.rounds.filter(function(round) { return round && round.round === deep.round - 1; }).pop();
+  if (!previous) return false;
+  deep.nextPendingRound = cloneV17State(deep.pendingRound);
+  deep.rounds = deep.rounds.filter(function(round) { return !round || round.round !== previous.round; });
+  deep.pendingRound = cloneV17State(previous);
+  deep.round = previous.round;
+  deep.questionVariant = previous.questionVariant;
+  deep.phase = 'question2';
+  deep.finished = false;
+  syncV17DeepDiveDrafts();
+  setV17ScreenDirectWithoutHistoryReset('s-v17-deep-response');
+  renderV17Screen(cur);
+  return true;
+}
+
+function finishV17DeepDive() {
+  var deep = ensureV17DeepDiveState();
+  var input = document.getElementById('in-v17-deep-response');
+  if (input) onV17DeepDiveInput(input.value);
+  if (deep.pendingRound) deep.pendingRound.incomplete = true;
+  deep.finished = true;
+  applyV17DeepDiveResultCandidate(getV17DeepDiveResultCandidate(deep));
+  openV17Breath();
+}
+
+/* This deliberately reads only committed question text.  Result state must
+ * never be composed from a completed round plus a later pending round, nor
+ * promote a draft merely because Deep is being finished. */
+function getV17DeepDiveResultCandidate(deep) {
+  deep = deep || (D.v17Flow && D.v17Flow.deepDive);
+  var empty = {
+    round: null,
+    question1Text: '',
+    question2Text: '',
+    currentState: '',
+    idealState: ''
+  };
+  if (!deep) return empty;
+  var pending = deep.pendingRound;
+  var pendingQuestion1 = String(pending && pending.question1 && pending.question1.text || '').trim();
+  var pendingQuestion2 = String(pending && pending.question2 && pending.question2.text || '').trim();
+  var source = pendingQuestion1 || pendingQuestion2 ? pending : null;
+  if (!source) {
+    var completed = (deep.rounds || []).filter(function(round) {
+      return round && String(round.question1 && round.question1.text || '').trim() &&
+        String(round.question2 && round.question2.text || '').trim();
+    }).sort(function(a, b) {
+      return (Number(a.round) || 0) - (Number(b.round) || 0);
+    });
+    source = completed.length ? completed[completed.length - 1] : null;
+  }
+  if (!source) return empty;
+  var question1Text = String(source.question1 && source.question1.text || '').trim();
+  var question2Text = String(source.question2 && source.question2.text || '').trim();
+  var problemRoute = deep.routeType === 'problem';
+  return {
+    round: typeof source.round === 'number' ? source.round : null,
+    question1Text: question1Text,
+    question2Text: question2Text,
+    currentState: problemRoute ? question2Text : question1Text,
+    idealState: problemRoute ? question1Text : question2Text
+  };
+}
+
+function applyV17DeepDiveResultCandidate(candidate) {
+  candidate = candidate || getV17DeepDiveResultCandidate();
+  ensureV17SessionState();
+  var flow = D.v17Flow;
+  var currentState = String(candidate.currentState || '');
+  var idealState = String(candidate.idealState || '');
+  D.currentState = currentState;
+  D.currentStateText = currentState;
+  D.idealState = idealState;
+  D.idealStateText = idealState;
+  flow.currentState = currentState;
+  flow.currentStateText = currentState;
+  flow.idealState = idealState;
+  flow.idealStateText = idealState;
+  flow.step2Text = String(candidate.question1Text || '');
+  flow.step3Text = String(candidate.question2Text || '');
+  return candidate;
+}
+
+function getV17DeepDiveResultEntries() {
+  var deep = D.v17Flow && D.v17Flow.deepDive;
+  if (!deep) return [];
+  return (deep.rounds || []).map(function(round) {
+    return round && round.question2 && String(round.question2.text || '').trim()
+      ? { round: round.round, kind: 'question2', text: round.question2.text } : null;
+  }).filter(Boolean);
+}
+
 function handleV17BreathBack() {
   var flow = D && D.v17Flow;
   if (!flow || cur !== 's-v17-breath') return false;
