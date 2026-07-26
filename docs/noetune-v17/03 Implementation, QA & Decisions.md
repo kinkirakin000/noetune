@@ -4,7 +4,7 @@
 # Noetune v17 Implementation, QA & Decisions
 
 **Status:** Canonical implementation decisions and QA record
-**Updated:** 2026-07-25
+**Updated:** 2026-07-26
 **Implementation baseline:** Local repository is the runtime source of truth. Obsidian is the decision source of truth.
 
 ## 1. Operating model
@@ -246,6 +246,55 @@ Therefore Phase 7 must be implemented before Phase 4B.
 ```
 
 Phase-order decisions belong to Commander ChatGPT.
+
+## 1C. Decision record — Centralized reasoning and bounded Codex execution reasoning
+
+**Decision date:** 2026-07-26
+
+Noetune開発における戦略的思考、設計判断、契約解釈、優先順位、受入判断は、Commander ChatGPTへ一元化する。
+
+これはCodexを思考なしで動作させる決定ではない。Codex Leaderおよびsubagentには、Commanderが確定したUnitをrepositoryへ安全に適合させるための、限定された局所的な実装思考を許可する。
+
+### Role boundary
+
+- Commander ChatGPT decides.
+- Codex Leader coordinates and checks compliance.
+- Researcher investigates repository facts.
+- Implementer implements the approved contract with the smallest safe diff.
+- QA and Reviewer verify the specified acceptance criteria.
+
+### Commander-exclusive decisions
+
+Commanderのみが次を決定する。
+
+- product direction and UX meaning
+- architecture
+- schema meaning and canonical ownership
+- privacy and security boundaries
+- Phase order and Unit scope
+- priorities
+- acceptance criteria
+- residual-risk acceptance
+- final PASS / FAIL / BLOCKED interpretation
+- commit, push, deploy, and release authorization
+- selection of the next Unit
+
+### Bounded Codex reasoning
+
+Codexは次の目的に限って局所的な思考を使用できる。
+
+- repository facts and dependenciesの確認
+- approved contractを既存コードへ適合させる最小方式の選択
+- syntax、fixture、test harness等の局所的修正
+- specified testsの実行
+- evidenceの整理
+- Commander契約との機械的照合
+
+Codexの局所的思考は、scope、architecture、schema、Phase順序、acceptance criteria、risk acceptance、release authorityを変更してはならない。
+
+Commander契約とrepository factsが両立しない場合、Codexは独自に契約を再設計しない。差分を安全に保持し、具体的証拠を添えてSTOPまたはBLOCKEDとしてCommanderへ判断を返す。
+
+この決定は既存のCommander authorityを変更するものではなく、その思考権限と実行権限の境界を明確化するものである。
 
 ## 2. Stop line
 

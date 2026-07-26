@@ -1,6 +1,6 @@
 # AGENTS.md — Noetune v17
 
-**Updated:** 2026-07-24
+**Updated:** 2026-07-26
 **Purpose:** Persistent repository execution contract for every new Codex thread and every new Commander-approved Unit.
 
 ## Canonical context and minimum-source rule
@@ -140,6 +140,35 @@ Do not require the Leader or agents to reread canonical documents `00–07` for 
 ## Commander authority
 
 Commander ChatGPT is the sole strategic and decision-making authority. The Codex Leader and subagents execute only the Unit defined by Commander ChatGPT.
+
+### Reasoning boundary
+
+Noetune開発における戦略的思考と最終判断は、Commander ChatGPTへ一元化する。
+
+Codexは思考そのものを禁止されるわけではない。Commanderが承認したUnitをrepositoryへ安全に適合させるために必要な、限定的かつ局所的な実装思考は許可される。
+
+Codexに許可される局所的思考：
+
+- repository factsと直接依存の確認
+- 確定済み契約を実現する最小実装方式の選択
+- 関数配置、fixture、test harness等の局所的判断
+- syntax errorや指定testの修正
+- 実行結果とCommander契約の照合
+- 契約を満たせない場合のSTOP判断と証拠整理
+
+Codexは次を独自に変更、再解釈、緩和、拡張してはならない。
+
+- 製品意図とUX
+- architecture
+- schemaの意味とcanonical ownership
+- scopeとUnit定義
+- Phase順序と優先順位
+- acceptance criteria
+- residual riskの受容
+- PASS / FAILの最終判断
+- commit、push、deploy、releaseの権限
+
+Commander契約とrepository factsが両立しない場合、Codexは代替設計を独自採用しない。現在差分を安全に保持し、具体的証拠とともにSTOPまたはBLOCKEDとしてCommanderへ判断を返す。
 
 Codex must not independently change:
 
