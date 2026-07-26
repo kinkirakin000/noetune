@@ -101,7 +101,7 @@ function fixture() {
 }
 
 function result(value) { return validate(value); }
-function accepted(value) { assert.equal(result(value).ok, true); }
+function accepted(value) { const checked = result(value); assert.equal(checked.ok, true, JSON.stringify(checked.error)); }
 function rejected(value) { assert.equal(result(value).ok, false); }
 
 function deepResponse(text = '', draft = '') {
@@ -176,6 +176,25 @@ function deepBreathFixture(step = 1) {
   value.currentState.deepFlow.finished = true;
   value.currentState.deepFlow.pendingRound.incomplete = true;
   value.resumeBackFrames = [{ frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.question1', state: { routeType: 'problem', deepFlow: frameFlow } }];
+  return value;
+}
+
+function finalBreathFrame(mode) {
+  return {
+    frameType: 'breath', sessionMode: mode, screenId: 's-v17-breath', currentStep: 'step4.second',
+    state: { breathState: { step: 2, phase: 'second', first: true, second: false } }
+  };
+}
+
+function finalFixture(mode = 'regular', finalMeasurementState = { state: 'unset', value: null, touched: false }) {
+  const value = mode === 'deep' ? deepBreathFixture(2) : regularBreathFixture(2);
+  value.currentScreen = 's-v17-final-measure';
+  value.currentState.currentScreen = 's-v17-final-measure';
+  value.currentState.currentStep = 'step5';
+  value.currentState.breathState = null;
+  value.currentState.measurement.after = copied(finalMeasurementState);
+  value.currentState.finalMeasurementState = copied(finalMeasurementState);
+  value.resumeBackFrames.push(finalBreathFrame(mode));
   return value;
 }
 
@@ -889,4 +908,139 @@ test('does not perform validator side effects or mutate fixtures', () => {
   assert.equal(JSON.stringify(value), before);
   assert.equal(JSON.stringify({ localStorage: localStorage.calls, sessionStorage: sessionStorage.calls }), storageBefore);
   assert.equal(Object.prototype.hasOwnProperty.call(globalThis, 'NoetuneV17SessionSnapshot'), false);
+});
+
+test('accepts Final schema candidates with exact unset, scored, not-a-problem, and skipped measurement states', () => {
+  accepted(finalFixture('regular'));
+  accepted(finalFixture('regular', { state: 'scored', value: 50, touched: true }));
+  accepted(finalFixture('deep', { state: 'not_a_problem', value: null, touched: true }));
+  accepted(finalFixture('deep', { state: 'skipped', value: null, touched: true }));
+});
+
+test('rejects Final scored measurement missing, out-of-range, fractional, or touched-mismatched values', () => {
+  const states = [
+    { state: 'scored', value: null, touched: true },
+    { state: 'scored', value: 101, touched: true },
+    { state: 'scored', value: 50.5, touched: true },
+    { state: 'scored', value: 50, touched: false }
+  ];
+  for (const state of states) rejected(finalFixture('regular', state));
+});
+
+test('rejects Final measurement unknown keys and derived delta payload fields', () => {
+  const unknown = finalFixture();
+  unknown.currentState.finalMeasurementState.extra = 1;
+  rejected(unknown);
+  const derived = finalFixture();
+  derived.currentState.finalMeasurementState.deltaScore = 1;
+  rejected(derived);
+});
+
+test('accepts the fixed Regular and Deep response then Breath Final frame stacks', () => {
+  accepted(finalFixture('regular'));
+  accepted(finalFixture('deep'));
+});
+
+test('rejects Final Breath frame step one, unknown keys, and nested recursive data', () => {
+  const stepOne = finalFixture();
+  stepOne.resumeBackFrames[1].state.breathState.step = 1;
+  stepOne.resumeBackFrames[1].state.breathState.phase = 'first';
+  rejected(stepOne);
+  const unknown = finalFixture();
+  unknown.resumeBackFrames[1].timer = 1;
+  rejected(unknown);
+  const recursive = finalFixture();
+  recursive.resumeBackFrames[1].state.resumeBackFrames = [];
+  rejected(recursive);
+});
+
+test('rejects Final frame order, missing frame, duplicate, mode mismatch, and three-frame stacks', () => {
+  const reversed = finalFixture();
+  reversed.resumeBackFrames.reverse();
+  rejected(reversed);
+  const missing = finalFixture();
+  missing.resumeBackFrames.pop();
+  rejected(missing);
+  const duplicate = finalFixture();
+  duplicate.resumeBackFrames[1] = copied(duplicate.resumeBackFrames[0]);
+  rejected(duplicate);
+  const mismatched = finalFixture();
+  mismatched.resumeBackFrames[1].sessionMode = 'deep';
+  rejected(mismatched);
+  const three = finalFixture();
+  three.resumeBackFrames.push(copied(three.resumeBackFrames[1]));
+  rejected(three);
+});
+
+test('rejects Final currentStep mismatch and rejects Final frame data from the wrong root mode', () => {
+  const stepMismatch = finalFixture();
+  stepMismatch.currentState.currentStep = 'step4.second';
+  rejected(stepMismatch);
+  const rootMismatch = finalFixture();
+  rootMismatch.summary.sessionMode = 'deep';
+  rootMismatch.currentState.sessionMode = 'deep';
+  rejected(rootMismatch);
+});
+
+test('keeps Breath one-frame validation and rejects two frames on a Breath screen', () => {
+  accepted(regularBreathFixture(2));
+  const twoFrames = regularBreathFixture(2);
+  twoFrames.resumeBackFrames.push(finalBreathFrame('regular'));
+  rejected(twoFrames);
+});
+
+test('keeps production Final serializer and restore gates closed', () => {
+  installProductionRegularBreath(2);
+  context.window.D.v17Flow.currentScreen = 's-v17-final-measure';
+  context.window.cur = 's-v17-final-measure';
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot({ savedAt: '2026-01-01T00:01:00.000Z', now: '2026-01-01T00:02:00.000Z' });
+  assert.equal(serialized.ok, false);
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(finalFixture());
+  assert.equal(restored.ok, false);
+  assert.equal(restored.error.code, 'RESTORE_SCREEN_NOT_SUPPORTED');
+});
+
+test('Final structural errors do not include private fixture text', () => {
+  const value = finalFixture();
+  value.resumeBackFrames[0].state.responses.current = { state: 'unset', text: '', draft: 'PRIVATE_FINAL_SENTINEL' };
+  const checked = result(value);
+  assert.equal(checked.ok, false);
+  assert.equal(JSON.stringify(checked.error).includes('PRIVATE_FINAL_SENTINEL'), false);
+});
+
+test('rejects a Final projection whose state differs from measurement.after', () => {
+  const value = finalFixture('regular', { state: 'scored', value: 50, touched: true });
+  value.currentState.finalMeasurementState.state = 'unset';
+  value.currentState.finalMeasurementState.value = null;
+  value.currentState.finalMeasurementState.touched = false;
+  rejected(value);
+});
+
+test('rejects a Final projection whose score differs from measurement.after', () => {
+  const value = finalFixture('regular', { state: 'scored', value: 50, touched: true });
+  value.currentState.finalMeasurementState.value = 51;
+  rejected(value);
+});
+
+test('rejects a Final projection whose touched flag differs from measurement.after', () => {
+  const value = finalFixture('regular', { state: 'scored', value: 50, touched: true });
+  value.currentState.measurement.after.touched = false;
+  rejected(value);
+});
+
+test('rejects an unset Final projection when measurement.after is scored', () => {
+  const value = finalFixture();
+  value.currentState.measurement.after = { state: 'scored', value: 50, touched: true };
+  rejected(value);
+});
+
+test('rejects a not-a-problem Final projection when measurement.after is skipped', () => {
+  const value = finalFixture('deep', { state: 'not_a_problem', value: null, touched: true });
+  value.currentState.measurement.after = { state: 'skipped', value: null, touched: true };
+  rejected(value);
+});
+
+test('accepts Final projection only when it exactly equals normalized measurement.after', () => {
+  accepted(finalFixture('regular', { state: 'scored', value: 0, touched: true }));
+  accepted(finalFixture('deep', { state: 'scored', value: 100, touched: true }));
 });

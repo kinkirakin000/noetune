@@ -34,7 +34,9 @@
     's-v17-deep-response',
     's-v17-breath'
   ];
-  var SCHEMA_VALIDATABLE_SCREENS = SERIALIZABLE_SCREENS.concat(['s-v17-deep-response']);
+  // Schema-known screens may be structurally validated before their
+  // production serializer and restore gates are opened.
+  var SCHEMA_VALIDATABLE_SCREENS = SERIALIZABLE_SCREENS.concat(['s-v17-deep-response', 's-v17-final-measure']);
   var ALLOWED_SESSION_STATUSES = ['active', 'completed', 'discarded'];
   var ALLOWED_ENTRY_TYPES = ['life_theme', 'free_input', 'spiritual_wisdom'];
   var ALLOWED_ROUTE_TYPES = ['problem', 'ideal', 'spiritual'];
@@ -44,7 +46,7 @@
   var ALLOWED_QUESTION_VARIANTS = ['A', 'B'];
   var ALLOWED_REGULAR_FLOW_ACTIVE_SCREENS = ['first', 'second', 'completed'];
   var ALLOWED_REGULAR_FLOW_RESPONSE_ROLES = ['current', 'ideal'];
-  var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3', 'step4.first', 'step4.second', 'deep.question1', 'deep.question2'];
+  var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3', 'step4.first', 'step4.second', 'step5', 'deep.question1', 'deep.question2'];
   var FORBIDDEN_KEYS = [
     'navHistory',
     'navPageStateHistory',
@@ -272,6 +274,41 @@
     return prototype === Object.prototype || prototype === null;
   }
 
+  function validateV17BreathState(value, path, requireStepTwo) {
+    if (!isPlainObject(value) || validateExactObjectKeys(value, ['step', 'phase', 'first', 'second'], path, 'INVALID_BREATH_STATE') ||
+        (value.step !== 1 && value.step !== 2) || (requireStepTwo && value.step !== 2) ||
+        value.phase !== (value.step === 2 ? 'second' : 'first') ||
+        typeof value.first !== 'boolean' || typeof value.second !== 'boolean') {
+      return createError('INVALID_BREATH_STATE', path);
+    }
+    return null;
+  }
+
+  function normalizeFinalMeasurementState(value) {
+    value = isPlainObject(value) ? value : {};
+    return {
+      state: typeof value.state === 'string' ? value.state : 'unset',
+      value: value.state === 'scored' && typeof value.value === 'number' && Number.isFinite(value.value) ? value.value : null,
+      touched: value.state === 'scored' ? value.touched === true : value.state === 'not_a_problem' || value.state === 'skipped' ? value.touched === true : false
+    };
+  }
+
+  function validateFinalMeasurementState(value, path) {
+    if (!isPlainObject(value) || validateExactObjectKeys(value, ['state', 'value', 'touched'], path, 'INVALID_FINAL_MEASUREMENT_STATE') ||
+        ALLOWED_MEASUREMENT_STATES.indexOf(value.state) < 0 || typeof value.touched !== 'boolean') {
+      return createError('INVALID_FINAL_MEASUREMENT_STATE', path);
+    }
+    if (value.state === 'scored') {
+      if (!Number.isInteger(value.value) || value.value < 0 || value.value > 100 || value.touched !== true) {
+        return createError('INVALID_FINAL_MEASUREMENT_STATE', path);
+      }
+    } else if (value.value !== null || (value.state === 'unset' && value.touched !== false) ||
+        ((value.state === 'not_a_problem' || value.state === 'skipped') && value.touched !== true)) {
+      return createError('INVALID_FINAL_MEASUREMENT_STATE', path);
+    }
+    return null;
+  }
+
   function validateV17ResumeBackFrameEnvelope(frame, path) {
     path = path || 'resumeBackFrames';
     if (!isV17StrictPlainObject(frame)) return createError('INVALID_RESUME_BACK_FRAME', path);
@@ -283,17 +320,24 @@
     }
     var keysError = validateExactObjectKeys(frame, ['frameType', 'sessionMode', 'screenId', 'currentStep', 'state'], path, 'INVALID_RESUME_BACK_FRAME');
     if (keysError) return keysError;
-    if ((frame.frameType !== 'regular-response' && frame.frameType !== 'deep-response') ||
+    if ((frame.frameType !== 'regular-response' && frame.frameType !== 'deep-response' && frame.frameType !== 'breath') ||
         (frame.sessionMode !== 'regular' && frame.sessionMode !== 'deep')) return createError('INVALID_RESUME_BACK_FRAME', path);
     if ((frame.frameType === 'regular-response' && frame.sessionMode !== 'regular') ||
         (frame.frameType === 'deep-response' && frame.sessionMode !== 'deep')) return createError('INVALID_RESUME_BACK_FRAME', path);
     if (typeof frame.screenId !== 'string' || (frame.frameType === 'deep-response' ? frame.screenId !== 's-v17-deep-response' :
-      frame.screenId !== 's-v17-first-response' && frame.screenId !== 's-v17-second-response')) {
+      frame.frameType === 'breath' ? frame.screenId !== 's-v17-breath' :
+        frame.screenId !== 's-v17-first-response' && frame.screenId !== 's-v17-second-response')) {
       return createError('INVALID_RESUME_BACK_FRAME_SCREEN', path + '.screenId');
     }
     if (typeof frame.currentStep !== 'string' || !frame.currentStep) return createError('INVALID_RESUME_BACK_FRAME_STATE', path + '.currentStep');
     if (!isV17StrictPlainObject(frame.state)) return createError('INVALID_RESUME_BACK_FRAME_STATE', path + '.state');
-    if (frame.frameType === 'deep-response') {
+    if (frame.frameType === 'breath') {
+      if (validateExactObjectKeys(frame.state, ['breathState'], path + '.state', 'INVALID_RESUME_BACK_FRAME_STATE')) {
+        return createError('INVALID_RESUME_BACK_FRAME_STATE', path + '.state');
+      }
+      var breathStateError = validateV17BreathState(frame.state.breathState, path + '.state.breathState', true);
+      if (breathStateError || frame.currentStep !== 'step4.second') return createError('INVALID_RESUME_BACK_FRAME_STATE', path);
+    } else if (frame.frameType === 'deep-response') {
       if (validateExactObjectKeys(frame.state, ['routeType', 'deepFlow'], path + '.state', 'INVALID_RESUME_BACK_FRAME_STATE')) {
         return createError('INVALID_RESUME_BACK_FRAME_STATE', path + '.state');
       }
@@ -324,14 +368,26 @@
     options = isPlainObject(options) ? options : {};
     var path = typeof options.path === 'string' && options.path ? options.path : 'resumeBackFrames';
     var allowNonEmpty = options.allowNonEmpty === true;
+    var allowFinalStack = options.allowFinalStack === true;
     if (!Array.isArray(frames)) return createError('INVALID_RESUME_BACK_FRAMES', path);
     if (frames.length > MAX_RESUME_BACK_FRAMES) return createError('INVALID_RESUME_BACK_FRAMES', path);
-    if (!allowNonEmpty && frames.length !== 0) return createError('INVALID_RESUME_BACK_FRAMES', path);
+    if (!allowNonEmpty && !allowFinalStack && frames.length !== 0) return createError('INVALID_RESUME_BACK_FRAMES', path);
     for (var i = 0; i < frames.length; i += 1) {
       var frameError = validateV17ResumeBackFrameEnvelope(frames[i], path + '[' + i + ']');
       if (frameError) return frameError;
     }
-    if (frames.length > 1) return createError('INVALID_RESUME_BACK_FRAMES', path);
+    if (allowFinalStack) {
+      if (frames.length !== 2) return createError('INVALID_RESUME_BACK_FRAMES', path);
+      var responseFrame = frames[0];
+      var breathFrame = frames[1];
+      if (!responseFrame || !breathFrame || breathFrame.frameType !== 'breath' ||
+          (responseFrame.frameType !== 'regular-response' && responseFrame.frameType !== 'deep-response') ||
+          responseFrame.sessionMode !== breathFrame.sessionMode ||
+          (responseFrame.frameType === 'regular-response' && responseFrame.sessionMode !== 'regular') ||
+          (responseFrame.frameType === 'deep-response' && responseFrame.sessionMode !== 'deep')) {
+        return createError('INVALID_RESUME_BACK_FRAMES', path);
+      }
+    } else if (frames.length > 1) return createError('INVALID_RESUME_BACK_FRAMES', path);
     return null;
   }
 
@@ -681,6 +737,8 @@
       first: !!(flow && flow.breath && flow.breath.first),
       second: !!(flow && flow.breath && flow.breath.second)
     } : null;
+    var finalMeasurementState = screenId === 's-v17-final-measure'
+      ? normalizeFinalMeasurementState(getMeasurementRuntime('after')) : null;
     var currentCycle = {
       cycleId: identity.cycleId,
       cycleIndex: identity.cycleIndex,
@@ -728,7 +786,8 @@
       scoreTrail: scoreTrail,
       awarenessTrail: awarenessTrail,
       deepFlow: deepFlow,
-      breathState: breathState
+      breathState: breathState,
+      finalMeasurementState: finalMeasurementState
     };
     return {
       snapshotSchemaVersion: SCHEMA_VERSION,
@@ -916,7 +975,11 @@
     if (!isPlainObject(snapshot.currentState)) return createError('INVALID_CURRENT_STATE', 'currentState');
     if (snapshot.repeatState !== null) return createError('INVALID_REPEAT_STATE', 'repeatState');
     var isBreathScreen = snapshot.currentScreen === 's-v17-breath';
-    var resumeBackFramesError = validateV17ResumeBackFrames(snapshot.resumeBackFrames, { allowNonEmpty: isBreathScreen });
+    var isFinalScreen = snapshot.currentScreen === 's-v17-final-measure';
+    var resumeBackFramesError = validateV17ResumeBackFrames(snapshot.resumeBackFrames, {
+      allowNonEmpty: isBreathScreen,
+      allowFinalStack: isFinalScreen
+    });
     if (resumeBackFramesError) return resumeBackFramesError;
     var unsafe = hasForbiddenOrUnsafeValue(snapshot, '', new WeakSet());
     if (unsafe) return unsafe;
@@ -934,7 +997,7 @@
     var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode';
     if (isUnselectedSessionMode) {
       if (summary.sessionMode !== null) return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
-    } else if (snapshot.currentScreen === 's-v17-deep-response' || (isBreathScreen && summary.sessionMode === 'deep')) {
+    } else if (snapshot.currentScreen === 's-v17-deep-response' || ((isBreathScreen || isFinalScreen) && summary.sessionMode === 'deep')) {
       if (summary.sessionMode !== 'deep') return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
     } else if (summary.sessionMode !== 'regular') {
       return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
@@ -1044,6 +1107,7 @@
     if (ALLOWED_CURRENT_STEPS.indexOf(state.currentStep) < 0) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
     var isDeepResponse = snapshot.currentScreen === 's-v17-deep-response';
     var isDeepBreath = isBreathScreen && summary.sessionMode === 'deep';
+    var isDeepFinal = isFinalScreen && summary.sessionMode === 'deep';
     if (isUnselectedSessionMode) {
       if (!Object.prototype.hasOwnProperty.call(state, 'sessionMode') || state.sessionMode !== null) {
         return createError('INVALID_SESSION_MODE', 'currentState.sessionMode');
@@ -1062,7 +1126,7 @@
       var deepFlowError = validateDeepFlowV1(state.deepFlow, 'currentState.deepFlow', state.routeType);
       if (deepFlowError) return deepFlowError;
       if (state.currentStep !== 'deep.' + state.deepFlow.phase) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
-    } else if (isDeepBreath) {
+    } else if (isDeepBreath || isDeepFinal) {
       if (state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
       if (!isPlainObject(state.deepFlow) || state.deepFlow.finished !== true || !state.deepFlow.pendingRound || state.deepFlow.pendingRound.incomplete !== true) return createError('INVALID_DEEP_FLOW', 'currentState.deepFlow');
       var rootDeep = deepClone(state.deepFlow);
@@ -1099,7 +1163,42 @@
           return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
         }
       }
-    } else if (Object.prototype.hasOwnProperty.call(state, 'breathState') && state.breathState !== null) return createError('INVALID_BREATH_STATE', 'currentState.breathState');
+    } else if (isFinalScreen) {
+      if (state.currentStep !== 'step5') return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
+      if (Object.prototype.hasOwnProperty.call(state, 'breathState') && state.breathState !== null) return createError('INVALID_BREATH_STATE', 'currentState.breathState');
+      var finalMeasurementError = validateFinalMeasurementState(state.finalMeasurementState, 'currentState.finalMeasurementState');
+      if (finalMeasurementError) return finalMeasurementError;
+      var normalizedAfterMeasurement = normalizeFinalMeasurementState(state.measurement.after);
+      if (state.finalMeasurementState.state !== normalizedAfterMeasurement.state ||
+          state.finalMeasurementState.value !== normalizedAfterMeasurement.value ||
+          state.finalMeasurementState.touched !== normalizedAfterMeasurement.touched) {
+        return createError('FINAL_MEASUREMENT_MISMATCH', 'currentState.finalMeasurementState');
+      }
+      var finalResponseFrame = snapshot.resumeBackFrames[0];
+      var finalBreathFrame = snapshot.resumeBackFrames[1];
+      if (!finalResponseFrame || !finalBreathFrame || finalResponseFrame.sessionMode !== summary.sessionMode ||
+          finalBreathFrame.sessionMode !== summary.sessionMode || finalBreathFrame.currentStep !== 'step4.second') {
+        return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames');
+      }
+      if (isDeepFinal) {
+        if (finalResponseFrame.frameType !== 'deep-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+      } else {
+        if (finalResponseFrame.frameType !== 'regular-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+        var finalRootRegular = state.regularFlow;
+        var finalFrameRegular = finalResponseFrame.state && finalResponseFrame.state.regularFlow;
+        if (!isPlainObject(finalRootRegular) || !isPlainObject(finalFrameRegular) ||
+            finalRootRegular.activeScreen !== finalFrameRegular.activeScreen ||
+            finalRootRegular.questionVariant !== finalFrameRegular.questionVariant ||
+            finalRootRegular.firstResponseRole !== finalFrameRegular.firstResponseRole ||
+            finalRootRegular.secondResponseRole !== finalFrameRegular.secondResponseRole ||
+            state.routeType !== finalResponseFrame.state.routeType) {
+          return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+        }
+      }
+    } else {
+      if (Object.prototype.hasOwnProperty.call(state, 'breathState') && state.breathState !== null) return createError('INVALID_BREATH_STATE', 'currentState.breathState');
+      if (Object.prototype.hasOwnProperty.call(state, 'finalMeasurementState') && state.finalMeasurementState !== null) return createError('INVALID_FINAL_MEASUREMENT_STATE', 'currentState.finalMeasurementState');
+    }
     if (isUnselectedSessionMode && state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
     if (state.regularFlow !== null) {
       if (!isPlainObject(state.regularFlow)) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
