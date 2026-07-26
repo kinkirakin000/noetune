@@ -622,3 +622,118 @@ test('production Case 1 keeps Regular B isolated through Deep A resume, Back, ne
   assert.equal(JSON.stringify(regularAfter).includes('deep-case-one-theme'), false);
   assert.equal(JSON.stringify(regularAfter).includes('round-two-q1-draft'), false);
 });
+
+test('No More Words captures a typed Deep pre-Breath frame before finishing the root flow', () => {
+  const f = fixture('problem');
+  f.context.startV17DeepDive();
+  f.context.onV17DeepDiveInput('draft-before-breath');
+  f.context.finishV17DeepDive();
+  const root = f.context.D.v17Flow.deepDive;
+  const frame = f.context.D.v17Flow.resumeBackFrames[0];
+  assert.equal(root.finished, true);
+  assert.equal(root.pendingRound.incomplete, true);
+  assert.equal(frame.frameType, 'deep-response');
+  assert.equal(frame.state.deepFlow.finished, false);
+  assert.equal(frame.state.deepFlow.pendingRound.incomplete, false);
+});
+
+test('Deep pre-Breath frame keeps a draft as a draft and does not promote it to confirmed text', () => {
+  const f = fixture('problem');
+  f.context.startV17DeepDive();
+  f.input.value = 'synthetic-only-draft';
+  f.context.onV17DeepDiveInput('synthetic-only-draft');
+  f.context.finishV17DeepDive();
+  const pending = f.context.D.v17Flow.resumeBackFrames[0].state.deepFlow.pendingRound;
+  assert.equal(pending.question1.text, '');
+  assert.equal(pending.question1.draft, 'synthetic-only-draft');
+  assert.equal(f.context.D.v17Flow.deepDive.rounds.length, 0);
+});
+
+test('Deep pre-Breath frame preserves original theme, round, and Deep variant ownership', () => {
+  const f = fixture('problem');
+  f.context.startV17DeepDive();
+  answer(f, 'one'); answer(f, 'two');
+  f.context.finishV17DeepDive();
+  const deep = f.context.D.v17Flow.resumeBackFrames[0].state.deepFlow;
+  assert.equal(deep.round, 2);
+  assert.equal(deep.questionVariant, 'B');
+  assert.equal(deep.originalTheme, 'theme-x');
+  assert.equal(deep.pendingRound.questionVariant, 'B');
+});
+
+test('Deep pre-Breath frame contains no raw history or timer fields', () => {
+  const f = fixture('spiritual');
+  f.context.startV17DeepDive();
+  f.context.finishV17DeepDive();
+  const serialized = JSON.stringify(f.context.D.v17Flow.resumeBackFrames[0]);
+  assert.equal(serialized.includes('navHistory'), false);
+  assert.equal(serialized.includes('navPageStateHistory'), false);
+  assert.equal(serialized.includes('timer'), false);
+  assert.equal(serialized.includes('interval'), false);
+});
+
+test('No More Words keeps the captured frame available while Breath is entered once', () => {
+  const f = fixture('problem');
+  f.context.startV17DeepDive();
+  f.context.finishV17DeepDive();
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 1);
+  assert.equal(f.calls.filter(value => value === 'breath').length, 1);
+  assert.equal(f.context.D.v17Flow.deepDive.finished, true);
+});
+
+function regularBreathRuntime() {
+  const events = [];
+  const input = { value: 'synthetic-confirmed' };
+  const context = {
+    D: {
+      v17SessionMode: 'regular', currentState: '', currentStateDraft: 'synthetic-current-draft', idealState: 'synthetic-ideal', idealStateDraft: 'synthetic-ideal-draft',
+      v17Flow: { routeType: 'problem', questionVariant: 'B', activeScreen: 'second', firstResponseRole: 'ideal', secondResponseRole: 'current', responseStates: { current: 'unset', ideal: 'answered' }, breath: { first: false, second: false } }
+    },
+    cur: 's-v17-second-response', document: { getElementById(id) { return id === 'in-v17-second-response' ? input : null; } },
+    cancelV17SavedDraftSnapshotUpdate() {}, updateV17SavedSessionSnapshot() {}, setV17SemanticResponse(_role, value) { context.D.currentState = value; },
+    getV17ResponseKind() { return 'currentState'; }, setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; },
+    resetV17BreathScreen() {}, renderV17Screen(id) { events.push({ id, step: context.D.v17Flow.currentStep, frame: context.D.v17Flow.resumeBackFrames && context.D.v17Flow.resumeBackFrames.length }); },
+    fwd(id) { context.cur = id; }, setV17ScreenDirectWithoutHistoryReset(id) { context.cur = id; }, cloneV17State(value) { return JSON.parse(JSON.stringify(value)); }
+  };
+  for (const name of ['createV17RegularPreBreathFrame', 'openV17Breath', 'completeV17BreathFlow', 'handleV17BreathBack', 'submitV17SecondResponse']) {
+    vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  }
+  return { context, events, input };
+}
+
+test('production Regular handler captures one typed predecessor frame before Breath Step 1', () => {
+  const f = regularBreathRuntime();
+  f.context.submitV17SecondResponse(false);
+  const flow = f.context.D.v17Flow;
+  assert.equal(f.context.cur, 's-v17-breath');
+  assert.equal(flow.currentStep, 'step4.first');
+  assert.equal(flow.questionVariant, 'B');
+  assert.equal(flow.resumeBackFrames.length, 1);
+  assert.equal(flow.resumeBackFrames[0].frameType, 'regular-response');
+  assert.equal(flow.resumeBackFrames[0].state.responses.current.text, 'synthetic-confirmed');
+});
+
+test('production Regular Breath Step 2 keeps its typed frame and returns to Step 1 without history', () => {
+  const f = regularBreathRuntime();
+  f.context.submitV17SecondResponse(false);
+  f.context.completeV17BreathFlow();
+  assert.equal(f.context.D.v17Flow.breathStep, 2);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 1);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.D.v17Flow.breathStep, 1);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 1);
+  assert.equal(f.context.D.v17Flow.questionVariant, 'B');
+});
+
+test('production Regular Breath Back restores the exact response frame with raw history absent', () => {
+  const f = regularBreathRuntime();
+  f.context.submitV17SecondResponse(false);
+  f.context.navHistory = []; f.context.navPageStateHistory = [];
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.cur, 's-v17-second-response');
+  assert.equal(f.context.D.v17Flow.currentStep, 'step3');
+  assert.equal(f.context.D.currentState, 'synthetic-confirmed');
+  assert.equal(f.context.D.currentStateDraft, 'synthetic-current-draft');
+  assert.equal(f.context.D.v17Flow.questionVariant, 'B');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 0);
+});

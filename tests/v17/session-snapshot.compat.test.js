@@ -145,9 +145,175 @@ function deepFixture(flow = deepFlow()) {
   return value;
 }
 
+function regularBreathFixture(step = 1) {
+  const value = fixture();
+  value.currentScreen = 's-v17-breath';
+  value.currentState.currentScreen = 's-v17-breath';
+  value.currentState.currentStep = step === 2 ? 'step4.second' : 'step4.first';
+  // Breath has no inferred Regular response shape.  The root flow remains
+  // the canonical response state captured in the typed predecessor frame.
+  value.currentState.regularFlow = Object.assign({}, value.currentState.regularFlow, { activeScreen: 'second' });
+  value.currentState.breathState = { step, phase: step === 2 ? 'second' : 'first', first: step === 2, second: false };
+  value.resumeBackFrames = [{
+    frameType: 'regular-response', sessionMode: 'regular', screenId: 's-v17-second-response', currentStep: 'step3',
+    state: {
+      routeType: 'problem',
+      regularFlow: { activeScreen: 'second', questionVariant: 'A', firstResponseRole: 'ideal', secondResponseRole: 'current' },
+      responses: copied(value.currentState.responses), semanticState: copied(value.currentState.semanticState)
+    }
+  }];
+  return value;
+}
+
+function deepBreathFixture(step = 1) {
+  const flow = deepFlow({ pendingRound: deepRound(1, deepResponse('', 'synthetic deep draft')) });
+  const value = deepFixture(flow);
+  value.currentScreen = 's-v17-breath';
+  value.currentState.currentScreen = 's-v17-breath';
+  value.currentState.currentStep = step === 2 ? 'step4.second' : 'step4.first';
+  value.currentState.breathState = { step, phase: step === 2 ? 'second' : 'first', first: step === 2, second: false };
+  const frameFlow = copied(value.currentState.deepFlow);
+  value.currentState.deepFlow.finished = true;
+  value.currentState.deepFlow.pendingRound.incomplete = true;
+  value.resumeBackFrames = [{ frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.question1', state: { routeType: 'problem', deepFlow: frameFlow } }];
+  return value;
+}
+
 function copied(value) { return JSON.parse(JSON.stringify(value)); }
 
+function installProductionRegularBreath(step = 1) {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const responses = {
+    current: { state: 'answered', text: 'synthetic-confirmed', draft: 'synthetic-current-draft' },
+    ideal: { state: 'answered', text: 'synthetic-ideal', draft: 'synthetic-ideal-draft' }
+  };
+  const regularFlow = { activeScreen: 'second', questionVariant: 'B', firstResponseRole: 'ideal', secondResponseRole: 'current' };
+  const frame = {
+    frameType: 'regular-response', sessionMode: 'regular', screenId: 's-v17-second-response', currentStep: 'step3',
+    state: { routeType: 'problem', regularFlow: copied(regularFlow), responses: copied(responses), semanticState: { current: 'synthetic-confirmed', ideal: 'synthetic-ideal' } }
+  };
+  context.window.D = {
+    v17SessionMode: 'regular', v17SessionIdentity: api.createV17SessionIdentity('2026-01-01T00:00:00.000Z'),
+    v17Flow: {
+      currentScreen: 's-v17-breath', currentStep: step === 2 ? 'step4.second' : 'step4.first', routeType: 'problem', questionVariant: 'B',
+      activeScreen: 'second', firstResponseRole: 'ideal', secondResponseRole: 'current', responseStates: { current: 'answered', ideal: 'answered' },
+      currentState: responses.current.text, currentStateText: responses.current.text, currentStateDraft: responses.current.draft,
+      idealState: responses.ideal.text, idealStateText: responses.ideal.text, idealStateDraft: responses.ideal.draft,
+      step2Text: responses.ideal.text, step2Draft: responses.ideal.draft, step3Text: responses.current.text, step3Draft: responses.current.draft,
+      breathStep: step, breathPhase: step === 2 ? 'second' : 'first', breath: { first: step === 2, second: false }, resumeBackFrames: [frame]
+    },
+    themeSource: 'themeLibrary', themeTrackId: 'problems', localeAtTime: 'en', questionTextAtTime: 'Question', theme: 'Theme', themeId: 'theme-1', questionId: null,
+    initialThemeScore: null, finalThemeScore: null, currentState: responses.current.text, currentStateText: responses.current.text, currentStateDraft: responses.current.draft,
+    idealState: responses.ideal.text, idealStateText: responses.ideal.text, idealStateDraft: responses.ideal.draft, currentThemeScoreTrail: [], currentThemeAwarenessTrail: []
+  };
+  // Runtime frames are produced inside the application realm.  Keep this
+  // isolated harness faithful to that boundary rather than passing a host
+  // realm object to the strict frame validator.
+  context.window.D.v17Flow.resumeBackFrames = vm.runInNewContext('JSON.parse(' + JSON.stringify(JSON.stringify([frame])) + ')', context);
+  context.window.cur = 's-v17-breath'; context.window.lang = 'en';
+  return frame;
+}
+
 test('accepts the canonical valid snapshot', () => accepted(fixture()));
+
+test('accepts Regular Breath Step 1 and Step 2 with one typed pre-Breath frame', () => {
+  accepted(regularBreathFixture(1));
+  accepted(regularBreathFixture(2));
+});
+
+test('accepts Deep Breath Step 1 and Step 2 with finished root and unfinished frame', () => {
+  accepted(deepBreathFixture(1));
+  accepted(deepBreathFixture(2));
+});
+
+test('rejects invalid Breath frame count, mode, screen, step, and recursive shape', () => {
+  const cases = [
+    value => { value.resumeBackFrames = []; },
+    value => { value.resumeBackFrames.push(copied(value.resumeBackFrames[0])); },
+    value => { value.resumeBackFrames[0].sessionMode = 'deep'; },
+    value => { value.resumeBackFrames[0].screenId = 's-result'; },
+    value => { value.resumeBackFrames[0].currentStep = 'step2'; },
+    value => { value.resumeBackFrames[0].state.resumeBackFrames = []; }
+  ];
+  for (const change of cases) { const value = regularBreathFixture(); change(value); rejected(value); }
+});
+
+test('rejects Breath state mismatch and unknown Breath or frame keys', () => {
+  const cases = [
+    value => { value.currentState.breathState.step = 2; },
+    value => { value.currentState.breathState.timer = 1; },
+    value => { value.resumeBackFrames[0].timer = 1; }
+  ];
+  for (const change of cases) { const value = regularBreathFixture(); change(value); rejected(value); }
+});
+
+test('rejects Deep Breath root and frame finished mismatch without exposing private text', () => {
+  const rootFinished = deepBreathFixture();
+  rootFinished.currentState.deepFlow.finished = false;
+  rejected(rootFinished);
+  const frameFinished = deepBreathFixture();
+  frameFinished.resumeBackFrames[0].state.deepFlow.finished = true;
+  rejected(frameFinished);
+  const privateFrame = deepBreathFixture();
+  privateFrame.resumeBackFrames[0].state.deepFlow.pendingRound.question1 = { state: 'answered', text: '', draft: 'PRIVATE_BREATH_SENTINEL' };
+  const checked = result(privateFrame);
+  assert.equal(checked.ok, false);
+  assert.equal(JSON.stringify(checked.error).includes('PRIVATE_BREATH_SENTINEL'), false);
+});
+
+test('restores Regular Breath without timer fields and preserves the typed frame', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { questionVariant: 'B' } };
+  const restored = api.restoreV17SessionRuntime(regularBreathFixture(2));
+  assert.equal(restored.ok, true);
+  assert.equal(context.window.D.v17Flow.breathStep, 2);
+  assert.equal(context.window.D.v17Flow.resumeBackFrames.length, 1);
+  assert.equal(Object.hasOwn(context.window.D.v17Flow, 'timer'), false);
+});
+
+test('restores Deep Breath without changing the existing Regular root variant', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { questionVariant: 'B' } };
+  const restored = api.restoreV17SessionRuntime(deepBreathFixture(1));
+  assert.equal(restored.ok, true);
+  assert.equal(context.window.D.v17Flow.questionVariant, 'B');
+  assert.equal(context.window.D.v17Flow.deepDive.finished, true);
+  assert.equal(context.window.D.v17Flow.resumeBackFrames[0].state.deepFlow.finished, false);
+});
+
+test('serializes a production-shaped Regular Breath Step 1 from its typed canonical response frame', () => {
+  installProductionRegularBreath(1);
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot({ savedAt: '2026-01-01T00:01:00.000Z', now: '2026-01-01T00:02:00.000Z' });
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(serialized.snapshot.currentState.regularFlow.questionVariant, 'B');
+  assert.equal(serialized.snapshot.resumeBackFrames.length, 1);
+  assert.equal(serialized.snapshot.currentState.breathState.step, 1);
+});
+
+test('serializes a production-shaped Regular Breath Step 2 without deriving flow from the Breath screen', () => {
+  installProductionRegularBreath(2);
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot({ savedAt: '2026-01-01T00:01:00.000Z', now: '2026-01-01T00:02:00.000Z' });
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(serialized.snapshot.currentState.breathState.step, 2);
+  assert.equal(serialized.snapshot.currentState.regularFlow.activeScreen, 'second');
+});
+
+test('rejects Regular Breath root-flow or typed predecessor mismatch', () => {
+  const value = regularBreathFixture(1);
+  value.currentState.regularFlow.questionVariant = 'B';
+  const checked = result(value);
+  assert.equal(checked.ok, false);
+  assert.equal(JSON.stringify(checked.error).includes('synthetic-confirmed'), false);
+});
+
+test('continues to reject Final and Result snapshots', () => {
+  for (const screen of ['s-v17-final-measure', 's-result']) {
+    const value = regularBreathFixture();
+    value.currentScreen = screen;
+    value.currentState.currentScreen = screen;
+    rejected(value);
+  }
+});
 
 test('validates DeepFlowV1 direct schema states, alternation, Back state, and next pending round', () => {
   const q1Draft = deepFixture();

@@ -8046,6 +8046,9 @@ function submitV17SecondResponse(allowEmpty) {
     D.v17Flow.responseStates[getV17ResponseKind('second') === 'idealState' ? 'ideal' : 'current'] = 'skipped';
   }
   updateV17SavedSessionSnapshot('SECOND_RESPONSE_CONFIRMED');
+  var regularBreathFrame = createV17RegularPreBreathFrame();
+  if (!regularBreathFrame) return;
+  D.v17Flow.resumeBackFrames = [regularBreathFrame];
   openV17Breath();
 }
 
@@ -8721,6 +8724,15 @@ function finishV17DeepDive() {
   var deep = ensureV17DeepDiveState();
   var input = document.getElementById('in-v17-deep-response');
   if (input) onV17DeepDiveInput(input.value);
+  var deepBreathFrame = typeof createV17DeepPreBreathFrame === 'function' ? createV17DeepPreBreathFrame() : null;
+  if (!deepBreathFrame && deep && typeof cloneV17State === 'function') {
+    var deepPreBreath = cloneV17State(deep);
+    deepPreBreath.finished = false;
+    deepBreathFrame = { frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.' + deepPreBreath.phase,
+      state: { routeType: deepPreBreath.routeType, deepFlow: deepPreBreath } };
+  }
+  if (!deepBreathFrame) return;
+  D.v17Flow.resumeBackFrames = [deepBreathFrame];
   if (deep.pendingRound) deep.pendingRound.incomplete = true;
   deep.finished = true;
   applyV17DeepDiveResultCandidate(getV17DeepDiveResultCandidate(deep));
@@ -8798,12 +8810,91 @@ function handleV17BreathBack() {
   var flow = D && D.v17Flow;
   if (!flow || cur !== 's-v17-breath') return false;
   if ((flow.breathStep || 1) > 1) {
+    resetV17BreathScreen();
     flow.breathStep = 1;
     flow.breathPhase = 'first';
     renderV17Screen('s-v17-breath');
     return true;
   }
+  var frame = Array.isArray(flow.resumeBackFrames) && flow.resumeBackFrames.length === 1 ? flow.resumeBackFrames[0] : null;
+  if (!frame || !frame.state) return false;
+  resetV17BreathScreen();
+  flow.resumeBackFrames = [];
+  if (frame.frameType === 'regular-response' && frame.sessionMode === 'regular') {
+    D.v17SessionMode = 'regular';
+    flow.routeType = frame.state.routeType;
+    flow.questionVariant = frame.state.regularFlow.questionVariant;
+    flow.activeScreen = frame.state.regularFlow.activeScreen;
+    flow.firstResponseRole = frame.state.regularFlow.firstResponseRole;
+    flow.secondResponseRole = frame.state.regularFlow.secondResponseRole;
+    flow.responseStates = cloneV17State(frame.state.responses);
+    D.currentState = frame.state.responses.current.text;
+    D.currentStateText = D.currentState;
+    D.currentStateDraft = frame.state.responses.current.draft;
+    D.idealState = frame.state.responses.ideal.text;
+    D.idealStateText = D.idealState;
+    D.idealStateDraft = frame.state.responses.ideal.draft;
+    flow.currentState = D.currentState;
+    flow.currentStateText = D.currentState;
+    flow.currentStateDraft = D.currentStateDraft;
+    flow.idealState = D.idealState;
+    flow.idealStateText = D.idealState;
+    flow.idealStateDraft = D.idealStateDraft;
+    flow.step2Text = frame.screenId === 's-v17-first-response' ? (frame.state.regularFlow.firstResponseRole === 'ideal' ? D.idealState : D.currentState) : flow.step2Text;
+    flow.step3Text = frame.screenId === 's-v17-second-response' ? (frame.state.regularFlow.secondResponseRole === 'ideal' ? D.idealState : D.currentState) : flow.step3Text;
+    setV17CurrentStep(frame.currentStep);
+    setV17ScreenDirectWithoutHistoryReset(frame.screenId);
+    renderV17Screen(frame.screenId);
+    return true;
+  }
+  if (frame.frameType === 'deep-response' && frame.sessionMode === 'deep') {
+    D.v17SessionMode = 'deep';
+    flow.deepDive = cloneV17State(frame.state.deepFlow);
+    flow.routeType = frame.state.routeType;
+    setV17CurrentStep(frame.currentStep);
+    syncV17DeepDiveDrafts();
+    applyV17DeepDiveResultCandidate(getV17DeepDiveResultCandidate(flow.deepDive));
+    setV17ScreenDirectWithoutHistoryReset('s-v17-deep-response');
+    renderV17Screen('s-v17-deep-response');
+    return true;
+  }
   return false;
+}
+
+function createV17RegularPreBreathFrame() {
+  var flow = D && D.v17Flow;
+  if (!flow || D.v17SessionMode !== 'regular') return null;
+  var screenId = 's-v17-second-response';
+  var regularFlow = {
+    activeScreen: 'second',
+    questionVariant: flow.questionVariant === 'B' ? 'B' : 'A',
+    firstResponseRole: flow.firstResponseRole,
+    secondResponseRole: flow.secondResponseRole
+  };
+  if ((regularFlow.firstResponseRole !== 'current' && regularFlow.firstResponseRole !== 'ideal') ||
+      (regularFlow.secondResponseRole !== 'current' && regularFlow.secondResponseRole !== 'ideal')) return null;
+  return {
+    frameType: 'regular-response', sessionMode: 'regular', screenId: screenId, currentStep: 'step3',
+    state: {
+      routeType: flow.routeType,
+      regularFlow: regularFlow,
+      responses: {
+        current: { state: flow.responseStates && flow.responseStates.current || (D.currentState ? 'answered' : 'unset'), text: String(D.currentState || ''), draft: String(D.currentStateDraft || '') },
+        ideal: { state: flow.responseStates && flow.responseStates.ideal || (D.idealState ? 'answered' : 'unset'), text: String(D.idealState || ''), draft: String(D.idealStateDraft || '') }
+      },
+      semanticState: { current: String(D.currentState || '') || null, ideal: String(D.idealState || '') || null }
+    }
+  };
+}
+
+function createV17DeepPreBreathFrame() {
+  var flow = D && D.v17Flow;
+  var deep = flow && flow.deepDive;
+  if (!flow || !deep || D.v17SessionMode !== 'deep') return null;
+  var snapshot = cloneV17State(deep);
+  snapshot.finished = false;
+  return { frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.' + snapshot.phase,
+    state: { routeType: snapshot.routeType, deepFlow: snapshot } };
 }
 
 function openV17Breath() {
@@ -10523,10 +10614,12 @@ function wrapV17SavePayloadBuilders() {
       && snapshot.currentScreen === 's-v17-session-mode';
     var isDeepResponse = snapshot && snapshot.summary && snapshot.summary.sessionMode === 'deep'
       && snapshot.currentScreen === 's-v17-deep-response';
-    if (!snapshot || !snapshot.summary || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isDeepResponse)) {
+    var isBreath = snapshot && snapshot.currentScreen === 's-v17-breath';
+    var isDeepBreath = isBreath && snapshot.summary && snapshot.summary.sessionMode === 'deep';
+    if (!snapshot || !snapshot.summary || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isDeepResponse && !isDeepBreath)) {
       return { ok: false, error: { code: 'RESTORE_SCREEN_NOT_SUPPORTED', path: 'summary.sessionMode' } };
     }
-    if (['s-v17-session-mode', 's-v17-before', 's-v17-first-response', 's-v17-second-response', 's-v17-deep-response'].indexOf(snapshot.currentScreen) < 0) {
+    if (['s-v17-session-mode', 's-v17-before', 's-v17-first-response', 's-v17-second-response', 's-v17-deep-response', 's-v17-breath'].indexOf(snapshot.currentScreen) < 0) {
       return { ok: false, error: { code: 'RESTORE_SCREEN_NOT_SUPPORTED', path: 'currentScreen' } };
     }
     var restoreResult = window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(snapshot);
@@ -10540,7 +10633,10 @@ function wrapV17SavePayloadBuilders() {
     }
     setV17ScreenDirectWithoutHistoryReset(snapshot.currentScreen);
     if (D && D.v17Flow) D.v17Flow.currentScreen = snapshot.currentScreen;
-    if (isDeepResponse) {
+    if (isDeepResponse || isBreath) {
+      if (isDeepBreath && typeof applyV17DeepDiveResultCandidate === 'function') {
+        applyV17DeepDiveResultCandidate(getV17DeepDiveResultCandidate(D.v17Flow.deepDive));
+      }
       updateBackBtn();
       return {
         ok: true,
