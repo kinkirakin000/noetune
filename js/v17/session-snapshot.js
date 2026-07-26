@@ -22,13 +22,15 @@
     's-v17-session-mode',
     's-v17-before',
     's-v17-first-response',
-    's-v17-second-response'
+    's-v17-second-response',
+    's-v17-deep-response'
   ];
   var RESTORABLE_SCREENS = [
     's-v17-session-mode',
     's-v17-before',
     's-v17-first-response',
-    's-v17-second-response'
+    's-v17-second-response',
+    's-v17-deep-response'
   ];
   var SCHEMA_VALIDATABLE_SCREENS = SERIALIZABLE_SCREENS.concat(['s-v17-deep-response']);
   var ALLOWED_SESSION_STATUSES = ['active', 'completed', 'discarded'];
@@ -355,6 +357,10 @@
     if (screenId === 's-v17-before') return flow && typeof flow.currentStep === 'string' && flow.currentStep ? flow.currentStep : 'before';
     if (screenId === 's-v17-first-response') return flow && typeof flow.currentStep === 'string' && flow.currentStep ? flow.currentStep : 'first-response';
     if (screenId === 's-v17-second-response') return flow && typeof flow.currentStep === 'string' && flow.currentStep ? flow.currentStep : 'second-response';
+    if (screenId === 's-v17-deep-response') {
+      var deep = flow && flow.deepDive;
+      return deep && (deep.phase === 'question1' || deep.phase === 'question2') ? 'deep.' + deep.phase : null;
+    }
     return null;
   }
 
@@ -623,6 +629,8 @@
     var idealResponse = getRuntimeResponseState('ideal', flow, global.D && global.D.idealState, global.D && global.D.idealStateDraft);
     var regularFlow = deriveV17RegularFlow(flow && typeof flow.currentScreen === 'string' && flow.currentScreen ? flow.currentScreen : screenId, routeType);
     if (regularFlow) regularFlow.questionVariant = normalizeV17QuestionVariant(flow && flow.questionVariant);
+    var isDeepResponse = sessionMode === 'deep' && screenId === 's-v17-deep-response';
+    var deepFlow = isDeepResponse ? getDeepFlowV1(flow && flow.deepDive) : null;
     var currentCycle = {
       cycleId: identity.cycleId,
       cycleIndex: identity.cycleIndex,
@@ -655,18 +663,21 @@
         before: beforeMeasurement,
         after: afterMeasurement
       },
-      responses: {
+      responses: isDeepResponse ? {
+        current: { state: 'unset', text: '', draft: '' },
+        ideal: { state: 'unset', text: '', draft: '' }
+      } : {
         current: currentResponse,
         ideal: idealResponse
       },
-      semanticState: {
+      semanticState: isDeepResponse ? { current: null, ideal: null } : {
         current: currentStateValue,
         ideal: idealStateValue
       },
-      regularFlow: regularFlow,
+      regularFlow: isDeepResponse ? null : regularFlow,
       scoreTrail: scoreTrail,
       awarenessTrail: awarenessTrail,
-      deepFlow: null
+      deepFlow: deepFlow
     };
     return {
       snapshotSchemaVersion: SCHEMA_VERSION,
@@ -1029,10 +1040,12 @@
     var identity = getV17SessionIdentity();
     var identityError = validateSessionIdentity(identity);
     if (identityError) return { ok: false, error: identityError };
-    if (getRuntimeSessionMode() === 'deep') {
+    var runtimeScreenId = getRuntimeScreenId();
+    var runtimeSessionMode = getRuntimeSessionMode();
+    var isDeepResponse = runtimeSessionMode === 'deep' && runtimeScreenId === 's-v17-deep-response';
+    if (runtimeSessionMode === 'deep' && !isDeepResponse) {
       return { ok: false, error: createError('UNSUPPORTED_SESSION_MODE_PHASE_4A', 'sessionMode') };
     }
-    var runtimeScreenId = getRuntimeScreenId();
     if (runtimeScreenId === 's-v17-session-mode' && getRuntimeSessionMode() !== null) {
       return { ok: false, error: createError('INVALID_SESSION_MODE', 'sessionMode') };
     }
@@ -1043,9 +1056,18 @@
       if (global.D.v17Flow.currentScreen === null) {
         return { ok: false, error: createError('RUNTIME_SCREEN_INVALID', 'v17Flow.currentScreen') };
       }
-      var responseStateError = validateRuntimeResponseStates(global.D.v17Flow, 'v17Flow.responseStates');
-      if (responseStateError) return { ok: false, error: responseStateError };
-      if (global.D.v17Flow.currentScreen !== 's-v17-before' && global.D.v17Flow.currentScreen !== 's-v17-session-mode') {
+      if (isDeepResponse) {
+        var deepFlow = getDeepFlowV1(global.D.v17Flow.deepDive);
+        var deepFlowError = validateDeepFlowV1(deepFlow, 'v17Flow.deepDive', getRuntimeRouteType());
+        if (deepFlowError) return { ok: false, error: deepFlowError };
+        if (global.D.v17Flow.currentStep !== 'deep.' + deepFlow.phase || getCurrentStep(runtimeScreenId, global.D.v17Flow) !== 'deep.' + deepFlow.phase) {
+          return { ok: false, error: createError('INVALID_CURRENT_STEP', 'v17Flow.currentStep') };
+        }
+      } else {
+        var responseStateError = validateRuntimeResponseStates(global.D.v17Flow, 'v17Flow.responseStates');
+        if (responseStateError) return { ok: false, error: responseStateError };
+      }
+      if (!isDeepResponse && global.D.v17Flow.currentScreen !== 's-v17-before' && global.D.v17Flow.currentScreen !== 's-v17-session-mode') {
         var regularFlowError = validateRegularFlowMetadata({
           currentScreen: global.D.v17Flow.currentScreen,
           activeScreen: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).activeScreen,
@@ -1155,23 +1177,21 @@
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', validatedSnapshot.error ? validatedSnapshot.error.path : '') };
     }
     snapshot = validatedSnapshot.snapshot;
-    if (snapshot.summary && snapshot.summary.sessionMode === 'deep') {
-      return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
-    }
     if (RESTORABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) {
       return { ok: false, error: createError('RESTORE_SCREEN_NOT_SUPPORTED', 'currentScreen') };
     }
     var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode' && snapshot.summary && snapshot.summary.sessionMode === null;
-    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode)) {
+    var isDeepResponse = snapshot.currentScreen === 's-v17-deep-response' && snapshot.summary && snapshot.summary.sessionMode === 'deep';
+    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isDeepResponse)) {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
     }
     if (!isPlainObject(snapshot.currentState)) {
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState') };
     }
     var routeType = snapshot.currentState.routeType;
-    var regularFlow = deriveV17RegularFlow(snapshot.currentScreen, routeType);
+    var regularFlow = isDeepResponse ? null : deriveV17RegularFlow(snapshot.currentScreen, routeType);
     var isSessionModeOrBefore = snapshot.currentScreen === 's-v17-session-mode' || snapshot.currentScreen === 's-v17-before';
-    if (!regularFlow && !isSessionModeOrBefore) {
+    if (!regularFlow && !isSessionModeOrBefore && !isDeepResponse) {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'currentScreen') };
     }
     var regularFlowSnapshot = snapshot.currentState.regularFlow;
@@ -1181,7 +1201,14 @@
       regularFlowSnapshot.secondResponseRole !== regularFlow.secondResponseRole)) {
       return { ok: false, error: createError('RESTORE_REGULAR_FLOW_MISMATCH', 'currentState.regularFlow') };
     }
-    var questionVariant = regularFlow ? normalizeV17QuestionVariant(regularFlowSnapshot.questionVariant) : 'A';
+    // The root variant belongs to Regular.  A Deep snapshot deliberately has
+    // no authority over it, so retain the runtime value while restoring Deep.
+    var questionVariant = regularFlow ? normalizeV17QuestionVariant(regularFlowSnapshot.questionVariant) : null;
+    var deepFlowSnapshot = isDeepResponse ? deepClone(snapshot.currentState.deepFlow) : null;
+    if (isDeepResponse) {
+      var restoredDeepError = validateDeepFlowV1(deepFlowSnapshot, 'currentState.deepFlow', routeType);
+      if (restoredDeepError) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', restoredDeepError.path) };
+    }
     var entry = snapshot.currentState.entry;
     if (!isPlainObject(entry)) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState.entry') };
     var responseCurrent = snapshot.currentState.responses && snapshot.currentState.responses.current;
@@ -1268,6 +1295,32 @@
     stagedFlow.activeScreen = regularFlow ? regularFlow.activeScreen : null;
     stagedFlow.firstResponseRole = regularFlow ? regularFlow.firstResponseRole : null;
     stagedFlow.secondResponseRole = regularFlow ? regularFlow.secondResponseRole : null;
+    if (isDeepResponse) {
+      var candidateRound = (deepFlowSnapshot.pendingRound.question1.text || deepFlowSnapshot.pendingRound.question2.text)
+        ? deepFlowSnapshot.pendingRound : null;
+      if (!candidateRound && deepFlowSnapshot.rounds.length) candidateRound = deepFlowSnapshot.rounds[deepFlowSnapshot.rounds.length - 1];
+      var question1Text = candidateRound ? candidateRound.question1.text : '';
+      var question2Text = candidateRound ? candidateRound.question2.text : '';
+      staged.currentState = routeType === 'problem' ? question2Text : question1Text;
+      staged.currentStateText = staged.currentState;
+      staged.idealState = routeType === 'problem' ? question1Text : question2Text;
+      staged.idealStateText = staged.idealState;
+      staged.currentStateDraft = '';
+      staged.idealStateDraft = '';
+      staged.responseStates = { current: staged.currentState ? 'answered' : 'unset', ideal: staged.idealState ? 'answered' : 'unset' };
+      stagedFlow.responseStates = staged.responseStates;
+      stagedFlow.currentState = staged.currentState;
+      stagedFlow.currentStateText = staged.currentStateText;
+      stagedFlow.currentStateDraft = '';
+      stagedFlow.idealState = staged.idealState;
+      stagedFlow.idealStateText = staged.idealStateText;
+      stagedFlow.idealStateDraft = '';
+      stagedFlow.step2Text = question1Text;
+      stagedFlow.step2Draft = deepFlowSnapshot.pendingRound.question1.draft;
+      stagedFlow.step3Text = question2Text;
+      stagedFlow.step3Draft = deepFlowSnapshot.pendingRound.question2.draft;
+      stagedFlow.deepDive = deepFlowSnapshot;
+    }
     if (!isUnselectedSessionMode) staged.v17Flow = stagedFlow;
     if (!global.D || typeof global.D !== 'object') {
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'runtime') };
@@ -1307,7 +1360,7 @@
     global.D.v17Flow = global.D.v17Flow && typeof global.D.v17Flow === 'object' ? global.D.v17Flow : {};
     global.D.v17Flow.currentScreen = stagedFlow.currentScreen;
     global.D.v17Flow.currentStep = stagedFlow.currentStep;
-    global.D.v17Flow.questionVariant = stagedFlow.questionVariant;
+    if (!isDeepResponse) global.D.v17Flow.questionVariant = stagedFlow.questionVariant;
     global.D.v17Flow.routeType = stagedFlow.routeType;
     global.D.v17Flow.responseStates = stagedFlow.responseStates;
     global.D.v17Flow.step2Text = stagedFlow.step2Text;
@@ -1323,12 +1376,15 @@
     global.D.v17Flow.activeScreen = stagedFlow.activeScreen;
     global.D.v17Flow.firstResponseRole = stagedFlow.firstResponseRole;
     global.D.v17Flow.secondResponseRole = stagedFlow.secondResponseRole;
+    if (isDeepResponse) global.D.v17Flow.deepDive = deepClone(stagedFlow.deepDive);
     return {
       ok: true,
       sessionId: snapshot.sessionId,
       currentScreen: snapshot.currentScreen,
       sessionMode: snapshot.summary.sessionMode,
-      appliedGroups: ['identity', 'entry', 'mode_route_screen', 'measurement', 'responses', 'regularFlow']
+      appliedGroups: isDeepResponse
+        ? ['identity', 'entry', 'mode_route_screen', 'measurement', 'deepFlow', 'resultAdapter']
+        : ['identity', 'entry', 'mode_route_screen', 'measurement', 'responses', 'regularFlow']
     };
   }
 

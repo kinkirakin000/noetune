@@ -236,20 +236,70 @@ test('rejects invalid DeepFlowV1 contracts without exposing private values', () 
   assert.equal(JSON.stringify(validation.error).includes('PRIVATE_SENTINEL'), false);
 });
 
-test('keeps Deep production serializer, restore, and allowlists closed', () => {
+test('serializes and restores only the canonical Deep response state', () => {
   const api = context.window.NoetuneV17SessionSnapshot;
   context.window.D = {
     v17SessionMode: 'deep',
-    v17SessionIdentity: api.createV17SessionIdentity('2026-01-01T00:00:00.000Z')
+    v17SessionIdentity: api.createV17SessionIdentity('2026-01-01T00:00:00.000Z'),
+    v17Flow: {
+      currentScreen: 's-v17-deep-response', currentStep: 'deep.question2', questionVariant: 'B',
+      deepDive: deepFlow({
+        round: 2, questionVariant: 'B', phase: 'question2',
+        rounds: [deepRound(1, deepResponse('one'), deepResponse('two'))],
+        pendingRound: deepRound(2, deepResponse('three'), deepResponse('', 'four draft')),
+        nextPendingRound: deepRound(3)
+      })
+    },
+    themeSource: 'themeLibrary', themeTrackId: 'problems', localeAtTime: 'en',
+    questionTextAtTime: 'Question', theme: 'Theme', themeId: 'theme-1', questionId: null,
+    initialThemeScore: null, finalThemeScore: null, currentThemeScoreTrail: [], currentThemeAwarenessTrail: []
   };
-  const serialized = api.serializeV17SessionSnapshot({ now: '2026-01-01T00:01:00.000Z' });
-  assert.equal(serialized.ok, false);
-  assert.equal(serialized.error.code, 'UNSUPPORTED_SESSION_MODE_PHASE_4A');
-  const restored = api.restoreV17SessionRuntime(deepFixture());
-  assert.equal(restored.ok, false);
-  assert.equal(restored.error.code, 'RESTORE_DEEP_NOT_SUPPORTED');
-  assert.equal(api.constants.SERIALIZABLE_SCREENS.includes('s-v17-deep-response'), false);
-  assert.equal(api.constants.RESTORABLE_SCREENS.includes('s-v17-deep-response'), false);
+  context.window.cur = 's-v17-deep-response';
+  context.window.lang = 'en';
+  const serialized = api.serializeV17SessionSnapshot({ savedAt: '2026-01-01T00:01:00.000Z', now: '2026-01-01T00:02:00.000Z' });
+  assert.equal(serialized.ok, true);
+  assert.equal(serialized.snapshot.currentState.regularFlow, null);
+  assert.equal(serialized.snapshot.currentState.responses.current.text, '');
+  assert.equal(serialized.snapshot.currentState.deepFlow.pendingRound.question2.draft, 'four draft');
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { questionVariant: 'A' } };
+  const restored = api.restoreV17SessionRuntime(serialized.snapshot);
+  assert.equal(restored.ok, true);
+  assert.equal(context.window.D.v17SessionMode, 'deep');
+  assert.equal(context.window.D.v17Flow.deepDive.round, 2);
+  assert.equal(context.window.D.v17Flow.deepDive.nextPendingRound.round, 3);
+  assert.equal(context.window.D.v17Flow.questionVariant, 'A');
+  assert.equal(api.constants.SERIALIZABLE_SCREENS.includes('s-v17-deep-response'), true);
+  assert.equal(api.constants.RESTORABLE_SCREENS.includes('s-v17-deep-response'), true);
+  const unsupported = copied(serialized.snapshot);
+  unsupported.currentScreen = 's-v17-breath';
+  unsupported.currentState.currentScreen = 's-v17-breath';
+  assert.equal(api.validateV17SessionSnapshot(unsupported).ok, false);
+});
+
+test('restoring a Deep A snapshot leaves an existing Regular B variant unchanged', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const snapshot = deepFixture(deepFlow({ questionVariant: 'A', pendingRound: deepRound(1) }));
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { questionVariant: 'B' } };
+  const restored = api.restoreV17SessionRuntime(snapshot);
+  assert.equal(restored.ok, true);
+  assert.equal(context.window.D.v17Flow.questionVariant, 'B');
+  assert.equal(context.window.D.v17Flow.deepDive.questionVariant, 'A');
+});
+
+test('restoring a Deep B snapshot leaves an existing Regular A variant unchanged', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const snapshot = deepFixture(deepFlow({
+    round: 2,
+    questionVariant: 'B',
+    rounds: [deepRound(1, deepResponse('one'), deepResponse('two'))],
+    pendingRound: deepRound(2, deepResponse('three'), deepResponse('', 'four draft')),
+    nextPendingRound: deepRound(3)
+  }));
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { questionVariant: 'A' } };
+  const restored = api.restoreV17SessionRuntime(snapshot);
+  assert.equal(restored.ok, true);
+  assert.equal(context.window.D.v17Flow.questionVariant, 'A');
+  assert.equal(context.window.D.v17Flow.deepDive.questionVariant, 'B');
 });
 
 test('serializes Guest Regular Before without Regular Flow metadata', () => {
