@@ -233,6 +233,18 @@ function installProductionRegularBreath(step = 1) {
   return frame;
 }
 
+function installProductionRegularFinal(after = { state: 'unset', value: null, touched: false }) {
+  installProductionRegularBreath(2);
+  const breath = vm.runInNewContext('JSON.parse(' + JSON.stringify(JSON.stringify(finalBreathFrame('regular'))) + ')', context);
+  context.window.D.v17Flow.resumeBackFrames.push(breath);
+  context.window.D.v17Flow.currentScreen = 's-v17-final-measure';
+  context.window.D.v17Flow.currentStep = 'step5';
+  context.window.D.v17MeasurementState = { before: { state: 'unset', value: null, touched: false }, after: copied(after) };
+  context.window.D.finalThemeScore = after.state === 'scored' ? after.value : null;
+  context.window.cur = 's-v17-final-measure';
+  return context.window.D;
+}
+
 test('accepts the canonical valid snapshot', () => accepted(fixture()));
 
 test('accepts Regular Breath Step 1 and Step 2 with one typed pre-Breath frame', () => {
@@ -989,15 +1001,23 @@ test('keeps Breath one-frame validation and rejects two frames on a Breath scree
   rejected(twoFrames);
 });
 
-test('keeps production Final serializer and restore gates closed', () => {
+test('serializes and restores the production Final stack without opening Result or Repeat', () => {
   installProductionRegularBreath(2);
+  context.window.D.v17Flow.resumeBackFrames.push(vm.runInNewContext(
+    'JSON.parse(' + JSON.stringify(JSON.stringify(finalBreathFrame('regular'))) + ')', context
+  ));
   context.window.D.v17Flow.currentScreen = 's-v17-final-measure';
+  context.window.D.v17Flow.currentStep = 'step5';
   context.window.cur = 's-v17-final-measure';
   const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot({ savedAt: '2026-01-01T00:01:00.000Z', now: '2026-01-01T00:02:00.000Z' });
-  assert.equal(serialized.ok, false);
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(serialized.snapshot.currentScreen, 's-v17-final-measure');
+  assert.equal(serialized.snapshot.resumeBackFrames.length, 2);
+  assert.equal(serialized.snapshot.repeatState, null);
   const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(finalFixture());
-  assert.equal(restored.ok, false);
-  assert.equal(restored.error.code, 'RESTORE_SCREEN_NOT_SUPPORTED');
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(context.window.D.v17Flow.currentScreen, 's-v17-final-measure');
+  assert.equal(context.window.D.v17Flow.resumeBackFrames.length, 2);
 });
 
 test('Final structural errors do not include private fixture text', () => {
@@ -1043,4 +1063,77 @@ test('rejects a not-a-problem Final projection when measurement.after is skipped
 test('accepts Final projection only when it exactly equals normalized measurement.after', () => {
   accepted(finalFixture('regular', { state: 'scored', value: 0, touched: true }));
   accepted(finalFixture('deep', { state: 'scored', value: 100, touched: true }));
+});
+
+test('serializes production Regular Final unset without Result or Repeat state', () => {
+  installProductionRegularFinal();
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.deepEqual(JSON.parse(JSON.stringify(serialized.snapshot.currentState.finalMeasurementState)), { state: 'unset', value: null, touched: false });
+  assert.equal(serialized.snapshot.repeatState, null);
+  assert.equal(serialized.snapshot.currentScreen, 's-v17-final-measure');
+});
+
+test('serializes production Regular Final scored with the exact after projection', () => {
+  installProductionRegularFinal({ state: 'scored', value: 67, touched: true });
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.deepEqual(JSON.parse(JSON.stringify(serialized.snapshot.currentState.measurement.after)), { state: 'scored', value: 67, touched: true });
+  assert.deepEqual(JSON.parse(JSON.stringify(serialized.snapshot.currentState.finalMeasurementState)), { state: 'scored', value: 67, touched: true });
+});
+
+test('serializes production Regular Final not-a-problem and skipped as distinct states', () => {
+  for (const after of [{ state: 'not_a_problem', value: null, touched: true }, { state: 'skipped', value: null, touched: true }]) {
+    installProductionRegularFinal(after);
+    const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+    assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+    assert.deepEqual(JSON.parse(JSON.stringify(serialized.snapshot.currentState.finalMeasurementState)), after);
+  }
+});
+
+test('restores Regular Final unset and scored without creating Result or Repeat runtime state', () => {
+  for (const after of [{ state: 'unset', value: null, touched: false }, { state: 'scored', value: 20, touched: true }]) {
+    const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(finalFixture('regular', after));
+    assert.equal(restored.ok, true, JSON.stringify(restored.error));
+    assert.equal(context.window.D.v17Flow.currentScreen, 's-v17-final-measure');
+    assert.equal(context.window.D.v17Flow.currentStep, 'step5');
+    assert.equal(context.window.D.v17Flow.resumeBackFrames.length, 2);
+  }
+});
+
+test('restores Deep Final not-a-problem and skipped while preserving its typed stack', () => {
+  for (const after of [{ state: 'not_a_problem', value: null, touched: true }, { state: 'skipped', value: null, touched: true }]) {
+    const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(finalFixture('deep', after));
+    assert.equal(restored.ok, true, JSON.stringify(restored.error));
+    assert.equal(context.window.D.v17SessionMode, 'deep');
+    assert.equal(context.window.D.v17Flow.deepDive.finished, true);
+    assert.equal(context.window.D.v17Flow.resumeBackFrames.length, 2);
+  }
+});
+
+test('rejects production-shaped step6 and Result runtime screens', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentStep = 'step6';
+  assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, false);
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.cur = 's-result';
+  assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, false);
+});
+
+test('rejects a production Final stack with a malformed second control frame', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.resumeBackFrames[1].state.breathState.second = true;
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, false);
+  assert.equal(JSON.stringify(serialized.error).includes('synthetic-confirmed'), false);
+});
+
+test('Final serializer and restore remain side-effect isolated', () => {
+  installProductionRegularFinal({ state: 'scored', value: 45, touched: true });
+  const before = JSON.stringify(sideEffects);
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(serialized.snapshot);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(JSON.stringify(sideEffects), before);
 });

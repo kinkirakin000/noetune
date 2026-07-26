@@ -692,10 +692,10 @@ function regularBreathRuntime() {
     cur: 's-v17-second-response', document: { getElementById(id) { return id === 'in-v17-second-response' ? input : null; } },
     cancelV17SavedDraftSnapshotUpdate() {}, updateV17SavedSessionSnapshot() {}, setV17SemanticResponse(_role, value) { context.D.currentState = value; },
     getV17ResponseKind() { return 'currentState'; }, setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; },
-    resetV17BreathScreen() {}, renderV17Screen(id) { events.push({ id, step: context.D.v17Flow.currentStep, frame: context.D.v17Flow.resumeBackFrames && context.D.v17Flow.resumeBackFrames.length }); },
+    resetV17BreathScreen() {}, resetSlider() {}, renderV17Screen(id) { events.push({ id, step: context.D.v17Flow.currentStep, frame: context.D.v17Flow.resumeBackFrames && context.D.v17Flow.resumeBackFrames.length }); },
     fwd(id) { context.cur = id; }, setV17ScreenDirectWithoutHistoryReset(id) { context.cur = id; }, cloneV17State(value) { return JSON.parse(JSON.stringify(value)); }
   };
-  for (const name of ['createV17RegularPreBreathFrame', 'openV17Breath', 'completeV17BreathFlow', 'handleV17BreathBack', 'submitV17SecondResponse']) {
+  for (const name of ['createV17RegularPreBreathFrame', 'openV17Breath', 'completeV17BreathFlow', 'handleV17BreathBack', 'createV17FinalPreBreathFrame', 'openV17FinalMeasurement', 'handleV17FinalMeasurementBack', 'submitV17SecondResponse']) {
     vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
   }
   return { context, events, input };
@@ -736,4 +736,97 @@ test('production Regular Breath Back restores the exact response frame with raw 
   assert.equal(f.context.D.currentStateDraft, 'synthetic-current-draft');
   assert.equal(f.context.D.v17Flow.questionVariant, 'B');
   assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 0);
+});
+
+test('production Final captures the typed response-plus-Breath stack and Back restores Breath Step 2', () => {
+  const f = regularBreathRuntime();
+  f.context.submitV17SecondResponse(false);
+  f.context.completeV17BreathFlow();
+  f.context.completeV17BreathFlow();
+  const flow = f.context.D.v17Flow;
+  assert.equal(f.context.cur, 's-v17-final-measure');
+  assert.equal(flow.currentScreen, 's-v17-final-measure');
+  assert.equal(flow.currentStep, 'step5');
+  assert.equal(flow.resumeBackFrames.length, 2);
+  assert.equal(flow.resumeBackFrames[0].frameType, 'regular-response');
+  assert.deepEqual(JSON.parse(JSON.stringify(flow.resumeBackFrames[1])), {
+    frameType: 'breath', sessionMode: 'regular', screenId: 's-v17-breath', currentStep: 'step4.second',
+    state: { breathState: { step: 2, phase: 'second', first: true, second: false } }
+  });
+  assert.equal(f.context.handleV17FinalMeasurementBack(), true);
+  assert.equal(f.context.cur, 's-v17-breath');
+  assert.equal(flow.currentScreen, 's-v17-breath');
+  assert.equal(flow.currentStep, 'step4.second');
+  assert.equal(flow.breathStep, 2);
+  assert.equal(flow.resumeBackFrames.length, 1);
+  assert.equal(flow.resumeBackFrames[0].frameType, 'regular-response');
+});
+
+test('Final Back preserves the two-stage Breath controls before restoring the exact response frame', () => {
+  const f = regularBreathRuntime();
+  f.context.submitV17SecondResponse(false);
+  f.context.completeV17BreathFlow();
+  f.context.completeV17BreathFlow();
+  assert.equal(f.context.handleV17FinalMeasurementBack(), true);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.cur, 's-v17-breath');
+  assert.equal(f.context.D.v17Flow.breathStep, 1);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.cur, 's-v17-second-response');
+  assert.equal(f.context.D.v17Flow.currentStep, 'step3');
+  assert.equal(f.context.D.currentState, 'synthetic-confirmed');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 0);
+});
+
+test('Final controls create no stack before typed Breath Step 2 is eligible', () => {
+  const f = regularBreathRuntime();
+  assert.equal(f.context.createV17FinalPreBreathFrame(), null);
+  f.context.submitV17SecondResponse(false);
+  assert.equal(f.context.createV17FinalPreBreathFrame(), null);
+  f.context.completeV17BreathFlow();
+  assert.equal(f.context.createV17FinalPreBreathFrame().state.breathState.phase, 'second');
+});
+
+test('Final Back rejects a malformed control frame without changing navigation state', () => {
+  const f = regularBreathRuntime();
+  f.context.submitV17SecondResponse(false);
+  f.context.completeV17BreathFlow();
+  f.context.completeV17BreathFlow();
+  f.context.D.v17Flow.resumeBackFrames[1].currentStep = 'step4.first';
+  const before = JSON.stringify(f.context.D.v17Flow);
+  assert.equal(f.context.handleV17FinalMeasurementBack(), false);
+  assert.equal(f.context.cur, 's-v17-final-measure');
+  assert.equal(f.context.D.v17Flow.currentScreen, 's-v17-final-measure');
+  assert.equal(JSON.stringify(f.context.D.v17Flow), before);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+});
+
+test('Final producer is isolated from analytics and does not render Result', () => {
+  const f = regularBreathRuntime();
+  let analyticsCalls = 0;
+  f.context.trackEvent = function() { analyticsCalls += 1; };
+  f.context.submitV17SecondResponse(false);
+  f.context.completeV17BreathFlow();
+  f.context.completeV17BreathFlow();
+  assert.equal(analyticsCalls, 0);
+  assert.deepEqual(f.events.map(event => event.id).includes('s-result'), false);
+  assert.equal(f.events.at(-1).id, 's-v17-final-measure');
+});
+
+test('Deep Final control preserves its Deep response frame and does not adopt Regular state', () => {
+  const deepFrame = {
+    frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.question1',
+    state: { routeType: 'problem', deepFlow: { phase: 'question1', finished: false } }
+  };
+  const context = {
+    D: { v17SessionMode: 'deep', v17Flow: { questionVariant: 'B', resumeBackFrames: [deepFrame], breath: { first: true, second: true }, breathStep: 2, breathPhase: 'second' } },
+    cur: 's-v17-breath', setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; }, resetSlider() {},
+    renderV17Screen() {}, fwd(id) { context.cur = id; }, cloneV17State(value) { return JSON.parse(JSON.stringify(value)); }
+  };
+  for (const name of ['createV17FinalPreBreathFrame', 'openV17FinalMeasurement']) vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  context.openV17FinalMeasurement();
+  assert.equal(context.cur, 's-v17-final-measure');
+  assert.equal(context.D.v17Flow.resumeBackFrames[0].frameType, 'deep-response');
+  assert.equal(context.D.v17Flow.resumeBackFrames[1].sessionMode, 'deep');
+  assert.equal(context.D.v17Flow.questionVariant, 'B');
 });

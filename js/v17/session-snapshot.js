@@ -24,7 +24,8 @@
     's-v17-first-response',
     's-v17-second-response',
     's-v17-deep-response',
-    's-v17-breath'
+    's-v17-breath',
+    's-v17-final-measure'
   ];
   var RESTORABLE_SCREENS = [
     's-v17-session-mode',
@@ -32,7 +33,8 @@
     's-v17-first-response',
     's-v17-second-response',
     's-v17-deep-response',
-    's-v17-breath'
+    's-v17-breath',
+    's-v17-final-measure'
   ];
   // Schema-known screens may be structurally validated before their
   // production serializer and restore gates are opened.
@@ -452,6 +454,7 @@
     if (screenId === 's-v17-breath') {
       return flow && flow.breathStep === 2 ? 'step4.second' : 'step4.first';
     }
+    if (screenId === 's-v17-final-measure') return flow && typeof flow.currentStep === 'string' && flow.currentStep ? flow.currentStep : 'step5';
     return null;
   }
 
@@ -719,7 +722,8 @@
     var secondPair = getResponsePair('second', responseRoles.second, flow);
     var currentResponse = getRuntimeResponseState('current', flow, global.D && global.D.currentState, global.D && global.D.currentStateDraft);
     var idealResponse = getRuntimeResponseState('ideal', flow, global.D && global.D.idealState, global.D && global.D.idealStateDraft);
-    var breathFrame = screenId === 's-v17-breath' && flow && Array.isArray(flow.resumeBackFrames) && flow.resumeBackFrames.length === 1
+    var isFinal = screenId === 's-v17-final-measure';
+    var breathFrame = (screenId === 's-v17-breath' || isFinal) && flow && Array.isArray(flow.resumeBackFrames) && flow.resumeBackFrames.length >= 1
       ? flow.resumeBackFrames[0] : null;
     // A Breath screen has no response semantics.  Its root Regular flow is
     // the canonical response flow captured before the Breath mutation.
@@ -730,7 +734,8 @@
     var isBreath = screenId === 's-v17-breath';
     var isDeepResponse = sessionMode === 'deep' && screenId === 's-v17-deep-response';
     var isDeepBreath = sessionMode === 'deep' && isBreath;
-    var deepFlow = (isDeepResponse || isDeepBreath) ? getDeepFlowV1(flow && flow.deepDive) : null;
+    var isDeepFinal = sessionMode === 'deep' && isFinal;
+    var deepFlow = (isDeepResponse || isDeepBreath || isDeepFinal) ? getDeepFlowV1(flow && flow.deepDive) : null;
     var breathState = isBreath ? {
       step: flow && flow.breathStep === 2 ? 2 : 1,
       phase: flow && flow.breathPhase === 'second' ? 'second' : 'first',
@@ -771,18 +776,18 @@
         before: beforeMeasurement,
         after: afterMeasurement
       },
-      responses: (isDeepResponse || isDeepBreath) ? {
+      responses: (isDeepResponse || isDeepBreath || isDeepFinal) ? {
         current: { state: 'unset', text: '', draft: '' },
         ideal: { state: 'unset', text: '', draft: '' }
       } : {
         current: currentResponse,
         ideal: idealResponse
       },
-      semanticState: (isDeepResponse || isDeepBreath) ? { current: null, ideal: null } : {
+      semanticState: (isDeepResponse || isDeepBreath || isDeepFinal) ? { current: null, ideal: null } : {
         current: currentStateValue,
         ideal: idealStateValue
       },
-      regularFlow: (isDeepResponse || isDeepBreath) ? null : regularFlow,
+      regularFlow: (isDeepResponse || isDeepBreath || isDeepFinal) ? null : regularFlow,
       scoreTrail: scoreTrail,
       awarenessTrail: awarenessTrail,
       deepFlow: deepFlow,
@@ -820,7 +825,7 @@
       currentCycle: currentCycle,
       currentState: currentState,
       repeatState: null,
-      resumeBackFrames: isBreath && flow && Array.isArray(flow.resumeBackFrames) ? clone(flow.resumeBackFrames) : []
+      resumeBackFrames: (isBreath || isFinal) && flow && Array.isArray(flow.resumeBackFrames) ? clone(flow.resumeBackFrames) : []
     };
   }
 
@@ -1180,6 +1185,11 @@
           finalBreathFrame.sessionMode !== summary.sessionMode || finalBreathFrame.currentStep !== 'step4.second') {
         return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames');
       }
+      var finalBreathState = finalBreathFrame.state && finalBreathFrame.state.breathState;
+      if (!finalBreathState || finalBreathState.step !== 2 || finalBreathState.phase !== 'second' ||
+          finalBreathState.first !== true || finalBreathState.second !== false) {
+        return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[1]');
+      }
       if (isDeepFinal) {
         if (finalResponseFrame.frameType !== 'deep-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
       } else {
@@ -1232,9 +1242,11 @@
     var runtimeScreenId = getRuntimeScreenId();
     var runtimeSessionMode = getRuntimeSessionMode();
     var isBreath = runtimeScreenId === 's-v17-breath';
+    var isFinal = runtimeScreenId === 's-v17-final-measure';
     var isDeepResponse = runtimeSessionMode === 'deep' && runtimeScreenId === 's-v17-deep-response';
     var isDeepBreath = runtimeSessionMode === 'deep' && isBreath;
-    if (runtimeSessionMode === 'deep' && !isDeepResponse && !isDeepBreath) {
+    var isDeepFinal = runtimeSessionMode === 'deep' && isFinal;
+    if (runtimeSessionMode === 'deep' && !isDeepResponse && !isDeepBreath && !isDeepFinal) {
       return { ok: false, error: createError('UNSUPPORTED_SESSION_MODE_PHASE_4A', 'sessionMode') };
     }
     if (runtimeScreenId === 's-v17-session-mode' && getRuntimeSessionMode() !== null) {
@@ -1254,15 +1266,15 @@
         if (global.D.v17Flow.currentStep !== 'deep.' + deepFlow.phase || getCurrentStep(runtimeScreenId, global.D.v17Flow) !== 'deep.' + deepFlow.phase) {
           return { ok: false, error: createError('INVALID_CURRENT_STEP', 'v17Flow.currentStep') };
         }
-      } else if (isDeepBreath) {
-        if (!global.D.v17Flow.deepDive || global.D.v17Flow.deepDive.finished !== true || !Array.isArray(global.D.v17Flow.resumeBackFrames) || global.D.v17Flow.resumeBackFrames.length !== 1) {
+      } else if (isDeepBreath || isDeepFinal) {
+        if (!global.D.v17Flow.deepDive || global.D.v17Flow.deepDive.finished !== true || !Array.isArray(global.D.v17Flow.resumeBackFrames) || global.D.v17Flow.resumeBackFrames.length !== (isDeepFinal ? 2 : 1)) {
           return { ok: false, error: createError('INVALID_BREATH_STATE', 'v17Flow') };
         }
       } else {
         var responseStateError = validateRuntimeResponseStates(global.D.v17Flow, 'v17Flow.responseStates');
         if (responseStateError) return { ok: false, error: responseStateError };
       }
-      if (!isDeepResponse && !isDeepBreath && !isBreath && global.D.v17Flow.currentScreen !== 's-v17-before' && global.D.v17Flow.currentScreen !== 's-v17-session-mode') {
+      if (!isDeepResponse && !isDeepBreath && !isDeepFinal && !isBreath && !isFinal && global.D.v17Flow.currentScreen !== 's-v17-before' && global.D.v17Flow.currentScreen !== 's-v17-session-mode') {
         var regularFlowError = validateRegularFlowMetadata({
           currentScreen: global.D.v17Flow.currentScreen,
           activeScreen: deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()) && deriveV17RegularFlow(global.D.v17Flow.currentScreen, getRuntimeRouteType()).activeScreen,
@@ -1276,6 +1288,10 @@
           ? global.D.v17Flow.resumeBackFrames[0] : null;
         var runtimeFrameError = validateV17ResumeBackFrameEnvelope(runtimeFrame, 'v17Flow.resumeBackFrames[0]');
         if (runtimeFrameError) return { ok: false, error: runtimeFrameError };
+      }
+      if (isFinal) {
+        var finalFramesError = validateV17ResumeBackFrames(global.D.v17Flow.resumeBackFrames, { allowFinalStack: true, path: 'v17Flow.resumeBackFrames' });
+        if (finalFramesError) return { ok: false, error: finalFramesError };
       }
     }
     var savedAt = toIsoOrNull(options.savedAt) || nowIso();
@@ -1384,20 +1400,22 @@
     var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode' && snapshot.summary && snapshot.summary.sessionMode === null;
     var isDeepResponse = snapshot.currentScreen === 's-v17-deep-response' && snapshot.summary && snapshot.summary.sessionMode === 'deep';
     var isBreath = snapshot.currentScreen === 's-v17-breath';
+    var isFinal = snapshot.currentScreen === 's-v17-final-measure';
     var isDeepBreath = isBreath && snapshot.summary && snapshot.summary.sessionMode === 'deep';
-    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isDeepResponse && !isDeepBreath)) {
+    var isDeepFinal = isFinal && snapshot.summary && snapshot.summary.sessionMode === 'deep';
+    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isDeepResponse && !isDeepBreath && !isDeepFinal)) {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
     }
     if (!isPlainObject(snapshot.currentState)) {
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentState') };
     }
     var routeType = snapshot.currentState.routeType;
-    var frame = isBreath && snapshot.resumeBackFrames ? snapshot.resumeBackFrames[0] : null;
-    var regularFlow = (isDeepResponse || isDeepBreath) ? null : (isBreath
+    var frame = (isBreath || isFinal) && snapshot.resumeBackFrames ? snapshot.resumeBackFrames[0] : null;
+    var regularFlow = (isDeepResponse || isDeepBreath || isDeepFinal) ? null : (isBreath || isFinal
       ? snapshot.currentState.regularFlow
       : deriveV17RegularFlow(snapshot.currentScreen, routeType));
     var isSessionModeOrBefore = snapshot.currentScreen === 's-v17-session-mode' || snapshot.currentScreen === 's-v17-before';
-    if (!regularFlow && !isSessionModeOrBefore && !isDeepResponse && !isDeepBreath) {
+    if (!regularFlow && !isSessionModeOrBefore && !isDeepResponse && !isDeepBreath && !isDeepFinal) {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'currentScreen') };
     }
     var regularFlowSnapshot = snapshot.currentState.regularFlow;
@@ -1410,9 +1428,14 @@
     // The root variant belongs to Regular.  A Deep snapshot deliberately has
     // no authority over it, so retain the runtime value while restoring Deep.
     var questionVariant = regularFlow ? normalizeV17QuestionVariant(regularFlowSnapshot.questionVariant) : null;
-    var deepFlowSnapshot = (isDeepResponse || isDeepBreath) ? deepClone(snapshot.currentState.deepFlow) : null;
-    if (isDeepResponse) {
-      var restoredDeepError = validateDeepFlowV1(deepFlowSnapshot, 'currentState.deepFlow', routeType);
+    var deepFlowSnapshot = (isDeepResponse || isDeepBreath || isDeepFinal) ? deepClone(snapshot.currentState.deepFlow) : null;
+    if (isDeepResponse || isDeepFinal) {
+      var deepFlowForRestore = deepClone(deepFlowSnapshot);
+      if (isDeepFinal && deepFlowForRestore && deepFlowForRestore.pendingRound) {
+        deepFlowForRestore.finished = false;
+        deepFlowForRestore.pendingRound.incomplete = false;
+      }
+      var restoredDeepError = validateDeepFlowV1(deepFlowForRestore, 'currentState.deepFlow', routeType);
       if (restoredDeepError) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', restoredDeepError.path) };
     }
     var entry = snapshot.currentState.entry;
@@ -1501,7 +1524,7 @@
     stagedFlow.activeScreen = regularFlow ? regularFlow.activeScreen : null;
     stagedFlow.firstResponseRole = regularFlow ? regularFlow.firstResponseRole : null;
     stagedFlow.secondResponseRole = regularFlow ? regularFlow.secondResponseRole : null;
-    if (isDeepResponse || isDeepBreath) {
+    if (isDeepResponse || isDeepBreath || isDeepFinal) {
       var candidateRound = (deepFlowSnapshot.pendingRound.question1.text || deepFlowSnapshot.pendingRound.question2.text)
         ? deepFlowSnapshot.pendingRound : null;
       if (!candidateRound && deepFlowSnapshot.rounds.length) candidateRound = deepFlowSnapshot.rounds[deepFlowSnapshot.rounds.length - 1];
@@ -1533,6 +1556,7 @@
       stagedFlow.breath = { first: snapshot.currentState.breathState.first, second: snapshot.currentState.breathState.second };
       stagedFlow.resumeBackFrames = deepClone(snapshot.resumeBackFrames);
     }
+    if (isFinal) stagedFlow.resumeBackFrames = deepClone(snapshot.resumeBackFrames);
     if (!isUnselectedSessionMode) staged.v17Flow = stagedFlow;
     if (!global.D || typeof global.D !== 'object') {
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'runtime') };
@@ -1572,7 +1596,7 @@
     global.D.v17Flow = global.D.v17Flow && typeof global.D.v17Flow === 'object' ? global.D.v17Flow : {};
     global.D.v17Flow.currentScreen = stagedFlow.currentScreen;
     global.D.v17Flow.currentStep = stagedFlow.currentStep;
-    if (!isDeepResponse && !isDeepBreath) global.D.v17Flow.questionVariant = stagedFlow.questionVariant;
+    if (!isDeepResponse && !isDeepBreath && !isDeepFinal) global.D.v17Flow.questionVariant = stagedFlow.questionVariant;
     global.D.v17Flow.routeType = stagedFlow.routeType;
     global.D.v17Flow.responseStates = stagedFlow.responseStates;
     global.D.v17Flow.step2Text = stagedFlow.step2Text;
@@ -1588,19 +1612,20 @@
     global.D.v17Flow.activeScreen = stagedFlow.activeScreen;
     global.D.v17Flow.firstResponseRole = stagedFlow.firstResponseRole;
     global.D.v17Flow.secondResponseRole = stagedFlow.secondResponseRole;
-    if (isDeepResponse || isDeepBreath) global.D.v17Flow.deepDive = deepClone(stagedFlow.deepDive);
+    if (isDeepResponse || isDeepBreath || isDeepFinal) global.D.v17Flow.deepDive = deepClone(stagedFlow.deepDive);
     if (isBreath) {
       global.D.v17Flow.breathStep = stagedFlow.breathStep;
       global.D.v17Flow.breathPhase = stagedFlow.breathPhase;
       global.D.v17Flow.breath = stagedFlow.breath;
       global.D.v17Flow.resumeBackFrames = stagedFlow.resumeBackFrames;
     }
+    if (isFinal) global.D.v17Flow.resumeBackFrames = stagedFlow.resumeBackFrames;
     return {
       ok: true,
       sessionId: snapshot.sessionId,
       currentScreen: snapshot.currentScreen,
       sessionMode: snapshot.summary.sessionMode,
-      appliedGroups: (isDeepResponse || isDeepBreath)
+      appliedGroups: (isDeepResponse || isDeepBreath || isDeepFinal)
         ? ['identity', 'entry', 'mode_route_screen', 'measurement', 'deepFlow', 'breathState', 'resumeBackFrames', 'resultAdapter']
         : ['identity', 'entry', 'mode_route_screen', 'measurement', 'responses', 'regularFlow', 'breathState', 'resumeBackFrames']
     };
