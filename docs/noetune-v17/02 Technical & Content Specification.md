@@ -168,6 +168,8 @@ New Flow Unit 3B-2 acceptance（commit `2f793f42407433db898145bc25e8744e3d08ddfb
 
 Phase 5B-1 acceptance（commit `bc6fee1b0b387788b22e84bea49596d8113cdc67`）で、Snapshot Schema v1に`breathState`（`step` / `phase` / `first` / `second`）とtyped `resumeBackFrames`を追加した。production Breath SnapshotはRegular / DeepのStep 1 / Step 2、frame 1件のみを受理し、Regular frameは`regular-response`、Deep frameは`deep-response`とする。restore-before-render、transient timer / animation除外、Regular / Deep variant isolationを維持し、Final / Result / Repeatは拒否する。
 
+Phase 5B-2a acceptance（commit `1dbca2af5b799f24a6e941a6ee2b1dde6036daab`）で、Snapshot Schema v1にFinal candidateの`finalMeasurementState` projectionとtyped Breath frame foundationを追加した。canonical ownerは`measurement.after`、projectionは`state` / `value` / `touched`のnormalized完全一致を要求し、deltaはBefore / afterから導出する。Final candidateはRegularまたはDeep response frameからBreath frameへの固定2段stackを構造検証するが、production Final serializer / restore allowlistは閉じたまま維持する。Breath productionは1 frame、Result / Repeat、raw navigation history、Guest persistenceはunsupportedである。
+
 ## 8. Deep Flow State
 
 新しいDeepの概念state：

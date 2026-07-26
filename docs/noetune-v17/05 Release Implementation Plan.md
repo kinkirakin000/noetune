@@ -179,6 +179,16 @@ Completed in 3B-2: production Deep response resume, Regular / Deep isolation, Q1
 
 ### Phase 5B-1 — Breath Snapshot and typed pre-Breath Back frame
 
+**Status:** Complete. Regular / Deep Breath Step 1 / Step 2 and one typed pre-Breath Back frame are production-supported; Final / Result / Repeat remain unsupported.
+
+### Phase 5B-2a — Final Measurement schema and typed Back-frame foundation
+
+**Status:** Complete. Commit `1dbca2af5b799f24a6e941a6ee2b1dde6036daab` defines the Snapshot Schema v1 Final measurement projection, canonical `measurement.after` consistency, and Final candidate response → Breath frame foundation. Production Final serializer / restore remain closed.
+
+### Phase 5B-2b — Final serializer / restore / render / exact Back activation
+
+**Status:** Pending. Remaining scope includes Final runtime producer, serializer and restore activation, restore-before-render, Final controls and draft restoration, exact Final → Breath → response Back, analytics idempotence, and the production write gate. Do not implement 5B-2b during docs-only work.
+
 **Status:** Complete; commit `bc6fee1b0b387788b22e84bea49596d8113cdc67`.
 
 Regular / Deep Breath Step 1 / Step 2、typed pre-Breath frame、restore-before-render、exact response Back、transient timer除外を受入済み。Final / Result / Repeat exact resumeは未完了である。

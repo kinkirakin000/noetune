@@ -239,6 +239,8 @@ New Flow Unit 3B-2でDeep response中のSnapshot round-tripを技術的に完了
 
 Phase 5B-1でresponseからBreath Step 1 / Step 2までのSession continuityを技術的に完了した。typed pre-Breath frameによりreload後も直前responseへ戻れるが、Guest persistent save entitlementはなく、Final / Result / RepeatとCloud Journey continuityは未完了である。
 
+Phase 5B-2aではFinal Measurement resumeの内部schema foundationを定義したが、production continuityは開放していない。`measurement.after`を唯一の正本とし、`finalMeasurementState`はtyped projectionとして一致検証する。Guest persistent save entitlementおよびCloud Journey continuityは引き続き未完了である。
+
 ## 9. Breath
 
 現行コピーは2段階。

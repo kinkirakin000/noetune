@@ -558,6 +558,15 @@ Audited:
 - Breath Step 1 / Step 2のみsupported。Final / Result / Repeat、2件以上のproduction Back frame、Cloud、Guest persistent resumeはunsupported
 - syntax checks / `git diff --check`: PASS
 
+### Phase 5B-2a acceptance
+
+- implementation commit: `1dbca2af5b799f24a6e941a6ee2b1dde6036daab` (`feat(v17): define final measurement snapshot foundation`)
+- Snapshot Schema v1を維持し、Final measurementのcanonical ownerを`measurement.after`へ固定した
+- `finalMeasurementState`はtyped projectionとし、normalized `state` / `value` / `touched`の完全一致を要求する。不一致は`FINAL_MEASUREMENT_MISMATCH`でfail closedする
+- Final candidateのRegular / Deep response → Breath固定2段frame stackを検証し、production Breathは1 frame契約を維持する
+- 旧migration、Final serializer / restore activation、Result / Repeat、Cloud、Guest persistent resumeは未実装
+- Snapshot 50/50、Deep runtime 19/19、syntax、diff checkをPASS
+
 ### New Flow Unit 3B-2 acceptance
 
 **Status:** Complete; commit `2f793f42407433db898145bc25e8744e3d08ddfb` (`feat(v17): enable deep response snapshot resume`).
