@@ -533,6 +533,20 @@ Audited:
 - Snapshot persistence remains unsupported; Breath exact resume and Cloud continuity remain future scope
 - an intermediate Result adapter failure was fixed before final acceptance; final validation passed
 
+### New Flow Unit 3B-1 acceptance
+
+**Status:** Complete; commit `88340e5b5e478505ff918c6b7a59215c96e9f49c` (`feat(v17): define deep snapshot schema foundation`).
+
+- changed: `js/v17/session-snapshot.js`, `tests/v17/session-snapshot.compat.test.js`
+- Snapshot Schema v1を維持し、DeepFlowV1 / DeepRoundV1 / ResponseValueV1のexact shapeを定義
+- normalizerはallowlist抽出、validatorはunknown / old Deep shapeをfail closed
+- `answered` / `unset`、A/B parity、round連番、originalTheme、Question 1 Back、`nextPendingRound`を検証
+- Snapshot test: 21/21 PASS
+- Deep runtime test: 6/6 PASS
+- syntax checks / `git diff --check`: PASS
+- production Deep serializer / restoreはunsupportedのまま、restore不能recordを生成しない
+- 次はNew Flow Unit 3B-2（Deep serializer and restore activation）
+
 Audited:
 
 - route-specific phase order

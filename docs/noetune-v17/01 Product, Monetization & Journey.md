@@ -233,6 +233,8 @@ Round 4: B Question 1 → Question 2
 
 このDeep仕様のlive runtime実装はNew Flow Unit 3Aで完了した（commit `c48e0e77a6f0970e620acfc5da3451291120c9da`）。Deep Snapshot、Breath pre-frame、Breath / Final / Result exact resume、Cloud continuityは未実装である。Feel100はcanonical forward routeから外れているが、legacy DOM / functionは残る。
 
+New Flow Unit 3B-1でDeep responseのSnapshot保存形式（Snapshot Schema v1内のDeepFlowV1 / DeepRoundV1 / ResponseValueV1）を定義済みとした。ただしproduction serializer / restoreはまだunsupportedで、Guest persistence禁止とCloud continuity未完了は継続する。次のUnit 3B-2でserializer、restore、round-trip境界を一体で扱う。
+
 ## 9. Breath
 
 現行コピーは2段階。

@@ -160,7 +160,9 @@ Question 2: answer1 → route-specific opposite side
 
 ### 7.2 Snapshot boundary
 
-`questionVariant`はruntimeへ実装済みだが、Deep Snapshot Schemaへの保存・validator・restoreは未実装である。Unit 3Aではruntimeのみを扱い、Deep serializer / validator / restoreは明示的unsupportedのままUnit 3Bへ残す。
+`questionVariant`はruntimeへ実装済みである。Unit 3Aではruntimeのみを扱い、Deep serializer / restoreは明示的unsupportedのままUnit 3B-2へ残す。Unit 3B-1でschemaとvalidatorのfoundationを確定した。
+
+New Flow Unit 3B-1 acceptance（commit `88340e5b5e478505ff918c6b7a59215c96e9f49c`）で、Snapshot Schema v1のDeep foundationを確定した。DeepFlowV1は`routeType`、`originalTheme`、`round`、`questionVariant`、`phase`、`rounds`、`pendingRound`、`nextPendingRound`、`finished`、DeepRoundV1は対応するround / response exact shape、ResponseValueV1は`state` / `text` / `draft`を持つ。`nextPendingRound`はcross-round Backのcanonical stateであり、old Deep shapeはmigrationせずfail closedとする。production serializer / restoreは`UNSUPPORTED_SESSION_MODE_PHASE_4A` / `RESTORE_DEEP_NOT_SUPPORTED`のままUnit 3B-2へ残す。
 
 ## 8. Deep Flow State
 

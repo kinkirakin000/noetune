@@ -72,6 +72,8 @@ Deepは同じテーマを固定してA → Question 2 → B → Question 2を交
 
 New Flow Unit 3Aとして、Deep A/B交互runtimeを実装済み。Round 1はAで開始し、original theme固定、completed rounds / pendingRound、Deep内Back、No More WordsからBreath、既存Resultへの最小mappingを含む。Deep Snapshot保存、Breath exact resume、Cloud continuityは未実装で、別Unitに残る。
 
+New Flow Unit 3B-1として、Deep Snapshot Schema v1のfoundationを確定した。DeepFlowV1、DeepRoundV1、ResponseValueV1のexact shape、A/B parity、round連番、originalTheme整合、`nextPendingRound`、normalizer / validator、unknown keyのfail-closedを実装・受入済み（commit `88340e5b5e478505ff918c6b7a59215c96e9f49c`）。Deep serializer / restoreは引き続きunsupportedであり、次はNew Flow Unit 3B-2である。
+
 現在のBreath、Final Measurement、Resultへの遷移は維持する。呼吸工程の削除はUnit 1の範囲ではなく、別の正式決定なしに変更しない。
 
 ## 4. UX原則
