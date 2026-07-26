@@ -30,6 +30,7 @@
     's-v17-first-response',
     's-v17-second-response'
   ];
+  var SCHEMA_VALIDATABLE_SCREENS = SERIALIZABLE_SCREENS.concat(['s-v17-deep-response']);
   var ALLOWED_SESSION_STATUSES = ['active', 'completed', 'discarded'];
   var ALLOWED_ENTRY_TYPES = ['life_theme', 'free_input', 'spiritual_wisdom'];
   var ALLOWED_ROUTE_TYPES = ['problem', 'ideal', 'spiritual'];
@@ -39,7 +40,7 @@
   var ALLOWED_QUESTION_VARIANTS = ['A', 'B'];
   var ALLOWED_REGULAR_FLOW_ACTIVE_SCREENS = ['first', 'second', 'completed'];
   var ALLOWED_REGULAR_FLOW_RESPONSE_ROLES = ['current', 'ideal'];
-  var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3'];
+  var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3', 'deep.question1', 'deep.question2'];
   var FORBIDDEN_KEYS = [
     'navHistory',
     'navPageStateHistory',
@@ -355,6 +356,40 @@
     if (screenId === 's-v17-first-response') return flow && typeof flow.currentStep === 'string' && flow.currentStep ? flow.currentStep : 'first-response';
     if (screenId === 's-v17-second-response') return flow && typeof flow.currentStep === 'string' && flow.currentStep ? flow.currentStep : 'second-response';
     return null;
+  }
+
+  function getDeepResponseValue(value) {
+    value = isPlainObject(value) ? value : {};
+    var text = typeof value.text === 'string' ? value.text : '';
+    var draft = typeof value.draft === 'string' ? value.draft : '';
+    return { state: text ? 'answered' : 'unset', text: text, draft: draft };
+  }
+
+  function getDeepRoundV1(value) {
+    value = isPlainObject(value) ? value : {};
+    return {
+      round: value.round,
+      questionVariant: value.questionVariant,
+      originalTheme: typeof value.originalTheme === 'string' ? value.originalTheme : '',
+      question1: getDeepResponseValue(value.question1),
+      question2: getDeepResponseValue(value.question2),
+      incomplete: value.incomplete === true
+    };
+  }
+
+  function getDeepFlowV1(value) {
+    if (!isPlainObject(value)) return null;
+    return {
+      routeType: value.routeType,
+      originalTheme: typeof value.originalTheme === 'string' ? value.originalTheme : '',
+      round: value.round,
+      questionVariant: value.questionVariant,
+      phase: value.phase,
+      rounds: Array.isArray(value.rounds) ? value.rounds.map(getDeepRoundV1) : null,
+      pendingRound: getDeepRoundV1(value.pendingRound),
+      nextPendingRound: value.nextPendingRound === null ? null : getDeepRoundV1(value.nextPendingRound),
+      finished: value.finished === true
+    };
   }
 
   function getMeasurementRuntime(kind) {
@@ -738,6 +773,65 @@
     return null;
   }
 
+  function expectedDeepVariant(round) {
+    return round % 2 === 1 ? 'A' : 'B';
+  }
+
+  function validateDeepResponseValue(value, path, requireConfirmed) {
+    if (!isPlainObject(value)) return createError('INVALID_DEEP_RESPONSE', path);
+    var keysError = validateExactObjectKeys(value, ['state', 'text', 'draft'], path, 'INVALID_DEEP_RESPONSE');
+    if (keysError) return keysError;
+    if (value.state !== 'answered' && value.state !== 'unset') return createError('INVALID_DEEP_RESPONSE_STATE', path + '.state');
+    if (typeof value.text !== 'string' || typeof value.draft !== 'string') return createError('INVALID_DEEP_RESPONSE', path);
+    if (value.state === 'unset' && value.text) return createError('INVALID_DEEP_RESPONSE_STATE', path + '.state');
+    if (value.state === 'answered' && !value.text) return createError('INVALID_DEEP_RESPONSE_STATE', path + '.state');
+    if (requireConfirmed && (!value.text || value.state !== 'answered')) return createError('DEEP_CONFIRMED_RESPONSE_REQUIRED', path + '.text');
+    return null;
+  }
+
+  function validateDeepRound(round, path, root, kind, expectedRound) {
+    if (!isPlainObject(round)) return createError('INVALID_DEEP_ROUND', path);
+    var keysError = validateExactObjectKeys(round, ['round', 'questionVariant', 'originalTheme', 'question1', 'question2', 'incomplete'], path, 'INVALID_DEEP_ROUND');
+    if (keysError) return keysError;
+    if (!Number.isInteger(round.round) || round.round < 1 || round.round !== expectedRound) return createError('INVALID_DEEP_ROUND_NUMBER', path + '.round');
+    if (round.questionVariant !== expectedDeepVariant(round.round) || round.questionVariant !== root.questionVariant && round.round === root.round) return createError('INVALID_DEEP_VARIANT', path + '.questionVariant');
+    if (round.originalTheme !== root.originalTheme) return createError('DEEP_THEME_MISMATCH', path + '.originalTheme');
+    if (typeof round.incomplete !== 'boolean') return createError('INVALID_DEEP_ROUND', path + '.incomplete');
+    var completed = kind === 'completed';
+    if (completed && round.incomplete !== false) return createError('INVALID_DEEP_COMPLETED_ROUND', path + '.incomplete');
+    var q1Error = validateDeepResponseValue(round.question1, path + '.question1', completed || root.phase === 'question2' && kind === 'pending');
+    if (q1Error) return q1Error;
+    var q2Error = validateDeepResponseValue(round.question2, path + '.question2', completed);
+    if (q2Error) return q2Error;
+    return null;
+  }
+
+  function validateDeepFlowV1(value, path, routeType) {
+    if (!isPlainObject(value)) return createError('INVALID_DEEP_FLOW', path);
+    var keysError = validateExactObjectKeys(value, ['routeType', 'originalTheme', 'round', 'questionVariant', 'phase', 'rounds', 'pendingRound', 'nextPendingRound', 'finished'], path, 'INVALID_DEEP_FLOW');
+    if (keysError) return keysError;
+    if (ALLOWED_ROUTE_TYPES.indexOf(value.routeType) < 0 || value.routeType !== routeType) return createError('INVALID_DEEP_ROUTE', path + '.routeType');
+    if (typeof value.originalTheme !== 'string' || !value.originalTheme.trim()) return createError('INVALID_DEEP_THEME', path + '.originalTheme');
+    if (!Number.isInteger(value.round) || value.round < 1) return createError('INVALID_DEEP_ROUND_NUMBER', path + '.round');
+    if (value.questionVariant !== expectedDeepVariant(value.round)) return createError('INVALID_DEEP_VARIANT', path + '.questionVariant');
+    if (value.phase !== 'question1' && value.phase !== 'question2') return createError('INVALID_DEEP_PHASE', path + '.phase');
+    if (value.finished !== false) return createError('DEEP_FINISHED_NOT_SUPPORTED', path + '.finished');
+    if (!Array.isArray(value.rounds) || value.rounds.length !== value.round - 1) return createError('INVALID_DEEP_ROUNDS', path + '.rounds');
+    for (var i = 0; i < value.rounds.length; i += 1) {
+      var completedError = validateDeepRound(value.rounds[i], path + '.rounds[' + i + ']', value, 'completed', i + 1);
+      if (completedError) return completedError;
+    }
+    var pendingError = validateDeepRound(value.pendingRound, path + '.pendingRound', value, 'pending', value.round);
+    if (pendingError) return pendingError;
+    if (value.pendingRound.incomplete !== false) return createError('INVALID_DEEP_PENDING_ROUND', path + '.pendingRound.incomplete');
+    if (value.nextPendingRound !== null) {
+      var nextError = validateDeepRound(value.nextPendingRound, path + '.nextPendingRound', value, 'next', value.round + 1);
+      if (nextError) return nextError;
+      if (value.nextPendingRound.incomplete !== false) return createError('INVALID_DEEP_NEXT_PENDING', path + '.nextPendingRound.incomplete');
+    }
+    return null;
+  }
+
   function validateSnapshotStructure(snapshot) {
     if (!isPlainObject(snapshot)) return createError('INVALID_SNAPSHOT', '');
     if (snapshot.snapshotSchemaVersion !== CURRENT_SNAPSHOT_SCHEMA_VERSION) {
@@ -754,7 +848,7 @@
     if (snapshot.completedAt !== null) return createError('INVALID_COMPLETED_AT', 'completedAt');
     if (snapshot.discardedAt !== null) return createError('INVALID_DISCARDED_AT', 'discardedAt');
     if (snapshot.revision !== 0) return createError('INVALID_REVISION', 'revision');
-    if (SERIALIZABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) return createError('UNSUPPORTED_SCREEN_PHASE_4A', 'currentScreen');
+    if (SCHEMA_VALIDATABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) return createError('UNSUPPORTED_SCREEN_PHASE_4A', 'currentScreen');
     if (!isPlainObject(snapshot.summary)) return createError('INVALID_SUMMARY', 'summary');
     if (!isPlainObject(snapshot.currentCycle)) return createError('INVALID_CURRENT_CYCLE', 'currentCycle');
     if (!isPlainObject(snapshot.currentState)) return createError('INVALID_CURRENT_STATE', 'currentState');
@@ -777,6 +871,8 @@
     var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode';
     if (isUnselectedSessionMode) {
       if (summary.sessionMode !== null) return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
+    } else if (snapshot.currentScreen === 's-v17-deep-response') {
+      if (summary.sessionMode !== 'deep') return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
     } else if (summary.sessionMode !== 'regular') {
       return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
     }
@@ -883,6 +979,7 @@
     if (typeof state.semanticState.ideal !== 'string' && state.semanticState.ideal !== null) return createError('INVALID_CURRENT_STATE', 'currentState.semanticState.ideal');
     if (state.currentScreen !== snapshot.currentScreen) return createError('INVALID_CURRENT_SCREEN', 'currentState.currentScreen');
     if (ALLOWED_CURRENT_STEPS.indexOf(state.currentStep) < 0) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
+    var isDeepResponse = snapshot.currentScreen === 's-v17-deep-response';
     if (isUnselectedSessionMode) {
       if (!Object.prototype.hasOwnProperty.call(state, 'sessionMode') || state.sessionMode !== null) {
         return createError('INVALID_SESSION_MODE', 'currentState.sessionMode');
@@ -896,7 +993,12 @@
     entryError = validateEntryType(state.entryType, 'currentState.entryType');
     if (entryError) return entryError;
     if (!Array.isArray(state.scoreTrail) || !Array.isArray(state.awarenessTrail)) return createError('INVALID_TRAIL', 'currentState');
-    if (state.deepFlow !== null) return createError('INVALID_DEEP_FLOW', 'currentState.deepFlow');
+    if (isDeepResponse) {
+      if (state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
+      var deepFlowError = validateDeepFlowV1(state.deepFlow, 'currentState.deepFlow', state.routeType);
+      if (deepFlowError) return deepFlowError;
+      if (state.currentStep !== 'deep.' + state.deepFlow.phase) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
+    } else if (state.deepFlow !== null) return createError('INVALID_DEEP_FLOW', 'currentState.deepFlow');
     if (isUnselectedSessionMode && state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
     if (state.regularFlow !== null) {
       if (!isPlainObject(state.regularFlow)) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
@@ -1053,6 +1155,9 @@
       return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', validatedSnapshot.error ? validatedSnapshot.error.path : '') };
     }
     snapshot = validatedSnapshot.snapshot;
+    if (snapshot.summary && snapshot.summary.sessionMode === 'deep') {
+      return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
+    }
     if (RESTORABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) {
       return { ok: false, error: createError('RESTORE_SCREEN_NOT_SUPPORTED', 'currentScreen') };
     }
@@ -1304,6 +1409,7 @@
     APP_VERSION: APP_VERSION,
     MAX_BYTES: MAX_BYTES,
     SCHEMA_KNOWN_SCREENS: SCHEMA_KNOWN_SCREENS.slice(),
+    SCHEMA_VALIDATABLE_SCREENS: SCHEMA_VALIDATABLE_SCREENS.slice(),
     SERIALIZABLE_SCREENS: SERIALIZABLE_SCREENS.slice(),
     RESTORABLE_SCREENS: RESTORABLE_SCREENS.slice(),
     ALLOWED_SCREENS: SERIALIZABLE_SCREENS.slice(),
@@ -1328,6 +1434,12 @@
     removeV17LocalSessionRecord: removeV17LocalSessionRecord,
     getV17SnapshotByteSize: getSnapshotByteSize,
     restoreV17SessionRuntime: restoreV17SessionRuntime,
-    resumeGuestV17RegularFromLocalRecord: resumeGuestV17RegularFromLocalRecord
+    resumeGuestV17RegularFromLocalRecord: resumeGuestV17RegularFromLocalRecord,
+    __test: Object.freeze({
+      normalizeDeepFlowV1: getDeepFlowV1,
+      validateDeepFlowV1: function(value, routeType) {
+        return validateDeepFlowV1(value, 'deepFlow', routeType);
+      }
+    })
   });
 })(window);

@@ -104,7 +104,153 @@ function result(value) { return validate(value); }
 function accepted(value) { assert.equal(result(value).ok, true); }
 function rejected(value) { assert.equal(result(value).ok, false); }
 
+function deepResponse(text = '', draft = '') {
+  return { state: text ? 'answered' : 'unset', text, draft };
+}
+
+function deepRound(round, question1 = deepResponse(), question2 = deepResponse()) {
+  return {
+    round,
+    questionVariant: round % 2 ? 'A' : 'B',
+    originalTheme: 'Synthetic Theme',
+    question1,
+    question2,
+    incomplete: false
+  };
+}
+
+function deepFlow(overrides = {}) {
+  return Object.assign({
+    routeType: 'problem',
+    originalTheme: 'Synthetic Theme',
+    round: 1,
+    questionVariant: 'A',
+    phase: 'question1',
+    rounds: [],
+    pendingRound: deepRound(1),
+    nextPendingRound: null,
+    finished: false
+  }, overrides);
+}
+
+function deepFixture(flow = deepFlow()) {
+  const value = fixture();
+  value.currentScreen = 's-v17-deep-response';
+  value.summary.sessionMode = 'deep';
+  value.currentState.currentScreen = 's-v17-deep-response';
+  value.currentState.currentStep = 'deep.' + flow.phase;
+  value.currentState.sessionMode = 'deep';
+  value.currentState.regularFlow = null;
+  value.currentState.deepFlow = flow;
+  return value;
+}
+
+function copied(value) { return JSON.parse(JSON.stringify(value)); }
+
 test('accepts the canonical valid snapshot', () => accepted(fixture()));
+
+test('validates DeepFlowV1 direct schema states, alternation, Back state, and next pending round', () => {
+  const q1Draft = deepFixture();
+  q1Draft.currentState.deepFlow.pendingRound.question1 = deepResponse('', 'synthetic draft');
+  accepted(q1Draft);
+
+  const q1Confirmed = deepFixture();
+  q1Confirmed.currentState.deepFlow.pendingRound.question1 = deepResponse('synthetic answer', 'synthetic draft');
+  accepted(q1Confirmed);
+
+  const q2DraftFlow = deepFlow({
+    phase: 'question2',
+    pendingRound: deepRound(1, deepResponse('synthetic answer'), deepResponse('', 'synthetic q2 draft'))
+  });
+  accepted(deepFixture(q2DraftFlow));
+
+  const completeRound1 = deepRound(1, deepResponse('one'), deepResponse('two'));
+  const pendingRound2 = deepRound(2, deepResponse('three'), deepResponse('', 'four draft'));
+  const alternating = deepFlow({
+    round: 2,
+    questionVariant: 'B',
+    phase: 'question2',
+    rounds: [completeRound1],
+    pendingRound: pendingRound2,
+    nextPendingRound: deepRound(3)
+  });
+  accepted(deepFixture(alternating));
+
+  const back = deepFlow({
+    pendingRound: deepRound(1, deepResponse('one'), deepResponse('two'))
+  });
+  accepted(deepFixture(back));
+});
+
+test('normalizes only DeepFlowV1 runtime fields and keeps draft-only values unset', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const normalized = api.__test.normalizeDeepFlowV1({
+    routeType: 'problem', originalTheme: 'Synthetic Theme', round: 1, questionVariant: 'A',
+    phase: 'question1', rounds: [], finished: false, sourceQuote: 'excluded',
+    pendingRound: {
+      round: 1, questionVariant: 'A', originalTheme: 'Synthetic Theme', incomplete: false,
+      question1: { text: '', draft: 'synthetic draft', timer: 1 },
+      question2: { text: '', draft: '' }, sourceQuote: 'excluded'
+    },
+    nextPendingRound: null
+  });
+  assert.equal(normalized.pendingRound.question1.state, 'unset');
+  assert.equal(normalized.pendingRound.question1.text, '');
+  assert.equal(normalized.pendingRound.question1.draft, 'synthetic draft');
+  assert.equal(Object.hasOwn(normalized, 'sourceQuote'), false);
+  assert.equal(Object.hasOwn(normalized.pendingRound, 'sourceQuote'), false);
+  assert.equal(api.__test.validateDeepFlowV1(normalized, 'problem'), null);
+});
+
+test('rejects invalid DeepFlowV1 contracts without exposing private values', () => {
+  const cases = [
+    value => { value.currentState.deepFlow.pendingRound.question1 = { state: 'answered', text: '', draft: 'draft' }; },
+    value => { value.currentState.deepFlow.pendingRound.question1.state = 'skipped'; },
+    value => { value.currentState.deepFlow.pendingRound.question1 = { state: 'unset', text: 'text', draft: '' }; },
+    value => { value.currentState.deepFlow.phase = 'question2'; value.currentState.currentStep = 'deep.question2'; },
+    value => { value.currentState.deepFlow.pendingRound.originalTheme = 'Other Theme'; },
+    value => { value.currentState.deepFlow.pendingRound.questionVariant = 'B'; },
+    value => { value.currentState.deepFlow.round = 2; value.currentState.deepFlow.questionVariant = 'B'; },
+    value => { value.currentState.deepFlow.rounds = [deepRound(2, deepResponse('one'), deepResponse('two'))]; value.currentState.deepFlow.round = 2; value.currentState.deepFlow.questionVariant = 'B'; value.currentState.deepFlow.pendingRound = deepRound(2); },
+    value => { value.currentState.deepFlow.rounds = [deepRound(1, deepResponse('one'), deepResponse('two'))]; value.currentState.deepFlow.round = 2; value.currentState.deepFlow.questionVariant = 'B'; value.currentState.deepFlow.pendingRound = deepRound(1); },
+    value => { value.currentState.deepFlow.nextPendingRound = deepRound(3); },
+    value => { value.currentState.deepFlow.nextPendingRound = deepRound(2); value.currentState.deepFlow.nextPendingRound.originalTheme = 'Other Theme'; },
+    value => { value.currentState.deepFlow.nextPendingRound = deepRound(2); value.currentState.deepFlow.nextPendingRound.questionVariant = 'A'; },
+    value => { value.currentState.deepFlow.extra = true; },
+    value => { value.currentState.deepFlow.pendingRound.extra = true; },
+    value => { value.currentState.deepFlow.pendingRound.question1.extra = true; },
+    value => { value.currentState.deepFlow = { phase: 'current', sourceQuote: 'old' }; },
+    value => { value.currentState.deepFlow.finished = true; },
+    value => { value.currentState.deepFlow.pendingRound.incomplete = true; }
+  ];
+  for (const change of cases) {
+    const invalid = copied(deepFixture());
+    change(invalid);
+    const validation = result(invalid);
+    assert.equal(validation.ok, false);
+  }
+  const privateSentinel = copied(deepFixture());
+  privateSentinel.currentState.deepFlow.pendingRound.question1 = { state: 'answered', text: '', draft: 'PRIVATE_SENTINEL' };
+  const validation = result(privateSentinel);
+  assert.equal(validation.ok, false);
+  assert.equal(JSON.stringify(validation.error).includes('PRIVATE_SENTINEL'), false);
+});
+
+test('keeps Deep production serializer, restore, and allowlists closed', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  context.window.D = {
+    v17SessionMode: 'deep',
+    v17SessionIdentity: api.createV17SessionIdentity('2026-01-01T00:00:00.000Z')
+  };
+  const serialized = api.serializeV17SessionSnapshot({ now: '2026-01-01T00:01:00.000Z' });
+  assert.equal(serialized.ok, false);
+  assert.equal(serialized.error.code, 'UNSUPPORTED_SESSION_MODE_PHASE_4A');
+  const restored = api.restoreV17SessionRuntime(deepFixture());
+  assert.equal(restored.ok, false);
+  assert.equal(restored.error.code, 'RESTORE_DEEP_NOT_SUPPORTED');
+  assert.equal(api.constants.SERIALIZABLE_SCREENS.includes('s-v17-deep-response'), false);
+  assert.equal(api.constants.RESTORABLE_SCREENS.includes('s-v17-deep-response'), false);
+});
 
 test('serializes Guest Regular Before without Regular Flow metadata', () => {
   context.window.D = {
