@@ -169,11 +169,13 @@ Gate: no round loss, duplication, reorder, variant mismatch, or source-theme rep
 
 ### New Flow Unit 3B — Deep Snapshot serializer / validator / restore
 
-**Status:** 3B-1 complete; 3B-2 next. Unit 3B-1 commit `88340e5b5e478505ff918c6b7a59215c96e9f49c` defines the Snapshot Schema v1 and validator foundation. Production serializer / restore remain gated.
+**Status:** Complete for Deep response; Unit 3B-2 commit `2f793f42407433db898145bc25e8744e3d08ddfb` activates Snapshot Schema v1 serializer / restore for `s-v17-deep-response` Question 1 / Question 2 only. Unit 3A and 3B-1 remain complete.
 
 Deep Snapshot must be redesigned for the Unit 3A runtime. Do not reuse the old Deep schema by inference.
 
-3B-2 will activate serializer and restore together, including restore-before-render, Question 1 / Question 2 drafts, `nextPendingRound`, Deep Back reconstruction, Result adapter reconstruction, and round-trip tests.
+3B-2 activated serializer and restore together, including restore-before-render, Question 1 / Question 2 drafts, `nextPendingRound`, Deep Back reconstruction, Result adapter reconstruction, and round-trip tests.
+
+Completed in 3B-2: production Deep response resume, Regular / Deep isolation, Q1 / Q2 render, same-round and cross-round Back, `nextPendingRound` forward reuse, and live No More Words boundary. Breath / Final / Result exact resume, Breath pre-frame, `resumeBackFrames`, and Repeat Snapshot remain Phase 5B scope.
 
 ### Phase 5A — Deep serializer / restore (superseded by New Flow Unit 3B)
 

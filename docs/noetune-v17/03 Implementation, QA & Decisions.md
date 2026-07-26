@@ -545,7 +545,19 @@ Audited:
 - Deep runtime test: 6/6 PASS
 - syntax checks / `git diff --check`: PASS
 - production Deep serializer / restoreはunsupportedのまま、restore不能recordを生成しない
-- 次はNew Flow Unit 3B-2（Deep serializer and restore activation）
+- 当時の次UnitはNew Flow Unit 3B-2（Deep serializer and restore activation）とした。現在は3B-2 acceptance済みである。
+
+### New Flow Unit 3B-2 acceptance
+
+**Status:** Complete; commit `2f793f42407433db898145bc25e8744e3d08ddfb` (`feat(v17): enable deep response snapshot resume`).
+
+- changed: `app-v17.html`, `js/v17/session-snapshot.js`, `tests/v17/session-snapshot.compat.test.js`, `tests/v17/deep-alternating-flow.test.js`
+- supported: Deep response Question 1 / Question 2、draft、restore-before-render、Deep内Back、`nextPendingRound`、Result adapter derived state
+- Regular root `questionVariant`汚染を修正し、Regular / Deep isolationをproduction Case 1を含めて検証
+- 初回QA FAIL（Regular variant上書き）を修正し、Q1 / Q2 render、same-round / cross-round Back、forward、No More Words境界を追加検証
+- Snapshot: 23/23 PASS、Deep runtime: 11/11 PASS
+- syntax checks / `git diff --check`: PASS
+- Breath / Final / Result、finished Deep、Repeat、raw navigation history、Deep Cloud、Guest persistent resumeはunsupported
 
 Audited:
 

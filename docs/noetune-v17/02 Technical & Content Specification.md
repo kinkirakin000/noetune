@@ -160,9 +160,11 @@ Question 2: answer1 → route-specific opposite side
 
 ### 7.2 Snapshot boundary
 
-`questionVariant`はruntimeへ実装済みである。Unit 3Aではruntimeのみを扱い、Deep serializer / restoreは明示的unsupportedのままUnit 3B-2へ残す。Unit 3B-1でschemaとvalidatorのfoundationを確定した。
+`questionVariant`はruntimeへ実装済みである。Unit 3A時点ではDeep serializer / restoreを明示的unsupportedとしてUnit 3B-2へ残し、Unit 3B-1でschemaとvalidatorのfoundationを確定した。現在の3B-2 acceptanceでDeep response範囲を有効化している。
 
 New Flow Unit 3B-1 acceptance（commit `88340e5b5e478505ff918c6b7a59215c96e9f49c`）で、Snapshot Schema v1のDeep foundationを確定した。DeepFlowV1は`routeType`、`originalTheme`、`round`、`questionVariant`、`phase`、`rounds`、`pendingRound`、`nextPendingRound`、`finished`、DeepRoundV1は対応するround / response exact shape、ResponseValueV1は`state` / `text` / `draft`を持つ。`nextPendingRound`はcross-round Backのcanonical stateであり、old Deep shapeはmigrationせずfail closedとする。production serializer / restoreは`UNSUPPORTED_SESSION_MODE_PHASE_4A` / `RESTORE_DEEP_NOT_SUPPORTED`のままUnit 3B-2へ残す。
+
+New Flow Unit 3B-2 acceptance（commit `2f793f42407433db898145bc25e8744e3d08ddfb`）で、production対応を`s-v17-deep-response`の`question1` / `question2`、`finished = false`に限定して有効化した。Deep正本は`D.v17Flow.deepDive`、restore後のResult adapterはderived state、Regular root `questionVariant`はDeep restoreで変更しない。Breath / Final / Result、finished Deep、Repeat、raw navigation history、Deep Cloud persistenceはunsupportedのままSnapshot Schema v1を維持する。
 
 ## 8. Deep Flow State
 
@@ -208,7 +210,7 @@ New Flow Unit 3B-1 acceptance（commit `88340e5b5e478505ff918c6b7a59215c96e9f49c
 
 旧`current / ideal / feel100` phase設計は現行コードの履歴として残り得るが、新しいDeep runtimeの正本ではない。Unit 3Aでcanonical forward routeからFeel100を外したが、legacy DOM / functionは削除していない。
 
-Unit 3A runtime status: implemented. Result adapterは、確定pending roundを優先し、空pendingの場合は最新completed roundへfallbackし、route別にQuestion 1 / Question 2を既存current / ideal stateへmappingする。Deep SnapshotはUnit 3Bまでunsupportedとする。
+Unit 3A runtime status: implemented. Result adapterは、確定pending roundを優先し、空pendingの場合は最新completed roundへfallbackし、route別にQuestion 1 / Question 2を既存current / ideal stateへmappingする。Deep Snapshotのproduction対応は当時Unit 3Bへ残した。
 
 ## 9. Measurement Model
 

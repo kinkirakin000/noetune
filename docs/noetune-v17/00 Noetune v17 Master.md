@@ -74,6 +74,8 @@ New Flow Unit 3Aとして、Deep A/B交互runtimeを実装済み。Round 1はA�
 
 New Flow Unit 3B-1として、Deep Snapshot Schema v1のfoundationを確定した。DeepFlowV1、DeepRoundV1、ResponseValueV1のexact shape、A/B parity、round連番、originalTheme整合、`nextPendingRound`、normalizer / validator、unknown keyのfail-closedを実装・受入済み（commit `88340e5b5e478505ff918c6b7a59215c96e9f49c`）。Deep serializer / restoreは引き続きunsupportedであり、次はNew Flow Unit 3B-2である。
 
+New Flow Unit 3B-2として、Deep response（Question 1 / Question 2）のSnapshot Schema v1 serializer、restore-before-render、draft、Deep内Back、`nextPendingRound` round-trip、Result adapter derived stateを実装・受入した（commit `2f793f42407433db898145bc25e8744e3d08ddfb`）。Breath以降、No More Words後exact resume、Cloud、Guest persistent resumeは未完成である。
+
 現在のBreath、Final Measurement、Resultへの遷移は維持する。呼吸工程の削除はUnit 1の範囲ではなく、別の正式決定なしに変更しない。
 
 ## 4. UX原則
