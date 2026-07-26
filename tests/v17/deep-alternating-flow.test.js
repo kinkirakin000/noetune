@@ -830,3 +830,169 @@ test('Deep Final control preserves its Deep response frame and does not adopt Re
   assert.equal(context.D.v17Flow.resumeBackFrames[1].sessionMode, 'deep');
   assert.equal(context.D.v17Flow.questionVariant, 'B');
 });
+
+function resultArrivalRuntime(options = {}) {
+  const mode = options.mode || 'regular';
+  const response = mode === 'deep'
+    ? { frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.question1', state: { routeType: 'problem', deepFlow: { phase: 'question1', finished: false } } }
+    : { frameType: 'regular-response', sessionMode: 'regular', screenId: 's-v17-second-response', currentStep: 'step3', state: { routeType: 'problem', regularFlow: {}, responses: {}, semanticState: {} } };
+  const breath = { frameType: 'breath', sessionMode: mode, screenId: 's-v17-breath', currentStep: 'step4.second', state: { breathState: { step: 2, phase: 'second', first: true, second: false } } };
+  const events = [];
+  const context = {
+    D: {
+      v17SessionMode: mode, beforeEmotionPositive: 3, afterEmotionPositive: 7, finalThemeScore: 7, deltaScore: 4,
+      v17SessionIdentity: options.identity === false ? null : { cycleId: 'cycle-1', cycleIndex: 0, resultReachedAt: null, resultEventSent: false },
+      v17MeasurementState: { after: { state: 'scored', value: 7, touched: true } },
+      v17Flow: { resumeBackFrames: [response, breath], scoreTrailExpanded: true, awarenessTrailExpanded: true }
+    },
+    cur: options.cur || 's-v17-final-measure',
+    cloneV17State(value) { return JSON.parse(JSON.stringify(value)); },
+    getV17ThemeRoute() { return 'problems'; }, trackEvent(name, payload) { events.push({ name, payload }); },
+    ensureV17SessionState() {}, clearV17RepeatNavigation() {}, setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; },
+    renderV17Result() { events.push({ name: 'render' }); }, renderV17Screen(id) { events.push({ name: 'screen', id }); },
+    fwd(id) { context.cur = id; }, setV17ScreenDirectWithoutHistoryReset(id) { context.cur = id; },
+    document: { getElementById() { return null; } }, isV17GuestLocalBookmarkRetired() { return true; }
+  };
+  for (const name of ['createV17ResultFinalFrame', 'commitV17ResultArrival', 'showV17Result', 'handleV17ResultBack']) {
+    vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  }
+  return { context, events, response, breath };
+}
+
+test('Result Final frame has the exact typed envelope', () => {
+  const f = resultArrivalRuntime();
+  assert.deepEqual(JSON.parse(JSON.stringify(f.context.createV17ResultFinalFrame())), {
+    frameType: 'final-measurement', sessionMode: 'regular', screenId: 's-v17-final-measure', currentStep: 'step5',
+    state: { finalMeasurementState: { state: 'scored', value: 7, touched: true } }
+  });
+});
+
+test('Result Final frame clones measurement state', () => {
+  const f = resultArrivalRuntime(); const frame = f.context.createV17ResultFinalFrame();
+  f.context.D.v17MeasurementState.after.value = 9;
+  assert.equal(frame.state.finalMeasurementState.value, 7);
+});
+
+test('Result Final frame rejects a missing response stack', () => {
+  const f = resultArrivalRuntime(); f.context.D.v17Flow.resumeBackFrames = [f.breath];
+  assert.equal(f.context.createV17ResultFinalFrame(), null);
+});
+
+test('Result Final frame rejects an overlong predecessor stack', () => {
+  const f = resultArrivalRuntime(); f.context.D.v17Flow.resumeBackFrames.push({});
+  assert.equal(f.context.createV17ResultFinalFrame(), null);
+});
+
+test('Result Final frame rejects the wrong Breath phase', () => {
+  const f = resultArrivalRuntime(); f.breath.state.breathState.phase = 'first';
+  assert.equal(f.context.createV17ResultFinalFrame(), null);
+});
+
+test('Result Final frame rejects a mode mismatch', () => {
+  const f = resultArrivalRuntime(); f.breath.sessionMode = 'deep';
+  assert.equal(f.context.createV17ResultFinalFrame(), null);
+});
+
+test('Result arrival commits a reached timestamp and event marker', () => {
+  const f = resultArrivalRuntime();
+  assert.equal(f.context.commitV17ResultArrival(), true);
+  assert.notEqual(f.context.D.v17SessionIdentity.resultReachedAt, null);
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, true);
+});
+
+test('Result arrival emits v17_result_reached once per cycle', () => {
+  const f = resultArrivalRuntime(); f.context.commitV17ResultArrival(); f.context.commitV17ResultArrival();
+  assert.deepEqual(f.events.filter(event => event.name === 'v17_result_reached').map(event => event.name), ['v17_result_reached']);
+});
+
+test('Result arrival does not emit the retired completion event', () => {
+  const f = resultArrivalRuntime(); f.context.commitV17ResultArrival();
+  assert.equal(f.events.some(event => event.name === 'v17_session_completed'), false);
+});
+
+test('Result arrival has no private response payload', () => {
+  const f = resultArrivalRuntime(); f.context.commitV17ResultArrival();
+  const payload = f.events.find(event => event.name === 'v17_result_reached').payload;
+  assert.equal(JSON.stringify(payload).includes('response'), false);
+  assert.equal(JSON.stringify(payload).includes('draft'), false);
+});
+
+test('Result arrival is safe without a session identity', () => {
+  const f = resultArrivalRuntime({ identity: false });
+  assert.equal(f.context.commitV17ResultArrival(), false);
+  assert.equal(f.events.length, 0);
+});
+
+test('Result render activates the three-frame stack before it renders', () => {
+  const f = resultArrivalRuntime();
+  assert.equal(f.context.showV17Result(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 3);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[2].frameType, 'final-measurement');
+  assert.equal(f.events.find(event => event.name === 'render').name, 'render');
+});
+
+test('Result render records step6 and Result screen', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  assert.equal(f.context.D.v17Flow.currentStep, 'step6');
+  assert.equal(f.context.D.v17Flow.currentScreen, 's-result');
+  assert.equal(f.context.cur, 's-result');
+});
+
+test('Result render resets only Result view expansion flags', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  assert.equal(f.context.D.v17Flow.scoreTrailExpanded, false);
+  assert.equal(f.context.D.v17Flow.awarenessTrailExpanded, false);
+});
+
+test('Result render is idempotent after the cycle event was sent', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  f.context.D.v17Flow.resumeBackFrames = f.context.D.v17Flow.resumeBackFrames.slice(0, 2);
+  f.context.showV17Result();
+  assert.equal(f.events.filter(event => event.name === 'v17_result_reached').length, 1);
+});
+
+test('Result Back restores Final with the original two-frame stack', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.cur, 's-v17-final-measure');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0], f.response);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[1], f.breath);
+});
+
+test('Result Back restores exact Final measurement state', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  f.context.D.v17MeasurementState.after = { state: 'unset', value: null, touched: false };
+  f.context.handleV17ResultBack();
+  assert.deepEqual(JSON.parse(JSON.stringify(f.context.D.v17MeasurementState.after)), { state: 'scored', value: 7, touched: true });
+});
+
+test('Result Back renders Final at step5', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result(); f.context.handleV17ResultBack();
+  assert.equal(f.context.D.v17Flow.currentStep, 'step5');
+  assert.equal(f.context.D.v17Flow.currentScreen, 's-v17-final-measure');
+  assert.equal(f.events.at(-1).id, 's-v17-final-measure');
+});
+
+test('Result Back rejects a malformed Final frame without mutation', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  f.context.D.v17Flow.resumeBackFrames[2].currentStep = 'step6'; const before = JSON.stringify(f.context.D.v17Flow);
+  assert.equal(f.context.handleV17ResultBack(), false);
+  assert.equal(JSON.stringify(f.context.D.v17Flow), before);
+});
+
+test('Result Back rejects an invalid Final measurement projection before mutation', () => {
+  const f = resultArrivalRuntime(); f.context.showV17Result();
+  f.context.D.v17Flow.resumeBackFrames[2].state.finalMeasurementState.value = 8;
+  const before = JSON.stringify(f.context.D);
+  assert.equal(f.context.handleV17ResultBack(), false);
+  assert.equal(JSON.stringify(f.context.D), before);
+  assert.equal(f.context.cur, 's-result');
+});
+
+test('Deep Result uses a Deep typed Final frame and Back preserves it', () => {
+  const f = resultArrivalRuntime({ mode: 'deep' }); f.context.showV17Result();
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[2].sessionMode, 'deep');
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].frameType, 'deep-response');
+});

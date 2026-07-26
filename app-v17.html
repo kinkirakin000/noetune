@@ -9020,6 +9020,45 @@ function handleV17FinalMeasurementBack() {
   return true;
 }
 
+function handleV17ResultBack() {
+  var flow = D && D.v17Flow;
+  if (!flow || cur !== 's-result' || !Array.isArray(flow.resumeBackFrames) || flow.resumeBackFrames.length !== 3) return false;
+  var responseFrame = flow.resumeBackFrames[0];
+  var breathFrame = flow.resumeBackFrames[1];
+  var finalFrame = flow.resumeBackFrames[2];
+  if (!responseFrame || !breathFrame || !finalFrame || responseFrame.sessionMode !== D.v17SessionMode ||
+      breathFrame.sessionMode !== D.v17SessionMode || finalFrame.sessionMode !== D.v17SessionMode ||
+      breathFrame.frameType !== 'breath' || breathFrame.screenId !== 's-v17-breath' ||
+      breathFrame.currentStep !== 'step4.second' || !breathFrame.state || !breathFrame.state.breathState ||
+      breathFrame.state.breathState.step !== 2 || breathFrame.state.breathState.phase !== 'second' ||
+      breathFrame.state.breathState.first !== true || breathFrame.state.breathState.second !== false ||
+      finalFrame.frameType !== 'final-measurement' || finalFrame.screenId !== 's-v17-final-measure' ||
+      finalFrame.currentStep !== 'step5' || !finalFrame.state || !finalFrame.state.finalMeasurementState) return false;
+  if ((D.v17SessionMode === 'regular' && responseFrame.frameType !== 'regular-response') ||
+      (D.v17SessionMode === 'deep' && responseFrame.frameType !== 'deep-response')) return false;
+  var finalMeasurement = finalFrame.state.finalMeasurementState;
+  var finalMeasurementKeys = Object.keys(finalMeasurement).sort();
+  if (finalMeasurementKeys.length !== 3 || finalMeasurementKeys[0] !== 'state' ||
+      finalMeasurementKeys[1] !== 'touched' || finalMeasurementKeys[2] !== 'value' ||
+      typeof finalMeasurement.touched !== 'boolean') return false;
+  if (finalMeasurement.state === 'scored') {
+    if (typeof finalMeasurement.value !== 'number' || Number.isNaN(finalMeasurement.value) ||
+        !finalMeasurement.touched || D.finalThemeScore !== finalMeasurement.value) return false;
+  } else if (finalMeasurement.state === 'not_a_problem') {
+    if (finalMeasurement.value !== null || !finalMeasurement.touched || D.finalThemeScore !== V17_SCORE_NOT_A_PROBLEM) return false;
+  } else if (finalMeasurement.state === 'unset') {
+    if (finalMeasurement.value !== null || finalMeasurement.touched || D.finalThemeScore !== null) return false;
+  } else return false;
+  flow.resumeBackFrames = [responseFrame, breathFrame];
+  D.v17MeasurementState = D.v17MeasurementState || {};
+  D.v17MeasurementState.after = cloneV17State(finalFrame.state.finalMeasurementState);
+  flow.currentScreen = 's-v17-final-measure';
+  setV17CurrentStep('step5');
+  setV17ScreenDirectWithoutHistoryReset('s-v17-final-measure');
+  renderV17Screen('s-v17-final-measure');
+  return true;
+}
+
 function submitV17FinalScore() {
   var value = arguments.length ? arguments[0] : getSliderVal('v17-final');
   var skipPhase = v17MeasurementSkipPhase;
@@ -9038,6 +9077,42 @@ function submitV17FinalScore() {
   setV17ThemeAwarenessEntry(getV17IdealStateText());
   D.v17Flow.currentStep = 'step6';
   showV17Result();
+}
+
+function createV17ResultFinalFrame() {
+  var flow = D && D.v17Flow;
+  var measurement = D && D.v17MeasurementState && D.v17MeasurementState.after;
+  if (!flow || !measurement || !Array.isArray(flow.resumeBackFrames) || flow.resumeBackFrames.length !== 2) return null;
+  var responseFrame = flow.resumeBackFrames[0];
+  var breathFrame = flow.resumeBackFrames[1];
+  if (!responseFrame || !breathFrame || responseFrame.sessionMode !== D.v17SessionMode ||
+      breathFrame.sessionMode !== D.v17SessionMode || breathFrame.frameType !== 'breath' ||
+      breathFrame.screenId !== 's-v17-breath' || breathFrame.currentStep !== 'step4.second' ||
+      !breathFrame.state || !breathFrame.state.breathState || breathFrame.state.breathState.step !== 2 ||
+      breathFrame.state.breathState.phase !== 'second' || breathFrame.state.breathState.first !== true ||
+      breathFrame.state.breathState.second !== false) return null;
+  if ((D.v17SessionMode === 'regular' && responseFrame.frameType !== 'regular-response') ||
+      (D.v17SessionMode === 'deep' && responseFrame.frameType !== 'deep-response')) return null;
+  return {
+    frameType: 'final-measurement', sessionMode: D.v17SessionMode, screenId: 's-v17-final-measure', currentStep: 'step5',
+    state: { finalMeasurementState: cloneV17State(measurement) }
+  };
+}
+
+function commitV17ResultArrival() {
+  var identity = D && D.v17SessionIdentity;
+  if (!identity || !identity.cycleId || identity.resultEventSent === true) return false;
+  identity.resultReachedAt = identity.resultReachedAt || new Date().toISOString();
+  identity.resultEventSent = true;
+  trackEvent('v17_result_reached', {
+    cycleId: identity.cycleId,
+    cycleIndex: identity.cycleIndex,
+    route: getV17ThemeRoute(),
+    before: D.beforeEmotionPositive,
+    after: D.afterEmotionPositive,
+    delta: D.deltaScore
+  });
+  return true;
 }
 
 function renderV17Result() {
@@ -9088,8 +9163,14 @@ function renderV17Result() {
 function showV17Result() {
   clearV17RepeatNavigation();
   ensureV17SessionState();
-  if (D.v17Flow) D.v17Flow.scoreTrailExpanded = false;
-  if (D.v17Flow) D.v17Flow.awarenessTrailExpanded = false;
+  var finalFrame = createV17ResultFinalFrame();
+  if (!D.v17Flow || !finalFrame) return false;
+  D.v17Flow.resumeBackFrames = [D.v17Flow.resumeBackFrames[0], D.v17Flow.resumeBackFrames[1], finalFrame];
+  D.v17Flow.scoreTrailExpanded = false;
+  D.v17Flow.awarenessTrailExpanded = false;
+  D.v17Flow.currentScreen = 's-result';
+  setV17CurrentStep('step6');
+  commitV17ResultArrival();
   renderV17Result();
   var imageStatus = document.getElementById('v17-image-status');
   var previewWrap = document.getElementById('save-preview-wrap');
@@ -9097,19 +9178,9 @@ function showV17Result() {
   if (imageStatus) imageStatus.textContent = '';
   if (previewWrap) previewWrap.style.display = 'none';
   if (previewImage) previewImage.removeAttribute('src');
-  if (!D.v17Flow) {
-    resetResultSaveUI();
-  }
-  clearPendingProgress();
-  trackEvent('v17_session_completed', {
-    questionId: D.questionId,
-    route: getV17ThemeRoute(),
-    before: D.beforeEmotionPositive,
-    after: D.afterEmotionPositive,
-    delta: D.deltaScore
-  });
   fwd('s-result');
   if (!isV17GuestLocalBookmarkRetired() && typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(true);
+  return true;
 }
 
 function restartCurrentSubtheme() {
@@ -9543,6 +9614,10 @@ function saveV17ResultCard() {
 
 var v17BaseGoBack = goBack;
 goBack = function() {
+  if (handleV17ResultBack()) {
+    if (navPageStateHistory.length) navPageStateHistory.pop();
+    return;
+  }
   if (handleV17FinalMeasurementBack()) {
     if (navPageStateHistory.length) navPageStateHistory.pop();
     return;
