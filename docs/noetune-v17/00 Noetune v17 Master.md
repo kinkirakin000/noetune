@@ -76,6 +76,8 @@ New Flow Unit 3B-1として、Deep Snapshot Schema v1のfoundationを確定し�
 
 New Flow Unit 3B-2として、Deep response（Question 1 / Question 2）のSnapshot Schema v1 serializer、restore-before-render、draft、Deep内Back、`nextPendingRound` round-trip、Result adapter derived stateを実装・受入した（commit `2f793f42407433db898145bc25e8744e3d08ddfb`）。Breath以降、No More Words後exact resume、Cloud、Guest persistent resumeは未完成である。
 
+Phase 5B-1として、Regular / DeepのBreath Step 1 / Step 2 Snapshot、typed pre-Breath frameによるexact Back、restore-before-render、transient timer除外を実装・受入した（commit `bc6fee1b0b387788b22e84bea49596d8113cdc67`）。Final / Result / Repeat、Cloud、Guest persistent resumeは未完成である。
+
 現在のBreath、Final Measurement、Resultへの遷移は維持する。呼吸工程の削除はUnit 1の範囲ではなく、別の正式決定なしに変更しない。
 
 ## 4. UX原則

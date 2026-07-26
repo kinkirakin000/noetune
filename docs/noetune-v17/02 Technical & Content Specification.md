@@ -166,6 +166,8 @@ New Flow Unit 3B-1 acceptance（commit `88340e5b5e478505ff918c6b7a59215c96e9f49c
 
 New Flow Unit 3B-2 acceptance（commit `2f793f42407433db898145bc25e8744e3d08ddfb`）で、production対応を`s-v17-deep-response`の`question1` / `question2`、`finished = false`に限定して有効化した。Deep正本は`D.v17Flow.deepDive`、restore後のResult adapterはderived state、Regular root `questionVariant`はDeep restoreで変更しない。Breath / Final / Result、finished Deep、Repeat、raw navigation history、Deep Cloud persistenceはunsupportedのままSnapshot Schema v1を維持する。
 
+Phase 5B-1 acceptance（commit `bc6fee1b0b387788b22e84bea49596d8113cdc67`）で、Snapshot Schema v1に`breathState`（`step` / `phase` / `first` / `second`）とtyped `resumeBackFrames`を追加した。production Breath SnapshotはRegular / DeepのStep 1 / Step 2、frame 1件のみを受理し、Regular frameは`regular-response`、Deep frameは`deep-response`とする。restore-before-render、transient timer / animation除外、Regular / Deep variant isolationを維持し、Final / Result / Repeatは拒否する。
+
 ## 8. Deep Flow State
 
 新しいDeepの概念state：

@@ -547,6 +547,17 @@ Audited:
 - production Deep serializer / restoreはunsupportedのまま、restore不能recordを生成しない
 - 当時の次UnitはNew Flow Unit 3B-2（Deep serializer and restore activation）とした。現在は3B-2 acceptance済みである。
 
+### Phase 5B-1 acceptance
+
+**Status:** Complete; commit `bc6fee1b0b387788b22e84bea49596d8113cdc67` (`feat(v17): enable breath snapshot resume`).
+
+- changed: `js/v17/session-snapshot.js`, `app-v17.html`, `tests/v17/session-snapshot.compat.test.js`, `tests/v17/deep-alternating-flow.test.js`
+- 初回FAIL: unsafe Breath gate、Regular Breathの`RUNTIME_SCREEN_INVALID`
+- 修正: gate一時閉鎖、typed Regular frameをcanonical sourceとして採用、runtime producer、restore、production resume、R1 / R2、Deep回帰、raw-history-free Backを完成
+- Snapshot: 34/34 PASS、runtime/navigation: 19/19 PASS
+- Breath Step 1 / Step 2のみsupported。Final / Result / Repeat、2件以上のproduction Back frame、Cloud、Guest persistent resumeはunsupported
+- syntax checks / `git diff --check`: PASS
+
 ### New Flow Unit 3B-2 acceptance
 
 **Status:** Complete; commit `2f793f42407433db898145bc25e8744e3d08ddfb` (`feat(v17): enable deep response snapshot resume`).

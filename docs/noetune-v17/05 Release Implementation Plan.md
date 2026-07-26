@@ -177,6 +177,12 @@ Deep Snapshot must be redesigned for the Unit 3A runtime. Do not reuse the old D
 
 Completed in 3B-2: production Deep response resume, Regular / Deep isolation, Q1 / Q2 render, same-round and cross-round Back, `nextPendingRound` forward reuse, and live No More Words boundary. Breath / Final / Result exact resume, Breath pre-frame, `resumeBackFrames`, and Repeat Snapshot remain Phase 5B scope.
 
+### Phase 5B-1 — Breath Snapshot and typed pre-Breath Back frame
+
+**Status:** Complete; commit `bc6fee1b0b387788b22e84bea49596d8113cdc67`.
+
+Regular / Deep Breath Step 1 / Step 2、typed pre-Breath frame、restore-before-render、exact response Back、transient timer除外を受入済み。Final / Result / Repeat exact resumeは未完了である。
+
 ### Phase 5A — Deep serializer / restore (superseded by New Flow Unit 3B)
 
 **Status:** Do not execute as written until rewritten for the approved alternating A/B Deep model.

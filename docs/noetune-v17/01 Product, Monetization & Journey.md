@@ -237,6 +237,8 @@ New Flow Unit 3B-1時点でDeep responseのSnapshot保存形式（Snapshot Schem
 
 New Flow Unit 3B-2でDeep response中のSnapshot round-tripを技術的に完了した。対応範囲はQuestion 1 / Question 2、draft、Deep内Back、`nextPendingRound`、Result adapter derived stateに限る。Guest persistent save entitlement、LoginだけではCloud保存しない契約、Cloud Journey continuity未完了は継続する。
 
+Phase 5B-1でresponseからBreath Step 1 / Step 2までのSession continuityを技術的に完了した。typed pre-Breath frameによりreload後も直前responseへ戻れるが、Guest persistent save entitlementはなく、Final / Result / RepeatとCloud Journey continuityは未完了である。
+
 ## 9. Breath
 
 現行コピーは2段階。
