@@ -1038,3 +1038,15 @@ The next release-oriented QA must establish:
 - Result production serializer / restore、Result → Final Back、Result analytics idempotent restore、Repeat serializer / restore、Cloud persistence、Guest persistent resumeは未実装。Final 2-frameとBreath 1-frame production契約は維持する
 - Snapshot 70/70、runtime/navigation 25/25、syntax、diff check PASS。private Session本文、score、timestamp、Snapshot全文をerrorへ出さず、payload 1 MiB capを維持する
 - 次の正式UnitはPhase 5B-3b（Result serializer / restore、side-effect-free render、analytics / cycle idempotency、Result → Final exact Back activation）である
+
+### Phase 5B-3b-1 acceptance
+
+- Status: Complete
+- implementation commit: `ad5f034679fc8bcbd92dc8adc81e14967adaa8ed` (`feat(v17): stabilize result runtime lifecycle`)
+- changed: `app-v17.html`, `tests/v17/deep-alternating-flow.test.js`
+- Final submitからResultへのlive transition、cycle markerの一度だけのcommit、`v17_result_reached`のcycle単位idempotency、旧completion event除去、Result経路からの`clearPendingProgress()`除去を受入した
+- typed Final frameをproduction runtimeで生成し、Regular / Deepの`response → breath → final-measurement` 3-frame stackとResult → Final → Breath → Response live Backを有効化した
+- Result renderをdeterministic render-only責務へ分離し、arrival副作用、analytics、cycle markers、trails、Back frameの重複を防止した
+- Result production serializer / restore、persisted Result → Final Back、Repeat Snapshot / restore、Cloud persistence、Guest persistent resumeは未実装。Final 2-frameとBreath 1-frame production契約は維持する
+- runtime/navigation 46/46、Snapshot 70/70、inline JavaScript 25 script blocks、syntax、diff check PASS
+- Human browser QA未実施。次の正式UnitはPhase 5B-3b-2（Result serializer / restore、side-effect-free Result restore、persisted Result → Final exact Back、restore analytics / cycle idempotency）である
