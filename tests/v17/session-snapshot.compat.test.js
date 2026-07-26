@@ -198,6 +198,25 @@ function finalFixture(mode = 'regular', finalMeasurementState = { state: 'unset'
   return value;
 }
 
+function finalMeasurementFrame(mode, state) {
+  return {
+    frameType: 'final-measurement', sessionMode: mode, screenId: 's-v17-final-measure', currentStep: 'step5',
+    state: { finalMeasurementState: copied(state) }
+  };
+}
+
+function resultFixture(mode = 'regular', finalMeasurementState = { state: 'unset', value: null, touched: false }) {
+  const value = finalFixture(mode, finalMeasurementState);
+  value.currentScreen = 's-result';
+  value.currentState.currentScreen = 's-result';
+  value.currentState.currentStep = 'step6';
+  value.currentState.resultView = { reached: true, scoreTrailExpanded: false, awarenessTrailExpanded: false };
+  value.currentCycle.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  value.currentCycle.resultEventSent = true;
+  value.resumeBackFrames.push(finalMeasurementFrame(mode, finalMeasurementState));
+  return value;
+}
+
 function copied(value) { return JSON.parse(JSON.stringify(value)); }
 
 function installProductionRegularBreath(step = 1) {
@@ -1136,4 +1155,94 @@ test('Final serializer and restore remain side-effect isolated', () => {
   const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(serialized.snapshot);
   assert.equal(restored.ok, true, JSON.stringify(restored.error));
   assert.equal(JSON.stringify(sideEffects), before);
+});
+
+test('accepts a Regular Result structural candidate with a typed three-frame stack', () => {
+  accepted(resultFixture('regular', { state: 'scored', value: 45, touched: true }));
+});
+
+test('accepts a Deep Result structural candidate with a typed three-frame stack', () => {
+  accepted(resultFixture('deep', { state: 'not_a_problem', value: null, touched: true }));
+});
+
+test('accepts Result candidates with each normalized after-measurement state', () => {
+  accepted(resultFixture('regular'));
+  accepted(resultFixture('regular', { state: 'skipped', value: null, touched: true }));
+});
+
+test('rejects a Result candidate without the reached result-view projection', () => {
+  const value = resultFixture();
+  value.currentState.resultView.reached = false;
+  rejected(value);
+});
+
+test('rejects Result-view projection unknown keys and wrong toggle types', () => {
+  const unknown = resultFixture();
+  unknown.currentState.resultView.extra = true;
+  rejected(unknown);
+  const wrongType = resultFixture();
+  wrongType.currentState.resultView.scoreTrailExpanded = 'false';
+  rejected(wrongType);
+});
+
+test('rejects Result candidates without both lifecycle markers', () => {
+  const noReachedAt = resultFixture();
+  noReachedAt.currentCycle.resultReachedAt = null;
+  rejected(noReachedAt);
+  const noEvent = resultFixture();
+  noEvent.currentCycle.resultEventSent = false;
+  rejected(noEvent);
+});
+
+test('rejects Result candidates with a Final projection mismatch', () => {
+  const value = resultFixture('regular', { state: 'scored', value: 45, touched: true });
+  value.currentState.finalMeasurementState.value = 46;
+  rejected(value);
+});
+
+test('rejects Result candidates with a mismatched typed Final frame', () => {
+  const value = resultFixture('regular', { state: 'scored', value: 45, touched: true });
+  value.resumeBackFrames[2].state.finalMeasurementState.value = 46;
+  rejected(value);
+});
+
+test('rejects Result Final frames with unknown keys or a wrong step', () => {
+  const unknown = resultFixture();
+  unknown.resumeBackFrames[2].state.extra = true;
+  rejected(unknown);
+  const wrongStep = resultFixture();
+  wrongStep.resumeBackFrames[2].currentStep = 'step6';
+  rejected(wrongStep);
+});
+
+test('rejects Result stacks with wrong order, count, or mode', () => {
+  const wrongOrder = resultFixture();
+  wrongOrder.resumeBackFrames.reverse();
+  rejected(wrongOrder);
+  const short = resultFixture();
+  short.resumeBackFrames.pop();
+  rejected(short);
+  const wrongMode = resultFixture();
+  wrongMode.resumeBackFrames[2].sessionMode = 'deep';
+  rejected(wrongMode);
+});
+
+test('rejects Result stacks whose response frame does not match the root mode', () => {
+  const regular = resultFixture();
+  regular.resumeBackFrames[0].frameType = 'deep-response';
+  regular.resumeBackFrames[0].sessionMode = 'deep';
+  rejected(regular);
+  const deep = resultFixture('deep');
+  deep.resumeBackFrames[0].frameType = 'regular-response';
+  deep.resumeBackFrames[0].sessionMode = 'regular';
+  rejected(deep);
+});
+
+test('keeps Result serializer and restore production gates closed', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step6';
+  context.window.cur = 's-result';
+  assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, false);
+  assert.equal(context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(resultFixture()).ok, false);
 });

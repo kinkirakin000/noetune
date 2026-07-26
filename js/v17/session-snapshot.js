@@ -38,7 +38,7 @@
   ];
   // Schema-known screens may be structurally validated before their
   // production serializer and restore gates are opened.
-  var SCHEMA_VALIDATABLE_SCREENS = SERIALIZABLE_SCREENS.concat(['s-v17-deep-response', 's-v17-final-measure']);
+  var SCHEMA_VALIDATABLE_SCREENS = SERIALIZABLE_SCREENS.concat(['s-v17-deep-response', 's-v17-final-measure', 's-result']);
   var ALLOWED_SESSION_STATUSES = ['active', 'completed', 'discarded'];
   var ALLOWED_ENTRY_TYPES = ['life_theme', 'free_input', 'spiritual_wisdom'];
   var ALLOWED_ROUTE_TYPES = ['problem', 'ideal', 'spiritual'];
@@ -48,7 +48,7 @@
   var ALLOWED_QUESTION_VARIANTS = ['A', 'B'];
   var ALLOWED_REGULAR_FLOW_ACTIVE_SCREENS = ['first', 'second', 'completed'];
   var ALLOWED_REGULAR_FLOW_RESPONSE_ROLES = ['current', 'ideal'];
-  var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3', 'step4.first', 'step4.second', 'step5', 'deep.question1', 'deep.question2'];
+  var ALLOWED_CURRENT_STEPS = ['session-mode', 'before', 'first-response', 'second-response', 'step1', 'step2', 'step3', 'step4.first', 'step4.second', 'step5', 'step6', 'deep.question1', 'deep.question2'];
   var FORBIDDEN_KEYS = [
     'navHistory',
     'navPageStateHistory',
@@ -311,6 +311,14 @@
     return null;
   }
 
+  function validateResultView(value, path) {
+    if (!isPlainObject(value) || validateExactObjectKeys(value, ['reached', 'scoreTrailExpanded', 'awarenessTrailExpanded'], path, 'INVALID_RESULT_STATE') ||
+        value.reached !== true || typeof value.scoreTrailExpanded !== 'boolean' || typeof value.awarenessTrailExpanded !== 'boolean') {
+      return createError('INVALID_RESULT_STATE', path);
+    }
+    return null;
+  }
+
   function validateV17ResumeBackFrameEnvelope(frame, path) {
     path = path || 'resumeBackFrames';
     if (!isV17StrictPlainObject(frame)) return createError('INVALID_RESUME_BACK_FRAME', path);
@@ -322,12 +330,13 @@
     }
     var keysError = validateExactObjectKeys(frame, ['frameType', 'sessionMode', 'screenId', 'currentStep', 'state'], path, 'INVALID_RESUME_BACK_FRAME');
     if (keysError) return keysError;
-    if ((frame.frameType !== 'regular-response' && frame.frameType !== 'deep-response' && frame.frameType !== 'breath') ||
+    if ((frame.frameType !== 'regular-response' && frame.frameType !== 'deep-response' && frame.frameType !== 'breath' && frame.frameType !== 'final-measurement') ||
         (frame.sessionMode !== 'regular' && frame.sessionMode !== 'deep')) return createError('INVALID_RESUME_BACK_FRAME', path);
     if ((frame.frameType === 'regular-response' && frame.sessionMode !== 'regular') ||
         (frame.frameType === 'deep-response' && frame.sessionMode !== 'deep')) return createError('INVALID_RESUME_BACK_FRAME', path);
     if (typeof frame.screenId !== 'string' || (frame.frameType === 'deep-response' ? frame.screenId !== 's-v17-deep-response' :
       frame.frameType === 'breath' ? frame.screenId !== 's-v17-breath' :
+      frame.frameType === 'final-measurement' ? frame.screenId !== 's-v17-final-measure' :
         frame.screenId !== 's-v17-first-response' && frame.screenId !== 's-v17-second-response')) {
       return createError('INVALID_RESUME_BACK_FRAME_SCREEN', path + '.screenId');
     }
@@ -339,6 +348,11 @@
       }
       var breathStateError = validateV17BreathState(frame.state.breathState, path + '.state.breathState', true);
       if (breathStateError || frame.currentStep !== 'step4.second') return createError('INVALID_RESUME_BACK_FRAME_STATE', path);
+    } else if (frame.frameType === 'final-measurement') {
+      if (validateExactObjectKeys(frame.state, ['finalMeasurementState'], path + '.state', 'INVALID_RESUME_BACK_FRAME_STATE') ||
+          frame.currentStep !== 'step5') return createError('INVALID_RESUME_BACK_FRAME_STATE', path);
+      var finalMeasurementError = validateFinalMeasurementState(frame.state.finalMeasurementState, path + '.state.finalMeasurementState');
+      if (finalMeasurementError) return finalMeasurementError;
     } else if (frame.frameType === 'deep-response') {
       if (validateExactObjectKeys(frame.state, ['routeType', 'deepFlow'], path + '.state', 'INVALID_RESUME_BACK_FRAME_STATE')) {
         return createError('INVALID_RESUME_BACK_FRAME_STATE', path + '.state');
@@ -371,14 +385,28 @@
     var path = typeof options.path === 'string' && options.path ? options.path : 'resumeBackFrames';
     var allowNonEmpty = options.allowNonEmpty === true;
     var allowFinalStack = options.allowFinalStack === true;
+    var allowResultStack = options.allowResultStack === true;
     if (!Array.isArray(frames)) return createError('INVALID_RESUME_BACK_FRAMES', path);
     if (frames.length > MAX_RESUME_BACK_FRAMES) return createError('INVALID_RESUME_BACK_FRAMES', path);
-    if (!allowNonEmpty && !allowFinalStack && frames.length !== 0) return createError('INVALID_RESUME_BACK_FRAMES', path);
+    if (!allowNonEmpty && !allowFinalStack && !allowResultStack && frames.length !== 0) return createError('INVALID_RESUME_BACK_FRAMES', path);
     for (var i = 0; i < frames.length; i += 1) {
       var frameError = validateV17ResumeBackFrameEnvelope(frames[i], path + '[' + i + ']');
       if (frameError) return frameError;
     }
-    if (allowFinalStack) {
+    if (allowResultStack) {
+      if (frames.length !== 3) return createError('INVALID_RESUME_BACK_FRAMES', path);
+      var resultResponseFrame = frames[0];
+      var resultBreathFrame = frames[1];
+      var resultFinalFrame = frames[2];
+      if (!resultResponseFrame || !resultBreathFrame || !resultFinalFrame || resultBreathFrame.frameType !== 'breath' ||
+          resultFinalFrame.frameType !== 'final-measurement' ||
+          (resultResponseFrame.frameType !== 'regular-response' && resultResponseFrame.frameType !== 'deep-response') ||
+          resultResponseFrame.sessionMode !== resultBreathFrame.sessionMode || resultResponseFrame.sessionMode !== resultFinalFrame.sessionMode ||
+          (resultResponseFrame.frameType === 'regular-response' && resultResponseFrame.sessionMode !== 'regular') ||
+          (resultResponseFrame.frameType === 'deep-response' && resultResponseFrame.sessionMode !== 'deep')) {
+        return createError('INVALID_RESUME_BACK_FRAMES', path);
+      }
+    } else if (allowFinalStack) {
       if (frames.length !== 2) return createError('INVALID_RESUME_BACK_FRAMES', path);
       var responseFrame = frames[0];
       var breathFrame = frames[1];
@@ -981,9 +1009,11 @@
     if (snapshot.repeatState !== null) return createError('INVALID_REPEAT_STATE', 'repeatState');
     var isBreathScreen = snapshot.currentScreen === 's-v17-breath';
     var isFinalScreen = snapshot.currentScreen === 's-v17-final-measure';
+    var isResultScreen = snapshot.currentScreen === 's-result';
     var resumeBackFramesError = validateV17ResumeBackFrames(snapshot.resumeBackFrames, {
       allowNonEmpty: isBreathScreen,
-      allowFinalStack: isFinalScreen
+      allowFinalStack: isFinalScreen,
+      allowResultStack: isResultScreen
     });
     if (resumeBackFramesError) return resumeBackFramesError;
     var unsafe = hasForbiddenOrUnsafeValue(snapshot, '', new WeakSet());
@@ -1002,7 +1032,7 @@
     var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode';
     if (isUnselectedSessionMode) {
       if (summary.sessionMode !== null) return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
-    } else if (snapshot.currentScreen === 's-v17-deep-response' || ((isBreathScreen || isFinalScreen) && summary.sessionMode === 'deep')) {
+    } else if (snapshot.currentScreen === 's-v17-deep-response' || ((isBreathScreen || isFinalScreen || isResultScreen) && summary.sessionMode === 'deep')) {
       if (summary.sessionMode !== 'deep') return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
     } else if (summary.sessionMode !== 'regular') {
       return createError('INVALID_SESSION_MODE', 'summary.sessionMode');
@@ -1113,6 +1143,7 @@
     var isDeepResponse = snapshot.currentScreen === 's-v17-deep-response';
     var isDeepBreath = isBreathScreen && summary.sessionMode === 'deep';
     var isDeepFinal = isFinalScreen && summary.sessionMode === 'deep';
+    var isDeepResult = isResultScreen && summary.sessionMode === 'deep';
     if (isUnselectedSessionMode) {
       if (!Object.prototype.hasOwnProperty.call(state, 'sessionMode') || state.sessionMode !== null) {
         return createError('INVALID_SESSION_MODE', 'currentState.sessionMode');
@@ -1131,7 +1162,7 @@
       var deepFlowError = validateDeepFlowV1(state.deepFlow, 'currentState.deepFlow', state.routeType);
       if (deepFlowError) return deepFlowError;
       if (state.currentStep !== 'deep.' + state.deepFlow.phase) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
-    } else if (isDeepBreath || isDeepFinal) {
+    } else if (isDeepBreath || isDeepFinal || isDeepResult) {
       if (state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
       if (!isPlainObject(state.deepFlow) || state.deepFlow.finished !== true || !state.deepFlow.pendingRound || state.deepFlow.pendingRound.incomplete !== true) return createError('INVALID_DEEP_FLOW', 'currentState.deepFlow');
       var rootDeep = deepClone(state.deepFlow);
@@ -1168,8 +1199,9 @@
           return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
         }
       }
-    } else if (isFinalScreen) {
-      if (state.currentStep !== 'step5') return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
+    } else if (isFinalScreen || isResultScreen) {
+      var isResult = isResultScreen;
+      if (state.currentStep !== (isResult ? 'step6' : 'step5')) return createError('INVALID_CURRENT_STEP', 'currentState.currentStep');
       if (Object.prototype.hasOwnProperty.call(state, 'breathState') && state.breathState !== null) return createError('INVALID_BREATH_STATE', 'currentState.breathState');
       var finalMeasurementError = validateFinalMeasurementState(state.finalMeasurementState, 'currentState.finalMeasurementState');
       if (finalMeasurementError) return finalMeasurementError;
@@ -1190,7 +1222,50 @@
           finalBreathState.first !== true || finalBreathState.second !== false) {
         return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[1]');
       }
-      if (isDeepFinal) {
+      if (isResult) {
+        var resultViewError = validateResultView(state.resultView, 'currentState.resultView');
+        if (resultViewError) return resultViewError;
+        if (cycle.resultReachedAt === null || cycle.resultEventSent !== true) return createError('INVALID_RESULT_LIFECYCLE', 'currentCycle');
+        if (isDeepResult) {
+          if (finalResponseFrame.frameType !== 'deep-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+          var expectedResultDeep = deepClone(state.deepFlow);
+          expectedResultDeep.finished = false;
+          expectedResultDeep.pendingRound.incomplete = false;
+          if (!finalResponseFrame.state || finalResponseFrame.state.routeType !== state.routeType ||
+              JSON.stringify(finalResponseFrame.state.deepFlow) !== JSON.stringify(expectedResultDeep)) {
+            return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+          }
+        } else {
+          if (finalResponseFrame.frameType !== 'regular-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+          var resultRootRegular = state.regularFlow;
+          var resultFrameRegular = finalResponseFrame.state && finalResponseFrame.state.regularFlow;
+          if (!isPlainObject(resultRootRegular) || !isPlainObject(resultFrameRegular) ||
+              resultRootRegular.activeScreen !== resultFrameRegular.activeScreen ||
+              resultRootRegular.questionVariant !== resultFrameRegular.questionVariant ||
+              resultRootRegular.firstResponseRole !== resultFrameRegular.firstResponseRole ||
+              resultRootRegular.secondResponseRole !== resultFrameRegular.secondResponseRole ||
+              state.routeType !== finalResponseFrame.state.routeType ||
+              state.responses.current.state !== finalResponseFrame.state.responses.current.state ||
+              state.responses.current.text !== finalResponseFrame.state.responses.current.text ||
+              state.responses.current.draft !== finalResponseFrame.state.responses.current.draft ||
+              state.responses.ideal.state !== finalResponseFrame.state.responses.ideal.state ||
+              state.responses.ideal.text !== finalResponseFrame.state.responses.ideal.text ||
+              state.responses.ideal.draft !== finalResponseFrame.state.responses.ideal.draft ||
+              state.semanticState.current !== finalResponseFrame.state.semanticState.current ||
+              state.semanticState.ideal !== finalResponseFrame.state.semanticState.ideal) {
+            return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
+          }
+        }
+        var finalMeasurementFrame = snapshot.resumeBackFrames[2];
+        if (!finalMeasurementFrame || finalMeasurementFrame.sessionMode !== summary.sessionMode ||
+            finalMeasurementFrame.frameType !== 'final-measurement' || finalMeasurementFrame.currentStep !== 'step5' ||
+            !finalMeasurementFrame.state || !finalMeasurementFrame.state.finalMeasurementState ||
+            finalMeasurementFrame.state.finalMeasurementState.state !== state.finalMeasurementState.state ||
+            finalMeasurementFrame.state.finalMeasurementState.value !== state.finalMeasurementState.value ||
+            finalMeasurementFrame.state.finalMeasurementState.touched !== state.finalMeasurementState.touched) {
+          return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[2]');
+        }
+      } else if (isDeepFinal) {
         if (finalResponseFrame.frameType !== 'deep-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
       } else {
         if (finalResponseFrame.frameType !== 'regular-response') return createError('INVALID_RESUME_BACK_FRAME', 'resumeBackFrames[0]');
@@ -1208,6 +1283,7 @@
     } else {
       if (Object.prototype.hasOwnProperty.call(state, 'breathState') && state.breathState !== null) return createError('INVALID_BREATH_STATE', 'currentState.breathState');
       if (Object.prototype.hasOwnProperty.call(state, 'finalMeasurementState') && state.finalMeasurementState !== null) return createError('INVALID_FINAL_MEASUREMENT_STATE', 'currentState.finalMeasurementState');
+      if (Object.prototype.hasOwnProperty.call(state, 'resultView') && state.resultView !== null) return createError('INVALID_RESULT_VIEW', 'currentState.resultView');
     }
     if (isUnselectedSessionMode && state.regularFlow !== null) return createError('INVALID_REGULAR_FLOW', 'currentState.regularFlow');
     if (state.regularFlow !== null) {
