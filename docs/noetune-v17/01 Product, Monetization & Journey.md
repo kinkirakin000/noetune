@@ -709,3 +709,5 @@ Stage 2以降はGlobal Privacy & Security Gate、RLS、vendor review、削除・
 8. Free 1件上限到達率
 9. Pro conversion after an explicit continuity action
 10. Pro active件数分布と50件上限到達率
+
+Phase 5B-2bでresponse → Breath → Finalまでのtechnical Session continuityを完成した。Finalはreload後にmeasurement stateとBack文脈を復元できるが、Result / Repeat continuity、Guest persistent save entitlement、Cloud Journey continuityは未完了である。

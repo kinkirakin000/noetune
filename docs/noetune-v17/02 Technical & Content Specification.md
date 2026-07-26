@@ -610,6 +610,8 @@ sync coordinator
 - UI / Session stateを特定provider APIへ直接密結合しない
 - cloud adapterはprovider変更時にSnapshot SchemaとSession flowを変更せず交換可能にする
 - vendor固有IDやresponseをSnapshot Schemaへ混入しない
+
+Phase 5B-2b acceptance（commit `a76336497f3c674fc2c627b558cade6638cdde21`）で、Snapshot Schema v1のFinal production serializer / validator / restoreを`step5`に限定して有効化した。canonical ownerは`measurement.after`、`finalMeasurementState`はprojectionで、unset / scored / not_a_problem / skippedのnormalized一致を要求する。Finalはresponse → Breathの2-frame stack、restore-before-render、controls復元、analytics非重複、Final → Breath → response exact Backを提供する。Breath productionは1 frameのまま、step6 / Result / Repeat / raw history / Cloud persistenceはunsupportedである。
 - 本文を通すAPI / serverless / database providerは事前のvendor・契約・data-flow reviewを必要とする
 - review完了前はVercelをstatic HTML / JS / CSS配信と本文を含まない処理に限定し、Session本文をVercel Functions、Vercel logs、Vercel Analyticsへ送らない
 

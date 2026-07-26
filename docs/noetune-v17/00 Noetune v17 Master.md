@@ -263,3 +263,5 @@ Cloud本文保存、cross-device resume、Pro archive、世界向け有料Cloud�
 | [[07 追加予定機能]] | 未実装の将来候補 |
 
 ローカルの最新repositoryを実装上の正本とし、仕様判断は本Obsidian setを正本とする。
+
+Phase 5B-2bとして、Regular / DeepのFinal Measurement Snapshotをproduction対応した（commit `a76336497f3c674fc2c627b558cade6638cdde21`）。supported範囲は`currentScreen = s-v17-final-measure`、`currentStep = step5`、typed response → Breathの2段frame、canonical `measurement.after`の4 stateのみである。restore-before-renderとFinal → Breath → response exact Backはraw historyなしで動作する。Result / Repeat、Cloud、Guest persistent resumeは未完成で、Human browser QAも未実施である。

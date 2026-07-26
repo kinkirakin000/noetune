@@ -964,3 +964,14 @@ The next release-oriented QA must establish:
 - Free enforces 1 active record
 - Pro enforces 50 active records
 - cross-device resume and owner-only RLS pass after the privacy gate
+
+### Phase 5B-2b acceptance
+
+- implementation commit: `a76336497f3c674fc2c627b558cade6638cdde21` (`feat(v17): enable final measurement snapshot resume`)
+- changed: `app-v17.html`, `js/v17/session-snapshot.js`, `tests/v17/session-snapshot.compat.test.js`, `tests/v17/deep-alternating-flow.test.js`
+- Final production serializer / validator / restoreを`step5`、Regular / Deep、response → Breathの2-frame stackに限定して有効化
+- canonical `measurement.after`、projection consistency、restore-before-render、controls復元、exact Back、side-effect isolation、Regular / Deep isolationを受入
+- 初回QA note（Snapshot 50、runtime 20）の後、Final全measurement state、production round-trip、two-stage Back、analytics、render-before-restore、step6 / Result rejectionの独立testを追加
+- 実testで発見した最小修正：Deep Final一時unfinished restore、step6 rejection、Final Breath frame eligibility
+- 最終検証：Snapshot 58/58、runtime/navigation 25/25、syntax、diff check PASS
+- Human browser QA未実施。push / deploy未実施

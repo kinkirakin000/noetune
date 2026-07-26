@@ -499,3 +499,11 @@ After production verification:
 4. merge lasting release facts into `02` and `03`
 5. archive this execution plan when no longer current
 6. retire `06` after billing migration is factual history
+
+### Phase 5B-2b — Final serializer / restore / render / exact Back activation
+
+**Status:** Complete. Commit `a76336497f3c674fc2c627b558cade6638cdde21` enables Final `step5` Snapshot serializer / restore for Regular and Deep, typed response → Breath two-frame Back context, restore-before-render, controls restoration, side-effect isolation, and exact Back to response. Human browser QA remains pending.
+
+### Phase 5B-3 — Result Snapshot, Result reconstruction and exact Back to Final
+
+**Status:** Pending. Result serializer / validator / restore, derived reconstruction, analytics idempotent re-entry, Result → Final exact Back, three-frame production stack, Result controls / CTA, and Result-generated cycle state remain out of scope for 5B-2b.
