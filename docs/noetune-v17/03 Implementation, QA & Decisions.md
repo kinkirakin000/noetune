@@ -1024,3 +1024,17 @@ The next release-oriented QA must establish:
 - 実testで発見した最小修正：Deep Final一時unfinished restore、step6 rejection、Final Breath frame eligibility
 - 最終検証：Snapshot 58/58、runtime/navigation 25/25、syntax、diff check PASS
 - Human browser QA未実施。push / deploy未実施
+
+### Phase 5B-3a acceptance
+
+- Status: Complete
+- implementation commit: `6c7209f0e6e3d0416fc2a758fce44fb56081f376` (`feat(v17): define result snapshot foundation`)
+- changed: `js/v17/session-snapshot.js`, `tests/v17/session-snapshot.compat.test.js`
+- Snapshot Schema v1を維持し、Snapshot v2、Result旧shape migration、missing stateの推測補完は追加していない
+- structural candidateは`s-result`、`step6`、Regular / Deepに限定し、stable candidateには`currentState.resultView.reached = true`、valid non-null `currentCycle.resultReachedAt`、`currentCycle.resultEventSent = true`、Repeat未開始、new cycle transition未開始を要求する
+- 新しいpersisted `resultState`は追加せず、既存`currentState.resultView`（`reached`、`scoreTrailExpanded`、`awarenessTrailExpanded`）をcanonical shapeとして使用する。RepeatStateV1の既存`resultState`とは別概念であり、意味を変更していない
+- typed Final frame（`frameType`、`sessionMode`、`screen`、`currentStep`、`measurementAfter`、`finalMeasurementState`）とRegular / Deepのresponse → Breath → final-measurement 3-frame foundationを追加した
+- frame順序、mode、Breath Step 2、Final step5、measurement consistency、unknown / recursive / missing / reverse / duplicateをfail closedで検証する
+- Result production serializer / restore、Result → Final Back、Result analytics idempotent restore、Repeat serializer / restore、Cloud persistence、Guest persistent resumeは未実装。Final 2-frameとBreath 1-frame production契約は維持する
+- Snapshot 70/70、runtime/navigation 25/25、syntax、diff check PASS。private Session本文、score、timestamp、Snapshot全文をerrorへ出さず、payload 1 MiB capを維持する
+- 次の正式UnitはPhase 5B-3b（Result serializer / restore、side-effect-free render、analytics / cycle idempotency、Result → Final exact Back activation）である
