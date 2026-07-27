@@ -172,6 +172,85 @@ Tier 3 work may exceed these defaults only when Commander explicitly defines the
 
 The Leader must not silently split an oversized Commander Unit into new strategic Units. If the requested scope is not safely executable as one bounded Unit, STOP and report the exact scope or dependency conflict.
 
+## Dual execution mode
+
+Noetune v17 uses two execution modes.
+
+### Home Interactive Mode — default
+
+When normal Terminal operation is available, use the standard interactive sequence:
+
+```text
+Commander-approved Unit
+→ Leader execution and evidence
+→ Commander acceptance
+→ Terminal stage verification
+→ local commit
+→ commit verification
+→ push decision
+→ next Unit
+```
+
+Do not accumulate multiple unreviewed Units by default.
+
+Stage, commit, push, and deploy remain separately authorized unless Commander explicitly states otherwise.
+
+### Remote Accumulation Mode — limited exception
+
+Remote Accumulation Mode may be used only when Commander explicitly authorizes it for the named Unit or work period, such as when Codex Remote is available but normal Terminal operation is difficult.
+
+In this mode, a PASS Unit may proceed through:
+
+```text
+preflight
+→ approved investigation or implementation
+→ required tests and diff review
+→ exact-file staging
+→ one Unit-specific local commit
+→ post-commit verification
+→ STOP
+```
+
+Mandatory rules:
+
+- `1 Unit = 1 local commit`
+- accumulate verified local commits, never mixed uncommitted diffs
+- stage only explicitly allowed files
+- `git add .` is prohibited
+- preserve all unrelated working-tree changes
+- never touch, stage, rename, delete, reset, stash, clean, or include backup files
+- do not commit after a failed test, failed diff check, scope violation, unexpected file change, or unresolved contradiction
+- do not begin a later Unit while the previous Unit remains uncommitted
+- every local commit requires its own final evidence report
+
+Remote Accumulation Mode permits local commits only when the Commander instruction for that Unit or work period explicitly authorizes local commit creation.
+
+It does not authorize:
+
+- push
+- deploy
+- merge
+- rebase
+- amend
+- force operations
+- branch-history rewrite
+- independent selection of the next strategic Unit
+- product, architecture, schema, Phase-order, privacy, security, billing, legal, or release decisions
+
+After returning to normal Terminal access, verify:
+
+- branch and full HEAD
+- tracked, staged, and untracked state
+- exact local commit range since the remote branch
+- one-Unit-per-commit separation
+- local / remote ahead-behind
+- protected backup-file preservation
+- any Commander-required final regression tests
+
+Accumulated commits may be pushed only after Commander acceptance.
+
+When normal Terminal access is restored, return to Home Interactive Mode.
+
 ## Same-Unit rework
 
 A Human QA failure, test failure, or narrow correction remains the same Unit when the goal, acceptance criteria, and scope are unchanged and the correction addresses evidence from that Unit.

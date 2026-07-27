@@ -470,6 +470,136 @@ When a Unit exceeds the default Micro-Unit size without a necessary trust-bounda
 
 The additional 20–30% figure is a planning target, not a guaranteed benchmark.
 
+## 1F. Decision record — Dual execution mode for Home and Remote work
+
+**Decision date:** 2026-07-27
+**Status:** Active operating rule
+
+### Decision
+
+Noetune v17 development uses two execution modes according to whether normal Terminal operation is available.
+
+The default remains **Home Interactive Mode**.
+
+**Remote Accumulation Mode** is a limited exception for periods such as part-time work when Codex Remote can be operated but normal Terminal confirmation is difficult.
+
+This decision does not permit multiple Units of uncommitted changes to accumulate. Remote accumulation means accumulating independently verified local commits, not accumulating mixed working-tree diffs.
+
+### 1. Home Interactive Mode — Default
+
+Use this mode whenever normal Terminal operation is available.
+
+The standard sequence is:
+
+```text
+Commander-approved Unit
+→ Codex execution and evidence report
+→ Commander acceptance
+→ Terminal stage verification
+→ local commit
+→ commit verification
+→ push decision
+→ next Unit
+```
+
+Rules:
+
+- one Unit is handled and confirmed before moving to the next
+- unreviewed local commits are not accumulated by default
+- stage, commit, and push remain separately authorized unless Commander explicitly combines them
+- deploy always requires separate explicit authorization
+
+### 2. Remote Accumulation Mode — Limited exception
+
+Use this mode only when Commander explicitly marks the Unit or work period as Remote Accumulation Mode.
+
+For each Unit, the Codex Leader may proceed through:
+
+```text
+preflight
+→ approved investigation or implementation
+→ required tests and diff review
+→ exact-file staging
+→ one Unit-specific local commit
+→ post-commit repository verification
+→ STOP
+```
+
+Required rules:
+
+- `1 Unit = 1 local commit`
+- only files explicitly allowed by the Unit may be staged
+- `git add .` is prohibited
+- unrelated changes must not be included
+- backup files remain untouched and untracked
+- a test failure, scope violation, unexpected file change, or unresolved contradiction prevents commit
+- each commit must have its own evidence report
+- the Leader must not continue from an uncommitted previous Unit
+
+Permitted accumulation:
+
+```text
+commit A
+commit B
+commit C
+```
+
+Prohibited accumulation:
+
+```text
+Unit A uncommitted diff
++ Unit B uncommitted diff
++ Unit C uncommitted diff
+```
+
+### Remote prohibition boundary
+
+During Remote Accumulation Mode, the Codex Leader must not perform:
+
+- push
+- deploy
+- merge
+- rebase
+- amend
+- force push or other force operations
+- branch rewrite
+- stash, reset, or clean
+- backup-file modification
+- commit after failed verification
+- independent selection of the next strategic Unit
+
+### Return-home verification
+
+After Remote Accumulation Mode, normal Terminal review must confirm:
+
+- branch and full HEAD
+- tracked, staged, and untracked state
+- the exact local commit range since the remote branch
+- commit-to-Unit separation
+- local / remote ahead-behind
+- preservation of the five protected backup files
+- any Commander-required final regression tests
+
+Only after Commander acceptance may the accumulated local commits be pushed.
+
+Deploy remains a separate later decision.
+
+### Authority and scope
+
+Remote Accumulation Mode changes only the timing of local Git confirmation.
+
+It does not change:
+
+- Commander ChatGPT as sole strategic authority
+- Leader-only `gpt-5.6-luna / low`
+- Micro-Unit boundaries
+- acceptance criteria
+- privacy or security requirements
+- the prohibition on independent Phase selection
+- the requirement to STOP for product, architecture, schema, legal, billing, privacy, or security decisions
+
+When normal Terminal operation is available again, development returns to Home Interactive Mode.
+
 ## 2. Stop line
 
 Codex must stop the affected Unit and return evidence to Commander ChatGPT when any of the following is unclear or requires judgment:
