@@ -1315,3 +1315,75 @@ test('Double mode confirmation is idempotent', () => {
   f.context.selectV17SessionMode('deep');
   assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), identity); assert.equal(JSON.stringify(f.context.D.v17MeasurementState), measurement);
 });
+
+function repeatTemporaryReturnRuntime(mode) {
+  const calls = [];
+  const activeFlow = mode === 'deep'
+    ? { sessionMode: 'deep', currentScreen: 's-v17-deep-response', currentStep: 'deep.current', deepDive: { routeType: 'problem', round: 1, phase: 'current', pendingRound: { round: 1 } }, resumeBackFrames: [] }
+    : { sessionMode: 'regular', currentScreen: 's-v17-first-response', currentStep: 'step2', step2Draft: 'draft', resumeBackFrames: [] };
+  const context = {
+    D: { v17SessionMode: mode, entryMode: 'v17', themeId: 'active-theme', questionId: 'active-question', questionTextAtTime: 'active', localeAtTime: 'en',
+      v17SessionIdentity: { sessionId: 'journey', cycleId: 'active-cycle', cycleIndex: 3, cycleStartedAt: 'time', resultReachedAt: null, resultEventSent: false },
+      v17MeasurementState: { before: { state: 'scored', value: 4, touched: true }, after: { state: 'unset', value: null, touched: false } },
+      currentState: 'active-current', idealState: 'active-ideal', currentStateText: 'active-current', idealStateText: 'active-ideal',
+      currentThemeScoreTrail: [1, 4], currentThemeAwarenessTrail: ['x'], v17Flow: activeFlow },
+    cur: mode === 'deep' ? 's-v17-deep-response' : 's-v17-first-response', lang: 'en', V17_SCORE_NOT_A_PROBLEM: 'not_a_problem',
+    cloneV17State(value) { return JSON.parse(JSON.stringify(value || {})); }, ensureV17SessionState() {}, getV17ThemeRoute() { return 'problems'; },
+    createV17FlowState() { return { sessionMode: context.D.v17SessionMode, resumeBackFrames: [] }; },
+    getV17DeepDiveStartPhase() { return 'current'; }, setV17ScreenDirectWithoutHistoryReset(id) { context.cur = id; calls.push('screen:' + id); },
+    renderV17Screen(id) { calls.push('render:' + id); }, renderV17Result() { calls.push('result'); }, clearV17RepeatNavigation() { context.v17RepeatResultState = null; context.v17RepeatCycleState = null; context.v17RepeatReturnPending = false; context.v17RepeatModeSelectionPending = false; context.v17RepeatBeforeScore = null; context.v17RepeatCycleCount = null; }
+  };
+  for (const name of ['createV17RepeatFrameState', 'hydrateV17RepeatFrameState', 'resumeV17RepeatCycle', 'cancelV17RepeatModeSelection', 'returnToV17RepeatResult']) vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  context.v17RepeatResultState = { currentScreen: 's-result', currentStep: 'step6', sessionMode: 'regular', routeType: 'problems', entryType: 'v17', locale: 'en', entry: { themeId: 'original-theme', questionId: 'original-question', questionTextAtTime: 'original' }, measurement: { before: { state: 'scored', value: 1, touched: true }, after: { state: 'scored', value: 7, touched: true } }, responses: { current: 'old-current', ideal: 'old-ideal' }, semanticState: { current: 'old-current', ideal: 'old-ideal' }, regularFlow: { sessionMode: 'regular', currentScreen: 's-result', currentStep: 'step6' }, scoreTrail: [1, 7], awarenessTrail: ['old'], deepFlow: null, breathState: null, finalMeasurementState: { state: 'scored', value: 7, touched: true }, resultView: { reached: true, scoreTrailExpanded: false, awarenessTrailExpanded: false } };
+  context.v17RepeatCycleState = null; context.v17RepeatReturnPending = false; context.v17RepeatModeSelectionPending = false; context.v17RepeatBeforeScore = { state: 'scored', value: 7, touched: true }; context.v17RepeatCycleCount = 3;
+  return { context, calls };
+}
+
+test('Repeat mode selection Back cancels pending context without changing active identity', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); const identity = JSON.stringify(f.context.D.v17SessionIdentity);
+  f.context.cur = 's-v17-session-mode'; f.context.v17RepeatModeSelectionPending = true;
+  assert.equal(f.context.cancelV17RepeatModeSelection(), true); assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), identity);
+  assert.equal(f.context.v17RepeatResultState, null); assert.equal(f.context.cur, 's-result');
+});
+test('Regular first response Back captures a normalized active cycle frame', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); assert.equal(f.context.returnToV17RepeatResult(), true);
+  assert.equal(f.context.v17RepeatCycleState.currentScreen, 's-v17-first-response'); assert.equal(Object.hasOwn(f.context.v17RepeatCycleState, 'v17SessionIdentity'), false);
+});
+test('Regular temporary Result is rendered without arrival orchestration', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); f.context.returnToV17RepeatResult();
+  assert.deepEqual(f.calls, ['screen:s-result', 'result']);
+});
+test('Regular temporary Result retains active repeat identity', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); f.context.returnToV17RepeatResult();
+  assert.equal(f.context.D.v17SessionIdentity.cycleId, 'active-cycle'); assert.equal(f.context.v17RepeatReturnPending, true);
+});
+test('Regular temporary Result Back resumes exact first response and clears only cycleState', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); f.context.returnToV17RepeatResult(); assert.equal(f.context.resumeV17RepeatCycle(), true);
+  assert.equal(f.context.cur, 's-v17-first-response'); assert.equal(f.context.v17RepeatCycleState, null); assert.equal(f.context.v17RepeatReturnPending, false); assert.notEqual(f.context.v17RepeatResultState, null);
+});
+test('Regular temporary return preserves beforeScore and cycle count', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); f.context.returnToV17RepeatResult(); f.context.resumeV17RepeatCycle();
+  assert.deepEqual(f.context.v17RepeatBeforeScore, { state: 'scored', value: 7, touched: true }); assert.equal(f.context.v17RepeatCycleCount, 3);
+});
+test('Deep first response temporary return captures Deep flow without Regular flow', () => {
+  const f = repeatTemporaryReturnRuntime('deep'); assert.equal(f.context.returnToV17RepeatResult(), true);
+  assert.equal(f.context.v17RepeatCycleState.sessionMode, 'deep'); assert.equal(f.context.v17RepeatCycleState.regularFlow, null); assert.equal(f.context.v17RepeatCycleState.deepFlow.deepDive.round, 1);
+});
+test('Deep temporary Result Back resumes the same Deep response', () => {
+  const f = repeatTemporaryReturnRuntime('deep'); f.context.returnToV17RepeatResult(); assert.equal(f.context.resumeV17RepeatCycle(), true);
+  assert.equal(f.context.cur, 's-v17-deep-response'); assert.equal(f.context.D.v17Flow.deepDive.round, 1);
+});
+test('Temporary return and resume do not mutate cycle markers', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); const before = JSON.stringify(f.context.D.v17SessionIdentity); f.context.returnToV17RepeatResult(); f.context.resumeV17RepeatCycle();
+  assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), before);
+});
+test('Repeated temporary return and resume does not retain duplicate cycle state', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); f.context.returnToV17RepeatResult(); f.context.resumeV17RepeatCycle(); f.context.returnToV17RepeatResult();
+  assert.equal(f.context.v17RepeatReturnPending, true); assert.equal(f.context.v17RepeatCycleState.currentScreen, 's-v17-first-response');
+});
+test('Temporary return is unavailable from a non-initial Regular response screen', () => {
+  const f = repeatTemporaryReturnRuntime('regular'); f.context.cur = 's-v17-second-response'; assert.equal(f.context.returnToV17RepeatResult(), false);
+});
+test('Temporary return is unavailable from a later Deep round', () => {
+  const f = repeatTemporaryReturnRuntime('deep'); f.context.D.v17Flow.deepDive.round = 2; assert.equal(f.context.returnToV17RepeatResult(), false);
+});

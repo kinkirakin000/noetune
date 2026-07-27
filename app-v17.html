@@ -7084,19 +7084,20 @@ function cloneV17State(state) {
   return JSON.parse(JSON.stringify(state || {}));
 }
 
-function createV17RepeatFrameState() {
+function createV17RepeatFrameState(screenId) {
   ensureV17SessionState();
   var flow = D.v17Flow || {};
   var measurement = D.v17MeasurementState || {};
+  var currentScreen = screenId || flow.currentScreen || cur || 's-result';
+  var currentStep = flow.currentStep || (currentScreen === 's-result' ? 'step6' : 'step2');
   var flowProjection = cloneV17State(flow);
   delete flowProjection.resumeBackFrames;
-  delete flowProjection.deepDive;
   delete flowProjection.currentCycle;
   delete flowProjection.repeatState;
   delete flowProjection.navHistory;
   delete flowProjection.navPageStateHistory;
   return {
-    currentScreen: 's-result', currentStep: 'step6',
+    currentScreen: currentScreen, currentStep: currentStep,
     sessionMode: D.v17SessionMode || (flow && flow.sessionMode) || null,
     routeType: getV17ThemeRoute(), entryType: D.entryMode || 'v17',
     locale: D.localeAtTime || lang || 'ja',
@@ -7112,6 +7113,40 @@ function createV17RepeatFrameState() {
     finalMeasurementState: measurement.after ? cloneV17State(measurement.after) : null,
     resultView: { reached: true, scoreTrailExpanded: !!flow.scoreTrailExpanded, awarenessTrailExpanded: !!flow.awarenessTrailExpanded }
   };
+}
+
+function hydrateV17RepeatFrameState(frame) {
+  if (!frame || !frame.currentScreen || !frame.measurement || !frame.responses || !frame.semanticState) return false;
+  var identity = D && D.v17SessionIdentity ? cloneV17State(D.v17SessionIdentity) : null;
+  D.v17SessionMode = frame.sessionMode || null;
+  D.entryMode = frame.entryType || 'v17';
+  D.themeId = frame.entry && frame.entry.themeId || null;
+  D.questionId = frame.entry && frame.entry.questionId || null;
+  D.questionTextAtTime = frame.entry && frame.entry.questionTextAtTime || '';
+  D.localeAtTime = frame.locale || lang || 'ja';
+  D.v17MeasurementState = cloneV17State(frame.measurement);
+  D.currentState = frame.responses.current || '';
+  D.idealState = frame.responses.ideal || '';
+  D.currentStateText = frame.semanticState.current || D.currentState;
+  D.idealStateText = frame.semanticState.ideal || D.idealState;
+  D.currentThemeScoreTrail = cloneV17State(frame.scoreTrail || []);
+  D.currentThemeAwarenessTrail = cloneV17State(frame.awarenessTrail || []);
+  D.beforeEmotionPositive = D.v17MeasurementState.before && D.v17MeasurementState.before.value;
+  D.afterEmotionPositive = D.v17MeasurementState.after && D.v17MeasurementState.after.value;
+  D.initialThemeScore = D.beforeEmotionPositive;
+  D.finalThemeScore = D.v17MeasurementState.after && D.v17MeasurementState.after.state === 'not_a_problem'
+    ? V17_SCORE_NOT_A_PROBLEM : D.afterEmotionPositive;
+  D.v17Flow = cloneV17State(frame.sessionMode === 'deep' ? frame.deepFlow : frame.regularFlow) || createV17FlowState();
+  D.v17Flow.sessionMode = D.v17SessionMode;
+  D.v17Flow.currentScreen = frame.currentScreen;
+  D.v17Flow.currentStep = frame.currentStep;
+  if (frame.breathState) D.v17Flow.breath = cloneV17State(frame.breathState);
+  if (frame.resultView) {
+    D.v17Flow.scoreTrailExpanded = !!frame.resultView.scoreTrailExpanded;
+    D.v17Flow.awarenessTrailExpanded = !!frame.resultView.awarenessTrailExpanded;
+  }
+  if (identity) D.v17SessionIdentity = identity;
+  return true;
 }
 
 var V17_NAV_SNAPSHOT_KEYS = [
@@ -7200,13 +7235,13 @@ function clearV17RepeatNavigation() {
 }
 
 function resumeV17RepeatCycle() {
-  if (!v17RepeatCycleState || cur !== 's-result') return false;
-  v17RepeatResultState = D;
-  D = v17RepeatCycleState;
+  if (!v17RepeatReturnPending || !v17RepeatCycleState || cur !== 's-result') return false;
+  var cycleState = v17RepeatCycleState;
+  if (!hydrateV17RepeatFrameState(cycleState)) return false;
   v17RepeatCycleState = null;
-  v17RepeatReturnPending = true;
-  showScreenDirect('s-v17-first-response');
-  renderV17Screen('s-v17-first-response');
+  v17RepeatReturnPending = false;
+  setV17ScreenDirectWithoutHistoryReset(cycleState.currentScreen);
+  renderV17Screen(cycleState.currentScreen);
   return true;
 }
 
@@ -7302,15 +7337,30 @@ function beginV17RepeatCycle(mode) {
   return true;
 }
 
+function cancelV17RepeatModeSelection() {
+  if (!v17RepeatModeSelectionPending || !v17RepeatResultState || cur !== 's-v17-session-mode') return false;
+  var originalResult = v17RepeatResultState;
+  if (!hydrateV17RepeatFrameState(originalResult)) return false;
+  clearV17RepeatNavigation();
+  setV17ScreenDirectWithoutHistoryReset('s-result');
+  renderV17Result();
+  return true;
+}
+
 function returnToV17RepeatResult() {
-  if (!v17RepeatReturnPending || !v17RepeatResultState
-      || cur !== 's-v17-first-response') return false;
-  v17RepeatCycleState = D;
-  D = v17RepeatResultState;
-  v17RepeatResultState = null;
-  v17RepeatReturnPending = false;
-  showScreenDirect('s-result');
-  renderV17Screen('s-result');
+  if (!v17RepeatResultState || v17RepeatModeSelectionPending || v17RepeatReturnPending) return false;
+  var isRegularFirst = cur === 's-v17-first-response' && D.v17SessionMode === 'regular';
+  var deep = D && D.v17Flow && D.v17Flow.deepDive;
+  var isDeepFirst = cur === 's-v17-deep-response' && D.v17SessionMode === 'deep' && deep &&
+    deep.round === 1 && deep.phase === getV17DeepDiveStartPhase(deep.routeType);
+  if (!isRegularFirst && !isDeepFirst) return false;
+  var cycleState = createV17RepeatFrameState(cur);
+  if (!cycleState || !hydrateV17RepeatFrameState(v17RepeatResultState)) return false;
+  v17RepeatCycleState = cycleState;
+  v17RepeatReturnPending = true;
+  v17RepeatModeSelectionPending = false;
+  setV17ScreenDirectWithoutHistoryReset('s-result');
+  renderV17Result();
   return true;
 }
 
@@ -9094,6 +9144,8 @@ function handleV17FinalMeasurementBack() {
 }
 
 function handleV17ResultBack() {
+  if (typeof v17RepeatReturnPending !== 'undefined' && v17RepeatReturnPending &&
+      typeof v17RepeatCycleState !== 'undefined' && v17RepeatCycleState) return resumeV17RepeatCycle();
   var flow = D && D.v17Flow;
   if (!flow || cur !== 's-result' || !Array.isArray(flow.resumeBackFrames) || flow.resumeBackFrames.length !== 3) return false;
   var responseFrame = flow.resumeBackFrames[0];
@@ -9679,6 +9731,7 @@ function saveV17ResultCard() {
 
 var v17BaseGoBack = goBack;
 goBack = function() {
+  if (cancelV17RepeatModeSelection()) return;
   if (handleV17ResultBack()) {
     if (navPageStateHistory.length) navPageStateHistory.pop();
     return;
@@ -9687,11 +9740,11 @@ goBack = function() {
     if (navPageStateHistory.length) navPageStateHistory.pop();
     return;
   }
+  if (returnToV17RepeatResult()) return;
   if (handleV17DeepDiveBack()) {
     if (navPageStateHistory.length) navPageStateHistory.pop();
     return;
   }
-  if (returnToV17RepeatResult()) return;
   if (handleV17BreathBack()) {
     if (navPageStateHistory.length) navPageStateHistory.pop();
     return;
