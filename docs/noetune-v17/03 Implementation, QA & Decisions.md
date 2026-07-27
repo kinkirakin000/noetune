@@ -1066,3 +1066,28 @@ The next release-oriented QA must establish:
 - `resultView` UI flags、cycle markers、repeated restore idempotency、listener重複防止、malformed Snapshot atomicityをproduction VM harnessで検証した
 - Snapshot 82/82、runtime/navigation 60/60、inline JavaScript 25 script blocks、syntax、diff check PASS。private content leakageなし、Guest persistence、Public Resume、Cloud、Repeat、Journey completionは未開放
 - Human browser QA未実施。次の正式UnitはPhase 5B-3c以降で、Result後続境界、Repeat、Cloud continuity等をCommanderが別途確定する
+
+### Phase 5B-4 Repeat canonical contract decision
+
+- Phase 5B-4a audit verdict: STOP。現live Repeatはcycle identityを生成せず、canonical契約と不一致だった
+- cycle生成momentはResultでRepeatを押下してcaptureした後、Session Modeでmodeを確定する境界。Repeat専用Beforeは追加しない
+- root `currentCycle`がcycle identityの唯一のauthority。`sessionId`は維持し、`cycleId`を一度だけ新規生成し、`cycleIndex`を1増加させ、startedAtを更新し、result markersをresetする
+- `repeatState.cycleCount`は`currentCycle.cycleIndex`のprojectionであり、不一致はfail closedとする
+- active authorityは新globalではなく、`v17RepeatResultState !== null`から導出する
+- `resultState` / `cycleState`はnormalized `SessionFrameStateV1`のみとし、full D clone、nested repeat state、resume frames、raw historyをcanonicalにしない
+- previous Afterをnew cycle Beforeへ継承し、新cycle Afterはunsetから開始する
+- original ResultはRepeat進行中だけtemporary return可能とする。new-cycle Result到達時にRepeat navigationを終了し、新cycle Resultをcurrent canonical Resultとする。以前の「new-cycle Resultからoriginal Resultへ戻る必須契約」は撤回する
+- Guest persistence、Public Resume、Cloud、Repeat serializer / restoreは未開放で、implementationはまだ開始していない
+
+後続Unitは次の順序で分割する。
+
+```text
+Phase 5B-4b-1
+cycle identity + normalized live Repeat state + Snapshot production gate closed
+
+Phase 5B-4b-2
+live Repeat navigation + original Result temporary return + new-cycle Result completion
+
+Phase 5B-4b-3
+Repeat serializer / restore + resumed Repeat Back matrix
+```

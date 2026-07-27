@@ -5,7 +5,7 @@
 
 **Status:** Canonical product and monetization specification
 **Baseline:** `app-v17(15).html` and current locale JSON
-**Updated:** 2026-07-25
+**Updated:** 2026-07-27
 
 ## 1. Product Experience Overview
 
@@ -302,6 +302,10 @@ Beforeより高くなることを要求しない。低下、変化なし、`数�
 - awareness trailを継続
 - Freeで利用可能
 - Pro Journeyではない
+
+Repeatは同じJourney内の新しいcycleであり、`sessionId`を維持する。Repeatボタン押下だけではcycleを生成せず、Resultでoriginal ResultをcaptureしてSession Modeを表示し、Regular / Deepのmode確定時に一度だけ新しい`cycleId`を生成し、`cycleIndex`を1増やす。Repeat専用Before画面は追加しない。前cycleのAfterをnew cycleのBeforeへ継承し、新cycleのAfterはunsetから開始する。score trailとawareness trailはJourney内で継続する。
+
+Repeat進行中はoriginal Resultを一時保持し、mode selectionまたはnew cycleの最初のcanonical responseまでのBackでoriginal Resultへ戻れる。new-cycle Result到達時にはRepeat navigation contextを終了し、新cycle Resultをcurrent canonical Resultとする。new-cycle Resultからoriginal Resultへ直接戻ることはcanonical要件ではなく、過去cycleの連続性はscore / awareness trailsが担う。
 
 ## 13. Back Behavior
 

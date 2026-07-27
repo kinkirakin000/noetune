@@ -5,7 +5,7 @@
 
 **Status:** Canonical technical and content specification
 **Implementation baseline:** `app-v17(15).html`
-**Updated:** 2026-07-25
+**Updated:** 2026-07-27
 
 ## 1. Scope
 
@@ -498,6 +498,16 @@ runtime対応：
 - `v17RepeatCycleCount`
 
 Repeat state内に別のrepeat stateやresume frameを入れない。
+
+### Repeat canonical lifecycle contract
+
+Repeat click → original Result capture → Session Mode → mode confirmed → atomic new cycle creation → repeated flowの順序とする。click時にはcycleを生成しない。mode確定時に一度だけ、root `currentCycle`を唯一のcycle authorityとして、同じ`sessionId`、新UUIDの`cycleId`、previous + 1の`cycleIndex`、新しい`startedAt`、nullの`resultReachedAt`、falseの`resultEventSent`を設定する。
+
+`repeatState.cycleCount`はprojectionであり、`currentCycle.cycleIndex`と完全一致しなければならない。Repeat click時のoriginal Afterを`repeatState.beforeScore`へexact cloneし、新cycleでは`measurement.before`へ継承し、`measurement.after`をunsetから開始する。Repeat専用Before screenは存在しない。
+
+新しいruntime active globalは作らない。`active = (resultState != null)`を唯一のauthorityとする。`resultState`はoriginal cycle Resultのnormalized `SessionFrameStateV1` projection、`cycleState`はoriginal Resultを一時表示する直前のactive repeat cycleのnormalized `SessionFrameStateV1` projectionであり、full runtime `D`、currentCycle、repeatState、resumeBackFrames、raw history、DOM、listenerを含めない。`cycleState`は`returnPending = true`の間だけnon-nullで、Repeat再開後にnullへ戻る。
+
+active=falseかつactive field残存、active=trueかつresultState=null、modeSelectionPending=trueかつcycleState!=null、returnPending=trueかつcycleStateまたはresultStateがnull、returnPendingとmodeSelectionPendingの同時成立、nested repeatState、nested resumeBackFrames、full D clone、cycleCountとcurrentCycle.cycleIndexの不一致、beforeScoreとnew cycle Beforeの不一致、unknown keyはfail closedとする。Snapshot Schema v1を維持し、新規persisted fieldは追加しない。
 
 ## 21. Resume Back Frames
 

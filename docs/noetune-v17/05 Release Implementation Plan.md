@@ -1,8 +1,8 @@
 # Noetune v17 Release Implementation Plan
 
 > Status: Temporary execution document
-> Updated: 2026-07-25
-> Current execution point: New Flow Unit 3A live Deep A/B runtime accepted; next is New Flow Unit 3B Deep Snapshot serializer / validator / restore boundary
+> Updated: 2026-07-27
+> Current execution point: Phase 5B-4a Repeat lifecycle audit STOP; next is Phase 5B-4b-1 Repeat cycle identity and normalized live state
 
 ## 1. Objective
 
@@ -506,4 +506,18 @@ After production verification:
 
 ### Phase 5B-3 — Result Snapshot, Result reconstruction and exact Back to Final
 
-**Status:** Pending. Result serializer / validator / restore, derived reconstruction, analytics idempotent re-entry, Result → Final exact Back, three-frame production stack, Result controls / CTA, and Result-generated cycle state remain out of scope for 5B-2b.
+**Status:** Complete. Result serializer / validator / restore, derived reconstruction, analytics idempotent re-entry, Result → Final exact Back, and the three-frame production stack are complete. Repeat remains split into the Phase 5B-4b Units below.
+
+Phase 5B-3b-2 Result serializer / restore activation is complete. The remaining Repeat scope is split into:
+
+### Phase 5B-4b-1 — Repeat cycle identity and normalized live state
+
+**Status:** Pending. Implement same-session/new-cycle identity, normalized Repeat state, lifecycle consistency, and keep the production Repeat Snapshot gate closed.
+
+### Phase 5B-4b-2 — Live Repeat navigation and cycle completion
+
+**Status:** Pending. Implement mode-confirmed atomic cycle creation, temporary original Result return, live Regular / Deep Repeat flow, and new-cycle Result completion.
+
+### Phase 5B-4b-3 — Repeat serializer / restore and resumed Back matrix
+
+**Status:** Pending. Implement Repeat Snapshot serialization / restore, resumed Repeat screens, and the complete Repeat Back matrix without raw navigation history or public persistence.
