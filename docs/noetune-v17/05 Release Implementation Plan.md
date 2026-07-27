@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-27
-> Current execution point: Phase 5C — audit and server hard-off complete. Phase 5C-1a audit and Phase 5C-1b server hard-off are complete; Cloud Session Bookmark / Resume remains hard OFF. The next implementation phase requires a separate Commander decision.
+> Current execution point: Phase 5C-2b complete. Logging/analytics audit and measurement redaction are complete; Cloud Session Bookmark / Resume remains hard OFF. The next implementation phase requires a separate Commander decision.
 
 ## 1. Objective
 
@@ -550,7 +550,9 @@ The next product-code Unit is not selected here. Bookmark/Resume, Cloud, Popup O
 
 - Phase 5C-1a Global Privacy & Security Gate audit: Complete; overall Gate remains STOP.
 - Phase 5C-1b Server-Side Cloud Session Hard-Off: Complete; commit `696ba318861f3e595ed1d82ef6f98f8ff9b8af9c`.
+- Phase 5C-2a Logging, Analytics & Error Redaction Audit: Complete; verdict PASS WITH FINDINGS.
+- Phase 5C-2b Analytics Measurement Redaction: Complete; L-01 and L-02 are closed.
 
 The server hard-off closes Cloud Bookmark GET/POST, saved progress GET/POST, and saved result POST before authentication, body parsing, entitlement, service-role, or database work. Cloud write/read/Resume remains closed.
 
-Remaining gates include data classification and consent, logging and analytics redaction, production RLS verification, deletion/export/retention, legal/operator/vendor review, authenticated save/read/Resume, and real-browser integration. Phase 5C is not complete. Phase 5B-4b-3c remains Deferred / Not started. The next code Unit is not selected in this document; Commander must decide separately. Multi-agent execution is not a default requirement for later Units; agent selection remains Unit-scoped under the current Leader-only / Micro-Unit policy.
+Remaining findings and gates include L-03 through L-07, data classification and consent, production RLS verification, deletion/export/retention, legal/operator/vendor review, authenticated save/read/Resume, and real-browser integration. The next implementation candidate is Phase 5C-2c Provider and Auth Error Redaction. Phase 5C is not complete. Phase 5B-4b-3c remains Deferred / Not started. Cloud Session hard-off and Cloud Bookmark / Resume Closed status remain in force. Authenticated save/read/Resume has not started and browser integration has not been performed. The next code Unit is not selected in this document; Commander must decide separately. Multi-agent execution is not a default requirement for later Units; agent selection remains Unit-scoped under the current Leader-only / Micro-Unit policy.

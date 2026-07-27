@@ -1542,6 +1542,38 @@ Verification: server hard-off tests `11/11 PASS`; Snapshot `111/111 PASS`; runti
 
 Latest repository checkpoint: HEAD `696ba318861f3e595ed1d82ef6f98f8ff9b8af9c`, local/remote `0 / 0`, tracked clean, staged none, five backup files only.
 
+### Phase 5C-2a Logging, Analytics & Error Redaction Audit
+
+**Status:** Complete
+**Verdict:** PASS WITH FINDINGS
+
+No Critical Session本文またはtoken漏洩は確認されなかった。Findings:
+
+- **L-01 High:** `v17_result_reached` analytics payloadへBefore / After / delta measurement値
+- **L-02 High:** `v17_subtheme_restarted` analytics payloadへprevious After measurement値
+- **L-03 Medium:** auth raw errorまたは`error.message`のbrowser console / UI露出
+- **L-04 High:** Stripe webhook raw provider error messageのHTTP response露出
+- **L-05 Medium:** Checkout / Portal raw provider error logging
+- **L-06 Low:** claim API raw error logging
+- **L-07 Low:** analytics identifier minimization concern
+
+非漏洩確認範囲: private response本文、free input本文、Deep / Regular response text、full Snapshot、full runtime D、access token、refresh token、cookie、Authorization header、hard-off endpointのSession private payload。
+
+### Phase 5C-2b Analytics Measurement Redaction
+
+**Status:** Complete
+
+Implementation commit: `a4c94bacbc9dace7529d726d74c54d073ac12876`
+Commit message: `fix(v17): redact measurement analytics`
+
+Changed files: `app-v17.html`, `tests/v17/deep-alternating-flow.test.js`
+
+`v17_result_reached`から`before`、`after`、`delta`を、`v17_subtheme_restarted`から`before`を削除した。measurement値をnull、bucket、sign、hash、derived valueへ置換せず、property自体を削除した。event名、発火タイミング、once-per-cycle、identity、Result / Repeat UI、navigation、internal measurement calculationは維持した。retired completion eventは復活せず、private response本文もanalyticsへ追加していない。
+
+Verification: Snapshot `111/111 PASS`; runtime/navigation `113/113 PASS`; app syntax PASS; snapshot syntax PASS; `git diff --check` PASS。UI / navigation変更なしのためHuman browser QAは不要・未実施。Commit / pushはComplete、deployは未実施。
+
+Current status: L-01 Closed、L-02 Closed、L-03〜L-07 Open、Phase 5C In progress、Cloud Session hard-off Active、Cloud Bookmark / Resume Closed、authenticated save/read/Resume Not started、Phase 5B-4b-3c Deferred / Not started、browser integration Not performed、deploy Not performed。
+
 ### Phase 5B-4b-2 acceptance
 
 **Status:** Complete
