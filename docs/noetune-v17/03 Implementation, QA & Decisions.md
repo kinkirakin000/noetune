@@ -1086,6 +1086,46 @@ The next release-oriented QA must establish:
 - Phase 5B-4b-1aのproduct diffはこの訂正によりarchitecture上整合するが、正式acceptanceとcommitは未実施である
 - app-v17.htmlのsyntax terminologyは、script elements total 25、non-empty inline executable blocks compiled with `vm.Script` 2、syntax PASSとして記録する。「25 executable script blocksをcompileした」とは記録しない
 
+### Phase 5B-4b-1 acceptance
+
+**Status:** Complete
+
+- Phase 5B-4b-1a: Complete
+- Phase 5B-4b-1b: Complete
+- Human browser QA: 未実施
+
+Authority correction commit:
+
+`6771135c09616d64f6b2fd7b4b1d03748b95d875` — `docs(v17): clarify repeat cycle authority`
+
+Live runtime identity ownerは`D.v17SessionIdentity`であり、`sessionId`とcycle fieldsを同一owner内で管理する。Snapshot `currentCycle`はnormalized persisted projectionで、`cycleStartedAt`はSnapshotの`startedAt`へmappingする。`v17RepeatCycleCount`はruntime `cycleIndex`のprojectionであり、`D.v17CurrentCycle`は追加しない。
+
+Phase 5B-4b-1a implementation:
+
+`6570be1cf85dabea5c813ca873b1f151b97b3d5b` — `feat(v17): add atomic repeat cycle identity`
+
+変更ファイルは`app-v17.html`と`tests/v17/deep-alternating-flow.test.js`。Repeat clickはnormalized original Result projectionをcaptureし、mode確定時の`beginV17RepeatCycle(mode)`だけがUUIDを1回生成してcycle identityを更新する。sessionId維持、cycleIndex +1、markers reset、previous After → new Before、new After unset、Regular / Deep isolation、double-confirm idempotencyを受入した。
+
+Phase 5B-4b-1b implementation:
+
+`a98cda7888008e609d0e16ab1dbc646b943831c8` — `feat(v17): add repeat snapshot validation foundation`
+
+変更ファイルは`js/v17/session-snapshot.js`と`tests/v17/session-snapshot.compat.test.js`。Snapshot Schema v1を維持し、RepeatState exact keys、`repeatState = null`のinactive表現、SessionFrameState projection、nested state / raw history / full D rejection、measurement consistency、cycleCount consistencyを実装した。
+
+Validator orderはroot/schema/payload → RepeatState structural validation → structural success → production support gate → `UNSUPPORTED_REPEAT_STATE`。structurally invalid stateはprecise pathでrejectし、structurally valid stateもproduction Snapshotとしてはrejectする。
+
+Verification:
+
+- Snapshot tests: `108/108 PASS`
+- runtime/navigation tests: `70/70 PASS`
+- snapshot JS syntax: PASS
+- app script elements total: `25`
+- compiled non-empty inline executable blocks: `2`
+- app syntax: PASS
+- `git diff --check`: PASS
+
+Phase 5B-4b-1完了後もRepeat serializer / restore / resume、temporary original Result return、new-cycle Result completion、Guest persistence、Public Resume、Cloud、Journey completionは未開放。
+
 後続Unitは次の順序で分割する。
 
 ```text

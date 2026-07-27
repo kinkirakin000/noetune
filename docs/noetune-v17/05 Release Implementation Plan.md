@@ -512,13 +512,13 @@ Phase 5B-3b-2 Result serializer / restore activation is complete. The remaining 
 
 ### Phase 5B-4b-1 — Repeat cycle identity and normalized live state
 
-**Status:** Pending. Implement same-session/new-cycle identity, normalized Repeat state, lifecycle consistency, and keep the production Repeat Snapshot gate closed.
+**Status:** Complete. Phase 5B-4b-1a implements live Repeat capture and atomic cycle identity; Phase 5B-4b-1b implements RepeatStateV1 structural validation while keeping the production Repeat Snapshot gate closed.
 
 Runtime identity owner: `D.v17SessionIdentity`. Snapshot persisted cycle shape: `SessionSnapshotV1.currentCycle` (normalized projection, not a second mutable runtime authority).
 
 ### Phase 5B-4b-2 — Live Repeat navigation and cycle completion
 
-**Status:** Pending. Implement mode-confirmed atomic cycle creation, temporary original Result return, live Regular / Deep Repeat flow, and new-cycle Result completion.
+**Status:** Pending. Implement temporary original Result return, live Regular / Deep Repeat navigation, and new-cycle Result completion.
 
 ### Phase 5B-4b-3 — Repeat serializer / restore and resumed Back matrix
 
