@@ -108,7 +108,7 @@ Do not use a broad role locator or page-wide `first()` when an exact ID or activ
 
 ### Repetition stop rule
 
-If two attempts are blocked by the same missing prerequisite, stop repeating the browser or implementation attempt. Return the evidence to Commander ChatGPT for a sequencing decision.
+If an initial execution and one narrow same-Unit correction are both blocked by the same missing prerequisite or evidence gap, stop repeating the browser, implementation, or test attempt. Do not keep adding tests, mocks, or alternate harnesses. Return the evidence to Commander ChatGPT for a blocker-classification and sequencing decision.
 
 ### Verdict taxonomy
 
@@ -363,6 +363,112 @@ A need for independent security, authentication, billing, RLS, privacy, migratio
 Credit Mode changes only the depth of Leader investigation and verification.
 
 It does not change the agent count, model, reasoning level, Unit scope, Phase order, or acceptance criteria.
+
+## 1E. Decision record — Leader-only Micro-Unit execution policy
+
+**Decision date:** 2026-07-27
+**Status:** Active permanent operating rule
+
+### Decision
+
+Leader-only `gpt-5.6-luna / low` remains the default execution model. The next optimization target is not agent count but Unit size.
+
+Each Codex execution must have one primary purpose:
+
+- read-only audit
+- implementation with only its directly required verification
+- test / QA completion
+- documentation alignment
+- authorized Git operation
+
+Do not combine a broad audit, implementation, exhaustive QA expansion, documentation alignment, and Git operations into one oversized Unit.
+
+### Operational speed evaluation
+
+After the move to Leader-only execution, ordinary narrow Units are operationally assessed as approximately 30–50% faster than the previous multi-agent workflow.
+
+This is an internal execution estimate based on recent Noetune work, not a controlled benchmark or guaranteed future performance. The improvement is attributed mainly to:
+
+- no agent bootstrap or role-selection delay
+- no duplicated repository/context loading
+- no cross-agent report integration
+- fewer state-recognition and handoff errors
+- more predictable credit use
+- one continuous owner for investigation, implementation, verification, and reporting
+
+The main remaining source of delay is oversized Unit design, especially when one Unit contains too many acceptance boundaries or asks Node-based tests to reproduce browser-only runtime behavior.
+
+### Default Micro-Unit size
+
+Unless Commander explicitly authorizes a broader scope, an implementation Unit should normally stay within:
+
+- changed files: 1–3
+- acceptance criteria: 5–10
+- test clusters: 1–3
+- product or technical meaning: one boundary
+- architecture decisions: none
+- documentation alignment: separate Unit
+- commit / push: separate authorized Unit
+
+Tier 3 authentication, billing, RLS, privacy, security, migration, and data-lifecycle work may exceed these defaults only when Commander explicitly defines the larger trust boundary and its verification matrix.
+
+### Same-Unit correction and blocker transition
+
+One narrow correction or QA-completion pass may remain inside the same Unit when the goal, scope, and acceptance criteria are unchanged.
+
+If the same prerequisite or evidence gap still blocks the Unit after that correction:
+
+- stop adding tests or mocks
+- preserve the current diff and evidence
+- do not weaken acceptance criteria
+- do not invent an alternate architecture
+- return the exact first blocked boundary to Commander
+
+Commander may then authorize a separate read-only blocker audit to classify the problem as:
+
+- product implementation gap
+- test-harness loading gap
+- fresh-runtime gap
+- invocation or integration gap
+- browser-only integration boundary
+- canonical contract conflict
+
+### Browser-runtime boundary
+
+When exact production-browser verification would require a large synthetic DOM, auth, billing, navigation, storage, event, listener, or timer environment, do not rebuild the application runtime inside Node merely to satisfy an acceptance matrix.
+
+In that situation:
+
+- stop before creating a production-runtime imitation
+- preserve automated foundation coverage
+- separate foundation acceptance from production-browser acceptance
+- defer the browser-only boundary to an explicit real-browser integration gate
+- keep that gate mandatory before release
+
+Deferral does not convert an unverified browser path into PASS and does not lower acceptance standards.
+
+### Commander pre-delegation responsibility
+
+Before issuing a Unit, Commander ChatGPT checks:
+
+- the Unit has one primary purpose
+- the file and dependency scope is minimal
+- the acceptance criteria are executable
+- the production state can be created through the permitted path
+- the requested evidence belongs in Node tests or a real-browser gate
+- STOP and blocker boundaries are explicit
+- commit, documentation, and push work are separated where practical
+
+When a Unit exceeds the default Micro-Unit size without a necessary trust-boundary reason, Commander splits it before execution.
+
+### Current conclusion
+
+- retain Leader-only execution
+- do not return to the subagent default
+- treat oversized Units, not Leader capability, as the primary current speed constraint
+- target a further operational speed improvement of roughly 20–30% through consistent Micro-Unit sizing
+
+The additional 20–30% figure is a planning target, not a guaranteed benchmark.
 
 ## 2. Stop line
 

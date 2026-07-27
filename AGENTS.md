@@ -143,11 +143,42 @@ For each Unit, the Leader performs only the steps authorized by Commander, norma
 
 Do not split one Unit into internal agents. Do not perform duplicate passes merely to simulate independent roles.
 
+## Micro-Unit execution policy
+
+### One primary purpose
+
+Each Unit must have one primary purpose:
+
+- read-only audit
+- implementation with directly required verification
+- test / QA completion
+- documentation alignment
+- authorized Git operation
+
+An implementation Unit may include the tests, syntax checks, and diff review required to verify that implementation. It must not also absorb a broad architecture audit, unrelated QA expansion, canonical documentation rewrite, and Git publication workflow.
+
+### Default Unit size
+
+Unless Commander explicitly authorizes a broader scope, the normal implementation target is:
+
+- changed files: 1–3
+- acceptance criteria: 5–10
+- test clusters: 1–3
+- product or technical meaning: one boundary
+- unrelated architecture decisions: none
+- documentation and commit work: separate Units when practical
+
+Tier 3 work may exceed these defaults only when Commander explicitly defines the larger trust boundary and its verification matrix.
+
+The Leader must not silently split an oversized Commander Unit into new strategic Units. If the requested scope is not safely executable as one bounded Unit, STOP and report the exact scope or dependency conflict.
+
 ## Same-Unit rework
 
 A Human QA failure, test failure, or narrow correction remains the same Unit when the goal, acceptance criteria, and scope are unchanged and the correction addresses evidence from that Unit.
 
-The Leader handles the correction directly and reruns the required verification. It does not start an implementer or QA subagent.
+The Leader handles one narrow correction or QA-completion pass directly and reruns the required verification. It does not start an implementer or QA subagent.
+
+If the same prerequisite or evidence gap still blocks the Unit after that pass, STOP. Preserve the diff and evidence, do not add another expanding test or mock layer, and return the first blocked production boundary to Commander ChatGPT. A separate blocker audit begins only when Commander authorizes it.
 
 ## Human QA boundary
 
@@ -156,6 +187,20 @@ Human real-browser QA may serve as acceptance for Safari or mobile layout, touch
 Do not use browser automation when Commander has reserved acceptance for Human real-browser QA.
 
 Human QA does not replace state, privacy, security, syntax, or automated regression verification required by the Unit.
+
+## Browser-runtime boundary
+
+Do not reproduce the full production browser runtime inside Node when acceptance would require a large synthetic DOM, auth, billing, navigation, storage, event, listener, or timer environment.
+
+When the Node harness would become a second implementation of the application:
+
+- stop before adding large behavioral mocks
+- preserve the automated foundation evidence
+- report the exact browser-only boundary
+- keep foundation acceptance separate from production-browser acceptance
+- require an explicit real-browser integration gate before release
+
+A deferred browser gate remains unverified. Deferral is not PASS and does not lower the acceptance standard.
 
 ## Context minimization
 
@@ -313,7 +358,9 @@ Do not use browser automation when Commander has reserved acceptance for Human r
 
 ## Repetition stop rule
 
-If the same missing prerequisite blocks two attempts, stop repeating the same browser or implementation attempt. Return sequencing evidence to Commander ChatGPT and do not start another Phase independently.
+If an initial execution and one narrow same-Unit correction are both blocked by the same missing prerequisite or evidence gap, stop repeating the browser, implementation, or test attempt.
+
+Do not keep adding tests, mocks, alternate harnesses, or direct state injection. Preserve the current evidence, return the first blocked production boundary to Commander ChatGPT, and do not start another Phase or blocker audit independently.
 
 ## Verdict taxonomy
 
