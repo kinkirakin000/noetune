@@ -1232,3 +1232,86 @@ test('production Result restore does not append a typed Final frame during repea
   assert.equal(f.effects.analytics, 0);
   assert.equal(f.effects.storage, 0);
 });
+
+function repeatIdentityRuntime(afterState, mode) {
+  const calls = [];
+  const context = {
+    D: { questionTextAtTime: 'theme-x', themeId: 'theme-1', questionId: 'q-1', entryMode: 'v17',
+      v17SessionMode: 'regular', localeAtTime: 'en', v17SessionIdentity: {
+        sessionId: 'session-1', cycleId: 'cycle-1', cycleIndex: 2,
+        cycleStartedAt: '2026-01-01T00:00:00.000Z', resultReachedAt: 'old', resultEventSent: true
+      }, beforeEmotionPositive: 3, afterEmotionPositive: 7,
+      currentThemeScoreTrail: [3, 7], currentThemeAwarenessTrail: ['a'],
+      v17MeasurementState: { before: { state: 'scored', value: 3, touched: true }, after: afterState },
+      v17Flow: { sessionMode: 'regular', cycleCount: 2, scoreTrailExpanded: false, awarenessTrailExpanded: false } },
+    window: { crypto: { randomUUID: () => 'cycle-new' } },
+    crypto: { randomUUID: () => 'cycle-new' }, cur: 's-result', lang: 'en',
+    cloneV17State(value) { return JSON.parse(JSON.stringify(value)); },
+    ensureV17SessionState() {}, getV17ThemeRoute() { return 'problems'; },
+    resetV17SessionState() { context.D.v17Flow = null; context.D.v17MeasurementState = { before: { state: 'unset', value: null, touched: false }, after: { state: 'unset', value: null, touched: false } }; },
+    createV17FlowState() { return { sessionMode: context.D.v17SessionMode, resumeBackFrames: [], currentThemeScoreTrail: context.D.currentThemeScoreTrail.slice(), currentThemeAwarenessTrail: context.D.currentThemeAwarenessTrail.slice() }; },
+    resetSlider() {}, setV17CurrentStep(step) { context.step = step; },
+    startV17DeepDive() { calls.push('deep'); }, openV17FirstResponse() { calls.push('regular'); }, startSession() { calls.push('start'); },
+    renderV17SessionModeScreen() {}, fwd(id) { calls.push(id); }, trackEvent() { calls.push('event'); },
+    resetV17BreathScreen() {}, startV17Session() { calls.push('start'); }, chooseAnotherTheme() { calls.push('choose'); }
+  };
+  context.resumeV17RepeatCycle = () => false;
+  for (const name of ['createV17RepeatFrameState', 'beginV17RepeatCycle', 'selectV17SessionMode', 'restartCurrentSubtheme']) {
+    vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  }
+  context.v17RepeatResultState = null; context.v17RepeatCycleState = null;
+  context.v17RepeatReturnPending = false; context.v17RepeatModeSelectionPending = false;
+  context.v17RepeatBeforeScore = null; context.v17RepeatCycleCount = null;
+  return { context, calls };
+}
+
+test('Repeat click preserves session and cycle identity before mode selection', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true });
+  const before = JSON.stringify(f.context.D.v17SessionIdentity);
+  f.context.restartCurrentSubtheme();
+  assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), before);
+  assert.equal(f.context.v17RepeatModeSelectionPending, true);
+});
+test('Repeat click captures a normalized projection without full runtime D', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme();
+  assert.equal(f.context.v17RepeatResultState.currentScreen, 's-result');
+  assert.equal(Object.prototype.hasOwnProperty.call(f.context.v17RepeatResultState, 'v17SessionIdentity'), false);
+});
+test('Repeat click deep clones the previous After measurement', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme();
+  assert.deepEqual(f.context.v17RepeatBeforeScore, { state: 'scored', value: 7, touched: true });
+  assert.notEqual(f.context.v17RepeatBeforeScore, f.context.D.v17MeasurementState.after);
+});
+test('Repeat click sets pending flags and retains trails', () => {
+  const f = repeatIdentityRuntime({ state: 'unset', value: null, touched: false }); f.context.restartCurrentSubtheme();
+  assert.equal(f.context.v17RepeatCycleState, null); assert.equal(f.context.v17RepeatReturnPending, false);
+  assert.deepEqual(f.context.D.currentThemeScoreTrail, [3, 7]);
+});
+test('Regular mode confirmation creates one new cycle', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('regular');
+  assert.equal(f.context.D.v17SessionIdentity.sessionId, 'session-1'); assert.equal(f.context.D.v17SessionIdentity.cycleId, 'cycle-new');
+  assert.equal(f.context.D.v17SessionIdentity.cycleIndex, 3); assert.equal(f.context.D.v17SessionIdentity.resultReachedAt, null);
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, false);
+});
+test('Regular mode inherits scored zero and resets After', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 0, touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('regular');
+  assert.deepEqual(JSON.parse(JSON.stringify(f.context.D.v17MeasurementState.before)), { state: 'scored', value: 0, touched: true }); assert.deepEqual(JSON.parse(JSON.stringify(f.context.D.v17MeasurementState.after)), { state: 'unset', value: null, touched: false });
+});
+test('Regular mode inherits not-a-problem exactly', () => {
+  const f = repeatIdentityRuntime({ state: 'not_a_problem', value: 'not_a_problem', touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('regular');
+  assert.deepEqual(f.context.D.v17MeasurementState.before, { state: 'not_a_problem', value: 'not_a_problem', touched: true });
+});
+test('Regular mode inherits skipped exactly', () => {
+  const f = repeatIdentityRuntime({ state: 'skipped', value: null, touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('regular');
+  assert.deepEqual(f.context.D.v17MeasurementState.before, { state: 'skipped', value: null, touched: true });
+});
+test('Deep mode starts only the Deep cycle flow', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 4, touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('deep');
+  assert.equal(f.context.D.v17SessionMode, 'deep'); assert.equal(f.calls.at(-1), 'deep');
+});
+test('Double mode confirmation is idempotent', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('regular');
+  const identity = JSON.stringify(f.context.D.v17SessionIdentity); const measurement = JSON.stringify(f.context.D.v17MeasurementState);
+  f.context.selectV17SessionMode('deep');
+  assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), identity); assert.equal(JSON.stringify(f.context.D.v17MeasurementState), measurement);
+});

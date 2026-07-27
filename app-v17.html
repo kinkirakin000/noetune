@@ -5497,11 +5497,12 @@ function openV17SessionModeSelection() {
 }
 
 function selectV17SessionMode(mode) {
-  D.v17SessionMode = mode === 'deep' ? 'deep' : 'regular';
   if (v17RepeatModeSelectionPending) {
-    startV17RepeatedSubthemeSession(D.v17SessionMode);
+    beginV17RepeatCycle(mode);
     return;
   }
+  if (v17RepeatResultState !== null) return;
+  D.v17SessionMode = mode === 'deep' ? 'deep' : 'regular';
   startSession();
 }
 
@@ -7083,6 +7084,36 @@ function cloneV17State(state) {
   return JSON.parse(JSON.stringify(state || {}));
 }
 
+function createV17RepeatFrameState() {
+  ensureV17SessionState();
+  var flow = D.v17Flow || {};
+  var measurement = D.v17MeasurementState || {};
+  var flowProjection = cloneV17State(flow);
+  delete flowProjection.resumeBackFrames;
+  delete flowProjection.deepDive;
+  delete flowProjection.currentCycle;
+  delete flowProjection.repeatState;
+  delete flowProjection.navHistory;
+  delete flowProjection.navPageStateHistory;
+  return {
+    currentScreen: 's-result', currentStep: 'step6',
+    sessionMode: D.v17SessionMode || (flow && flow.sessionMode) || null,
+    routeType: getV17ThemeRoute(), entryType: D.entryMode || 'v17',
+    locale: D.localeAtTime || lang || 'ja',
+    entry: { themeId: D.themeId || null, questionId: D.questionId || null, questionTextAtTime: D.questionTextAtTime || '' },
+    measurement: cloneV17State(measurement),
+    responses: { current: D.currentState || '', ideal: D.idealState || '' },
+    semanticState: { current: D.currentState || '', ideal: D.idealState || '' },
+    regularFlow: D.v17SessionMode === 'regular' ? flowProjection : null,
+    scoreTrail: Array.isArray(D.currentThemeScoreTrail) ? D.currentThemeScoreTrail.slice() : [],
+    awarenessTrail: Array.isArray(D.currentThemeAwarenessTrail) ? D.currentThemeAwarenessTrail.slice() : [],
+    deepFlow: D.v17SessionMode === 'deep' ? flowProjection : null,
+    breathState: flow.breath ? cloneV17State(flow.breath) : null,
+    finalMeasurementState: measurement.after ? cloneV17State(measurement.after) : null,
+    resultView: { reached: true, scoreTrailExpanded: !!flow.scoreTrailExpanded, awarenessTrailExpanded: !!flow.awarenessTrailExpanded }
+  };
+}
+
 var V17_NAV_SNAPSHOT_KEYS = [
   'D',
   'lang',
@@ -7181,10 +7212,10 @@ function resumeV17RepeatCycle() {
 
 function startV17RepeatedSubthemeSession(mode) {
   ensureV17SessionState();
-  var previousAfter = v17RepeatBeforeScore;
-  if (!(typeof previousAfter === 'number' || previousAfter === V17_SCORE_NOT_A_PROBLEM)) {
-    previousAfter = D.afterEmotionPositive;
-  }
+  var previousAfterState = v17RepeatBeforeScore;
+  var previousAfter = previousAfterState && typeof previousAfterState === 'object'
+    ? previousAfterState.value : previousAfterState;
+  if (!(typeof previousAfter === 'number' || previousAfter === V17_SCORE_NOT_A_PROBLEM)) previousAfter = D.afterEmotionPositive;
   var repeatCycleCount = typeof v17RepeatCycleCount === 'number'
     ? v17RepeatCycleCount
     : (D.v17Flow && typeof D.v17Flow.cycleCount === 'number'
@@ -7227,6 +7258,48 @@ function startV17RepeatedSubthemeSession(mode) {
     return;
   }
   openV17FirstResponse();
+}
+
+function beginV17RepeatCycle(mode) {
+  if (!v17RepeatResultState || !v17RepeatModeSelectionPending) return false;
+  var selectedMode = mode === 'deep' ? 'deep' : mode === 'regular' ? 'regular' : null;
+  var identity = D && D.v17SessionIdentity;
+  if (!selectedMode || !identity || !identity.sessionId) return false;
+  var previousAfterState = v17RepeatBeforeScore;
+  var previousIndex = typeof identity.cycleIndex === 'number' ? identity.cycleIndex : 0;
+  var cycleId = (window.crypto && typeof window.crypto.randomUUID === 'function')
+    ? window.crypto.randomUUID() : null;
+  if (!cycleId) return false;
+  var beforeState = previousAfterState && typeof previousAfterState === 'object'
+    ? cloneV17State(previousAfterState) : { state: 'unset', value: null, touched: false };
+  resetV17SessionState(true);
+  identity.cycleId = cycleId;
+  identity.cycleIndex = previousIndex + 1;
+  identity.cycleStartedAt = new Date().toISOString();
+  identity.resultReachedAt = null;
+  identity.resultEventSent = false;
+  v17RepeatCycleCount = identity.cycleIndex;
+  v17RepeatBeforeScore = cloneV17State(beforeState);
+  D.v17SessionMode = selectedMode;
+  D.entryMode = 'v17';
+  D.theme = D.questionTextAtTime || D.theme || '';
+  D.themePositive = D.questionTextAtTime || D.themePositive || '';
+  D.beforeEmotionPositive = beforeState.value;
+  D.afterEmotionPositive = null;
+  D.v17MeasurementState = { before: cloneV17State(beforeState), after: { state: 'unset', value: null, touched: false } };
+  D.v17Flow = createV17FlowState();
+  D.v17Flow.sessionMode = selectedMode;
+  D.v17Flow.cycleCount = identity.cycleIndex;
+  D.v17Flow.isBeforeMeasured = true;
+  D.v17Flow.initialThemeScore = beforeState.value;
+  D.v17Flow.beforeEmotionPositive = beforeState.value;
+  v17RepeatModeSelectionPending = false;
+  v17RepeatReturnPending = false;
+  v17RepeatCycleState = null;
+  resetSlider('v17-before'); resetSlider('v17-final');
+  setV17CurrentStep('step2');
+  if (selectedMode === 'deep') startV17DeepDive(); else openV17FirstResponse();
+  return true;
 }
 
 function returnToV17RepeatResult() {
@@ -9190,34 +9263,26 @@ function restartCurrentSubtheme() {
     chooseAnotherTheme();
     return;
   }
-  var previousAfter = D.afterEmotionPositive;
-  var hasPreviousAfter = typeof previousAfter === 'number' || previousAfter === V17_SCORE_NOT_A_PROBLEM;
-  if (!hasPreviousAfter) {
+  var previousAfter = D.v17MeasurementState && D.v17MeasurementState.after;
+  if (!previousAfter || previousAfter.state === 'unset') {
     v17ThemeSelectionFocusId = '';
     startV17Session(true);
     return;
   }
-  var previousCycleCount = D.v17Flow && typeof D.v17Flow.cycleCount === 'number'
-    ? D.v17Flow.cycleCount : 1;
-  v17RepeatResultState = cloneV17State(D);
+  v17RepeatResultState = createV17RepeatFrameState();
   v17RepeatCycleState = null;
-  v17RepeatReturnPending = true;
+  v17RepeatReturnPending = false;
   v17RepeatModeSelectionPending = true;
-  v17RepeatBeforeScore = previousAfter;
-  v17RepeatCycleCount = previousCycleCount + 1;
-  D.v17SessionMode = null;
-  if (D.v17Flow) D.v17Flow.sessionMode = null;
-  resetV17BreathScreen();
-  resetV17SessionState(true);
+  v17RepeatBeforeScore = cloneV17State(previousAfter);
+  v17RepeatCycleCount = D.v17SessionIdentity && typeof D.v17SessionIdentity.cycleIndex === 'number'
+    ? D.v17SessionIdentity.cycleIndex : (D.v17Flow && D.v17Flow.cycleCount || 0);
   _savedProgressResumeActive = false;
   v17ThemeSelectionFocusId = '';
-  resetSlider('v17-before');
-  resetSlider('v17-final');
   trackEvent('v17_subtheme_restarted', {
     themeId: D.themeId,
     questionId: D.questionId,
     route: getV17ThemeRoute(),
-    before: previousAfter,
+    before: previousAfter.value,
     cycleCount: v17RepeatCycleCount
   });
   renderV17SessionModeScreen();
