@@ -10,6 +10,7 @@
 
 const { getSupabaseAdmin } = require('../lib/supabase-admin');
 const { getV17SavedDataEntitlements } = require('../lib/v17-entitlements');
+const { isV17CloudSessionServerEnabled, createV17CloudSessionDisabledResponse } = require('../lib/v17-cloud-session-hard-off');
 
 var ALLOWED_PREFIXES = ['hcq:', 'theme:', 'spiritual:', 'free:'];
 var SNAPSHOT_FIELD_LIMITS = {
@@ -142,6 +143,10 @@ module.exports = async (req, res) => {
 
   if (req.method !== 'GET' && req.method !== 'POST' && req.method !== 'DELETE') {
     return sendMethodNotAllowed(res);
+  }
+
+  if (req.method !== 'DELETE' && !isV17CloudSessionServerEnabled()) {
+    return createV17CloudSessionDisabledResponse(res);
   }
 
   const supabaseAdmin = getSupabaseAdmin();

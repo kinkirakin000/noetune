@@ -6,6 +6,7 @@
 
 const { getSupabaseAdmin } = require('../lib/supabase-admin');
 const { getV17SavedDataEntitlements } = require('../lib/v17-entitlements');
+const { isV17CloudSessionServerEnabled, createV17CloudSessionDisabledResponse } = require('../lib/v17-cloud-session-hard-off');
 
 function text(value, max) {
   if (value == null) return null;
@@ -30,6 +31,9 @@ function safeBillingState(profile) {
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+  if (!isV17CloudSessionServerEnabled()) {
+    return createV17CloudSessionDisabledResponse(res);
   }
 
   const supabaseAdmin = getSupabaseAdmin();

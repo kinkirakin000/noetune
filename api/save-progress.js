@@ -3,6 +3,7 @@
 
 const { getSupabaseAdmin } = require('../lib/supabase-admin');
 const { getV17SavedDataEntitlements } = require('../lib/v17-entitlements');
+const { isV17CloudSessionServerEnabled, createV17CloudSessionDisabledResponse } = require('../lib/v17-cloud-session-hard-off');
 
 function text(value, max) {
   if (value == null) return null;
@@ -67,6 +68,9 @@ async function loadProgressProfile(admin, userId) {
 }
 
 module.exports = async (req, res) => {
+  if ((req.method === 'GET' || req.method === 'POST') && !isV17CloudSessionServerEnabled()) {
+    return createV17CloudSessionDisabledResponse(res);
+  }
   const admin = getSupabaseAdmin();
   if (!admin) return res.status(503).json({ saved: false, error: 'Storage unavailable' });
 
