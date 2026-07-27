@@ -996,3 +996,239 @@ test('Deep Result uses a Deep typed Final frame and Back preserves it', () => {
   assert.equal(f.context.handleV17ResultBack(), true);
   assert.equal(f.context.D.v17Flow.resumeBackFrames[0].frameType, 'deep-response');
 });
+
+function copiedResultValue(value) {
+  return JSON.parse(JSON.stringify(value));
+}
+
+function persistedResultSnapshot(mode, after) {
+  const isDeep = mode === 'deep';
+  const response = isDeep
+    ? {
+      frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.question1',
+      state: { routeType: 'problem', deepFlow: {
+        routeType: 'problem', originalTheme: 'Synthetic Theme', round: 1, questionVariant: 'A', phase: 'question1',
+        rounds: [], pendingRound: { round: 1, questionVariant: 'A', originalTheme: 'Synthetic Theme', question1: { state: 'unset', text: '', draft: '' }, question2: { state: 'unset', text: '', draft: '' }, incomplete: false },
+        nextPendingRound: null, finished: false
+      } }
+    }
+    : {
+      frameType: 'regular-response', sessionMode: 'regular', screenId: 's-v17-second-response', currentStep: 'step3',
+      state: { routeType: 'problem', regularFlow: { activeScreen: 'second', questionVariant: 'A', firstResponseRole: 'ideal', secondResponseRole: 'current' }, responses: { current: { state: 'unset', text: '', draft: '' }, ideal: { state: 'unset', text: '', draft: '' } }, semanticState: { current: null, ideal: null } }
+    };
+  return {
+    snapshotSchemaVersion: 1, appVersion: 'v17', sessionId: '11111111-1111-4111-8111-111111111111', status: 'active',
+    createdAt: '2026-01-01T00:00:00.000Z', savedAt: '2026-01-01T00:01:00.000Z', updatedAt: '2026-01-01T00:02:00.000Z', completedAt: null, discardedAt: null, revision: 0,
+    currentScreen: 's-result',
+    summary: { locale: 'en', sessionMode: mode, routeType: 'problem', entryType: 'life_theme', themeId: 'theme-1', themeLabel: 'Theme', subthemeLabel: null, themeDescription: null, categoryId: null, categoryLabel: null, track: 'problems', freeInputTheme: null, questionId: null, questionTextAtTime: 'Question' },
+    currentCycle: { cycleId: '22222222-2222-4222-8222-222222222222', cycleIndex: 0, startedAt: '2026-01-01T00:00:00.000Z', resultReachedAt: '2026-01-01T00:03:00.000Z', resultEventSent: true },
+    currentState: {
+      currentScreen: 's-result', currentStep: 'step6', routeType: 'problem', entryType: 'life_theme', locale: 'en', sessionMode: isDeep ? 'deep' : undefined,
+      entry: { entryType: 'life_theme', themeId: 'theme-1', questionId: null, themeLabel: 'Theme', themeDescription: null, categoryId: null, categoryLabel: null, trackId: 'problems', themeMeaning: null, freeInputTheme: null, questionTextAtTime: 'Question', localeAtSelection: 'en' },
+      measurement: { before: { state: 'unset', value: null, touched: false }, after: copiedResultValue(after) },
+      responses: { current: { state: 'unset', text: '', draft: '' }, ideal: { state: 'unset', text: '', draft: '' } },
+      semanticState: { current: null, ideal: null }, regularFlow: isDeep ? null : { activeScreen: 'second', questionVariant: 'A', firstResponseRole: 'ideal', secondResponseRole: 'current' }, deepFlow: isDeep ? Object.assign(copiedResultValue(response.state.deepFlow), { finished: true, pendingRound: Object.assign(copiedResultValue(response.state.deepFlow.pendingRound), { incomplete: true }) }) : null,
+      scoreTrail: [], awarenessTrail: [], finalMeasurementState: copiedResultValue(after), resultView: { reached: true, scoreTrailExpanded: false, awarenessTrailExpanded: false }
+    },
+    repeatState: null,
+    resumeBackFrames: [response, { frameType: 'breath', sessionMode: mode, screenId: 's-v17-breath', currentStep: 'step4.second', state: { breathState: { step: 2, phase: 'second', first: true, second: false } } }, { frameType: 'final-measurement', sessionMode: mode, screenId: 's-v17-final-measure', currentStep: 'step5', state: { finalMeasurementState: copiedResultValue(after) } }]
+  };
+}
+
+function persistedResultRuntime(mode, after = { state: 'scored', value: 7, touched: true }) {
+  const effects = { analytics: 0, storage: 0, render: 0, navigation: 0, back: 0 };
+  const element = { classList: { remove() {} }, style: {}, setAttribute() {}, removeAttribute() {} };
+  const context = {
+    TextEncoder, V17_SCORE_NOT_A_PROBLEM: 'not_a_problem', cur: 's-v17-session-mode', lang: 'en',
+    D: { v17SessionMode: 'regular', v17Flow: { questionVariant: 'B' } },
+    localStorage: { getItem() { effects.storage += 1; return null; }, setItem() { effects.storage += 1; }, removeItem() { effects.storage += 1; } },
+    sessionStorage: { getItem() { effects.storage += 1; return null; }, setItem() { effects.storage += 1; }, removeItem() { effects.storage += 1; } },
+    document: { getElementById() { return element; }, querySelectorAll() { return []; } },
+    cloneV17State: copiedResultValue, setEl() {}, v17Copy(key) { return key; }, v17Format(key) { return key; },
+    getV17CurrentStateText() { return context.D.currentState || ''; }, getV17IdealStateText() { return context.D.idealState || ''; },
+    getV17ResponseKind() { return 'currentState'; }, renderV17ThemeMeaning() {}, renderV17ThemeScoreTrail() {}, renderResultSaveUI() {},
+    resetV17ResumeNavigationHistory() { effects.navigation += 1; }, updateBackBtn() { effects.back += 1; },
+    resetV17BreathScreen() {}, syncV17DeepDiveDrafts() {},
+    applyV17DeepDiveResultCandidate() {}, getV17DeepDiveResultCandidate() { return null; },
+    setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; },
+    setV17ScreenDirectWithoutHistoryReset(screen) { context.cur = screen; },
+    renderV17Screen() { effects.render += 1; }, trackEvent() { effects.analytics += 1; }
+  };
+  context.window = context;
+  vm.runInNewContext(snapshotSource, context, { filename: 'js/v17/session-snapshot.js' });
+  for (const name of ['renderV17Result', 'handleV17ResultBack', 'handleV17FinalMeasurementBack', 'handleV17BreathBack', 'restoreV17ResultSnapshotToScreen']) {
+    vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  }
+  return { context, effects, snapshot: persistedResultSnapshot(mode, after) };
+}
+
+test('production Regular Result restore uses the direct entrypoint and exact Result Back', () => {
+  const f = persistedResultRuntime('regular');
+  const restored = f.context.restoreV17ResultSnapshotToScreen(f.snapshot);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(f.context.cur, 's-result');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 3);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].frameType, 'regular-response');
+  assert.equal(f.effects.analytics, 0);
+  assert.equal(f.effects.storage, 0);
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.cur, 's-v17-final-measure');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+  assert.equal(f.context.D.v17MeasurementState.after.value, 7);
+});
+
+test('production Deep Result restore retains the Regular variant and exact Deep Final frame', () => {
+  const f = persistedResultRuntime('deep');
+  const restored = f.context.restoreV17ResultSnapshotToScreen(f.snapshot);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(f.context.D.v17SessionMode, 'deep');
+  assert.equal(f.context.D.v17Flow.questionVariant, 'B');
+  assert.equal(f.context.D.v17Flow.deepDive.questionVariant, 'A');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].frameType, 'deep-response');
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].sessionMode, 'deep');
+});
+
+test('production Result re-restore is idempotent and has no arrival side effects', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  const reachedAt = f.context.D.v17SessionIdentity.resultReachedAt;
+  const cycleId = f.context.D.v17SessionIdentity.cycleId;
+  const firstFrames = JSON.stringify(f.context.D.v17Flow.resumeBackFrames);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.v17SessionIdentity.resultReachedAt, reachedAt);
+  assert.equal(f.context.D.v17SessionIdentity.cycleId, cycleId);
+  assert.equal(JSON.stringify(f.context.D.v17Flow.resumeBackFrames), firstFrames);
+  assert.equal(f.effects.analytics, 0);
+  assert.equal(f.effects.storage, 0);
+});
+
+test('production Result restore rejects an invalid record without render or navigation mutation', () => {
+  const f = persistedResultRuntime('regular');
+  const invalid = copiedResultValue(f.snapshot);
+  invalid.currentCycle.resultEventSent = false;
+  const before = JSON.stringify(f.context.D);
+  const restored = f.context.restoreV17ResultSnapshotToScreen(invalid);
+  assert.equal(restored.ok, false);
+  assert.equal(JSON.stringify(f.context.D), before);
+  assert.equal(f.effects.render, 0);
+  assert.equal(f.effects.navigation, 0);
+  assert.equal(f.effects.analytics, 0);
+  assert.equal(f.effects.storage, 0);
+});
+
+test('production Regular Result restore retains Result UI expansion flags and exact cycle markers', () => {
+  const f = persistedResultRuntime('regular');
+  f.snapshot.currentState.resultView = { reached: true, scoreTrailExpanded: true, awarenessTrailExpanded: false };
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.v17Flow.scoreTrailExpanded, true);
+  assert.equal(f.context.D.v17Flow.awarenessTrailExpanded, false);
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, true);
+  assert.equal(f.context.D.v17SessionIdentity.resultReachedAt, f.snapshot.currentCycle.resultReachedAt);
+});
+
+test('production Deep Result restore retains its canonical pending round without mixing response authority', () => {
+  const f = persistedResultRuntime('deep');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  const deep = f.context.D.v17Flow.deepDive;
+  assert.equal(deep.finished, true);
+  assert.equal(deep.pendingRound.incomplete, true);
+  assert.equal(f.context.D.currentState || '', '');
+  assert.equal(f.context.D.idealState || '', '');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].state.deepFlow.finished, false);
+});
+
+test('production Regular Result Back chain consumes frames from Result through Breath to response', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+  assert.equal(f.context.handleV17FinalMeasurementBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 1);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.D.v17Flow.breathStep, 1);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 0);
+  assert.equal(f.context.cur, 's-v17-second-response');
+});
+
+test('production Deep Result Back chain preserves Deep mode through response restoration', () => {
+  const f = persistedResultRuntime('deep');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.handleV17FinalMeasurementBack(), true);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.handleV17BreathBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 0);
+  assert.equal(f.context.D.v17SessionMode, 'deep');
+  assert.equal(f.context.cur, 's-v17-deep-response');
+  assert.equal(f.context.D.v17Flow.deepDive.questionVariant, 'A');
+});
+
+test('production not_a_problem Result restore maps the Final sentinel without treating it as a slider score', () => {
+  const after = { state: 'not_a_problem', value: null, touched: true };
+  const f = persistedResultRuntime('regular', after);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.finalThemeScore, 'not_a_problem');
+  assert.deepEqual(copiedResultValue(f.context.D.v17MeasurementState.after), after);
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.D.finalThemeScore, 'not_a_problem');
+  assert.equal(f.context.D.v17MeasurementState.after.value, null);
+  assert.equal(f.context.D.v17MeasurementState.after.touched, true);
+});
+
+test('production Result restore has no analytics storage or arrival marker side effects', () => {
+  const f = persistedResultRuntime('regular');
+  const before = copiedResultValue(f.snapshot.currentCycle);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.effects.analytics, 0);
+  assert.equal(f.effects.storage, 0);
+  assert.equal(f.context.D.v17SessionIdentity.resultReachedAt, before.resultReachedAt);
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, before.resultEventSent);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 3);
+});
+
+test('production Result repeated restore keeps three unique frame types and stable cycle identity', () => {
+  const f = persistedResultRuntime('deep');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  const cycleId = f.context.D.v17SessionIdentity.cycleId;
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.deepEqual(Array.from(f.context.D.v17Flow.resumeBackFrames, frame => frame.frameType), ['deep-response', 'breath', 'final-measurement']);
+  assert.equal(f.context.D.v17SessionIdentity.cycleId, cycleId);
+  assert.equal(f.context.D.v17SessionIdentity.cycleIndex, 0);
+  assert.equal(f.effects.analytics, 0);
+});
+
+test('production Result restore fails closed for a screen and step mismatch without partial mutation', () => {
+  const f = persistedResultRuntime('regular');
+  const invalid = copiedResultValue(f.snapshot);
+  invalid.currentState.currentStep = 'step5';
+  const before = JSON.stringify(f.context.D);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(invalid).ok, false);
+  assert.equal(JSON.stringify(f.context.D), before);
+  assert.equal(f.context.cur, 's-v17-session-mode');
+  assert.equal(f.effects.analytics, 0);
+  assert.equal(f.effects.storage, 0);
+});
+
+test('production Result restore fails closed for an invalid Result view without partial mutation', () => {
+  const f = persistedResultRuntime('regular');
+  const invalid = copiedResultValue(f.snapshot);
+  invalid.currentState.resultView.scoreTrailExpanded = 'true';
+  const before = JSON.stringify(f.context.D);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(invalid).ok, false);
+  assert.equal(JSON.stringify(f.context.D), before);
+  assert.equal(f.effects.render, 0);
+  assert.equal(f.effects.navigation, 0);
+});
+
+test('production Result restore does not append a typed Final frame during repeated render activation', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  const frames = JSON.stringify(f.context.D.v17Flow.resumeBackFrames);
+  f.context.renderV17Result();
+  assert.equal(JSON.stringify(f.context.D.v17Flow.resumeBackFrames), frames);
+  assert.equal(f.effects.analytics, 0);
+  assert.equal(f.effects.storage, 0);
+});

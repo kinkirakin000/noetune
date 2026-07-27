@@ -10812,7 +10812,37 @@ function wrapV17SavePayloadBuilders() {
     };
   }
 
+  // This deliberately remains separate from the public Guest Resume path.
+  // Result restoration is activated only by the controlled internal caller
+  // used by the future authenticated continuity boundary.
+  function restoreV17ResultSnapshotToScreen(snapshot) {
+    if (!window.NoetuneV17SessionSnapshot || typeof window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot !== 'function') {
+      return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: 'snapshot' } };
+    }
+    var validated = window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot(snapshot);
+    if (!validated.ok) return { ok: false, error: { code: 'RESTORE_SNAPSHOT_INVALID', path: validated.error && validated.error.path ? validated.error.path : 'snapshot' } };
+    snapshot = validated.snapshot;
+    if (!snapshot || !snapshot.summary || snapshot.currentScreen !== 's-result' ||
+        (snapshot.summary.sessionMode !== 'regular' && snapshot.summary.sessionMode !== 'deep')) {
+      return { ok: false, error: { code: 'RESTORE_SCREEN_NOT_SUPPORTED', path: 'currentScreen' } };
+    }
+    var restoreResult = window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(snapshot);
+    if (!restoreResult.ok) return restoreResult;
+    resetV17ResumeNavigationHistory();
+    renderV17Result();
+    setV17ScreenDirectWithoutHistoryReset('s-result');
+    if (D && D.v17Flow) D.v17Flow.currentScreen = 's-result';
+    updateBackBtn();
+    return {
+      ok: true,
+      sessionId: snapshot.sessionId,
+      currentScreen: 's-result',
+      sessionMode: snapshot.summary.sessionMode
+    };
+  }
+
   window.resumeV17RegularSnapshotToScreen = resumeV17RegularSnapshotToScreen;
+  window.restoreV17ResultSnapshotToScreen = restoreV17ResultSnapshotToScreen;
 }
 
 document.addEventListener('keydown', function(e){

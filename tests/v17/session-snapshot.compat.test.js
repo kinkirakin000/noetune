@@ -50,6 +50,7 @@ context.window.crypto = context.crypto;
 context.window.analytics = context.analytics;
 context.window.gtag = context.gtag;
 vm.runInNewContext(source, context, { filename: 'js/v17/session-snapshot.js' });
+context.window.V17_SCORE_NOT_A_PROBLEM = 'not_a_problem';
 const validate = context.window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot;
 
 function fixture() {
@@ -218,6 +219,7 @@ function resultFixture(mode = 'regular', finalMeasurementState = { state: 'unset
 }
 
 function copied(value) { return JSON.parse(JSON.stringify(value)); }
+function runtimeCopied(value) { return vm.runInNewContext('JSON.parse(' + JSON.stringify(JSON.stringify(value)) + ')', context); }
 
 function installProductionRegularBreath(step = 1) {
   const api = context.window.NoetuneV17SessionSnapshot;
@@ -1238,11 +1240,164 @@ test('rejects Result stacks whose response frame does not match the root mode', 
   rejected(deep);
 });
 
-test('keeps Result serializer and restore production gates closed', () => {
+test('opens Result serializer and restore production gates for a valid Regular candidate', () => {
   installProductionRegularFinal();
   context.window.D.v17Flow.currentScreen = 's-result';
   context.window.D.v17Flow.currentStep = 'step6';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17Flow.scoreTrailExpanded = false;
+  context.window.D.v17Flow.awarenessTrailExpanded = false;
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
   context.window.cur = 's-result';
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(resultFixture()).ok, true);
+});
+
+test('serializes a production-shaped Deep Result candidate with its typed three-frame stack', () => {
+  const api = context.window.NoetuneV17SessionSnapshot;
+  const sourceSnapshot = resultFixture('deep', { state: 'scored', value: 64, touched: true });
+  context.window.D = { v17SessionMode: 'regular', v17Flow: { questionVariant: 'B' } };
+  assert.equal(api.restoreV17SessionRuntime(sourceSnapshot).ok, true);
+  context.window.cur = 's-result';
+  const before = JSON.stringify(context.window.D);
+  const serialized = api.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(serialized.snapshot.summary.sessionMode, 'deep');
+  assert.equal(serialized.snapshot.resumeBackFrames.length, 3);
+  assert.equal(serialized.snapshot.resumeBackFrames[0].frameType, 'deep-response');
+  assert.equal(JSON.stringify(context.window.D), before);
+});
+
+test('restores Result UI flags and lifecycle markers without mutation', () => {
+  const value = resultFixture('regular', { state: 'scored', value: 45, touched: true });
+  value.currentState.resultView = { reached: true, scoreTrailExpanded: true, awarenessTrailExpanded: true };
+  const before = JSON.stringify(sideEffects);
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(value);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(context.window.D.v17Flow.scoreTrailExpanded, true);
+  assert.equal(context.window.D.v17Flow.awarenessTrailExpanded, true);
+  assert.equal(context.window.D.v17SessionIdentity.resultReachedAt, value.currentCycle.resultReachedAt);
+  assert.equal(context.window.D.v17SessionIdentity.resultEventSent, true);
+  assert.equal(JSON.stringify(sideEffects), before);
+});
+
+test('restores Result not-a-problem using the live Final sentinel', () => {
+  const value = resultFixture('regular', { state: 'not_a_problem', value: null, touched: true });
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(value);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(context.window.D.finalThemeScore, 'not_a_problem');
+  assert.deepEqual(JSON.parse(JSON.stringify(context.window.D.v17MeasurementState.after)), { state: 'not_a_problem', value: null, touched: true });
+});
+
+test('restores a Deep Result candidate while retaining its typed three-frame stack', () => {
+  const value = resultFixture('deep', { state: 'scored', value: 64, touched: true });
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(value);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(context.window.D.v17SessionMode, 'deep');
+  assert.equal(context.window.D.v17Flow.resumeBackFrames.length, 3);
+  assert.equal(context.window.D.v17Flow.deepDive.finished, true);
+});
+
+test('Result restore fails closed without mutating the current runtime', () => {
+  installProductionRegularFinal();
+  const before = JSON.stringify(context.window.D);
+  const invalid = resultFixture();
+  invalid.currentCycle.resultEventSent = false;
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(invalid);
+  assert.equal(restored.ok, false);
+  assert.equal(JSON.stringify(context.window.D), before);
+});
+
+test('Result serialization retains the exact typed three-frame stack and omits raw history', () => {
+  installProductionRegularFinal({ state: 'scored', value: 45, touched: true });
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step6';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
+  context.window.cur = 's-result';
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(serialized.snapshot.resumeBackFrames.length, 3);
+  assert.equal(JSON.stringify(serialized.snapshot).includes('navHistory'), false);
+  assert.equal(JSON.stringify(serialized.snapshot).includes('navPageStateHistory'), false);
+});
+
+test('Result serializer leaves the runtime unchanged', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step6';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
+  context.window.cur = 's-result';
+  const before = JSON.stringify(context.window.D);
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(JSON.stringify(context.window.D), before);
+});
+
+test('Result structural errors remain privacy-safe', () => {
+  const value = resultFixture();
+  value.resumeBackFrames[0].state.responses.current.draft = 'PRIVATE_RESULT_SENTINEL';
+  const checked = context.window.NoetuneV17SessionSnapshot.validateV17SessionSnapshot(value);
+  assert.equal(checked.ok, false);
+  assert.equal(JSON.stringify(checked.error).includes('PRIVATE_RESULT_SENTINEL'), false);
+});
+
+test('Result serializer keeps savedAt and updatedAt immutable on success', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step6';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
+  context.window.cur = 's-result';
+  const before = { savedAt: context.window.D.v17SessionIdentity.savedAt, updatedAt: context.window.D.v17SessionIdentity.updatedAt };
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot({ savedAt: '2026-01-02T00:00:00.000Z', now: '2026-01-02T00:01:00.000Z' });
+  assert.equal(serialized.ok, true);
+  assert.deepEqual({ savedAt: context.window.D.v17SessionIdentity.savedAt, updatedAt: context.window.D.v17SessionIdentity.updatedAt }, before);
+});
+
+test('repeated Result serialization leaves the persistable runtime subset unchanged', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step6';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
+  context.window.cur = 's-result';
+  const before = JSON.stringify(context.window.D);
+  assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, true);
+  assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, true);
+  assert.equal(JSON.stringify(context.window.D), before);
+});
+
+test('invalid Result serialization does not mutate the persistable runtime subset', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step5';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
+  context.window.cur = 's-result';
+  const before = JSON.stringify(context.window.D);
   assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, false);
-  assert.equal(context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(resultFixture()).ok, false);
+  assert.equal(JSON.stringify(context.window.D), before);
+});
+
+test('not-a-problem Result serialization does not mutate the runtime', () => {
+  installProductionRegularFinal({ state: 'not_a_problem', value: null, touched: true });
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.currentStep = 'step6';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
+  context.window.D.v17SessionIdentity.resultEventSent = true;
+  context.window.cur = 's-result';
+  const before = JSON.stringify(context.window.D);
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true);
+  assert.equal(JSON.stringify(context.window.D), before);
 });
