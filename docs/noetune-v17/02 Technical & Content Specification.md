@@ -501,9 +501,9 @@ Repeat state内に別のrepeat stateやresume frameを入れない。
 
 ### Repeat canonical lifecycle contract
 
-Repeat click → original Result capture → Session Mode → mode confirmed → atomic new cycle creation → repeated flowの順序とする。click時にはcycleを生成しない。mode確定時に一度だけ、root `currentCycle`を唯一のcycle authorityとして、同じ`sessionId`、新UUIDの`cycleId`、previous + 1の`cycleIndex`、新しい`startedAt`、nullの`resultReachedAt`、falseの`resultEventSent`を設定する。
+Repeat click → original Result capture → Session Mode → mode confirmed → atomic new cycle creation → repeated flowの順序とする。click時にはcycleを生成しない。live runtimeのidentity ownerは`D.v17SessionIdentity`であり、mode確定時に一度だけ、同じ`sessionId`、新UUIDの`cycleId`、previous + 1の`cycleIndex`、新しい`cycleStartedAt`、nullの`resultReachedAt`、falseの`resultEventSent`を同じownerへ設定する。
 
-`repeatState.cycleCount`はprojectionであり、`currentCycle.cycleIndex`と完全一致しなければならない。Repeat click時のoriginal Afterを`repeatState.beforeScore`へexact cloneし、新cycleでは`measurement.before`へ継承し、`measurement.after`をunsetから開始する。Repeat専用Before screenは存在しない。
+Snapshotの`currentCycle`はruntimeの別mutable objectではなく、`D.v17SessionIdentity`から正規化されるpersisted projectionである。mappingは`cycleId`、`cycleIndex`、`cycleStartedAt → startedAt`、`resultReachedAt`、`resultEventSent`とする。restoreではvalidated projectionを同じruntime ownerへhydrateする。`repeatState.cycleCount`はprojectionであり、`D.v17SessionIdentity.cycleIndex`と完全一致しなければならない。Repeat click時のoriginal Afterを`repeatState.beforeScore`へexact cloneし、新cycleでは`measurement.before`へ継承し、`measurement.after`をunsetから開始する。Repeat専用Before screenは存在しない。
 
 新しいruntime active globalは作らない。`active = (resultState != null)`を唯一のauthorityとする。`resultState`はoriginal cycle Resultのnormalized `SessionFrameStateV1` projection、`cycleState`はoriginal Resultを一時表示する直前のactive repeat cycleのnormalized `SessionFrameStateV1` projectionであり、full runtime `D`、currentCycle、repeatState、resumeBackFrames、raw history、DOM、listenerを含めない。`cycleState`は`returnPending = true`の間だけnon-nullで、Repeat再開後にnullへ戻る。
 
