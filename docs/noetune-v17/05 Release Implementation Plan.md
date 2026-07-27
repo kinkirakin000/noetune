@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-27
-> Current execution point: Phase 5B-4b-2 live Repeat navigation is complete; next is Phase 5B-4b-3 Repeat serializer / restore and resumed Repeat Back matrix.
+> Current execution point: Phase 5B-4b-3b Repeat Snapshot restore foundation is complete. Production browser integration and temporary Result reload remain deferred until an authenticated Resume entrypoint exists. The next product-code Unit requires a separate Commander decision.
 
 ## 1. Objective
 
@@ -525,4 +525,13 @@ Runtime identity owner: `D.v17SessionIdentity`. Snapshot persisted cycle shape: 
 
 ### Phase 5B-4b-3 — Repeat serializer / restore and resumed Back matrix
 
-**Status:** Pending. Implement Repeat Snapshot serialization / restore, resumed Repeat screens, and the complete Repeat Back matrix without raw navigation history or public persistence.
+**Status:** Not complete.
+
+- Phase 5B-4b-3a audit: Complete
+- Phase 5B-4b-3b Repeat Snapshot restore foundation: Complete; commit `f84833e28a4718fbd4d8c7bec2145a4c5960729b`
+- Production browser integration gate: Deferred until an authenticated Resume entrypoint exists
+- Phase 5B-4b-3c temporary Result restore: Deferred / Not started
+- Snapshot verification: `111/111 PASS`; runtime/navigation: `103/103 PASS`; syntax and diff check PASS
+- Human browser QA: not performed
+
+The next product-code Unit is not selected here; Commander must issue a separate decision. Phase 5B-4b-3c and Cloud work must not start automatically.

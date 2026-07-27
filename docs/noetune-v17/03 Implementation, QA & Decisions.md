@@ -1007,10 +1007,10 @@ Latest Commander-known repository facts before this documentation revision:
 
 ```text
 branch: feature/v17-session-resume
-HEAD: c48e0e77a6f0970e620acfc5da3451291120c9da
+HEAD: f84833e28a4718fbd4d8c7bec2145a4c5960729b
 tracked working tree: clean
 staged changes: none
-snapshot regression tests: 17/17 PASS
+snapshot regression tests: 111/111 PASS
 Human QA: PASS for Guest no-persistence, no Resume, no legacy Result CTA, and complete Guest Regular Session
 push: not performed
 deploy: not performed
@@ -1024,7 +1024,7 @@ untracked backup files: 5, preserved and untouched
 | `currentStep` restore fix | Complete |
 | New Regular A/B flow | Complete |
 | `questionVariant` Snapshot persistence | Complete |
-| Snapshot / navigation regression suite | 17/17 PASS at latest reported checkpoint |
+| Snapshot / navigation regression suite | 111/111 Snapshot; 103/103 runtime/navigation at latest reported checkpoint |
 | Safari top-control stabilization | Complete |
 | Guest local Phase 4B Human QA | `SUPERSEDED BY PRODUCT DECISION` |
 | First Response Guest-local draft mismatch | Historical observation; superseded and no longer a target path |
@@ -1206,6 +1206,53 @@ live Repeat navigation + original Result temporary return + new-cycle Result com
 Phase 5B-4b-3
 Repeat serializer / restore + resumed Repeat Back matrix
 ```
+
+### Phase 5B-4b-3a implementation-boundary audit
+
+**Status:** Complete
+
+- read-only audit confirmed implementation within Snapshot Schema v1
+- identity authority remains `D.v17SessionIdentity`
+- Repeat active authority remains `v17RepeatResultState !== null`
+- existing `RepeatStateV1` expresses the active projection and six-global hydration
+- temporary original Result is a separate, deferred boundary
+- audit baseline: Snapshot `108/108 PASS`; runtime/navigation `95/95 PASS`
+- files modified: none; commit / push / deploy: none
+
+### Phase 5B-4b-3b Repeat Snapshot restore foundation acceptance
+
+**Status:** Complete
+
+- implementation commit: `f84833e28a4718fbd4d8c7bec2145a4c5960729b` (`feat(v17): add repeat snapshot restore foundation`)
+- changed files: `js/v17/session-snapshot.js`, `tests/v17/session-snapshot.compat.test.js`, `tests/v17/deep-alternating-flow.test.js`
+- Snapshot Schema v1 and existing `repeatState` are maintained; inactive Repeat serializes as `repeatState = null`
+- pending mode-selection, active Regular / Deep, Breath, and Final Repeat projections are structurally validated and supported by the production gate
+- `resultState` is normalized; supported candidates require `cycleState = null`; temporary Result with `returnPending = true` or non-null `cycleState` remains `UNSUPPORTED_REPEAT_STATE`
+- `currentCycle` is projected from `D.v17SessionIdentity`; `cycleCount === currentCycle.cycleIndex`
+- validation precedes mutation; restore uses atomic staging and hydrates all six Repeat globals into the same runtime owner
+- serializer purity, restore idempotency, malformed-state rejection, privacy-safe errors, and the 1 MiB payload cap are maintained
+- verification: Snapshot `111/111 PASS`, runtime/navigation `103/103 PASS`, syntax and `git diff --check` PASS
+- Human browser QA: not performed
+
+#### Production browser integration gate — Deferred
+
+Deferred until an authenticated Resume entrypoint exists:
+
+- real-browser producer → serializer → reload → restore
+- restored pending-mode Back
+- restored Regular / Deep / Breath / Final Repeat round trips
+- reload Back matrix and cycle 2 → cycle 3 after reload
+- authenticated Resume integration and Human browser QA
+
+The browser gate is deferred because the app contains 21 local external scripts, two executable inline blocks, two remote scripts, and an approximately 415KB main inline runtime. Reproducing its DOM, auth, billing, navigation, storage, event, and timer surfaces in Node would exceed the test-harness boundary and risk reimplementing production behavior. The extracted-function `INVALID_SESSION_MODE` is treated as a harness limitation, not a production-browser failure. Acceptance standards are not lowered; the deferred range remains a required pre-release gate.
+
+### Phase 5B-4b-3c temporary Result Snapshot restore
+
+**Status:** Deferred / Not Started
+
+Temporary original Result serialization / restore remains closed for `returnPending = true` and non-null `cycleState`; it remains `UNSUPPORTED_REPEAT_STATE`. This unit must not start before the authenticated Resume entrypoint and production browser integration gate. Phase 5B-4b-3 overall is not complete.
+
+Closed capabilities remain: temporary Result Snapshot restore, Guest persistence and Bookmark, Landing / Public Resume, auth callback or Login-only save, Cloud / DB / API / RLS, Journey completion, and production deployment.
 
 ### Phase 5B-4b-2 acceptance
 
