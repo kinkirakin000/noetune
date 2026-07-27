@@ -9232,10 +9232,7 @@ function commitV17ResultArrival() {
   trackEvent('v17_result_reached', {
     cycleId: identity.cycleId,
     cycleIndex: identity.cycleIndex,
-    route: getV17ThemeRoute(),
-    before: D.beforeEmotionPositive,
-    after: D.afterEmotionPositive,
-    delta: D.deltaScore
+    route: getV17ThemeRoute()
   });
   return true;
 }
@@ -9334,7 +9331,6 @@ function restartCurrentSubtheme() {
     themeId: D.themeId,
     questionId: D.questionId,
     route: getV17ThemeRoute(),
-    before: previousAfter.value,
     cycleCount: v17RepeatCycleCount
   });
   renderV17SessionModeScreen();

@@ -1001,6 +1001,18 @@ test('Result arrival has no private response payload', () => {
   assert.equal(JSON.stringify(payload).includes('draft'), false);
 });
 
+test('Result arrival analytics payload excludes all measurement values and aliases', () => {
+  const f = resultArrivalRuntime(); f.context.commitV17ResultArrival();
+  const payload = f.events.find(event => event.name === 'v17_result_reached').payload;
+  const serialized = JSON.stringify(payload);
+  for (const key of ['before', 'after', 'delta', 'score', 'measurement', 'state', 'touched', 'scored', 'skipped', 'not_a_problem', 'positive', 'negative', 'increase', 'decrease']) {
+    assert.equal(Object.prototype.hasOwnProperty.call(payload, key), false, `unexpected analytics key: ${key}`);
+  }
+  for (const value of [3, 7, 4, 'scored', true]) assert.equal(serialized.includes(JSON.stringify(value)), false);
+  assert.equal(serialized.includes('response'), false);
+  assert.equal(serialized.includes('draft'), false);
+});
+
 test('Result arrival is safe without a session identity', () => {
   const f = resultArrivalRuntime({ identity: false });
   assert.equal(f.context.commitV17ResultArrival(), false);
@@ -1319,6 +1331,7 @@ test('production Result restore does not append a typed Final frame during repea
 
 function repeatIdentityRuntime(afterState, mode) {
   const calls = [];
+  const analyticsEvents = [];
   const context = {
     D: { questionTextAtTime: 'theme-x', themeId: 'theme-1', questionId: 'q-1', entryMode: 'v17',
       v17SessionMode: 'regular', localeAtTime: 'en', v17SessionIdentity: {
@@ -1336,7 +1349,7 @@ function repeatIdentityRuntime(afterState, mode) {
     createV17FlowState() { return { sessionMode: context.D.v17SessionMode, resumeBackFrames: [], currentThemeScoreTrail: context.D.currentThemeScoreTrail.slice(), currentThemeAwarenessTrail: context.D.currentThemeAwarenessTrail.slice() }; },
     resetSlider() {}, setV17CurrentStep(step) { context.step = step; },
     startV17DeepDive() { calls.push('deep'); }, openV17FirstResponse() { calls.push('regular'); }, startSession() { calls.push('start'); },
-    renderV17SessionModeScreen() {}, fwd(id) { calls.push(id); }, trackEvent() { calls.push('event'); },
+    renderV17SessionModeScreen() {}, fwd(id) { calls.push(id); }, trackEvent(name, payload) { calls.push('event'); analyticsEvents.push({ name, payload }); },
     resetV17BreathScreen() {}, startV17Session() { calls.push('start'); }, chooseAnotherTheme() { calls.push('choose'); }
   };
   context.resumeV17RepeatCycle = () => false;
@@ -1346,7 +1359,7 @@ function repeatIdentityRuntime(afterState, mode) {
   context.v17RepeatResultState = null; context.v17RepeatCycleState = null;
   context.v17RepeatReturnPending = false; context.v17RepeatModeSelectionPending = false;
   context.v17RepeatBeforeScore = null; context.v17RepeatCycleCount = null;
-  return { context, calls };
+  return { context, calls, analyticsEvents };
 }
 
 test('Repeat click preserves session and cycle identity before mode selection', () => {
@@ -1372,6 +1385,19 @@ test('Repeat click sets pending flags and retains trails', () => {
   const f = repeatIdentityRuntime({ state: 'unset', value: null, touched: false }); f.context.restartCurrentSubtheme();
   assert.equal(f.context.v17RepeatCycleState, null); assert.equal(f.context.v17RepeatReturnPending, false);
   assert.deepEqual(f.context.D.currentThemeScoreTrail, [3, 7]);
+});
+test('Repeat analytics payload excludes previous measurement values and aliases', () => {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme();
+  const event = f.analyticsEvents.find(item => item.name === 'v17_subtheme_restarted');
+  assert.ok(event);
+  const payload = event.payload;
+  const serialized = JSON.stringify(payload);
+  for (const key of ['before', 'after', 'delta', 'score', 'measurement', 'state', 'touched', 'scored', 'skipped', 'not_a_problem', 'positive', 'negative', 'increase', 'decrease']) {
+    assert.equal(Object.prototype.hasOwnProperty.call(payload, key), false, `unexpected analytics key: ${key}`);
+  }
+  for (const value of [3, 7, 4, 'scored', true]) assert.equal(serialized.includes(JSON.stringify(value)), false);
+  assert.equal(serialized.includes('response'), false);
+  assert.equal(serialized.includes('draft'), false);
 });
 test('Regular mode confirmation creates one new cycle', () => {
   const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme(); f.context.selectV17SessionMode('regular');
