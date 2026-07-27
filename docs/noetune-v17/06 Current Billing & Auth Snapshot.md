@@ -1,7 +1,7 @@
 # Noetune v17 Current Billing & Auth Snapshot
 
 > Status: Temporary factual snapshot
-> Date: 2026-07-12
+> Date: 2026-07-27
 > Purpose: Record the current implementation before migrating billing and membership responsibilities fully to v17.
 
 ---
@@ -383,6 +383,18 @@ Stripe webhook endpoints were not included in the reviewed files and remain unkn
 ---
 
 ## 15. Current Risks
+
+### Phase 5C-0a current auth and Bookmark state
+
+Phase 5C-0a is complete and pushed in commit `afcf4f6ceabe0e834b3f07eebe3393d129edfb74` (`fix(v17): retire legacy bookmark auth return flows`).
+
+Google authentication remains unchanged: Google OAuth, same-tab redirect, existing `redirectTo`, Supabase session restoration, auth-state recognition, `/api/me`, profile refresh, account UI refresh, and logout remain active.
+
+The v17 Session Bookmark flow is hard OFF. Pre-login writes to `noetuneV17AuthReturn` and `noetunePendingBookmark`, auth-callback private Result restore, pending Result / Progress / Bookmark saves, Login-only Cloud Bookmark creation, and Bookmark-CTA auth modal/OAuth initiation are retired. The two legacy keys are remove-only, never parsed, logged, analyzed, or sent over the network; cleanup is idempotent.
+
+Ownership status: v15/v17 auth ownership overlap remains unresolved; billing/access migration has not started; ordinary Account Login remains in scope; Bookmark/Resume orchestration is not designed; popup OAuth is not implemented. Bookmark / Resume, Cloud Session content, authenticated Resume, Public/Landing Resume, DB/API/RLS, and temporary Result reload remain closed. Phase 5C Global Privacy & Security Gate has not started.
+
+The previous callback pending-save behavior is historical retired behavior, not current behavior. Human browser Account Login regression QA has not been performed.
 
 ### Structural risks
 

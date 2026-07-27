@@ -1254,6 +1254,40 @@ Temporary original Result serialization / restore remains closed for `returnPend
 
 Closed capabilities remain: temporary Result Snapshot restore, Guest persistence and Bookmark, Landing / Public Resume, auth callback or Login-only save, Cloud / DB / API / RLS, Journey completion, and production deployment.
 
+### Phase 5C-0a Legacy Auth-Return Safety Closure
+
+**Status:** Complete
+
+**Implementation commit:** `afcf4f6ceabe0e834b3f07eebe3393d129edfb74` — `fix(v17): retire legacy bookmark auth return flows`
+
+**Changed files:** `app-v17.html`, `js/v17/auth.js`, `tests/v17/deep-alternating-flow.test.js`
+
+Phase 5C-0a established the explicit `V17_CLOUD_SESSION_BOOKMARK_ENABLED = false` hard-off owner. It applies to Guest, authenticated Free, and authenticated Pro and cannot be enabled by access state, Pro state, Login state, URL, localStorage, or DOM tampering. The common `#v17-session-bookmark` and legacy `#btn-save-result` CTA are hidden and disabled; direct handlers fail closed without opening auth, starting Google OAuth, writing storage, sending analytics, or making Cloud requests.
+
+Pre-login private auth-return and pending Bookmark persistence is stopped. `noetuneV17AuthReturn` and `noetunePendingBookmark` are not written; URL, OAuth state, requests, analytics, and console do not receive private Session content. Auth callback private Result restore and pending Result / Progress / Bookmark saves are retired, including Login-only Cloud record creation. Legacy keys are removed without parsing, logging, analytics, or network access; cleanup is idempotent and privacy-safe.
+
+Ordinary Account Login remains available: Google provider and existing `redirectTo`, Supabase session recognition, `/api/me`, profile refresh, account UI refresh, and logout remain unchanged. v15 code, billing behavior, and API/server code were not changed.
+
+Accepted verification: Snapshot `111/111 PASS`; runtime/navigation `111/111 PASS`; `node --check js/v17/session-snapshot.js` and `js/v17/auth.js` PASS; app script elements `25`; compiled non-empty inline executable blocks `2`; app syntax PASS; `git diff --check` PASS. Human browser QA was not performed. This is a safety closure, not Bookmark / Resume completion.
+
+Resolved contradictions: the old Guest Result auth-return write, pending Bookmark write, callback private restore, callback pending saves, and Login-only Cloud Bookmark creation are retired and fail closed.
+
+Still closed: Common Cloud Session Bookmark CTA, Result Cloud Bookmark CTA, explanation modal, final confirmation, authenticated Session save/read/Resume, Guest persistence, Landing/Public Resume, Cloud Bookmark create/read/delete, DB/API/RLS, cross-device Resume, popup OAuth, magic-link auth, temporary Result Snapshot restore, Phase 5B-4b-3c, and deployment.
+
+Residual risks remain: same-tab OAuth redirect, no canonical post-login private runtime retention method, unowned v15/v17 auth overlap, unstarted billing/access migration, no formal future Cloud Bookmark flag design, no authenticated Resume API/DB/RLS, no browser integration gate, no Human browser Account Login QA, and no temporary Result reload support.
+
+| Work unit | Status |
+|---|---|
+| Phase 5B-4b-3b Repeat Snapshot restore foundation | Complete |
+| Production browser Repeat integration gate | Deferred |
+| Phase 5B-4b-3c temporary Result restore | Deferred / Not started |
+| Phase 5C-0a Legacy Auth-Return Safety Closure | Complete; commit `afcf4f6` |
+| Cloud Session Bookmark / Resume | Hard OFF / Closed |
+| Human browser auth regression QA | Not performed |
+| Deployment | Not performed |
+
+Latest checkpoint: branch `feature/v17-session-resume`, HEAD `afcf4f6ceabe0e834b3f07eebe3393d129edfb74`, tracked clean, staged none, five backup files untracked, ahead/behind `0 / 0`, push complete, deploy not performed. The next Unit is not selected here; Commander must decide separately. Phase 5C Global Privacy & Security Gate is not started, and work must not advance automatically to Cloud or Popup OAuth.
+
 ### Phase 5B-4b-2 acceptance
 
 **Status:** Complete

@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-27
-> Current execution point: Phase 5B-4b-3b Repeat Snapshot restore foundation is complete. Production browser integration and temporary Result reload remain deferred until an authenticated Resume entrypoint exists. The next product-code Unit requires a separate Commander decision.
+> Current execution point: Phase 5C-0a legacy auth-return safety closure is complete and pushed. Legacy pre-login private persistence and Login-only automatic saves are closed. Cloud Session Bookmark / Resume remains hard OFF. The next implementation phase has not started and requires a separate Commander decision.
 
 ## 1. Objective
 
@@ -535,3 +535,11 @@ Runtime identity owner: `D.v17SessionIdentity`. Snapshot persisted cycle shape: 
 - Human browser QA: not performed
 
 The next product-code Unit is not selected here; Commander must issue a separate decision. Phase 5B-4b-3c and Cloud work must not start automatically.
+
+### Phase 5C-0a — Legacy Auth-Return Safety Closure
+
+**Status:** Complete and pushed in commit `afcf4f6ceabe0e834b3f07eebe3393d129edfb74` (`fix(v17): retire legacy bookmark auth return flows`). Legacy pre-login private persistence and Login-only automatic Result / Progress / Bookmark saves are closed. Cloud Session Bookmark / Resume remains hard OFF.
+
+Phase status: Phase 5B-4b-3a Complete; Phase 5B-4b-3b foundation Complete; Production browser Repeat integration gate Deferred; Phase 5B-4b-3c Deferred / Not started; Phase 5C-0a Complete; Phase 5C Global Privacy & Security Gate Not started; Cloud Bookmark / Resume implementation Not started; Deployment Not started. Verification recorded: Snapshot `111/111`, runtime/navigation `111/111`, auth.js and snapshot.js syntax PASS, app syntax PASS, diff check PASS; Human browser QA not performed.
+
+The next product-code Unit is not selected here. Bookmark/Resume, Cloud, Popup OAuth, and Phase 5B-4b-3c must not start automatically.
