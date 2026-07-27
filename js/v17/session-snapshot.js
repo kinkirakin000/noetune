@@ -321,6 +321,83 @@
     return null;
   }
 
+  // Repeat remains structurally known in Schema v1, while its production
+  // serializer and restore gates stay closed until the dedicated Repeat unit.
+  // These frames deliberately contain only the existing SessionFrameStateV1
+  // projection, never a runtime D clone or navigation history.
+  function validateRepeatFrameState(value, path) {
+    var allowed = [
+      'currentScreen', 'currentStep', 'sessionMode', 'routeType', 'entryType', 'locale',
+      'entry', 'measurement', 'responses', 'semanticState', 'regularFlow', 'scoreTrail',
+      'awarenessTrail', 'deepFlow', 'breathState', 'finalMeasurementState', 'resultView'
+    ];
+    if (!isPlainObject(value)) return createError('INVALID_REPEAT_FRAME', path);
+    var keyError = validateExactObjectKeys(value, allowed, path, 'INVALID_REPEAT_FRAME_KEY');
+    if (keyError) return keyError;
+    if (typeof value.currentScreen !== 'string' || SCHEMA_KNOWN_SCREENS.indexOf(value.currentScreen) < 0 ||
+        typeof value.currentStep !== 'string' || !value.currentStep || !isV17RouteTypeLeaf(value.routeType) ||
+        !isV17EntryTypeLeaf(value.entryType) || !isV17LocaleLeaf(value.locale) || !isV17EntryStateV1Leaf(value.entry)) {
+      return createError('INVALID_REPEAT_FRAME', path);
+    }
+    if (!isPlainObject(value.measurement) || validateExactObjectKeys(value.measurement, ['before', 'after'], path + '.measurement', 'INVALID_REPEAT_FRAME_KEY') ||
+        !isV17MeasurementV1Leaf(value.measurement.before) || !isV17MeasurementV1Leaf(value.measurement.after)) {
+      return createError('INVALID_REPEAT_FRAME', path + '.measurement');
+    }
+    if (!Array.isArray(value.scoreTrail) || !Array.isArray(value.awarenessTrail) ||
+        !isPlainObject(value.responses) || !isPlainObject(value.semanticState)) return createError('INVALID_REPEAT_FRAME', path);
+    if (Object.prototype.hasOwnProperty.call(value, 'sessionMode') && value.sessionMode !== null && value.sessionMode !== 'regular' && value.sessionMode !== 'deep') {
+      return createError('INVALID_REPEAT_FRAME', path + '.sessionMode');
+    }
+    if (value.currentScreen === 's-result') {
+      if (value.currentStep !== 'step6') return createError('INVALID_REPEAT_FRAME', path);
+      var resultViewError = validateResultView(value.resultView, path + '.resultView');
+      if (resultViewError) return resultViewError;
+    }
+    if (value.sessionMode === 'regular' && value.deepFlow !== null) return createError('INVALID_REPEAT_FRAME', path + '.deepFlow');
+    if (value.sessionMode === 'deep' && value.regularFlow !== null) return createError('INVALID_REPEAT_FRAME', path + '.regularFlow');
+    return null;
+  }
+
+  function measurementsEqual(left, right) {
+    return !!left && !!right && left.state === right.state && left.value === right.value && left.touched === right.touched;
+  }
+
+  function validateRepeatState(value, snapshot) {
+    if (!isPlainObject(value)) return createError('INVALID_REPEAT_STATE', 'repeatState');
+    var required = ['active', 'resultState', 'cycleState', 'returnPending', 'modeSelectionPending', 'beforeScore', 'cycleCount'];
+    for (var i = 0; i < required.length; i += 1) {
+      if (!Object.prototype.hasOwnProperty.call(value, required[i])) return createError('INVALID_REPEAT_STATE', 'repeatState.' + required[i]);
+    }
+    var keysError = validateExactObjectKeys(value, required, 'repeatState', 'INVALID_REPEAT_STATE_KEY');
+    if (keysError) return keysError;
+    if (!isV17BooleanLeaf(value.active) || !isV17BooleanLeaf(value.returnPending) || !isV17BooleanLeaf(value.modeSelectionPending) ||
+        !Number.isInteger(value.cycleCount) || value.cycleCount < 0) return createError('INVALID_REPEAT_STATE', 'repeatState');
+    if (value.active !== (value.resultState !== null)) return createError('INVALID_REPEAT_STATE', 'repeatState.active');
+    if (!value.active) {
+      if (value.resultState !== null || value.cycleState !== null || value.returnPending || value.modeSelectionPending || value.beforeScore !== null || value.cycleCount !== 0) {
+        return createError('INVALID_REPEAT_STATE', 'repeatState');
+      }
+      return null;
+    }
+    var resultError = validateRepeatFrameState(value.resultState, 'repeatState.resultState');
+    if (resultError) return resultError;
+    if (value.resultState.currentScreen !== 's-result' || value.resultState.currentStep !== 'step6') return createError('INVALID_REPEAT_STATE', 'repeatState.resultState');
+    if (value.cycleState !== null) {
+      var cycleError = validateRepeatFrameState(value.cycleState, 'repeatState.cycleState');
+      if (cycleError) return cycleError;
+    }
+    if (!isV17MeasurementV1Leaf(value.beforeScore)) return createError('INVALID_REPEAT_STATE', 'repeatState.beforeScore');
+    if (!measurementsEqual(value.beforeScore, value.resultState.measurement.after)) return createError('INVALID_REPEAT_BEFORE_SCORE', 'repeatState.beforeScore');
+    if (value.cycleCount !== snapshot.currentCycle.cycleIndex) return createError('INVALID_REPEAT_CYCLE_COUNT', 'repeatState.cycleCount');
+    if (value.modeSelectionPending && value.cycleState !== null) return createError('INVALID_REPEAT_STATE', 'repeatState.cycleState');
+    if (value.returnPending && (value.cycleState === null || value.modeSelectionPending)) return createError('INVALID_REPEAT_STATE', 'repeatState');
+    if (!value.returnPending && value.cycleState !== null) return createError('INVALID_REPEAT_STATE', 'repeatState.cycleState');
+    if (!value.modeSelectionPending && !value.returnPending && (!snapshot.currentState || !snapshot.currentState.measurement || !measurementsEqual(value.beforeScore, snapshot.currentState.measurement.before))) {
+      return createError('INVALID_REPEAT_BEFORE_SCORE', 'repeatState.beforeScore');
+    }
+    return null;
+  }
+
   function validateV17ResumeBackFrameEnvelope(frame, path) {
     path = path || 'resumeBackFrames';
     if (!isV17StrictPlainObject(frame)) return createError('INVALID_RESUME_BACK_FRAME', path);
@@ -1016,7 +1093,11 @@
     if (!isPlainObject(snapshot.summary)) return createError('INVALID_SUMMARY', 'summary');
     if (!isPlainObject(snapshot.currentCycle)) return createError('INVALID_CURRENT_CYCLE', 'currentCycle');
     if (!isPlainObject(snapshot.currentState)) return createError('INVALID_CURRENT_STATE', 'currentState');
-    if (snapshot.repeatState !== null) return createError('INVALID_REPEAT_STATE', 'repeatState');
+    if (snapshot.repeatState !== null) {
+      var repeatStructuralError = validateRepeatState(snapshot.repeatState, snapshot);
+      if (repeatStructuralError) return repeatStructuralError;
+      return createError('UNSUPPORTED_REPEAT_STATE', 'repeatState');
+    }
     var isBreathScreen = snapshot.currentScreen === 's-v17-breath';
     var isFinalScreen = snapshot.currentScreen === 's-v17-final-measure';
     var isResultScreen = snapshot.currentScreen === 's-result';

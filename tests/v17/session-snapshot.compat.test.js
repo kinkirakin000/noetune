@@ -221,6 +221,34 @@ function resultFixture(mode = 'regular', finalMeasurementState = { state: 'unset
 function copied(value) { return JSON.parse(JSON.stringify(value)); }
 function runtimeCopied(value) { return vm.runInNewContext('JSON.parse(' + JSON.stringify(JSON.stringify(value)) + ')', context); }
 
+function repeatFrameFixture(mode = 'regular', after = { state: 'unset', value: null, touched: false }) {
+  const value = resultFixture(mode, after);
+  return {
+    currentScreen: 's-result', currentStep: 'step6', sessionMode: mode,
+    routeType: 'problem', entryType: 'life_theme', locale: 'en',
+    entry: copied(value.currentState.entry), measurement: copied(value.currentState.measurement),
+    responses: copied(value.currentState.responses), semanticState: copied(value.currentState.semanticState),
+    regularFlow: mode === 'regular' ? { activeScreen: 'second', questionVariant: 'A', firstResponseRole: 'ideal', secondResponseRole: 'current' } : null,
+    scoreTrail: [], awarenessTrail: [], deepFlow: null, breathState: null,
+    finalMeasurementState: copied(after), resultView: { reached: true, scoreTrailExpanded: false, awarenessTrailExpanded: false }
+  };
+}
+
+function repeatSnapshotFixture(options = {}) {
+  const mode = options.mode || 'regular';
+  const after = options.after || { state: 'unset', value: null, touched: false };
+  const value = resultFixture(mode, after);
+  const frame = repeatFrameFixture(mode, after);
+  const before = copied(options.before || after);
+  value.repeatState = {
+    active: true, resultState: frame, cycleState: options.cycleState === undefined ? null : options.cycleState,
+    returnPending: !!options.returnPending, modeSelectionPending: !!options.modeSelectionPending,
+    beforeScore: before, cycleCount: value.currentCycle.cycleIndex
+  };
+  value.currentState.measurement.before = copied(before);
+  return value;
+}
+
 function installProductionRegularBreath(step = 1) {
   const api = context.window.NoetuneV17SessionSnapshot;
   const responses = {
@@ -1374,6 +1402,37 @@ test('repeated Result serialization leaves the persistable runtime subset unchan
   assert.equal(context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot().ok, true);
   assert.equal(JSON.stringify(context.window.D), before);
 });
+
+test('Repeat mode-selection structural candidate reaches the closed gate', () => {
+  const value = repeatSnapshotFixture({ modeSelectionPending: true });
+  value.currentScreen = 's-v17-session-mode'; value.currentState.currentScreen = 's-v17-session-mode'; value.currentState.currentStep = 'session-mode';
+  const checked = result(value); assert.equal(checked.ok, false); assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE');
+});
+test('Repeat active new-cycle structural candidate reaches the closed gate', () => { const checked = result(repeatSnapshotFixture({ after: { state: 'scored', value: 4, touched: true } })); assert.equal(checked.ok, false); assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE'); });
+test('Repeat returnPending structural candidate is recognized before closure', () => { const cycle = repeatFrameFixture(); const checked = result(repeatSnapshotFixture({ cycleState: cycle, returnPending: true })); assert.equal(checked.ok, false); assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE'); });
+test('Repeat normalized resultState has the exact projection keys', () => { const frame = repeatFrameFixture(); assert.deepEqual(Object.keys(frame).sort(), ['awarenessTrail','breathState','currentScreen','currentStep','deepFlow','entry','entryType','finalMeasurementState','locale','measurement','regularFlow','responses','resultView','routeType','scoreTrail','semanticState','sessionMode'].sort()); });
+test('Repeat normalized cycleState uses the same frame projection', () => { const frame = repeatFrameFixture(); assert.equal(frame.currentScreen, 's-result'); assert.equal(frame.currentStep, 'step6'); });
+test('RepeatState unknown key is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.extra = true; rejected(value); });
+test('Repeat resultState unknown key is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState.extra = true; rejected(value); });
+test('Repeat cycleState unknown key is rejected', () => { const value = repeatSnapshotFixture({ cycleState: repeatFrameFixture(), returnPending: true }); value.repeatState.cycleState.extra = true; rejected(value); });
+test('Repeat full D clone is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState.v17SessionIdentity = {}; rejected(value); });
+test('Repeat nested repeatState is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState.repeatState = null; rejected(value); });
+test('Repeat nested resumeBackFrames is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState.resumeBackFrames = []; rejected(value); });
+test('Repeat nested raw history is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState.navHistory = []; rejected(value); });
+test('Repeat active false with non-null resultState is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.active = false; rejected(value); });
+test('Repeat active true without resultState is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState = null; rejected(value); });
+test('Repeat active true without beforeScore is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.beforeScore = null; rejected(value); });
+test('Repeat mode selection with cycleState is rejected', () => { const value = repeatSnapshotFixture({ cycleState: repeatFrameFixture(), modeSelectionPending: true }); rejected(value); });
+test('Repeat returnPending without cycleState is rejected', () => { const value = repeatSnapshotFixture({ returnPending: true }); rejected(value); });
+test('Repeat returnPending with mode selection is rejected', () => { const value = repeatSnapshotFixture({ cycleState: repeatFrameFixture(), returnPending: true, modeSelectionPending: true }); rejected(value); });
+test('Repeat negative cycleCount is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.cycleCount = -1; rejected(value); });
+test('Repeat non-integer cycleCount is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.cycleCount = 1.5; rejected(value); });
+test('Repeat cycleCount mismatch is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.cycleCount += 1; rejected(value); });
+test('Repeat beforeScore mismatch is rejected', () => { const value = repeatSnapshotFixture(); value.repeatState.beforeScore = { state: 'scored', value: 9, touched: true }; value.currentState.measurement.before = copied(value.repeatState.beforeScore); rejected(value); });
+test('Repeat active-cycle Before mismatch is rejected', () => { const value = repeatSnapshotFixture({ after: { state: 'scored', value: 4, touched: true } }); value.currentState.measurement.before = { state: 'scored', value: 5, touched: true }; rejected(value); });
+test('Repeat not-a-problem measurement equality is preserved', () => { const value = repeatSnapshotFixture({ after: { state: 'not_a_problem', value: null, touched: true } }); assert.equal(value.repeatState.beforeScore.state, 'not_a_problem'); });
+test('Repeat skipped measurement equality is preserved', () => { const value = repeatSnapshotFixture({ after: { state: 'skipped', value: null, touched: true } }); assert.equal(value.repeatState.beforeScore.state, 'skipped'); });
+test('Repeat errors remain privacy-safe', () => { const value = repeatSnapshotFixture(); value.repeatState.resultState.privateText = 'PRIVATE_REPEAT_SENTINEL'; const checked = result(value); assert.equal(JSON.stringify(checked.error).includes('PRIVATE_REPEAT_SENTINEL'), false); });
 
 test('invalid Result serialization does not mutate the persistable runtime subset', () => {
   installProductionRegularFinal();
