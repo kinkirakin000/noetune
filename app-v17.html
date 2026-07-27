@@ -9286,7 +9286,6 @@ function renderV17Result() {
 }
 
 function showV17Result() {
-  clearV17RepeatNavigation();
   ensureV17SessionState();
   var finalFrame = createV17ResultFinalFrame();
   if (!D.v17Flow || !finalFrame) return false;
@@ -9304,6 +9303,7 @@ function showV17Result() {
   if (previewWrap) previewWrap.style.display = 'none';
   if (previewImage) previewImage.removeAttribute('src');
   fwd('s-result');
+  clearV17RepeatNavigation();
   if (!isV17GuestLocalBookmarkRetired() && typeof renderV17BookmarkUI === 'function') renderV17BookmarkUI(true);
   return true;
 }

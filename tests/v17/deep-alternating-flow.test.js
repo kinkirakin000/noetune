@@ -1387,3 +1387,117 @@ test('Temporary return is unavailable from a non-initial Regular response screen
 test('Temporary return is unavailable from a later Deep round', () => {
   const f = repeatTemporaryReturnRuntime('deep'); f.context.D.v17Flow.deepDive.round = 2; assert.equal(f.context.returnToV17RepeatResult(), false);
 });
+
+function repeatResultArrivalRuntime(mode = 'regular') {
+  const events = [];
+  const response = mode === 'deep'
+    ? { frameType: 'deep-response', sessionMode: 'deep', screenId: 's-v17-deep-response', currentStep: 'deep.question1', state: { routeType: 'problem', deepFlow: { phase: 'question1', round: 1, finished: false, pendingRound: { round: 1, incomplete: false } } } }
+    : { frameType: 'regular-response', sessionMode: 'regular', screenId: 's-v17-second-response', currentStep: 'step3', state: { routeType: 'problem', regularFlow: {}, responses: {}, semanticState: {} } };
+  const breath = { frameType: 'breath', sessionMode: mode, screenId: 's-v17-breath', currentStep: 'step4.second', state: { breathState: { step: 2, phase: 'second', first: true, second: false } } };
+  const context = {
+    D: {
+      v17SessionMode: mode, beforeEmotionPositive: 3, afterEmotionPositive: null, finalThemeScore: null,
+      v17SessionIdentity: { sessionId: 'journey-1', cycleId: 'cycle-2', cycleIndex: 2, cycleStartedAt: 'started', resultReachedAt: null, resultEventSent: false },
+      v17MeasurementState: { before: { state: 'scored', value: 3, touched: true }, after: { state: 'unset', value: null, touched: false } },
+      currentThemeScoreTrail: [1, 3], currentThemeAwarenessTrail: ['prior'],
+      v17Flow: { resumeBackFrames: [response, breath], scoreTrailExpanded: true, awarenessTrailExpanded: true,
+        sessionMode: mode, currentScreen: 's-v17-final-measure', currentStep: 'step5',
+        deepDive: mode === 'deep' ? { round: 1, phase: 'question1', pendingRound: { round: 1, incomplete: false } } : undefined }
+    },
+    cur: 's-v17-final-measure', lang: 'en', v17MeasurementSkipPhase: null,
+    v17RepeatResultState: { currentScreen: 's-result' }, v17RepeatCycleState: { currentScreen: 's-v17-first-response' },
+    v17RepeatReturnPending: true, v17RepeatModeSelectionPending: false,
+    v17RepeatBeforeScore: { state: 'scored', value: 3, touched: true }, v17RepeatCycleCount: 2,
+    V17_SCORE_NOT_A_PROBLEM: 'not_a_problem',
+    cloneV17State(value) { return JSON.parse(JSON.stringify(value)); },
+    ensureV17SessionState() {}, getV17ThemeRoute() { return 'problems'; },
+    trackEvent(name, payload) { events.push({ name, payload }); },
+    syncV17MeasurementStateFromValue(_phase, value) { context.D.v17MeasurementState.after = { state: 'scored', value, touched: true }; },
+    getSliderVal() { return 7; }, getV17IdealStateText() { return 'awareness'; },
+    setV17ThemeScoreTrailAfter(value) { context.D.currentThemeScoreTrail.push(value); },
+    setV17ThemeAwarenessEntry(value) { context.D.currentThemeAwarenessTrail.push(value); },
+    setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; },
+    renderV17Result() { events.push({ name: 'render' }); }, renderV17Screen(id) { events.push({ name: 'screen', id }); },
+    fwd(id) { context.cur = id; events.push({ name: 'activate', id }); }, setV17ScreenDirectWithoutHistoryReset(id) { context.cur = id; },
+    clearV17RepeatNavigation() { events.push({ name: 'clear-repeat' }); context.v17RepeatResultState = null; context.v17RepeatCycleState = null; context.v17RepeatReturnPending = false; context.v17RepeatModeSelectionPending = false; context.v17RepeatBeforeScore = null; context.v17RepeatCycleCount = null; },
+    document: { getElementById() { return null; } }, isV17GuestLocalBookmarkRetired() { return true; }
+  };
+  context.resumeV17RepeatCycle = () => false; context.chooseAnotherTheme = () => { events.push({ name: 'choose-theme' }); };
+  context.renderV17SessionModeScreen = () => { events.push({ name: 'render-mode' }); };
+  for (const name of ['createV17RepeatFrameState', 'createV17ResultFinalFrame', 'commitV17ResultArrival', 'showV17Result', 'submitV17FinalScore', 'handleV17ResultBack', 'restartCurrentSubtheme']) {
+    vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' });
+  }
+  return { context, events };
+}
+
+test('Repeat Regular Final submit commits the new cycle before clearing Repeat navigation', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  assert.equal(f.context.cur, 's-result'); assert.equal(f.context.D.v17Flow.currentStep, 'step6');
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, true);
+  assert.equal(f.events.findIndex(event => event.name === 'clear-repeat') > f.events.findIndex(event => event.name === 'activate'), true);
+});
+test('Repeat Regular Result clears every Repeat navigation global after arrival', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  assert.equal(f.context.v17RepeatResultState, null); assert.equal(f.context.v17RepeatCycleState, null);
+  assert.equal(f.context.v17RepeatReturnPending, false); assert.equal(f.context.v17RepeatModeSelectionPending, false);
+  assert.equal(f.context.v17RepeatBeforeScore, null); assert.equal(f.context.v17RepeatCycleCount, null);
+});
+test('Repeat Regular Result emits the reached event exactly once for the new cycle', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7); f.context.showV17Result();
+  assert.equal(f.events.filter(event => event.name === 'v17_result_reached').length, 1);
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, true);
+});
+test('Repeat Regular Result retains cycle identity and markers after context completion', () => {
+  const f = repeatResultArrivalRuntime(); const identity = f.context.D.v17SessionIdentity; f.context.submitV17FinalScore(7);
+  assert.equal(identity.sessionId, 'journey-1'); assert.equal(identity.cycleId, 'cycle-2'); assert.equal(identity.cycleIndex, 2);
+  assert.notEqual(identity.resultReachedAt, null); assert.equal(identity.resultEventSent, true);
+});
+test('Repeat Regular Result appends score and awareness trails once', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7); f.context.showV17Result();
+  assert.deepEqual(f.context.D.currentThemeScoreTrail, [1, 3, 7]);
+  assert.deepEqual(f.context.D.currentThemeAwarenessTrail, ['prior', 'awareness']);
+});
+test('Repeat Regular Result keeps an exact three-frame Back stack and returns to Final', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  assert.deepEqual(Array.from(f.context.D.v17Flow.resumeBackFrames, frame => frame.frameType), ['regular-response', 'breath', 'final-measurement']);
+  assert.equal(f.context.handleV17ResultBack(), true); assert.equal(f.context.cur, 's-v17-final-measure');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+});
+test('Repeat Deep Final submit creates the canonical Deep Result stack', () => {
+  const f = repeatResultArrivalRuntime('deep'); f.context.submitV17FinalScore(7);
+  assert.equal(f.context.D.v17SessionMode, 'deep');
+  assert.deepEqual(Array.from(f.context.D.v17Flow.resumeBackFrames, frame => frame.frameType), ['deep-response', 'breath', 'final-measurement']);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].state.deepFlow.pendingRound.round, 1);
+});
+test('Repeat Deep Result Back restores the same Deep Final context', () => {
+  const f = repeatResultArrivalRuntime('deep'); f.context.submitV17FinalScore(7);
+  assert.equal(f.context.handleV17ResultBack(), true); assert.equal(f.context.cur, 's-v17-final-measure');
+  assert.equal(f.context.D.v17SessionMode, 'deep'); assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+});
+test('Repeat Result re-entry keeps markers, frames, and Repeat context inactive', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  const marker = f.context.D.v17SessionIdentity.resultReachedAt; f.context.D.v17Flow.resumeBackFrames = f.context.D.v17Flow.resumeBackFrames.slice(0, 2);
+  assert.equal(f.context.showV17Result(), true);
+  assert.equal(f.context.D.v17SessionIdentity.resultReachedAt, marker); assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 3);
+  assert.equal(f.context.v17RepeatResultState, null);
+});
+test('Repeat Result arrival does not emit completion events', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  assert.equal(f.events.some(event => event.name === 'v17_session_completed' || event.name === 'v17_journey_completed'), false);
+});
+test('Repeat Result completion does not perform storage or pending-progress cleanup', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  assert.equal(f.events.some(event => event.name === 'storage' || event.name === 'clear-pending'), false);
+});
+test('Repeat Result completion leaves the next Repeat entry eligible for a new capture', () => {
+  const f = repeatResultArrivalRuntime(); f.context.submitV17FinalScore(7);
+  assert.equal(f.context.v17RepeatResultState, null); assert.equal(f.context.v17RepeatReturnPending, false);
+  assert.equal(f.context.D.v17MeasurementState.after.value, 7);
+});
+test('Repeat cycle 2 Result CTA captures the latest Result for the cycle 3 entry', () => {
+  const f = repeatResultArrivalRuntime(); f.context.D.questionTextAtTime = 'current-cycle-theme'; f.context.D.themeId = 'theme-2'; f.context.D.questionId = 'question-2';
+  f.context.submitV17FinalScore(7); f.context.restartCurrentSubtheme();
+  assert.equal(f.context.v17RepeatResultState.entry.themeId, 'theme-2');
+  assert.equal(f.context.v17RepeatResultState.measurement.after.value, 7);
+  assert.equal(f.context.v17RepeatCycleCount, 2); assert.equal(f.context.cur, 's-v17-session-mode');
+});
