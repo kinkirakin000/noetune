@@ -4,7 +4,7 @@
 # Noetune v17 Implementation, QA & Decisions
 
 **Status:** Canonical implementation decisions and QA record
-**Updated:** 2026-07-26
+**Updated:** 2026-07-27
 **Implementation baseline:** Local repository is the runtime source of truth. Obsidian is the decision source of truth.
 
 ## 1. Operating model
@@ -1050,3 +1050,19 @@ The next release-oriented QA must establish:
 - Result production serializer / restore、persisted Result → Final Back、Repeat Snapshot / restore、Cloud persistence、Guest persistent resumeは未実装。Final 2-frameとBreath 1-frame production契約は維持する
 - runtime/navigation 46/46、Snapshot 70/70、inline JavaScript 25 script blocks、syntax、diff check PASS
 - Human browser QA未実施。次の正式UnitはPhase 5B-3b-2（Result serializer / restore、side-effect-free Result restore、persisted Result → Final exact Back、restore analytics / cycle idempotency）である
+
+### Phase 5B-3b-2 acceptance
+
+- Status: Complete
+- implementation commit: `8e101c4ba6e8348abbf432764807c4bff8dd67f0` (`feat(v17): enable result snapshot restore`)
+- changed: `app-v17.html`, `js/v17/session-snapshot.js`, `tests/v17/session-snapshot.compat.test.js`, `tests/v17/deep-alternating-flow.test.js`
+- Snapshot Schema v1を維持し、Snapshot v2、migration、old Result shape migration、missing stateの推測補完、新規persisted field、新規`resultState`は追加していない
+- Result serializerをRegular / Deepの`s-result`、`step6`、identity / cycle / entry、Before / After measurement、flow、trails、`resultView`、cycle markers、exact 3-frame `resumeBackFrames`に限定して有効化した。Result DOM / HTML、locale-expanded text、raw navigation history、listener、element、analytics payload、private console dataは保存しない
+- serializerはpureな変換としてruntimeを変更せず、`savedAt`、`updatedAt`を含む成功・失敗・反復serializeのruntime mutationを0とした
+- Result restoreはfull validation後にidentity、cycle、entry / theme、measurement、Regular / Deep flow、trails、`resultView`、3-frame stackを復元し、`step6`を設定してside-effect-free renderとdirect `s-result` activationを行う
+- invalid Snapshotはfail closedでpartial runtime mutationを行わない。Result restoreはanalytics、marker変更、trail追加、UUID、storage、`clearPendingProgress()`、Cloud / network、typed Final frame追加、cycle identity変更を行わない
+- Regular / Deepのpersisted Backを`Result → Final → Breath → Response`として有効化し、frame count `3 → 2 → 1 → 0`、mode / identity / round semantics、Final measurement / controlsを維持する
+- canonical `not_a_problem` sentinel `V17_SCORE_NOT_A_PROBLEM = 'not_a_problem'`をrestore時に再構築し、slider score、unset、skipped、scoredへ誤認しないことを確認した
+- `resultView` UI flags、cycle markers、repeated restore idempotency、listener重複防止、malformed Snapshot atomicityをproduction VM harnessで検証した
+- Snapshot 82/82、runtime/navigation 60/60、inline JavaScript 25 script blocks、syntax、diff check PASS。private content leakageなし、Guest persistence、Public Resume、Cloud、Repeat、Journey completionは未開放
+- Human browser QA未実施。次の正式UnitはPhase 5B-3c以降で、Result後続境界、Repeat、Cloud continuity等をCommanderが別途確定する
