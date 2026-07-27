@@ -1138,7 +1138,7 @@ untracked backup files: 5, preserved and untouched
 | New Deep A/B alternating flow | Complete; commit `c48e0e77a6f0970e620acfc5da3451291120c9da`; tests 6/6 PASS |
 | Common small Cloud save-intent CTA / authenticated Bookmark onboarding | UX decision fixed; implementation boundary audit not started |
 | Free cloud active 1 / Pro cloud active 50 | Canonical decision fixed; implementation not started |
-| Global Privacy & Security Gate | Policy fixed; implementation not started |
+| Global Privacy & Security Gate | In progress; 5C-1a audit and 5C-1b server hard-off complete; Gate remains STOP |
 | Cloud / RLS | Blocked by privacy gate |
 | Explicit completion / Pro archive | Not started |
 | Full QA / release | Not started |
@@ -1392,7 +1392,25 @@ Residual risks remain: same-tab OAuth redirect, no canonical post-login private 
 | Human browser auth regression QA | Not performed |
 | Deployment | Not performed |
 
-Latest checkpoint: branch `feature/v17-session-resume`, HEAD `afcf4f6ceabe0e834b3f07eebe3393d129edfb74`, tracked clean, staged none, five backup files untracked, ahead/behind `0 / 0`, push complete, deploy not performed. The next Unit is not selected here; Commander must decide separately. Phase 5C Global Privacy & Security Gate is not started, and work must not advance automatically to Cloud or Popup OAuth.
+Latest checkpoint at the Phase 5C-0a record: branch `feature/v17-session-resume`, HEAD `afcf4f6ceabe0e834b3f07eebe3393d129edfb74`, tracked clean, staged none, five backup files untracked, ahead/behind `0 / 0`, push complete, deploy not performed. The next Unit was not selected there; Commander must decide separately. Phase 5C work subsequently advanced to the 5C-1a audit and 5C-1b server hard-off, while the overall Gate remains STOP.
+
+### Phase 5C-1a Global Privacy & Security Gate audit
+
+**Status:** Complete as an audit; the overall Gate remains **STOP**. The audit established that client-only hard-off did not prevent direct authenticated Cloud requests. Server-side hard-off was the Critical blocker. Consent, RLS production verification, deletion/export/retention, logging redaction, and authenticated Resume remain later gate requirements.
+
+### Phase 5C-1b Server-Side Cloud Session Hard-Off
+
+**Status:** Complete
+
+**Implementation commit:** `696ba318861f3e595ed1d82ef6f98f8ff9b8af9c`
+
+**Changed files:** `api/bookmarks.js`, `api/save-progress.js`, `api/save-result.js`, `lib/v17-cloud-session-hard-off.js`, `tests/v17/cloud-session-server-hard-off.test.js`
+
+Server owner: `lib/v17-cloud-session-hard-off.js`; fixed constant: `V17_CLOUD_SESSION_SERVER_ENABLED = false`. Bookmark GET/POST, Progress GET/POST, and Result POST return HTTP 503 with `CLOUD_SESSION_FEATURE_DISABLED` and `Cache-Control: no-store` before auth, body parsing, profile, entitlement, service-role, or DB work. Existing Bookmark DELETE and Progress DELETE owner-only cleanup contracts remain unchanged. `/api/me`, trial, claim, auth, and billing were not changed.
+
+Verification: server hard-off tests `11/11 PASS`; Snapshot `111/111 PASS`; runtime/navigation `111/111 PASS`; route/helper syntax PASS; snapshot/auth syntax PASS; app syntax PASS; `git diff --check` PASS. Human browser QA was not required and was not performed. Cloud Bookmark / Resume remains Closed, Phase 5C remains incomplete, Phase 5B-4b-3c remains Deferred, and deploy was not performed.
+
+Latest repository checkpoint: HEAD `696ba318861f3e595ed1d82ef6f98f8ff9b8af9c`, local/remote `0 / 0`, tracked clean, staged none, five backup files only.
 
 ### Phase 5B-4b-2 acceptance
 

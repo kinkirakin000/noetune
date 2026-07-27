@@ -392,9 +392,15 @@ Google authentication remains unchanged: Google OAuth, same-tab redirect, existi
 
 The v17 Session Bookmark flow is hard OFF. Pre-login writes to `noetuneV17AuthReturn` and `noetunePendingBookmark`, auth-callback private Result restore, pending Result / Progress / Bookmark saves, Login-only Cloud Bookmark creation, and Bookmark-CTA auth modal/OAuth initiation are retired. The two legacy keys are remove-only, never parsed, logged, analyzed, or sent over the network; cleanup is idempotent.
 
-Ownership status: v15/v17 auth ownership overlap remains unresolved; billing/access migration has not started; ordinary Account Login remains in scope; Bookmark/Resume orchestration is not designed; popup OAuth is not implemented. Bookmark / Resume, Cloud Session content, authenticated Resume, Public/Landing Resume, DB/API/RLS, and temporary Result reload remain closed. Phase 5C Global Privacy & Security Gate has not started.
+Ownership status: v15/v17 auth ownership overlap remains unresolved; billing/access migration has not started; ordinary Account Login remains in scope; Bookmark/Resume orchestration is not designed; popup OAuth is not implemented. Bookmark / Resume, Cloud Session content, authenticated Resume, Public/Landing Resume, DB/API/RLS, and temporary Result reload remain closed. Phase 5C Global Privacy & Security Gate is incomplete; its 5C-1a audit and 5C-1b server hard-off are complete, while the overall Gate remains STOP.
 
 The previous callback pending-save behavior is historical retired behavior, not current behavior. Human browser Account Login regression QA has not been performed.
+
+### 2026-07-27 amendment — Phase 5C-1b server hard-off
+
+Server-side Cloud Session creation/read is now fail-closed while the feature remains closed. `/api/bookmarks` GET/POST return the fixed 503 `CLOUD_SESSION_FEATURE_DISABLED`; existing owner-only DELETE cleanup is retained. `/api/save-progress` GET/POST return the same fixed hard-off response; DELETE cleanup remains. `/api/save-result` POST is hard-off. The owner is `lib/v17-cloud-session-hard-off.js` with fixed `V17_CLOUD_SESSION_SERVER_ENABLED = false`.
+
+Ordinary `/api/me`, Google Login, profile refresh, checkout, portal, webhook, trial, and claim behavior were not changed. The Cloud Session API must not be interpreted as currently available: client and server gates are closed. v15/v17 auth ownership overlap remains unresolved. This amendment records only the server hard-off; it is not a full re-audit of the snapshot.
 
 ### Structural risks
 
