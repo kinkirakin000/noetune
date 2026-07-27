@@ -27,20 +27,30 @@ The Commander performs as much reasoning and judgment as possible before delegat
 
 No Codex agent is a second commander.
 
-### Codex Leader — execution coordinator
+### Codex Leader — single execution owner
 
-The Codex Leader receives a Unit contract already defined by Commander ChatGPT and coordinates its execution.
+The Codex Leader receives a Unit contract already defined by Commander ChatGPT and executes it alone.
 
 Its responsibilities are limited to:
 
 - run preflight and report exact repository facts
 - confirm that the commanded Unit can be executed from the current repository state
-- start only the minimum necessary subagents within the approved Unit
-- divide investigation, implementation, QA, and review work without expanding scope
-- integrate subagent evidence into one concise report
+- select the minimum canonical context, target files, dependencies, and tests required by the Unit
+- perform repository investigation, implementation, verification, diff review, and reporting in sequence
 - preserve the working tree, backup files, private-content boundary, and forbidden-change list
 - run the required tests and diff checks
 - report contradictions, missing prerequisites, or ambiguous repository facts to Commander ChatGPT
+
+The current default execution model is:
+
+```text
+Commander ChatGPT — sole strategic and decision authority
+↓ approved Unit contract
+Codex Leader — sole execution owner
+gpt-5.6-luna / low
+↓ one evidence report
+Commander ChatGPT — interpretation and next decision
+```
 
 The Codex Leader must not independently:
 
@@ -49,38 +59,25 @@ The Codex Leader must not independently:
 - select a different strategic direction
 - resolve a contradiction that requires product or architecture judgment
 - upgrade model or reasoning level without Commander approval
+- start a subagent, change to Terra or Sol, or enable multi-agent execution without explicit Commander reauthorization for the named Unit
 - continue repeated execution after the same prerequisite has been proven missing
 
 When instructions conflict with repository facts or canonical decisions, the Leader stops the affected execution, preserves evidence, and returns the conflict to Commander ChatGPT. It may identify factual options, but Commander ChatGPT chooses among them.
 
-### Formal subagent roles
+### Suspended subagent capability
 
-All subagents are execution agents. They do not make product, architecture, Phase-order, or release decisions.
+The repository may retain multi-agent configuration and the formal roles `researcher`, `implementer`, `qa`, and `reviewer` as historical or dormant capability.
 
-#### researcher
+Current rule:
 
-- read-only
-- investigates repository facts, canonical documents, dependencies, and affected scope
-- returns evidence, not strategic decisions
+- subagents are not started
+- `spawn_agent` / `wait_agent` are not used
+- the Leader performs investigation, implementation, QA checks, and review sequentially
+- Terra and Sol are not used
+- an exception requires explicit Commander authorization for one named Unit
+- an exception does not change the default for later Units
 
-#### implementer
-
-- workspace-write
-- normally the only writer
-- changes only the Commander-approved scope and keeps the diff minimal
-- does not redesign adjacent code or contracts
-
-#### qa
-
-- read-only
-- checks regression, boundaries, error paths, privacy, and required verification
-- distinguishes product failure from blocked prerequisites or test-harness failure
-
-#### reviewer
-
-- read-only
-- independently audits the diff, scope, contracts, and safety rules
-- reports contradictions without silently reconciling them
+Dormant role definitions do not grant execution authority and do not override this Leader-only decision.
 
 ### Execution Feasibility Gate
 
@@ -126,29 +123,33 @@ If two attempts are blocked by the same missing prerequisite, stop repeating the
 
 ### Fixed execution rules
 
-- default model and reasoning for Leader and all roles: `gpt-5.6-luna / low`
+- default execution: Leader only
+- default model and reasoning: `gpt-5.6-luna / low`
+- subagents are prohibited unless Commander explicitly reauthorizes them for one named Unit
+- Terra, Sol, another model, and reasoning above `low` are prohibited unless Commander explicitly authorizes them for one named Unit
 - no automatic model or reasoning upgrade from Luna Low
 - when escalation appears necessary, STOP and request Commander ChatGPT approval
-- never assign multiple writers to the same file
+- investigation, implementation, QA checks, and diff review are performed sequentially by the Leader
 - avoid unnecessary duplicate investigation
 - retain one narrow work unit per execution
-- one work unit defines the product and implementation scope, not the number of agents
 - no unrelated refactor
 - exact files, objective, forbidden changes, and verification are required
 - commit / push / deploy occur only after explicit Commander approval
-- never include private Session content in subagent prompts, logs, reports, screenshots, analytics, or network diagnostics
-- Codex agents may report implementation facts; they may not silently convert them into new product decisions
+- never include private Session content in Codex prompts, logs, reports, screenshots, analytics, or network diagnostics
+- Codex may report implementation facts; it may not silently convert them into new product decisions
 
 ### Credit Mode
 
 Commander ChatGPT may specify the Credit Mode for a Unit.
 
-- `CONSERVE`: Leader-centered; start a subagent only when necessary
-- `NORMAL`: default; use the minimum writer and read-only support required by the Unit
-- `QUALITY`: use independent research, implementation, and review; add QA only when justified
-- `USE-IT`: near weekly reset, spend remaining capacity on useful independent QA or read-only preparation, never on redundant agents
+- `CONSERVE`: narrowest useful investigation and only the required verification
+- `NORMAL`: default; complete the approved Unit with proportional verification
+- `QUALITY`: deeper Leader-only negative-path, regression, or review coverage
+- `USE-IT`: spend remaining capacity on useful Leader-only verification or read-only preparation, never on duplicate work
 
-If Commander does not specify a mode, the Leader uses `NORMAL`. Credit Mode may change execution depth and agent count inside the approved Unit, but never product scope, Phase order, model level, or acceptance criteria.
+If Commander does not specify a mode, the Leader uses `NORMAL`.
+
+Under the current Leader-only policy, Credit Mode may change investigation and verification depth but does not authorize subagents, Terra, Sol, higher reasoning, product scope changes, Phase-order changes, or acceptance-criteria changes.
 
 If a usage screenshot is unclear, do not guess. Report the ambiguity to Commander ChatGPT.
 
@@ -174,6 +175,7 @@ Do not duplicate the full TOML configuration in Obsidian.
 
 **Decision date:** 2026-07-22
 **Authority boundary amended:** 2026-07-23
+**Current status:** Temporarily suspended by the Leader-only decision of 2026-07-27. Capability retained; not the active default.
 
 ### Confirmed capability
 
@@ -186,7 +188,7 @@ Do not duplicate the full TOML configuration in Obsidian.
 - strict config validation passed
 - researcher subagent connectivity check passed without file changes
 
-### Adopted workflow
+### Historical adopted workflow — currently suspended
 
 ```text
 User
@@ -210,6 +212,7 @@ Commander ChatGPT — interpretation and next decision
 - implementer is normally the only writer
 - unresolved evidence conflicts are reported explicitly, not hidden or strategically resolved by Codex
 - infrastructure commit: `d7dead6 chore(codex): add adaptive multi-agent leader workflow`
+- this configuration remains dormant unless Commander explicitly reauthorizes multi-agent execution for one named Unit
 
 ## 1B. Decision record — Single Commander and execution-only Codex boundary
 
@@ -253,15 +256,13 @@ Phase-order decisions belong to Commander ChatGPT.
 
 Noetune開発における戦略的思考、設計判断、契約解釈、優先順位、受入判断は、Commander ChatGPTへ一元化する。
 
-これはCodexを思考なしで動作させる決定ではない。Codex Leaderおよびsubagentには、Commanderが確定したUnitをrepositoryへ安全に適合させるための、限定された局所的な実装思考を許可する。
+これはCodexを思考なしで動作させる決定ではない。Codex Leaderには、Commanderが確定したUnitをrepositoryへ安全に適合させるための、限定された局所的な実装思考を許可する。subagent roleの記述は当時の能力境界を示す歴史的記録であり、現在の実行配分は1DのLeader-only決定に従う。
 
 ### Role boundary
 
 - Commander ChatGPT decides.
-- Codex Leader coordinates and checks compliance.
-- Researcher investigates repository facts.
-- Implementer implements the approved contract with the smallest safe diff.
-- QA and Reviewer verify the specified acceptance criteria.
+- Codex Leader investigates repository facts, implements the approved contract, runs the specified verification, and checks compliance.
+- Dormant researcher / implementer / qa / reviewer definitions do not run unless Commander explicitly reauthorizes them for one named Unit.
 
 ### Commander-exclusive decisions
 
@@ -295,6 +296,73 @@ Codexの局所的思考は、scope、architecture、schema、Phase順序、accep
 Commander契約とrepository factsが両立しない場合、Codexは独自に契約を再設計しない。差分を安全に保持し、具体的証拠を添えてSTOPまたはBLOCKEDとしてCommanderへ判断を返す。
 
 この決定は既存のCommander authorityを変更するものではなく、その思考権限と実行権限の境界を明確化するものである。
+
+## 1D. Decision record — Leader-only Codex execution
+
+**Decision date:** 2026-07-27
+**Status:** Active default
+
+### Decision
+
+Noetune v17 development temporarily suspends the adaptive multi-agent execution default.
+
+All Codex work is performed by one Leader using:
+
+```text
+gpt-5.6-luna / low
+```
+
+The Leader performs repository investigation, implementation, tests, diff review, Git operations authorized by Commander, and final reporting sequentially.
+
+### Current execution contract
+
+- `selected agents: none`
+- no `spawn_agent`
+- no `wait_agent`
+- no researcher / implementer / qa / reviewer subagent
+- no Terra
+- no Sol
+- no reasoning above `low`
+- no model fallback
+- no automatic independent-agent QA
+- Human browser QA remains available when Commander reserves or requests it
+- automated regression, negative-path, syntax, and diff verification remain mandatory when specified
+
+### Rationale
+
+The current Noetune Units are narrow and strongly sequential. Multiple agents repeatedly load the same long contract, repository context, target files, and tests, which can increase coordination time and combined credit use without creating proportional parallel value.
+
+Leader-only execution is adopted to:
+
+- reduce duplicate context loading and repeated investigation
+- reduce handoff and state-recognition errors
+- improve consistency between implementation and final evidence
+- improve credit efficiency
+- keep strategic reasoning centralized in Commander ChatGPT
+- preserve required verification without creating process-only agents
+
+This is not a reduction of acceptance standards. It changes who performs the checks, not which checks must pass.
+
+### Exception and reactivation
+
+Multi-agent capability remains available but dormant.
+
+A subagent or another model may be used only when Commander ChatGPT explicitly authorizes:
+
+- the named Unit
+- the named role
+- the model and reasoning level
+- the concrete independent value required
+
+Authorization is Unit-scoped and expires when that Unit ends. Later Units return automatically to Leader-only `gpt-5.6-luna / low`.
+
+A need for independent security, authentication, billing, RLS, privacy, migration, or release review does not itself authorize a subagent. Codex must STOP and request Commander approval before changing execution mode.
+
+### Credit rule
+
+Credit Mode changes only the depth of Leader investigation and verification.
+
+It does not change the agent count, model, reasoning level, Unit scope, Phase order, or acceptance criteria.
 
 ## 2. Stop line
 
@@ -1135,6 +1203,45 @@ cycle identity + normalized live Repeat state + Snapshot production gate closed
 Phase 5B-4b-2
 live Repeat navigation + original Result temporary return + new-cycle Result completion
 
+Phase 5B-4b-3
+Repeat serializer / restore + resumed Repeat Back matrix
+```
+
+### Phase 5B-4b-2 acceptance
+
+**Status:** Complete
+
+- Phase 5B-4b-2a: Complete
+- Phase 5B-4b-2b: Complete
+- Human browser QA: 未実施
+
+Phase 5B-4b-2a implementation:
+
+`8b1d71ef7cfc30ec06454b744251d516250653ae` — `feat(v17): add repeat temporary result return`
+
+`app-v17.html`と`tests/v17/deep-alternating-flow.test.js`を変更。Mode selection Backでpending Repeatをcancelし、active Repeat first response Backではnormalized `cycleState`をcaptureしてoriginal Resultをside-effect-freeにtemporary表示した。temporary Result BackまたはRepeat CTAで同じactive cycleへRegular / Deepともexact resumeし、resultState / beforeScore / cycleCountとcycle identityを維持した。full D、identity、raw history、resume framesをcycleStateへ含めず、UUID、analytics、markers、trails、storage、Cloud副作用は発生しない。通常Result Backも維持した。
+
+Phase 5B-4b-2b implementation:
+
+`16f93a1659aeade9dde52b9f78bc20d9834b67d5` — `feat(v17): complete repeat result arrival`
+
+`app-v17.html`と`tests/v17/deep-alternating-flow.test.js`を変更。Repeat cycle Resultをnew canonical current Resultへ確定し、Result frame validation、commit、render、`s-result` activationが成功した後だけRepeat contextをclearした。new-cycle Result到達前にはclearせず、cycle identity、measurement、trails、Result 3-frame stackを維持した。`resultReachedAt` / `resultEventSent`、`v17_result_reached`、score / awareness trailはcycle単位で一度だけ確定し、same-cycle re-entryでは重複しない。clear後は通常のResult → Final → Breath → Response Back契約へ戻り、cycle 2 Resultからcycle 3をsame sessionId・new cycleId・cycleIndex +1で開始できる。completion events、`clearPendingProgress()`、storage、Cloudは使用しない。
+
+Verification:
+
+- Snapshot tests: `108/108 PASS`
+- runtime/navigation tests: `95/95 PASS`
+- snapshot JS syntax: PASS
+- app script elements total: `25`
+- compiled non-empty inline executable blocks: `2`
+- app syntax: PASS
+- `git diff --check`: PASS
+
+Phase 5B-4b-2完了後もRepeat serializer、Repeat restore、Repeat reload resume、resumed Repeat Back matrix after reload、Guest persistent save、Landing / Public Resume、Cloud、Journey completionは未開放。
+
+次のexecution point:
+
+```text
 Phase 5B-4b-3
 Repeat serializer / restore + resumed Repeat Back matrix
 ```

@@ -2,7 +2,7 @@
 
 > Status: Temporary execution document
 > Updated: 2026-07-27
-> Current execution point: Phase 5B-4a Repeat lifecycle audit STOP; next is Phase 5B-4b-1 Repeat cycle identity and normalized live state
+> Current execution point: Phase 5B-4b-2 live Repeat navigation is complete; next is Phase 5B-4b-3 Repeat serializer / restore and resumed Repeat Back matrix.
 
 ## 1. Objective
 
@@ -428,16 +428,19 @@ Every task must specify:
 
 Default:
 
-- Codex Leader plus only the minimum necessary roles
-- `gpt-5.6-luna / low` for Leader and all roles
-- one narrow work unit
-- implementer as the normal sole writer
-- researcher / qa / reviewer as read-only
+- Codex Leader only
+- `gpt-5.6-luna / low`
+- selected agents: none
+- subagents prohibited
+- Terra / Sol prohibited
 - no automatic model or reasoning upgrade
+- one narrow work unit
+
+Historical multi-agent capability is retained but dormant, subject to root `AGENTS.md` and the Leader-only decision in `03`.
 
 `one narrow work unit` defines the approved product and implementation scope. It does not require a single agent and does not permit scope expansion when more agents are used.
 
-Credit Mode controls investigation and QA depth:
+Credit Mode controls Leader investigation and verification depth only; it never changes agent count:
 
 - `CONSERVE`
 - `NORMAL`
@@ -518,7 +521,7 @@ Runtime identity owner: `D.v17SessionIdentity`. Snapshot persisted cycle shape: 
 
 ### Phase 5B-4b-2 — Live Repeat navigation and cycle completion
 
-**Status:** Pending. Implement temporary original Result return, live Regular / Deep Repeat navigation, and new-cycle Result completion.
+**Status:** Complete. Phase 5B-4b-2a implements temporary original Result return and exact active-cycle resume; Phase 5B-4b-2b implements new-cycle Result canonical completion and Repeat context clearing. Cycle analytics and trails are idempotent. Snapshot tests are `108/108 PASS` and runtime/navigation tests are `95/95 PASS`. Human browser QA remains unperformed.
 
 ### Phase 5B-4b-3 — Repeat serializer / restore and resumed Back matrix
 

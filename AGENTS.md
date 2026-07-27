@@ -1,6 +1,6 @@
 # AGENTS.md — Noetune v17
 
-**Updated:** 2026-07-26
+**Updated:** 2026-07-27
 **Purpose:** Persistent repository execution contract for every new Codex thread and every new Commander-approved Unit.
 
 ## Canonical context and minimum-source rule
@@ -78,76 +78,104 @@ Do not add a question paywall. Pro is for continuity, history, review, compariso
 
 If unsure, choose the quieter implementation and return unresolved contract questions to Commander ChatGPT.
 
-# Risk-based agent operating contract
+# Leader-only Codex operating contract
 
 ## Core rule
 
-Multi-Agent Mode is not mandatory for every substantive Unit. The Leader must classify each Unit by risk and use only the agents that provide meaningful independent value. Do not spawn an agent merely to satisfy process.
+Every Noetune v17 Unit is executed by the Codex Leader alone.
+
+Current mandatory baseline:
+
+```text
+Leader only
+gpt-5.6-luna / low
+selected agents: none
+```
+
+The Leader must not call `spawn_agent` or `wait_agent`, start `researcher`, `implementer`, `qa`, or `reviewer`, or switch to Terra, Sol, another model, or reasoning above `low`.
 
 Commander ChatGPT remains the sole authority for product intent, scope, Phase order, acceptance criteria, and commit / push / deploy authorization.
 
-## Risk Tier classification
+A different execution mode is allowed only when Commander ChatGPT explicitly authorizes the named Unit, role, model, reasoning level, and reason for independent execution. That exception expires at the end of the named Unit.
+
+## Verification Tier classification
+
+Risk Tier controls verification depth and stop conditions. It does not authorize subagents.
 
 ### Tier 0 — Mechanical
 
 Examples: Git status, branch, HEAD, or diff reporting; exact stage / commit / push already authorized by Commander; rerunning specified tests; applying exact Commander-supplied wording; stopping for a missing prerequisite.
 
-Default: Leader only; no subagent required.
+Default verification: exact preflight, requested command, and final Git-state confirmation.
 
 ### Tier 1 — Low-risk localized change
 
 Examples: CSS or layout, locale copy, aria-label, narrow DOM adjustment, narrow documentation update, small existing-test addition, or UI adjustment that does not change handlers, state, schema, auth, billing, or persistence.
 
-Default: Leader only or one implementer. No researcher, reviewer, or QA unless a concrete risk requires one. Human real-browser QA may serve as independent acceptance for visual or device-specific behavior.
+Default verification: directly relevant tests, syntax or rendering checks, diff review, and Human browser QA when Commander reserves visual acceptance.
 
 ### Tier 2 — State, navigation, and persistence
 
 Examples: Back, Snapshot serializer / validator / migration / restore, Bookmark, Resume, Repeat, Deep round state, or multi-screen runtime state.
 
-Default: one implementer; add one QA or reviewer only when automated tests and Human QA cannot cover a concrete boundary. Use researcher only when the implementation boundary is genuinely unclear. Do not automatically start both QA and reviewer.
+Default verification: production-path tests, regression suite, negative or unsupported-state checks, syntax checks, side-effect checks, and exact diff review performed sequentially by the Leader.
 
 ### Tier 3 — High-risk trust boundary
 
 Examples: authentication, billing, Stripe, webhook, entitlement, Supabase RLS, Cloud Session content, cross-user authorization, Account deletion, privacy, security, or data migration.
 
-Default: use the necessary independent roles. Researcher, implementer, QA, or reviewer may be combined as justified. Do not reduce required independent verification merely to save credits.
+Default verification: Leader performs the full Commander-specified positive, negative, ownership, privacy, rollback, and failure-path matrix.
 
-## Agent selection
+Tier 3 does not automatically authorize multi-agent mode. When Commander has not already authorized independent review and the Leader determines that independent verification is necessary, STOP and request a named Unit-scoped exception.
 
-- Tier 0: zero subagents.
-- Tier 1: zero or one subagent.
-- Tier 2: normally one subagent; at most two when a concrete independent boundary exists.
-- Tier 3: minimum roles justified by risk.
+## Single-Leader execution sequence
 
-No-subagent execution for Tier 0 or Tier 1 is normal operation and does not require a Leader-only exception. Do not create duplicate agents that read the same files and perform the same checks.
+For each Unit, the Leader performs only the steps authorized by Commander, normally in this order:
+
+1. minimal preflight
+2. minimum-source and dependency inspection
+3. Execution Feasibility Gate
+4. approved implementation or read-only investigation
+5. specified automated tests and negative-path checks
+6. syntax and diff verification
+7. working-tree, staged, backup-file, and Git-state confirmation
+8. one concise evidence report
+
+Do not split one Unit into internal agents. Do not perform duplicate passes merely to simulate independent roles.
 
 ## Same-Unit rework
 
-A Human QA failure, test failure, or narrow correction remains the same Unit when the goal, acceptance criteria, and scope are unchanged and the correction addresses evidence from that Unit. Reuse an active appropriate agent; when the prior agent has ended, start only the role required for the correction.
+A Human QA failure, test failure, or narrow correction remains the same Unit when the goal, acceptance criteria, and scope are unchanged and the correction addresses evidence from that Unit.
 
-## Human QA substitution
+The Leader handles the correction directly and reruns the required verification. It does not start an implementer or QA subagent.
 
-Human real-browser QA may serve as independent acceptance for Safari or mobile layout, touch behavior, visual overlap or clipping, browser chrome and safe-area behavior, Appearance / Language / Account controls, native sharing, and device-specific UI. Do not duplicate Human QA with QA subagent unless a separate code, state, privacy, or regression boundary requires it.
+## Human QA boundary
+
+Human real-browser QA may serve as acceptance for Safari or mobile layout, touch behavior, visual overlap or clipping, browser chrome and safe-area behavior, Appearance / Language / Account controls, native sharing, and device-specific UI.
+
+Do not use browser automation when Commander has reserved acceptance for Human real-browser QA.
+
+Human QA does not replace state, privacy, security, syntax, or automated regression verification required by the Unit.
 
 ## Context minimization
 
-The Leader and every started agent must use the minimum relevant context.
+The Leader must use the minimum relevant context.
 
 Required context is limited to the current Commander Unit instruction, applicable `AGENTS.md` rules, the canonical sections needed for that Unit, the target files, direct dependencies, and directly relevant tests.
 
-Do not require the Leader or agents to reread canonical documents `00–07` for every Unit. The Leader must identify the minimum source set before substantive work and expand it only when evidence or risk requires it.
+Do not reread canonical documents `00–07` in full for every Unit. Expand the source set only when repository evidence, contract ambiguity, or risk requires it.
 
 ## Commander authority
 
-Commander ChatGPT is the sole strategic and decision-making authority. The Codex Leader and subagents execute only the Unit defined by Commander ChatGPT.
+Commander ChatGPT is the sole strategic and decision-making authority. The Codex Leader executes only the Unit defined by Commander ChatGPT.
 
 ### Reasoning boundary
 
 Noetune開発における戦略的思考と最終判断は、Commander ChatGPTへ一元化する。
 
-Codexは思考そのものを禁止されるわけではない。Commanderが承認したUnitをrepositoryへ安全に適合させるために必要な、限定的かつ局所的な実装思考は許可される。
+Codex Leaderは思考そのものを禁止されるわけではない。Commanderが承認したUnitをrepositoryへ安全に適合させるために必要な、限定的かつ局所的な実装思考は許可される。
 
-Codexに許可される局所的思考：
+Codex Leaderに許可される局所的思考：
 
 - repository factsと直接依存の確認
 - 確定済み契約を実現する最小実装方式の選択
@@ -156,7 +184,7 @@ Codexに許可される局所的思考：
 - 実行結果とCommander契約の照合
 - 契約を満たせない場合のSTOP判断と証拠整理
 
-Codexは次を独自に変更、再解釈、緩和、拡張してはならない。
+Codex Leaderは次を独自に変更、再解釈、緩和、拡張してはならない。
 
 - 製品意図とUX
 - architecture
@@ -168,78 +196,47 @@ Codexは次を独自に変更、再解釈、緩和、拡張してはならない
 - PASS / FAILの最終判断
 - commit、push、deploy、releaseの権限
 
-Commander契約とrepository factsが両立しない場合、Codexは代替設計を独自採用しない。現在差分を安全に保持し、具体的証拠とともにSTOPまたはBLOCKEDとしてCommanderへ判断を返す。
+Commander契約とrepository factsが両立しない場合、Codex Leaderは代替設計を独自採用しない。現在差分を安全に保持し、具体的証拠とともにSTOPまたはBLOCKEDとしてCommanderへ判断を返す。
 
-Codex must not independently change:
-
-- product contracts
-- UX meaning or visible behavior outside scope
-- schema meaning
-- architecture
-- Phase order
-- Unit boundaries
-- acceptance criteria
-- commit / push / deploy authorization
-
-No Codex agent is a second commander.
+No Codex execution process is a second commander.
 
 ## Leader responsibility
 
-The user-facing Codex agent is the Leader. The Leader owns:
+The user-facing Codex agent is the sole execution owner. The Leader owns:
 
 - minimal preflight
-- Risk Tier classification
+- Verification Tier classification
 - Unit-boundary enforcement
 - minimum-source selection
-- agent selection and context allocation
-- `spawn_agent` and `wait_agent` only when subagents are actually used
-- result comparison and conflict detection when multiple results exist
-- integration of evidence
+- repository investigation
+- approved file edits
+- test and negative-path execution
+- syntax and diff verification
+- contradiction detection
 - final verification
 - stop decisions
 - one concise report to the user
 
-Subagents do not communicate with the user directly.
+The Leader must not delegate these responsibilities to a subagent under the active default policy.
 
-The Leader should coordinate rather than duplicate subagent work. When a file edit is required, the `implementer` is normally the sole writer. The Leader must not assign multiple writers to the same file or shared contract.
+## Suspended multi-agent capability
 
-## Formal roles
+The repository may retain `.codex/agents/*.toml`, multi-agent configuration, and the historical role definitions `researcher`, `implementer`, `qa`, and `reviewer`.
 
-### `researcher`
+They are dormant capability only.
 
-- read-only
-- investigates repository facts, canonical documents, dependencies, contracts, and impact scope
-- returns evidence, not strategic decisions
-
-### `implementer`
-
-- workspace-write
-- normally the only writer
-- edits only Commander-approved scope
-- keeps the diff minimal
-- runs approved checks
-- does not redesign adjacent code or contracts
-
-### `qa`
-
-- read-only
-- verifies regressions, boundaries, error paths, privacy, unsupported states, and required checks
-- distinguishes product failure from missing prerequisites or test-harness failure
-
-### `reviewer`
-
-- read-only
-- independently audits diff, scope, contracts, and safety rules
-- does not accept implementer self-assessment without evidence
-- reports contradictions without silently reconciling them
-
-Subagents must return concise facts, evidence, conclusions, and unresolved items. Do not forward raw subagent logs in bulk.
+- their presence does not authorize their use
+- Risk Tier does not authorize their use
+- Credit Mode does not authorize their use
+- available weekly credits do not authorize their use
+- the Leader must not test agent connectivity merely because the configuration exists
+- reactivation requires explicit Commander authorization for one named Unit
 
 ## Model and credit rule
 
 ### Fixed model baseline
 
-The Codex Leader and every subagent must use:
+The Codex Leader must use:
 
 ```text
 gpt-5.6-luna / low
@@ -247,21 +244,17 @@ gpt-5.6-luna / low
 
 Do not automatically select or fall back to Terra, Sol, another model, a higher reasoning effort, another service mode, or a faster paid mode.
 
-Before substantive work, confirm that the required Leader and subagent roles can use `gpt-5.6-luna / low`.
-
-If Luna / Low is unavailable for a role required by the Unit, stop that work and report:
+If Luna / Low is unavailable, stop and report:
 
 ```text
 BLOCKED — Luna unavailable
 ```
 
-Do not silently continue with Terra or Sol.
+Commander ChatGPT may explicitly authorize another model for one named Unit. That authorization:
 
-Commander ChatGPT may explicitly authorize `gpt-5.6-terra / low`, `gpt-5.6-sol / low`, or another model for one named Unit. That authorization:
-
-- applies only to the named Unit and role
+- applies only to the named Unit
 - does not change the default for later Units
-- does not authorize a higher reasoning effort
+- must state the model and reasoning level
 - must be stated in the startup and final reports
 
 Never increase reasoning above `low`, change service mode, or enable a faster paid mode without explicit Commander authorization.
@@ -270,18 +263,22 @@ Never increase reasoning above `low`, change service mode, or enable a faster pa
 
 Commander ChatGPT may specify the Credit Mode. If none is specified, use `NORMAL`.
 
-- `CONSERVE`: use the fewest agents and the narrowest useful investigation permitted by the Risk Tier.
-- `NORMAL`: apply the default agent count defined by the Risk Tier.
-- `QUALITY`: add independent work only when Commander requests it or a concrete Tier 3 safety boundary requires it.
-- `USE-IT`: may increase useful independent coverage only within the approved Unit; it must not create duplicate work.
+- `CONSERVE`: narrowest useful investigation and only required verification
+- `NORMAL`: proportional investigation and the complete specified acceptance matrix
+- `QUALITY`: deeper Leader-only negative-path, regression, or review coverage
+- `USE-IT`: useful Leader-only verification or read-only preparation within the approved Unit, never duplicate work
 
-Credit Mode changes depth and agent count inside the approved scope. It never changes product scope, Phase order, model baseline, safety requirements, or acceptance criteria.
+Credit Mode changes only investigation and verification depth inside the approved scope.
+
+It never changes agent count, product scope, Phase order, model baseline, safety requirements, or acceptance criteria.
 
 ## Reporting
 
-Tier 0–2 startup report: branch / HEAD / working tree, Risk Tier, Credit Mode, selected agents, scope, and protected files.
+Tier 0–2 startup report: branch / HEAD / working tree, Verification Tier, Credit Mode, `selected agents: none`, scope, and protected files.
 
-Tier 0–2 final report: changed files, implementation result, verification, remaining tracked / staged state, backup-file state, commit / push / deploy state, and residual risk or Human QA requirement. Tier 3 retains detailed reporting appropriate to its risk.
+Tier 0–2 final report: changed files, implementation result, verification, remaining tracked / staged state, backup-file state, commit / push / deploy state, residual risk or Human QA requirement, `selected agents: none`, and `Leader: gpt-5.6-luna / low`.
+
+Tier 3 reports must additionally include the Commander-specified trust-boundary evidence, negative and error-path verification, conflicts, and residual security or privacy risk.
 
 ## Execution Feasibility Gate
 
@@ -334,24 +331,25 @@ Do not use `FAIL` when the Unit could not begin because a prerequisite was absen
 - keep one narrow work Unit per execution
 - no unrelated refactor
 - no automatic scope expansion
-- no private Session content in subagent prompts, logs, reports, screenshots, analytics, error output, or network diagnostics
-- no subagent may commit, push, merge, or deploy unless the user explicitly authorizes that exact action
+- no private Session content in Codex prompts, logs, reports, screenshots, analytics, error output, or network diagnostics
+- no commit, push, merge, or deploy unless the user explicitly authorizes that exact action
 - do not touch, stage, rename, delete, overwrite, reset, stash, clean, or include existing backup files
 - preserve unrelated working-tree changes
 - stop if the approved Unit would affect protected or unrelated changes
-- do not change product behavior, public APIs, data contracts, or migrations when the Unit is only agent operations
+- do not change product behavior, public APIs, data contracts, or migrations when the Unit is only execution-operations work
+- do not start subagents or change models to resolve an execution problem
 
 ## Conflict handling
 
-The Leader compares all role results and records conflicts.
+The Leader records contradictions between Commander instructions, canonical documents, repository facts, tests, and observed runtime behavior.
 
 Resolve factual conflicts only from repository evidence or canonical documents. Return unresolved product, UX, schema, architecture, privacy, security, billing, legal, Phase-order, or release conflicts to Commander ChatGPT.
 
-Do not hide disagreement between researcher, implementer, QA, or reviewer.
+Do not silently reconcile contradictory evidence merely to continue the Unit.
 
-## Final report and agent-state check
+## Final report
 
-Use the Risk Tier reporting rules above. Do not add a separate mandatory multi-agent report when no subagent was used.
+Use the Verification Tier reporting rules above.
 
 For Tier 0–2, report only the required concise facts:
 
@@ -362,11 +360,9 @@ For Tier 0–2, report only the required concise facts:
 - backup-file state
 - commit / push / deploy state
 - residual risk or Human QA requirement
-- selected agents, including `none`
-- model / reasoning used for every started agent
+- `selected agents: none`
+- `Leader: gpt-5.6-luna / low`
 
-Tier 3 reports must additionally include the independent roles used, trust-boundary evidence, negative or error-path verification, conflicts, and residual security or privacy risk.
+Tier 3 reports must additionally include the Commander-specified trust-boundary evidence, negative or error-path verification, conflicts, and residual security or privacy risk.
 
-If subagents were started, wait for or stop unnecessary agents and confirm the final running-agent count is `0`.
-
-If no subagent was started, do not call or inspect the agent tree solely to prove that fact; report `selected agents: none`.
+Do not call or inspect the agent tree solely to prove that no subagent was used.
