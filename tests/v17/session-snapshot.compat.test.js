@@ -220,6 +220,14 @@ function resultFixture(mode = 'regular', finalMeasurementState = { state: 'unset
 
 function copied(value) { return JSON.parse(JSON.stringify(value)); }
 function runtimeCopied(value) { return vm.runInNewContext('JSON.parse(' + JSON.stringify(JSON.stringify(value)) + ')', context); }
+function clearRepeatRuntime() {
+  context.window.v17RepeatResultState = null;
+  context.window.v17RepeatCycleState = null;
+  context.window.v17RepeatReturnPending = false;
+  context.window.v17RepeatModeSelectionPending = false;
+  context.window.v17RepeatBeforeScore = null;
+  context.window.v17RepeatCycleCount = null;
+}
 
 function repeatFrameFixture(mode = 'regular', after = { state: 'unset', value: null, touched: false }) {
   const value = resultFixture(mode, after);
@@ -1405,10 +1413,74 @@ test('repeated Result serialization leaves the persistable runtime subset unchan
 
 test('Repeat mode-selection structural candidate reaches the closed gate', () => {
   const value = repeatSnapshotFixture({ modeSelectionPending: true });
-  value.currentScreen = 's-v17-session-mode'; value.currentState.currentScreen = 's-v17-session-mode'; value.currentState.currentStep = 'session-mode';
-  const checked = result(value); assert.equal(checked.ok, false); assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE');
+  value.currentScreen = 's-v17-session-mode'; value.summary.sessionMode = null; value.currentState.currentScreen = 's-v17-session-mode'; value.currentState.currentStep = 'session-mode'; value.currentState.sessionMode = null; value.currentState.resultView = null; value.currentState.finalMeasurementState = null; value.currentState.regularFlow = null;
+  value.resumeBackFrames = [];
+  const checked = result(value); assert.equal(checked.ok, true, JSON.stringify(checked.error));
 });
-test('Repeat active new-cycle structural candidate reaches the closed gate', () => { const checked = result(repeatSnapshotFixture({ after: { state: 'scored', value: 4, touched: true } })); assert.equal(checked.ok, false); assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE'); });
+test('production pending Repeat serializes and restores its six globals', () => {
+  installProductionRegularBreath(1);
+  context.window.D.v17Flow.currentScreen = 's-v17-session-mode';
+  context.window.D.v17Flow.currentStep = 'session-mode';
+  context.window.D.v17SessionMode = null;
+  context.window.v17RepeatResultState = repeatFrameFixture('regular');
+  context.window.v17RepeatCycleState = null;
+  context.window.v17RepeatReturnPending = false;
+  context.window.v17RepeatModeSelectionPending = true;
+  context.window.v17RepeatBeforeScore = { state: 'unset', value: null, touched: false };
+  context.window.v17RepeatCycleCount = context.window.D.v17SessionIdentity.cycleIndex;
+  const serialized = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  assert.equal(serialized.snapshot.repeatState.active, true);
+  const before = JSON.stringify({ sessionId: context.window.D.v17SessionIdentity.sessionId, cycleId: context.window.D.v17SessionIdentity.cycleId, cycleIndex: context.window.D.v17SessionIdentity.cycleIndex, cycleStartedAt: context.window.D.v17SessionIdentity.cycleStartedAt, resultReachedAt: context.window.D.v17SessionIdentity.resultReachedAt, resultEventSent: context.window.D.v17SessionIdentity.resultEventSent });
+  const restored = context.window.NoetuneV17SessionSnapshot.restoreV17SessionRuntime(serialized.snapshot);
+  assert.equal(restored.ok, true, JSON.stringify(restored.error));
+  assert.equal(context.window.v17RepeatModeSelectionPending, true);
+  assert.equal(context.window.v17RepeatReturnPending, false);
+  assert.equal(context.window.v17RepeatCycleState, null);
+  assert.equal(context.window.v17RepeatCycleCount, context.window.D.v17SessionIdentity.cycleIndex);
+  assert.equal(JSON.stringify({ sessionId: context.window.D.v17SessionIdentity.sessionId, cycleId: context.window.D.v17SessionIdentity.cycleId, cycleIndex: context.window.D.v17SessionIdentity.cycleIndex, cycleStartedAt: context.window.D.v17SessionIdentity.cycleStartedAt, resultReachedAt: context.window.D.v17SessionIdentity.resultReachedAt, resultEventSent: context.window.D.v17SessionIdentity.resultEventSent }), before);
+  clearRepeatRuntime();
+});
+test('production active Repeat serialization keeps cycleState null and is pure', () => {
+  installProductionRegularBreath(2);
+  context.window.v17RepeatResultState = repeatFrameFixture('regular');
+  context.window.v17RepeatCycleState = null;
+  context.window.v17RepeatReturnPending = false;
+  context.window.v17RepeatModeSelectionPending = false;
+  context.window.v17RepeatBeforeScore = { state: 'unset', value: null, touched: false };
+  context.window.v17RepeatCycleCount = context.window.D.v17SessionIdentity.cycleIndex;
+  const before = JSON.stringify({ d: context.window.D, r: context.window.v17RepeatResultState });
+  const first = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  const second = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(first.ok, true, JSON.stringify(first.error));
+  assert.equal(second.ok, true, JSON.stringify(second.error));
+  assert.equal(first.snapshot.repeatState.cycleState, null);
+  assert.equal(JSON.stringify({ d: context.window.D, r: context.window.v17RepeatResultState }), before);
+  clearRepeatRuntime();
+});
+test('temporary Repeat Result remains unsupported for production serialization', () => {
+  installProductionRegularFinal();
+  context.window.D.v17Flow.currentScreen = 's-result';
+  context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.v17RepeatResultState = repeatFrameFixture('regular');
+  context.window.v17RepeatCycleState = repeatFrameFixture('regular');
+  context.window.v17RepeatReturnPending = true;
+  context.window.v17RepeatModeSelectionPending = false;
+  context.window.v17RepeatBeforeScore = { state: 'unset', value: null, touched: false };
+  context.window.v17RepeatCycleCount = context.window.D.v17SessionIdentity.cycleIndex;
+  const checked = context.window.NoetuneV17SessionSnapshot.serializeV17SessionSnapshot();
+  assert.equal(checked.ok, false);
+  assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE');
+  assert.equal(String(checked.error.path).includes('repeatState'), true);
+  clearRepeatRuntime();
+});
+test('Repeat active new-cycle structural candidate reaches the production gate', () => {
+  const value = repeatSnapshotFixture({ after: { state: 'scored', value: 4, touched: true } });
+  value.currentScreen = 's-v17-first-response'; value.currentState.currentScreen = 's-v17-first-response'; value.currentState.currentStep = 'first-response';
+  value.currentState.finalMeasurementState = null; value.currentState.resultView = null;
+  value.resumeBackFrames = [];
+  const checked = result(value); assert.equal(checked.ok, true, JSON.stringify(checked.error));
+});
 test('Repeat returnPending structural candidate is recognized before closure', () => { const cycle = repeatFrameFixture(); const checked = result(repeatSnapshotFixture({ cycleState: cycle, returnPending: true })); assert.equal(checked.ok, false); assert.equal(checked.error.code, 'UNSUPPORTED_REPEAT_STATE'); });
 test('Repeat normalized resultState has the exact projection keys', () => { const frame = repeatFrameFixture(); assert.deepEqual(Object.keys(frame).sort(), ['awarenessTrail','breathState','currentScreen','currentStep','deepFlow','entry','entryType','finalMeasurementState','locale','measurement','regularFlow','responses','resultView','routeType','scoreTrail','semanticState','sessionMode'].sort()); });
 test('Repeat normalized cycleState uses the same frame projection', () => { const frame = repeatFrameFixture(); assert.equal(frame.currentScreen, 's-result'); assert.equal(frame.currentStep, 'step6'); });
@@ -1437,8 +1509,8 @@ test('Repeat errors remain privacy-safe', () => { const value = repeatSnapshotFi
 test('invalid Result serialization does not mutate the persistable runtime subset', () => {
   installProductionRegularFinal();
   context.window.D.v17Flow.currentScreen = 's-result';
-  context.window.D.v17Flow.currentStep = 'step5';
   context.window.D.v17Flow.resumeBackFrames.push(runtimeCopied(finalMeasurementFrame('regular', context.window.D.v17MeasurementState.after)));
+  context.window.D.v17Flow.currentStep = 'step5';
   context.window.D.v17SessionIdentity.resultReachedAt = '2026-01-01T00:03:00.000Z';
   context.window.D.v17SessionIdentity.resultEventSent = true;
   context.window.cur = 's-result';

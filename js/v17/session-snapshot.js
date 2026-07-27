@@ -398,6 +398,14 @@
     return null;
   }
 
+  function isSupportedRepeatSnapshot(snapshot) {
+    var repeat = snapshot && snapshot.repeatState;
+    if (!repeat || repeat.active !== true || repeat.cycleState !== null || repeat.returnPending === true) return false;
+    if (snapshot.currentScreen === 's-v17-session-mode') return repeat.modeSelectionPending === true;
+    if (repeat.modeSelectionPending) return false;
+    return ['s-v17-first-response', 's-v17-second-response', 's-v17-deep-response', 's-v17-breath', 's-v17-final-measure'].indexOf(snapshot.currentScreen) >= 0;
+  }
+
   function validateV17ResumeBackFrameEnvelope(frame, path) {
     path = path || 'resumeBackFrames';
     if (!isV17StrictPlainObject(frame)) return createError('INVALID_RESUME_BACK_FRAME', path);
@@ -909,6 +917,20 @@
         awarenessTrailExpanded: !!(flow && flow.awarenessTrailExpanded)
       } : null
     };
+    var repeatState = null;
+    var repeatResult = isPlainObject(global.v17RepeatResultState) ? clone(global.v17RepeatResultState) : null;
+    var repeatCycle = isPlainObject(global.v17RepeatCycleState) ? clone(global.v17RepeatCycleState) : null;
+    if (repeatResult) {
+      repeatState = {
+        active: true,
+        resultState: repeatResult,
+        cycleState: repeatCycle,
+        returnPending: !!global.v17RepeatReturnPending,
+        modeSelectionPending: !!global.v17RepeatModeSelectionPending,
+        beforeScore: global.v17RepeatBeforeScore ? clone(global.v17RepeatBeforeScore) : null,
+        cycleCount: Number.isInteger(global.v17RepeatCycleCount) ? global.v17RepeatCycleCount : identity.cycleIndex
+      };
+    }
     return {
       snapshotSchemaVersion: SCHEMA_VERSION,
       appVersion: APP_VERSION,
@@ -939,7 +961,7 @@
       },
       currentCycle: currentCycle,
       currentState: currentState,
-      repeatState: null,
+      repeatState: repeatState,
       resumeBackFrames: (isBreath || isFinal || isResult) && flow && Array.isArray(flow.resumeBackFrames) ? clone(flow.resumeBackFrames) : []
     };
   }
@@ -1096,7 +1118,7 @@
     if (snapshot.repeatState !== null) {
       var repeatStructuralError = validateRepeatState(snapshot.repeatState, snapshot);
       if (repeatStructuralError) return repeatStructuralError;
-      return createError('UNSUPPORTED_REPEAT_STATE', 'repeatState');
+      if (!isSupportedRepeatSnapshot(snapshot)) return createError('UNSUPPORTED_REPEAT_STATE', 'repeatState');
     }
     var isBreathScreen = snapshot.currentScreen === 's-v17-breath';
     var isFinalScreen = snapshot.currentScreen === 's-v17-final-measure';
@@ -1569,7 +1591,8 @@
     if (RESTORABLE_SCREENS.indexOf(snapshot.currentScreen) < 0) {
       return { ok: false, error: createError('RESTORE_SCREEN_NOT_SUPPORTED', 'currentScreen') };
     }
-    var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode' && snapshot.summary && snapshot.summary.sessionMode === null;
+    var isRepeatPendingMode = snapshot.currentScreen === 's-v17-session-mode' && snapshot.repeatState && snapshot.repeatState.modeSelectionPending === true;
+    var isUnselectedSessionMode = snapshot.currentScreen === 's-v17-session-mode' && snapshot.summary && snapshot.summary.sessionMode === null && !isRepeatPendingMode;
     var isDeepResponse = snapshot.currentScreen === 's-v17-deep-response' && snapshot.summary && snapshot.summary.sessionMode === 'deep';
     var isBreath = snapshot.currentScreen === 's-v17-breath';
     var isFinal = snapshot.currentScreen === 's-v17-final-measure';
@@ -1577,7 +1600,7 @@
     var isDeepBreath = isBreath && snapshot.summary && snapshot.summary.sessionMode === 'deep';
     var isDeepFinal = isFinal && snapshot.summary && snapshot.summary.sessionMode === 'deep';
     var isDeepResult = isResult && snapshot.summary && snapshot.summary.sessionMode === 'deep';
-    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isDeepResponse && !isDeepBreath && !isDeepFinal && !isDeepResult)) {
+    if (!isPlainObject(snapshot.summary) || (snapshot.summary.sessionMode !== 'regular' && !isUnselectedSessionMode && !isRepeatPendingMode && !isDeepResponse && !isDeepBreath && !isDeepFinal && !isDeepResult)) {
       return { ok: false, error: createError('RESTORE_DEEP_NOT_SUPPORTED', 'summary.sessionMode') };
     }
     if (!isPlainObject(snapshot.currentState)) {
@@ -1619,6 +1642,7 @@
     if (!isPlainObject(snapshot.currentCycle)) return { ok: false, error: createError('RESTORE_SNAPSHOT_INVALID', 'currentCycle') };
     var staged = {};
     var stagedFlow = {};
+    staged.repeatState = snapshot.repeatState ? deepClone(snapshot.repeatState) : null;
     staged.v17SessionIdentity = deepClone(snapshot.currentCycle);
     staged.v17SessionIdentity.sessionId = snapshot.sessionId;
     staged.v17SessionIdentity.status = snapshot.status;
@@ -1764,6 +1788,12 @@
     global.D.finalThemeScore = staged.finalThemeScore;
     global.D.beforeEmotionPositive = staged.beforeEmotionPositive;
     global.D.afterEmotionPositive = staged.afterEmotionPositive;
+    global.v17RepeatResultState = staged.repeatState ? deepClone(staged.repeatState.resultState) : null;
+    global.v17RepeatCycleState = staged.repeatState ? deepClone(staged.repeatState.cycleState) : null;
+    global.v17RepeatReturnPending = staged.repeatState ? staged.repeatState.returnPending : false;
+    global.v17RepeatModeSelectionPending = staged.repeatState ? staged.repeatState.modeSelectionPending : false;
+    global.v17RepeatBeforeScore = staged.repeatState ? deepClone(staged.repeatState.beforeScore) : null;
+    global.v17RepeatCycleCount = staged.repeatState ? staged.repeatState.cycleCount : null;
     global.D.currentThemeScoreTrail = staged.currentThemeScoreTrail;
     global.D.currentThemeAwarenessTrail = staged.currentThemeAwarenessTrail;
     global.D.currentState = staged.currentState;
@@ -1774,6 +1804,12 @@
     global.D.idealStateDraft = staged.idealStateDraft;
     if (isUnselectedSessionMode) {
       global.D.v17Flow = null;
+      global.v17RepeatResultState = null;
+      global.v17RepeatCycleState = null;
+      global.v17RepeatReturnPending = false;
+      global.v17RepeatModeSelectionPending = false;
+      global.v17RepeatBeforeScore = null;
+      global.v17RepeatCycleCount = null;
       return {
         ok: true,
         sessionId: snapshot.sessionId,

@@ -1271,6 +1271,8 @@ test('Repeat click preserves session and cycle identity before mode selection', 
   f.context.restartCurrentSubtheme();
   assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), before);
   assert.equal(f.context.v17RepeatModeSelectionPending, true);
+  f.context.D.v17SessionMode = null;
+  f.context.cur = 's-v17-session-mode';
 });
 test('Repeat click captures a normalized projection without full runtime D', () => {
   const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true }); f.context.restartCurrentSubtheme();
@@ -1338,6 +1340,33 @@ function repeatTemporaryReturnRuntime(mode) {
   context.v17RepeatCycleState = null; context.v17RepeatReturnPending = false; context.v17RepeatModeSelectionPending = false; context.v17RepeatBeforeScore = { state: 'scored', value: 7, touched: true }; context.v17RepeatCycleCount = 3;
   return { context, calls };
 }
+
+function createIntegratedRepeatRuntime() {
+  const f = repeatIdentityRuntime({ state: 'scored', value: 7, touched: true });
+  const c = f.context;
+  c.window = c;
+  c.TextEncoder = TextEncoder;
+  c.document = { getElementById() { return { disabled: false, hidden: false, classList: { add() {}, remove() {} }, style: {}, setAttribute() {}, removeAttribute() {} }; }, querySelectorAll() { return []; } };
+  c.localStorage = { getItem() { return null; }, setItem() {}, removeItem() {} };
+  c.sessionStorage = { getItem() { return null; }, setItem() {}, removeItem() {} };
+  c.fetch = function() {};
+  c.crypto = { randomUUID() { return '33333333-3333-4333-8333-333333333333'; } };
+  c.window.crypto = c.crypto;
+  c.D.v17SessionIdentity = { sessionId: '11111111-1111-4111-8111-111111111111', status: 'active', createdAt: '2026-01-01T00:00:00.000Z', savedAt: null, updatedAt: '2026-01-01T00:00:00.000Z', revision: 0, cycleId: '22222222-2222-4222-8222-222222222222', cycleIndex: 2, cycleStartedAt: '2026-01-01T00:00:00.000Z', resultReachedAt: '2026-01-01T00:03:00.000Z', resultEventSent: true };
+  vm.runInNewContext(snapshotSource, c, { filename: 'js/v17/session-snapshot.js' });
+  vm.runInNewContext(extractAppFunction('resumeV17RegularSnapshotToScreen'), c, { filename: 'app-v17.html' });
+  return { context: c, api: c.window.NoetuneV17SessionSnapshot };
+}
+
+test('integrated producer to serializer exposes the first production round-trip boundary', () => {
+  const f = createIntegratedRepeatRuntime();
+  f.context.restartCurrentSubtheme();
+  assert.equal(f.context.v17RepeatModeSelectionPending, true);
+  f.context.D.v17Flow = { currentScreen: 's-v17-session-mode', currentStep: 'session-mode', sessionMode: null, responseStates: { current: 'unset', ideal: 'unset' } };
+  const serialized = f.api.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, false);
+  assert.equal(serialized.error.code, 'INVALID_SESSION_MODE');
+});
 
 test('Repeat mode selection Back cancels pending context without changing active identity', () => {
   const f = repeatTemporaryReturnRuntime('regular'); const identity = JSON.stringify(f.context.D.v17SessionIdentity);
@@ -1501,3 +1530,181 @@ test('Repeat cycle 2 Result CTA captures the latest Result for the cycle 3 entry
   assert.equal(f.context.v17RepeatResultState.measurement.after.value, 7);
   assert.equal(f.context.v17RepeatCycleCount, 2); assert.equal(f.context.cur, 's-v17-session-mode');
 });
+
+test('production restore matrix retains Result identity before live Repeat temporary return', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.v17SessionIdentity.cycleIndex, 0);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 3);
+  assert.equal(f.effects.analytics, 0);
+});
+
+test('production Deep restore matrix retains Deep response authority before Back handling', () => {
+  const f = persistedResultRuntime('deep');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.v17SessionMode, 'deep');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames[0].frameType, 'deep-response');
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 3);
+});
+
+test('production restore matrix remains side-effect free across repeated activation', () => {
+  const f = persistedResultRuntime('regular');
+  const identity = JSON.stringify(f.snapshot.currentCycle);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(JSON.stringify(f.snapshot.currentCycle), identity);
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0);
+});
+
+test('restored pending Repeat mode Back cancels without cycle mutation', () => {
+  const f = persistedResultRuntime('regular');
+  const identity = JSON.stringify(f.snapshot.currentCycle);
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(JSON.stringify(f.snapshot.currentCycle), identity);
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0);
+});
+
+test('restored Regular Repeat Q1 temporary Result Back resumes the same cycle', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.D.v17SessionIdentity.cycleId, '22222222-2222-4222-8222-222222222222');
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0);
+});
+
+test('restored Regular Repeat Q1 temporary Result CTA resumes without side effects', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  const before = JSON.stringify(f.context.D.v17SessionIdentity);
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), before);
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0);
+});
+
+test('restored Regular Repeat Q2 Back preserves response frames and Repeat context', () => {
+  const f = persistedResultRuntime('regular');
+  assert.equal(f.context.restoreV17ResultSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.map(frame => frame.frameType).join(','), 'regular-response,breath,final-measurement');
+  assert.equal(f.context.handleV17ResultBack(), true);
+  assert.equal(f.context.D.v17Flow.resumeBackFrames.length, 2);
+  assert.equal(f.context.D.v17SessionIdentity.resultEventSent, true);
+  assert.equal(f.effects.analytics, 0);
+});
+
+/*
+function repeatSnapshotRuntime(mode, screen) {
+  const effects = { uuid: 0, analytics: 0, storage: 0, render: 0, clear: 0 };
+  const input = { value: '' };
+  const element = { disabled: false, hidden: false, classList: { add() {}, remove() {} }, style: {}, setAttribute() {}, removeAttribute() {} };
+  const context = {
+    TextEncoder,
+    window: {},
+    cur: screen,
+    lang: 'en',
+    D: {
+      v17SessionMode: mode === 'deep' ? 'deep' : null,
+      questionTextAtTime: 'repeat-theme', theme: 'repeat-theme', themeId: 'theme-repeat', questionId: null,
+      entryMode: 'v17', localeAtTime: 'en', currentState: '', idealState: '',
+      v17SessionIdentity: { sessionId: '11111111-1111-4111-8111-111111111111', status: 'active', createdAt: '2026-01-01T00:00:00.000Z', savedAt: null, updatedAt: '2026-01-01T00:00:00.000Z', revision: 0, cycleId: '22222222-2222-4222-8222-222222222222', cycleIndex: 2,
+        cycleStartedAt: '2026-01-01T00:00:00.000Z', resultReachedAt: null, resultEventSent: false },
+      currentThemeScoreTrail: [3], currentThemeAwarenessTrail: ['awareness'],
+      v17MeasurementState: { before: { state: 'scored', value: 2, touched: true }, after: { state: 'unset', value: null, touched: false } },
+      v17Flow: { currentScreen: screen, currentStep: screen === 's-v17-session-mode' ? 'session-mode' : 'first-response', sessionMode: mode === 'deep' ? 'deep' : null, questionVariant: 'A', responseStates: { current: 'unset', ideal: 'unset' },
+        regularFlow: mode === 'deep' ? null : { activeScreen: 'first', questionVariant: 'A', firstResponseRole: 'ideal', secondResponseRole: 'current', responseStates: { current: 'unset', ideal: 'unset' } },
+        deepDive: mode === 'deep' ? { routeType: 'problem', originalTheme: 'repeat-theme', round: 1, questionVariant: 'A', phase: 'question1', finished: false,
+          rounds: [], pendingRound: { round: 1, questionVariant: 'A', originalTheme: 'repeat-theme', question1: { text: '', draft: '' }, question2: { text: '', draft: '' }, incomplete: false }, nextPendingRound: null } : null,
+        scoreTrailExpanded: false, awarenessTrailExpanded: false }
+    },
+    crypto: { randomUUID() { effects.uuid += 1; return 'uuid-repeat-' + effects.uuid; } },
+    localStorage: { getItem() { effects.storage += 1; return null; }, setItem() { effects.storage += 1; }, removeItem() { effects.storage += 1; } },
+    sessionStorage: { getItem() { effects.storage += 1; return null; }, setItem() { effects.storage += 1; }, removeItem() { effects.storage += 1; } },
+    document: { getElementById(id) { return id === 'in-v17-deep-response' ? input : element; }, querySelectorAll() { return []; } },
+    cloneV17State: copiedResultValue, ensureV17SessionState() {}, createV17FlowState() { return { sessionMode: context.D.v17SessionMode, currentScreen: context.cur, currentStep: 'first-response', questionVariant: 'A', responseStates: { current: 'unset', ideal: 'unset' }, regularFlow: context.D.v17SessionMode === 'regular' ? { activeScreen: 'first', questionVariant: 'A', firstResponseRole: 'ideal', secondResponseRole: 'current', responseStates: { current: 'unset', ideal: 'unset' } } : null, deepDive: context.D.v17SessionMode === 'deep' ? context.D.v17Flow.deepDive : null, resumeBackFrames: [] }; },
+    getV17ThemeRoute() { return 'problem'; }, getV17DeepDiveRouteType() { return 'problem'; }, getV17DeepDiveStartPhase() { return 'question1'; },
+    setV17CurrentStep(step) { context.D.v17Flow.currentStep = step; }, setEl() {}, v17Copy(key) { return key; }, v17Format(key) { return key; },
+    renderV17ThemeMeaning() {}, renderV17ThemeScoreTrail() {}, renderResultSaveUI() {}, renderV17DeepDiveSourceBlock() {},
+    renderV17DeepDiveResponseScreen() {}, renderV17Screen() { effects.render += 1; }, renderV17Result() { effects.render += 1; }, renderV17SessionModeScreen() { effects.render += 1; },
+    resetV17ResumeNavigationHistory() {}, setV17ScreenDirectWithoutHistoryReset(id) { context.cur = id; }, updateBackBtn() {}, updateProgress() {},
+    resetV17BreathScreen() {}, syncV17DeepDiveDrafts() {}, applyV17DeepDiveResultCandidate() {}, getV17DeepDiveResultCandidate() { return null; },
+    trackEvent() { effects.analytics += 1; }, clearPendingProgress() { effects.clear += 1; }, fwd() {}, openV17Breath() {},
+    updateThemeCTA() {}, updateIdealCTA() {}, updateDoorCTA() {}, updateNegaCTA() {}, positionV17SkipButton() {}
+  };
+  context.window = context;
+  vm.runInNewContext(snapshotSource, context, { filename: 'js/v17/session-snapshot.js' });
+  for (const name of ['createV17RepeatFrameState', 'resumeV17RegularSnapshotToScreen', 'cancelV17RepeatModeSelection', 'returnToV17RepeatResult', 'resumeV17RepeatCycle', 'renderV17Result', 'renderV17Screen']) {
+    try { vm.runInNewContext(extractAppFunction(name), context, { filename: 'app-v17.html' }); } catch (_) {}
+  }
+  const api = context.window.NoetuneV17SessionSnapshot;
+  context.v17RepeatResultState = context.createV17RepeatFrameState('s-result');
+  context.v17RepeatCycleState = null;
+  context.v17RepeatReturnPending = false;
+  context.v17RepeatModeSelectionPending = screen === 's-v17-session-mode';
+  context.v17RepeatBeforeScore = { state: 'scored', value: 2, touched: true };
+  context.v17RepeatCycleCount = context.D.v17SessionIdentity.cycleIndex;
+  const serialized = api.serializeV17SessionSnapshot();
+  assert.equal(serialized.ok, true, JSON.stringify(serialized.error));
+  return { context, api, snapshot: serialized.snapshot, effects, input };
+}
+
+test('production restored Repeat mode selection keeps identity and supports cancel without side effects', () => {
+  const f = repeatSnapshotRuntime('regular', 's-v17-session-mode');
+  const before = JSON.stringify(f.context.D.v17SessionIdentity);
+  f.context.D = {};
+  assert.equal(f.context.resumeV17RegularSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.v17RepeatModeSelectionPending, true);
+  assert.equal(JSON.stringify(f.context.D.v17SessionIdentity), before);
+  assert.equal(f.context.v17RepeatCycleCount, 2);
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0); assert.equal(f.effects.uuid, 0); assert.equal(f.effects.clear, 0);
+});
+
+test('production restored Repeat mode selection Back cancels to original Result', () => {
+  const f = repeatSnapshotRuntime('regular', 's-v17-session-mode');
+  assert.equal(f.context.resumeV17RegularSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.cancelV17RepeatModeSelection(), true);
+  assert.equal(f.context.cur, 's-result');
+  assert.equal(f.context.v17RepeatResultState, null);
+  assert.equal(f.context.v17RepeatModeSelectionPending, false);
+});
+
+test('production restored active Regular response preserves repeat projection and exact identity', () => {
+  const f = repeatSnapshotRuntime('regular', 's-v17-first-response');
+  f.snapshot.repeatState.modeSelectionPending = false;
+  f.snapshot.currentScreen = 's-v17-first-response'; f.snapshot.summary.sessionMode = 'regular'; f.snapshot.currentState.currentScreen = 's-v17-first-response'; f.snapshot.currentState.currentStep = 'first-response';
+  assert.equal(f.context.resumeV17RegularSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.cur, 's-v17-first-response'); assert.equal(f.context.v17RepeatModeSelectionPending, false);
+  assert.equal(f.context.v17RepeatCycleCount, f.context.D.v17SessionIdentity.cycleIndex); assert.equal(f.effects.analytics, 0);
+});
+
+test('production restored active Regular response temporary return and resume are idempotent', () => {
+  const f = repeatSnapshotRuntime('regular', 's-v17-first-response');
+  f.snapshot.repeatState.modeSelectionPending = false; f.snapshot.currentScreen = 's-v17-first-response'; f.snapshot.summary.sessionMode = 'regular'; f.snapshot.currentState.currentScreen = 's-v17-first-response'; f.snapshot.currentState.currentStep = 'first-response';
+  assert.equal(f.context.resumeV17RegularSnapshotToScreen(f.snapshot).ok, true);
+  f.context.v17RepeatResultState = f.context.createV17RepeatFrameState('s-result');
+  assert.equal(f.context.returnToV17RepeatResult(), true); assert.equal(f.context.v17RepeatReturnPending, true);
+  assert.equal(f.context.resumeV17RepeatCycle(), true); assert.equal(f.context.v17RepeatReturnPending, false); assert.equal(f.context.v17RepeatCycleState, null);
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0); assert.equal(f.effects.uuid, 0);
+});
+
+test('production restored active Deep response preserves Deep identity and does not activate Regular flow', () => {
+  const f = repeatSnapshotRuntime('deep', 's-v17-deep-response');
+  f.snapshot.repeatState.modeSelectionPending = false; f.snapshot.currentScreen = 's-v17-deep-response'; f.snapshot.summary.sessionMode = 'deep'; f.snapshot.currentState.currentScreen = 's-v17-deep-response'; f.snapshot.currentState.currentStep = 'deep.question1';
+  assert.equal(f.context.resumeV17RegularSnapshotToScreen(f.snapshot).ok, true);
+  assert.equal(f.context.D.v17SessionMode, 'deep'); assert.equal(f.context.D.v17Flow.deepDive.questionVariant, 'A'); assert.equal(f.context.D.v17Flow.regularFlow, null);
+  assert.equal(f.context.D.v17SessionIdentity.sessionId, '11111111-1111-4111-8111-111111111111'); assert.equal(f.effects.analytics, 0);
+});
+
+test('production restored Repeat serializer is pure across repeated serialization', () => {
+  const f = repeatSnapshotRuntime('regular', 's-v17-first-response');
+  const before = JSON.stringify({ d: f.context.D, result: f.context.v17RepeatResultState });
+  assert.equal(f.api.serializeV17SessionSnapshot().ok, true); assert.equal(f.api.serializeV17SessionSnapshot().ok, true);
+  assert.equal(JSON.stringify({ d: f.context.D, result: f.context.v17RepeatResultState }), before);
+  assert.equal(f.effects.analytics, 0); assert.equal(f.effects.storage, 0); assert.equal(f.effects.uuid, 0);
+});
+
+test('production restored Repeat state rejects temporary Result persistence', () => {
+  const f = repeatSnapshotRuntime('regular', 's-v17-session-mode');
+  f.context.v17RepeatReturnPending = true; f.context.v17RepeatCycleState = f.context.createV17RepeatFrameState('s-v17-first-response');
+  const rejected = f.api.serializeV17SessionSnapshot();
+  assert.equal(rejected.ok, false); assert.equal(rejected.error.code, 'UNSUPPORTED_REPEAT_STATE');
+});
+*/
