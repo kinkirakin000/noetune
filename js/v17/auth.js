@@ -12,10 +12,30 @@ var v17AuthBusy = false;
 var v17PendingSavePromise = null;
 var v17AuthReturnRestorePromise = null;
 
+// Cloud Session Bookmark remains explicitly disabled until the privacy gate
+// and authenticated Resume boundary are approved.  This is a hard-off owner;
+// access or billing state must never enable it implicitly.
+var V17_CLOUD_SESSION_BOOKMARK_ENABLED = false;
+
 var V17_PENDING_BOOKMARK_STORAGE_KEY = 'noetunePendingBookmark';
 var V17_AUTH_RETURN_STORAGE_KEY = 'noetuneV17AuthReturn';
 var V17_AUTH_RETURN_VERSION = 1;
 var V17_AUTH_RETURN_MAX_AGE_MS = 10 * 60 * 1000;
+
+function isV17CloudSessionBookmarkEnabled() {
+  return V17_CLOUD_SESSION_BOOKMARK_ENABLED === true;
+}
+
+function cleanupRetiredV17AuthStorage() {
+  try {
+    if (typeof sessionStorage === 'undefined') return { ok: true };
+    sessionStorage.removeItem(V17_AUTH_RETURN_STORAGE_KEY);
+    sessionStorage.removeItem(V17_PENDING_BOOKMARK_STORAGE_KEY);
+    return { ok: true };
+  } catch (error) {
+    return { ok: false, error: { code: 'LEGACY_AUTH_STORAGE_CLEANUP_FAILED' } };
+  }
+}
 
 function cloneV17AuthReturnValue(value) {
   if (!value || typeof value !== 'object') return value;
@@ -116,6 +136,10 @@ function restoreV17AuthReturnResultState(resultState) {
 }
 
 async function restoreV17AuthReturnIfNeeded() {
+  cleanupRetiredV17AuthStorage();
+  if (!isV17CloudSessionBookmarkEnabled()) {
+    return { ok: false, disabled: true, reason: 'V17_CLOUD_SESSION_BOOKMARK_DISABLED' };
+  }
   if (v17AuthReturnRestorePromise) return v17AuthReturnRestorePromise;
   v17AuthReturnRestorePromise = (async function() {
     try {
@@ -298,6 +322,8 @@ function setV17AuthState(patch) {
 }
 
 function runV17PendingSavesIfNeeded() {
+  cleanupRetiredV17AuthStorage();
+  if (!isV17CloudSessionBookmarkEnabled()) return Promise.resolve(false);
   if (!v17AuthState.user || v17AuthState.status === 'guest' || v17AuthState.status === 'idle') {
     return Promise.resolve(false);
   }
@@ -424,6 +450,7 @@ function loadV17SupabaseSdk() {
 }
 
 function ensureV17SupabaseReady() {
+  cleanupRetiredV17AuthStorage();
   if (v17SupabaseReadyPromise) return v17SupabaseReadyPromise;
   v17SupabaseReadyPromise = getV17AuthApiConfig()
     .then(function(cfg) {

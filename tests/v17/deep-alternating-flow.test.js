@@ -15,6 +15,7 @@ const regularRouteStart = html.indexOf('function getV17ThemeRoute()');
 const regularRouteEnd = html.indexOf('function getV17ThemeMeaning()', regularRouteStart);
 const regularRouteSource = html.slice(regularRouteStart, regularRouteEnd);
 const snapshotSource = fs.readFileSync(path.join(__dirname, '../../js/v17/session-snapshot.js'), 'utf8');
+const authSource = fs.readFileSync(path.join(__dirname, '../../js/v17/auth.js'), 'utf8');
 
 function extractAppFunction(name) {
   const start = html.indexOf('function ' + name + '(');
@@ -48,6 +49,89 @@ function fixture(routeType) {
 }
 
 function answer(f, value) { f.input.value = value; f.context.onV17DeepDiveInput(value); f.context.submitV17DeepDiveResponse(); }
+
+function hardOffAuthFixture() {
+  const store = new Map([
+    ['noetuneV17AuthReturn', 'private-like'],
+    ['noetunePendingBookmark', 'private-like']
+  ]);
+  const calls = { remove: [], saveResult: 0, saveProgress: 0, saveBookmark: 0 };
+  const context = {
+    sessionStorage: {
+      getItem(key) { return store.has(key) ? store.get(key) : null; },
+      setItem() { throw new Error('unexpected storage write'); },
+      removeItem(key) { calls.remove.push(key); store.delete(key); }
+    },
+    Date, JSON, isFinite,
+    v17AuthState: { status: 'plus', user: { id: 'u' } },
+    v17AuthBusy: false,
+    savePendingResultIfNeeded() { calls.saveResult += 1; },
+    savePendingProgressIfNeeded() { calls.saveProgress += 1; },
+    savePendingBookmarkIfNeeded() { calls.saveBookmark += 1; }
+  };
+  context.window = context;
+  vm.runInNewContext(authSource, context, { filename: 'js/v17/auth.js' });
+  return { context, store, calls };
+}
+
+test('Phase 5C-0a hard-off owner is explicit and immutable', () => {
+  const f = hardOffAuthFixture();
+  assert.equal(f.context.isV17CloudSessionBookmarkEnabled(), false);
+  assert.equal(f.context.V17_CLOUD_SESSION_BOOKMARK_ENABLED, false);
+});
+
+test('Phase 5C-0a stale auth keys are removed without parsing', () => {
+  const f = hardOffAuthFixture();
+  const result = f.context.cleanupRetiredV17AuthStorage();
+  assert.equal(result.ok, true);
+  assert.equal(f.store.has('noetuneV17AuthReturn'), false);
+  assert.equal(f.store.has('noetunePendingBookmark'), false);
+  assert.equal(f.calls.remove.length, 2);
+});
+
+test('Phase 5C-0a stale cleanup is idempotent', () => {
+  const f = hardOffAuthFixture();
+  f.context.cleanupRetiredV17AuthStorage();
+  f.context.cleanupRetiredV17AuthStorage();
+  assert.equal(f.store.size, 0);
+  assert.equal(f.calls.remove.length, 4);
+});
+
+test('Phase 5C-0a auth-return restore is retired and does not hydrate Result', async () => {
+  const f = hardOffAuthFixture();
+  const result = await f.context.restoreV17AuthReturnIfNeeded();
+  assert.equal(result.disabled, true);
+  assert.equal(f.store.size, 0);
+});
+
+test('Phase 5C-0a auth callback pending saves are fail closed', async () => {
+  const f = hardOffAuthFixture();
+  const result = await f.context.runV17PendingSavesIfNeeded();
+  assert.equal(result, false);
+  assert.deepEqual(f.calls, { remove: ['noetuneV17AuthReturn', 'noetunePendingBookmark'], saveResult: 0, saveProgress: 0, saveBookmark: 0 });
+});
+
+test('Phase 5C-0a common Session Bookmark handler is disabled directly', () => {
+  const fn = extractAppFunction('handleV17SessionBookmarkClick');
+  const context = { isV17CloudSessionBookmarkEnabled() { return false; }, isV17GuestLocalBookmarkRetired() { return false; } };
+  vm.runInNewContext(fn, context);
+  const result = context.handleV17SessionBookmarkClick();
+  assert.equal(result.ok, true); assert.equal(result.written, false); assert.equal(result.reason, 'V17_CLOUD_SESSION_BOOKMARK_DISABLED');
+});
+
+test('Phase 5C-0a Result Bookmark handler is disabled directly', () => {
+  const fn = extractAppFunction('handleV17ResultBookmarkClick');
+  const context = { isV17CloudSessionBookmarkEnabled() { return false; } };
+  vm.runInNewContext(fn, context);
+  assert.equal(context.handleV17ResultBookmarkClick(), false);
+});
+
+test('Phase 5C-0a hard-off guards do not expose private values', () => {
+  const f = hardOffAuthFixture();
+  const result = f.context.restoreV17AuthReturnIfNeeded;
+  assert.equal(typeof result, 'function');
+  assert.equal(JSON.stringify(f.context.cleanupRetiredV17AuthStorage()).includes('private-like'), false);
+});
 
 test('Deep alternates A/B, keeps original theme, and commits only complete rounds', () => {
   const f = fixture('problem');

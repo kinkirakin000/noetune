@@ -9784,6 +9784,17 @@ function updateV17SessionBookmarkVisibility() {
   var button = document.getElementById('v17-session-bookmark');
   var status = document.getElementById('v17-session-bookmark-status');
   if (!button) return;
+  if (typeof isV17CloudSessionBookmarkEnabled === 'function' && !isV17CloudSessionBookmarkEnabled()) {
+    button.hidden = true;
+    button.disabled = true;
+    button.classList.remove('visible', 'saved');
+    button.setAttribute('aria-pressed', 'false');
+    if (status) {
+      status.hidden = true;
+      status.textContent = '';
+    }
+    return;
+  }
   if (isV17GuestLocalBookmarkRetired()) {
     button.hidden = true;
     button.disabled = false;
@@ -9960,6 +9971,9 @@ function setV17SessionBookmarkStatus(key) {
 function handleV17SessionBookmarkClick() {
   if (isV17GuestLocalBookmarkRetired()) {
     return { ok: true, written: false, reason: 'GUEST_LOCAL_BOOKMARK_RETIRED' };
+  }
+  if (typeof isV17CloudSessionBookmarkEnabled === 'function' && !isV17CloudSessionBookmarkEnabled()) {
+    return { ok: true, written: false, reason: 'V17_CLOUD_SESSION_BOOKMARK_DISABLED' };
   }
   var button = document.getElementById('v17-session-bookmark');
   if (!button || button.hidden || button.disabled) return;
@@ -10575,6 +10589,14 @@ function renderResultSaveUI() {
   var button = document.getElementById('btn-save-result');
   var status = document.getElementById('save-result-status');
   if (!button || !status) return;
+  if (typeof isV17CloudSessionBookmarkEnabled === 'function' && !isV17CloudSessionBookmarkEnabled()) {
+    button.hidden = true;
+    button.disabled = true;
+    button.setAttribute('aria-hidden', 'true');
+    status.hidden = true;
+    status.textContent = '';
+    return;
+  }
   if (updateV17ResultBookmarkAvailability()) return;
   var isV17 = !!D.v17Flow;
   var buttonKey = _resultSaveState === 'login' ? 'saveLogin'
@@ -10601,6 +10623,14 @@ function updateV17ResultBookmarkAvailability() {
   var button = document.getElementById('btn-save-result');
   var status = document.getElementById('save-result-status');
   if (!button || !status) return true;
+  if (typeof isV17CloudSessionBookmarkEnabled === 'function' && !isV17CloudSessionBookmarkEnabled()) {
+    button.hidden = true;
+    button.disabled = true;
+    button.setAttribute('aria-hidden', 'true');
+    status.hidden = true;
+    status.textContent = '';
+    return true;
+  }
   if (!isV17GuestLocalBookmarkRetired()) {
     button.hidden = false;
     button.disabled = false;
@@ -10617,6 +10647,7 @@ function updateV17ResultBookmarkAvailability() {
 }
 
 function handleV17ResultBookmarkClick() {
+  if (typeof isV17CloudSessionBookmarkEnabled === 'function' && !isV17CloudSessionBookmarkEnabled()) return false;
   if (isV17GuestLocalBookmarkRetired()) return false;
   if (typeof window.toggleCurrentThemeBookmark !== 'function') return false;
   return window.toggleCurrentThemeBookmark();
@@ -10963,6 +10994,18 @@ function wrapV17SavePayloadBuilders() {
   window.restoreV17ResultSnapshotToScreen = restoreV17ResultSnapshotToScreen;
 }
 
+function installV17BookmarkHardOffGuards() {
+  if (typeof isV17CloudSessionBookmarkEnabled !== 'function' || isV17CloudSessionBookmarkEnabled()) return;
+  var disabled = function() {
+    return Promise.resolve({ ok: false, disabled: true, reason: 'V17_CLOUD_SESSION_BOOKMARK_DISABLED' });
+  };
+  if (typeof window === 'undefined') return;
+  window.toggleCurrentThemeBookmark = disabled;
+  window.createBookmark = disabled;
+  window.savePendingBookmarkIfNeeded = disabled;
+  window.finalizeV17BookmarkAuthReturn = disabled;
+}
+
 document.addEventListener('keydown', function(e){
   if (e.key !== 'Enter') return;
   if (e.isComposing || e.keyCode === 229) return;
@@ -10971,6 +11014,7 @@ document.addEventListener('keydown', function(e){
 async function initializeApp() {
   ensureV17QuestionState();
   wrapV17SavePayloadBuilders();
+  installV17BookmarkHardOffGuards();
   applyThemeMode();
   await loadV17FlowCopy();
   loadV17ThemeLibrary();
