@@ -4,24 +4,12 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 
 const files = ['index.html', 'app-v17.html'];
-const payloadAllowlist = {
-  v17_session_started: ['locale'],
-  v17_session_completed: ['route'],
-  v17_result_reached: ['cycleIndex', 'route'],
-  v17_subtheme_restarted: ['route', 'cycleCount']
-};
+const eventNames = ['v17_session_started', 'v17_session_completed', 'v17_result_reached', 'v17_subtheme_restarted'];
+const forbiddenTransport = /(?:googletagmanager\.com\/gtag\/js|gtag\(\s*['"]config['"]|gtag\(\s*['"]event['"]\s*,\s*['"]page_view['"]|sendBeacon|page_location|page_path|page_referrer|window\.location\.(?:href|search|hash)|document\.(?:URL|referrer))/i;
 
-function configBlocks(source) {
-  const blocks = [];
-  const re = /gtag\(\s*['"]config['"]\s*,([\s\S]*?)\);/g;
-  let match;
-  while ((match = re.exec(source))) blocks.push(match[0]);
-  return blocks;
-}
-
-function extractPayload(source, eventName) {
+function extractPayloads(source, eventName) {
   const needle = `trackEvent('${eventName}'`;
-  const result = [];
+  const payloads = [];
   let from = 0;
   while ((from = source.indexOf(needle, from)) !== -1) {
     let i = from + needle.length;
@@ -45,38 +33,25 @@ function extractPayload(source, eventName) {
       if (ch === '{') depth += 1;
       if (ch === '}') {
         depth -= 1;
-        if (depth === 0) { result.push(source.slice(start, i + 1)); closed = true; break; }
+        if (depth === 0) { payloads.push(source.slice(start, i + 1)); closed = true; break; }
       }
     }
     assert.equal(closed, true, `${eventName} payload braces must balance`);
     from = i + 1;
   }
-  return result;
-}
-
-function keys(payload) {
-  return [...payload.matchAll(/\b([A-Za-z_$][\w$]*)\s*:/g)].map((match) => match[1]);
+  return payloads;
 }
 
 for (const file of files) {
-  test(`${file} disables GA4 automatic pageview without URL analytics`, () => {
+  test(`${file} has no GA initialization or alternate pageview transport`, () => {
     const source = fs.readFileSync(path.join(__dirname, '../../', file), 'utf8');
-    const blocks = configBlocks(source);
-    assert.equal(blocks.length >= 1, true);
-    for (const block of blocks) {
-      assert.match(block, /send_page_view\s*:\s*false/);
-      assert.doesNotMatch(block, /send_page_view\s*:\s*true/);
-      assert.doesNotMatch(block, /(?:location|search|href|hash|referrer|document\.URL)/i);
-    }
-    assert.doesNotMatch(source, /gtag\(\s*['"]event['"]\s*,\s*['"]page_view['"]/i);
-    assert.doesNotMatch(source, /(?:page_location|page_path|page_referrer|window\.location\.(?:href|search|hash)|document\.(?:URL|referrer))/i);
-    assert.match(source, /googletagmanager\.com\/gtag\/js\?id=G-TH1504X2CK/);
-    assert.match(source, /gtag\(\s*['"]config['"]\s*,\s*['"]G-TH1504X2CK['"]/);
-    for (const [eventName, allowed] of Object.entries(payloadAllowlist)) {
-      for (const payload of extractPayload(source, eventName)) assert.deepEqual(keys(payload), allowed);
-    }
-    for (const sentinel of ['PRIVATE_OAUTH_CODE', 'PRIVATE_OAUTH_STATE', 'PRIVATE_CHECKOUT_RETURN', 'PRIVATE_PORTAL_RETURN']) {
+    assert.doesNotMatch(source, forbiddenTransport);
+    for (const sentinel of ['PRIVATE_OAUTH_CODE', 'PRIVATE_OAUTH_STATE', 'PRIVATE_OAUTH_ERROR', 'PRIVATE_CHECKOUT_RETURN', 'PRIVATE_PORTAL_RETURN', 'PRIVATE_GENERIC_QUERY', 'PRIVATE_REFERRER_SENTINEL']) {
       assert.equal(source.includes(sentinel), false);
+    }
+    for (const eventName of eventNames) {
+      const payloads = extractPayloads(source, eventName);
+      for (const payload of payloads) assert.doesNotMatch(payload, /(?:sessionId|cycleId|themeId|questionId|before|after|delta|score|measurement|email|token|snapshot|draft|response|sourceQuote)/i);
     }
   });
 }
