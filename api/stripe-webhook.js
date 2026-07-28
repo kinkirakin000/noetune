@@ -112,20 +112,20 @@ function isMissingColumnError(error) {
 }
 
 function logWebhook(event, stage, details) {
-  const parts = [
-    '[stripe-webhook]',
-    'stage=' + stage,
-    'type=' + String(event && event.type || 'unknown'),
-    'id=' + String(event && event.id || 'unknown')
-  ];
-  if (details && typeof details === 'object') {
-    if (details.hasSubscription != null) parts.push('hasSubscription=' + String(!!details.hasSubscription));
-    if (details.hasCustomer != null) parts.push('hasCustomer=' + String(!!details.hasCustomer));
-    if (details.hasProfile != null) parts.push('hasProfile=' + String(!!details.hasProfile));
-    if (details.reason) parts.push('reason=' + String(details.reason));
-    if (details.status) parts.push('status=' + String(details.status));
-  }
-  console.error(parts.join(' '));
+  const messages = {
+    'profile-not-found': '[stripe-webhook] profile absent',
+    'skip-livemode-mismatch': '[stripe-webhook] event ignored',
+    'identifier-conflict': '[stripe-webhook] event ignored',
+    'subscription-id-mismatch': '[stripe-webhook] event ignored',
+    'skip-stale-event': '[stripe-webhook] event ignored',
+    'missing-column-error': '[stripe-webhook] processing failed',
+    'missing-subscription-id': '[stripe-webhook] processing failed',
+    'stripe-retrieve-failed': '[stripe-webhook] processing failed',
+    'incomplete-subscription-snapshot': '[stripe-webhook] processing failed',
+    'unknown-subscription-status': '[stripe-webhook] event ignored',
+    'unexpected-error': '[stripe-webhook] processing failed'
+  };
+  console.error(messages[stage] || '[stripe-webhook] processing failed');
 }
 
 function isNewerOrEqualTimestamp(existingValue, incomingValue) {
@@ -371,10 +371,11 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
   }
 
   const fullUpdates = buildFullProfileUpdates(snapshot);
-  const { error } = await admin
+  const { data, error } = await admin
     .from('profiles')
     .update(fullUpdates)
-    .eq('id', profile.id);
+    .eq('id', profile.id)
+    .select('id');
   if (error) {
     if (isMissingColumnError(error)) {
       logWebhook(event, 'missing-column-error', {
@@ -386,6 +387,7 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
     }
     throw error;
   }
+  if (!Array.isArray(data) || data.length === 0) return { ok: true, skipped: true, reason: 'profile_absent' };
 
   return { ok: true, skipped: false, legacyFallback: false };
 }
@@ -398,7 +400,7 @@ async function handleSubscriptionLikeEvent(admin, stripe, event, subscriptionLik
       hasSubscription: !!(subscriptionLike && subscriptionLike.id),
       hasCustomer: !!(subscriptionLike && subscriptionLike.customer)
     });
-    return { status: 500, body: { error: 'Profile not found' } };
+    return { status: 200, body: { received: true } };
   }
 
   const subscriptionId = subscriptionLike && subscriptionLike.id ? subscriptionLike.id : null;
@@ -471,7 +473,7 @@ async function handleCheckoutSessionCompleted(admin, stripe, event) {
       hasSubscription: !!subscriptionId,
       hasCustomer: !!customerId
     });
-    return { status: 500, body: { error: 'Profile not found' } };
+    return { status: 200, body: { received: true } };
   }
 
   if (!subscriptionId) {
@@ -526,7 +528,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
         hasSubscription: !!refs.subscriptionId,
         hasCustomer: !!refs.customerId
       });
-      return { status: 500, body: { error: 'Profile not found' } };
+      return { status: 200, body: { received: true } };
     }
 
     let subscription = subscriptionLike;
@@ -574,7 +576,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
       hasSubscription: !!refs.subscriptionId,
       hasCustomer: !!refs.customerId
     });
-    return { status: 500, body: { error: 'Profile not found' } };
+    return { status: 200, body: { received: true } };
   }
 
   let subscription;
