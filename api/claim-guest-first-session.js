@@ -77,7 +77,7 @@ module.exports = async (req, res) => {
       profile: updated || profile,
     });
   } catch (e) {
-    console.error('[claim-guest-first-session]', e.message);
+    console.error('[claim-guest-first-session] claim operation failed');
     return res.status(200).json({ loggedIn: false, claimed: false });
   }
 };
