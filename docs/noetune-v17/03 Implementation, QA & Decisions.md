@@ -1574,6 +1574,41 @@ Verification: Snapshot `111/111 PASS`; runtime/navigation `113/113 PASS`; app sy
 
 Current status: L-01 Closed、L-02 Closed、L-03〜L-07 Open、Phase 5C In progress、Cloud Session hard-off Active、Cloud Bookmark / Resume Closed、authenticated save/read/Resume Not started、Phase 5B-4b-3c Deferred / Not started、browser integration Not performed、deploy Not performed。
 
+### Phase 5C-2c-1 Stripe Webhook Error Response Redaction Boundary Audit
+
+**Status:** Complete
+**Verdict:** PASS WITH FINDINGS
+
+Finding: L-04. In `api/stripe-webhook.js`, Stripe signature verification failure interpolated the Stripe SDK exception's raw `error.message` into the HTTP 400 response. The existing server log contained only the fixed generic message and did not include the raw provider message. No dedicated webhook test existed. The minimal implementation boundary was `api/stripe-webhook.js` plus a focused webhook redaction test. HTTP 400 and existing webhook retry semantics were judged preservable. Code change, commit, push, and deploy were not performed during the audit.
+
+### Phase 5C-2c-2 Stripe Webhook Signature Error Response Redaction
+
+**Status:** Complete
+
+Implementation commit: `70778c2bb6853d3d20fe4cc98863f64431b69ea4`
+Commit message: `fix(v17): redact webhook signature errors`
+
+Changed files: `api/stripe-webhook.js`; `tests/api/stripe-webhook-error-redaction.test.js`
+
+Final contract:
+
+```text
+HTTP 400
+Cache-Control: no-store
+```
+
+```js
+{ error: 'WEBHOOK_SIGNATURE_INVALID' }
+```
+
+The raw `error.message`, Stripe provider diagnostics, exception object/name/stack, raw request body, signature header, webhook secret, customer data, subscription data, email, user ID, and token are excluded from the response. The existing generic server log remains `[stripe-webhook] signature verification failed`; no raw provider message, exception, stack, body, signature, or secret was added to logs. The `stripe.webhooks.constructEvent(rawBody, sig, secret)` argument contract remains unchanged, and signature failure stops event processing. Successful webhook processing, business logic, unsupported-event handling, and the generic 500 contract remain unchanged. HTTP 400 is preserved, so existing non-2xx semantics remain unchanged.
+
+Verification: focused test `1/1 PASS`; `node --check api/stripe-webhook.js` PASS; test syntax PASS; `git diff --check` PASS. Snapshot/runtime tests were not run because Session runtime was unchanged. Human browser QA was unnecessary and was not performed. Commit and push are complete; deploy was not performed.
+
+Finding status: L-01 Closed; L-02 Closed; L-04 Closed; L-03 Open; L-05 Open; L-06 Open; L-07 Open. Phase 5C remains In progress. Cloud Session hard-off is Active and Cloud Bookmark / Resume remains Closed. Phase 5B-4b-3c is Deferred / Not started. Authenticated save/read/Resume has not started, browser integration has not been performed, and deploy has not been performed.
+
+Latest repository checkpoint: branch `feature/v17-session-resume`, HEAD `70778c2bb6853d3d20fe4cc98863f64431b69ea4`, local/remote `0 / 0`, tracked clean, staged none, five backup files only.
+
 ### Phase 5B-4b-2 acceptance
 
 **Status:** Complete
