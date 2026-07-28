@@ -12,6 +12,16 @@ test('missing profiles acknowledge safely and never recreate profiles', () => {
   assert.doesNotMatch(source, /email.*lookup|lookup.*email/i);
 });
 
+test('invoice payment events acknowledge deleted-account profiles safely', () => {
+  const invoiceBranch = source.slice(source.indexOf('async function handleInvoiceEvent'));
+  const missingProfileBranch = invoiceBranch.slice(0, invoiceBranch.indexOf("if (!invoiceSubscriptionId)"));
+  assert.match(missingProfileBranch, /if \(!profile\)/);
+  assert.match(missingProfileBranch, /return \{ status: 200, body: \{ received: true \} \};/);
+  assert.doesNotMatch(missingProfileBranch, /Profile not found/);
+  assert.match(source, /case 'invoice\.payment_succeeded':/);
+  assert.match(source, /case 'invoice\.payment_failed':/);
+});
+
 test('update race distinguishes zero rows from database errors', () => {
   assert.match(source, /\.select\('id'\)/);
   assert.match(source, /data\.length === 0/);

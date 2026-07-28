@@ -622,7 +622,7 @@ async function handleInvoiceEvent(admin, stripe, event) {
       hasSubscription: !!invoiceSubscriptionId,
       hasCustomer: !!customerId
     });
-    return { status: 500, body: { error: 'Profile not found' } };
+    return { status: 200, body: { received: true } };
   }
 
   if (!invoiceSubscriptionId) {
