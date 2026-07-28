@@ -688,7 +688,8 @@ module.exports = async (req, res) => {
     event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (error) {
     console.error('[stripe-webhook] signature verification failed');
-    return res.status(400).json({ error: `Webhook signature verification failed: ${error.message}` });
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(400).json({ error: 'WEBHOOK_SIGNATURE_INVALID' });
   }
 
   try {
