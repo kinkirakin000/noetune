@@ -60,7 +60,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({ url: portalSession.url });
   } catch (e) {
-    console.error('[create-portal-session]', e.message);
+    console.error('[create-portal-session] provider operation failed');
     return res.status(500).json({ error: 'Failed to create portal session' });
   }
 };

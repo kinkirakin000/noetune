@@ -88,7 +88,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({ url: session.url });
   } catch (e) {
-    console.error('[create-checkout-session]', e.message);
+    console.error('[create-checkout-session] provider operation failed');
     return res.status(500).json({ error: 'Failed to create checkout session' });
   }
 };
