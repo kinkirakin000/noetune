@@ -1641,6 +1641,39 @@ Verification:
 
 Phase 5B-4b-2完了後もRepeat serializer、Repeat restore、Repeat reload resume、resumed Repeat Back matrix after reload、Guest persistent save、Landing / Public Resume、Cloud、Journey completionは未開放。
 
+### Phase 5C current privacy-hardening disposition
+
+Accepted repository-level hardening commits:
+
+- `689290ab7858a6b955e177aec1ddfed901ceceb5` — `fix(v17): redact auth provider errors`
+- `d957e1b04441575323583a7fa7331f9a315ad93a` — `fix(v17): redact billing provider errors`
+- `86ca82708fbfc9f51ffef606a9099eb4d8059bf0` — `fix(v17): redact claim provider errors`
+- `27e7280a14a93a9b0694bb3664a3da79e51f9169` — `fix(v17): minimize analytics identifiers`
+- `583a97a858fc7d03e8e5ae7264f8c722a8656e4b` — `fix(v17): disable automatic analytics pageviews`
+- `478fff3e766d576c8a3f7cf6458f8ad3a22633f0` — `fix(v17): hard-off analytics before consent`
+- `70778c2bb6853d3d20fe4cc98863f64431b69ea4` — `fix(v17): redact webhook signature errors`
+
+Accepted QA evidence:
+
+- Auth privacy: `5/5 PASS`
+- Billing session error redaction: `5/5 PASS`
+- Claim API redaction: `6/6 PASS`
+- Analytics payload minimization: `3/3 PASS`
+- Analytics automatic-pageview contract: `2/2 PASS`
+- Analytics pre-consent hard-off: `4/4 PASS`
+- Deep regression: `113/113 PASS`
+- Snapshot regression: `111/111 PASS`
+
+Finding disposition:
+
+- L-01 / L-02 / L-03 / L-04: **Closed** at repository-code level.
+- L-05 / L-06: **Closed at repository-code level**; hosting-platform automatic exception logging remains a deployed integration gate.
+- L-07: **Closed for the current release candidate** because GA4 and PostHog are hard-off. Future re-enable requires explicit consent and provider network/storage review.
+
+The Phase 5C Global Privacy & Security Gate overall is **not complete**. Open gates include legal operator/data-controller review, vendor DPA/subprocessors/transfer/region, retention and backup, Journey deletion/Account deletion/data requests, incident response, RLS owner-only negative tests, Cloud Session vendor/data-flow approval, privacy notice/terms/consent copy, 18+ and minor-handling policy, and deployed serverless/platform logging verification. Repository redaction does not prove platform logs are safe. Cloud Session/Bookmark/Resume remains hard-off.
+
+Current repository checkpoint before this documentation commit: branch `feature/v17-session-resume`, HEAD `478fff3e766d576c8a3f7cf6458f8ad3a22633f0`, ahead/behind `6 / 0`, tracked clean, staged none, push not performed, deploy not performed, five protected backup files preserved.
+
 次のexecution point:
 
 ```text

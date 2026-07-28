@@ -558,3 +558,33 @@ The next product-code Unit is not selected here. Bookmark/Resume, Cloud, Popup O
 The server hard-off closes Cloud Bookmark GET/POST, saved progress GET/POST, and saved result POST before authentication, body parsing, entitlement, service-role, or database work. Cloud write/read/Resume remains closed.
 
 Remaining findings and gates include L-03, L-05, L-06, and L-07, data classification and consent, production RLS verification, deletion/export/retention, legal/operator/vendor review, authenticated save/read/Resume, and real-browser integration. The next implementation candidate is Phase 5C-2d Auth Browser Error Redaction; this documentation Unit does not start it. Phase 5C is not complete. Phase 5B-4b-3c remains Deferred / Not started. Cloud Session hard-off and Cloud Bookmark / Resume Closed status remain in force. Authenticated save/read/Resume has not started and browser integration has not been performed. The next code Unit is not selected in this document; Commander must decide separately. Leader-only / Micro-Unit / Dual Execution Mode remains in force; multi-agent execution is not a default requirement.
+
+### Phase 5C current execution status — superseding record
+
+**Policy fixed. Repository-level privacy hardening sub-gate partially complete.** Global governance, vendor, lifecycle, RLS, deletion, and deployed integration gates remain open.
+
+Completed repository-code sub-gate:
+
+- Auth browser errors redacted
+- Stripe webhook provider errors redacted
+- Checkout / Portal logs redacted
+- Claim API logs redacted
+- Explicit analytics payload minimized
+- GA automatic pageviews disabled
+- GA4 / PostHog hard-off before consent
+
+Release blockers remain:
+
+- third-party analytics must not be re-enabled without explicit consent and provider network/storage review;
+- Cloud content remains disabled until the full Phase 5C gate passes;
+- deployed serverless logging behavior must be verified;
+- repository-level redaction alone does not prove platform logs are safe.
+
+Current execution point:
+
+```text
+Privacy hardening repository-code cluster documented.
+Next Phase 5C Unit requires separate Commander decision.
+```
+
+Current analytics contract: current v17 does not load GA4 or PostHog, does not execute provider initialization, and retains `trackEvent` call sites only as side-effect-free no-op foundations. No provider network audit has been completed. Phase 5C overall remains incomplete and is not PASS.

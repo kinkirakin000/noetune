@@ -1143,3 +1143,18 @@ The formatter must distinguish `US$` and `NT$` where a plain `$` would be ambigu
 - separate test and live environments
 - refresh state after Portal return
 - retain the last safe entitlement briefly when Stripe status cannot be fetched, according to a documented policy
+
+### 38.8 Current Release Privacy-Hardened Analytics Contract
+
+For the current v17 release candidate, third-party analytics is hard-off before consent:
+
+- current v17 HTML surfaces do not load the GA4 external script or execute GA config;
+- PostHog config fetch, SDK loading, initialization, and capture do not run;
+- `window.trackEvent` remains available as a side-effect-free no-op;
+- existing event call sites remain as future privacy-reviewed re-enable foundations;
+- event payloads are not copied to console, storage, or a global queue;
+- the current release makes no third-party analytics network attempt.
+
+The explicit payload contract forbids sending raw `sessionId`, raw `cycleId`, `themeId`, `questionId`, Before / After / delta / score or measurement state/value, free-input theme, Session response text, draft, `sourceQuote`, Snapshot content, authenticated user ID, email, token, billing identity, or raw URL/query/referrer. These values are not transmitted by the current hard-off release.
+
+Any future analytics re-enable requires explicit consent, no provider load before consent, safe network interception, network payload inspection, cookie/client-ID/distinct-ID review, anonymous/authenticated transition review, provider legal/DPA/subprocessor review, and a privacy-safe event allowlist. Advanced Consent Mode or cookieless pings do not count as no transmission; the current contract requires provider scripts not to load before consent.
