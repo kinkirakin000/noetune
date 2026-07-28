@@ -3686,6 +3686,7 @@
       }
     ]
   },
+  "account": { "delete": { "entry": "Delete account", "title": "Delete your account", "warning": "This deletes your Noetune account and account-linked data. This is not logout and cannot be undone.", "providerRetention": "Subscriptions end with deletion, but billing records, provider logs, and backups may follow separate retention rules.", "confirmPrompt": "Type DELETE to continue.", "confirmLabel": "Confirmation", "cancel": "Cancel", "submit": "Delete account", "processing": "Deleting…", "successTitle": "Account deletion completed", "successBody": "Your account was deleted. Some provider-retained records may remain under separate retention rules.", "returnHome": "Return home", "errorSession": "Your session expired. Sign in again to retry.", "errorUnconfirmed": "The deletion request could not be confirmed.", "errorConflict": "The account could not be safely deleted yet. Please retry or contact support.", "errorBilling": "Billing deletion could not be completed. Your account was not confirmed deleted.", "errorGeneric": "Deletion could not be confirmed. Your account remains available to retry." } },
   "languages": {
     "en": "🇺🇸English",
     "ja": "🇯🇵日本語",

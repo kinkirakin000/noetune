@@ -3686,6 +3686,7 @@
       }
     ]
   },
+  "account": { "delete": { "entry": "刪除帳戶", "title": "刪除您的帳戶", "warning": "這會刪除您的 Noetune 帳戶與帳戶相關資料。這不是登出，而且無法復原。", "providerRetention": "刪除會結束訂閱存取權，但帳單記錄、服務商記錄與備份可能依不同保留規則處理。", "confirmPrompt": "請輸入 DELETE 以繼續。", "confirmLabel": "確認", "cancel": "取消", "submit": "刪除帳戶", "processing": "刪除中…", "successTitle": "帳戶已刪除", "successBody": "您的帳戶已刪除。部分服務商保留記錄可能依其規則繼續保存。", "returnHome": "返回首頁", "errorSession": "登入工作階段已過期，請重新登入後再試。", "errorUnconfirmed": "無法確認刪除要求。", "errorConflict": "目前無法安全刪除帳戶，請重試或聯絡支援。", "errorBilling": "無法完成帳單刪除處理，未能確認帳戶已刪除。", "errorGeneric": "無法確認刪除完成，您可以再次嘗試。" } },
   "languages": {
     "en": "🇺🇸English",
     "ja": "🇯🇵日本語",

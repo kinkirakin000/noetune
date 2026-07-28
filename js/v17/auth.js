@@ -9,6 +9,7 @@ var v17SupabaseClient = null;
 var v17SupabaseReadyPromise = null;
 var v17SupabaseSdkPromise = null;
 var v17AuthBusy = false;
+var v17AccountDeletionBusy = false;
 var v17PendingSavePromise = null;
 var v17AuthReturnRestorePromise = null;
 
@@ -636,12 +637,14 @@ function renderV17AccountUI() {
   var professional = document.getElementById('account-professional');
   var manage = document.getElementById('account-manage');
   var logout = document.getElementById('account-logout');
+  var deletion = document.getElementById('account-delete');
   var separator = document.getElementById('account-menu-separator');
   if (login) login.hidden = state !== 'guest';
   if (signup) signup.hidden = state !== 'guest';
   if (professional) professional.hidden = state !== 'free';
   if (manage) manage.hidden = state !== 'plus';
   if (logout) logout.hidden = state === 'guest';
+  if (deletion) deletion.hidden = state === 'guest';
   if (separator) separator.hidden = state === 'guest';
 
   var chip = document.getElementById('btn-account-chip');
@@ -661,6 +664,86 @@ function renderV17AccountUI() {
   if (googleBtn) googleBtn.disabled = v17AuthBusy;
   if (msg && v17AuthState.status === 'error' && !msg.textContent) {
     msg.textContent = V17_GENERIC_AUTH_ERROR_COPY;
+  }
+}
+
+function getV17AccountDeletionDialog() { return document.getElementById('account-delete-dialog'); }
+function setV17AccountDeletionCopy() {
+  var map = {
+    'account-delete-title': 'account.delete.title',
+    'account-delete-warning': 'account.delete.warning',
+    'account-delete-provider-retention': 'account.delete.providerRetention',
+    'account-delete-confirm-label': 'account.delete.confirmLabel',
+    'account-delete-confirm-prompt': 'account.delete.confirmPrompt',
+    'account-delete-cancel': 'account.delete.cancel',
+    'account-delete-submit': 'account.delete.submit'
+  };
+  Object.keys(map).forEach(function(id) { var el = document.getElementById(id); if (el) el.textContent = v17Copy(map[id]); });
+}
+function resetV17AccountDeletionForm() {
+  var input = document.getElementById('account-delete-confirm');
+  var submit = document.getElementById('account-delete-submit');
+  var status = document.getElementById('account-delete-status');
+  if (input) { input.value = ''; input.disabled = false; }
+  if (submit) { submit.disabled = true; submit.textContent = v17Copy('account.delete.submit'); }
+  if (status) status.textContent = '';
+}
+function closeV17AccountDeletion() {
+  var dialog = getV17AccountDeletionDialog();
+  if (dialog) dialog.hidden = true;
+  resetV17AccountDeletionForm();
+}
+function openV17AccountDeletion() {
+  if (v17AuthState.status === 'guest' || !v17AuthState.user) return false;
+  closeAccountMenu();
+  setV17AccountDeletionCopy();
+  resetV17AccountDeletionForm();
+  var dialog = getV17AccountDeletionDialog();
+  if (dialog) dialog.hidden = false;
+  var input = document.getElementById('account-delete-confirm');
+  if (input) input.focus();
+  return true;
+}
+async function submitV17AccountDeletion() {
+  var input = document.getElementById('account-delete-confirm');
+  var submit = document.getElementById('account-delete-submit');
+  var status = document.getElementById('account-delete-status');
+  if (!input || input.value !== 'DELETE' || v17AccountDeletionBusy) return false;
+  v17AccountDeletionBusy = true;
+  input.disabled = true; if (submit) submit.disabled = true;
+  try {
+    if (!v17SupabaseClient || !v17SupabaseClient.auth) throw new Error('session');
+    var sessionResult = await v17SupabaseClient.auth.getSession();
+    var session = sessionResult && sessionResult.data ? sessionResult.data.session : null;
+    if (!session || !session.access_token) { if (status) status.textContent = v17Copy('account.delete.errorSession'); return false; }
+    var response = await fetch('/api/account', { method: 'DELETE', headers: { Authorization: 'Bearer ' + session.access_token, 'Content-Type': 'application/json' }, body: JSON.stringify({ confirmation: 'DELETE' }) });
+    var data = null; try { data = await response.json(); } catch (parseError) {}
+    if (!response.ok || !data || data.deleted !== true) {
+      var key = response.status === 409 ? 'account.delete.errorConflict' : response.status === 502 ? 'account.delete.errorBilling' : response.status === 400 ? 'account.delete.errorUnconfirmed' : 'account.delete.errorGeneric';
+      if (status) status.textContent = v17Copy(key); return false;
+    }
+    try { await v17SupabaseClient.auth.signOut({ scope: 'local' }); } catch (signOutError) {}
+    clearV17PendingCloudSaveState();
+    ['noetuneV17AuthReturn', 'noetunePendingBookmark', 'noetunePendingResult', 'noetunePendingProgress'].forEach(function(key) { try { sessionStorage.removeItem(key); } catch (e) {} });
+    ['noetune:v17:active-session:v1', 'noetune_v16_free_verb'].forEach(function(key) { try { localStorage.removeItem(key); } catch (e) {} });
+    setV17AuthState({ status: 'guest', user: null, profile: null, error: null, billing: null });
+    var dialog = getV17AccountDeletionDialog();
+    if (dialog) dialog.hidden = false;
+    if (input) input.hidden = true; if (submit) submit.hidden = true;
+    var cancel = document.getElementById('account-delete-cancel'); if (cancel) cancel.hidden = true;
+    var home = document.getElementById('account-delete-return'); if (home) { home.hidden = false; home.textContent = v17Copy('account.delete.returnHome'); }
+    if (status) status.textContent = v17Copy('account.delete.successBody');
+    var title = document.getElementById('account-delete-title'); if (title) title.textContent = v17Copy('account.delete.successTitle');
+    var warning = document.getElementById('account-delete-warning'); if (warning) warning.textContent = '';
+    var retention = document.getElementById('account-delete-provider-retention'); if (retention) retention.textContent = '';
+    return true;
+  } catch (error) {
+    if (status) status.textContent = v17Copy('account.delete.errorGeneric');
+    return false;
+  } finally {
+    v17AccountDeletionBusy = false;
+    if (input && !input.hidden) { input.disabled = false; input.value = ''; }
+    if (submit && !submit.hidden) submit.disabled = true;
   }
 }
 
@@ -692,6 +775,23 @@ function refreshV17AuthBillingContext() {
 window.initV17Auth = initV17Auth;
 window.loginV17WithGoogle = loginV17WithGoogle;
 window.logoutV17User = logoutV17User;
+window.openV17AccountDeletion = openV17AccountDeletion;
+window.closeV17AccountDeletion = closeV17AccountDeletion;
+window.submitV17AccountDeletion = submitV17AccountDeletion;
+
+if (typeof document !== 'undefined' && typeof document.addEventListener === 'function') {
+  document.addEventListener('input', function(event) {
+    if (!event.target || event.target.id !== 'account-delete-confirm') return;
+    var submit = document.getElementById('account-delete-submit');
+    if (submit) submit.disabled = event.target.value !== 'DELETE' || v17AccountDeletionBusy;
+  });
+  document.addEventListener('click', function(event) {
+    if (!event.target) return;
+    if (event.target.id === 'account-delete-cancel') closeV17AccountDeletion();
+    if (event.target.id === 'account-delete-submit') submitV17AccountDeletion();
+    if (event.target.id === 'account-delete-return') window.location.replace('index.html');
+  });
+}
 window.openV17AuthModal = openV17AuthModal;
 window.closeV17AuthModal = closeV17AuthModal;
 window.restoreV17Session = restoreV17Session;
