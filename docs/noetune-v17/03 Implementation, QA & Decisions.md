@@ -1674,6 +1674,33 @@ The Phase 5C Global Privacy & Security Gate overall is **not complete**. Open ga
 
 Current repository checkpoint before this documentation commit: branch `feature/v17-session-resume`, HEAD `478fff3e766d576c8a3f7cf6458f8ad3a22633f0`, ahead/behind `6 / 0`, tracked clean, staged none, push not performed, deploy not performed, five protected backup files preserved.
 
+### Phase 5C-3b Account Deletion Lifecycle — Accepted Record
+
+Accepted implementation commits:
+
+- `b5ade4a34739d9c5ed066a5d4698ea7de3f74718` — `feat(v17): add account deletion server contract`
+- `c280761fb51b35aadda682230721f0b338f1b2fa` — `fix(v17): harden deletion webhook races`
+- `e3a12204d09d4f9e496d3ba71746f2c1ff4430e3` — `feat(v17): add account deletion UI cleanup`
+
+Repository QA evidence:
+
+- Account deletion API tests: `5/5 PASS`
+- Webhook deletion-race tests: `5/5 PASS`
+- Webhook redaction tests: `1/1 PASS`
+- Account deletion UI tests: `5/5 PASS`
+- Auth privacy tests: `5/5 PASS`
+- Billing redaction tests: `5/5 PASS`
+- Deep regression: `113/113 PASS`
+- Snapshot regression: `111/111 PASS`
+
+Real-browser Guest visibility: `PASS`. Authenticated Account deletion interaction: `BLOCKED — safe temporary /api/account and Supabase auth stub unavailable`. Live mutation was not executed, and no repository files changed during the browser gate. Authenticated dialog interaction, failure-state browser QA, success cleanup browser QA, mobile/desktop visual QA, three-locale browser visual QA, and Supabase local sign-out runtime verification remain unverified and must not be recorded as PASS.
+
+Finding disposition: D-01 Account deletion absent — **Closed** at repository implementation level. W-01 Missing-profile webhook 500 — **Closed**. W-03 Dynamic/provider identifier webhook logs — **Closed**. The Account deletion real-browser gate is **Open** as a release integration gate. Vendor retention/backup, Google OAuth grant revocation, and platform automatic logging remain **Open**.
+
+Important limitations: production Account deletion, live Stripe Customer deletion, live Supabase Auth hard delete, response-loss convergence in a real browser, and deployed provider behavior were not executed. There is no durable deletion-operation table and no transaction/lock in this foundation. Provider-retained records remain a separate procedure. Phase 5C overall remains incomplete.
+
+Documentation checkpoint for this record: branch `feature/v17-session-resume`, pre-commit HEAD `e3a12204d09d4f9e496d3ba71746f2c1ff4430e3`, stored remote HEAD `2b0f9dea9a29db9379cfc7e59ad80c1ea3c5ba7f`, ahead/behind `3 / 0`, tracked clean, staged none, push and deploy not performed, five protected backup files preserved.
+
 次のexecution point:
 
 ```text

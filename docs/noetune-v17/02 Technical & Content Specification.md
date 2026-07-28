@@ -1158,3 +1158,17 @@ For the current v17 release candidate, third-party analytics is hard-off before 
 The explicit payload contract forbids sending raw `sessionId`, raw `cycleId`, `themeId`, `questionId`, Before / After / delta / score or measurement state/value, free-input theme, Session response text, draft, `sourceQuote`, Snapshot content, authenticated user ID, email, token, billing identity, or raw URL/query/referrer. These values are not transmitted by the current hard-off release.
 
 Any future analytics re-enable requires explicit consent, no provider load before consent, safe network interception, network payload inspection, cookie/client-ID/distinct-ID review, anonymous/authenticated transition review, provider legal/DPA/subprocessor review, and a privacy-safe event allowlist. Advanced Consent Mode or cookieless pings do not count as no transmission; the current contract requires provider scripts not to load before consent.
+
+### 38.9 Account Deletion Lifecycle Contract
+
+Account deletion is available only from the authenticated Account UI. It is distinct from Logout, Portal access, and subscription cancellation. The destructive action is hidden while signed out and requires the exact typed confirmation `DELETE`.
+
+The browser calls `DELETE /api/account` with the current Supabase access token and body `{ confirmation: "DELETE" }`. Client-supplied user IDs, email addresses, Stripe Customer or subscription IDs, Session content, theme/question values, and measurement values are not accepted.
+
+The server mutation order is fixed: Bearer verification → profile and billing snapshot lookup → Stripe Customer deletion → `saved_results` deletion → `saved_progress` deletion → `bookmarks` deletion → Supabase Auth hard delete → generic success. The profile is not explicitly deleted first; Auth cascade removes profiles and profile-owned trial/claim state. Stripe failure prevents database and Auth deletion; child cleanup failure prevents Auth deletion; Auth hard delete is last. Account deletion does not add refunds or individual subscription cancellation. Stripe Customer deletion ends billing access, while provider-retained billing records remain subject to their own retention boundary.
+
+For verified webhook events, an existing profile keeps the current owner-bound billing snapshot update. A missing profile receives a safe HTTP 200 acknowledgement with no insert, upsert, email fallback, or profile recreation. If a profile disappears during an update, zero updated rows are a safe HTTP 200 no-op; an actual database error remains a generic HTTP 500. Delayed or duplicate events must not resurrect an Account. Explicit logs use fixed classifications only and exclude event ID, Customer ID, Subscription ID, dynamic status, raw event, and raw error data.
+
+After and only after confirmed server success, the browser attempts Supabase local sign-out, clears runtime user/profile/billing and pending Cloud-save state, removes the specified account-linked session/local storage keys, closes authenticated UI, shows localized success, and offers Landing navigation. Server failure never performs this cleanup. Theme and locale preferences and guest/device legacy flags are retained. `localStorage.clear()` and `sessionStorage.clear()` are prohibited.
+
+Deletion does not assert immediate total erasure of Stripe invoice/payment records, provider logs, serverless logs, Supabase/Vercel/Stripe backups, or Google OAuth grant/provider records; those remain separate retention and lifecycle boundaries.

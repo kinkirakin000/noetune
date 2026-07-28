@@ -588,3 +588,39 @@ Next Phase 5C Unit requires separate Commander decision.
 ```
 
 Current analytics contract: current v17 does not load GA4 or PostHog, does not execute provider initialization, and retains `trackEvent` call sites only as side-effect-free no-op foundations. No provider network audit has been completed. Phase 5C overall remains incomplete and is not PASS.
+
+### Phase 5C-3b — Account Deletion Lifecycle Status (superseding record)
+
+Completed repository sub-gate:
+
+- authenticated Account deletion server endpoint
+- Stripe Customer deletion boundary
+- child application-data cleanup
+- Supabase Auth hard deletion
+- delayed webhook safe acknowledgement
+- webhook log minimization
+- typed confirmation UI
+- post-success browser cleanup
+- localized provider-retention boundary
+
+Open release integration gates:
+
+- real-browser authenticated Account deletion interaction
+- success/failure storage cleanup observation
+- Supabase local sign-out runtime behavior
+- live Stripe Customer deletion behavior
+- live Supabase Auth hard-delete behavior
+- deployed webhook/provider behavior
+- platform automatic logging
+- vendor retention and backup
+- Google OAuth grant revocation decision
+
+Current status: repository implementation **complete**; source/runtime tests **PASS**; real-browser authenticated gate **BLOCKED / OPEN**; production verification **not performed**. The Phase 5C Global Privacy & Security Gate remains incomplete and is not PASS. Cloud content remains disabled until the full gate passes.
+
+Current execution point:
+
+```text
+Account deletion repository lifecycle documented.
+Real-browser and provider integration gates remain open.
+Next Phase 5C Unit requires separate Commander decision.
+```
