@@ -12,6 +12,12 @@ var v17AuthBusy = false;
 var v17PendingSavePromise = null;
 var v17AuthReturnRestorePromise = null;
 
+var V17_AUTH_ERROR_CODES = {
+  init: 'auth_init_failed',
+  login: 'auth_login_failed'
+};
+var V17_GENERIC_AUTH_ERROR_COPY = 'Authentication error';
+
 // Cloud Session Bookmark remains explicitly disabled until the privacy gate
 // and authenticated Resume boundary are approved.  This is a hard-off owner;
 // access or billing state must never enable it implicitly.
@@ -372,21 +378,21 @@ function refreshV17BillingUI() {
       updatePricingCTA();
     }
   } catch (error) {
-    console.warn('v17 billing ui update failed: updatePricingCTA', error);
+    console.warn('v17 billing ui update failed: updatePricingCTA');
   }
   try {
     if (typeof updatePricingAccountState === 'function') {
       updatePricingAccountState();
     }
   } catch (error) {
-    console.warn('v17 billing ui update failed: updatePricingAccountState', error);
+    console.warn('v17 billing ui update failed: updatePricingAccountState');
   }
   try {
     if (typeof updatePortalButton === 'function') {
       updatePortalButton();
     }
   } catch (error) {
-    console.warn('v17 billing ui update failed: updatePortalButton', error);
+    console.warn('v17 billing ui update failed: updatePortalButton');
   }
 }
 
@@ -586,7 +592,7 @@ async function loginV17WithGoogle() {
   try {
     var ready = await ensureV17SupabaseReady();
     if (!ready || !v17SupabaseClient || !v17SupabaseClient.auth || typeof v17SupabaseClient.auth.signInWithOAuth !== 'function') {
-      showV17AuthError('auth init failed');
+      showV17AuthError(V17_AUTH_ERROR_CODES.login);
       return false;
     }
     var result = await v17SupabaseClient.auth.signInWithOAuth({
@@ -596,12 +602,12 @@ async function loginV17WithGoogle() {
       }
     });
     if (result && result.error) {
-      showV17AuthError(result.error.message || 'oauth failed');
+      showV17AuthError(V17_AUTH_ERROR_CODES.login);
       return false;
     }
     return true;
   } catch (e) {
-    showV17AuthError(e && e.message ? e.message : 'oauth failed');
+    showV17AuthError(V17_AUTH_ERROR_CODES.login);
     return false;
   } finally {
     v17AuthBusy = false;
@@ -654,7 +660,7 @@ function renderV17AccountUI() {
   if (modal) modal.classList.toggle('open', modal.classList.contains('open'));
   if (googleBtn) googleBtn.disabled = v17AuthBusy;
   if (msg && v17AuthState.status === 'error' && !msg.textContent) {
-    msg.textContent = 'Authentication error';
+    msg.textContent = V17_GENERIC_AUTH_ERROR_COPY;
   }
 }
 
@@ -671,10 +677,10 @@ function closeV17AuthModal() {
   modal.classList.remove('open');
 }
 
-function showV17AuthError(message) {
+function showV17AuthError(code) {
   var msg = getV17AuthMsg();
-  if (msg) msg.textContent = message || 'Authentication error';
-  setV17AuthState({ status: 'error', error: message || 'error' });
+  if (msg) msg.textContent = V17_GENERIC_AUTH_ERROR_COPY;
+  setV17AuthState({ status: 'error', error: code === V17_AUTH_ERROR_CODES.init ? V17_AUTH_ERROR_CODES.init : V17_AUTH_ERROR_CODES.login });
 }
 
 function refreshV17AuthBillingContext() {
@@ -696,12 +702,19 @@ syncV17AuthBillingAndAccess(false, null);
 async function initV17Auth() {
   try {
     var ready = await ensureV17SupabaseReady();
-    if (!ready) return false;
-    await restoreV17Session();
+    if (!ready) {
+      showV17AuthError(V17_AUTH_ERROR_CODES.init);
+      return false;
+    }
+    var restored = await restoreV17Session();
+    if (!restored && v17AuthState.status === 'error') {
+      showV17AuthError(V17_AUTH_ERROR_CODES.init);
+      return false;
+    }
     return true;
   } catch (error) {
-    console.error(error);
-    showV17AuthError('auth init failed: ' + (error && error.message ? error.message : String(error)));
+    console.error('[v17 auth] initialization failed');
+    showV17AuthError(V17_AUTH_ERROR_CODES.init);
     return false;
   }
 }
