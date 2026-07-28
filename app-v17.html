@@ -8068,7 +8068,7 @@ function startV17Session(replaceHistory) {
   resetSlider('v17-before');
   resetSlider('v17-final');
   renderV17Screen('s-v17-before');
-  trackEvent('v17_session_started', { themeId: D.themeId, questionId: D.questionId, locale: D.localeAtTime });
+  trackEvent('v17_session_started', { locale: D.localeAtTime });
   if (replaceHistory) showScreenDirect('s-v17-before');
   else fwd('s-v17-before');
 }
@@ -9230,7 +9230,6 @@ function commitV17ResultArrival() {
   identity.resultReachedAt = identity.resultReachedAt || new Date().toISOString();
   identity.resultEventSent = true;
   trackEvent('v17_result_reached', {
-    cycleId: identity.cycleId,
     cycleIndex: identity.cycleIndex,
     route: getV17ThemeRoute()
   });
@@ -9328,8 +9327,6 @@ function restartCurrentSubtheme() {
   _savedProgressResumeActive = false;
   v17ThemeSelectionFocusId = '';
   trackEvent('v17_subtheme_restarted', {
-    themeId: D.themeId,
-    questionId: D.questionId,
     route: getV17ThemeRoute(),
     cycleCount: v17RepeatCycleCount
   });
