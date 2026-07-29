@@ -75,13 +75,6 @@ begin
 end;
 $$;
 
--- The trial counter RPC is callable only by the server-side service-role API.
--- Keep this grant scoped to the exact public.consume_trial(uuid) signature.
-revoke execute on function public.consume_trial(uuid) from public;
-revoke execute on function public.consume_trial(uuid) from anon;
-revoke execute on function public.consume_trial(uuid) from authenticated;
-grant execute on function public.consume_trial(uuid) to service_role;
-
 drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
@@ -220,3 +213,10 @@ begin
   );
 end;
 $$;
+
+-- The trial counter RPC is callable only by the server-side service-role API.
+-- Keep this grant scoped to the exact public.consume_trial(uuid) signature.
+revoke execute on function public.consume_trial(uuid) from public;
+revoke execute on function public.consume_trial(uuid) from anon;
+revoke execute on function public.consume_trial(uuid) from authenticated;
+grant execute on function public.consume_trial(uuid) to service_role;
