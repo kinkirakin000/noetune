@@ -494,12 +494,19 @@ async function handleCheckoutSessionCompleted(admin, stripe, event) {
 }
 
 async function handleSubscriptionEvent(admin, stripe, event) {
-  const subscriptionLike = event.data && event.data.object ? event.data.object : null;
-  const refs = {
-    userId: subscriptionLike && subscriptionLike.metadata && subscriptionLike.metadata.user_id ? subscriptionLike.metadata.user_id : null,
-    subscriptionId: subscriptionLike && subscriptionLike.id ? subscriptionLike.id : null,
-    customerId: subscriptionLike && subscriptionLike.customer ? subscriptionLike.customer : null
-  };
+  let subscriptionLike;
+  let refs;
+  try {
+    subscriptionLike = event.data && event.data.object ? event.data.object : null;
+    refs = {
+      userId: subscriptionLike && subscriptionLike.metadata && subscriptionLike.metadata.user_id ? subscriptionLike.metadata.user_id : null,
+      subscriptionId: subscriptionLike && subscriptionLike.id ? subscriptionLike.id : null,
+      customerId: subscriptionLike && subscriptionLike.customer ? subscriptionLike.customer : null
+    };
+  } catch (error) {
+    logDiagnostic('stripe_webhook_event_reference_failed', error);
+    throw error;
+  }
 
   if (event.type === 'customer.subscription.deleted') {
     const profile = await findProfileForEvent(admin, event, refs);

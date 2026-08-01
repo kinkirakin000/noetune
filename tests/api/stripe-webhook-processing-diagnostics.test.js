@@ -24,6 +24,13 @@ test('all post-signature diagnostic markers are fixed and present', () => {
   assert.match(source, /function normalizeSubscriptionSnapshot\(subscription, event, opts\)/);
   assert.match(source, /stripe_webhook_handler_dispatch_failed/);
   assert.match(source, /stripe_webhook_response_failed/);
+  assert.match(source, /stripe_webhook_event_reference_failed/);
+});
+
+test('handler reference extraction is the only newly classified stage', () => {
+  assert.match(source, /try \{\n    subscriptionLike = event\.data && event\.data\.object/);
+  assert.match(source, /catch \(error\) \{\n    logDiagnostic\('stripe_webhook_event_reference_failed', error\);\n    throw error;/);
+  assert.doesNotMatch(source, /customerId\s*:\s*String\(/);
 });
 
 test('dispatch and response boundaries classify only unclassified failures', () => {
