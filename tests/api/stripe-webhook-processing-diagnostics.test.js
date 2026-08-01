@@ -21,6 +21,21 @@ test('all post-signature diagnostic markers are fixed and present', () => {
     assert.match(source, new RegExp(`logDiagnostic\\(['"]${marker}['"]`));
   }
   assert.match(source, /function logDiagnostic\(marker, error\)/);
+  assert.match(source, /function normalizeSubscriptionSnapshot\(subscription, event, opts\)/);
+});
+
+test('profile update chain catches synchronous and rejected failures', () => {
+  assert.match(source, /\.from\('profiles'\)/);
+  assert.match(source, /\.select\('id'\)/);
+  assert.match(source, /\} catch \(updateError\)/);
+  assert.match(source, /logDiagnostic\('stripe_webhook_profile_update_failed', updateError\)/);
+  assert.match(source, /logDiagnostic\('stripe_webhook_profile_update_failed', error\)/);
+});
+
+test('normalization exceptions are distinct from validation failures', () => {
+  assert.match(source, /catch \(error\) \{\n    logDiagnostic\('stripe_webhook_snapshot_normalization_failed', error\);/);
+  assert.match(source, /logDiagnostic\('stripe_webhook_snapshot_validation_failed', incompleteError\)/);
+  assert.equal((source.match(/extractSubscriptionSnapshot\(subscription, event/g) || []).length, 2);
 });
 
 test('terminal diagnostics do not include request or provider values', () => {

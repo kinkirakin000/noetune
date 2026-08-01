@@ -105,6 +105,15 @@ function extractSubscriptionSnapshot(subscription, event, opts) {
   };
 }
 
+function normalizeSubscriptionSnapshot(subscription, event, opts) {
+  try {
+    return extractSubscriptionSnapshot(subscription, event, opts);
+  } catch (error) {
+    logDiagnostic('stripe_webhook_snapshot_normalization_failed', error);
+    throw error;
+  }
+}
+
 function isMissingColumnError(error) {
   if (!error) return false;
   const message = String(error.message || '');
@@ -369,11 +378,18 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
   }
 
   const fullUpdates = buildFullProfileUpdates(snapshot);
-  const { data, error } = await admin
-    .from('profiles')
-    .update(fullUpdates)
-    .eq('id', profile.id)
-    .select('id');
+  let data;
+  let error;
+  try {
+    ({ data, error } = await admin
+      .from('profiles')
+      .update(fullUpdates)
+      .eq('id', profile.id)
+      .select('id'));
+  } catch (updateError) {
+    logDiagnostic('stripe_webhook_profile_update_failed', updateError);
+    throw updateError;
+  }
   if (error) {
     logDiagnostic('stripe_webhook_profile_update_failed', error);
     throw error;
@@ -409,7 +425,7 @@ async function handleSubscriptionLikeEvent(admin, stripe, event, subscriptionLik
     }
   }
 
-  const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'subscription' });
+  const snapshot = normalizeSubscriptionSnapshot(subscription, event, { source: 'subscription' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {
     allowPartialPrice: !!(opts && opts.allowDeletedFallback && subscription === subscriptionLike)
   });
@@ -461,7 +477,7 @@ async function handleCheckoutSessionCompleted(admin, stripe, event) {
     return { status: 500, body: { error: 'Failed to retrieve subscription' } };
   }
 
-  const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'checkout_session' });
+  const snapshot = normalizeSubscriptionSnapshot(subscription, event, { source: 'checkout_session' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {});
   if (incompleteError) {
     logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
@@ -503,7 +519,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
       return { status: 500, body: { error: 'Failed to retrieve subscription' } };
     }
 
-    const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'deleted' });
+    const snapshot = normalizeSubscriptionSnapshot(subscription, event, { source: 'deleted' });
     snapshot.plan_status = 'canceled';
     snapshot.plan_name = 'free';
     snapshot.cancel_at_period_end = false;
@@ -541,7 +557,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
     return { status: 500, body: { error: 'Failed to retrieve subscription' } };
   }
 
-  const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'subscription' });
+  const snapshot = normalizeSubscriptionSnapshot(subscription, event, { source: 'subscription' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {});
   if (incompleteError) {
     logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
@@ -585,7 +601,7 @@ async function handleInvoiceEvent(admin, stripe, event) {
     return { status: 500, body: { error: 'Failed to retrieve subscription' } };
   }
 
-  const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'invoice' });
+  const snapshot = normalizeSubscriptionSnapshot(subscription, event, { source: 'invoice' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {});
   if (incompleteError) {
     logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
