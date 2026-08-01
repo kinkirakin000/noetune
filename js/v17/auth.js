@@ -12,6 +12,11 @@ var v17AuthBusy = false;
 var v17AccountDeletionBusy = false;
 var v17PendingSavePromise = null;
 var v17AuthReturnRestorePromise = null;
+var v17StripeCheckoutEnabled = false;
+
+function isV17StripeCheckoutEnabled() {
+  return v17StripeCheckoutEnabled === true;
+}
 
 var V17_AUTH_ERROR_CODES = {
   init: 'auth_init_failed',
@@ -461,6 +466,10 @@ function ensureV17SupabaseReady() {
   if (v17SupabaseReadyPromise) return v17SupabaseReadyPromise;
   v17SupabaseReadyPromise = getV17AuthApiConfig()
     .then(function(cfg) {
+      v17StripeCheckoutEnabled = !!(cfg && cfg.stripeCheckoutEnabled === true);
+      if (typeof window !== 'undefined' && typeof window.refreshV17BillingUIModel === 'function') {
+        try { window.refreshV17BillingUIModel(); } catch (error) {}
+      }
       if (!cfg) {
         setV17AuthState({ status: 'error', user: null, profile: null, error: 'config' });
         return false;
@@ -798,6 +807,7 @@ window.restoreV17Session = restoreV17Session;
 window.refreshV17AuthBillingContext = refreshV17AuthBillingContext;
 
 syncV17AuthBillingAndAccess(false, null);
+if (typeof window !== 'undefined') window.isV17StripeCheckoutEnabled = isV17StripeCheckoutEnabled;
 
 async function initV17Auth() {
   try {

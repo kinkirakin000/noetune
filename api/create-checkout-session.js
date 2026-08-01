@@ -23,6 +23,10 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  if (process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED !== 'true') {
+    return res.status(503).json({ error: 'checkout_unavailable' });
+  }
+
   if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_PRICE_PLUS_MONTHLY) {
     return res.status(503).json({ error: 'Stripe not configured' });
   }

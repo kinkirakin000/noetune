@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
     supabaseUrl:          process.env.NEXT_PUBLIC_SUPABASE_URL || null,
     supabaseAnonKey:      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || null,
     stripePublishableKey: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || null,
+    stripeCheckoutEnabled: process.env.NEXT_PUBLIC_STRIPE_CHECKOUT_ENABLED === 'true',
     posthogKey:           process.env.NEXT_PUBLIC_POSTHOG_KEY || null,
     posthogHost:          process.env.NEXT_PUBLIC_POSTHOG_HOST || null,
   });

@@ -56,6 +56,11 @@
     return false;
   }
 
+  function isCheckoutEnabled() {
+    if (typeof window === 'undefined' || typeof window.isV17StripeCheckoutEnabled !== 'function') return false;
+    try { return window.isV17StripeCheckoutEnabled() === true; } catch (error) { return false; }
+  }
+
   function safeInvoke(fn, args) {
     if (typeof fn !== 'function') return null;
     try {
@@ -197,6 +202,7 @@
     var showSubscriptionDetails = false;
     var showPaymentAttention = false;
     var showUnknownWarning = false;
+    var checkoutEnabled = isCheckoutEnabled();
 
     if (normalizedState === 'guest') {
       primaryAction = 'auth';
@@ -264,6 +270,12 @@
       showCheckout = false;
       showPortal = false;
       showUnknownWarning = true;
+    }
+
+    if (!checkoutEnabled && (primaryAction === 'checkout')) {
+      primaryAction = 'none';
+      primaryEnabled = false;
+      showCheckout = false;
     }
 
     if (!canViewSavedProData) {

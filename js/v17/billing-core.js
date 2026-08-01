@@ -246,6 +246,9 @@
   }
 
   async function startV17Checkout(options) {
+    if (typeof window === 'undefined' || typeof window.isV17StripeCheckoutEnabled !== 'function' || window.isV17StripeCheckoutEnabled() !== true) {
+      return makeResult(false, 'checkout_unavailable');
+    }
     options = options && typeof options === 'object' ? options : {};
     var result = await runBillingAction('checkout', '/api/create-checkout-session', options);
     if (!result.ok) return result;
