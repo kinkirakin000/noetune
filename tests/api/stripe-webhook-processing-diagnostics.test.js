@@ -22,6 +22,14 @@ test('all post-signature diagnostic markers are fixed and present', () => {
   }
   assert.match(source, /function logDiagnostic\(marker, error\)/);
   assert.match(source, /function normalizeSubscriptionSnapshot\(subscription, event, opts\)/);
+  assert.match(source, /stripe_webhook_handler_dispatch_failed/);
+  assert.match(source, /stripe_webhook_response_failed/);
+});
+
+test('dispatch and response boundaries classify only unclassified failures', () => {
+  assert.match(source, /catch \(error\) \{\n      logDiagnostic\('stripe_webhook_handler_dispatch_failed', error\);\n      throw error;/);
+  assert.match(source, /catch \(error\) \{\n      logDiagnostic\('stripe_webhook_response_failed', error\);\n      throw error;/);
+  assert.match(source, /default:\n          return res\.status\(200\)\.json\(\{ received: true \}\);/);
 });
 
 test('profile update chain catches synchronous and rejected failures', () => {
@@ -51,8 +59,8 @@ test('processing failures retain the generic external response and one fallback 
 
 test('success, missing-profile, and unsupported-event responses remain unchanged', () => {
   assert.match(source, /return \{ status: 200, body: \{ received: true \} \};/);
-  assert.match(source, /return res\.status\(200\)\.json\(\{ received: true \}\)/);
-  assert.match(source, /default:\s*return res\.status\(200\)\.json\(\{ received: true \}\)/);
+  assert.match(source, /return res\.status\(result\.status\)\.json\(result\.body\)/);
+  assert.match(source, /default:\n          return res\.status\(200\)\.json\(\{ received: true \}\);/);
 });
 
 test('diagnostics contain no private or provider-bearing logging statements', () => {

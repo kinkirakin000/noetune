@@ -652,27 +652,37 @@ module.exports = async (req, res) => {
 
   try {
     let result;
-    switch (event.type) {
-      case 'checkout.session.completed':
-        result = await handleCheckoutSessionCompleted(supabaseAdmin, stripe, event);
-        break;
+    try {
+      switch (event.type) {
+        case 'checkout.session.completed':
+          result = await handleCheckoutSessionCompleted(supabaseAdmin, stripe, event);
+          break;
 
-      case 'customer.subscription.created':
-      case 'customer.subscription.updated':
-      case 'customer.subscription.deleted':
-        result = await handleSubscriptionEvent(supabaseAdmin, stripe, event);
-        break;
+        case 'customer.subscription.created':
+        case 'customer.subscription.updated':
+        case 'customer.subscription.deleted':
+          result = await handleSubscriptionEvent(supabaseAdmin, stripe, event);
+          break;
 
-      case 'invoice.payment_succeeded':
-      case 'invoice.payment_failed':
-        result = await handleInvoiceEvent(supabaseAdmin, stripe, event);
-        break;
+        case 'invoice.payment_succeeded':
+        case 'invoice.payment_failed':
+          result = await handleInvoiceEvent(supabaseAdmin, stripe, event);
+          break;
 
-      default:
-        return res.status(200).json({ received: true });
+        default:
+          return res.status(200).json({ received: true });
+      }
+    } catch (error) {
+      logDiagnostic('stripe_webhook_handler_dispatch_failed', error);
+      throw error;
     }
 
-    return res.status(result.status).json(result.body);
+    try {
+      return res.status(result.status).json(result.body);
+    } catch (error) {
+      logDiagnostic('stripe_webhook_response_failed', error);
+      throw error;
+    }
   } catch (error) {
     logDiagnostic('stripe_webhook_unexpected_failure', error);
     return res.status(500).json({ error: 'Webhook processing failed' });
