@@ -53,6 +53,18 @@ create policy "users can read own profile"
   for select
   using (auth.uid() = id);
 
+-- Least-privilege table grants: browser users may only read their own row;
+-- all profile mutations remain server-authoritative through the service role.
+revoke all on table public.profiles from anon, authenticated, service_role;
+
+grant select
+on table public.profiles
+to authenticated;
+
+grant select, insert, update, delete
+on table public.profiles
+to service_role;
+
 -- INSERT / UPDATE / DELETE: no policy for the authenticated role.
 -- All writes go through /api/* serverless functions using the service role key.
 -- The service role bypasses RLS by design, so no explicit policy is needed.
