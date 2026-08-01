@@ -80,6 +80,10 @@ function buildSafeSubscription(profile) {
   };
 }
 
+function logDiagnostic(marker) {
+  console.info(marker);
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -87,6 +91,7 @@ module.exports = async (req, res) => {
 
   const supabaseAdmin = getSupabaseAdmin();
   if (!supabaseAdmin) {
+    logDiagnostic('api_me_admin_unavailable');
     return res.status(200).json({ loggedIn: false, user: null, profile: null });
   }
 
@@ -94,12 +99,14 @@ module.exports = async (req, res) => {
   const token = authHeader.startsWith('Bearer ') ? authHeader.slice(7) : null;
 
   if (!token) {
+    logDiagnostic('api_me_token_missing');
     return res.status(200).json({ loggedIn: false, user: null, profile: null });
   }
 
   try {
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
     if (error || !user) {
+      logDiagnostic('api_me_auth_validation_failed');
       return res.status(200).json({ loggedIn: false, user: null, profile: null });
     }
 
@@ -111,16 +118,18 @@ module.exports = async (req, res) => {
 
     if (profileError) {
       if (isMissingColumnError(profileError)) {
-        console.error('[api/me] missing contract columns');
+        logDiagnostic('api_me_profile_query_failed');
         return res.status(500).json({ error: 'Profile schema is not ready' });
       }
       if (profileError.code === 'PGRST116' || profileError.code === 'PGRST117' || /No rows found/i.test(String(profileError.message || ''))) {
+        logDiagnostic('api_me_profile_missing');
         return res.status(200).json({
           loggedIn: true,
           user: { id: user.id, email: user.email },
           profile: null,
         });
       }
+      logDiagnostic('api_me_profile_query_failed');
       return res.status(200).json({ loggedIn: false, user: null, profile: null });
     }
 
@@ -137,12 +146,15 @@ module.exports = async (req, res) => {
         }
       : null;
 
-    return res.status(200).json({
+    const response = {
       loggedIn: true,
       user: { id: user.id, email: user.email },
       profile: safeProfile,
-    });
+    };
+    logDiagnostic('api_me_success');
+    return res.status(200).json(response);
   } catch (e) {
+    logDiagnostic('api_me_unexpected_failure');
     return res.status(200).json({ loggedIn: false, user: null, profile: null });
   }
 };
