@@ -128,6 +128,12 @@ function logWebhook(event, stage, details) {
   console.error(messages[stage] || '[stripe-webhook] processing failed');
 }
 
+function logDiagnostic(marker, error) {
+  if (error && error._webhookDiagnosticLogged) return;
+  if (error) error._webhookDiagnosticLogged = true;
+  console.error(marker);
+}
+
 function isNewerOrEqualTimestamp(existingValue, incomingValue) {
   if (!existingValue) return true;
   if (!incomingValue) return false;
@@ -186,7 +192,13 @@ async function findProfileForEvent(admin, event, refs) {
 
   const matches = [];
   for (const lookup of lookups) {
-    const profile = await lookup.fetch();
+    let profile;
+    try {
+      profile = await lookup.fetch();
+    } catch (error) {
+      logDiagnostic('stripe_webhook_profile_lookup_failed', error);
+      throw error;
+    }
     if (profile) {
       matches.push({ type: lookup.type, profile });
     }
@@ -202,14 +214,9 @@ async function findProfileForEvent(admin, event, refs) {
   }
 
   if (uniqueProfiles.length > 1) {
-    logWebhook(event, 'identifier-conflict', {
-      reason: 'identifier_conflict',
-      hasProfile: true,
-      hasSubscription: !!refs && !!refs.subscriptionId,
-      hasCustomer: !!refs && !!refs.customerId
-    });
     const error = new Error('Identifier conflict');
     error.code = 'identifier_conflict';
+    logDiagnostic('stripe_webhook_identifier_conflict', error);
     throw error;
   }
 
@@ -246,11 +253,6 @@ function validateSubscriptionSnapshot(event, snapshot, opts) {
   if (!missingFields.length) {
     return null;
   }
-
-  logWebhook(event, 'incomplete-subscription-snapshot', {
-    reason: 'incomplete_subscription_snapshot',
-    status: missingFields.join(',')
-  });
 
   const error = new Error('Incomplete subscription snapshot');
   error.code = 'incomplete_subscription_snapshot';
@@ -328,14 +330,9 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
   }
 
   if (profile && profile.stripe_customer_id && incomingCustomerId && String(profile.stripe_customer_id) !== incomingCustomerId) {
-    logWebhook(event, 'identifier-conflict', {
-      hasProfile: true,
-      hasSubscription: !!incomingSubscriptionId,
-      hasCustomer: !!incomingCustomerId,
-      reason: 'customer_id_mismatch'
-    });
     const error = new Error('Identifier conflict');
     error.code = 'identifier_conflict';
+    logDiagnostic('stripe_webhook_identifier_conflict', error);
     throw error;
   }
 
@@ -366,6 +363,7 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
     if (freshness === null) {
       const error = new Error('Unable to compare webhook freshness');
       error.code = 'freshness_compare_failed';
+      logDiagnostic('stripe_webhook_profile_update_failed', error);
       throw error;
     }
   }
@@ -377,14 +375,7 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
     .eq('id', profile.id)
     .select('id');
   if (error) {
-    if (isMissingColumnError(error)) {
-      logWebhook(event, 'missing-column-error', {
-        hasProfile: true,
-        hasSubscription: !!incomingSubscriptionId,
-        hasCustomer: !!incomingCustomerId,
-        reason: 'missing_column'
-      });
-    }
+    logDiagnostic('stripe_webhook_profile_update_failed', error);
     throw error;
   }
   if (!Array.isArray(data) || data.length === 0) return { ok: true, skipped: true, reason: 'profile_absent' };
@@ -395,22 +386,14 @@ async function updateProfileSnapshot(admin, profile, event, snapshot, opts) {
 async function handleSubscriptionLikeEvent(admin, stripe, event, subscriptionLike, refs, opts) {
   const profile = await findProfileForEvent(admin, event, refs);
   if (!profile) {
-    logWebhook(event, 'profile-not-found', {
-      hasProfile: false,
-      hasSubscription: !!(subscriptionLike && subscriptionLike.id),
-      hasCustomer: !!(subscriptionLike && subscriptionLike.customer)
-    });
+    logDiagnostic('stripe_webhook_profile_not_found');
     return { status: 200, body: { received: true } };
   }
 
   const subscriptionId = subscriptionLike && subscriptionLike.id ? subscriptionLike.id : null;
   const customerId = subscriptionLike && subscriptionLike.customer ? subscriptionLike.customer : null;
   if (!subscriptionId) {
-    logWebhook(event, 'missing-subscription-id', {
-      hasProfile: true,
-      hasSubscription: false,
-      hasCustomer: !!customerId
-    });
+    logDiagnostic('stripe_webhook_missing_required_linkage');
     return { status: 500, body: { error: 'Missing subscription id' } };
   }
 
@@ -421,12 +404,7 @@ async function handleSubscriptionLikeEvent(admin, stripe, event, subscriptionLik
     if (opts && opts.allowDeletedFallback && error && error.statusCode === 404) {
       subscription = subscriptionLike;
     } else {
-      logWebhook(event, 'stripe-retrieve-failed', {
-        hasProfile: true,
-        hasSubscription: true,
-        hasCustomer: !!customerId,
-        reason: 'retrieve_failed'
-      });
+      logDiagnostic('stripe_webhook_subscription_retrieve_failed', error);
       return { status: 500, body: { error: 'Failed to retrieve subscription' } };
     }
   }
@@ -436,12 +414,14 @@ async function handleSubscriptionLikeEvent(admin, stripe, event, subscriptionLik
     allowPartialPrice: !!(opts && opts.allowDeletedFallback && subscription === subscriptionLike)
   });
   if (incompleteError) {
+    logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
     return { status: 500, body: { error: incompleteError.message } };
   }
   const result = await updateProfileSnapshot(admin, profile, event, snapshot, {
     eventType: event.type
   });
   if (!result.ok) {
+    logDiagnostic('stripe_webhook_profile_update_failed');
     return { status: 500, body: { error: 'Failed to update profile snapshot' } };
   }
   return { status: 200, body: { received: true } };
@@ -454,11 +434,7 @@ async function handleCheckoutSessionCompleted(admin, stripe, event) {
   const subscriptionId = session && session.subscription ? String(session.subscription) : null;
 
   if (!userId) {
-    logWebhook(event, 'missing-user-id', {
-      hasProfile: false,
-      hasSubscription: !!subscriptionId,
-      hasCustomer: !!customerId
-    });
+    logDiagnostic('stripe_webhook_missing_required_linkage');
     return { status: 500, body: { error: 'Missing user id' } };
   }
 
@@ -468,20 +444,12 @@ async function handleCheckoutSessionCompleted(admin, stripe, event) {
     customerId
   });
   if (!profile) {
-    logWebhook(event, 'profile-not-found', {
-      hasProfile: false,
-      hasSubscription: !!subscriptionId,
-      hasCustomer: !!customerId
-    });
+    logDiagnostic('stripe_webhook_profile_not_found');
     return { status: 200, body: { received: true } };
   }
 
   if (!subscriptionId) {
-    logWebhook(event, 'missing-subscription-id', {
-      hasProfile: true,
-      hasSubscription: false,
-      hasCustomer: !!customerId
-    });
+    logDiagnostic('stripe_webhook_missing_required_linkage');
     return { status: 500, body: { error: 'Missing subscription id' } };
   }
 
@@ -489,24 +457,21 @@ async function handleCheckoutSessionCompleted(admin, stripe, event) {
   try {
     subscription = await retrieveSubscriptionSnapshot(stripe, subscriptionId, {});
   } catch (error) {
-    logWebhook(event, 'stripe-retrieve-failed', {
-      hasProfile: true,
-      hasSubscription: true,
-      hasCustomer: !!customerId,
-      reason: 'retrieve_failed'
-    });
+    logDiagnostic('stripe_webhook_subscription_retrieve_failed', error);
     return { status: 500, body: { error: 'Failed to retrieve subscription' } };
   }
 
   const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'checkout_session' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {});
   if (incompleteError) {
+    logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
     return { status: 500, body: { error: incompleteError.message } };
   }
   const result = await updateProfileSnapshot(admin, profile, event, snapshot, {
     eventType: event.type
   });
   if (!result.ok) {
+    logDiagnostic('stripe_webhook_profile_update_failed');
     return { status: 500, body: { error: 'Failed to update profile snapshot' } };
   }
   return { status: 200, body: { received: true } };
@@ -523,11 +488,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
   if (event.type === 'customer.subscription.deleted') {
     const profile = await findProfileForEvent(admin, event, refs);
     if (!profile) {
-      logWebhook(event, 'profile-not-found', {
-        hasProfile: false,
-        hasSubscription: !!refs.subscriptionId,
-        hasCustomer: !!refs.customerId
-      });
+      logDiagnostic('stripe_webhook_profile_not_found');
       return { status: 200, body: { received: true } };
     }
 
@@ -538,12 +499,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
         deletedSubscription: subscriptionLike
       });
     } catch (error) {
-      logWebhook(event, 'stripe-retrieve-failed', {
-        hasProfile: true,
-        hasSubscription: true,
-        hasCustomer: !!refs.customerId,
-        reason: 'retrieve_failed'
-      });
+      logDiagnostic('stripe_webhook_subscription_retrieve_failed', error);
       return { status: 500, body: { error: 'Failed to retrieve subscription' } };
     }
 
@@ -558,12 +514,14 @@ async function handleSubscriptionEvent(admin, stripe, event) {
       allowPartialPrice: subscription === subscriptionLike
     });
     if (incompleteError) {
+      logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
       return { status: 500, body: { error: incompleteError.message } };
     }
     const result = await updateProfileSnapshot(admin, profile, event, snapshot, {
       eventType: event.type
     });
     if (!result.ok) {
+      logDiagnostic('stripe_webhook_profile_update_failed');
       return { status: 500, body: { error: 'Failed to update profile snapshot' } };
     }
     return { status: 200, body: { received: true } };
@@ -571,11 +529,7 @@ async function handleSubscriptionEvent(admin, stripe, event) {
 
   const profile = await findProfileForEvent(admin, event, refs);
   if (!profile) {
-    logWebhook(event, 'profile-not-found', {
-      hasProfile: false,
-      hasSubscription: !!refs.subscriptionId,
-      hasCustomer: !!refs.customerId
-    });
+    logDiagnostic('stripe_webhook_profile_not_found');
     return { status: 200, body: { received: true } };
   }
 
@@ -583,24 +537,21 @@ async function handleSubscriptionEvent(admin, stripe, event) {
   try {
     subscription = await retrieveSubscriptionSnapshot(stripe, refs.subscriptionId, {});
   } catch (error) {
-    logWebhook(event, 'stripe-retrieve-failed', {
-      hasProfile: true,
-      hasSubscription: true,
-      hasCustomer: !!refs.customerId,
-      reason: 'retrieve_failed'
-    });
+    logDiagnostic('stripe_webhook_subscription_retrieve_failed', error);
     return { status: 500, body: { error: 'Failed to retrieve subscription' } };
   }
 
   const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'subscription' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {});
   if (incompleteError) {
+    logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
     return { status: 500, body: { error: incompleteError.message } };
   }
   const result = await updateProfileSnapshot(admin, profile, event, snapshot, {
     eventType: event.type
   });
   if (!result.ok) {
+    logDiagnostic('stripe_webhook_profile_update_failed');
     return { status: 500, body: { error: 'Failed to update profile snapshot' } };
   }
   return { status: 200, body: { received: true } };
@@ -617,20 +568,12 @@ async function handleInvoiceEvent(admin, stripe, event) {
   });
 
   if (!profile) {
-    logWebhook(event, 'profile-not-found', {
-      hasProfile: false,
-      hasSubscription: !!invoiceSubscriptionId,
-      hasCustomer: !!customerId
-    });
+    logDiagnostic('stripe_webhook_profile_not_found');
     return { status: 200, body: { received: true } };
   }
 
   if (!invoiceSubscriptionId) {
-    logWebhook(event, 'missing-subscription-id', {
-      hasProfile: true,
-      hasSubscription: false,
-      hasCustomer: !!customerId
-    });
+    logDiagnostic('stripe_webhook_missing_required_linkage');
     return { status: 500, body: { error: 'Missing subscription id' } };
   }
 
@@ -638,24 +581,21 @@ async function handleInvoiceEvent(admin, stripe, event) {
   try {
     subscription = await retrieveSubscriptionSnapshot(stripe, invoiceSubscriptionId, {});
   } catch (error) {
-    logWebhook(event, 'stripe-retrieve-failed', {
-      hasProfile: true,
-      hasSubscription: true,
-      hasCustomer: !!customerId,
-      reason: 'retrieve_failed'
-    });
+    logDiagnostic('stripe_webhook_subscription_retrieve_failed', error);
     return { status: 500, body: { error: 'Failed to retrieve subscription' } };
   }
 
   const snapshot = extractSubscriptionSnapshot(subscription, event, { source: 'invoice' });
   const incompleteError = validateSubscriptionSnapshot(event, snapshot, {});
   if (incompleteError) {
+    logDiagnostic('stripe_webhook_snapshot_validation_failed', incompleteError);
     return { status: 500, body: { error: incompleteError.message } };
   }
   const result = await updateProfileSnapshot(admin, profile, event, snapshot, {
     eventType: event.type
   });
   if (!result.ok) {
+    logDiagnostic('stripe_webhook_profile_update_failed');
     return { status: 500, body: { error: 'Failed to update profile snapshot' } };
   }
   return { status: 200, body: { received: true } };
@@ -718,9 +658,7 @@ module.exports = async (req, res) => {
 
     return res.status(result.status).json(result.body);
   } catch (error) {
-    logWebhook(event, 'unexpected-error', {
-      reason: 'unhandled_exception'
-    });
+    logDiagnostic('stripe_webhook_unexpected_failure', error);
     return res.status(500).json({ error: 'Webhook processing failed' });
   }
 };
