@@ -258,7 +258,7 @@ function validateSubscriptionSnapshot(event, snapshot, opts) {
   return error;
 }
 
-function buildFullProfileUpdates(subscription, event, snapshot) {
+function buildFullProfileUpdates(snapshot) {
   const updates = {
     stripe_customer_id: snapshot.stripe_customer_id,
     subscription_id: snapshot.subscription_id,
