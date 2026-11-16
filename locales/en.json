@@ -134,12 +134,12 @@
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "When I am free from that,\nwhat state am I in?",
+        "prompt": "What would I be like if I had nothing at all to do with that state? (A more desirable state)",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "In a world where it doesn’t exist,\nwhat is my ideal self like?",
+        "prompt": "Have I ever been someone who wasn't like that? If so, what was I like?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,12 +147,12 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "In a world where it doesn’t exist,\nwhat is my ideal self like?",
+        "prompt": "Have I ever been someone who wasn't like that? If so, what was I like?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "When I am free from that,\nwhat state am I in?",
+        "prompt": "What would I be like if I had nothing at all to do with that state? (A more desirable state)",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }
