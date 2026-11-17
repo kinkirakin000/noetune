@@ -128,13 +128,13 @@
       "kind": "measurement",
       "label": "計測",
       "quoteSource": "theme",
-      "prompt": "その状態で、\nどのくらい自然な自分を感じますか？",
+      "prompt": "その状態で、どのくらい自然で幸せな自分を感じますか？",
       "rangeLabel": "0〜100"
     },
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "その状態と、全く無関係の私はどんな状態ですか？（より好ましい状態）",
+        "prompt": "その状態を、全く体験したことのない人はどんな状態ですか？（より好ましい状態）",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       },
@@ -152,7 +152,7 @@
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "その状態と、全く無関係の私はどんな状態ですか？（より好ましい状態）",
+        "prompt": "その状態を、全く体験したことのない人はどんな状態ですか？（より好ましい状態）",
         "placeholder": "ここに書く",
         "responseTarget": "idealStateText"
       }
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再計測",
       "quoteSource": "theme",
-      "prompt": "その状態で、\nどのくらい自然な自分を感じますか？",
+      "prompt": "その状態で、どのくらい自然で幸せな自分を感じますか？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {

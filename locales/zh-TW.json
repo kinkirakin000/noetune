@@ -128,13 +128,13 @@
       "kind": "measurement",
       "label": "測量",
       "quoteSource": "theme",
-      "prompt": "在那個狀態下，\n你有多像真正的自己？",
+      "prompt": "在那個狀態下，你有多大程度能感受到自然又幸福的自己？",
       "rangeLabel": "0〜100"
     },
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "如果我和那個狀態完全沒有關係，我會處於什麼樣的狀態？（更理想的狀態）",
+        "prompt": "一個從未經歷過那種狀態的人，會處於什麼樣的狀態？（更理想的狀態）",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       },
@@ -152,7 +152,7 @@
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "如果我和那個狀態完全沒有關係，我會處於什麼樣的狀態？（更理想的狀態）",
+        "prompt": "一個從未經歷過那種狀態的人，會處於什麼樣的狀態？（更理想的狀態）",
         "placeholder": "寫在這裡",
         "responseTarget": "idealStateText"
       }
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "再次測量",
       "quoteSource": "theme",
-      "prompt": "在那個狀態下，\n你有多像真正的自己？",
+      "prompt": "在那個狀態下，你有多大程度能感受到自然又幸福的自己？",
       "rangeLabel": "0〜100"
     },
     "deepDive": {

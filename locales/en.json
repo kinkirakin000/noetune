@@ -128,13 +128,13 @@
       "kind": "measurement",
       "label": "Measurement",
       "quoteSource": "theme",
-      "prompt": "In that state,\nhow much do you feel like yourself?",
+      "prompt": "In that state, how much do you feel like your natural, happy self?",
       "rangeLabel": "0–100"
     },
     "step2": {
       "quoteSource": "theme",
       "problems": {
-        "prompt": "What would I be like if I had nothing at all to do with that state? (A more desirable state)",
+        "prompt": "What would someone be like if they had never experienced that state at all? (A more desirable state)",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       },
@@ -152,7 +152,7 @@
         "responseTarget": "currentStateText"
       },
       "ideals": {
-        "prompt": "What would I be like if I had nothing at all to do with that state? (A more desirable state)",
+        "prompt": "What would someone be like if they had never experienced that state at all? (A more desirable state)",
         "placeholder": "Write here",
         "responseTarget": "idealStateText"
       }
@@ -164,7 +164,7 @@
       "kind": "measurement",
       "label": "Measure again",
       "quoteSource": "theme",
-      "prompt": "In that state,\nhow much do you feel like yourself?",
+      "prompt": "In that state, how much do you feel like your natural, happy self?",
       "rangeLabel": "0–100"
     },
     "deepDive": {
