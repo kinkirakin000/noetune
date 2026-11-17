@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "過去是否曾有過不是那樣的我？如果有，那是什麼樣的我？",
+        "prompt": "回想一下過去，你有沒有過和這個狀態不一樣的時候？如果有，那時候的你是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       }
@@ -147,7 +147,7 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "過去是否曾有過不是那樣的我？如果有，那是什麼樣的我？",
+        "prompt": "回想一下過去，你有沒有過和這個狀態不一樣的時候？如果有，那時候的你是什麼樣子？",
         "placeholder": "寫在這裡",
         "responseTarget": "currentStateText"
       },
@@ -217,7 +217,10 @@
       "restartSubtheme": "重新開始這個子主題",
       "restartTheme": "重新開始這個主題",
       "chooseAnotherTheme": "重新選擇其他主題"
-    }
+    },
+    "repeatRecommendation": "最推薦：再進行一次這個過程。",
+    "repeatExplanation": "透過一次又一次地重複這個過程，你可以逐漸看見那些自己一直緊抓著、卻不容易察覺的固有觀念，並將它們放下。尤其在面對根深蒂固的主題時，根據開發者自身的觀察，在這個過程中，自由幸福度的分數也經常會暫時下降。\n\n當你對這個問題完全想不出任何回答，也無法再用數字衡量自己的狀態時，就是完成的訊號。",
+    "repeatSameTheme": "再次重複同一個主題"
   },
   "bookmark": {
     "primaryCta": "加入書籤",

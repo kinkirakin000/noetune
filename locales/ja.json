@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "過去にそうでない私は存在しましたか。そうだとしたら、それはどんな私ですか。",
+        "prompt": "過去を振り返ってみてください。この状態とは違う自分だったことはありますか？もしあれば、そのときの自分はどんな様子ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       }
@@ -147,7 +147,7 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "過去にそうでない私は存在しましたか。そうだとしたら、それはどんな私ですか。",
+        "prompt": "過去を振り返ってみてください。この状態とは違う自分だったことはありますか？もしあれば、そのときの自分はどんな様子ですか？",
         "placeholder": "ここに書く",
         "responseTarget": "currentStateText"
       },
@@ -217,7 +217,10 @@
       "restartSubtheme": "このサブテーマを最初から",
       "restartTheme": "このテーマを最初から",
       "chooseAnotherTheme": "別のテーマを選び直す"
-    }
+    },
+    "repeatRecommendation": "最推奨：このプロセスをもう一度行う。",
+    "repeatExplanation": "何度も繰り返すことで、あなたが握りしめていた、見えにくい固定観念が見え、それを手放すことができます。特に根深いテーマにおいて、開発者の自己観察では、その過程で、自由幸福度の数値が一時的に低くなることも頻繁に起こりました。\n\n問いに対する回答が全く浮かばなくなり、数値化もできない状態が完了の合図です。",
+    "repeatSameTheme": "再度、同じテーマを繰り返す"
   },
   "bookmark": {
     "primaryCta": "しおりを挟む",

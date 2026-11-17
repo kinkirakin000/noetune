@@ -153,6 +153,7 @@ input[type=range]::-moz-range-thumb{width:32px;height:32px;background:#6B9080;bo
 .v17-result-actions{width:100%;max-width:320px;display:flex;flex-direction:column;gap:.65rem;margin-top:1.3rem;padding-bottom:2rem}
 .v17-result-action{width:100%;min-height:48px;border:1px solid rgba(107,144,128,.22);border-radius:16px;background:rgba(255,255,255,.18);color:#4F5E59;font-family:'Noto Serif JP',serif;font-size:.78rem;letter-spacing:.05em;cursor:pointer}
 .v17-result-action.primary{background:#6B9080;color:#fff;border-color:#6B9080}
+.v17-result-continuation{display:flex;flex-direction:column;gap:.6rem;margin:1rem 0}
 .v17-result-action:active{transform:scale(.985)}
 .v17-image-status{min-height:1.4em;margin-top:.45rem;font-family:'Noto Serif JP',serif;font-size:.65rem;color:#8F8F88;letter-spacing:.04em;text-align:center}
 .sc-card{width:100%;max-width:320px;background:#FAFAF7;border:1px solid #E8E8E2;border-radius:14px;padding:1.1rem 1.2rem .9rem;box-sizing:border-box;margin-bottom:.5rem}
@@ -1414,16 +1415,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
 <!-- ── RESULT ── -->
 <div class="screen screen-scroll" id="s-result">
   <div class="sc-card" id="result-card">
-    <div class="v17-result-brand" id="v17-result-brand"></div>
-    <div class="sc-note-wrap">
-      <div class="sc-section-label" id="v17-result-theme-label"></div>
-      <div class="v17-result-theme" id="t-result-from"></div>
-    </div>
-    <div class="sc-note-wrap">
-      <div class="sc-section-label" id="v17-result-subtheme-label"></div>
-      <div class="v17-result-copy" id="v17-result-subtheme"></div>
-      <div class="v17-result-copy v17-result-meaning" id="t-result-meaning"></div>
-    </div>
     <div class="v17-result-happiness-label" id="v17-result-happiness-label"></div>
     <div class="v17-result-score-flow" id="v17-result-scores">
       <div class="v17-result-score-trail" id="v17-result-score-trail" aria-live="polite"></div>
@@ -1433,6 +1424,21 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
         <div class="v17-result-score-arrow">↓</div>
         <div class="v17-result-score-point"><span id="v17-result-after-label"></span><strong id="r-be-a"></strong></div>
       </div>
+    </div>
+    <div class="v17-result-continuation">
+      <div class="v17-result-copy"><strong id="v17-result-repeat-heading"></strong></div>
+      <div class="v17-result-copy" id="v17-result-repeat-body"></div>
+      <button class="v17-result-action primary" id="btn-v17-repeat-theme" type="button" onclick="repeatCurrentTheme()"></button>
+    </div>
+    <div class="v17-result-brand" id="v17-result-brand"></div>
+    <div class="sc-note-wrap">
+      <div class="sc-section-label" id="v17-result-theme-label"></div>
+      <div class="v17-result-theme" id="t-result-from"></div>
+    </div>
+    <div class="sc-note-wrap">
+      <div class="sc-section-label" id="v17-result-subtheme-label"></div>
+      <div class="v17-result-copy" id="v17-result-subtheme"></div>
+      <div class="v17-result-copy v17-result-meaning" id="t-result-meaning"></div>
     </div>
     <div class="v17-result-divider"></div>
     <div class="sc-note-wrap">
@@ -1458,7 +1464,6 @@ body::before{background:radial-gradient(circle at 22% 24%,rgba(91,181,190,.14) 0
   <div class="v17-result-actions" id="v17-result-actions">
     <button class="v17-result-action primary" id="btn-save-result" onclick="saveCurrentResult()"></button>
     <button class="v17-result-action" id="btn-v17-restart-subtheme" type="button" onclick="restartCurrentSubtheme()"></button>
-    <button class="v17-result-action" id="btn-v17-restart-theme" type="button" onclick="restartCurrentTheme()"></button>
     <button class="v17-result-action" id="btn-v17-choose-another-theme" type="button" onclick="chooseAnotherTheme()"></button>
   </div>
   <div class="result-home-screen-wrap">
@@ -5482,7 +5487,6 @@ function v17LocaleValue(path) {
     'flow.result.saveError': 'errors.unknown',
     'flow.result.resume': 'buttons.continue',
     'flow.result.restartSubtheme': 'result.actions.restartSubtheme',
-    'flow.result.restartTheme': 'result.actions.restartTheme',
     'flow.result.chooseTheme': 'result.actions.chooseAnotherTheme'
   };
   if (directMap[path]) return getV17Path(locale, directMap[path]);
@@ -7512,8 +7516,10 @@ function renderV17Result() {
   renderV17AwarenessTrail();
   setEl('btn-save-image', v17Copy('flow.result.image'));
   setEl('t-save-preview-note', v17Copy('flow.result.imagePreview'));
+  setEl('v17-result-repeat-heading', v17Copy('result.repeatRecommendation'));
+  setEl('v17-result-repeat-body', v17Copy('result.repeatExplanation'));
+  setEl('btn-v17-repeat-theme', v17Copy('result.repeatSameTheme'));
   setEl('btn-v17-restart-subtheme', v17Copy('flow.result.restartSubtheme'));
-  setEl('btn-v17-restart-theme', v17Copy('flow.result.restartTheme'));
   setEl('btn-v17-choose-another-theme', v17Copy('flow.result.chooseTheme'));
   renderResultSaveUI();
 }
@@ -7543,6 +7549,16 @@ function showV17Result() {
 }
 
 function restartCurrentSubtheme() {
+  ensureV17SessionState();
+  if (!D.questionTextAtTime) {
+    chooseAnotherTheme();
+    return;
+  }
+  v17ThemeSelectionFocusId = '';
+  startV17Session(true);
+}
+
+function repeatCurrentTheme() {
   if (resumeV17RepeatCycle()) return;
   ensureV17SessionState();
   if (!D.questionTextAtTime) {

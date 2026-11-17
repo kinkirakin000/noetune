@@ -139,7 +139,7 @@
         "responseTarget": "idealStateText"
       },
       "ideals": {
-        "prompt": "Have I ever been someone who wasn't like that? If so, what was I like?",
+        "prompt": "Think back to the past. Have there been times when you were different from this state? If so, what were you like then?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       }
@@ -147,7 +147,7 @@
     "step3": {
       "quoteSource": "step2Text",
       "problems": {
-        "prompt": "Have I ever been someone who wasn't like that? If so, what was I like?",
+        "prompt": "Think back to the past. Have there been times when you were different from this state? If so, what were you like then?",
         "placeholder": "Write here",
         "responseTarget": "currentStateText"
       },
@@ -217,7 +217,10 @@
       "restartSubtheme": "Restart this subtheme",
       "restartTheme": "Restart this theme",
       "chooseAnotherTheme": "Choose another theme"
-    }
+    },
+    "repeatRecommendation": "Top recommendation: Repeat this process once more.",
+    "repeatExplanation": "By repeating this process many times, you can begin to recognize the deeply held beliefs that were difficult to see and let them go. In the developer's own self-observation, especially when exploring deeply rooted themes, the freedom and happiness score frequently dropped temporarily during this process.\n\nThe sign of completion is when no answer to the question comes to mind at all, and you can no longer put a number to your state.",
+    "repeatSameTheme": "Repeat the Same Theme"
   },
   "bookmark": {
     "primaryCta": "Bookmark this theme",
